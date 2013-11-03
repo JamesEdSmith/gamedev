@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="LevelPipeline.LevelContent">
+    <levelName>New Level</levelName>
+    <formations>
+      <Item>12</Item>
+      <Item>12</Item>
+    </formations>
+    <formationPositions>1 1 100 100</formationPositions>
+    <formationTimes>0 0</formationTimes>
+    <formationActions>
+      <Item />
+      <Item />
+    </formationActions>
+    <terrains />
+    <terrainPositions />
+    <terrainTimes />
+    <formationNames>
+      <Item>New Formation</Item>
+      <Item>New Formation2</Item>
+    </formationNames>
+    <formationActionNames>
+      <Item />
+      <Item />
+    </formationActionNames>
+  </Asset>
+</XnaContent>

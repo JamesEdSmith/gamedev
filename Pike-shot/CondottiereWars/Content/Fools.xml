@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="LevelPipeline.LevelContent">
+    <levelName>Fools</levelName>
+    <formations>
+      <Item>1 1 1 0 0 0</Item>
+    </formations>
+    <formationPositions>800 400</formationPositions>
+    <formationTimes>1.5</formationTimes>
+    <formationActions>
+      <Item>
+        <Item>
+          <count>2</count>
+          <actions>1 6</actions>
+          <duration>683.334699999999</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>6 -1</actions>
+          <duration>1100.0022</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>1 6</actions>
+          <duration>766.6682</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>6 -1</actions>
+          <duration>183.333699999999</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>5 -1</actions>
+          <duration>900.0018</duration>
+        </Item>
+        <Item>
+          <count>3</count>
+          <actions>1 5 -1</actions>
+          <duration>416.6675</duration>
+        </Item>
+        <Item>
+          <count>3</count>
+          <actions>1 4 5</actions>
+          <duration>716.668100000001</duration>
+        </Item>
+        <Item>
+          <count>3</count>
+          <actions>4 5 -1</actions>
+          <duration>116.6669</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>5 -1</actions>
+          <duration>116.6669</duration>
+        </Item>
+        <Item>
+          <count>3</count>
+          <actions>2 5 -1</actions>
+          <duration>166.666999999999</duration>
+        </Item>
+        <Item>
+          <count>3</count>
+          <actions>1 2 5</actions>
+          <duration>216.667100000001</duration>
+        </Item>
+        <Item>
+          <count>3</count>
+          <actions>2 5 -1</actions>
+          <duration>266.6672</duration>
+        </Item>
+        <Item>
+          <count>3</count>
+          <actions>1 2 5</actions>
+          <duration>450.000899999999</duration>
+        </Item>
+        <Item>
+          <count>3</count>
+          <actions>1 5 -1</actions>
+          <duration>283.333900000001</duration>
+        </Item>
+        <Item>
+          <count>4</count>
+          <actions>1 4 5 -1</actions>
+          <duration>83.3334999999988</duration>
+        </Item>
+        <Item>
+          <count>4</count>
+          <actions>1 3 4 5</actions>
+          <duration>33.3334000000013</duration>
+        </Item>
+        <Item>
+          <count>4</count>
+          <actions>3 4 5 -1</actions>
+          <duration>216.667099999999</duration>
+        </Item>
+        <Item>
+          <count>3</count>
+          <actions>3 5 -1</actions>
+          <duration>816.668300000001</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>3 6</actions>
+          <duration>33.3333999999995</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>6 -1</actions>
+          <duration>300.000599999999</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>6 7</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>6 -1</actions>
+          <duration>3466.6736</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>6 7</actions>
+          <duration>233.3338</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>6 -1</actions>
+          <duration>550.001100000001</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>5 -1</actions>
+          <duration>866.668399999999</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>3 5</actions>
+          <duration>1083.3355</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>5 -1</actions>
+          <duration>516.667699999998</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>1 5</actions>
+          <duration>2566.6718</duration>
+        </Item>
+        <Item>
+          <count>2</count>
+          <actions>5 -1</actions>
+          <duration>183.333700000003</duration>
+        </Item>
+      </Item>
+    </formationActions>
+    <terrains Null="true" />
+    <terrainPositions Null="true" />
+    <terrainTimes Null="true" />
+    <formationNames>
+      <Item>6 Guys</Item>
+    </formationNames>
+    <formationActionNames>
+      <Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+      </Item>
+    </formationActionNames>
+  </Asset>
+</XnaContent>

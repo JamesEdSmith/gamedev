@@ -1,0 +1,19 @@
+E:\projects\CondottiereWars\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+E:\projects\CondottiereWars - Copy\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+E:\projects\CondottiereWars - latest\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\CondottiereWars - latest\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+G:\CondottiereWars - vacation\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+E:\CondottiereWars - vacation\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\CondottiereWars - May\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\CondottiereWars - May 15\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+F:\CondottiereWars - May 15\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\CondottiereWars - July 15\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\CondottiereWars - July 19\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\CondottiereWars - July 31\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\Pike & Shot - new pike INTELLEGENCE\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\Pike & Shot - Aug 14\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\Pike & Shot - Sept 29\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\Pike & Shot - Oct 16\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\Pike & Shot - Nov 2\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\pike-shot\Pike & Shot\CondottiereWars\Content\obj\x86\Release\ResolveAssemblyReference.cache

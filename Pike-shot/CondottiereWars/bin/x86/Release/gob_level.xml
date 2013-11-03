@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="LevelPipeline.LevelContent">
+    <levelName>gob_level</levelName>
+    <formations>
+      <Item>3 3 3</Item>
+      <Item>11</Item>
+      <Item>11</Item>
+      <Item>11</Item>
+      <Item>4</Item>
+      <Item>11</Item>
+      <Item>11</Item>
+      <Item>11</Item>
+      <Item>11</Item>
+      <Item>11</Item>
+      <Item>11</Item>
+      <Item>11</Item>
+      <Item>11</Item>
+      <Item>11</Item>
+      <Item>10</Item>
+    </formations>
+    <formationPositions>1534 214 1412 438 1043 284 1046 307 658 227 1053 232 1051 354 1050 262 1390 407 1364 427 1320 427 1346 403 1080 313 1076 254 828 450</formationPositions>
+    <formationTimes>1534 1412 1043 1046 658 1053 1051 1050 1390 1364 1320 1346 1080 1076 828</formationTimes>
+    <formationActions>
+      <Item>
+        <Item>
+          <actions>1 0 0</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>7 0 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>3 0 0</actions>
+          <duration>300</duration>
+        </Item>
+        <Item>
+          <actions>7 0 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 0 0</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>7 0 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 0 0</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>7 0 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 0 0</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>7 0 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 0 0</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>7 0 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 0 0</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>7 0 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 0 0</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>7 0 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 0 0</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>7 0 0</actions>
+          <duration>500</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+    </formationActions>
+    <terrains Null="true" />
+    <terrainPositions Null="true" />
+    <terrainTimes Null="true" />
+    <formationNames>
+      <Item>Pavise Crossbowmen</Item>
+      <Item>Gobo</Item>
+      <Item>Gobo</Item>
+      <Item>Gobo</Item>
+      <Item>New Formation</Item>
+      <Item>Gobo</Item>
+      <Item>Gobo</Item>
+      <Item>Gobo</Item>
+      <Item>Gobo</Item>
+      <Item>Gobo</Item>
+      <Item>Gobo</Item>
+      <Item>Gobo</Item>
+      <Item>Gobo</Item>
+      <Item>Gobo</Item>
+      <Item>Slinger</Item>
+    </formationNames>
+    <formationActionNames>
+      <Item>
+        <Item>Left 1000</Item>
+        <Item>placePavise</Item>
+        <Item>right a bit</Item>
+        <Item>shoot</Item>
+        <Item>idle</Item>
+        <Item>shoot</Item>
+        <Item>idle</Item>
+        <Item>shoot</Item>
+        <Item>idle</Item>
+        <Item>shoot</Item>
+        <Item>idle</Item>
+        <Item>shoot</Item>
+        <Item>idle</Item>
+        <Item>shoot</Item>
+        <Item>idle</Item>
+        <Item>shoot</Item>
+        <Item>idle</Item>
+        <Item>shoot</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+    </formationActionNames>
+  </Asset>
+</XnaContent>

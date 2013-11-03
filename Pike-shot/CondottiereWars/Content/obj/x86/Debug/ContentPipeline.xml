@@ -1,0 +1,630 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>SpriteFont1.spritefont</Source>
+      <Name>SpriteFont1</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\SpriteFont1.xnb</Output>
+      <Time>2009-06-04T20:58:18-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_feet.png</Source>
+      <Name>pikeman_feet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\pikeman_feet.xnb</Output>
+      <Time>2010-11-11T22:43:08-05:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_idle.png</Source>
+      <Name>pikeman_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\pikeman_idle.xnb</Output>
+      <Time>2010-05-10T19:44:12-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_lower_high.png</Source>
+      <Name>pikeman_lower_high</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\pikeman_lower_high.xnb</Output>
+      <Time>2010-05-10T19:42:06-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_lower_low.png</Source>
+      <Name>pikeman_lower_low</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\pikeman_lower_low.xnb</Output>
+      <Time>2010-05-10T19:46:38-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_recoil.png</Source>
+      <Name>pikeman_recoil</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\pikeman_recoil.xnb</Output>
+      <Time>2010-05-10T19:43:14-04:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_feet.png</Source>
+      <Name>arquebusier_feet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\arquebusier_feet.xnb</Output>
+      <Time>2010-11-11T22:43:30-05:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_reload.png</Source>
+      <Name>arquebusier_reload</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\arquebusier_reload.xnb</Output>
+      <Time>2010-01-24T21:50:40-05:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_shoot.png</Source>
+      <Name>arquebusier_shoot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\arquebusier_shoot.xnb</Output>
+      <Time>2010-01-24T21:51:58-05:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_smoke.png</Source>
+      <Name>arquebusier_smoke</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\arquebusier_smoke.xnb</Output>
+      <Time>2010-01-28T23:48:04-05:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_idle.png</Source>
+      <Name>arquebusier_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\arquebusier_idle.xnb</Output>
+      <Time>2010-01-24T21:49:38-05:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_death.png</Source>
+      <Name>pikeman_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\pikeman_death.xnb</Output>
+      <Time>2010-02-22T23:15:28-05:00</Time>
+    </Item>
+    <Item>
+      <Source>dot.png</Source>
+      <Name>dot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\dot.xnb</Output>
+      <Time>2010-03-01T10:51:50-05:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_melee.png</Source>
+      <Name>pikeman_melee</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\pikeman_melee.xnb</Output>
+      <Time>2010-03-07T20:01:12-05:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_melee.png</Source>
+      <Name>arquebusier_melee</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\arquebusier_melee.xnb</Output>
+      <Time>2010-03-16T16:24:10-04:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_death.png</Source>
+      <Name>arquebusier_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\arquebusier_death.xnb</Output>
+      <Time>2010-03-16T16:23:16-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_death.png</Source>
+      <Name>crossbowman_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\crossbowman_death.xnb</Output>
+      <Time>2010-03-25T20:37:16-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_idle.png</Source>
+      <Name>crossbowman_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\crossbowman_idle.xnb</Output>
+      <Time>2010-03-25T20:34:22-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_melee.png</Source>
+      <Name>crossbowman_melee</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\crossbowman_melee.xnb</Output>
+      <Time>2010-03-25T20:37:56-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_reload.png</Source>
+      <Name>crossbowman_reload</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\crossbowman_reload.xnb</Output>
+      <Time>2010-04-01T21:39:44-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_shoot.png</Source>
+      <Name>crossbowman_shoot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\crossbowman_shoot.xnb</Output>
+      <Time>2010-03-25T20:35:10-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_bolt.png</Source>
+      <Name>crossbowman_bolt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\crossbowman_bolt.xnb</Output>
+      <Time>2010-04-02T00:37:36-04:00</Time>
+    </Item>
+    <Item>
+      <Source>shot1.png</Source>
+      <Name>shot1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\shot1.xnb</Output>
+      <Time>2010-04-01T22:19:08-04:00</Time>
+    </Item>
+    <Item>
+      <Source>shot2.png</Source>
+      <Name>shot2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\shot2.xnb</Output>
+      <Time>2010-04-01T22:21:58-04:00</Time>
+    </Item>
+    <Item>
+      <Source>shot3.png</Source>
+      <Name>shot3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\shot3.xnb</Output>
+      <Time>2010-04-01T22:22:24-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_bolt2.png</Source>
+      <Name>crossbowman_bolt2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\crossbowman_bolt2.xnb</Output>
+      <Time>2010-04-02T12:07:50-04:00</Time>
+    </Item>
+    <Item>
+      <Source>goblin_feet.png</Source>
+      <Name>goblin_feet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\goblin_feet.xnb</Output>
+      <Time>2010-11-11T22:43:52-05:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_death.png</Source>
+      <Name>slinger_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\slinger_death.xnb</Output>
+      <Time>2010-04-12T17:35:54-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_idle.png</Source>
+      <Name>slinger_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\slinger_idle.xnb</Output>
+      <Time>2010-04-12T17:29:16-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_melee.png</Source>
+      <Name>slinger_melee</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\slinger_melee.xnb</Output>
+      <Time>2010-04-12T17:31:06-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_reload.png</Source>
+      <Name>slinger_reload</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\slinger_reload.xnb</Output>
+      <Time>2010-04-12T17:30:18-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_rock.png</Source>
+      <Name>slinger_rock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\slinger_rock.xnb</Output>
+      <Time>2010-04-12T17:32:26-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_shoot.png</Source>
+      <Name>slinger_shoot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\slinger_shoot.xnb</Output>
+      <Time>2010-05-04T00:05:36-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dopple_death.png</Source>
+      <Name>dopple_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\dopple_death.xnb</Output>
+      <Time>2010-04-22T18:30:08-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dopple_idle.png</Source>
+      <Name>dopple_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\dopple_idle.xnb</Output>
+      <Time>2010-04-22T18:28:02-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dopple_reload1.png</Source>
+      <Name>dopple_reload1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\dopple_reload1.xnb</Output>
+      <Time>2010-05-05T17:05:50-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dopple_swing1.png</Source>
+      <Name>dopple_swing1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\dopple_swing1.xnb</Output>
+      <Time>2010-05-05T17:05:40-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_route.png</Source>
+      <Name>pikeman_route</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\pikeman_route.xnb</Output>
+      <Time>2010-04-26T16:59:04-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_routed.png</Source>
+      <Name>pikeman_routed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\pikeman_routed.xnb</Output>
+      <Time>2010-04-26T17:00:50-04:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_ground.png</Source>
+      <Name>arquebusier_ground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\arquebusier_ground.xnb</Output>
+      <Time>2010-05-02T23:02:10-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_ground.png</Source>
+      <Name>crossbowman_ground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\crossbowman_ground.xnb</Output>
+      <Time>2010-05-02T23:01:36-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_ground.png</Source>
+      <Name>slinger_ground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\slinger_ground.xnb</Output>
+      <Time>2010-05-02T23:02:32-04:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_route.png</Source>
+      <Name>arquebusier_route</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\arquebusier_route.xnb</Output>
+      <Time>2010-05-03T23:27:34-04:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_routed.png</Source>
+      <Name>arquebusier_routed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\arquebusier_routed.xnb</Output>
+      <Time>2010-05-03T23:30:16-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_route.png</Source>
+      <Name>slinger_route</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\slinger_route.xnb</Output>
+      <Time>2010-05-04T17:46:22-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_routed.png</Source>
+      <Name>slinger_routed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\slinger_routed.xnb</Output>
+      <Time>2010-05-04T17:46:50-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_route.png</Source>
+      <Name>crossbowman_route</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\crossbowman_route.xnb</Output>
+      <Time>2010-05-04T20:25:26-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_routed.png</Source>
+      <Name>crossbowman_routed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\crossbowman_routed.xnb</Output>
+      <Time>2010-05-04T20:25:46-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dopple_route.png</Source>
+      <Name>dopple_route</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\dopple_route.xnb</Output>
+      <Time>2010-05-05T18:02:06-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dopple_routed.png</Source>
+      <Name>dopple_routed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\dopple_routed.xnb</Output>
+      <Time>2010-05-05T18:47:06-04:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_feet.png</Source>
+      <Name>soldier_feet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\soldier_feet.xnb</Output>
+      <Time>2010-11-15T19:31:48-05:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_idle.png</Source>
+      <Name>soldier_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\soldier_idle.xnb</Output>
+      <Time>2010-11-12T02:48:12-05:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_melee1.png</Source>
+      <Name>soldier_melee1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\soldier_melee1.xnb</Output>
+      <Time>2010-11-23T23:24:54-05:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_defend1.png</Source>
+      <Name>soldier_defend1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\soldier_defend1.xnb</Output>
+      <Time>2010-11-18T00:06:52-05:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_death.png</Source>
+      <Name>soldier_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\soldier_death.xnb</Output>
+      <Time>2010-11-17T22:31:52-05:00</Time>
+    </Item>
+    <Item>
+      <Source>beserker_defend1.png</Source>
+      <Name>beserker_defend1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\beserker_defend1.xnb</Output>
+      <Time>2010-12-06T22:45:22-05:00</Time>
+    </Item>
+    <Item>
+      <Source>beserker_idle.png</Source>
+      <Name>beserker_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\beserker_idle.xnb</Output>
+      <Time>2010-12-06T22:44:06-05:00</Time>
+    </Item>
+    <Item>
+      <Source>beserker_melee1.png</Source>
+      <Name>beserker_melee1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\beserker_melee1.xnb</Output>
+      <Time>2010-12-06T22:50:42-05:00</Time>
+    </Item>
+    <Item>
+      <Source>beserker_route.png</Source>
+      <Name>beserker_route</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\beserker_route.xnb</Output>
+      <Time>2010-12-06T22:47:04-05:00</Time>
+    </Item>
+    <Item>
+      <Source>beserker_routed.png</Source>
+      <Name>beserker_routed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\beserker_routed.xnb</Output>
+      <Time>2010-12-06T22:47:36-05:00</Time>
+    </Item>
+    <Item>
+      <Source>bezerker_death.png</Source>
+      <Name>bezerker_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\bezerker_death.xnb</Output>
+      <Time>2010-12-06T22:44:52-05:00</Time>
+    </Item>
+    <Item>
+      <Source>test.xml</Source>
+      <Name>test</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\test.xnb</Output>
+      <Time>2010-05-06T17:08:24-04:00</Time>
+    </Item>
+    <Item>
+      <Source>editor0.xml</Source>
+      <Name>editor0</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\editor0.xnb</Output>
+      <Time>2010-09-28T00:30:40-04:00</Time>
+    </Item>
+    <Item>
+      <Source>editor69.xml</Source>
+      <Name>editor69</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\editor69.xnb</Output>
+      <Time>2010-12-10T00:46:26-05:00</Time>
+    </Item>
+    <Item>
+      <Source>BarusHill.xml</Source>
+      <Name>BarusHill</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\BarusHill.xnb</Output>
+      <Time>2011-01-06T23:32:24.657645-05:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\Content\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2008-10-10T18:42:32-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2008-10-10T18:43:28-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2008-10-10T18:43:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2008-10-10T18:48:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2008-10-10T18:48:50-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Users\James\Desktop\CondottiereWars - vacation\ContentPipelineExtension1\bin\x86\Debug\ContentPipelineExtension1.dll</Key>
+        <Value>2011-01-06T23:47:55.0365735-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\3.0.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2008-11-26T21:14:11.0417651-05:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

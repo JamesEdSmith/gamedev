@@ -1,0 +1,1656 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>SpriteFont1.spritefont</Source>
+      <Name>SpriteFont1</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\SpriteFont1.xnb</Output>
+      <Time>2011-04-16T03:21:58-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_feet.png</Source>
+      <Name>pikeman_feet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman_feet.xnb</Output>
+      <Time>2010-11-11T22:43:08-05:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_idle.png</Source>
+      <Name>pikeman_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman_idle.xnb</Output>
+      <Time>2010-05-10T19:44:12-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_lower_high.png</Source>
+      <Name>pikeman_lower_high</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman_lower_high.xnb</Output>
+      <Time>2010-05-10T19:42:06-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_lower_low.png</Source>
+      <Name>pikeman_lower_low</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman_lower_low.xnb</Output>
+      <Time>2010-05-10T19:46:38-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_recoil.png</Source>
+      <Name>pikeman_recoil</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman_recoil.xnb</Output>
+      <Time>2010-05-10T19:43:14-04:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_feet.png</Source>
+      <Name>arquebusier_feet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\arquebusier_feet.xnb</Output>
+      <Time>2010-11-11T22:43:30-05:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_reload.png</Source>
+      <Name>arquebusier_reload</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\arquebusier_reload.xnb</Output>
+      <Time>2010-01-24T21:50:40-05:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_shoot.png</Source>
+      <Name>arquebusier_shoot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\arquebusier_shoot.xnb</Output>
+      <Time>2010-01-24T21:51:58-05:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_smoke.png</Source>
+      <Name>arquebusier_smoke</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\arquebusier_smoke.xnb</Output>
+      <Time>2010-01-28T23:48:04-05:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_idle.png</Source>
+      <Name>arquebusier_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\arquebusier_idle.xnb</Output>
+      <Time>2010-01-24T21:49:38-05:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_death.png</Source>
+      <Name>pikeman_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman_death.xnb</Output>
+      <Time>2010-02-22T23:15:28-05:00</Time>
+    </Item>
+    <Item>
+      <Source>dot.png</Source>
+      <Name>dot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dot.xnb</Output>
+      <Time>2010-03-01T10:51:50-05:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_melee.png</Source>
+      <Name>pikeman_melee</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman_melee.xnb</Output>
+      <Time>2010-03-07T20:01:12-05:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_melee.png</Source>
+      <Name>arquebusier_melee</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\arquebusier_melee.xnb</Output>
+      <Time>2010-03-16T16:24:10-04:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_death.png</Source>
+      <Name>arquebusier_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\arquebusier_death.xnb</Output>
+      <Time>2010-03-16T16:23:16-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_death.png</Source>
+      <Name>crossbowman_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_death.xnb</Output>
+      <Time>2010-03-25T20:37:16-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_idle.png</Source>
+      <Name>crossbowman_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_idle.xnb</Output>
+      <Time>2011-07-20T17:43:46-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_melee.png</Source>
+      <Name>crossbowman_melee</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_melee.xnb</Output>
+      <Time>2010-03-25T20:37:56-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_reload.png</Source>
+      <Name>crossbowman_reload</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_reload.xnb</Output>
+      <Time>2011-07-20T02:00:40-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_shoot.png</Source>
+      <Name>crossbowman_shoot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_shoot.xnb</Output>
+      <Time>2011-07-20T03:16:02-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_bolt.png</Source>
+      <Name>crossbowman_bolt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_bolt.xnb</Output>
+      <Time>2010-04-02T00:37:36-04:00</Time>
+    </Item>
+    <Item>
+      <Source>shot1.png</Source>
+      <Name>shot1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\shot1.xnb</Output>
+      <Time>2010-04-01T22:19:08-04:00</Time>
+    </Item>
+    <Item>
+      <Source>shot2.png</Source>
+      <Name>shot2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\shot2.xnb</Output>
+      <Time>2010-04-01T22:21:58-04:00</Time>
+    </Item>
+    <Item>
+      <Source>shot3.png</Source>
+      <Name>shot3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\shot3.xnb</Output>
+      <Time>2010-04-01T22:22:24-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_bolt2.png</Source>
+      <Name>crossbowman_bolt2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_bolt2.xnb</Output>
+      <Time>2010-04-02T12:07:50-04:00</Time>
+    </Item>
+    <Item>
+      <Source>goblin_feet.png</Source>
+      <Name>goblin_feet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\goblin_feet.xnb</Output>
+      <Time>2010-11-11T22:43:52-05:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_death.png</Source>
+      <Name>slinger_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\slinger_death.xnb</Output>
+      <Time>2010-04-12T17:35:54-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_idle.png</Source>
+      <Name>slinger_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\slinger_idle.xnb</Output>
+      <Time>2010-04-12T17:29:16-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_melee.png</Source>
+      <Name>slinger_melee</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\slinger_melee.xnb</Output>
+      <Time>2010-04-12T17:31:06-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_reload.png</Source>
+      <Name>slinger_reload</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\slinger_reload.xnb</Output>
+      <Time>2010-04-12T17:30:18-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_rock.png</Source>
+      <Name>slinger_rock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\slinger_rock.xnb</Output>
+      <Time>2010-04-12T17:32:26-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_shoot.png</Source>
+      <Name>slinger_shoot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\slinger_shoot.xnb</Output>
+      <Time>2010-05-04T00:05:36-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dopple_death.png</Source>
+      <Name>dopple_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dopple_death.xnb</Output>
+      <Time>2010-04-22T18:30:08-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dopple_idle.png</Source>
+      <Name>dopple_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dopple_idle.xnb</Output>
+      <Time>2010-04-22T18:28:02-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dopple_reload1.png</Source>
+      <Name>dopple_reload1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dopple_reload1.xnb</Output>
+      <Time>2010-05-05T17:05:50-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dopple_swing1.png</Source>
+      <Name>dopple_swing1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dopple_swing1.xnb</Output>
+      <Time>2010-05-05T17:05:40-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_route.png</Source>
+      <Name>pikeman_route</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman_route.xnb</Output>
+      <Time>2010-04-26T16:59:04-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman_routed.png</Source>
+      <Name>pikeman_routed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman_routed.xnb</Output>
+      <Time>2010-04-26T17:00:50-04:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_ground.png</Source>
+      <Name>arquebusier_ground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\arquebusier_ground.xnb</Output>
+      <Time>2010-05-02T23:02:10-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_ground.png</Source>
+      <Name>crossbowman_ground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_ground.xnb</Output>
+      <Time>2010-05-02T23:01:36-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_ground.png</Source>
+      <Name>slinger_ground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\slinger_ground.xnb</Output>
+      <Time>2010-05-02T23:02:32-04:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_route.png</Source>
+      <Name>arquebusier_route</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\arquebusier_route.xnb</Output>
+      <Time>2010-05-03T23:27:34-04:00</Time>
+    </Item>
+    <Item>
+      <Source>arquebusier_routed.png</Source>
+      <Name>arquebusier_routed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\arquebusier_routed.xnb</Output>
+      <Time>2010-05-03T23:30:16-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_route.png</Source>
+      <Name>slinger_route</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\slinger_route.xnb</Output>
+      <Time>2010-05-04T17:46:22-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_routed.png</Source>
+      <Name>slinger_routed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\slinger_routed.xnb</Output>
+      <Time>2010-05-04T17:46:50-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_route.png</Source>
+      <Name>crossbowman_route</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_route.xnb</Output>
+      <Time>2010-05-04T20:25:26-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_routed.png</Source>
+      <Name>crossbowman_routed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_routed.xnb</Output>
+      <Time>2010-05-04T20:25:46-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dopple_route.png</Source>
+      <Name>dopple_route</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dopple_route.xnb</Output>
+      <Time>2010-05-05T18:02:06-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dopple_routed.png</Source>
+      <Name>dopple_routed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dopple_routed.xnb</Output>
+      <Time>2010-05-05T18:47:06-04:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_feet.png</Source>
+      <Name>soldier_feet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\soldier_feet.xnb</Output>
+      <Time>2010-11-15T19:31:48-05:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_idle.png</Source>
+      <Name>soldier_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\soldier_idle.xnb</Output>
+      <Time>2010-11-12T02:48:12-05:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_melee1.png</Source>
+      <Name>soldier_melee1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\soldier_melee1.xnb</Output>
+      <Time>2010-11-23T23:24:54-05:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_defend1.png</Source>
+      <Name>soldier_defend1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\soldier_defend1.xnb</Output>
+      <Time>2010-11-18T00:06:52-05:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_death.png</Source>
+      <Name>soldier_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\soldier_death.xnb</Output>
+      <Time>2010-11-17T22:31:52-05:00</Time>
+    </Item>
+    <Item>
+      <Source>beserker_defend1.png</Source>
+      <Name>beserker_defend1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\beserker_defend1.xnb</Output>
+      <Time>2010-12-06T22:45:22-05:00</Time>
+    </Item>
+    <Item>
+      <Source>beserker_idle.png</Source>
+      <Name>beserker_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\beserker_idle.xnb</Output>
+      <Time>2010-12-06T22:44:06-05:00</Time>
+    </Item>
+    <Item>
+      <Source>beserker_melee1.png</Source>
+      <Name>beserker_melee1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\beserker_melee1.xnb</Output>
+      <Time>2010-12-06T22:50:42-05:00</Time>
+    </Item>
+    <Item>
+      <Source>beserker_route.png</Source>
+      <Name>beserker_route</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\beserker_route.xnb</Output>
+      <Time>2010-12-06T22:47:04-05:00</Time>
+    </Item>
+    <Item>
+      <Source>beserker_routed.png</Source>
+      <Name>beserker_routed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\beserker_routed.xnb</Output>
+      <Time>2010-12-06T22:47:36-05:00</Time>
+    </Item>
+    <Item>
+      <Source>bezerker_death.png</Source>
+      <Name>bezerker_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\bezerker_death.xnb</Output>
+      <Time>2011-10-26T01:57:50-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sword_pointer.PNG</Source>
+      <Name>sword_pointer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\sword_pointer.xnb</Output>
+      <Time>2011-02-06T14:41:18-05:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_pavise_idle.png</Source>
+      <Name>crossbowman_pavise_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_pavise_idle.xnb</Output>
+      <Time>2011-03-09T16:58:12-05:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_pavise_place.png</Source>
+      <Name>crossbowman_pavise_place</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_pavise_place.xnb</Output>
+      <Time>2011-03-09T16:58:50-05:00</Time>
+    </Item>
+    <Item>
+      <Source>placed_pavise.png</Source>
+      <Name>placed_pavise</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\placed_pavise.xnb</Output>
+      <Time>2011-03-11T05:50:22-05:00</Time>
+    </Item>
+    <Item>
+      <Source>pavise_fall.png</Source>
+      <Name>pavise_fall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pavise_fall.xnb</Output>
+      <Time>2011-03-11T11:30:34-05:00</Time>
+    </Item>
+    <Item>
+      <Source>dry_grass.png</Source>
+      <Name>dry_grass</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dry_grass.xnb</Output>
+      <Time>2011-03-26T23:20:50-04:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_retreat.png</Source>
+      <Name>slinger_retreat</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\slinger_retreat.xnb</Output>
+      <Time>2011-05-15T16:12:42-04:00</Time>
+    </Item>
+    <Item>
+      <Source>horse_idle.png</Source>
+      <Name>horse_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\horse_idle.xnb</Output>
+      <Time>2011-06-26T15:52:34-04:00</Time>
+    </Item>
+    <Item>
+      <Source>horse_run.png</Source>
+      <Name>horse_run</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\horse_run.xnb</Output>
+      <Time>2011-07-06T21:59:58-04:00</Time>
+    </Item>
+    <Item>
+      <Source>cavalry_leftfoot.png</Source>
+      <Name>cavalry_leftfoot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\cavalry_leftfoot.xnb</Output>
+      <Time>2011-07-06T22:49:12-04:00</Time>
+    </Item>
+    <Item>
+      <Source>cavalry_leftidle.png</Source>
+      <Name>cavalry_leftidle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\cavalry_leftidle.xnb</Output>
+      <Time>2011-07-23T14:12:54-04:00</Time>
+    </Item>
+    <Item>
+      <Source>cavalry_rightfoot.png</Source>
+      <Name>cavalry_rightfoot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\cavalry_rightfoot.xnb</Output>
+      <Time>2011-07-06T22:50:36-04:00</Time>
+    </Item>
+    <Item>
+      <Source>cavalry_rightidle.png</Source>
+      <Name>cavalry_rightidle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\cavalry_rightidle.xnb</Output>
+      <Time>2011-07-23T14:13:32-04:00</Time>
+    </Item>
+    <Item>
+      <Source>horse_halt.png</Source>
+      <Name>horse_halt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\horse_halt.xnb</Output>
+      <Time>2011-07-16T17:06:06-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_reload2.png</Source>
+      <Name>crossbowman_reload2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_reload2.xnb</Output>
+      <Time>2011-07-20T12:58:56-04:00</Time>
+    </Item>
+    <Item>
+      <Source>horse_turn.png</Source>
+      <Name>horse_turn</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\horse_turn.xnb</Output>
+      <Time>2011-07-23T12:58:24-04:00</Time>
+    </Item>
+    <Item>
+      <Source>horse_death.png</Source>
+      <Name>horse_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\horse_death.xnb</Output>
+      <Time>2011-07-28T22:41:40-04:00</Time>
+    </Item>
+    <Item>
+      <Source>cavalry_leftlower.png</Source>
+      <Name>cavalry_leftlower</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\cavalry_leftlower.xnb</Output>
+      <Time>2011-07-31T22:56:12-04:00</Time>
+    </Item>
+    <Item>
+      <Source>cavalry_rightlower.png</Source>
+      <Name>cavalry_rightlower</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\cavalry_rightlower.xnb</Output>
+      <Time>2011-08-02T01:18:16-04:00</Time>
+    </Item>
+    <Item>
+      <Source>cavalry_leftrecoil.png</Source>
+      <Name>cavalry_leftrecoil</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\cavalry_leftrecoil.xnb</Output>
+      <Time>2011-08-02T01:58:08-04:00</Time>
+    </Item>
+    <Item>
+      <Source>cavalry_rightrecoil.png</Source>
+      <Name>cavalry_rightrecoil</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\cavalry_rightrecoil.xnb</Output>
+      <Time>2011-08-02T01:58:36-04:00</Time>
+    </Item>
+    <Item>
+      <Source>cavalry_fall.png</Source>
+      <Name>cavalry_fall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\cavalry_fall.xnb</Output>
+      <Time>2011-08-11T23:51:36-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dismountedcavalry_death.png</Source>
+      <Name>dismountedcavalry_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_death.xnb</Output>
+      <Time>2011-08-11T18:31:44-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dismountedcavalry_idle.png</Source>
+      <Name>dismountedcavalry_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_idle.xnb</Output>
+      <Time>2011-08-11T18:33:00-04:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_shieldbreak.png</Source>
+      <Name>soldier_shieldbreak</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\soldier_shieldbreak.xnb</Output>
+      <Time>2011-11-08T17:54:38-05:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_idlenoshield.png</Source>
+      <Name>soldier_idlenoshield</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\soldier_idlenoshield.xnb</Output>
+      <Time>2011-08-28T00:53:06-04:00</Time>
+    </Item>
+    <Item>
+      <Source>brokenshield1.png</Source>
+      <Name>brokenshield1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\brokenshield1.xnb</Output>
+      <Time>2011-08-28T01:25:32-04:00</Time>
+    </Item>
+    <Item>
+      <Source>brokenshield2.png</Source>
+      <Name>brokenshield2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\brokenshield2.xnb</Output>
+      <Time>2011-08-28T01:35:00-04:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_fall.png</Source>
+      <Name>soldier_fall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\soldier_fall.xnb</Output>
+      <Time>2011-09-08T03:11:30-04:00</Time>
+    </Item>
+    <Item>
+      <Source>berzerker_idlenoshield.png</Source>
+      <Name>berzerker_idlenoshield</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\berzerker_idlenoshield.xnb</Output>
+      <Time>2011-10-26T01:56:58-04:00</Time>
+    </Item>
+    <Item>
+      <Source>berzerker_shieldbreak.png</Source>
+      <Name>berzerker_shieldbreak</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\berzerker_shieldbreak.xnb</Output>
+      <Time>2011-09-14T02:38:56-04:00</Time>
+    </Item>
+    <Item>
+      <Source>berzerker_fall.png</Source>
+      <Name>berzerker_fall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\berzerker_fall.xnb</Output>
+      <Time>2011-09-14T02:42:04-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dismountedcavalry_idlenoshield.png</Source>
+      <Name>dismountedcavalry_idlenoshield</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_idlenoshield.xnb</Output>
+      <Time>2011-09-14T04:03:40-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dismountedcavalry_shieldbreak.png</Source>
+      <Name>dismountedcavalry_shieldbreak</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_shieldbreak.xnb</Output>
+      <Time>2011-11-08T17:56:12-05:00</Time>
+    </Item>
+    <Item>
+      <Source>dismountedcavalry_fall.png</Source>
+      <Name>dismountedcavalry_fall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_fall.xnb</Output>
+      <Time>2011-09-14T04:13:56-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dismountedcavalry_melee1.png</Source>
+      <Name>dismountedcavalry_melee1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_melee1.xnb</Output>
+      <Time>2011-09-13T00:53:04-04:00</Time>
+    </Item>
+    <Item>
+      <Source>dismountedcavalry_defend1.png</Source>
+      <Name>dismountedcavalry_defend1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_defend1.xnb</Output>
+      <Time>2011-09-13T00:55:50-04:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_defend2.png</Source>
+      <Name>soldier_defend2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\soldier_defend2.xnb</Output>
+      <Time>2011-09-15T03:44:56-04:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_melee2.png</Source>
+      <Name>soldier_melee2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\soldier_melee2.xnb</Output>
+      <Time>2011-09-15T21:26:58-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_defend2.png</Source>
+      <Name>crossbowman_defend2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_defend2.xnb</Output>
+      <Time>2011-09-16T01:24:44-04:00</Time>
+    </Item>
+    <Item>
+      <Source>crossbowman_melee2.png</Source>
+      <Name>crossbowman_melee2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\crossbowman_melee2.xnb</Output>
+      <Time>2011-09-16T01:25:18-04:00</Time>
+    </Item>
+    <Item>
+      <Source>berzerker_defend2.png</Source>
+      <Name>berzerker_defend2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\berzerker_defend2.xnb</Output>
+      <Time>2011-10-26T01:56:38-04:00</Time>
+    </Item>
+    <Item>
+      <Source>berzerker_melee2.png</Source>
+      <Name>berzerker_melee2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\berzerker_melee2.xnb</Output>
+      <Time>2011-10-26T01:57:26-04:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_route.png</Source>
+      <Name>soldier_route</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\soldier_route.xnb</Output>
+      <Time>2011-09-20T22:55:46-04:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_routed.png</Source>
+      <Name>soldier_routed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\soldier_routed.xnb</Output>
+      <Time>2011-09-20T22:56:04-04:00</Time>
+    </Item>
+    <Item>
+      <Source>berzerker_charge.png</Source>
+      <Name>berzerker_charge</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\berzerker_charge.xnb</Output>
+      <Time>2011-09-21T17:48:06-04:00</Time>
+    </Item>
+    <Item>
+      <Source>berzerker_chargenoshield.png</Source>
+      <Name>berzerker_chargenoshield</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\berzerker_chargenoshield.xnb</Output>
+      <Time>2011-10-26T01:55:26-04:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_charge.png</Source>
+      <Name>soldier_charge</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\soldier_charge.xnb</Output>
+      <Time>2011-09-21T17:48:54-04:00</Time>
+    </Item>
+    <Item>
+      <Source>soldier_chargenoshield.png</Source>
+      <Name>soldier_chargenoshield</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\soldier_chargenoshield.xnb</Output>
+      <Time>2011-09-21T17:49:44-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman1_idle.png</Source>
+      <Name>pikeman1_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman1_idle.xnb</Output>
+      <Time>2011-10-08T04:47:04-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman1_lower_high.png</Source>
+      <Name>pikeman1_lower_high</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman1_lower_high.xnb</Output>
+      <Time>2011-10-08T05:41:06-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman1_lower_low.png</Source>
+      <Name>pikeman1_lower_low</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman1_lower_low.xnb</Output>
+      <Time>2011-10-08T05:41:16-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman1_recoil.png</Source>
+      <Name>pikeman1_recoil</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman1_recoil.xnb</Output>
+      <Time>2011-10-30T09:13:24-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman2_idle.png</Source>
+      <Name>pikeman2_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman2_idle.xnb</Output>
+      <Time>2011-10-08T04:48:20-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman2_lower_high.png</Source>
+      <Name>pikeman2_lower_high</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman2_lower_high.xnb</Output>
+      <Time>2011-10-08T05:42:14-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman2_lower_low.png</Source>
+      <Name>pikeman2_lower_low</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman2_lower_low.xnb</Output>
+      <Time>2011-10-08T05:42:28-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman2_recoil.png</Source>
+      <Name>pikeman2_recoil</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman2_recoil.xnb</Output>
+      <Time>2011-10-30T09:13:44-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman1_death.png</Source>
+      <Name>pikeman1_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman1_death.xnb</Output>
+      <Time>2011-10-08T05:20:48-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman2_death.png</Source>
+      <Name>pikeman2_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman2_death.xnb</Output>
+      <Time>2011-10-08T05:20:26-04:00</Time>
+    </Item>
+    <Item>
+      <Source>brigand_defend2.png</Source>
+      <Name>brigand_defend2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\brigand_defend2.xnb</Output>
+      <Time>2011-10-26T01:20:10-04:00</Time>
+    </Item>
+    <Item>
+      <Source>brigand_melee2.png</Source>
+      <Name>brigand_melee2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\brigand_melee2.xnb</Output>
+      <Time>2011-10-26T01:20:56-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider1_defend1.png</Source>
+      <Name>gobraider1_defend1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider1_defend1.xnb</Output>
+      <Time>2011-10-17T04:00:50-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider1_idle.png</Source>
+      <Name>gobraider1_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider1_idle.xnb</Output>
+      <Time>2011-10-17T03:59:48-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider1_idlenoshield.png</Source>
+      <Name>gobraider1_idlenoshield</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider1_idlenoshield.xnb</Output>
+      <Time>2011-10-17T04:00:08-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider1_melee1.png</Source>
+      <Name>gobraider1_melee1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider1_melee1.xnb</Output>
+      <Time>2011-10-17T04:01:12-04:00</Time>
+    </Item>
+    <Item>
+      <Source>brown_feet.png</Source>
+      <Name>brown_feet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\brown_feet.xnb</Output>
+      <Time>2011-10-17T22:59:16-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider1_death.png</Source>
+      <Name>gobraider1_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider1_death.xnb</Output>
+      <Time>2011-10-17T22:59:48-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider1_fall.png</Source>
+      <Name>gobraider1_fall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider1_fall.xnb</Output>
+      <Time>2011-10-17T23:00:36-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider1_shieldbreak.png</Source>
+      <Name>gobraider1_shieldbreak</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider1_shieldbreak.xnb</Output>
+      <Time>2011-10-17T23:01:04-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider1_charge.png</Source>
+      <Name>gobraider1_charge</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider1_charge.xnb</Output>
+      <Time>2011-10-18T00:12:06-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider1_defend2.png</Source>
+      <Name>gobraider1_defend2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider1_defend2.xnb</Output>
+      <Time>2011-10-24T02:41:20-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider1_melee2.png</Source>
+      <Name>gobraider1_melee2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider1_melee2.xnb</Output>
+      <Time>2011-10-24T02:41:56-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider2_death.png</Source>
+      <Name>gobraider2_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider2_death.xnb</Output>
+      <Time>2011-10-24T02:47:46-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider2_defend1.png</Source>
+      <Name>gobraider2_defend1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider2_defend1.xnb</Output>
+      <Time>2011-10-24T02:48:04-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider2_defend2.png</Source>
+      <Name>gobraider2_defend2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider2_defend2.xnb</Output>
+      <Time>2011-10-24T02:48:28-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider2_fall.png</Source>
+      <Name>gobraider2_fall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider2_fall.xnb</Output>
+      <Time>2011-10-24T02:48:50-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider2_idle.png</Source>
+      <Name>gobraider2_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider2_idle.xnb</Output>
+      <Time>2011-10-24T02:49:18-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider2_idlenoshield.png</Source>
+      <Name>gobraider2_idlenoshield</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider2_idlenoshield.xnb</Output>
+      <Time>2011-10-24T02:49:32-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider2_melee1.png</Source>
+      <Name>gobraider2_melee1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider2_melee1.xnb</Output>
+      <Time>2011-10-24T02:49:50-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider2_melee2.png</Source>
+      <Name>gobraider2_melee2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider2_melee2.xnb</Output>
+      <Time>2011-10-24T02:50:06-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider2_shieldbreak.png</Source>
+      <Name>gobraider2_shieldbreak</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider2_shieldbreak.xnb</Output>
+      <Time>2011-10-24T02:50:38-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider2_charge.png</Source>
+      <Name>gobraider2_charge</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider2_charge.xnb</Output>
+      <Time>2011-10-24T02:56:18-04:00</Time>
+    </Item>
+    <Item>
+      <Source>brigand_charge.png</Source>
+      <Name>brigand_charge</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\brigand_charge.xnb</Output>
+      <Time>2011-10-26T04:19:54-04:00</Time>
+    </Item>
+    <Item>
+      <Source>brigand_death.png</Source>
+      <Name>brigand_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\brigand_death.xnb</Output>
+      <Time>2011-10-26T01:48:48-04:00</Time>
+    </Item>
+    <Item>
+      <Source>brigand_idle.png</Source>
+      <Name>brigand_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\brigand_idle.xnb</Output>
+      <Time>2011-10-26T01:20:28-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider1_chargenoshield.png</Source>
+      <Name>gobraider1_chargenoshield</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider1_chargenoshield.xnb</Output>
+      <Time>2011-10-26T02:09:46-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobraider2_chargenoshield.png</Source>
+      <Name>gobraider2_chargenoshield</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobraider2_chargenoshield.xnb</Output>
+      <Time>2011-10-26T02:10:18-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman1_defend1.png</Source>
+      <Name>pikeman1_defend1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman1_defend1.xnb</Output>
+      <Time>2011-10-27T03:56:54-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman1_melee1.png</Source>
+      <Name>pikeman1_melee1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman1_melee1.xnb</Output>
+      <Time>2011-10-27T03:57:32-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman2_defend1.png</Source>
+      <Name>pikeman2_defend1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman2_defend1.xnb</Output>
+      <Time>2011-10-27T03:57:56-04:00</Time>
+    </Item>
+    <Item>
+      <Source>pikeman2_melee1.png</Source>
+      <Name>pikeman2_melee1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\pikeman2_melee1.xnb</Output>
+      <Time>2011-10-27T03:58:16-04:00</Time>
+    </Item>
+    <Item>
+      <Source>skirmisher_idle.png</Source>
+      <Name>skirmisher_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\skirmisher_idle.xnb</Output>
+      <Time>2011-11-08T02:08:58-05:00</Time>
+    </Item>
+    <Item>
+      <Source>skirmisher_reload.png</Source>
+      <Name>skirmisher_reload</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\skirmisher_reload.xnb</Output>
+      <Time>2011-11-08T01:48:02-05:00</Time>
+    </Item>
+    <Item>
+      <Source>skirmisher_shoot.png</Source>
+      <Name>skirmisher_shoot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\skirmisher_shoot.xnb</Output>
+      <Time>2011-11-08T01:48:24-05:00</Time>
+    </Item>
+    <Item>
+      <Source>skirmisher_javelin.png</Source>
+      <Name>skirmisher_javelin</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\skirmisher_javelin.xnb</Output>
+      <Time>2011-11-08T02:29:56-05:00</Time>
+    </Item>
+    <Item>
+      <Source>skirmisher_ground.png</Source>
+      <Name>skirmisher_ground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\skirmisher_ground.xnb</Output>
+      <Time>2011-11-08T03:22:26-05:00</Time>
+    </Item>
+    <Item>
+      <Source>skirmisher_death.png</Source>
+      <Name>skirmisher_death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\skirmisher_death.xnb</Output>
+      <Time>2011-11-08T14:33:58-05:00</Time>
+    </Item>
+    <Item>
+      <Source>skirmisher_defend2.png</Source>
+      <Name>skirmisher_defend2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\skirmisher_defend2.xnb</Output>
+      <Time>2011-11-10T18:13:46-05:00</Time>
+    </Item>
+    <Item>
+      <Source>skirmisher_melee2.png</Source>
+      <Name>skirmisher_melee2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\skirmisher_melee2.xnb</Output>
+      <Time>2011-11-10T18:14:16-05:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_defend2.png</Source>
+      <Name>slinger_defend2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\slinger_defend2.xnb</Output>
+      <Time>2011-11-10T17:33:30-05:00</Time>
+    </Item>
+    <Item>
+      <Source>slinger_melee2.png</Source>
+      <Name>slinger_melee2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\slinger_melee2.xnb</Output>
+      <Time>2011-11-10T17:40:24-05:00</Time>
+    </Item>
+    <Item>
+      <Source>roadTerrain10.png</Source>
+      <Name>roadTerrain10</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\roadTerrain10.xnb</Output>
+      <Time>2011-11-26T23:36:30-05:00</Time>
+    </Item>
+    <Item>
+      <Source>roadTerrain0.png</Source>
+      <Name>roadTerrain0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\roadTerrain0.xnb</Output>
+      <Time>2011-11-26T23:36:14-05:00</Time>
+    </Item>
+    <Item>
+      <Source>roadTerrain1.png</Source>
+      <Name>roadTerrain1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\roadTerrain1.xnb</Output>
+      <Time>2011-11-26T23:34:54-05:00</Time>
+    </Item>
+    <Item>
+      <Source>roadTerrain2.png</Source>
+      <Name>roadTerrain2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\roadTerrain2.xnb</Output>
+      <Time>2011-11-26T23:37:48-05:00</Time>
+    </Item>
+    <Item>
+      <Source>roadTerrain3.png</Source>
+      <Name>roadTerrain3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\roadTerrain3.xnb</Output>
+      <Time>2011-11-26T23:38:22-05:00</Time>
+    </Item>
+    <Item>
+      <Source>roadTerrain4.png</Source>
+      <Name>roadTerrain4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\roadTerrain4.xnb</Output>
+      <Time>2011-11-26T23:37:32-05:00</Time>
+    </Item>
+    <Item>
+      <Source>roadTerrain5.png</Source>
+      <Name>roadTerrain5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\roadTerrain5.xnb</Output>
+      <Time>2011-11-26T23:37:20-05:00</Time>
+    </Item>
+    <Item>
+      <Source>roadTerrain6.png</Source>
+      <Name>roadTerrain6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\roadTerrain6.xnb</Output>
+      <Time>2011-11-26T23:36:48-05:00</Time>
+    </Item>
+    <Item>
+      <Source>roadTerrain7.png</Source>
+      <Name>roadTerrain7</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\roadTerrain7.xnb</Output>
+      <Time>2011-11-26T23:35:20-05:00</Time>
+    </Item>
+    <Item>
+      <Source>roadTerrain8.png</Source>
+      <Name>roadTerrain8</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\roadTerrain8.xnb</Output>
+      <Time>2011-11-26T23:38:06-05:00</Time>
+    </Item>
+    <Item>
+      <Source>roadTerrain9.png</Source>
+      <Name>roadTerrain9</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\roadTerrain9.xnb</Output>
+      <Time>2011-11-26T23:35:58-05:00</Time>
+    </Item>
+    <Item>
+      <Source>skirmisher_retreat.png</Source>
+      <Name>skirmisher_retreat</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\skirmisher_retreat.xnb</Output>
+      <Time>2011-12-02T20:47:30-05:00</Time>
+    </Item>
+    <Item>
+      <Source>gob_level.xml</Source>
+      <Name>gob_level</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gob_level.xnb</Output>
+      <Time>2011-05-05T21:03:58-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Benz_Level1.xml</Source>
+      <Name>Benz_Level1</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\Benz_Level1.xnb</Output>
+      <Time>2011-10-26T04:28:52-04:00</Time>
+    </Item>
+    <Item>
+      <Source>HorseAttack.xml</Source>
+      <Name>HorseAttack</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\HorseAttack.xnb</Output>
+      <Time>2011-10-02T05:13:26-04:00</Time>
+    </Item>
+    <Item>
+      <Source>GoblinLevel.xml</Source>
+      <Name>GoblinLevel</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\GoblinLevel.xnb</Output>
+      <Time>2011-10-31T17:10:10-04:00</Time>
+    </Item>
+    <Item>
+      <Source>gobwall.xml</Source>
+      <Name>gobwall</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\gobwall.xnb</Output>
+      <Time>2011-11-25T19:38:54-05:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <BuildConfiguration>Release</BuildConfiguration>
+      <CompressContent>true</CompressContent>
+      <RootDirectory>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\Content\obj\x86\Release\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\CondottiereWars\bin\x86\Release\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2009-05-14T11:13:52-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2009-05-14T11:13:52-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2009-05-14T11:13:52-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2009-05-14T11:13:52-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2009-05-14T11:13:52-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Users\James\Desktop\pike-shot\Pike &amp; Shot\ContentPipelineExtension1\bin\x86\Debug\ContentPipelineExtension1.dll</Key>
+        <Value>2013-09-03T17:39:50.9394531-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\3.0.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2011-06-26T17:49:43.2060546-04:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
