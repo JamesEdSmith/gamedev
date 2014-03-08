@@ -170,14 +170,14 @@ namespace PikeAndShot
                 if (t.isAnimated())
                 {
                     t.update(gameTime.ElapsedGameTime);
+                }
 
-                    if (t.getPosition().X < -2f * Soldier.WIDTH + getMapOffset().X)
-                        t.setState(Soldier.STATE_DEAD);
+                if (t.getPosition().X < (-2f * Soldier.WIDTH) + getMapOffset().X)
+                    t.setState(Soldier.STATE_DEAD);
 
-                    if (t.isDead())
-                    {
-                        _deadThings.Add(t);
-                    }
+                if (t.isDead())
+                {
+                    _deadThings.Add(t);
                 }
             }
 
@@ -195,7 +195,10 @@ namespace PikeAndShot
                 else if (obj is Soldier)
                     _looseSoldiers.Remove(obj);
                 else if (obj is Terrain)
+                {
                     _terrain.Remove(obj);
+                    _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[PikeAndShotGame.random.Next(7)], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
+                }
 
                 _screenObjects.Remove(obj);
             }

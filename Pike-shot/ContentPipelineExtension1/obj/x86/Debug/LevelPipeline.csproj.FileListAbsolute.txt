@@ -48,3 +48,8 @@ C:\Users\James\Desktop\pike-shot\Pike & Shot\ContentPipelineExtension1\bin\x86\D
 C:\Users\James\Desktop\pike-shot\Pike & Shot\ContentPipelineExtension1\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\James\Desktop\pike-shot\Pike & Shot\ContentPipelineExtension1\obj\x86\Debug\ContentPipelineExtension1.dll
 C:\Users\James\Desktop\pike-shot\Pike & Shot\ContentPipelineExtension1\obj\x86\Debug\ContentPipelineExtension1.pdb
+C:\Users\James\Desktop\pike-shot\Pike-shot\ContentPipelineExtension1\bin\x86\Debug\ContentPipelineExtension1.dll
+C:\Users\James\Desktop\pike-shot\Pike-shot\ContentPipelineExtension1\bin\x86\Debug\ContentPipelineExtension1.pdb
+C:\Users\James\Desktop\pike-shot\Pike-shot\ContentPipelineExtension1\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\pike-shot\Pike-shot\ContentPipelineExtension1\obj\x86\Debug\ContentPipelineExtension1.dll
+C:\Users\James\Desktop\pike-shot\Pike-shot\ContentPipelineExtension1\obj\x86\Debug\ContentPipelineExtension1.pdb

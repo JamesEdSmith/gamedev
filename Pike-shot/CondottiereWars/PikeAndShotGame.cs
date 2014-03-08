@@ -517,6 +517,7 @@ namespace PikeAndShot
             return DOT;
         }
 
+        // helper function to randomly make a number positive or negative
         internal static int getRandPlusMinus(int in_number)
         {
             int number = random.Next(in_number);
