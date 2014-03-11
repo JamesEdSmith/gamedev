@@ -192,6 +192,8 @@ namespace PikeAndShot
             {
                 formationListBox.Items.Add(s);
             }
+            refreshFormationListBox();
+            refreshPatternListBox();
         }
 
         private void formationListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -346,14 +348,23 @@ namespace PikeAndShot
 
         private void refreshFormationListBox()
         {
-            currFormation = _levels[currLevel].formations.Count - 1;
-
             formationListBox.Items.Clear();
 
-            foreach (string s in _levels[currLevel].formationNames)
-                formationListBox.Items.Add(s);
+            if (_levels[currLevel].formations.Count > 0)
+            {
+                currFormation = _levels[currLevel].formations.Count - 1;
 
-            formationListBox.SelectedIndex = currFormation;
+                foreach (string s in _levels[currLevel].formationNames)
+                    formationListBox.Items.Add(s);
+
+                formationListBox.SelectedIndex = currFormation;
+            }
+            else
+            {
+                currFormation = 0;
+            }
+
+            refreshSoldierListBox();
         }
 
         private void addFormationButton_Click(object sender, EventArgs e)
@@ -400,6 +411,8 @@ namespace PikeAndShot
             _levels.Add(newLevel);
 
             refreshLevelComboBox();
+            refreshFormationListBox();
+            refreshPatternListBox();
 
             sendUpdate();
         }
@@ -583,14 +596,23 @@ namespace PikeAndShot
 
         private void refreshPatternListBox()
         {
-            currPatternAction = _levels[currLevel].formationActions[currFormation].Count - 1;
-
             patternListBox.Items.Clear();
 
-            foreach (string s in _levels[currLevel].formationActionNames[currFormation])
-                patternListBox.Items.Add(s);
+            if (_levels[currLevel].formationActions.Count > 0 && _levels[currLevel].formationActions[currFormation].Count > 0)
+            {
+                currPatternAction = _levels[currLevel].formationActions[currFormation].Count - 1;
+                foreach (string s in _levels[currLevel].formationActionNames[currFormation])
+                    patternListBox.Items.Add(s);
 
-            patternListBox.SelectedIndex = currPatternAction;
+                patternListBox.SelectedIndex = currPatternAction;
+            }
+            else
+                currPatternAction = 0;
+        }
+
+        private void refreshSoldierListBox()
+        {
+            this.soldierListBox.Items.Clear();
         }
 
         private void addPatternButton_Click(object sender, EventArgs e)

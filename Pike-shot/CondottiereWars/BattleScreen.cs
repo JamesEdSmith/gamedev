@@ -419,6 +419,17 @@ namespace PikeAndShot
             
         }
 
+        protected float getScrollAdjustSpeed()
+        {
+            float diff = _formation.getCenter().X - (PikeAndShotGame.SCREENWIDTH * BattleScreen.SCROLLPOINT + _mapOffset.X);
+
+            if (diff > 100f)
+                return 0.2f;
+            else
+                return 0.2f * diff / 100f;
+
+        }
+
         public KeyboardState getPreviousKeyboardState()
         {
             return previousKeyboardState;
