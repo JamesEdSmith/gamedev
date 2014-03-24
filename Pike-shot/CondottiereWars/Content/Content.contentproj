@@ -409,13 +409,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="gob_level.xml">
-      <Name>gob_level</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="sword_pointer.PNG">
       <Name>sword_pointer</Name>
       <Importer>TextureImporter</Importer>
@@ -496,13 +489,6 @@
       <Name>cavalry_rightidle</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Benz_Level1.xml">
-      <Name>Benz_Level1</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -733,13 +719,6 @@
       <Name>soldier_chargenoshield</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="HorseAttack.xml">
-      <Name>HorseAttack</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -977,20 +956,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GoblinLevel.xml">
-      <Name>GoblinLevel</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="gobwall.xml">
-      <Name>gobwall</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="skirmisher_idle.png">
       <Name>skirmisher_idle</Name>
       <Importer>TextureImporter</Importer>
@@ -1115,6 +1080,22 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Benz1_level.xml">
+      <Name>Benz1_level</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HorseAttack_level.xml">
+      <Name>HorseAttack_level</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v3.0\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

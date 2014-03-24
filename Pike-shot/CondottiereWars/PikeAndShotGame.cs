@@ -427,24 +427,23 @@ namespace PikeAndShot
 
             _gameScreens = new ArrayList(3);
 
-            // MAKE LEVEL
-            
-            XmlReaderSettings settings = new XmlReaderSettings();
-            FileStream stream = new FileStream("Content\\Benz_Level1.xml", FileMode.Open);
-            LevelPipeline.LevelContent levelContent;
-            using (XmlReader xmlReader = XmlReader.Create(stream, settings))
-            {
-                levelContent = IntermediateSerializer.Deserialize<LevelPipeline.LevelContent>(xmlReader, null);
-            }
-            stream.Close();
+            // MAKE LEVELS
             List<Level> levels = new List<Level>(32);
-            levels.Add(new Level(levelContent));
-            
-            //levels.Add(Content.Load<Level>(@"gobwall"));
-            //levels.Add(Content.Load<Level>(@"GoblinLevel"));
-            //levels.Add(Content.Load<Level>(@"Benz_Level1"));
-            //levels.Add(Content.Load<Level>(@"gob_level"));
-            //levels.Add(Content.Load<Level>(@"HorseAttack"));
+            FileStream stream;
+            LevelPipeline.LevelContent levelContent;
+            XmlReaderSettings settings = new XmlReaderSettings();
+            String[] levelFiles = Directory.GetFiles(@"Content\", @"*_level.xml");
+
+            foreach (String filename in levelFiles)
+            {
+                stream = new FileStream(filename, FileMode.Open);
+                using (XmlReader xmlReader = XmlReader.Create(stream, settings))
+                {
+                    levelContent = IntermediateSerializer.Deserialize<LevelPipeline.LevelContent>(xmlReader, null);
+                }
+                stream.Close();
+                levels.Add(new Level(levelContent));
+            }
             
             // PLAY LEVEL
             _currScreen = new LevelScreen(this, levels.ElementAt(0));
