@@ -395,6 +395,82 @@ namespace PikeAndShot
 
         protected virtual bool checkReactions(TimeSpan timeSpan)
         {
+            if ((_screen.findPikeTip(this, 4f) || _state == STATE_RETREAT) && _state != STATE_ATTACKING && _state != STATE_RELOADING)
+            {
+                setReactionDest(PikeAndShotGame.SCREENWIDTH + _screen.getMapOffset().X + Soldier.WIDTH * 2f);
+                _reacting = true;
+                _state = STATE_RETREAT;
+
+                _delta = _meleeDestination - _position;
+                _dest = _meleeDestination;
+                float absDeltaX = Math.Abs(_delta.X);
+                float absDeltaY = Math.Abs(_delta.Y);
+                _travel.X = (absDeltaX / (absDeltaX + absDeltaY)) * (float)timeSpan.TotalMilliseconds * _speed;
+                _travel.Y = (absDeltaY / (absDeltaX + absDeltaY)) * (float)timeSpan.TotalMilliseconds * _speed;
+                // check to see if walking
+                if (_delta.Length() != 0)
+                {
+                    if (!_feet.getPlaying())
+                    {
+                        _feet.play();
+                        _feet.nextFrame();
+                    }
+                    if (!_retreat.getPlaying())
+                    {
+                        _retreat.play();
+                        _retreat.nextFrame();
+                    }
+                }
+                else
+                {
+                    _feet.stop();
+                    _feet.reset();
+                    _retreat.stop();
+                    _retreat.reset();
+                }
+
+                _feet.update(timeSpan);
+                _retreat.update(timeSpan);
+
+                if (_feet.getCurrFrame() % 2 > 0)
+                    _jostleOffset.Y = 1f;
+                else
+                    _jostleOffset.Y = 0f;
+
+                // as long as we are not at destination, keep trying to get there, but don't overshoot
+                if (_delta.X > 0)
+                {
+                    if (_delta.X - _travel.X >= 0)
+                        _position.X += _travel.X;
+                    else
+                        _position.X = _dest.X;
+                }
+                else if (_delta.X < 0)
+                {
+                    if (_delta.X + _travel.X <= 0)
+                        _position.X -= _travel.X;
+                    else
+                        _position.X = _dest.X;
+                }
+
+                if (_delta.Y > 0)
+                {
+                    if (_delta.Y - _travel.Y >= 0)
+                        _position.Y += _travel.Y;
+                    else
+                        _position.Y = _dest.Y;
+                }
+                else if (_delta.Y < 0)
+                {
+                    if (_delta.Y + _travel.Y <= 0)
+                        _position.Y -= _travel.Y;
+                    else
+                        _position.Y = _dest.Y;
+                }
+
+                return true;
+            }
+
             return false;
         }
 
@@ -1920,13 +1996,13 @@ namespace PikeAndShot
             {
                 setReactionDest(PikeAndShotGame.SCREENWIDTH + _screen.getMapOffset().X + Soldier.WIDTH * 2f);
                 _reacting = true;
+
                 if (_screen.findSoldier(this, 15f, Soldier.HEIGHT * 0.5f))
                 {
                     _state = STATE_RETREAT;
 
                     _delta = _meleeDestination - _position;
                     _dest = _meleeDestination;
-                    //_travel = (float)timeSpan.TotalMilliseconds * _speed;
                     float absDeltaX = Math.Abs(_delta.X);
                     float absDeltaY = Math.Abs(_delta.Y);
                     _travel.X = (absDeltaX / (absDeltaX + absDeltaY)) * (float)timeSpan.TotalMilliseconds * _speed;
@@ -2495,84 +2571,86 @@ namespace PikeAndShot
             }
             else
             {
-                if (_screen.findSoldier(this, 18f, 18f) && _state != STATE_CHARGING && _side != BattleScreen.SIDE_PLAYER)
-                {
-                    if (!_reacting)
-                    {
-                        attack();
-                    }
-                    _delta = _destination - _position;
-                    _dest = _destination;
-                    //_travel = (float)timeSpan.TotalMilliseconds * _speed;
-                    float absDeltaX = Math.Abs(_delta.X);
-                    float absDeltaY = Math.Abs(_delta.Y);
-                    _travel.X = (absDeltaX / (absDeltaX + absDeltaY)) * (float)timeSpan.TotalMilliseconds * _speed;
-                    _travel.Y = (absDeltaY / (absDeltaX + absDeltaY)) * (float)timeSpan.TotalMilliseconds * _speed;
-
-                    // check to see if walking
-                    if (_delta.Length() != 0)
-                    {
-                        if (!_feet.getPlaying())
-                        {
-                            _feet.play();
-                            _feet.nextFrame();
-                        }
-                        if (!_retreat.getPlaying())
-                        {
-                            _retreat.play();
-                            _retreat.nextFrame();
-                        }
-                    }
-                    else
-                    {
-                        _feet.stop();
-                        _feet.reset();
-                        _retreat.stop();
-                        _retreat.reset();
-                    }
-
-                    _feet.update(timeSpan);
-                    _retreat.update(timeSpan);
-
-                    if (_feet.getCurrFrame() % 2 > 0)
-                        _jostleOffset.Y = 1f;
-                    else
-                        _jostleOffset.Y = 0f;
-
-                    // as long as we are not at destination, keep trying to get there, but don't overshoot
-                    if (_delta.X > 0)
-                    {
-                        if (_delta.X - _travel.X >= 0)
-                            _position.X += _travel.X;
-                        else
-                            _position.X = _dest.X;
-                    }
-                    else if (_delta.X < 0)
-                    {
-                        if (_delta.X + _travel.X <= 0)
-                            _position.X -= _travel.X;
-                        else
-                            _position.X = _dest.X;
-                    }
-
-                    if (_delta.Y > 0)
-                    {
-                        if (_delta.Y - _travel.Y >= 0)
-                            _position.Y += _travel.Y;
-                        else
-                            _position.Y = _dest.Y;
-                    }
-                    else if (_delta.Y < 0)
-                    {
-                        if (_delta.Y + _travel.Y <= 0)
-                            _position.Y -= _travel.Y;
-                        else
-                            _position.Y = _dest.Y;
-                    }
-
-                    return true;
-                }
+                return base.checkReactions(timeSpan);
             }
+            /*else if (_screen.findSoldier(this, 18f, 18f) && _state != STATE_CHARGING && _side != BattleScreen.SIDE_PLAYER)
+            {
+                if (!_reacting)
+                {
+                    attack();
+                }
+                _delta = _destination - _position;
+                _dest = _destination;
+                //_travel = (float)timeSpan.TotalMilliseconds * _speed;
+                float absDeltaX = Math.Abs(_delta.X);
+                float absDeltaY = Math.Abs(_delta.Y);
+                _travel.X = (absDeltaX / (absDeltaX + absDeltaY)) * (float)timeSpan.TotalMilliseconds * _speed;
+                _travel.Y = (absDeltaY / (absDeltaX + absDeltaY)) * (float)timeSpan.TotalMilliseconds * _speed;
+
+                // check to see if walking
+                if (_delta.Length() != 0)
+                {
+                    if (!_feet.getPlaying())
+                    {
+                        _feet.play();
+                        _feet.nextFrame();
+                    }
+                    if (!_retreat.getPlaying())
+                    {
+                        _retreat.play();
+                        _retreat.nextFrame();
+                    }
+                }
+                else
+                {
+                    _feet.stop();
+                    _feet.reset();
+                    _retreat.stop();
+                    _retreat.reset();
+                }
+
+                _feet.update(timeSpan);
+                _retreat.update(timeSpan);
+
+                if (_feet.getCurrFrame() % 2 > 0)
+                    _jostleOffset.Y = 1f;
+                else
+                    _jostleOffset.Y = 0f;
+
+                // as long as we are not at destination, keep trying to get there, but don't overshoot
+                if (_delta.X > 0)
+                {
+                    if (_delta.X - _travel.X >= 0)
+                        _position.X += _travel.X;
+                    else
+                        _position.X = _dest.X;
+                }
+                else if (_delta.X < 0)
+                {
+                    if (_delta.X + _travel.X <= 0)
+                        _position.X -= _travel.X;
+                    else
+                        _position.X = _dest.X;
+                }
+
+                if (_delta.Y > 0)
+                {
+                    if (_delta.Y - _travel.Y >= 0)
+                        _position.Y += _travel.Y;
+                    else
+                        _position.Y = _dest.Y;
+                }
+                else if (_delta.Y < 0)
+                {
+                    if (_delta.Y + _travel.Y <= 0)
+                        _position.Y -= _travel.Y;
+                    else
+                        _position.Y = _dest.Y;
+                }
+
+                return true;
+            }*/
+
             return false;
         }
 
