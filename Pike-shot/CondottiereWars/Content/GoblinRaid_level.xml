@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="LevelPipeline.LevelContent">
+    <levelName>GoblinRaid_level</levelName>
+    <formations>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+    </formations>
+    <formationPositions>910 100 1210 400 1510 100</formationPositions>
+    <formationTimes>113 1210 1510</formationTimes>
+    <formationActions>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>20</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>20</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>20</duration>
+        </Item>
+      </Item>
+    </formationActions>
+    <terrains />
+    <terrainPositions />
+    <terrainTimes />
+    <formationNames>
+      <Item>Looting Goblin</Item>
+      <Item>Looting Goblin</Item>
+      <Item>Looting Goblin</Item>
+    </formationNames>
+    <formationActionNames>
+      <Item>
+        <Item>looting</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>looting</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>looting</Item>
+        <Item>New Action</Item>
+      </Item>
+    </formationActionNames>
+  </Asset>
+</XnaContent>

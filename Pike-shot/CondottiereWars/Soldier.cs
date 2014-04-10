@@ -214,18 +214,18 @@ namespace PikeAndShot
                 if (this is Targeteer)
                 {
                     if( _state != Targeteer.STATE_SHIELDBREAK)
-                        _screen.addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT ? _side : _side * -1, _drawingY));
+                        _screen.addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
                 }
                 else if (this is DismountedCavalry )
                 {
                     if(_state != DismountedCavalry.STATE_FALLING)
-                        _screen.addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT ? _side : _side * -1, _drawingY));
+                        _screen.addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
                 }
                 else
-                    _screen.addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT ? _side : _side * -1, _drawingY));
+                    _screen.addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
             }
 
-            _screen.addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _side, _drawingY));
+            _screen.addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
 
             //spritebatch.Draw(PikeAndShotGame.getDotTexture(), _drawingPosition, Color.White);
         }
