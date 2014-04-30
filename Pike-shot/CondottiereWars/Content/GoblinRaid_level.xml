@@ -9,17 +9,94 @@
       <Item>12</Item>
       <Item>12</Item>
       <Item>12</Item>
+      <Item>11</Item>
+      <Item>11</Item>
+      <Item>11</Item>
       <Item>12</Item>
       <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
       <Item>11</Item>
       <Item>11</Item>
       <Item>11</Item>
       <Item>11</Item>
       <Item>11</Item>
+      <Item>10</Item>
     </formations>
-    <formationPositions>910 100 1210 400 1680 268 1470 124 1695.668 346 1672 228 1699 182 1689 313 1730 313 1740 182 1705 228 1738 346 1715 265</formationPositions>
-    <formationTimes>113 1210 1680 1470 1695.66796875 1672 1699 1689 1689 1699 1672 1695.66796875 1699</formationTimes>
+    <formationPositions>901 189 1190 349 2147 217 1377 153 2159.338 300 2142.338 260 2187.338 257 2205 295 2214.338 222 1680 268 1695.668 346 1672 228 1699 182 1689 313 1730 313 1740 182 1705 228 1738 346 1715 265 2240 257</formationPositions>
+    <formationTimes>104 1190 2147 1377 2159.33764648438 2142.33715820314 2148.33740234376 2162.66796875 2198.33740234376 1680 1695.66796875 1672 1699 1689 1689 1699 1672 1695.66796875 1699 2148.33740234376</formationTimes>
     <formationActions>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>20</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>20</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>20</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>20</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>20</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>20</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>20</duration>
+        </Item>
+      </Item>
       <Item>
         <Item>
           <actions>0 -1</actions>
@@ -161,15 +238,50 @@
       <Item>Looting Goblin</Item>
       <Item>Looting Goblin</Item>
       <Item>Looting Goblin</Item>
+      <Item>berserker</Item>
+      <Item>berserker</Item>
+      <Item>beserker</Item>
       <Item>Looting Goblin</Item>
       <Item>Looting Goblin</Item>
-      <Item>berserker</Item>
-      <Item>berserker</Item>
-      <Item>berserker</Item>
-      <Item>berserker</Item>
       <Item>Looting Goblin</Item>
+      <Item>Looting Goblin</Item>
+      <Item>Looting Goblin</Item>
+      <Item>berserker</Item>
+      <Item>berserker</Item>
+      <Item>berserker</Item>
+      <Item>berserker</Item>
+      <Item>beserker</Item>
+      <Item>berserker</Item>
     </formationNames>
     <formationActionNames>
+      <Item>
+        <Item>looting</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>looting</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>looting</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>looting</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>looting</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>looting</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>looting</Item>
+        <Item>New Action</Item>
+      </Item>
       <Item>
         <Item>looting</Item>
         <Item>New Action</Item>
