@@ -43,7 +43,7 @@ namespace PikeAndShot
             _boxMoving = false;
         }
 
-        void FormListener.updateLevel(Level level)
+        void FormListener.updateLevel(Level level, int selectedFormation)
         {
             _levelData = level;
 
@@ -97,6 +97,11 @@ namespace PikeAndShot
                 }
                 _enemyFormations.Add(_newEnemyFormation);
             }
+
+            if (selectedFormation != -1)
+            {
+                ((EnemyFormation)_enemyFormations[selectedFormation]).selected = true;
+            }
         }
 
         public override void update(GameTime gameTime)
@@ -107,6 +112,7 @@ namespace PikeAndShot
                 _grabbedFormation.setPosition((float)mouseState.X + _mapOffset.X, (float)mouseState.Y + _mapOffset.Y);
                 _grabbedFormation.resetupFormation();
                 _grabbedFormation.reformFormation();
+                _grabbedFormation.selected = true;
             }
             if (_boxMoving)
             {
@@ -118,6 +124,7 @@ namespace PikeAndShot
                     ef.setPosition(ef.getPosition() + (mousePosition - _oldMousePosition));
                     ef.resetupFormation();
                     ef.reformFormation();
+                    ef.selected = true;
                 }
                 _oldMousePosition = mousePosition;
             }
@@ -360,6 +367,7 @@ namespace PikeAndShot
                 if (collision)
                 {
                     _grabbedFormation = ef;
+                    _grabbedFormation.selected = true;
                     return true;
                 }
             }

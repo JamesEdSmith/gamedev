@@ -27,6 +27,7 @@ namespace PikeAndShot
         private int currPatternAction;
         private int currTerrain;
         private List<FormListener> _formListeners;
+        private int copyTally;
 
         public LevelConstructorForm(List<Level>levels)
         {
@@ -37,6 +38,7 @@ namespace PikeAndShot
             _terrainClass = new List<TerrainClass>(32);
             _formListeners = new List<FormListener>(3);
             _levels = levels;
+            copyTally = 0;
             loadLevels();
             initControls();
         }
@@ -55,7 +57,7 @@ namespace PikeAndShot
         private void sendUpdate()
         {
             foreach(FormListener fl in _formListeners)
-                fl.updateLevel(_levels[currLevel]);
+                fl.updateLevel(_levels[currLevel], currFormation);
         }
 
         private void loadLevels()
@@ -708,7 +710,9 @@ namespace PikeAndShot
 
         void LevelEditorScreenListner.copyFormation(int formation)
         {
-            _levels[currLevel].formationNames.Add(_levels[currLevel].formationNames[formation]);
+            copyTally++;
+
+            _levels[currLevel].formationNames.Add(_levels[currLevel].formationNames[formation] + "_copy" + copyTally);
             _levels[currLevel].formationPositions.Add(_levels[currLevel].formationPositions[formation]);
             _levels[currLevel].formationTimes.Add(_levels[currLevel].formationTimes[formation]);
 
@@ -942,6 +946,6 @@ namespace PikeAndShot
 
     public interface FormListener
     {
-        void updateLevel(Level level);
+        void updateLevel(Level level, int selectedFormation);
     }
 }

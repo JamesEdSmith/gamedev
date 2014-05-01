@@ -44,6 +44,8 @@ namespace PikeAndShot
         private bool _addedSoldier;
         private bool DEBUGdangerClose;
 
+        public bool selected;
+
         public Formation(BattleScreen screen, float x, float y, int initialCapacity, int side)
         {
             _screen = screen;
@@ -73,6 +75,7 @@ namespace PikeAndShot
             _needResetupFormation = false;
             _addedSoldier = false;
             DEBUGdangerClose = false;
+            selected = false;
         }
 
         public int getWidth()
@@ -515,6 +518,7 @@ namespace PikeAndShot
 
         public void reformFormation()
         {
+            selected = false;
             _soldiersToRemove.Clear();
             foreach (Soldier s in _soldiers)
             {
@@ -821,7 +825,12 @@ namespace PikeAndShot
         public void draw(SpriteBatch spritebatch)
         {
             foreach (Soldier s in _soldiers)
-                s.draw(spritebatch);
+            {
+                if (selected)
+                    s.selectedDraw(spritebatch);
+                else
+                    s.draw(spritebatch);
+            }
 
             if (_screen.getDrawDots())
             {

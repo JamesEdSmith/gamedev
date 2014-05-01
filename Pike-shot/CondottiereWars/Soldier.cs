@@ -205,6 +205,15 @@ namespace PikeAndShot
             return _class;
         }
 
+        public void selectedDraw(SpriteBatch spritebatch)
+        {
+            _drawingPosition = _position + _randDestOffset - _screen.getMapOffset();
+            _charge.setFrame(3);
+            _feet.setFrame(1);
+            _screen.addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+            _screen.addDrawjob(new DrawJob(_charge, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+        }
+
         public virtual void draw(SpriteBatch spritebatch)
         {
             _drawingPosition = _position + _randDestOffset - _screen.getMapOffset();
