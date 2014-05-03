@@ -98,7 +98,7 @@ namespace PikeAndShot
                 _enemyFormations.Add(_newEnemyFormation);
             }
 
-            if (selectedFormation != -1)
+            if (selectedFormation != -1 && _enemyFormations.Count > selectedFormation)
             {
                 ((EnemyFormation)_enemyFormations[selectedFormation]).selected = true;
             }

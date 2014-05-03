@@ -89,6 +89,8 @@ namespace PikeAndShot
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.movePatternUp = new System.Windows.Forms.Button();
+            this.movePatternDown = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // levelComboBox
@@ -195,7 +197,7 @@ namespace PikeAndShot
             // 
             this.newPatternButton.Location = new System.Drawing.Point(275, 372);
             this.newPatternButton.Name = "newPatternButton";
-            this.newPatternButton.Size = new System.Drawing.Size(162, 23);
+            this.newPatternButton.Size = new System.Drawing.Size(46, 23);
             this.newPatternButton.TabIndex = 11;
             this.newPatternButton.Text = "New";
             this.newPatternButton.UseVisualStyleBackColor = true;
@@ -203,9 +205,9 @@ namespace PikeAndShot
             // 
             // addPatternButton
             // 
-            this.addPatternButton.Location = new System.Drawing.Point(275, 402);
+            this.addPatternButton.Location = new System.Drawing.Point(327, 372);
             this.addPatternButton.Name = "addPatternButton";
-            this.addPatternButton.Size = new System.Drawing.Size(162, 23);
+            this.addPatternButton.Size = new System.Drawing.Size(46, 23);
             this.addPatternButton.TabIndex = 12;
             this.addPatternButton.Text = "Add";
             this.addPatternButton.UseVisualStyleBackColor = true;
@@ -213,9 +215,9 @@ namespace PikeAndShot
             // 
             // removePatternButton
             // 
-            this.removePatternButton.Location = new System.Drawing.Point(275, 432);
+            this.removePatternButton.Location = new System.Drawing.Point(379, 372);
             this.removePatternButton.Name = "removePatternButton";
-            this.removePatternButton.Size = new System.Drawing.Size(162, 23);
+            this.removePatternButton.Size = new System.Drawing.Size(58, 23);
             this.removePatternButton.TabIndex = 13;
             this.removePatternButton.Text = "Remove";
             this.removePatternButton.UseVisualStyleBackColor = true;
@@ -521,11 +523,33 @@ namespace PikeAndShot
             this.label14.TabIndex = 48;
             this.label14.Text = "Spawn";
             // 
+            // movePatternUp
+            // 
+            this.movePatternUp.Location = new System.Drawing.Point(275, 402);
+            this.movePatternUp.Name = "movePatternUp";
+            this.movePatternUp.Size = new System.Drawing.Size(78, 23);
+            this.movePatternUp.TabIndex = 49;
+            this.movePatternUp.Text = "move up";
+            this.movePatternUp.UseVisualStyleBackColor = true;
+            this.movePatternUp.Click += new System.EventHandler(this.movePatternUp_Click);
+            // 
+            // movePatternDown
+            // 
+            this.movePatternDown.Location = new System.Drawing.Point(360, 402);
+            this.movePatternDown.Name = "movePatternDown";
+            this.movePatternDown.Size = new System.Drawing.Size(75, 23);
+            this.movePatternDown.TabIndex = 50;
+            this.movePatternDown.Text = "move down";
+            this.movePatternDown.UseVisualStyleBackColor = true;
+            this.movePatternDown.Click += new System.EventHandler(this.movePatternDown_Click);
+            // 
             // LevelConstructorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(789, 770);
+            this.ClientSize = new System.Drawing.Size(789, 746);
+            this.Controls.Add(this.movePatternDown);
+            this.Controls.Add(this.movePatternUp);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -631,6 +655,8 @@ namespace PikeAndShot
         private Label label12;
         private Label label13;
         private Label label14;
+        private Button movePatternUp;
+        private Button movePatternDown;
     }
 }
 

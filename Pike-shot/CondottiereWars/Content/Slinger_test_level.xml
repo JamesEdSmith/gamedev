@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="LevelPipeline.LevelContent">
+    <levelName>Slinger_test_level</levelName>
+    <formations>
+      <Item>10</Item>
+    </formations>
+    <formationPositions>1000 10</formationPositions>
+    <formationTimes>0</formationTimes>
+    <formationActions>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>1 4</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>4 -1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>11 0</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>7 0</actions>
+          <duration>1</duration>
+        </Item>
+        <Item>
+          <actions>0 0</actions>
+          <duration>599</duration>
+        </Item>
+        <Item>
+          <actions>0 4</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>3 4</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>3 -1</actions>
+          <duration>10000</duration>
+        </Item>
+      </Item>
+    </formationActions>
+    <terrains />
+    <terrainPositions />
+    <terrainTimes />
+    <formationNames>
+      <Item>slingerTracker</Item>
+    </formationNames>
+    <formationActionNames>
+      <Item>
+        <Item>enter</Item>
+        <Item>start strafe</Item>
+        <Item>strafe</Item>
+        <Item>load</Item>
+        <Item>sling</Item>
+        <Item>sling</Item>
+        <Item>strafe</Item>
+        <Item>end strafe</Item>
+        <Item>exit</Item>
+      </Item>
+    </formationActionNames>
+  </Asset>
+</XnaContent>

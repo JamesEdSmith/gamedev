@@ -155,6 +155,8 @@ namespace PikeAndShot
             _actionClass.Add(action);
             action = new ActionClass("Charge", 10);
             _actionClass.Add(action);
+            action = new ActionClass("Reload", 11);
+            _actionClass.Add(action);
 
             foreach (ActionClass sc in _actionClass)
             {
@@ -602,7 +604,8 @@ namespace PikeAndShot
 
             if (_levels[currLevel].formationActions.Count > 0 && _levels[currLevel].formationActions[currFormation].Count > 0)
             {
-                currPatternAction = _levels[currLevel].formationActions[currFormation].Count - 1;
+                if(currPatternAction >= _levels[currLevel].formationActions[currFormation].Count )
+                    currPatternAction = _levels[currLevel].formationActions[currFormation].Count - 1;
                 foreach (string s in _levels[currLevel].formationActionNames[currFormation])
                     patternListBox.Items.Add(s);
 
@@ -891,6 +894,41 @@ namespace PikeAndShot
             sendUpdate();
         }
 
+        private void movePatternUp_Click(object sender, EventArgs e)
+        {
+            if (patternListBox.SelectedIndex != -1 && patternListBox.SelectedIndex != 0)
+            {
+                PatternAction pattern = _levels[currLevel].formationActions[currFormation][patternListBox.SelectedIndex];
+                _levels[currLevel].formationActions[currFormation].RemoveAt(patternListBox.SelectedIndex);
+                _levels[currLevel].formationActions[currFormation].Insert(patternListBox.SelectedIndex - 1, pattern);
+
+                String patternName = _levels[currLevel].formationActionNames[currFormation][patternListBox.SelectedIndex];
+                _levels[currLevel].formationActionNames[currFormation].RemoveAt(patternListBox.SelectedIndex);
+                _levels[currLevel].formationActionNames[currFormation].Insert(patternListBox.SelectedIndex - 1, patternName);
+
+                currPatternAction--;
+                refreshPatternListBox();
+                sendUpdate();
+            }
+        }
+
+        private void movePatternDown_Click(object sender, EventArgs e)
+        {
+            if (patternListBox.SelectedIndex != -1 && patternListBox.SelectedIndex < patternListBox.Items.Count -1)
+            {
+                PatternAction pattern = _levels[currLevel].formationActions[currFormation][patternListBox.SelectedIndex];
+                _levels[currLevel].formationActions[currFormation].RemoveAt(patternListBox.SelectedIndex);
+                _levels[currLevel].formationActions[currFormation].Insert(patternListBox.SelectedIndex + 1, pattern);
+
+                String patternName = _levels[currLevel].formationActionNames[currFormation][patternListBox.SelectedIndex];
+                _levels[currLevel].formationActionNames[currFormation].RemoveAt(patternListBox.SelectedIndex);
+                _levels[currLevel].formationActionNames[currFormation].Insert(patternListBox.SelectedIndex + 1, patternName);
+
+                currPatternAction++;
+                refreshPatternListBox();
+                sendUpdate();
+            }
+        }
     }
 
     public class SoldierClass

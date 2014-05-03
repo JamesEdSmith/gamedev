@@ -398,6 +398,13 @@ namespace PikeAndShot
                 _screenObjects.Add(s);
                 s._position = new Vector2(200f, (float)PikeAndShotGame.SCREENHEIGHT * 0.5f);
             }
+
+            _terrain = new ArrayList(20);
+
+            for (int i = 0; i < 100; i++)
+            {
+                _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[PikeAndShotGame.random.Next(7)], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
+            }
         }
 
     }

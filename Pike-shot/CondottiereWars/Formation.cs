@@ -690,60 +690,17 @@ namespace PikeAndShot
 
         }
 
-        /*public void swingAttack()
+        public void reload()
         {
-            Soldier firstSoldier;
-            Soldier restOfFormation;
-
-            if (_swingerRows.Count > 0)
+            if (_shotRows.Count > 0)
             {
-                firstSoldier = getFirstNonMeleeSoldier((ArrayList)_swingerRows[0]);
-                restOfFormation = getFirstNonMeleeSoldier((ArrayList)_pikeRows[0]);
-
-                if(restOfFormation == null)
-                    restOfFormation = getFirstNonMeleeSoldier((ArrayList)_meleeRows[0]);
-                if (restOfFormation == null)
-                    restOfFormation = getFirstNonMeleeSoldier((ArrayList)_shotRows[0]);
-
-                if (firstSoldier != null && restOfFormation != null && !needTriggerUp)
+                foreach (Soldier soldier in (ArrayList)_shotRows[0])
                 {
-                    if ((_side * firstSoldier._destination.X - _side * firstSoldier._position.X) > firstSoldier.getSpeed()
-                        || ((_side * firstSoldier._destination.X - _side * firstSoldier._position.X) < 0 && (_side * restOfFormation._destination.X - _side * restOfFormation._position.X) > 0))
-                    {
-                        _position.X = firstSoldier._position.X - _side * Soldier.WIDTH;
-                        resetupFormation();
-                    }
-                    
-                    needTriggerUp = true;
-                }
-                foreach (Soldier soldier in ((ArrayList)_swingerRows[0]))
-                {
-                    if (soldier.getState() != Soldier.STATE_MELEE_WIN && soldier.getState() != Soldier.STATE_MELEE_LOSS)
-                    {
-                        soldier._destination.X = _position.X + _side * Soldier.WIDTH;
-                        soldier.attack();
-                    }
+                    if (soldier.getState() != Soldier.STATE_MELEE_WIN && soldier.getState() != Soldier.STATE_MELEE_LOSS && soldier.getState() != Soldier.STATE_RELOADING && soldier is Slinger)
+                        ((Slinger)soldier).reload();
                 }
             }
         }
-
-        public void swingRelease()
-        {
-            Soldier firstSoldier;
-
-            if (_swingerRows.Count > 0)
-            {
-                firstSoldier = getFirstNonMeleeSoldier((ArrayList)_swingerRows[0]);
-                if (firstSoldier != null)
-                {
-                    if ((_side * firstSoldier._destination.X - _side * firstSoldier._position.X) < -firstSoldier.getSpeed())
-                    {
-                        _position.X = firstSoldier._position.X + _side * Soldier.WIDTH * _pikeRows.Count;
-                    }
-                }
-            }
-            resetupFormation();
-        }*/
 
         public void shotAttack()
         {
@@ -754,9 +711,6 @@ namespace PikeAndShot
             if (_shotRows.Count != 0)
             {
                 prevRow = (ArrayList)_shotRows[0];
-
-                if (_shotRows.Count == 0)
-                    return;
 
                 if (_state != STATE_SHOT)
                 {
@@ -1764,6 +1718,9 @@ namespace PikeAndShot
                             break;
                         case PatternAction.ACTION_CAVALRY_TURN:
                             this.turnHorses();
+                            break;
+                        case PatternAction.ACTION_RELOAD:
+                            this.reload();
                             break;
                         default:
                             //reformFormation();

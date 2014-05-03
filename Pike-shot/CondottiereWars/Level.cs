@@ -77,6 +77,7 @@ namespace PikeAndShot
         public const int ACTION_CAVALRY_HALT = 8;
         public const int ACTION_CAVALRY_TURN = 9;
         public const int ACTION_CHARGE = 10;
+        public const int ACTION_RELOAD = 11;
 
         public List<int> actions;  //actions is a list again (a list of ints within a list of Pattern actions) 
                                    //because you could have an overlap of many actions, like marching left and 
