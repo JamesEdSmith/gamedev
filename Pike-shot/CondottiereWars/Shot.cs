@@ -102,22 +102,6 @@ namespace PikeAndShot
             return _state == STATE_DEAD;
         }
 
-        public override void collide(ScreenObject collider)
-        {
-            /*
-            if (collider is Soldier && collider.getSide() != _side && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && _state != STATE_DEAD)
-            {
-                _state = STATE_DEAD;
-            }
-            else if (collider is Soldier && this == ((Soldier)collider).getKiller())
-            {
-                _state = STATE_DEAD;
-            }
-            else if (collider is Pavise && collider.getSide() != _side && collider.getStateTimer() == 500f)
-                _state = STATE_DEAD;
-              */
-        }
-
         internal void hit()
         {
             _state = STATE_GROUND;
@@ -133,6 +117,7 @@ namespace PikeAndShot
     public class ArquebusierShot : Shot
     {
         private ScreenAnimation _smoke;
+        private float metaphoricalHeight;
 
         public ArquebusierShot(Vector2 position, BattleScreen screen, int side, float height)
             : base(position, screen, side, height)
@@ -146,11 +131,52 @@ namespace PikeAndShot
 
             // create separate smoke animation that is not dependant on the shot itself
             _smoke = new ArquebusierSmoke(screen, side, position);
+            metaphoricalHeight = 0f;
         }
 
         public override void update(TimeSpan timeSpan)
         {
-            base.update(timeSpan);
+            if (_state == STATE_FLYING)
+            {
+                if (_side == BattleScreen.SIDE_PLAYER)
+                {
+                    _position.X += (float)timeSpan.TotalMilliseconds * _speed;
+                }
+                else
+                {
+                    _position.X -= (float)timeSpan.TotalMilliseconds * _speed;
+                }
+
+                metaphoricalHeight += GRAVITY * (float)timeSpan.TotalSeconds;
+
+
+                // check to see if out of play
+                if ((_position.X + WIDTH < 0 + _screen.getMapOffset().X || _position.X > PikeAndShotGame.SCREENWIDTH + _screen.getMapOffset().X) || (_position.Y + HEIGHT < 0 + _screen.getMapOffset().Y || _position.Y > PikeAndShotGame.SCREENHEIGHT + _screen.getMapOffset().Y))
+                {
+                    _state = STATE_DEAD;
+                }
+
+                // check to see if hit ground
+                if (metaphoricalHeight > _height)
+                {
+                    _state = STATE_GROUND;
+                    _stateTimer = _groundTime;
+                }
+
+                if (_stateTimer <= 0)
+                {
+                    _stateTimer = _animationTime;
+                }
+            }
+            else if (_state == STATE_GROUND)
+            {
+                if (_stateTimer <= 0)
+                {
+                    _state = STATE_DEAD;
+                }
+            }
+
+            _stateTimer -= (float)timeSpan.TotalMilliseconds;
         }
 
         public override void draw(SpriteBatch spritebatch)
@@ -393,7 +419,6 @@ namespace PikeAndShot
         public SkirmisherJavelin(Vector2 position, BattleScreen screen, int side, float height)
             : base(position, screen, side, height)
         {
-            _speed = 0.27f;
             _damage = 1;
             _animationTime = 250f;
             _sprite = new Sprite(PikeAndShotGame.SKIRMISHER_JAVELIN, new Rectangle(32, 6, 8, 4), 48, 14);
@@ -416,7 +441,7 @@ namespace PikeAndShot
             _sprite = new Sprite(PikeAndShotGame.SLINGER_ROCK, new Rectangle(14, 4, 4, 4), 22, 12);
             _ground = new Sprite(PikeAndShotGame.SLINGER_GROUND, new Rectangle(12, 4, 4, 4), 28, 12);
             _groundTime = 300f;
-            _lifeTime = 2000f;
+            _lifeTime = 1500f;
 
             Vector2 target = screen.getPlayerFormation().getCenter();
             Vector2 _delta = target - position;

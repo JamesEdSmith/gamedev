@@ -91,6 +91,8 @@ namespace PikeAndShot
             this.label14 = new System.Windows.Forms.Label();
             this.movePatternUp = new System.Windows.Forms.Button();
             this.movePatternDown = new System.Windows.Forms.Button();
+            this.moveFormationUp = new System.Windows.Forms.Button();
+            this.moveFormationDown = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // levelComboBox
@@ -167,7 +169,7 @@ namespace PikeAndShot
             // 
             this.newFormationButton.Location = new System.Drawing.Point(12, 372);
             this.newFormationButton.Name = "newFormationButton";
-            this.newFormationButton.Size = new System.Drawing.Size(163, 23);
+            this.newFormationButton.Size = new System.Drawing.Size(49, 23);
             this.newFormationButton.TabIndex = 8;
             this.newFormationButton.Text = "New";
             this.newFormationButton.UseVisualStyleBackColor = true;
@@ -175,9 +177,9 @@ namespace PikeAndShot
             // 
             // addFormationButton
             // 
-            this.addFormationButton.Location = new System.Drawing.Point(12, 402);
+            this.addFormationButton.Location = new System.Drawing.Point(67, 372);
             this.addFormationButton.Name = "addFormationButton";
-            this.addFormationButton.Size = new System.Drawing.Size(163, 23);
+            this.addFormationButton.Size = new System.Drawing.Size(44, 23);
             this.addFormationButton.TabIndex = 9;
             this.addFormationButton.Text = "Add";
             this.addFormationButton.UseVisualStyleBackColor = true;
@@ -185,9 +187,9 @@ namespace PikeAndShot
             // 
             // removeFormationButton
             // 
-            this.removeFormationButton.Location = new System.Drawing.Point(12, 432);
+            this.removeFormationButton.Location = new System.Drawing.Point(117, 372);
             this.removeFormationButton.Name = "removeFormationButton";
-            this.removeFormationButton.Size = new System.Drawing.Size(163, 23);
+            this.removeFormationButton.Size = new System.Drawing.Size(58, 23);
             this.removeFormationButton.TabIndex = 10;
             this.removeFormationButton.Text = "Remove";
             this.removeFormationButton.UseVisualStyleBackColor = true;
@@ -543,11 +545,33 @@ namespace PikeAndShot
             this.movePatternDown.UseVisualStyleBackColor = true;
             this.movePatternDown.Click += new System.EventHandler(this.movePatternDown_Click);
             // 
+            // moveFormationUp
+            // 
+            this.moveFormationUp.Location = new System.Drawing.Point(12, 402);
+            this.moveFormationUp.Name = "moveFormationUp";
+            this.moveFormationUp.Size = new System.Drawing.Size(75, 23);
+            this.moveFormationUp.TabIndex = 51;
+            this.moveFormationUp.Text = "move up";
+            this.moveFormationUp.UseVisualStyleBackColor = true;
+            this.moveFormationUp.Click += new System.EventHandler(this.moveFormationUp_Click);
+            // 
+            // moveFormationDown
+            // 
+            this.moveFormationDown.Location = new System.Drawing.Point(100, 402);
+            this.moveFormationDown.Name = "moveFormationDown";
+            this.moveFormationDown.Size = new System.Drawing.Size(75, 23);
+            this.moveFormationDown.TabIndex = 52;
+            this.moveFormationDown.Text = "move down";
+            this.moveFormationDown.UseVisualStyleBackColor = true;
+            this.moveFormationDown.Click += new System.EventHandler(this.moveFormationDown_Click);
+            // 
             // LevelConstructorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(789, 746);
+            this.Controls.Add(this.moveFormationDown);
+            this.Controls.Add(this.moveFormationUp);
             this.Controls.Add(this.movePatternDown);
             this.Controls.Add(this.movePatternUp);
             this.Controls.Add(this.label14);
@@ -657,6 +681,8 @@ namespace PikeAndShot
         private Label label14;
         private Button movePatternUp;
         private Button movePatternDown;
+        private Button moveFormationUp;
+        private Button moveFormationDown;
     }
 }
 

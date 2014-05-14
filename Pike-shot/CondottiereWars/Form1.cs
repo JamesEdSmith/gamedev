@@ -929,6 +929,74 @@ namespace PikeAndShot
                 sendUpdate();
             }
         }
+
+        private void moveFormationUp_Click(object sender, EventArgs e)
+        {
+            if (formationListBox.SelectedIndex != -1 && formationListBox.SelectedIndex != 0)
+            {
+                String formationName = _levels[currLevel].formationNames[currFormation];
+                _levels[currLevel].formationNames.RemoveAt(currFormation);
+                _levels[currLevel].formationNames.Insert(formationListBox.SelectedIndex - 1, formationName);
+
+                Vector2 formationPosition = _levels[currLevel].formationPositions[currFormation];
+                _levels[currLevel].formationPositions.RemoveAt(currFormation);
+                _levels[currLevel].formationPositions.Insert(formationListBox.SelectedIndex - 1, formationPosition);
+
+                double formationTime = _levels[currLevel].formationTimes[currFormation];
+                _levels[currLevel].formationTimes.RemoveAt(currFormation);
+                _levels[currLevel].formationTimes.Insert(formationListBox.SelectedIndex - 1, formationTime);
+
+                List<PatternAction> formationActions = _levels[currLevel].formationActions[currFormation];
+                _levels[currLevel].formationActions.RemoveAt(currFormation);
+                _levels[currLevel].formationActions.Insert(formationListBox.SelectedIndex - 1, formationActions);
+
+                List<string> formationActionNames = _levels[currLevel].formationActionNames[currFormation];
+                _levels[currLevel].formationActionNames.RemoveAt(currFormation);
+                _levels[currLevel].formationActionNames.Insert(formationListBox.SelectedIndex - 1, formationActionNames);
+
+                List<int> formation = _levels[currLevel].formations[currFormation];
+                _levels[currLevel].formations.RemoveAt(currFormation);
+                _levels[currLevel].formations.Insert(formationListBox.SelectedIndex - 1, formation);
+
+                currFormation--;
+                refreshFormationListBox();
+                sendUpdate();
+            }
+        }
+
+        private void moveFormationDown_Click(object sender, EventArgs e)
+        {
+            if (formationListBox.SelectedIndex != -1 && formationListBox.SelectedIndex < formationListBox.Items.Count - 1)
+            {
+                String formationName = _levels[currLevel].formationNames[currFormation];
+                _levels[currLevel].formationNames.RemoveAt(currFormation);
+                _levels[currLevel].formationNames.Insert(formationListBox.SelectedIndex + 1, formationName);
+
+                Vector2 formationPosition = _levels[currLevel].formationPositions[currFormation];
+                _levels[currLevel].formationPositions.RemoveAt(currFormation);
+                _levels[currLevel].formationPositions.Insert(formationListBox.SelectedIndex + 1, formationPosition);
+
+                double formationTime = _levels[currLevel].formationTimes[currFormation];
+                _levels[currLevel].formationTimes.RemoveAt(currFormation);
+                _levels[currLevel].formationTimes.Insert(formationListBox.SelectedIndex + 1, formationTime);
+
+                List<PatternAction> formationActions = _levels[currLevel].formationActions[currFormation];
+                _levels[currLevel].formationActions.RemoveAt(currFormation);
+                _levels[currLevel].formationActions.Insert(formationListBox.SelectedIndex + 1, formationActions);
+
+                List<string> formationActionNames = _levels[currLevel].formationActionNames[currFormation];
+                _levels[currLevel].formationActionNames.RemoveAt(currFormation);
+                _levels[currLevel].formationActionNames.Insert(formationListBox.SelectedIndex + 1, formationActionNames);
+
+                List<int> formation = _levels[currLevel].formations[currFormation];
+                _levels[currLevel].formations.RemoveAt(currFormation);
+                _levels[currLevel].formations.Insert(formationListBox.SelectedIndex + 1, formation);
+
+                currFormation++;
+                refreshFormationListBox();
+                sendUpdate();
+            }
+        }
     }
 
     public class SoldierClass

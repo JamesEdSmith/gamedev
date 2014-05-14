@@ -90,7 +90,7 @@ namespace PikeAndShot
             bool isDangerClose = dangerClose();
             bool answer = false;
 
-            dangerBefore();
+            //dangerBefore();
 
             foreach (Soldier pike in _soldiers)
             {
@@ -192,10 +192,10 @@ namespace PikeAndShot
 
                         _soldiersToMove.Clear();
 
-                        foreach (Soldier enemy in _enemiesToShoot)
-                        {
-                            assignShooter(enemy);
-                        }
+                        //foreach (Soldier enemy in _enemiesToShoot)
+                        //{
+                        //    assignShooter(enemy);
+                        //}
                     }
                     else
                     {
