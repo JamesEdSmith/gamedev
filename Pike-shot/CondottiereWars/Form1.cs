@@ -229,6 +229,12 @@ namespace PikeAndShot
                 {
                     patternListBox.Items.Add(pa);
                 }
+                if (patternListBox.Items.Count > 0)
+                {
+                    currPatternAction = 0;
+                    patternListBox.SelectedIndex = 0;
+                    patternListBox_SelectedIndexChanged(sender, e);
+                }
             }
         }
 
@@ -685,6 +691,9 @@ namespace PikeAndShot
 
         void LevelEditorScreenListner.updateLevelFromScreen(int formation, float x, float y)
         {
+            if (formation == -1)
+                return;
+
             _levels[currLevel].formationTimes[formation] = _levels[currLevel].formationTimes[formation] + (x -_levels[currLevel].formationPositions[formation].X);
             _levels[currLevel].formationPositions[formation] = new Vector2(x, y);
             
@@ -1003,6 +1012,44 @@ namespace PikeAndShot
                 sendUpdate();
             }
         }
+
+        private List<PatternAction> copiedformationActions;
+        private List<string> copiedformationNames;
+
+        private void copyPattern_Click(object sender, EventArgs e)
+        {
+            copiedformationActions = new List<PatternAction>();
+            foreach (PatternAction pa in _levels[currLevel].formationActions[currFormation])
+                copiedformationActions.Add(pa.copy());
+
+            copiedformationNames = new List<string>();
+            foreach (string str in _levels[currLevel].formationActionNames[currFormation])
+                copiedformationNames.Add(String.Copy(str));
+
+            int cf = currFormation;
+            sendUpdate(); 
+            refreshFormationListBox();
+            currFormation = cf;
+            formationListBox.SelectedIndex = cf;
+        }
+
+        private void pastePattern_Click(object sender, EventArgs e)
+        {
+            _levels[currLevel].formationActions[currFormation] = new List<PatternAction>();
+            foreach (PatternAction pa in copiedformationActions)
+                _levels[currLevel].formationActions[currFormation].Add(pa.copy());
+
+            _levels[currLevel].formationActionNames[currFormation] = new List<string>();
+            foreach (string str in copiedformationNames)
+                _levels[currLevel].formationActionNames[currFormation].Add(String.Copy(str));
+
+            int cf = currFormation;
+            sendUpdate();
+            refreshFormationListBox();
+            currFormation = cf;
+            formationListBox.SelectedIndex = cf;
+        }
+
     }
 
     public class SoldierClass

@@ -86,7 +86,7 @@ namespace PikeAndShot
 
         public PatternAction()
         {
-
+            actions = new List<int>(5);
         }
 
         public PatternAction(List<int> actions, double duration)
@@ -103,6 +103,17 @@ namespace PikeAndShot
         public int count()
         {
             return this.actions.Count;
+        }
+
+        public PatternAction copy()
+        {
+            PatternAction copy = new PatternAction();
+            copy.duration = duration;
+
+            foreach (int action in actions)
+                copy.addAction(action);
+
+            return copy;
         }
     }
 }

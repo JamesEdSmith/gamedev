@@ -93,6 +93,8 @@ namespace PikeAndShot
             this.movePatternDown = new System.Windows.Forms.Button();
             this.moveFormationUp = new System.Windows.Forms.Button();
             this.moveFormationDown = new System.Windows.Forms.Button();
+            this.copyPattern = new System.Windows.Forms.Button();
+            this.pastePattern = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // levelComboBox
@@ -565,11 +567,33 @@ namespace PikeAndShot
             this.moveFormationDown.UseVisualStyleBackColor = true;
             this.moveFormationDown.Click += new System.EventHandler(this.moveFormationDown_Click);
             // 
+            // copyPattern
+            // 
+            this.copyPattern.Location = new System.Drawing.Point(275, 432);
+            this.copyPattern.Name = "copyPattern";
+            this.copyPattern.Size = new System.Drawing.Size(75, 23);
+            this.copyPattern.TabIndex = 53;
+            this.copyPattern.Text = "copy";
+            this.copyPattern.UseVisualStyleBackColor = true;
+            this.copyPattern.Click += new System.EventHandler(this.copyPattern_Click);
+            // 
+            // pastePattern
+            // 
+            this.pastePattern.Location = new System.Drawing.Point(360, 432);
+            this.pastePattern.Name = "pastePattern";
+            this.pastePattern.Size = new System.Drawing.Size(75, 23);
+            this.pastePattern.TabIndex = 54;
+            this.pastePattern.Text = "paste";
+            this.pastePattern.UseVisualStyleBackColor = true;
+            this.pastePattern.Click += new System.EventHandler(this.pastePattern_Click);
+            // 
             // LevelConstructorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(789, 746);
+            this.Controls.Add(this.pastePattern);
+            this.Controls.Add(this.copyPattern);
             this.Controls.Add(this.moveFormationDown);
             this.Controls.Add(this.moveFormationUp);
             this.Controls.Add(this.movePatternDown);
@@ -683,6 +707,8 @@ namespace PikeAndShot
         private Button movePatternDown;
         private Button moveFormationUp;
         private Button moveFormationDown;
+        private Button copyPattern;
+        private Button pastePattern;
     }
 }
 

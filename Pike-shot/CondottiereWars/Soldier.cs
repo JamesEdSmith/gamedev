@@ -817,8 +817,11 @@ namespace PikeAndShot
 
         public virtual bool attack()
         {
-            _state = STATE_CHARGING;
-            _stateTimer = _chargeTime;
+            if (_state == STATE_READY)
+            {
+                _state = STATE_CHARGING;
+                _stateTimer = _chargeTime;
+            }
             return false;
         }
 
@@ -1089,6 +1092,14 @@ namespace PikeAndShot
         internal Vector2 getDestination()
         {
             return _destination;
+        }
+
+        internal bool isReady()
+        {
+            if (_state != STATE_MELEE_LOSS && _state != STATE_MELEE_WIN && _state != STATE_DYING && _state != STATE_DEAD)
+                return true;
+            else
+                return false;
         }
     }
 

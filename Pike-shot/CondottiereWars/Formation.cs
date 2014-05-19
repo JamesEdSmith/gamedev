@@ -752,28 +752,46 @@ namespace PikeAndShot
 
         private bool firstShotIsForward()
         {
-            Soldier shot = (Soldier)((ArrayList)_shotRows[0])[0];
-            Soldier shot2;
-            Soldier melee;
+            bool forward = false;
 
             if (_shotRows.Count > 1)
             {
-                shot2 = (Soldier)((ArrayList)_shotRows[_shotRows.Count-1])[0];
-                if (!(_side * shot._position.X - _side * shot2._position.X >= Soldier.WIDTH - 0.9))
-                    return false;
+                foreach (Soldier shot in (ArrayList)_shotRows[0])
+                {
+                    foreach (Soldier shot2 in (ArrayList)_shotRows[_shotRows.Count - 1])
+                    {
+                        if (((_side * shot._position.X - _side * shot2._position.X >= Soldier.WIDTH - 0.9) && shot.isReady()) || !shot2.isReady())
+                            forward = true;
+                    }
+                }
             }
+            else
+                forward = true;
 
+            bool meleeForward = false;
             if (_pikeRows.Count > 0)
             {
-                melee = (Soldier)((ArrayList)_pikeRows[0])[0];
+                /*melee = (Soldier)((ArrayList)_pikeRows[0])[0];
                 if (_side * shot._position.X - _side * melee._position.X >= 0)
                     return true;
                 else
                     return false;
+                 */
+                foreach (Soldier shot in (ArrayList)_shotRows[0])
+                {
+                    foreach (Soldier melee in (ArrayList)_pikeRows[0])
+                    {
+                        if ((_side * shot._position.X - _side * melee._position.X >= 0 && shot.isReady()) || !melee.isReady())
+                        {
+                            meleeForward = true;
+                        }
+                    }
+                }
             }
             else
-                return true;
-            
+                return forward;
+
+            return forward && meleeForward;
         }
 
         public void draw(SpriteBatch spritebatch)
