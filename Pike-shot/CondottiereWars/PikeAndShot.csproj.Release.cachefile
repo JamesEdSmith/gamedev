@@ -128,7 +128,6 @@ Content\arquebusier_idle.xnb
 Content\dismountedcavalry_melee1.xnb
 Content\arquebusier_death.xnb
 Content\dopple_reload1.xnb
-Content\test_pike_level.xnb
 Content\arquebusier_route.xnb
 Content\roadTerrain10.xnb
 Content\brokenshield1.xnb
@@ -172,6 +171,7 @@ Content\dopple_swing1.xnb
 Content\pikeman_lower_low.xnb
 Content\horse_death.xnb
 Content\roadTerrain4.xnb
+Content\test_pike_level.xml
 Content\dry_grass.xnb
 Content\brigand_idle.xnb
 Content\pikeman2_defend1.xnb

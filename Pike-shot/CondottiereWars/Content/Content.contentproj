@@ -1114,11 +1114,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="test_pike_level.xml">
+    <None Include="test_pike_level.xml">
       <Name>test_pike_level</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
-    </Compile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v3.0\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
