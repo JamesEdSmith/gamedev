@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="LevelPipeline.LevelContent">
+    <levelName>test_pike_level</levelName>
+    <formations>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>11</Item>
+    </formations>
+    <formationPositions>1018 225 1051.334 278 1015 324 978.334 273 937 317 970.334 370 897.334 365 1003.334 179 967 225 930.334 174 889 218 922.334 271 886 317 849.334 266 874 270</formationPositions>
+    <formationTimes>118 51.333984375 115 -21.666015625 37 -29.666015625 -102.666015625 3.333984375 67 -69.666015625 -11 -77.666015625 -14 -150.666015625 0</formationTimes>
+    <formationActions>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0</actions>
+          <duration>3000</duration>
+        </Item>
+        <Item>
+          <actions>3</actions>
+          <duration>1000000000000</duration>
+        </Item>
+      </Item>
+    </formationActions>
+    <terrains />
+    <terrainPositions />
+    <terrainTimes />
+    <formationNames>
+      <Item>New Formation</Item>
+      <Item>New Formation</Item>
+      <Item>New Formation_copy1</Item>
+      <Item>New Formation_copy2</Item>
+      <Item>New Formation</Item>
+      <Item>New Formation</Item>
+      <Item>New Formation_copy2</Item>
+      <Item>New Formation</Item>
+      <Item>New Formation_copy1</Item>
+      <Item>New Formation_copy2</Item>
+      <Item>New Formation</Item>
+      <Item>New Formation</Item>
+      <Item>New Formation_copy1</Item>
+      <Item>New Formation_copy2</Item>
+      <Item>New Formation</Item>
+    </formationNames>
+    <formationActionNames>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+      </Item>
+    </formationActionNames>
+  </Asset>
+</XnaContent>

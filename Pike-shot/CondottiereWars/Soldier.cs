@@ -2182,6 +2182,11 @@ namespace PikeAndShot
 
             _feet.setAnimationSpeed(15f / 0.11f);
         }
+
+        protected override bool checkReactions(TimeSpan timeSpan)
+        {
+            return false;
+        }
     }
 
     public class DismountedCavalry : Targeteer
@@ -2483,7 +2488,8 @@ namespace PikeAndShot
             }
             else
             {
-                return base.checkReactions(timeSpan);
+                //return base.checkReactions(timeSpan);
+                return false;
             }
 
             return false;

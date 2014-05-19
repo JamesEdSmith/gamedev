@@ -341,9 +341,15 @@ namespace PikeAndShot
             _levels[currLevel].formationNames.Add("New Formation");
             _levels[currLevel].formationPositions.Add(new Vector2(1, 1));
             _levels[currLevel].formationTimes.Add(0f);
-            _levels[currLevel].formationActions.Add(new List<PatternAction>(5));
+            List<PatternAction> formationActions = new List<PatternAction>(10);
+            List<int> actions = new List<int>(10);
+            actions.Add(0);
+            formationActions.Add(new PatternAction(actions,1000));
+            _levels[currLevel].formationActions.Add(formationActions);
             _levels[currLevel].formations.Add(new List<int>(10));
-            _levels[currLevel].formationActionNames.Add(new List<string>(10));
+            List<string> formationActionNames = new List<string>(10);
+            formationActionNames.Add("New Action");
+            _levels[currLevel].formationActionNames.Add(formationActionNames);
 
             refreshFormationListBox();
 
