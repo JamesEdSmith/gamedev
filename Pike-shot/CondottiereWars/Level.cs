@@ -21,6 +21,8 @@ namespace PikeAndShot
         public List<string> formationNames;
         public List<List<string>> formationActionNames;
 
+        public List<int> formationSides;
+
         public Level()
         {
             formations = new List<List<int>>(10);
@@ -34,6 +36,7 @@ namespace PikeAndShot
             terrains = new List<int>(20);
             terrainPositions = new List<Vector2>(20);
             terrainTimes = new List<double>(20);
+            formationSides = new List<int>(32);
         }
 
         public Level(LevelPipeline.LevelContent content)
@@ -42,6 +45,7 @@ namespace PikeAndShot
             formations = content.formations;
             formationPositions = content.formationPositions;
             formationTimes = content.formationTimes;
+            formationSides = content.formationSides;
             formationActions = new List<List<PatternAction>>();
             //List<PatternAction> list;
             //PatternAction patternAction;

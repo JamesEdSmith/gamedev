@@ -95,6 +95,8 @@ namespace PikeAndShot
             this.moveFormationDown = new System.Windows.Forms.Button();
             this.copyPattern = new System.Windows.Forms.Button();
             this.pastePattern = new System.Windows.Forms.Button();
+            this.formationSideComboBox = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // levelComboBox
@@ -587,11 +589,32 @@ namespace PikeAndShot
             this.pastePattern.UseVisualStyleBackColor = true;
             this.pastePattern.Click += new System.EventHandler(this.pastePattern_Click);
             // 
+            // formationSideComboBox
+            // 
+            this.formationSideComboBox.FormattingEnabled = true;
+            this.formationSideComboBox.Location = new System.Drawing.Point(181, 257);
+            this.formationSideComboBox.Name = "formationSideComboBox";
+            this.formationSideComboBox.Size = new System.Drawing.Size(88, 21);
+            this.formationSideComboBox.TabIndex = 55;
+            this.formationSideComboBox.SelectedIndexChanged += new System.EventHandler(this.formationSideComboBox_SelectedIndexChanged);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(181, 240);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(28, 13);
+            this.label15.TabIndex = 56;
+            this.label15.Text = "Side";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // LevelConstructorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(789, 746);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.formationSideComboBox);
             this.Controls.Add(this.pastePattern);
             this.Controls.Add(this.copyPattern);
             this.Controls.Add(this.moveFormationDown);
@@ -709,6 +732,8 @@ namespace PikeAndShot
         private Button moveFormationDown;
         private Button copyPattern;
         private Button pastePattern;
+        private ComboBox formationSideComboBox;
+        private Label label15;
     }
 }
 

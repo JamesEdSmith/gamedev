@@ -12,13 +12,14 @@ namespace LevelPipeline
         public List<List<int>> formations;
         public List<Vector2> formationPositions;
         public List<double> formationTimes;
+        public List<int> formationSides;
         public List<List<PatternActionContent>> formationActions;
         public List<int> terrains;
         public List<Vector2> terrainPositions;
         public List<double> terrainTimes;
 
         public List<string> formationNames;
-        public List<List<string>> formationActionNames;
+        public List<List<string>> formationActionNames;        
 
         public LevelContent(string name)
         {
@@ -34,7 +35,7 @@ namespace LevelPipeline
             terrains = new List<int>(20);
             terrainPositions = new List<Vector2>(20);
             terrainTimes = new List<double>(20);
-
+            formationSides = new List<int>(32);
         }
 
         public LevelContent()

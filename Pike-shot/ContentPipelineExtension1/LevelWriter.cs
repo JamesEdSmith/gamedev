@@ -20,6 +20,7 @@ namespace LevelPipeline
             output.WriteObject(value.formations);
             output.WriteObject(value.formationPositions);
             output.WriteObject(value.formationTimes);
+            output.WriteObject(value.formationSides);
             output.WriteObject(value.formationActions);
             output.WriteObject(value.terrains);
             output.WriteObject(value.terrainPositions);

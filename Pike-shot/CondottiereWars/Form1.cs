@@ -62,48 +62,6 @@ namespace PikeAndShot
 
         private void loadLevels()
         {
-            /*
-            PikeAndShot.Level newLevel = new PikeAndShot.Level();
-            newLevel.levelName = "Barus Hill";
-
-            //formation
-            newLevel.formations.Add(new List<int>(5));
-            newLevel.formations[0].Add(0);
-            newLevel.formationPositions.Add(new Vector2(400, 300));
-            newLevel.formationTimes.Add(1.5f);
-
-            newLevel.formationNames.Add("TestFormation");
-
-            //pattern actions
-            newLevel.formationActions.Add(new List<PatternAction>(10));
-            List<int> actions = new List<int>(5);
-            actions.Add(PatternAction.ACTION_LEFT);
-            List<string> actionNames = new List<string>(5);
-            actionNames.Add("Left");
-
-            newLevel.formationActions[0].Add(new PikeAndShot.PatternAction(actions, 5f));
-            newLevel.formationActionNames.Add(actionNames);
-
-            //formation
-            newLevel.formations.Add(new List<int>(5));
-            newLevel.formations[1].Add(2);
-            newLevel.formationPositions.Add(new Vector2(600, 440));
-            newLevel.formationTimes.Add(1.0f);
-
-            newLevel.formationNames.Add("CrossbowGuards");
-
-            //pattern actions
-            newLevel.formationActions.Add(new List<PatternAction>(10));
-            actions = new List<int>(5);
-            actions.Add(PatternAction.ACTION_SHOT);
-            actionNames = new List<string>(5);
-            actionNames.Add("Shot");
-
-            newLevel.formationActions[1].Add(new PatternAction(actions, 1.5f));
-            newLevel.formationActionNames.Add(actionNames);
-
-            _levels.Add(newLevel);
-            */
 
             //load soldier classes and fill the comboBox with them
             SoldierClass soldier = new SoldierClass("Merc Pikeman", 0);
@@ -174,6 +132,9 @@ namespace PikeAndShot
                 terrainComboBox.Items.Add(sc.id.ToString() + " " + sc.name);
             }
 
+            formationSideComboBox.Items.Add("-1 ENEMY");
+            formationSideComboBox.Items.Add("0 NEUTRAL");
+            formationSideComboBox.Items.Add("1 PLAYER");
         }
 
         private void initControls()
@@ -210,6 +171,7 @@ namespace PikeAndShot
                 yTextBox.Text = _levels[currLevel].formationPositions[currFormation].Y.ToString();
                 spawnTextBox.Text = _levels[currLevel].formationTimes[currFormation].ToString();
                 formationTextBox.Text = _levels[currLevel].formationNames[currFormation];
+                formationSideComboBox.SelectedIndex = _levels[currLevel].formationSides[currFormation] + 1;
 
                 // populate the soldier list for this formation
                 soldierListBox.Items.Clear();
@@ -379,6 +341,7 @@ namespace PikeAndShot
             {
                 currFormation = 0;
             }
+            formationSideComboBox.SelectedIndex = _levels[currLevel].formationSides[currFormation] + 1;
 
             refreshSoldierListBox();
         }
@@ -677,6 +640,7 @@ namespace PikeAndShot
             
             testValue.formationPositions = _levels[currLevel].formationPositions;
             testValue.formationTimes = _levels[currLevel].formationTimes;
+            testValue.formationSides = _levels[currLevel].formationSides;
             testValue.formationNames = _levels[currLevel].formationNames;
             testValue.formationActionNames = _levels[currLevel].formationActionNames;
 
@@ -1048,6 +1012,23 @@ namespace PikeAndShot
             refreshFormationListBox();
             currFormation = cf;
             formationListBox.SelectedIndex = cf;
+        }
+
+        private void formationSideComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (currFormation != -1 && formationSideComboBox.SelectedIndex != -1)
+            {
+                try
+                {
+                    _levels[currLevel].formationSides[currFormation] = formationSideComboBox.SelectedIndex - 1;
+                }
+                catch
+                {
+                    _levels[currLevel].formationSides[currFormation] = -1;
+                }
+            }
+
+            sendUpdate();
         }
 
     }
