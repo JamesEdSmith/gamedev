@@ -97,6 +97,8 @@ namespace PikeAndShot
             this.pastePattern = new System.Windows.Forms.Button();
             this.formationSideComboBox = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.shiftFormationsTextBox = new System.Windows.Forms.TextBox();
+            this.shiftFormationsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // levelComboBox
@@ -608,11 +610,30 @@ namespace PikeAndShot
             this.label15.Text = "Side";
             this.label15.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // shiftFormationsTextBox
+            // 
+            this.shiftFormationsTextBox.Location = new System.Drawing.Point(12, 69);
+            this.shiftFormationsTextBox.Name = "shiftFormationsTextBox";
+            this.shiftFormationsTextBox.Size = new System.Drawing.Size(100, 20);
+            this.shiftFormationsTextBox.TabIndex = 57;
+            // 
+            // shiftFormationsButton
+            // 
+            this.shiftFormationsButton.Location = new System.Drawing.Point(118, 69);
+            this.shiftFormationsButton.Name = "shiftFormationsButton";
+            this.shiftFormationsButton.Size = new System.Drawing.Size(75, 23);
+            this.shiftFormationsButton.TabIndex = 58;
+            this.shiftFormationsButton.Text = "shift";
+            this.shiftFormationsButton.UseVisualStyleBackColor = true;
+            this.shiftFormationsButton.Click += new System.EventHandler(this.shiftFormationsButton_Click);
+            // 
             // LevelConstructorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(789, 746);
+            this.Controls.Add(this.shiftFormationsButton);
+            this.Controls.Add(this.shiftFormationsTextBox);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.formationSideComboBox);
             this.Controls.Add(this.pastePattern);
@@ -734,6 +755,8 @@ namespace PikeAndShot
         private Button pastePattern;
         private ComboBox formationSideComboBox;
         private Label label15;
+        private TextBox shiftFormationsTextBox;
+        private Button shiftFormationsButton;
     }
 }
 

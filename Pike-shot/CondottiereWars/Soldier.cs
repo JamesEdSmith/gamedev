@@ -98,6 +98,7 @@ namespace PikeAndShot
         public Formation chargeTarget;
 
         public Soldier _engager;
+        public Formation myFormation;
 
         public bool DEBUGFOUNDPIKE;
 
@@ -914,8 +915,16 @@ namespace PikeAndShot
             }
             else if (collider is Soldier)
             {
+                bool colliderInFormation = false;
+                bool thisInFormation = false;
+                if (_screen.getPlayerFormation() != null && _screen.getPlayerFormation().getSoldiers() != null)
+                {
+                    colliderInFormation = _screen.getPlayerFormation().getSoldiers().Contains(collider);
+                    thisInFormation = _screen.getPlayerFormation().getSoldiers().Contains(this);
+                }
                 if (_state != STATE_DEAD && _state != STATE_DYING && _state != STATE_MELEE_WIN && _state != STATE_MELEE_LOSS && (!(this is Targeteer) || _state != Targeteer.STATE_SHIELDBREAK) && (!(this is DismountedCavalry) || _state != DismountedCavalry.STATE_FALLING))
                 {
+
                     if (_side == BattleScreen.SIDE_PLAYER && collider.getSide() == BattleScreen.SIDE_ENEMY && (collider.getState() == STATE_ROUTE || collider.getState() == STATE_ROUTED))
                     {
                         ((Soldier)collider)._state = STATE_READY;
@@ -957,21 +966,31 @@ namespace PikeAndShot
                             ((Soldier)collider).engage(true, _position, this);
                         }
                     }
-                    else if (_side == BattleScreen.SIDE_PLAYER && collider.getSide() == BattleScreen.SIDE_PLAYER)
+                    else if (_side == BattleScreen.SIDE_PLAYER && collider.getSide() == BattleScreen.SIDE_PLAYER && (thisInFormation != colliderInFormation))
                     {
-                        if (_state == STATE_CHARGED && collider.getState() != STATE_CHARGING)
-                        {
-                            _reacting = false;
-                            _state = STATE_READY;
-                            _screen.getPlayerFormation().addSoldier(this);
-                            _screen.removeLooseSoldier(this);
-                        }
-                        else if (_state != STATE_CHARGING && collider.getState() == STATE_CHARGED )
+                        if (thisInFormation &&
+                            collider.getState() != STATE_CHARGING && collider.getState() != STATE_DYING 
+                            && collider.getState() != STATE_DEAD
+                            && collider.getState() != STATE_MELEE_LOSS && collider.getState() != STATE_MELEE_WIN)
                         {
                             ((Soldier)collider)._state = STATE_READY;
                             ((Soldier)collider)._reacting = false;
+                            if (((Soldier)collider).myFormation != null)
+                                ((Soldier)collider).myFormation.removeSoldier(((Soldier)collider));
                             _screen.getPlayerFormation().addSoldier((Soldier)collider);
                             _screen.removeLooseSoldier((Soldier)collider);
+                        }
+                        else if (colliderInFormation &&
+                            this.getState() != STATE_CHARGING && this.getState() != STATE_DYING 
+                            && this.getState() != STATE_DEAD
+                            && this.getState() != STATE_MELEE_LOSS && this.getState() != STATE_MELEE_WIN)
+                        {
+                            _reacting = false;
+                            _state = STATE_READY;
+                            if(myFormation != null)
+                                myFormation.removeSoldier(this);
+                            _screen.getPlayerFormation().addSoldier(this);                            
+                            _screen.removeLooseSoldier(this);   
                         }
                     }
                 }

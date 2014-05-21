@@ -1031,6 +1031,28 @@ namespace PikeAndShot
             sendUpdate();
         }
 
+        private void shiftFormationsButton_Click(object sender, EventArgs e)
+        {
+            float amount;
+
+            try
+            {
+                amount = System.Convert.ToSingle(shiftFormationsTextBox.Text);
+            }
+            catch
+            {
+                amount = 0f;
+            }
+
+            for (int i = 0 ; i < _levels[currLevel].formationPositions.Count; i++)
+            {
+                _levels[currLevel].formationPositions[i] = _levels[currLevel].formationPositions[i] + new Vector2(amount, 0);
+                _levels[currLevel].formationTimes[i] += amount;
+            }
+            sendUpdate();
+            refreshFormationListBox();
+        }
+
     }
 
     public class SoldierClass

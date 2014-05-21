@@ -251,7 +251,7 @@ namespace PikeAndShot
             {
                 if (_levelData.formationTimes[f] <= (double)_mapOffset.X + PikeAndShotGame.SCREENWIDTH && !_usedFormations.Exists(i => i == f))
                 {
-                    _newEnemyFormation = new EnemyFormation(_levelData.formationActions[f], this, (_levelData.formationPositions[f]).X, (_levelData.formationPositions[f]).Y, 50, SIDE_ENEMY);
+                    _newEnemyFormation = new EnemyFormation(_levelData.formationActions[f], this, (_levelData.formationPositions[f]).X, (_levelData.formationPositions[f]).Y, 50, _levelData.formationSides[f]);
                     float x = _newEnemyFormation.getPosition().X;
                     float y = _newEnemyFormation.getPosition().Y;
 

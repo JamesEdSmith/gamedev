@@ -508,7 +508,10 @@ namespace PikeAndShot
         internal void addLooseSoldierNext(Soldier sold)
         {
             if (!_newThings.Contains(sold))
+            {
                 _newThings.Add(sold);
+                sold.myFormation = null;
+            }
         }
 
         internal void removeLooseSoldier(Soldier sold)

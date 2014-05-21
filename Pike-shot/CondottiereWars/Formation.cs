@@ -857,6 +857,7 @@ namespace PikeAndShot
             avgSpeed /= (float)_soldiers.Count;
             _speed = avgSpeed - 0.04f;            
             //_speed = avgSpeed - (0.002f * (float)_soldiers.Count);            
+            soldier.myFormation = this;
         }
 
         private float getSlowedSoldiers()

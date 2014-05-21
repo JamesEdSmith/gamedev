@@ -56,7 +56,7 @@ namespace PikeAndShot
 
             for (int f = 0; f < _levelData.formations.Count; f++)
             {
-                _newEnemyFormation = new EnemyFormation(_levelData.formationActions[f], this, (_levelData.formationPositions[f]).X, (_levelData.formationPositions[f]).Y, 50, SIDE_ENEMY);
+                _newEnemyFormation = new EnemyFormation(_levelData.formationActions[f], this, (_levelData.formationPositions[f]).X, (_levelData.formationPositions[f]).Y, 5, _levelData.formationSides[f]);
 
                 for (int i = 0; i < _levelData.formations[f].Count; i++)
                 {
