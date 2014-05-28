@@ -318,6 +318,7 @@ namespace PikeAndShot
             List<string> formationActionNames = new List<string>(10);
             formationActionNames.Add("New Action");
             _levels[currLevel].formationActionNames.Add(formationActionNames);
+            _levels[currLevel].formationSides.Add(-1);
 
             refreshFormationListBox();
 
@@ -341,7 +342,9 @@ namespace PikeAndShot
             {
                 currFormation = 0;
             }
-            formationSideComboBox.SelectedIndex = _levels[currLevel].formationSides[currFormation] + 1;
+
+            if (_levels[currLevel].formations != null && _levels[currLevel].formationSides.Count > currFormation)
+                formationSideComboBox.SelectedIndex = _levels[currLevel].formationSides[currFormation] + 1;
 
             refreshSoldierListBox();
         }
@@ -697,6 +700,7 @@ namespace PikeAndShot
             _levels[currLevel].formationNames.Add(_levels[currLevel].formationNames[formation] + "_copy" + copyTally);
             _levels[currLevel].formationPositions.Add(_levels[currLevel].formationPositions[formation]);
             _levels[currLevel].formationTimes.Add(_levels[currLevel].formationTimes[formation]);
+            _levels[currLevel].formationSides.Add(_levels[currLevel].formationSides[formation]);
 
             List<int> newFormation = new List<int>(10);
             foreach (int i in _levels[currLevel].formations[formation])
@@ -736,6 +740,7 @@ namespace PikeAndShot
                 _levels[currLevel].formationNames.Add(_levels[currLevel].formationNames[formation]);
                 _levels[currLevel].formationPositions.Add(_levels[currLevel].formationPositions[formation]);
                 _levels[currLevel].formationTimes.Add(_levels[currLevel].formationTimes[formation]);
+                _levels[currLevel].formationSides.Add(_levels[currLevel].formationSides[formation]);
 
                 List<int> newFormation = new List<int>(10);
                 foreach (int i in _levels[currLevel].formations[formation])
