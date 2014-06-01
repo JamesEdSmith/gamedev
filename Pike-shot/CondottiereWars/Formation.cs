@@ -242,6 +242,12 @@ namespace PikeAndShot
             foreach (Soldier r in _soldiersToRemove)
             {
                 _soldiers.Remove(r);
+                if (r.getType() == Soldier.TYPE_PIKE)
+                {
+                    foreach (ArrayList list in _pikeRows)
+                        list.Remove(r);
+                }
+
             }
             _soldiersToRemove.Clear();
 
@@ -845,6 +851,8 @@ namespace PikeAndShot
             }
 
             soldier.setSide(_side);
+            if (_screen.getPlayerFormation() == this)
+                soldier.inPlayerFormation = true;
             soldier.initCharge = false;
 
             // determine speed
@@ -858,6 +866,19 @@ namespace PikeAndShot
             _speed = avgSpeed - 0.04f;            
             //_speed = avgSpeed - (0.002f * (float)_soldiers.Count);            
             soldier.myFormation = this;
+
+            if (soldier.getType() == Soldier.TYPE_PIKE)
+            {
+                ArrayList firstRow = (ArrayList)_pikeRows[0];
+                Pikeman pikeman = (Pikeman)firstRow[0];
+                if (pikeman.getState() == Pikeman.STATE_ATTACKING || pikeman.getState() == Pikeman.STATE_LOWERED ||
+                    pikeman.getState() == Pikeman.STATE_RECOILING)
+                    pikeAttack();
+                else if (pikeman.getState() == Pikeman.STATE_RAISING)
+                    pikeRaise();
+                else if (pikeman.getState() == Pikeman.STATE_LOWER45)
+                    ((Pikeman)soldier).lower45();
+            }
         }
 
         private float getSlowedSoldiers()
@@ -1009,7 +1030,8 @@ namespace PikeAndShot
 
         public void removeSoldier(Soldier soldier)
         {
-            _soldiers.Remove(soldier);
+            //_soldiers.Remove(soldier);
+            _soldiersToRemove.Add(soldier);
         }
 
         public void removeSoldier(int soldier)
@@ -1664,6 +1686,9 @@ namespace PikeAndShot
 
         internal bool hasSoldierOnScreen()
         {
+            if (_soldiers.Count <= 0)
+                return true;
+
             foreach (Soldier s in _soldiers)
             {
                 if (s._position.X + Soldier.WIDTH * 2f - (_screen.getMapOffset().X) > 0 && s._position.X - Soldier.WIDTH * 2f - (_screen.getMapOffset().X) < PikeAndShotGame.SCREENWIDTH)

@@ -48,6 +48,8 @@ namespace PikeAndShot
         public const int WIDTH = 28;
         public const int HEIGHT = 30;
 
+        public const int MELEE_REPETITIONS = 3;
+
         public Vector2 _destination;
         public Vector2 _randDestOffset;
         public Vector2 _drawingPosition;
@@ -66,6 +68,7 @@ namespace PikeAndShot
         protected float _reloadTime;
         protected float _deathTime;
         protected float _meleeTime;
+        protected float _longMeleeTime;
         protected float _routeTime;
         protected float _routedTime;
         protected float _oneAttackTime;
@@ -74,6 +77,7 @@ namespace PikeAndShot
         protected bool _stateChanged;   //keeps track of if the state has changed already this update, so we don't do checks too much
         protected bool _shotMade;
         protected bool _reacting;
+        protected int _longMelee;
         protected ScreenObject _killer;
 
         public int preAttackState;
@@ -91,6 +95,7 @@ namespace PikeAndShot
         protected Sprite _charge;
 
         public bool initCharge;
+        public bool inPlayerFormation;
 
         public ScreenObject guardTarget;
         public float guardTargetRange;
@@ -120,6 +125,7 @@ namespace PikeAndShot
             _shotMade = false;
             _stateToHave = -1;
             _meleeTime = 1500f;
+            _longMeleeTime = 3000f;
             _oneAttackTime = _meleeTime/3f;
             _deathTime = 2000f;
             _routeTime = 500f;
@@ -128,6 +134,7 @@ namespace PikeAndShot
             _jostleOffset = Vector2.Zero;
             _guardPositionOffset = Vector2.Zero;
             _reacting = false;
+            _longMelee = 0;
             _drawingY = _position.Y + 36f;
             _speed = 0.15f;
             _type = Soldier.TYPE_MELEE;
@@ -155,6 +162,7 @@ namespace PikeAndShot
 
             _feet.setAnimationSpeed(15f / 0.11f);
             _retreat.setAnimationSpeed(15f / 0.11f);
+            inPlayerFormation = false;
 
             // DEBUG VARS
             DEBUGFOUNDPIKE = false;
@@ -563,27 +571,17 @@ namespace PikeAndShot
                         _stateTimer -= (float)timeSpan.TotalMilliseconds;
                         if (_stateTimer <= 0)
                         {
-                            _stateTimer = 0f;
-                            _state = STATE_READY;
-                            if (this is Pikeman)
+                            if(_longMelee <= 0)
+                                winMelee();
+                            else
                             {
-                                if (preAttackState == Pikeman.STATE_LOWERED || preAttackState == STATE_ATTACKING || preAttackState == Pikeman.STATE_RECOILING)
-                                    this.attack();
+                                _stateTimer = _meleeTime;
+                                _longMelee--;
                             }
-                            _stateChanged = true;
                         }
                     }
                     else
-                    {
-                        _stateTimer = 0f;
-                        _state = STATE_READY;
-                        if (this is Pikeman)
-                        {
-                            if (preAttackState == Pikeman.STATE_LOWERED || preAttackState == STATE_ATTACKING || preAttackState == Pikeman.STATE_RECOILING)
-                                this.attack();
-                        }
-                        _stateChanged = true;
-                    }
+                        winMelee();
                 }
                 else if (_state == STATE_MELEE_LOSS)
                 {
@@ -592,23 +590,22 @@ namespace PikeAndShot
                         _stateTimer -= (float)timeSpan.TotalMilliseconds;
                         if (_stateTimer <= 0)
                         {
-                            _stateTimer = 0f;
-                            _state = STATE_READY;
-                            hit();
-                            _stateChanged = true;
+                            if (_longMelee <= 0)
+                            {
+                                _stateTimer = 0f;
+                                _state = STATE_READY;
+                                hit();
+                                _stateChanged = true;
+                            }
+                            else
+                            {
+                                _stateTimer = _meleeTime;
+                                _longMelee--;
+                            }
                         }
                     }
                     else
-                    {
-                        _stateTimer = 0f;
-                        _state = STATE_READY;
-                        if (this is Pikeman)
-                        {
-                            if (preAttackState == Pikeman.STATE_LOWERED || preAttackState == STATE_ATTACKING || preAttackState == Pikeman.STATE_RECOILING)
-                                this.attack();
-                        }
-                        _stateChanged = true;
-                    }
+                        winMelee();
                 }
                 else if (_state == STATE_ROUTE)
                 {
@@ -646,6 +643,18 @@ namespace PikeAndShot
             }
         }
 
+        private void winMelee()
+        {
+            _stateTimer = 0f;
+            _state = STATE_READY;
+            if (this is Pikeman)
+            {
+                if (preAttackState == Pikeman.STATE_LOWERED || preAttackState == STATE_ATTACKING || preAttackState == Pikeman.STATE_RECOILING)
+                    this.attack();
+            }
+            _stateChanged = true;
+        }
+
         protected virtual void updateAnimation(TimeSpan timeSpan)
         {
             if (_state == STATE_DYING)
@@ -671,39 +680,37 @@ namespace PikeAndShot
                 int frameNumber = maxFrames - (int)(_stateTimer / frameTime);
 
                 frameNumber -= 1;
-                    if (initCharge)
+                if (initCharge)
+                {
+                    if (!(this is Targeteer) || (this is Targeteer && ((Targeteer)this)._hasShield))
                     {
-                        if (!(this is Targeteer) || (this is Targeteer && ((Targeteer)this)._hasShield))
-                        {
-                            _defend1.setFrame(frameNumber);
-                            _body = _defend1;
-                        }
-                        else
-                        {
-                            ((Targeteer)this)._defend2.setFrame(frameNumber);
-                            _body = ((Targeteer)this)._defend2;
-                        }
+                        _defend1.setFrame(frameNumber);
+                        _body = _defend1;
                     }
                     else
                     {
-                        if (frameNumber >= _charge.getMaxFrames())
-                        {
-                            frameNumber -= _charge.getMaxFrames();
-                            frameNumber = _charge.getMaxFrames() - frameNumber - 1;
-                        }
-                        if (!(this is Targeteer) || (this is Targeteer && ((Targeteer)this)._hasShield))
-                        {
-                            _charge.setFrame(frameNumber);
-                            _body = _charge;
-                        }
-                        else
-                        {
-                            ((Targeteer)this)._chargeNoShield.setFrame(frameNumber);
-                            _body = ((Targeteer)this)._chargeNoShield;
-                        }
+                        ((Targeteer)this)._defend2.setFrame(frameNumber);
+                        _body = ((Targeteer)this)._defend2;
                     }
-                //}
-
+                }
+                else
+                {
+                    if (frameNumber >= _charge.getMaxFrames())
+                    {
+                        frameNumber -= _charge.getMaxFrames();
+                        frameNumber = _charge.getMaxFrames() - frameNumber - 1;
+                    }
+                    if (!(this is Targeteer) || (this is Targeteer && ((Targeteer)this)._hasShield))
+                    {
+                        _charge.setFrame(frameNumber);
+                        _body = _charge;
+                    }
+                    else
+                    {
+                        ((Targeteer)this)._chargeNoShield.setFrame(frameNumber);
+                        _body = ((Targeteer)this)._chargeNoShield;
+                    }
+                }
             }
             else if (_state == STATE_DEAD)
             {
@@ -798,7 +805,13 @@ namespace PikeAndShot
             }
             else if (_state == STATE_READY)
             {
-                _body = _idle;
+                if (inPlayerFormation || _side != BattleScreen.SIDE_PLAYER)
+                    _body = _idle;
+                else
+                {
+                    _defend1.setFrame(0);
+                    _body = _defend1;
+                }
             }
             else if (_state == STATE_RETREAT)
             {
@@ -947,6 +960,8 @@ namespace PikeAndShot
                     //fighting
                     else if (_side != collider.getSide() && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && collider.getState() != STATE_MELEE_WIN && collider.getState() != STATE_MELEE_LOSS && (!(collider is Targeteer) || collider.getState() != Targeteer.STATE_SHIELDBREAK) && (!(collider is DismountedCavalry) || collider.getState() != DismountedCavalry.STATE_FALLING))
                     {
+                        bool rescueFight = (_side == BattleScreen.SIDE_PLAYER && !thisInFormation) ||
+                                           (collider.getSide() == BattleScreen.SIDE_PLAYER && !colliderInFormation);
                         if (this is Dopple)
                         {
                             if(_state != STATE_ATTACKING)
@@ -959,13 +974,13 @@ namespace PikeAndShot
                         }
                         else if (PikeAndShotGame.random.Next(51) > 25)
                         {
-                            engage(true, collider.getPosition(), (Soldier)collider);
-                            ((Soldier)collider).engage(false, _position, this);
+                            engage(true, collider.getPosition(), (Soldier)collider, rescueFight);
+                            ((Soldier)collider).engage(false, _position, this, rescueFight);
                         }
                         else
                         {
-                            engage(false, collider.getPosition(), (Soldier)collider);
-                            ((Soldier)collider).engage(true, _position, this);
+                            engage(false, collider.getPosition(), (Soldier)collider, rescueFight);
+                            ((Soldier)collider).engage(true, _position, this, rescueFight);
                         }
                     }
                     else if (_side == BattleScreen.SIDE_PLAYER && collider.getSide() == BattleScreen.SIDE_PLAYER && (thisInFormation != colliderInFormation))
@@ -1031,7 +1046,7 @@ namespace PikeAndShot
 
         protected virtual void hit()
         {
-            if (_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN)
+            if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
                 _engager.setState(_engager.preAttackState);
 
             _state = STATE_DYING;
@@ -1041,19 +1056,30 @@ namespace PikeAndShot
         
         }
 
-        protected virtual void engage(bool win, Vector2 position, Soldier engager)
+        protected virtual void engage(bool win, Vector2 position, Soldier engager, bool rescueFight)
         {
             _stateChanged = true;
             _engager = engager;
 
             preAttackState = _state;
+
             if (win)
                 _state = STATE_MELEE_WIN;
             else
                 _state = STATE_MELEE_LOSS;
 
-            _meleeDestination = (_position + position) / 2;
+            if (rescueFight)
+            {
+                _longMelee = MELEE_REPETITIONS;
+            }
+            else
+            {
+                _longMelee = 0;
+            }
+
             _stateTimer = _meleeTime;
+
+            _meleeDestination = (_position + position) / 2;
 
             if (_side == BattleScreen.SIDE_PLAYER)
                 _meleeDestination.X -= 0.60f * Soldier.WIDTH;
@@ -1203,9 +1229,9 @@ namespace PikeAndShot
             return true;
         }
 
-        protected override void engage(bool win, Vector2 position, Soldier engager)
+        protected override void engage(bool win, Vector2 position, Soldier engager, bool rescueFight)
         {
-            base.engage(win, position, engager);
+            base.engage(win, position, engager, rescueFight);
             _screen.removeScreenObject(_pikeTip);
         }
 
@@ -1230,20 +1256,23 @@ namespace PikeAndShot
 
         public void lower45()
         {
-            if (_state == STATE_READY)
+            if (inPlayerFormation)
             {
-                _stateTimer = _attackTime + PikeAndShotGame.getRandPlusMinus(50);
-                _state = STATE_LOWER45;
-            }
-            else if (_state == STATE_RAISING)
-            {
-                _stateTimer = _attackTime - _stateTimer;
-                _state = STATE_LOWER45;
-            }
-            else if (_state == STATE_LOWERED)
-            {
-                _screen.removeScreenObject(_pikeTip);
-                _state = STATE_LOWER45;
+                if (_state == STATE_READY)
+                {
+                    _stateTimer = _attackTime + PikeAndShotGame.getRandPlusMinus(50);
+                    _state = STATE_LOWER45;
+                }
+                else if (_state == STATE_RAISING)
+                {
+                    _stateTimer = _attackTime - _stateTimer;
+                    _state = STATE_LOWER45;
+                }
+                else if (_state == STATE_LOWERED)
+                {
+                    _screen.removeScreenObject(_pikeTip);
+                    _state = STATE_LOWER45;
+                }
             }
         }
 
@@ -1766,9 +1795,9 @@ namespace PikeAndShot
             _weaponSwing.setSide(side);
         }
 
-        protected override void engage(bool win, Vector2 position, Soldier engager)
+        protected override void engage(bool win, Vector2 position, Soldier engager, bool rescueFight)
         {
-            base.engage(win, position, engager);
+            base.engage(win, position, engager, rescueFight);
             _screen.removeScreenObject(_weaponSwing);
         }
 
@@ -2527,7 +2556,7 @@ namespace PikeAndShot
                 return;//hit();
             else if (_state != STATE_DEFEND)
             {
-                if (_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN)
+                if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
                     _engager.setState(_engager.preAttackState);
 
                 _defendTimer = _meleeTime * 2f / 3f;
@@ -2565,6 +2594,9 @@ namespace PikeAndShot
         {
             if (_hasShield)
             {
+                if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
+                    _engager.setState(_engager.preAttackState);
+
                 _state = STATE_SHIELDBREAK;
                 _stateTimer = _shieldBreakTime;
                 new ScreenAnimation(_screen, _side, new Vector2(_position.X, _position.Y), new Sprite(PikeAndShotGame.SOLDIER_BROKENSHIELD1, new Rectangle(24, 4, 16, 28), 60, 46), (_shieldBreakTime / 8f) * 11f);
@@ -2578,9 +2610,9 @@ namespace PikeAndShot
                 hit();
         }
 
-        protected override void engage(bool win, Vector2 position, Soldier engager)
+        protected override void engage(bool win, Vector2 position, Soldier engager, bool rescueFight)
         {
-            base.engage(win, position, engager);
+            base.engage(win, position, engager, rescueFight);
             _screen.removeScreenObject(_shieldBlock);
         }
 
@@ -3382,9 +3414,9 @@ namespace PikeAndShot
             _lanceTip.setSide(side);
         }
 
-        protected override void engage(bool win, Vector2 position, Soldier engager)
+        protected override void engage(bool win, Vector2 position, Soldier engager, bool rescueFight)
         {
-            base.engage(win, position, engager);
+            base.engage(win, position, engager, rescueFight);
             _screen.removeScreenObject(_lanceTip);
         }
 
