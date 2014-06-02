@@ -82,6 +82,11 @@ namespace PikeAndShot
         {
             return _width;
         }
+        
+        public int getSide()
+        {
+            return _side;
+        }
 
         public virtual void update(TimeSpan timeSpan)
         {
@@ -259,20 +264,20 @@ namespace PikeAndShot
 
             if (_addedSoldier)
             {
-                if (_soldiers.Count > 25)
+                /*if (_soldiers.Count > 25)
                 {
                     if (_width != (int)Math.Sqrt((double)_soldiers.Count))
                     {
                         _width = (int)Math.Sqrt((double)_soldiers.Count);
                     }
-                }
-                else
-                {
-                    if (_width != 5)
+                }*/
+                //else
+                //{
+                    if (_width < 5)
                     {
                         _width = 5;
                     }
-                }
+                //}
                 _addedSoldier = false;
                 resetupFormation();
             }
@@ -312,6 +317,25 @@ namespace PikeAndShot
                 guard.guardTarget = enemy;
         }
 
+        private Soldier checkGuard(Soldier guard, Soldier shot, ScreenObject enemy)
+        {
+            if (guard == null)
+            {
+                if (shot.getState() != Soldier.STATE_MELEE_WIN && shot.getState() != Soldier.STATE_MELEE_LOSS)
+                    return shot;
+                else
+                    return null;
+            }
+            else
+            {
+                bool ySmaller = Math.Abs(enemy.getPosition().Y - shot.getDestination().Y) < Math.Abs(enemy.getPosition().Y - guard.getDestination().Y);
+                if (ySmaller && shot.guardTarget == null && shot.getState() != Soldier.STATE_MELEE_WIN && shot.getState() != Soldier.STATE_MELEE_LOSS)
+                    return shot;
+            }
+
+            return guard;
+        }
+
         private void assignShooter(Soldier enemy)
         {
             if (this is EnemyFormation)
@@ -333,14 +357,7 @@ namespace PikeAndShot
                 {
                     if (shot.guardTarget == null && shot.getState() != Soldier.STATE_RELOADING)
                     {
-                        if (guard == null && shot.guardTarget == null)
-                            guard = shot;
-                        else
-                        {
-                            bool ySmaller = Math.Abs(enemy.getPosition().Y - shot.getDestination().Y) < Math.Abs(enemy.getPosition().Y - guard.getDestination().Y);
-                            if (ySmaller && shot.guardTarget == null)
-                                guard = shot;
-                        }
+                        guard = checkGuard(guard, shot, enemy);
                     }
                 }
             }
@@ -369,14 +386,7 @@ namespace PikeAndShot
                 {
                     if (shot.guardTarget == null && ((Targeteer)shot)._hasShield)
                     {
-                        if (guard == null && shot.guardTarget == null)
-                            guard = shot;
-                        else
-                        {
-                            bool ySmaller = Math.Abs(enemy.getPosition().Y - shot.getPosition().Y) < Math.Abs(enemy.getPosition().Y - guard.getPosition().Y);
-                            if (ySmaller && shot.guardTarget == null)
-                                guard = shot;
-                        }
+                        guard = checkGuard(guard, shot, enemy);
                     }
                 }
             }
@@ -407,13 +417,11 @@ namespace PikeAndShot
             {
                 if (pike.guardTarget == null)
                 {
-                    if (guard == null)
+                    if (guard == null && pike.getState() != Soldier.STATE_MELEE_WIN && pike.getState() != Soldier.STATE_MELEE_LOSS)
                         guard = pike;
                     else
                     {
-                        bool ySmaller = Math.Abs(enemy.getPosition().Y - pike.getDestination().Y) < Math.Abs(enemy.getPosition().Y - guard.getDestination().Y);
-                        if (ySmaller && pike.guardTarget == null)
-                            guard = pike;
+                        guard = checkGuard(guard, pike, enemy);
                     }
                 }
             }
@@ -422,7 +430,7 @@ namespace PikeAndShot
             {
                 foreach (Pikeman pike in (ArrayList)_pikeRows[1])
                 {
-                    if (pike.guardTarget == null)
+                    if (pike.guardTarget == null && pike.getState() != Soldier.STATE_MELEE_WIN && pike.getState() != Soldier.STATE_MELEE_LOSS)
                     {
                         if (guard == null)
                             guard = pike;
@@ -431,7 +439,7 @@ namespace PikeAndShot
                             bool ySmaller = Math.Abs(enemy.getPosition().Y - pike.getDestination().Y) < Math.Abs(enemy.getPosition().Y - guard.getDestination().Y);
                             bool xBigger = (pike.getDestination().X - guard.getDestination().X) * _side >= 0;
                             bool ySubstanciallyBigger = Math.Abs(guard.getDestination().Y - pike.getDestination().Y) > (float)Soldier.HEIGHT * 3f;
-                            if (ySmaller && (xBigger || ySubstanciallyBigger) && pike.guardTarget == null)
+                            if (ySmaller && (xBigger || ySubstanciallyBigger) && pike.guardTarget == null && pike.getState() != Soldier.STATE_MELEE_WIN && pike.getState() != Soldier.STATE_MELEE_LOSS)
                                 guard = pike;
                         }
                     }
@@ -869,16 +877,21 @@ namespace PikeAndShot
 
             if (soldier.getType() == Soldier.TYPE_PIKE)
             {
-                ArrayList firstRow = (ArrayList)_pikeRows[0];
-                Pikeman pikeman = (Pikeman)firstRow[0];
-                if (pikeman.getState() == Pikeman.STATE_ATTACKING || pikeman.getState() == Pikeman.STATE_LOWERED ||
-                    pikeman.getState() == Pikeman.STATE_RECOILING)
-                    pikeAttack();
-                else if (pikeman.getState() == Pikeman.STATE_RAISING)
-                    pikeRaise();
-                else if (pikeman.getState() == Pikeman.STATE_LOWER45)
-                    ((Pikeman)soldier).lower45();
+                reiteratePikeCommand((Pikeman)soldier);
             }
+        }
+
+        public void reiteratePikeCommand(Pikeman soldier)
+        {
+            ArrayList firstRow = (ArrayList)_pikeRows[0];
+            Pikeman pikeman = (Pikeman)firstRow[0];
+            if (pikeman.getState() == Pikeman.STATE_ATTACKING || pikeman.getState() == Pikeman.STATE_LOWERED ||
+                pikeman.getState() == Pikeman.STATE_RECOILING)
+                pikeAttack();
+            else if (pikeman.getState() == Pikeman.STATE_RAISING)
+                pikeRaise();
+            else if (pikeman.getState() == Pikeman.STATE_LOWER45)
+                soldier.lower45();
         }
 
         private float getSlowedSoldiers()
@@ -1598,7 +1611,7 @@ namespace PikeAndShot
 
         public void reduceWidth()
         {
-            if (_width > 1)
+            if (_width > 5)
             {
                 _width--;
                 reformFormation();
@@ -1695,6 +1708,26 @@ namespace PikeAndShot
                     return true;
             }
             return false;
+        }
+
+        internal int getLeastType()
+        {
+            int shot = 0;
+            int pike = 0;
+            foreach (ArrayList row in _shotRows)
+            {
+                foreach (Soldier soldier in row)
+                    shot++;
+            }
+            foreach (ArrayList row in _pikeRows)
+            {
+                foreach (Soldier soldier in row)
+                    pike++;
+            }
+            if (pike <= shot)
+                return Soldier.TYPE_PIKE;
+            else
+                return Soldier.TYPE_SHOT;
         }
     }
 

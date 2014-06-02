@@ -643,15 +643,10 @@ namespace PikeAndShot
             }
         }
 
-        private void winMelee()
+        protected virtual void winMelee()
         {
             _stateTimer = 0f;
             _state = STATE_READY;
-            if (this is Pikeman)
-            {
-                if (preAttackState == Pikeman.STATE_LOWERED || preAttackState == STATE_ATTACKING || preAttackState == Pikeman.STATE_RECOILING)
-                    this.attack();
-            }
             _stateChanged = true;
         }
 
@@ -1063,18 +1058,21 @@ namespace PikeAndShot
 
             preAttackState = _state;
 
-            if (win)
-                _state = STATE_MELEE_WIN;
-            else
-                _state = STATE_MELEE_LOSS;
-
             if (rescueFight)
             {
                 _longMelee = MELEE_REPETITIONS;
+                if (_side == BattleScreen.SIDE_PLAYER)
+                    _state = STATE_MELEE_LOSS;
+                else
+                    _state = STATE_MELEE_WIN;
             }
             else
             {
                 _longMelee = 0;
+                if (win)
+                    _state = STATE_MELEE_WIN;
+                else
+                    _state = STATE_MELEE_LOSS;
             }
 
             _stateTimer = _meleeTime;
@@ -1373,6 +1371,12 @@ namespace PikeAndShot
             {
                 _screen.removeScreenObject(_pikeTip);
             }
+        }
+
+        protected override void winMelee()
+        {
+            base.winMelee();
+            myFormation.reiteratePikeCommand(this);
         }
 
         protected override void updateAnimation(TimeSpan timeSpan)

@@ -16,11 +16,14 @@ namespace PikeAndShot
 {
     class LevelScreen : BattleScreen, FormListener
     {
-        protected Formation _newEnemyFormation;
+        public static float NEXT_SPAWN_POINT = 2000f;
+
+        protected EnemyFormation _newEnemyFormation;
         protected Level _levelData;
         private double _fps = 0;
         private int _draws = 0;
         List<int> _usedFormations;
+        float nextSpawnPosition = NEXT_SPAWN_POINT;
 
         public LevelScreen(PikeAndShotGame game, Level level)
             : base(game)
@@ -253,47 +256,59 @@ namespace PikeAndShot
                     _newEnemyFormation = new EnemyFormation(_levelData.formationActions[f], this, (_levelData.formationPositions[f]).X, (_levelData.formationPositions[f]).Y, 50, _levelData.formationSides[f]);
                     float x = _newEnemyFormation.getPosition().X;
                     float y = _newEnemyFormation.getPosition().Y;
-
-                    for (int i = 0; i < _levelData.formations[f].Count; i++)
+                    if (_newEnemyFormation.getSide() == SIDE_PLAYER)
+                        assignRescue(_newEnemyFormation);
+                    else
                     {
-                        switch ((_levelData.formations[f])[i])
+                        for (int i = 0; i < _levelData.formations[f].Count; i++)
                         {
-                            case Soldier.CLASS_MERC_PIKEMAN:
-                                _newEnemyFormation.addSoldier(new Pikeman(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                break;
-                            case Soldier.CLASS_MERC_ARQUEBUSIER:
-                                _newEnemyFormation.addSoldier(new Arquebusier(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                break;
-                            case Soldier.CLASS_MERC_CROSSBOWMAN:
-                                _newEnemyFormation.addSoldier(new Crossbowman(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                break;
-                            case Soldier.CLASS_MERC_SOLDIER:
-                                _newEnemyFormation.addSoldier(new Targeteer(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                break;
-                            case Soldier.CLASS_GOBLIN_SLINGER:
-                                _newEnemyFormation.addSoldier(new Slinger(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                break;
-                            case Soldier.CLASS_MERC_DOPPLE:
-                                _newEnemyFormation.addSoldier(new Dopple(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                break;
-                            case Soldier.CLASS_GOBLIN_BERZERKER:
-                                _newEnemyFormation.addSoldier(new Berzerker(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                break;
-                            case Soldier.CLASS_GOBLIN_BRIGAND:
-                                _newEnemyFormation.addSoldier(new Brigand(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                break;
-                            case Soldier.CLASS_MERC_CROSSBOWMAN_PAVISE:
-                                _newEnemyFormation.addSoldier(new CrossbowmanPavise(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                break;
-                            case Soldier.CLASS_MERC_CAVALRY:
-                                _newEnemyFormation.addSoldier(new Cavalry(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                break;
+                            switch ((_levelData.formations[f])[i])
+                            {
+                                case Soldier.CLASS_MERC_PIKEMAN:
+                                    _newEnemyFormation.addSoldier(new Pikeman(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
+                                    break;
+                                case Soldier.CLASS_MERC_ARQUEBUSIER:
+                                    _newEnemyFormation.addSoldier(new Arquebusier(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
+                                    break;
+                                case Soldier.CLASS_MERC_CROSSBOWMAN:
+                                    _newEnemyFormation.addSoldier(new Crossbowman(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
+                                    break;
+                                case Soldier.CLASS_MERC_SOLDIER:
+                                    _newEnemyFormation.addSoldier(new Targeteer(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
+                                    break;
+                                case Soldier.CLASS_GOBLIN_SLINGER:
+                                    _newEnemyFormation.addSoldier(new Slinger(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
+                                    break;
+                                case Soldier.CLASS_MERC_DOPPLE:
+                                    _newEnemyFormation.addSoldier(new Dopple(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
+                                    break;
+                                case Soldier.CLASS_GOBLIN_BERZERKER:
+                                    _newEnemyFormation.addSoldier(new Berzerker(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
+                                    break;
+                                case Soldier.CLASS_GOBLIN_BRIGAND:
+                                    _newEnemyFormation.addSoldier(new Brigand(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
+                                    break;
+                                case Soldier.CLASS_MERC_CROSSBOWMAN_PAVISE:
+                                    _newEnemyFormation.addSoldier(new CrossbowmanPavise(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
+                                    break;
+                                case Soldier.CLASS_MERC_CAVALRY:
+                                    _newEnemyFormation.addSoldier(new Cavalry(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
+                                    break;
+                            }
                         }
                     }
                     _enemyFormations.Add(_newEnemyFormation);
                     _usedFormations.Add(f);
                 }
             }
+        }
+
+        private void assignRescue(EnemyFormation formation)
+        {
+            if(_formation.getLeastType() == Soldier.TYPE_PIKE)
+                formation.addSoldier(new Pikeman(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_PLAYER));
+            else
+                formation.addSoldier(new Arquebusier(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_PLAYER));
 
         }
 
