@@ -380,6 +380,7 @@ namespace PikeAndShot
             }
 
             _levels[currLevel].formationActions.Add(patternActions);
+            _levels[currLevel].formationSides.Add(_levels[currLevel].formationSides[currFormation]);
 
             refreshFormationListBox();
 
