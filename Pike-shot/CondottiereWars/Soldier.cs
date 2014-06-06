@@ -168,6 +168,43 @@ namespace PikeAndShot
             DEBUGFOUNDPIKE = false;
         }
 
+        public static void getNewSoldier(int soldierClass, BattleScreen screen, Formation _newEnemyFormation, float x, float y)
+        {
+            switch (soldierClass)
+            {
+                case Soldier.CLASS_MERC_PIKEMAN:
+                    _newEnemyFormation.addSoldier(new Pikeman(screen, x, y, BattleScreen.SIDE_ENEMY));
+                    break;
+                case Soldier.CLASS_MERC_ARQUEBUSIER:
+                    _newEnemyFormation.addSoldier(new Arquebusier(screen, x, y, BattleScreen.SIDE_ENEMY));
+                    break;
+                case Soldier.CLASS_MERC_CROSSBOWMAN:
+                    _newEnemyFormation.addSoldier(new Crossbowman(screen, x, y, BattleScreen.SIDE_ENEMY));
+                    break;
+                case Soldier.CLASS_MERC_SOLDIER:
+                    _newEnemyFormation.addSoldier(new Targeteer(screen, x, y, BattleScreen.SIDE_ENEMY));
+                    break;
+                case Soldier.CLASS_GOBLIN_SLINGER:
+                    _newEnemyFormation.addSoldier(new Slinger(screen, x, y, BattleScreen.SIDE_ENEMY));
+                    break;
+                case Soldier.CLASS_MERC_DOPPLE:
+                    _newEnemyFormation.addSoldier(new Dopple(screen, x, y, BattleScreen.SIDE_ENEMY));
+                    break;
+                case Soldier.CLASS_GOBLIN_BERZERKER:
+                    _newEnemyFormation.addSoldier(new Berzerker(screen, x, y, BattleScreen.SIDE_ENEMY));
+                    break;
+                case Soldier.CLASS_GOBLIN_BRIGAND:
+                    _newEnemyFormation.addSoldier(new Brigand(screen, x, y, BattleScreen.SIDE_ENEMY));
+                    break;
+                case Soldier.CLASS_MERC_CROSSBOWMAN_PAVISE:
+                    _newEnemyFormation.addSoldier(new CrossbowmanPavise(screen, x, y, BattleScreen.SIDE_ENEMY));
+                    break;
+                case Soldier.CLASS_MERC_CAVALRY:
+                    _newEnemyFormation.addSoldier(new Cavalry(screen, x, y, BattleScreen.SIDE_ENEMY));
+                    break;
+            }
+        }
+
         public void changeRandOffset()
         {
             _randDestOffset.X = PikeAndShotGame.getRandPlusMinus(4);

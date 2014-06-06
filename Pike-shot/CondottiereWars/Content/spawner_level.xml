@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="LevelPipeline.LevelContent">
+    <levelName>spawner_level</levelName>
+    <formations>
+      <Item>11</Item>
+      <Item>12</Item>
+    </formations>
+    <formationPositions>600 300 1500 400</formationPositions>
+    <formationTimes>0 0</formationTimes>
+    <formationSides>-1 -1</formationSides>
+    <formationActions>
+      <Item>
+        <Item>
+          <actions>0</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+      </Item>
+    </formationActions>
+    <terrains />
+    <terrainPositions />
+    <terrainTimes />
+    <formationNames>
+      <Item>bob</Item>
+      <Item>spawner:2000:bob</Item>
+    </formationNames>
+    <formationActionNames>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+      </Item>
+    </formationActionNames>
+  </Asset>
+</XnaContent>

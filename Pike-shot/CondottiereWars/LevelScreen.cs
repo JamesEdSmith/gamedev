@@ -14,7 +14,7 @@ using System.Collections;
 
 namespace PikeAndShot
 {
-    class LevelScreen : BattleScreen, FormListener
+    public class LevelScreen : BattleScreen, FormListener
     {
         public static float NEXT_SPAWN_POINT = 2000f;
 
@@ -24,6 +24,8 @@ namespace PikeAndShot
         private int _draws = 0;
         List<int> _usedFormations;
         float nextSpawnPosition = NEXT_SPAWN_POINT;
+        public ArrayList _spawners;
+        public ArrayList _deadSpawners;
 
         public LevelScreen(PikeAndShotGame game, Level level)
             : base(game)
@@ -50,14 +52,29 @@ namespace PikeAndShot
             _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
             
             _usedFormations = new List<int>(_levelData.formations.Count);
+            _spawners = new ArrayList(2);
+            _deadSpawners = new ArrayList(2);
         }
 
         public override void update(GameTime gameTime)
         {
             base.update(gameTime);
 
-            // formations and terrain are generated on the far right of the screen at their height when their time comes up
-            checkLevelData(gameTime.TotalGameTime);
+            /* formations and terrain are generated on the far right of the screen 
+            at their height when the player gets to their spawn trigger point*/
+            checkLevelData();
+
+            foreach (Spawner spawny in _spawners)
+            {
+                spawny.update(gameTime.ElapsedGameTime);
+                if (spawny.dead)
+                    _deadSpawners.Add(spawny);
+            }
+            foreach (Spawner deadSpawner in _deadSpawners)
+            {
+                _spawners.Remove(deadSpawner);
+            }
+            _deadSpawners.Clear();
 
             _fps = (double)_draws / gameTime.ElapsedGameTime.TotalSeconds;
             _draws = 0;
@@ -69,14 +86,14 @@ namespace PikeAndShot
 
             _draws++;
 
-            spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "mapOffset: " + _mapOffset.X + ", " + _mapOffset.Y, new Vector2(5, 35), Color.White);
+            /*spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "mapOffset: " + _mapOffset.X + ", " + _mapOffset.Y, new Vector2(5, 35), Color.White);
             spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Loose: " + _looseSoldiers.Count, new Vector2(5, 5), Color.White);
             spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "eFormations: " + _enemyFormations.Count, new Vector2(105, 5), Color.White);
             spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "shots: " + _shots.Count, new Vector2(205, 5), Color.White);
             spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Objects: " + _screenObjects.Count, new Vector2(305, 5), Color.White);
             spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Colliders: " + _screenColliders.Count, new Vector2(405, 5), Color.White);
             spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "fps: " + _fps, new Vector2(405, 35), Color.White);
-            spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "terrain: " + _terrain.Count, new Vector2(505, 5), Color.White);
+            spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "terrain: " + _terrain.Count, new Vector2(505, 5), Color.White);*/
         }
 
         protected override void getInput(TimeSpan timeSpan)
@@ -247,13 +264,29 @@ namespace PikeAndShot
             _levelData = level;
         }
 
-        protected void checkLevelData(TimeSpan timeSpan)
+        protected void checkLevelData()
         {
             for(int f = 0; f < _levelData.formations.Count; f++)
             {
                 if (_levelData.formationTimes[f] <= (double)_mapOffset.X + PikeAndShotGame.SCREENWIDTH && !_usedFormations.Exists(i => i == f))
                 {
-                    _newEnemyFormation = new EnemyFormation(_levelData.formationActions[f], this, (_levelData.formationPositions[f]).X, (_levelData.formationPositions[f]).Y, 50, _levelData.formationSides[f]);
+                    _usedFormations.Add(f);
+                    _newEnemyFormation = new EnemyFormation(_levelData.formationNames[f], _levelData.formationActions[f], this, (_levelData.formationPositions[f]).X, (_levelData.formationPositions[f]).Y, 10, _levelData.formationSides[f]);
+                    string formationName = _levelData.formationNames[f];
+                    if (formationName.StartsWith("spawner:"))
+                    {
+                        foreach (Soldier s in _newEnemyFormation.getSoldiers())
+                            this.removeScreenObject(s);
+                        char[] separator = { ':' };
+                        EnemyFormation dependantFormation = getDependantFormation(formationName.Split(separator)[2]);
+                        Spawner newSpawner = new Spawner(this, _newEnemyFormation, float.Parse(formationName.Split(separator)[1]), dependantFormation);
+                        _spawners.Add(newSpawner);
+                    }
+                    else
+                    {
+                        _enemyFormations.Add(_newEnemyFormation);
+                    }
+                                       
                     float x = _newEnemyFormation.getPosition().X;
                     float y = _newEnemyFormation.getPosition().Y;
                     if (_newEnemyFormation.getSide() == SIDE_PLAYER)
@@ -262,45 +295,21 @@ namespace PikeAndShot
                     {
                         for (int i = 0; i < _levelData.formations[f].Count; i++)
                         {
-                            switch ((_levelData.formations[f])[i])
-                            {
-                                case Soldier.CLASS_MERC_PIKEMAN:
-                                    _newEnemyFormation.addSoldier(new Pikeman(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                    break;
-                                case Soldier.CLASS_MERC_ARQUEBUSIER:
-                                    _newEnemyFormation.addSoldier(new Arquebusier(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                    break;
-                                case Soldier.CLASS_MERC_CROSSBOWMAN:
-                                    _newEnemyFormation.addSoldier(new Crossbowman(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                    break;
-                                case Soldier.CLASS_MERC_SOLDIER:
-                                    _newEnemyFormation.addSoldier(new Targeteer(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                    break;
-                                case Soldier.CLASS_GOBLIN_SLINGER:
-                                    _newEnemyFormation.addSoldier(new Slinger(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                    break;
-                                case Soldier.CLASS_MERC_DOPPLE:
-                                    _newEnemyFormation.addSoldier(new Dopple(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                    break;
-                                case Soldier.CLASS_GOBLIN_BERZERKER:
-                                    _newEnemyFormation.addSoldier(new Berzerker(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                    break;
-                                case Soldier.CLASS_GOBLIN_BRIGAND:
-                                    _newEnemyFormation.addSoldier(new Brigand(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                    break;
-                                case Soldier.CLASS_MERC_CROSSBOWMAN_PAVISE:
-                                    _newEnemyFormation.addSoldier(new CrossbowmanPavise(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                    break;
-                                case Soldier.CLASS_MERC_CAVALRY:
-                                    _newEnemyFormation.addSoldier(new Cavalry(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
-                                    break;
-                            }
+                            Soldier.getNewSoldier((_levelData.formations[f])[i], this, _newEnemyFormation, x, y);                           
                         }
                     }
-                    _enemyFormations.Add(_newEnemyFormation);
-                    _usedFormations.Add(f);
                 }
             }
+        }
+
+        private EnemyFormation getDependantFormation(string name)
+        {
+            foreach (EnemyFormation f in _enemyFormations)
+            {
+                if (f.name.Equals(name))
+                    return f;
+            }
+            return null;
         }
 
         private void assignRescue(EnemyFormation formation)
@@ -406,6 +415,7 @@ namespace PikeAndShot
             _screenObjects.Clear();
             _screenObjectsToAdd.Clear();
             _screenColliders.Clear();
+            _spawners.Clear();
 
             foreach (Soldier s in _formation.getSoldiers())
             {

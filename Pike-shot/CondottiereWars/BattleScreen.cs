@@ -37,7 +37,7 @@ namespace PikeAndShot
         protected ArrayList _screenObjectsToAdd;
         protected ArrayList _screenColliders;
         protected ArrayList _screenAnimations;
-        protected ArrayList _enemyFormations;
+        public ArrayList _enemyFormations;
         protected ArrayList _terrain;
         protected ArrayList _drawJobs;
 
@@ -59,19 +59,19 @@ namespace PikeAndShot
             _active = false;
 
             //shot and clean up arrays
-            _shots = new ArrayList(60);
-            _deadThings = new ArrayList(60);
-            _newThings = new ArrayList(60);
-            _deadFormations = new ArrayList(60);
+            _shots = new ArrayList(40);
+            _deadThings = new ArrayList(40);
+            _newThings = new ArrayList(40);
+            _deadFormations = new ArrayList(20);
 
             //arrays for collisions
-            _screenObjects = new ArrayList(60);
-            _screenObjectsToAdd = new ArrayList(60);
-            _screenColliders = new ArrayList(60);
-            _screenAnimations = new ArrayList(60);
+            _screenObjects = new ArrayList(40);
+            _screenObjectsToAdd = new ArrayList(40);
+            _screenColliders = new ArrayList(40);
+            _screenAnimations = new ArrayList(40);
 
             _enemyFormations = new ArrayList(25);
-            _looseSoldiers = new ArrayList(60);
+            _looseSoldiers = new ArrayList(40);
             
             previousKeyboardState = Keyboard.GetState();
             _elapsedTime = 0.0;

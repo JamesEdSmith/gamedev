@@ -122,6 +122,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Spawner.cs" />
     <Compile Include="Terrain.cs" />
   </ItemGroup>
   <ItemGroup>

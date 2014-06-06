@@ -1700,7 +1700,7 @@ namespace PikeAndShot
         internal bool hasSoldierOnScreen()
         {
             if (_soldiers.Count <= 0)
-                return true;
+                return false;
 
             foreach (Soldier s in _soldiers)
             {
@@ -1733,14 +1733,17 @@ namespace PikeAndShot
 
     public class EnemyFormation : Formation
     {
-        private List<PatternAction> _pattern;
+        public List<PatternAction> _pattern;
         private int _currentAction;
         private double _currentDuration;
         private bool _pikesRaised; //Gotta have this flag otherwise enemy formations keep trying to raise all the time and mess up shots
+        public Spawner spawner;
+        public string name;
 
-        public EnemyFormation(List<PatternAction> pattern, BattleScreen screen, float x, float y, int initialCapacity, int side)
+        public EnemyFormation(string name, List<PatternAction> pattern, BattleScreen screen, float x, float y, int initialCapacity, int side)
             : base(screen, x, y, initialCapacity, side)
         {
+            this.name = name;
             _pattern = pattern;
             _currentAction = 0;
             if(pattern.Count > 0)
