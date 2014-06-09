@@ -4,22 +4,146 @@
     <levelName>spawner_level</levelName>
     <formations>
       <Item>11</Item>
-      <Item>12</Item>
+      <Item>11</Item>
+      <Item>11</Item>
+      <Item>11</Item>
+      <Item>10</Item>
+      <Item>10</Item>
     </formations>
-    <formationPositions>600 300 1500 400</formationPositions>
-    <formationTimes>0 0</formationTimes>
-    <formationSides>-1 -1</formationSides>
+    <formationPositions>834.667 406 838.667 179 840 224 833.667 359 839.667 270 839.667 312</formationPositions>
+    <formationTimes>234.6669921875 238.6669921875 240 233.6669921875 339.6669921875 339.6669921875</formationTimes>
+    <formationSides>-1 -1 -1 -1 -1 -1 -1</formationSides>
     <formationActions>
       <Item>
         <Item>
-          <actions>0</actions>
+          <actions>0 -1</actions>
           <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>0 2</actions>
+          <duration>400</duration>
+        </Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>1</duration>
         </Item>
       </Item>
       <Item>
         <Item>
+          <actions>0 -1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>4 0</actions>
+          <duration>400</duration>
+        </Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>1</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>4 1</actions>
+          <duration>400</duration>
+        </Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>1</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>2 1</actions>
+          <duration>400</duration>
+        </Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>1</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>2400</duration>
+        </Item>
+        <Item>
           <actions>1</actions>
           <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>1 11</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>1 7</actions>
+          <duration>1</duration>
+        </Item>
+        <Item>
+          <actions>1 -1</actions>
+          <duration>300</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>2 3</actions>
+          <duration>100000</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>2400</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>1 11</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>1 7</actions>
+          <duration>1</duration>
+        </Item>
+        <Item>
+          <actions>1 -1</actions>
+          <duration>300</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>4 3</actions>
+          <duration>100000</duration>
         </Item>
       </Item>
     </formationActions>
@@ -27,15 +151,55 @@
     <terrainPositions />
     <terrainTimes />
     <formationNames>
-      <Item>bob</Item>
-      <Item>spawner:2000:bob</Item>
+      <Item>bobbottom</Item>
+      <Item>bobtop</Item>
+      <Item>bob_copy1</Item>
+      <Item>bob_copy2</Item>
+      <Item>slinger99</Item>
+      <Item>slinger99</Item>
     </formationNames>
     <formationActionNames>
       <Item>
         <Item>New Action</Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
       </Item>
       <Item>
         <Item>New Action</Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>idle</Item>
+        <Item>left</Item>
+        <Item>load</Item>
+        <Item>shoot</Item>
+        <Item>shooting</Item>
+        <Item>New Action</Item>
+        <Item>escape</Item>
+      </Item>
+      <Item>
+        <Item>idle</Item>
+        <Item>left</Item>
+        <Item>load</Item>
+        <Item>shoot</Item>
+        <Item>shooting</Item>
+        <Item>New Action</Item>
+        <Item>escape</Item>
       </Item>
     </formationActionNames>
   </Asset>

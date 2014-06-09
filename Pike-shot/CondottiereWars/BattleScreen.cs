@@ -110,6 +110,10 @@ namespace PikeAndShot
             {
                 _game.setScreen(PikeAndShotGame.SCREEN_LEVELEDITOR);
             }
+            else if (keyboardState.IsKeyDown(Keys.D0) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
+            {
+                _game.fullScreen();
+            }
 
             _elapsedTime = gameTime.TotalGameTime.TotalMilliseconds;
 

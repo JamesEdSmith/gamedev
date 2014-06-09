@@ -105,16 +105,16 @@ namespace PikeAndShot
             if (keyboardState.IsKeyDown(Keys.Escape) || GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 _game.Exit();
 
-            if (keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft))
+            if (keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft) || gamePadState.ThumbSticks.Left.X < 0)
             {
-                if ((keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp)) || (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown)))
+                if ((keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp) || gamePadState.ThumbSticks.Left.Y < 0) || (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y > 0))
                     _formation.marchLeft(timeSpan.TotalMilliseconds, true);
                 else
                     _formation.marchLeft(timeSpan.TotalMilliseconds, false);
             }
-            if (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight))
+            if (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight) || gamePadState.ThumbSticks.Left.X > 0)
             {
-                if ((keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp)) || (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown)))
+                if ((keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp) || gamePadState.ThumbSticks.Left.Y < 0) || (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y > 0))
                 {
                     _formation.marchRight(timeSpan.TotalMilliseconds, true);
                     if (_formation.getCenter().X >= PikeAndShotGame.SCREENWIDTH * BattleScreen.SCROLLPOINT + _mapOffset.X)
@@ -133,9 +133,9 @@ namespace PikeAndShot
                 if (_formation.getCenter().X >= PikeAndShotGame.SCREENWIDTH * BattleScreen.SCROLLPOINT + _mapOffset.X)
                     _mapOffset.X += getScrollAdjustSpeed() * (float)timeSpan.TotalMilliseconds;
             }
-            if (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown))
+            if (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y < 0)
             {
-                if ((keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft)) || (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight)))
+                if ((keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft) || gamePadState.ThumbSticks.Left.X < 0) || (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight) || gamePadState.ThumbSticks.Left.X > 0))
                 {
                     _formation.marchDown(timeSpan.TotalMilliseconds, true);
                     //if (_mapOffset.Y < BattleScreen.BATTLEHEIGHTEXTEND && _formation.getCenter().Y - _mapOffset.Y >= PikeAndShotGame.SCREENHEIGHT * 0.5f)
@@ -148,9 +148,9 @@ namespace PikeAndShot
                      //   _mapOffset.Y += _formation.getSpeed() * (float)timeSpan.TotalMilliseconds;
                 }
             }
-            if (keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp))
+            if (keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp) || gamePadState.ThumbSticks.Left.Y > 0)
             {
-                if ((keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft)) || (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight)))
+                if ((keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft) || gamePadState.ThumbSticks.Left.X < 0) || (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight) || gamePadState.ThumbSticks.Left.X > 0))
                 {
                     _formation.marchUp(timeSpan.TotalMilliseconds, true);
                     //if (_mapOffset.Y > -1 * BattleScreen.BATTLEHEIGHTEXTEND && _formation.getCenter().Y - _mapOffset.Y <= PikeAndShotGame.SCREENHEIGHT * 0.5f)
@@ -272,7 +272,18 @@ namespace PikeAndShot
                 {
                     _usedFormations.Add(f);
                     _newEnemyFormation = new EnemyFormation(_levelData.formationNames[f], _levelData.formationActions[f], this, (_levelData.formationPositions[f]).X, (_levelData.formationPositions[f]).Y, 10, _levelData.formationSides[f]);
-                    string formationName = _levelData.formationNames[f];
+                    string formationName = _levelData.formationNames[f];                                       
+                    float x = _newEnemyFormation.getPosition().X;
+                    float y = _newEnemyFormation.getPosition().Y;
+                    if (_newEnemyFormation.getSide() == SIDE_PLAYER)
+                        assignRescue(_newEnemyFormation);
+                    else
+                    {
+                        for (int i = 0; i < _levelData.formations[f].Count; i++)
+                        {
+                            Soldier.getNewSoldier((_levelData.formations[f])[i], this, _newEnemyFormation, x, y);                           
+                        }
+                    }
                     if (formationName.StartsWith("spawner:"))
                     {
                         foreach (Soldier s in _newEnemyFormation.getSoldiers())
@@ -285,18 +296,6 @@ namespace PikeAndShot
                     else
                     {
                         _enemyFormations.Add(_newEnemyFormation);
-                    }
-                                       
-                    float x = _newEnemyFormation.getPosition().X;
-                    float y = _newEnemyFormation.getPosition().Y;
-                    if (_newEnemyFormation.getSide() == SIDE_PLAYER)
-                        assignRescue(_newEnemyFormation);
-                    else
-                    {
-                        for (int i = 0; i < _levelData.formations[f].Count; i++)
-                        {
-                            Soldier.getNewSoldier((_levelData.formations[f])[i], this, _newEnemyFormation, x, y);                           
-                        }
                     }
                 }
             }

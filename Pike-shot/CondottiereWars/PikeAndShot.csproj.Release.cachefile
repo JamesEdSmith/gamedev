@@ -65,6 +65,7 @@ Content\cavalry_leftrecoil.xnb
 Content\gobraider2_melee2.xnb
 Content\roadTerrain7.xnb
 Content\pikeman2_death.xnb
+Content\new_level.xml
 Content\crossbowman_death.xnb
 Content\gobraider1_shieldbreak.xnb
 Content\pikeman2_lower_low.xnb
@@ -124,6 +125,7 @@ Content\cavalry_leftidle.xnb
 Content\skirmisher_death.xnb
 Content\slinger_reload.xnb
 Content\pikeman_lower_low.xnb
+Content\spawner_level.xml
 Content\slinger_melee.xnb
 Content\pikeman2_melee1.xnb
 Content\pikeman_lower_high.xnb

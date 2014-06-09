@@ -21,6 +21,8 @@ namespace PikeAndShot
     public class PikeAndShotGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
+        //RenderTarget2D tempTarget;
+        Viewport viewport;
         SpriteBatch spriteBatch;
         static SpriteFont soldierFont;
         public static Random random = new Random();
@@ -222,6 +224,7 @@ namespace PikeAndShot
             graphics.PreferredBackBufferWidth = SCREENWIDTH;
             graphics.PreferredBackBufferHeight = SCREENHEIGHT;
             graphics.PreferMultiSampling = false;
+            //graphics.IsFullScreen = true;
 
             Content.RootDirectory = "Content";
         }
@@ -245,6 +248,7 @@ namespace PikeAndShot
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            viewport = GraphicsDevice.Viewport;
             soldierFont = Content.Load<SpriteFont>("SpriteFont1");
 
             //TERRAIN_DRY_GRASS = Content.Load<Texture2D>(@"dry_grass");
@@ -446,7 +450,7 @@ namespace PikeAndShot
             }
             
             // PLAY LEVEL
-            _currScreen = new LevelScreen(this, levels.ElementAt(0));
+            _currScreen = new LevelScreen(this, levels.ElementAt(3));
             _gameScreens.Add(_currScreen);
 
             // MAKE FORMATION
@@ -455,6 +459,8 @@ namespace PikeAndShot
             _gameScreens.Add( new LevelEditorScreen(this, _form));
             _form.addFormListener((FormListener)_gameScreens[SCREEN_LEVELEDITOR]);
             _form.addFormListener((LevelScreen)_currScreen);
+
+
         }
 
         /// <summary>
@@ -491,6 +497,7 @@ namespace PikeAndShot
 
         protected override void Draw(GameTime gameTime)
         {
+            GraphicsDevice.Viewport = viewport;
             GraphicsDevice.Clear(Color.Black);
 
             //get rid of blurry sprites
@@ -525,6 +532,13 @@ namespace PikeAndShot
                 return number;
             else
                 return number * -1;
+        }
+
+        internal void fullScreen()
+        {
+            graphics.ToggleFullScreen();
+            //spriteBatch = new SpriteBatch(GraphicsDevice);
+            //viewport = GraphicsDevice.Viewport;
         }
     }
 }

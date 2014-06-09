@@ -115,7 +115,7 @@ namespace PikeAndShot
             _dest = new Vector2(0,0);
             _meleeDestination = new Vector2(0, 0);
             _drawingPosition = Vector2.Zero;
-            _randDestOffset = new Vector2(PikeAndShotGame.getRandPlusMinus(4), PikeAndShotGame.getRandPlusMinus(4));
+            _randDestOffset = new Vector2(PikeAndShotGame.getRandPlusMinus(3), 0);
             _lastAction = PatternAction.ACTION_IDLE;
             _delta = Vector2.Zero;
             _travel = Vector2.Zero;
@@ -339,8 +339,8 @@ namespace PikeAndShot
                 }
                 else
                 {
-                    _delta = new Vector2(guardTarget.getPosition().X + guardTarget._guardPositionOffset.X - guardTargetDist - _position.X, guardTarget.getPosition().Y + guardTarget._guardPositionOffset.Y - _position.Y);
-                    _dest = new Vector2(guardTarget.getPosition().X + guardTarget._guardPositionOffset.X - guardTargetDist, guardTarget.getPosition().Y + guardTarget._guardPositionOffset.Y);
+                    _delta = new Vector2(guardTarget.getCenter().X + guardTarget._guardPositionOffset.X - guardTargetDist - _position.X, guardTarget.getPosition().Y + guardTarget._guardPositionOffset.Y - _position.Y);
+                    _dest = new Vector2(guardTarget.getCenter().X + guardTarget._guardPositionOffset.X - guardTargetDist, guardTarget.getPosition().Y + guardTarget._guardPositionOffset.Y);
                 }
             }
             else if (_state != STATE_MELEE_LOSS && _state != STATE_MELEE_WIN && _state != STATE_ONEATTACK 

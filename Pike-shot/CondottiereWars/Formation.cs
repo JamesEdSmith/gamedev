@@ -177,10 +177,10 @@ namespace PikeAndShot
 
             if (_shotRows.Count > 0)
             {
-                
-                if (_shotRows.Count > 1)
+                int forwardShotRow = getForwardShotRow();
+                if (_shotRows.Count > 1 && forwardShotRow != -1)
                 {
-                    ArrayList firstShotRow = (ArrayList)_shotRows[getForwardShotRow()];
+                    ArrayList firstShotRow = (ArrayList)_shotRows[forwardShotRow];
 
                     if (_state == STATE_SHOT && !_needResetupFormation)
                     {
