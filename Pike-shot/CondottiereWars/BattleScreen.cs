@@ -52,6 +52,7 @@ namespace PikeAndShot
         protected double _elapsedTime;
         protected Vector2 _mapOffset;
         protected bool _active;
+        int _coins;
 
         public BattleScreen(PikeAndShotGame game)
         {
@@ -86,6 +87,7 @@ namespace PikeAndShot
             }
 
             _drawJobs = new ArrayList(255);
+            _coins = 0;
         }
 
         /// <summary>
@@ -197,7 +199,11 @@ namespace PikeAndShot
                 if (obj is Shot)
                     _shots.Remove(obj);
                 else if (obj is Soldier)
+                {
                     _looseSoldiers.Remove(obj);
+                    if (obj.getSide() == SIDE_ENEMY)
+                        _coins++;
+                }
                 else if (obj is Terrain)
                 {
                     _terrain.Remove(obj);

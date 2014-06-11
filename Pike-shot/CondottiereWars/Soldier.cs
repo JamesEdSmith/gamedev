@@ -630,7 +630,7 @@ namespace PikeAndShot
                             if (_longMelee <= 0)
                             {
                                 _stateTimer = 0f;
-                                _state = STATE_READY;
+                                _state = preAttackState;
                                 hit();
                                 _stateChanged = true;
                             }
@@ -673,7 +673,7 @@ namespace PikeAndShot
                     if (_stateTimer <= 0)
                     {
                         _stateTimer = 0f;
-                        _state = STATE_READY;
+                        _state = preAttackState;
                         _stateChanged = true;
                     }
                 }
@@ -683,7 +683,7 @@ namespace PikeAndShot
         protected virtual void winMelee()
         {
             _stateTimer = 0f;
-            _state = STATE_READY;
+            _state = preAttackState;
             _stateChanged = true;
         }
 
@@ -1015,6 +1015,7 @@ namespace PikeAndShot
                             ((Soldier)collider).engage(true, _position, this, rescueFight);
                         }
                     }
+                    //rescue
                     else if (_side == BattleScreen.SIDE_PLAYER && collider.getSide() == BattleScreen.SIDE_PLAYER && (thisInFormation != colliderInFormation))
                     {
                         if (thisInFormation &&
@@ -1135,6 +1136,7 @@ namespace PikeAndShot
 
         internal void oneAttack()
         {
+            preAttackState = _state;
             _state = STATE_ONEATTACK;
             _stateTimer = _oneAttackTime;
             _meleeDestination = _position;
@@ -1279,12 +1281,16 @@ namespace PikeAndShot
 
         public override bool attackHigh()
         {
+            if (_state == STATE_ATTACKING || _state == STATE_LOWERED && _loweredSprite == _pikemanLowerLow)
+                _pikemanLowerHigh.setFrame(_pikemanLowerLow.getCurrFrame());
             _loweredSprite = _pikemanLowerHigh;
             return attack();
         }
 
         public override bool attackLow()
         {
+            if (_state == STATE_ATTACKING || _state == STATE_LOWERED && _loweredSprite == _pikemanLowerHigh)
+                _pikemanLowerLow.setFrame(_pikemanLowerHigh.getCurrFrame());
             _loweredSprite = _pikemanLowerLow;
             return attack();
         }

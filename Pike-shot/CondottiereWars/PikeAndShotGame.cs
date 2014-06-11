@@ -459,8 +459,6 @@ namespace PikeAndShot
             _gameScreens.Add( new LevelEditorScreen(this, _form));
             _form.addFormListener((FormListener)_gameScreens[SCREEN_LEVELEDITOR]);
             _form.addFormListener((LevelScreen)_currScreen);
-
-
         }
 
         /// <summary>
