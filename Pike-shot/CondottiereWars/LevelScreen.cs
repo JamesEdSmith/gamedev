@@ -76,8 +76,55 @@ namespace PikeAndShot
             }
             _deadSpawners.Clear();
 
+            
+            if (_coins >= 20)
+            {
+                if(_formation.numberOfPikes < 10 && _formation.numberOfShots < 10)
+                    spawnRescue();
+                    _coins = 0;
+            }
+            //TODO: POWER UP LEADER
+
             _fps = (double)_draws / gameTime.ElapsedGameTime.TotalSeconds;
             _draws = 0;
+        }
+
+        private void spawnRescue()
+        {
+            if (PikeAndShotGame.random.Next(100) > 49)
+            {
+                List<PatternAction> pActions = new List<PatternAction>();
+                List<int> actions = new List<int>();
+                actions.Add(PatternAction.ACTION_UP);
+                pActions.Add(new PatternAction(actions, 1500f));
+                List<int> actions2 = new List<int>();
+                actions.Add(PatternAction.ACTION_IDLE);
+                pActions.Add(new PatternAction(actions2, 999999999f));
+
+                EnemyFormation formation = new EnemyFormation("Reinforcement", pActions, this,
+                    (float)PikeAndShotGame.SCREENWIDTH / 2f + getMapOffset().X,
+                    (float)PikeAndShotGame.SCREENHEIGHT + (float)Soldier.HEIGHT * 2f, 1, SIDE_PLAYER);
+
+                assignRescue(formation);
+                _enemyFormations.Add(formation);
+            }
+            else
+            {
+                List<PatternAction> pActions = new List<PatternAction>();
+                List<int> actions = new List<int>();
+                actions.Add(PatternAction.ACTION_DOWN);
+                pActions.Add(new PatternAction(actions, 1500f));
+                List<int> actions2 = new List<int>();
+                actions.Add(PatternAction.ACTION_IDLE);
+                pActions.Add(new PatternAction(actions2, 999999999f));
+
+                EnemyFormation formation = new EnemyFormation("Reinforcement", pActions, this,
+                    (float)PikeAndShotGame.SCREENWIDTH / 2f + getMapOffset().X,
+                    0f - (float)Soldier.HEIGHT * 2f, 1, SIDE_PLAYER);
+
+                assignRescue(formation);
+                _enemyFormations.Add(formation);
+            }
         }
 
         public override void draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -314,9 +361,9 @@ namespace PikeAndShot
         private void assignRescue(EnemyFormation formation)
         {
             if(_formation.getLeastType() == Soldier.TYPE_PIKE)
-                formation.addSoldier(new Pikeman(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_PLAYER));
+                formation.addSoldier(new Pikeman(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER));
             else
-                formation.addSoldier(new Arquebusier(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_PLAYER));
+                formation.addSoldier(new Arquebusier(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER));
 
         }
 

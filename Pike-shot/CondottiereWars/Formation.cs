@@ -45,6 +45,8 @@ namespace PikeAndShot
         private bool DEBUGdangerClose;
 
         public bool selected;
+        public int numberOfPikes;
+        public int numberOfShots;
 
         public Formation(BattleScreen screen, float x, float y, int initialCapacity, int side)
         {
@@ -76,6 +78,8 @@ namespace PikeAndShot
             _addedSoldier = false;
             DEBUGdangerClose = false;
             selected = false;
+            numberOfPikes = 0;
+            numberOfShots = 0;
         }
 
         public int getWidth()
@@ -90,6 +94,9 @@ namespace PikeAndShot
 
         public virtual void update(TimeSpan timeSpan)
         {
+            if (this.getSoldiers().Count <= 0)
+                return;
+
             _soldierDied = false;
             _allShotsMade = true;
             bool isDangerClose = dangerClose();
@@ -249,10 +256,16 @@ namespace PikeAndShot
                 _soldiers.Remove(r);
                 if (r.getType() == Soldier.TYPE_PIKE)
                 {
+                    numberOfPikes--;
                     foreach (ArrayList list in _pikeRows)
                         list.Remove(r);
                 }
-
+                else if (r.getType() == Soldier.TYPE_SHOT)
+                {
+                    numberOfShots--;
+                    foreach (ArrayList list in _shotRows)
+                        list.Remove(r);
+                }
             }
             _soldiersToRemove.Clear();
 
@@ -538,6 +551,8 @@ namespace PikeAndShot
             {
                 _soldiersToRemove.Add(s);
             }
+            numberOfPikes = 0;
+            numberOfShots = 0;
             _soldiers.Clear();
             _shotRows.Clear();
             _pikeRows.Clear();
@@ -878,6 +893,11 @@ namespace PikeAndShot
             if (soldier.getType() == Soldier.TYPE_PIKE)
             {
                 reiteratePikeCommand((Pikeman)soldier);
+                numberOfPikes++;
+            }
+            else if (soldier.getType() == Soldier.TYPE_SHOT)
+            {
+                numberOfShots++;
             }
         }
 
@@ -1049,7 +1069,7 @@ namespace PikeAndShot
 
         public void removeSoldier(int soldier)
         {
-            _soldiers.RemoveAt(soldier);
+            _soldiersToRemove.Add(_soldiers[soldier]);
         }
 
         public void marchUp(double milliseconds, bool diagonal)

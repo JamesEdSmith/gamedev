@@ -52,7 +52,7 @@ namespace PikeAndShot
         protected double _elapsedTime;
         protected Vector2 _mapOffset;
         protected bool _active;
-        int _coins;
+        protected int _coins;
 
         public BattleScreen(PikeAndShotGame game)
         {
