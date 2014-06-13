@@ -103,7 +103,7 @@ namespace PikeAndShot
 
                 EnemyFormation formation = new EnemyFormation("Reinforcement", pActions, this,
                     (float)PikeAndShotGame.SCREENWIDTH / 2f + getMapOffset().X,
-                    (float)PikeAndShotGame.SCREENHEIGHT + (float)Soldier.HEIGHT * 2f, 1, SIDE_PLAYER);
+                    (float)PikeAndShotGame.SCREENHEIGHT, 1, SIDE_PLAYER);
 
                 assignRescue(formation);
                 _enemyFormations.Add(formation);
