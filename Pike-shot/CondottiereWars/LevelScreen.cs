@@ -76,14 +76,34 @@ namespace PikeAndShot
             }
             _deadSpawners.Clear();
 
-            
-            if (_coins >= 20)
+
+            if (_coins >= MAX_COINS)
             {
-                if(_formation.numberOfPikes < 10 && _formation.numberOfShots < 10)
+                if (_formation.numberOfPikes < 10 && _formation.numberOfShots < 10)
                     spawnRescue();
-                    _coins = 0;
+                _coins = 0;
+                foreach (Coin coin in _coinSprites)
+                {
+                    coin.drop();
+                }
             }
             //TODO: POWER UP LEADER
+
+            ArrayList coinsDone = new ArrayList();
+            for (int i = 0; i < _coinSprites.Count; i++)
+            {
+                //((Coin)_coinSprites[i]).update(gameTime.ElapsedGameTime);
+                if (((Coin)_coinSprites[i])._position.Y >= BASE_COIN_POSITION.Y + 4f)
+                {
+                    coinsDone.Add(_coinSprites[i]);
+                    ((Coin)_coinSprites[i]).setDone();
+                }
+            }
+
+            foreach (Coin c in coinsDone)
+                _coinSprites.Remove(c);
+
+            coinsDone.Clear();
 
             _fps = (double)_draws / gameTime.ElapsedGameTime.TotalSeconds;
             _draws = 0;
@@ -132,6 +152,15 @@ namespace PikeAndShot
             base.draw(gameTime, spriteBatch);
 
             _draws++;
+
+            //draw UI
+
+            for (int i = 0; i < _coinSprites.Count; i++)
+            {
+                ((Coin)_coinSprites[i]).draw(spriteBatch);
+            }
+
+            spriteBatch.Draw(PikeAndShotGame.COIN_METER, COIN_METER_POSITION, Color.White);
 
             /*spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "mapOffset: " + _mapOffset.X + ", " + _mapOffset.Y, new Vector2(5, 35), Color.White);
             spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Loose: " + _looseSoldiers.Count, new Vector2(5, 5), Color.White);
@@ -462,6 +491,25 @@ namespace PikeAndShot
             _screenObjectsToAdd.Clear();
             _screenColliders.Clear();
             _spawners.Clear();
+
+            _formation = new Formation(this, 200, 200, 20, SIDE_PLAYER);
+            //_formation.addSoldier(new Cavalry(this, 200, 200, BattleScreen.SIDE_PLAYER));
+
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
             foreach (Soldier s in _formation.getSoldiers())
             {

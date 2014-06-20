@@ -210,6 +210,8 @@ namespace PikeAndShot
 
         public static List<Texture2D> ROAD_TERRAIN;
 
+        public static Texture2D COIN;
+        public static Texture2D COIN_METER;
 
         //Utility Graphics
         public static Texture2D DOT;
@@ -425,6 +427,9 @@ namespace PikeAndShot
             GOBLIN_FEET = Content.Load<Texture2D>(@"goblin_feet");
             BROWN_FEET = Content.Load<Texture2D>(@"brown_feet");
             SLINGER_GROUND = Content.Load<Texture2D>(@"slinger_ground");
+
+            COIN = Content.Load<Texture2D>(@"coin");
+            COIN_METER = Content.Load<Texture2D>(@"coin_meter");
 
             DOT = Content.Load<Texture2D>(@"dot");
             SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");

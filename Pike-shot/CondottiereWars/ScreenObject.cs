@@ -89,7 +89,7 @@ namespace PikeAndShot
 
     public class ScreenAnimation
     {
-        protected Vector2 _position;
+        public Vector2 _position;
         public float _drawingY;
         protected int _side;
         protected Sprite _sprite;
@@ -113,6 +113,12 @@ namespace PikeAndShot
             _screen = screen;
         }
 
+        public void restart()
+        {
+            _done = false;
+            _time = _duration;
+        }
+
         public virtual void update(TimeSpan timeSpan)
         {
             _time -= (float)timeSpan.TotalMilliseconds;
@@ -132,7 +138,7 @@ namespace PikeAndShot
             }            
         }
 
-        public void draw(SpriteBatch spritebatch)
+        public virtual void draw(SpriteBatch spritebatch)
         {
             _sprite.draw(spritebatch, _position - _screen.getMapOffset(), _side);
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position, Color.White);
@@ -174,6 +180,67 @@ namespace PikeAndShot
                 _sprite.setFrame(1);
             else
                 _sprite.setFrame(0);
+        }
+    }
+
+    public class Coin : ScreenAnimation
+    {
+        static float COIN_TIME = 250f;
+        private bool _drop;
+        private const float GRAVITY = 9.8f;
+        private float velocity;
+
+        public Coin(BattleScreen screen, Vector2 position)
+            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN, new Rectangle(0, 0, 24, 14), 24, 14), COIN_TIME)
+        {
+            int rando = PikeAndShotGame.random.Next(3);
+            if (rando == 1)
+                _position.X += 2f;
+            else if (rando == 2)
+                _position.X -= 2f;
+
+            _drop = false;
+            velocity = -1.5f;
+        }
+
+        public override void update(TimeSpan timeSpan)
+        {
+            _time -= (float)timeSpan.TotalMilliseconds;
+
+            if (_time <= 0)
+            {
+                _time = 0;
+            }
+
+            int maxFrames = _sprite.getMaxFrames();
+            float deathFrameTime = COIN_TIME / (float)maxFrames;
+            int frameNumber = maxFrames - (int)(_time / deathFrameTime) - 1;
+
+            _sprite.setFrame(frameNumber);
+
+            if (_drop)
+            {
+                velocity += GRAVITY * (float)timeSpan.TotalSeconds;
+                _position.Y += velocity;
+            }
+        }
+
+        public override void draw(SpriteBatch spritebatch)
+        {
+            _sprite.draw(spritebatch, _position, _side);
+            //spritebatch.Draw(BattleScreen.getDotTexture(), _position, Color.White);
+            //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(2,0), Color.White);
+            //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(0,2), Color.White);
+        }
+
+        public void setDone()
+        {
+            _done = true;
+        }
+
+        internal void drop()
+        {
+            _drop = true;
         }
     }
 }
