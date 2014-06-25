@@ -33,6 +33,9 @@ namespace PikeAndShot
         public const int CLASS_GOBLIN_BERZERKER = 11;
         public const int CLASS_GOBLIN_BRIGAND = 12;
 
+        // leader classes
+        public const int CLASS_LEADER_PUCELLE = -1;
+
         // soldier status
         public const int STATE_READY = 0;
         public const int STATE_ATTACKING = 1;
@@ -2033,6 +2036,52 @@ namespace PikeAndShot
             }
         
             return false;
+        }
+    }
+
+    public class Leader : Soldier
+    {
+        float _idleTime;
+
+        public Leader(BattleScreen screen, float x, float y, int side)
+            : base(screen, side, x, y)
+        {
+            _type = Soldier.TYPE_SWINGER;
+            _class = Soldier.CLASS_LEADER_PUCELLE;
+
+            _idle = new Sprite(PikeAndShotGame.PUCELLE_IDLE, new Rectangle(4, 68, 16, 28), 54, 106);
+
+            _feet = new Sprite(PikeAndShotGame.PIKEMAN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+
+            _feet.setAnimationSpeed(15f / 0.11f);
+            _retreat.setAnimationSpeed(15f / _speed);
+            _stateTimer = _idleTime = 1000f;
+        }
+
+        protected override void updateAnimation(TimeSpan timeSpan)
+        {
+            base.updateAnimation(timeSpan);
+            if (_state == STATE_READY)
+            {
+                int maxFrames = _idle.getMaxFrames();
+                float deathFrameTime = _idleTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / deathFrameTime) - 1;
+
+                _idle.setFrame(frameNumber);
+            }
+        }
+
+        protected override void updateState(TimeSpan timeSpan)
+        {
+            base.updateState(timeSpan);
+            if (_state == STATE_READY)
+            {
+                _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                if (_stateTimer <= 0)
+                {
+                    _stateTimer = _idleTime;
+                }
+            }
         }
     }
 

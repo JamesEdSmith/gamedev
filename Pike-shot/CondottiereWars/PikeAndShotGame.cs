@@ -29,7 +29,7 @@ namespace PikeAndShot
 
         public LevelConstructorForm _form;
 
-        public const int SCREENWIDTH = 1028;
+        public const int SCREENWIDTH = 1024;
         public const int SCREENHEIGHT = 768;
 
         public const int SCREEN_LEVELPLAY = 0;
@@ -38,6 +38,8 @@ namespace PikeAndShot
 
 
         public static Texture2D TERRAIN_DRY_GRASS;
+
+        public static Texture2D PUCELLE_IDLE;
 
         public static Texture2D PIKEMAN_FEET;
         public static Texture2D PIKEMAN_IDLE;
@@ -258,6 +260,8 @@ namespace PikeAndShot
 
             for(int i = 0; i < 11; i++)
                 ROAD_TERRAIN.Add(Content.Load<Texture2D>(@"roadTerrain" + i));
+
+            PUCELLE_IDLE = Content.Load<Texture2D>(@"pucelle_ready");
 
             SOLDIER_FEET = Content.Load<Texture2D>(@"soldier_feet");
             SOLDIER_IDLE = Content.Load<Texture2D>(@"soldier_idle");
