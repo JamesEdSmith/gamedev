@@ -261,7 +261,7 @@ namespace PikeAndShot
             for(int i = 0; i < 11; i++)
                 ROAD_TERRAIN.Add(Content.Load<Texture2D>(@"roadTerrain" + i));
 
-            PUCELLE_IDLE = Content.Load<Texture2D>(@"pucelle_ready");
+            PUCELLE_IDLE = Content.Load<Texture2D>(@"pucelle_ready2");
 
             SOLDIER_FEET = Content.Load<Texture2D>(@"soldier_feet");
             SOLDIER_IDLE = Content.Load<Texture2D>(@"soldier_idle");

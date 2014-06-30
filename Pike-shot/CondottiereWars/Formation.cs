@@ -266,6 +266,11 @@ namespace PikeAndShot
                     foreach (ArrayList list in _shotRows)
                         list.Remove(r);
                 }
+                else if (r.getType() == Soldier.TYPE_SUPPORT)
+                {
+                    foreach (ArrayList list in _supportRows)
+                        list.Remove(r);
+                }
             }
             _soldiersToRemove.Clear();
 
@@ -1004,27 +1009,27 @@ namespace PikeAndShot
             if (_state == STATE_PIKE)
             {
                 arrangeFormation(_pikeRows, ref i);
-                //arrangeFormation(_swingerRows, ref i);
                 arrangeFormation(_meleeRows, ref i);
+                arrangeFormation(_supportRows, ref i);
                 arrangeFormation(_shotRows, ref i);
             }
             else if (_state == STATE_SHOT)
             {
                 arrangeFormation(_shotRows, ref i);
                 arrangeFormation(_meleeRows, ref i);
+                arrangeFormation(_supportRows, ref i);
                 arrangeFormation(_pikeRows, ref i);
                 //arrangeFormation(_swingerRows, ref i);
             }
             else // STATE_MELEE
             {
-                arrangeFormation(_meleeRows, ref i);
                 arrangeFormation(_pikeRows, ref i);
-                //arrangeFormation(_swingerRows, ref i);
+                arrangeFormation(_meleeRows, ref i);
+                arrangeFormation(_supportRows, ref i);
                 arrangeFormation(_shotRows, ref i);
             }
 
             arrangeFormation(_cavRows, ref i);
-            arrangeFormation(_supportRows, ref i);
 
             _size.X = i * Soldier.WIDTH;
             _size.Y = _width * Soldier.WIDTH;
@@ -1744,10 +1749,20 @@ namespace PikeAndShot
                 foreach (Soldier soldier in row)
                     pike++;
             }
-            if (pike <= shot)
+            if (pike < shot)
                 return Soldier.TYPE_PIKE;
             else
                 return Soldier.TYPE_SHOT;
+        }
+
+        internal void retreat()
+        {
+            foreach(Soldier soldier in _soldiers)
+            {
+                _screen.addLooseSoldierNext(soldier);
+                _soldiersToRemove.Add(soldier);
+                soldier.route();
+            }
         }
     }
 

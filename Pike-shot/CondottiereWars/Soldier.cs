@@ -665,10 +665,6 @@ namespace PikeAndShot
                         _stateTimer = _routedTime;
                         _routed.nextFrame();
                     }
-                    if (_routed.getCurrFrame() == 0)
-                    {
-                        _destination.Y = PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT);
-                    }
                 }
                 else if (_state == STATE_ONEATTACK)
                 {
@@ -1090,6 +1086,21 @@ namespace PikeAndShot
             _destination = _position;
             _screen.addLooseSoldier(this);
         
+        }
+
+        public virtual void route()
+        {
+            if (_state != STATE_DEAD && _state != STATE_DYING)
+            {
+                if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
+                    _engager.setState(_engager.preAttackState);
+                _state = STATE_ROUTE;
+                _stateTimer = _routeTime;
+
+                _destination.Y = PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT);
+                _destination.X = -1000f;
+                _speed *= 0.3f;
+            }
         }
 
         protected virtual void engage(bool win, Vector2 position, Soldier engager, bool rescueFight)
@@ -2046,16 +2057,16 @@ namespace PikeAndShot
         public Leader(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
         {
-            _type = Soldier.TYPE_SWINGER;
+            _type = Soldier.TYPE_SUPPORT;
             _class = Soldier.CLASS_LEADER_PUCELLE;
 
-            _idle = new Sprite(PikeAndShotGame.PUCELLE_IDLE, new Rectangle(4, 68, 16, 28), 54, 106);
+            _idle = new Sprite(PikeAndShotGame.PUCELLE_IDLE, new Rectangle(6, 68, 16, 28), 54, 106);
 
             _feet = new Sprite(PikeAndShotGame.PIKEMAN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
 
             _feet.setAnimationSpeed(15f / 0.11f);
             _retreat.setAnimationSpeed(15f / _speed);
-            _stateTimer = _idleTime = 1000f;
+            _stateTimer = _idleTime = 3000f;
         }
 
         protected override void updateAnimation(TimeSpan timeSpan)
@@ -2082,6 +2093,20 @@ namespace PikeAndShot
                     _stateTimer = _idleTime;
                 }
             }
+            else if (_state == STATE_DEAD)
+            {
+                _screen.getPlayerFormation().retreat();
+            }
+        }
+
+        protected override void hit()
+        {
+            base.hit();
+
+            /*if (inPlayerFormation)
+            {
+                _screen.getPlayerFormation().retreat();
+            }*/
         }
     }
 
