@@ -40,6 +40,7 @@ namespace PikeAndShot
         public static Texture2D TERRAIN_DRY_GRASS;
 
         public static Texture2D PUCELLE_IDLE;
+        public static Texture2D PUCELLE_MOTION;
 
         public static Texture2D PIKEMAN_FEET;
         public static Texture2D PIKEMAN_IDLE;
@@ -262,6 +263,7 @@ namespace PikeAndShot
                 ROAD_TERRAIN.Add(Content.Load<Texture2D>(@"roadTerrain" + i));
 
             PUCELLE_IDLE = Content.Load<Texture2D>(@"pucelle_ready2");
+            PUCELLE_MOTION = Content.Load<Texture2D>(@"pucelle_motion");
 
             SOLDIER_FEET = Content.Load<Texture2D>(@"soldier_feet");
             SOLDIER_IDLE = Content.Load<Texture2D>(@"soldier_idle");

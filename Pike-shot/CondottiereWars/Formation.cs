@@ -172,14 +172,6 @@ namespace PikeAndShot
                         }
                     }
                 }
-
-                if (isDangerClose)
-                {
-                    foreach (Soldier enemy in _enemiesToGuard)
-                    {
-                        assignDoppel(enemy);
-                    }
-                }
             }
 
             if (_shotRows.Count > 0)
@@ -584,6 +576,15 @@ namespace PikeAndShot
 
         public void pikeAttack()
         {
+            if (_supportRows.Count != 0)
+            {
+                foreach (Soldier s in (ArrayList)_supportRows[0])
+                {
+                    if (s is Leader)
+                        s.attack();
+                }
+            }
+
             if (_pikeRows.Count != 0)
             {
 
@@ -678,6 +679,14 @@ namespace PikeAndShot
                         s.attack();
                 }
             }
+            if(_supportRows.Count > 0)
+            {
+                foreach (Soldier d in (ArrayList)_supportRows[0])
+                {
+                    if (d is Dopple && d.getState() != Soldier.STATE_MELEE_LOSS && d.getState() != Soldier.STATE_MELEE_WIN)
+                        ((Dopple)d).charge();
+                }
+            }
         }
 
         internal void cancelCharge()
@@ -741,6 +750,15 @@ namespace PikeAndShot
             bool didAttack = false;
             ArrayList tempRow;
             ArrayList prevRow;
+
+            if (_supportRows.Count != 0)
+            {
+                foreach (Soldier s in (ArrayList)_supportRows[0])
+                {
+                    if (s is Leader)
+                        s.attack();
+                }
+            }
 
             if (_shotRows.Count != 0)
             {
@@ -859,7 +877,7 @@ namespace PikeAndShot
                     addSoldierToRow(soldier, _pikeRows);
                     break;
                 case Soldier.TYPE_SWINGER:
-                    addSoldierToRow(soldier, _meleeRows);
+                    addSoldierToRow(soldier, _supportRows);
                     break;
                 case Soldier.TYPE_SHOT:
                     addSoldierToRow(soldier, _shotRows);
@@ -939,7 +957,8 @@ namespace PikeAndShot
 
         private void addSoldierToRow(Soldier soldier, ArrayList rows)
         {
-            int rowsOfType = getTotalSoldiers(soldier.getType()) / _width;
+            int addLeader = soldier.getType() == Soldier.TYPE_SWINGER ? 1 : 0;
+            int rowsOfType = (getTotalSoldiers(soldier.getType()) + addLeader) / _width;
             Soldier prevSoldier;
             ArrayList row;
             float lastRowStartHeight = 0f;
@@ -960,10 +979,18 @@ namespace PikeAndShot
             }
             else
             {
-                row = findSmallestRow(rows);
-                row.Add(soldier);
-                prevSoldier = ((Soldier)row[row.Count - 2]);
-                soldier._destination = new Vector2(prevSoldier._destination.X, prevSoldier._destination.Y + Soldier.HEIGHT);
+                if (soldier.getType() == Soldier.TYPE_SWINGER && rows.Count < 2 && ((ArrayList)rows[0]).Count % 2 == 0)
+                {
+                    row = (ArrayList)rows[0];
+                    row.Insert(0, soldier);
+                }
+                else
+                {
+                    row = findSmallestRow(rows);
+                    row.Add(soldier);
+                    prevSoldier = ((Soldier)row[row.Count - 2]);
+                    soldier._destination = new Vector2(prevSoldier._destination.X, prevSoldier._destination.Y + Soldier.HEIGHT);
+                }
             }
 
             //if (rows.Count > 1)
@@ -1010,23 +1037,22 @@ namespace PikeAndShot
             {
                 arrangeFormation(_pikeRows, ref i);
                 arrangeFormation(_meleeRows, ref i);
-                arrangeFormation(_supportRows, ref i);
                 arrangeFormation(_shotRows, ref i);
+                arrangeFormation(_supportRows, ref i);
             }
             else if (_state == STATE_SHOT)
             {
                 arrangeFormation(_shotRows, ref i);
                 arrangeFormation(_meleeRows, ref i);
-                arrangeFormation(_supportRows, ref i);
                 arrangeFormation(_pikeRows, ref i);
-                //arrangeFormation(_swingerRows, ref i);
+                arrangeFormation(_supportRows, ref i);
             }
             else // STATE_MELEE
             {
-                arrangeFormation(_pikeRows, ref i);
                 arrangeFormation(_meleeRows, ref i);
-                arrangeFormation(_supportRows, ref i);
+                arrangeFormation(_pikeRows, ref i);
                 arrangeFormation(_shotRows, ref i);
+                arrangeFormation(_supportRows, ref i);
             }
 
             arrangeFormation(_cavRows, ref i);

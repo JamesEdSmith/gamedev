@@ -1024,7 +1024,7 @@ namespace PikeAndShot
                         {
                             ((Soldier)collider)._state = STATE_READY;
                             ((Soldier)collider)._reacting = false;
-                            if (((Soldier)collider).myFormation != null)
+                            if (((Soldier)collider).myFormation != null && ((Soldier)collider).myFormation != _screen.getPlayerFormation())
                                 ((Soldier)collider).myFormation.removeSoldier(((Soldier)collider));
                             _screen.getPlayerFormation().addSoldier((Soldier)collider);
                             _screen.removeLooseSoldier((Soldier)collider);
@@ -1878,11 +1878,12 @@ namespace PikeAndShot
         public override bool attack()
         {
             Vector2 formationPosition = _position - _destination;
-            if (_state == STATE_READY /*&& (Math.Abs(formationPosition.X) < _speed * 100 && Math.Abs(formationPosition.Y) < _speed * 100)*/)
+            if (_state == STATE_READY || _state == STATE_CHARGING || _state == STATE_CHARGED)
             {
                 preAttackState = _state;
                 _state = STATE_ATTACKING;
                 _stateTimer = _attackTime;
+                _destination.X = _position.X;
                 return true;
             }
 
@@ -1963,7 +1964,7 @@ namespace PikeAndShot
 
         protected override bool checkReactions(TimeSpan timeSpan)
         {
-            if (_screen.findPikeTip(this, 0.5f) || _screen.findSoldier(this, 1.5f, Soldier.HEIGHT * 0.5f))
+            if ( _screen.findSoldier(this, 1.5f, Soldier.HEIGHT * 0.5f))
             {
                 if (!_reacting)
                 {
@@ -2005,7 +2006,7 @@ namespace PikeAndShot
                 }
 
                 _feet.update(timeSpan);
-                _retreat.update(timeSpan);
+                //_retreat.update(timeSpan);
 
                 if (_feet.getCurrFrame() % 2 > 0)
                     _jostleOffset.Y = 1f;
@@ -2048,10 +2049,21 @@ namespace PikeAndShot
         
             return false;
         }
+
+        internal void charge()
+        {
+            if (_state == STATE_READY)
+            {
+                _state = STATE_CHARGING;
+                _stateTimer = _chargeTime;
+            }
+        }
     }
 
     public class Leader : Soldier
     {
+        protected Sprite _motion;
+        float _motionTime;
         float _idleTime;
 
         public Leader(BattleScreen screen, float x, float y, int side)
@@ -2061,12 +2073,14 @@ namespace PikeAndShot
             _class = Soldier.CLASS_LEADER_PUCELLE;
 
             _idle = new Sprite(PikeAndShotGame.PUCELLE_IDLE, new Rectangle(6, 68, 16, 28), 54, 106);
+            _motion = new Sprite(PikeAndShotGame.PUCELLE_MOTION, new Rectangle(6, 68, 16, 28), 90, 110);
 
             _feet = new Sprite(PikeAndShotGame.PIKEMAN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
 
             _feet.setAnimationSpeed(15f / 0.11f);
             _retreat.setAnimationSpeed(15f / _speed);
             _stateTimer = _idleTime = 3000f;
+            _motionTime = 2000f;
         }
 
         protected override void updateAnimation(TimeSpan timeSpan)
@@ -2079,7 +2093,30 @@ namespace PikeAndShot
                 int frameNumber = maxFrames - (int)(_stateTimer / deathFrameTime) - 1;
 
                 _idle.setFrame(frameNumber);
+                _body = _idle;
             }
+            else if (_state == STATE_ATTACKING)
+            {   
+                int maxFrames = _motion.getMaxFrames();
+                float deathFrameTime = _motionTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / deathFrameTime) - 1;
+
+                _motion.setFrame(frameNumber);
+                _body = _motion;
+            }
+        }
+        public override bool attack()
+        {
+            if (_state != STATE_DEAD &&
+                _state != STATE_DYING &&
+                _state != STATE_MELEE_WIN &&
+                _state != STATE_MELEE_LOSS &&
+                _state != STATE_ATTACKING)
+            {
+                _state = STATE_ATTACKING;
+                _stateTimer = _motionTime;
+            }
+            return false;
         }
 
         protected override void updateState(TimeSpan timeSpan)
@@ -2090,6 +2127,15 @@ namespace PikeAndShot
                 _stateTimer -= (float)timeSpan.TotalMilliseconds;
                 if (_stateTimer <= 0)
                 {
+                    _stateTimer = _idleTime;
+                }
+            }
+            else if (_state == STATE_ATTACKING)
+            {
+                _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                if (_stateTimer <= 0)
+                {
+                    _state = STATE_READY;
                     _stateTimer = _idleTime;
                 }
             }
