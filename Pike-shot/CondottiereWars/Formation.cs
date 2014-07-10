@@ -203,10 +203,10 @@ namespace PikeAndShot
                     }
                     else
                     {
-                        for (int i = _width - firstShotRow.Count; i > 0; i--)
-                        {
-                            moveUpShooter();
-                        }
+                        //for (int i = _width - firstShotRow.Count; i > 0; i--)
+                        //{
+                        //    moveUpShooter();
+                        //}
                     }
                 }
                 foreach (Shot shot in _shotsToBlock)
@@ -989,19 +989,32 @@ namespace PikeAndShot
                     row = findSmallestRow(rows);
                     row.Add(soldier);
                     prevSoldier = ((Soldier)row[row.Count - 2]);
-                    soldier._destination = new Vector2(prevSoldier._destination.X, prevSoldier._destination.Y + Soldier.HEIGHT);
                 }
             }
 
-            //if (rows.Count > 1)
-            //{
+            //see if rows should be evened out a little
+            if (rows.Count > 1 && row.Count < _width / 2)
+            {
+                ArrayList prevRow = ((ArrayList)rows[rows.Count - 2]);
+                Soldier oldSoldier = (Soldier)prevRow[prevRow.Count -1];
+                row.Add(oldSoldier);
+                prevSoldier = ((Soldier)((ArrayList)rows[rows.Count - 1])[0]);
+                oldSoldier._destination = new Vector2(prevSoldier._destination.X, prevSoldier._destination.Y);
+                prevRow.RemoveAt(prevRow.Count - 1);
+                lastRowStartHeight = (float)_width / 2f - (float)(prevRow.Count) / 2f;
+
+                for (int i = 0; i < prevRow.Count; i++)
+                {
+                    ((Soldier)prevRow[i])._destination.Y = _position.Y + Soldier.HEIGHT * ((float)i + lastRowStartHeight);
+                }
+            }
+            
             lastRowStartHeight = (float)_width / 2f - (float)(row.Count) / 2f;
 
             for (int i = 0; i < row.Count; i++)
             {
                 ((Soldier)row[i])._destination.Y = _position.Y + Soldier.HEIGHT * ((float)i + lastRowStartHeight);
             }
-            //}
 
             _soldiers.Add(soldier);
         }
