@@ -81,15 +81,13 @@ namespace PikeAndShot
 
             if (_coins >= MAX_COINS)
             {
-                if (_formation.numberOfPikes < 10 && _formation.numberOfShots < 10)
-                    spawnRescue();
+                spawnRescue();
                 _coins = 0;
                 foreach (Coin coin in _coinSprites)
                 {
                     coin.drop();
                 }
             }
-            //TODO: POWER UP LEADER
 
             ArrayList coinsDone = new ArrayList();
             for (int i = 0; i < _coinSprites.Count; i++)
@@ -112,7 +110,7 @@ namespace PikeAndShot
         }
 
         private void spawnRescue()
-        {
+        {            
             if (PikeAndShotGame.random.Next(100) > 49)
             {
                 List<PatternAction> pActions = new List<PatternAction>();
@@ -391,11 +389,17 @@ namespace PikeAndShot
 
         private void assignRescue(EnemyFormation formation)
         {
-            if(_formation.getLeastType() == Soldier.TYPE_PIKE)
-                formation.addSoldier(new Pikeman(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER));
+            if (_formation.numberOfPikes < 10 || _formation.numberOfShots < 10)
+            {
+                if (_formation.getLeastType() == Soldier.TYPE_PIKE)
+                    formation.addSoldier(new Pikeman(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER));
+                else
+                    formation.addSoldier(new Arquebusier(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER));
+            }
             else
-                formation.addSoldier(new Arquebusier(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER));
-
+            {
+                formation.addSoldier(new Dopple(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER));
+            }
         }
 
         internal ArrayList shotBeforeFormation()

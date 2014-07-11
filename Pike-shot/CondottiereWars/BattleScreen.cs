@@ -639,7 +639,7 @@ namespace PikeAndShot
                         else if (soldier.getSide() == SIDE_PLAYER && pt.getSide() == SIDE_ENEMY)
                         {
                             if (
-                                (ptX > soX + soldier.getWidth() && ptX - (soX + soldier.getWidth()) <= Soldier.WIDTH * range) &&
+                                (ptX > soX && ptX - (soX + soldier.getWidth()) <= Soldier.WIDTH * range) &&
                                 (Math.Abs(ptY - soY) <= Soldier.WIDTH * spread)
                                )
                             {

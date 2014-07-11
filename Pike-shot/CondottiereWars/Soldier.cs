@@ -314,7 +314,7 @@ namespace PikeAndShot
                 return;
             }
             // check for REACTIONS
-            else if ((_state == STATE_READY || _state == STATE_CHARGING) /*&& !guarding*/)
+            else if ((_state == STATE_READY || _state == STATE_CHARGING || _state == STATE_CHARGED) /*&& !guarding*/)
             {
                 if (checkReactions(timeSpan))
                 {
@@ -564,34 +564,39 @@ namespace PikeAndShot
                 }
                 else if (_state == STATE_CHARGING)
                 {
-                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
-                    if (initCharge)
+                    if (this is Dopple)
+                        ((Dopple)this).chargeLogic(timeSpan);
+                    else
                     {
-                        _speed = 0.11f + (0.03f * (1f - (_stateTimer/450f)));
-                    }
+                        _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                        if (initCharge)
+                        {
+                            _speed = 0.11f + (0.03f * (1f - (_stateTimer / 450f)));
+                        }
 
-                    if (_stateTimer <= 0)
-                    {
-                        if (!initCharge)
+                        if (_stateTimer <= 0)
                         {
-                            initCharge = true;
-                            _stateTimer = 450f;
-                            _destination.X += PikeAndShotGame.SCREENWIDTH * this._side;
-                            _screen.addLooseSoldier(this);
-                            //_speed = 0.14f;
+                            if (!initCharge)
+                            {
+                                initCharge = true;
+                                _stateTimer = 450f;
+                                _destination.X += PikeAndShotGame.SCREENWIDTH * this._side;
+                                _screen.addLooseSoldier(this);
+                                //_speed = 0.14f;
+                            }
+                            else
+                                _stateTimer = 0f;
                         }
-                        else
-                            _stateTimer = 0f;
-                    }
-                    if (_destination == _position && initCharge)
-                    {
-                        if (this is Targeteer)
+                        if (_destination == _position && initCharge)
                         {
-                            ((Targeteer)this).cover();
-                            _reacting = false;
+                            if (this is Targeteer)
+                            {
+                                ((Targeteer)this).cover();
+                                _reacting = false;
+                            }
+                            //change state down here so that if we cover(), the state won't stay as STATE_COVER
+                            _state = STATE_CHARGED;
                         }
-                        //change state down here so that if we cover(), the state won't stay as STATE_COVER
-                        _state = STATE_CHARGED;
                     }
                 }
                 else if (_state == STATE_DYING)
@@ -997,11 +1002,13 @@ namespace PikeAndShot
                         {
                             if(_state != STATE_ATTACKING)
                                 attack();
+                            ((Soldier)collider).engage(false, _position, this, rescueFight);
                         }
                         else if (collider is Dopple)
                         {
                             if (collider.getState() != STATE_ATTACKING)
                                 ((Dopple)collider).attack();
+                            engage(false, collider.getPosition(), (Soldier)collider, rescueFight);
                         }
                         else if (PikeAndShotGame.random.Next(51) > 25)
                         {
@@ -1832,10 +1839,11 @@ namespace PikeAndShot
         {
             _type = Soldier.TYPE_SWINGER;
             _class = Soldier.CLASS_MERC_DOPPLE;
-            _attackTime = 300f;
+            _attackTime = 150f;
             _reloadTime = 500f;
             guardTargetDist = (float)getWidth()*2f;
             guardTargetRange = 275f;
+            _chargeTime = 300f;
 
             _feet = new Sprite(PikeAndShotGame.PIKEMAN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
             _idle = new Sprite(PikeAndShotGame.DOPPLE_IDLE, new Rectangle(20, 6, 16, 28), 44, 42);
@@ -1908,7 +1916,7 @@ namespace PikeAndShot
                 }
                 else if (_state == STATE_ATTACKING)
                 {
-                    if (_doppleSwing1.getCurrFrame() == 8 && !_shotMade)
+                    if (_doppleSwing1.getCurrFrame() >= 7 && !_shotMade)
                         shotDone();
                 }
             }
@@ -1964,7 +1972,7 @@ namespace PikeAndShot
 
         protected override bool checkReactions(TimeSpan timeSpan)
         {
-            if ( _screen.findSoldier(this, 1.5f, Soldier.HEIGHT * 0.5f))
+            if (_screen.findSoldier(this, 1.25f, 0.5f))
             {
                 if (!_reacting)
                 {
@@ -2056,6 +2064,33 @@ namespace PikeAndShot
             {
                 _state = STATE_CHARGING;
                 _stateTimer = _chargeTime;
+            }
+        }
+
+        internal void chargeLogic(TimeSpan timeSpan)
+        {
+            _stateTimer -= (float)timeSpan.TotalMilliseconds;
+            if (initCharge)
+            {
+                _speed = 0.11f + (0.03f * (1f - (_stateTimer / 450f)));
+            }
+
+            if (_stateTimer <= 0)
+            {
+                if (!initCharge)
+                {
+                    initCharge = true;
+                    _stateTimer = 450f;
+                    _destination.X += PikeAndShotGame.SCREENWIDTH * this._side;
+                    _screen.addLooseSoldier(this);
+                    //_speed = 0.14f;
+                }
+                else
+                    _stateTimer = 0f;
+            }
+            if (_destination == _position && initCharge)
+            {
+                _state = STATE_CHARGED;
             }
         }
     }
