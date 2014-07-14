@@ -679,12 +679,43 @@ namespace PikeAndShot
                         s.attack();
                 }
             }
-            if(_supportRows.Count > 0)
+
+            ArrayList looseDoppels = new ArrayList();
+            if (this._side == BattleScreen.SIDE_PLAYER)
             {
-                foreach (Soldier d in (ArrayList)_supportRows[0])
+                foreach (Soldier s in _screen.getLooseSoldiers())
                 {
-                    if (d is Dopple && d.getState() != Soldier.STATE_MELEE_LOSS && d.getState() != Soldier.STATE_MELEE_WIN)
-                        ((Dopple)d).charge();
+                    if (s.getSide() == BattleScreen.SIDE_PLAYER && s is Dopple)
+                        looseDoppels.Add(s);
+                }
+            }
+            // ACTIVATE THE DOPPELS
+            if (looseDoppels.Count == 0)
+            {
+                int doppleCount = 0;
+                float doppleSpacing = (MathHelper.Pi * 2f) / (float)getTotalSoldiers(Soldier.TYPE_SWINGER);
+                if (_supportRows.Count > 0)
+                {
+                    foreach (Soldier d in (ArrayList)_supportRows[0])
+                    {
+                        if (d is Dopple && d.getState() != Soldier.STATE_MELEE_LOSS && d.getState() != Soldier.STATE_MELEE_WIN)
+                        {
+                            Dopple dopple = (Dopple)d;
+                            dopple.patternTimer = (float)doppleCount * doppleSpacing;
+                            dopple.charge();
+                            doppleCount++;
+                        }
+                    }
+                }
+            }
+            //RECALL THE DOPPELS
+            else
+            {
+                foreach (Dopple d in looseDoppels)
+                {
+                    _screen.removeLooseSoldier(d);
+                    addSoldier(d);
+                    d.cancelAttack();
                 }
             }
         }
@@ -697,6 +728,17 @@ namespace PikeAndShot
                 {
                     if (s.getState() != Soldier.STATE_MELEE_LOSS && s.getState() != Soldier.STATE_MELEE_WIN)
                         s.cancelAttack();
+                }
+            }
+            if(_supportRows.Count > 0)
+            {
+                foreach (Soldier d in (ArrayList)_supportRows[0])
+                {
+                    if (d is Dopple && d.getState() != Soldier.STATE_MELEE_LOSS && d.getState() != Soldier.STATE_MELEE_WIN && d.getState() != Soldier.STATE_READY)
+                    {
+                        if (d.getState() != Soldier.STATE_MELEE_LOSS && d.getState() != Soldier.STATE_MELEE_WIN)
+                            d.cancelAttack();
+                    }
                 }
             }
         }
@@ -963,6 +1005,14 @@ namespace PikeAndShot
             ArrayList row;
             float lastRowStartHeight = 0f;
 
+            if (soldier is Pikeman && _state == STATE_PIKE)
+            {
+                if (rows.Count < 2)
+                    ((Pikeman)soldier).attackLow();
+                else
+                    ((Pikeman)soldier).attackHigh();
+            }
+
             if (rows.Count < rowsOfType + 1)
             {
                 rows.Add(new ArrayList(_width));
@@ -1087,7 +1137,7 @@ namespace PikeAndShot
             }  
         }
 
-        private int getTotalSoldiers(int type)
+        public int getTotalSoldiers(int type)
         {
             int totalSoldiers = 0;
 

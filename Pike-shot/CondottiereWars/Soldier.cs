@@ -279,11 +279,26 @@ namespace PikeAndShot
                     if(_state != DismountedCavalry.STATE_FALLING)
                         _screen.addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
                 }
+                else if (this is Dopple)
+                {
+                    if((_state == STATE_CHARGING || _state == STATE_ATTACKING) && _destination.X < _position.X)
+                        _screen.addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _side * -1, _drawingY));
+                    else
+                        _screen.addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                }
                 else
                     _screen.addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
             }
 
-            _screen.addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+            if (this is Dopple)
+            {
+                if ((_state == STATE_CHARGING || _state == STATE_ATTACKING) && _destination.X < _position.X)
+                    _screen.addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _side * -1, _drawingY));
+                else
+                    _screen.addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+            }
+            else
+                _screen.addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
 
             //spritebatch.Draw(PikeAndShotGame.getDotTexture(), _drawingPosition, Color.White);
         }
@@ -571,7 +586,7 @@ namespace PikeAndShot
                         _stateTimer -= (float)timeSpan.TotalMilliseconds;
                         if (initCharge)
                         {
-                            _speed = 0.11f + (0.03f * (1f - (_stateTimer / 450f)));
+                            _speed = 0.11f + (0.03f * (1f - (_stateTimer / (_chargeTime/2f))));
                         }
 
                         if (_stateTimer <= 0)
@@ -579,7 +594,7 @@ namespace PikeAndShot
                             if (!initCharge)
                             {
                                 initCharge = true;
-                                _stateTimer = 450f;
+                                _stateTimer = (_chargeTime / 2f);
                                 _destination.X += PikeAndShotGame.SCREENWIDTH * this._side;
                                 _screen.addLooseSoldier(this);
                                 //_speed = 0.14f;
@@ -718,15 +733,19 @@ namespace PikeAndShot
                 frameNumber -= 1;
                 if (initCharge)
                 {
-                    if (!(this is Targeteer) || (this is Targeteer && ((Targeteer)this)._hasShield))
+                    if ((!(this is Targeteer) && !(this is Dopple)) || (this is Targeteer && ((Targeteer)this)._hasShield))
                     {
                         _defend1.setFrame(frameNumber);
                         _body = _defend1;
                     }
-                    else
+                    else if (this is Targeteer)
                     {
                         ((Targeteer)this)._defend2.setFrame(frameNumber);
                         _body = ((Targeteer)this)._defend2;
+                    }
+                    else
+                    {
+                        _body = _idle;
                     }
                 }
                 else
@@ -1027,7 +1046,8 @@ namespace PikeAndShot
                         if (thisInFormation &&
                             collider.getState() != STATE_CHARGING && collider.getState() != STATE_DYING 
                             && collider.getState() != STATE_DEAD
-                            && collider.getState() != STATE_MELEE_LOSS && collider.getState() != STATE_MELEE_WIN)
+                            && collider.getState() != STATE_MELEE_LOSS && collider.getState() != STATE_MELEE_WIN
+                            && collider.getState() != STATE_ATTACKING && collider.getState() != STATE_RELOADING)
                         {
                             ((Soldier)collider)._state = STATE_READY;
                             ((Soldier)collider)._reacting = false;
@@ -1039,7 +1059,8 @@ namespace PikeAndShot
                         else if (colliderInFormation &&
                             this.getState() != STATE_CHARGING && this.getState() != STATE_DYING 
                             && this.getState() != STATE_DEAD
-                            && this.getState() != STATE_MELEE_LOSS && this.getState() != STATE_MELEE_WIN)
+                            && this.getState() != STATE_MELEE_LOSS && this.getState() != STATE_MELEE_WIN
+                            && this.getState() != STATE_ATTACKING && this.getState() != STATE_RELOADING)
                         {
                             _reacting = false;
                             _state = STATE_READY;
@@ -1829,26 +1850,32 @@ namespace PikeAndShot
 
     public class Dopple : Soldier
     {
+        private Formation playerFormation;
         private Sprite _doppleReload1;
         private Sprite _doppleSwing1;
 
         private WeaponSwing _weaponSwing;
+
+        public static float CHARGE_PERIOD = 650f; 
+
+        public float patternTimer;
 
         public Dopple(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
         {
             _type = Soldier.TYPE_SWINGER;
             _class = Soldier.CLASS_MERC_DOPPLE;
-            _attackTime = 150f;
+            _attackTime = 200f;
             _reloadTime = 500f;
             guardTargetDist = (float)getWidth()*2f;
             guardTargetRange = 275f;
-            _chargeTime = 300f;
+            _chargeTime = 600f;
 
             _feet = new Sprite(PikeAndShotGame.PIKEMAN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
             _idle = new Sprite(PikeAndShotGame.DOPPLE_IDLE, new Rectangle(20, 6, 16, 28), 44, 42);
             _death = new Sprite(PikeAndShotGame.DOPPLE_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
-            _melee1 = new Sprite(PikeAndShotGame.PIKEMAN_MELEE, new Rectangle(8, 12, 16, 28), 48, 48);
+            _melee1 = new Sprite(PikeAndShotGame.DOPPLE_SWING1, new Rectangle(24, 20, 16, 28), 76, 68);
+            _defend1 = new Sprite(PikeAndShotGame.DOPPLE_RELOAD1, new Rectangle(24, 16, 16, 28), 76, 64);
             _route = new Sprite(PikeAndShotGame.DOPPLE_ROUTE, new Rectangle(30, 12, 16, 28), 76, 48);
             _routed = new Sprite(PikeAndShotGame.DOPPLE_ROUTED, new Rectangle(30, 12, 16, 28), 76, 49, true);
             _doppleReload1 = new Sprite(PikeAndShotGame.DOPPLE_RELOAD1, new Rectangle(24, 16, 16, 28), 76, 64);
@@ -1856,6 +1883,7 @@ namespace PikeAndShot
 
             _feet.setAnimationSpeed(15f / 0.11f);
             _weaponSwing = new WeaponSwing(_screen, this);
+            playerFormation = _screen.getPlayerFormation();
         }
 
         public override void setSide(int side)
@@ -1913,11 +1941,19 @@ namespace PikeAndShot
                         _stateTimer = 0f;
                         _state = preAttackState;
                     }
+
+                    patternTimer += (float)timeSpan.TotalMilliseconds / CHARGE_PERIOD;
                 }
                 else if (_state == STATE_ATTACKING)
                 {
                     if (_doppleSwing1.getCurrFrame() >= 7 && !_shotMade)
                         shotDone();
+
+                    patternTimer += (float)timeSpan.TotalMilliseconds / CHARGE_PERIOD;
+                }
+                else if (_state == STATE_CHARGED)
+                {
+                    _destination = _screen.getPlayerFormation().getCenter();
                 }
             }
         }
@@ -2072,7 +2108,7 @@ namespace PikeAndShot
             _stateTimer -= (float)timeSpan.TotalMilliseconds;
             if (initCharge)
             {
-                _speed = 0.11f + (0.03f * (1f - (_stateTimer / 450f)));
+                _speed = 0.2f;
             }
 
             if (_stateTimer <= 0)
@@ -2080,17 +2116,16 @@ namespace PikeAndShot
                 if (!initCharge)
                 {
                     initCharge = true;
-                    _stateTimer = 450f;
-                    _destination.X += PikeAndShotGame.SCREENWIDTH * this._side;
                     _screen.addLooseSoldier(this);
-                    //_speed = 0.14f;
                 }
                 else
+                {
                     _stateTimer = 0f;
-            }
-            if (_destination == _position && initCharge)
-            {
-                _state = STATE_CHARGED;
+                    patternTimer += (float)timeSpan.TotalMilliseconds/CHARGE_PERIOD;
+                    _destination.X = playerFormation.getCenter().X + playerFormation.getWidth() * 0.75f * Soldier.WIDTH * (float)Math.Cos((double)patternTimer);
+
+                    _destination.Y = playerFormation.getCenter().Y + playerFormation.getWidth() * 0.75f * Soldier.WIDTH * (float)Math.Sin((double)patternTimer);
+                }
             }
         }
     }
@@ -2239,7 +2274,7 @@ namespace PikeAndShot
         public override bool attack()
         {
             Vector2 formationPosition = _position - _destination;
-            if (_state == STATE_READY && (Math.Abs(formationPosition.X) < _speed * 100 /*&& Math.Abs(formationPosition.Y) < _speed * 100*/))
+            if (_state == STATE_READY && (Math.Abs(formationPosition.X) < _speed * 100 && _screen.getPlayerFormation().getPosition().X < _position.X))
             {
                 _state = STATE_ATTACKING;
                 _stateTimer = _attackTime + PikeAndShotGame.getRandPlusMinus(50);
@@ -2261,8 +2296,11 @@ namespace PikeAndShot
 
         public void reload()
         {
-            _state = STATE_RELOADING;
-            _stateTimer = _reloadTime;
+            if (_screen.getPlayerFormation().getPosition().X < _position.X)
+            {
+                _state = STATE_RELOADING;
+                _stateTimer = _reloadTime;
+            }
         }
 
         protected override void updateState(TimeSpan timeSpan)

@@ -537,6 +537,11 @@ namespace PikeAndShot
             }
         }
 
+        internal ArrayList getLooseSoldiers()
+        {
+            return _looseSoldiers;
+        }
+
         internal void removeLooseSoldier(Soldier sold)
         {
             if (_looseSoldiers.Contains(sold))
