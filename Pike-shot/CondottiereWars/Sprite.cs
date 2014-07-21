@@ -12,6 +12,7 @@ namespace PikeAndShot
     public class Sprite
     {
         private Texture2D _sourceBitmap;
+        public Texture2D _flashTexture;
         private Rectangle _boundingRect;
         private Rectangle _flippedRect;
         private Rectangle _currRect;
@@ -24,9 +25,11 @@ namespace PikeAndShot
         private bool _playing;
         private float _animationSpeed;
         private float _animationTime;
+        public bool flashable;
 
         public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop)
         {
+            flashable = false;
             _sourceBitmap = bitmap;
             _boundingRect = boundingRect;
             _flippedRect = new Rectangle(frameWidth - boundingRect.X - boundingRect.Width, boundingRect.Y, boundingRect.Width, boundingRect.Height);
@@ -39,6 +42,24 @@ namespace PikeAndShot
             _loop = loop;
             _playing = false;
             _animationSpeed = _animationTime = 1000;
+        }
+
+        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable):
+            this(bitmap, boundingRect, frameWidth, frameHeight, loop)
+        {
+            this.flashable = true;
+
+            //create flash texture
+            Color[] pixelData = new Color[bitmap.Width * bitmap.Height];
+            bitmap.GetData<Color>(pixelData);
+
+            for (int i = 0; i < pixelData.Length; i++)
+            {
+                if (pixelData[i].A != 0)
+                    pixelData[i] = Color.White;
+            }
+            _flashTexture = new Texture2D(bitmap.GraphicsDevice, bitmap.Width, bitmap.Height);
+            _flashTexture.SetData<Color>(pixelData);
         }
 
         public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight): 
@@ -147,18 +168,38 @@ namespace PikeAndShot
             if (side == BattleScreen.SIDE_PLAYER)
             {
                 spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White);
-                //spritebatch.Draw(BattleScreen.getDotTexture(), _position, Color.White);
-                //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(_boundingRect.Width, _boundingRect.Height), Color.White);
             }
             else
             {
                 spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.FlipHorizontally, 0);
-                //spritebatch.Draw(BattleScreen.getDotTexture(), _position, Color.White);
-                //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(_boundingRect.Width, _boundingRect.Height), Color.White);
             }
-            //spritebatch.Draw(PikeAndShotGame.getDotTexture(), _position + new Vector2(0, 0), new Rectangle(0, 0, 1, 1), Color.White);
-            //spritebatch.Draw(PikeAndShotGame.getDotTexture(), _position + new Vector2(_boundingRect.Width, _boundingRect.Height), new Rectangle(0, 0, 1, 1), Color.White);
         }
+
+        public void draw(SpriteBatch spritebatch, Vector2 _position, int side, float flashAmount)
+        {
+            draw(spritebatch, _position, side);
+            Color color = Color.Black;
+            color.A = (byte)(255f * flashAmount);
+
+            if(color.A < 25)
+            {
+                Color white = Color.White;
+                white.A -= (byte)(255f * (float)color.A / 25f);
+                color = white;
+            }
+            else
+                color.A /= 2;
+
+            if (side == BattleScreen.SIDE_PLAYER)
+            {
+                spritebatch.Draw(_flashTexture, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, color);
+            }
+            else
+            {
+                spritebatch.Draw(_flashTexture, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, color, 0, Vector2.Zero, Vector2.One, SpriteEffects.FlipHorizontally, 0);
+            }
+        }
+
 
         public bool getPlaying()
         {

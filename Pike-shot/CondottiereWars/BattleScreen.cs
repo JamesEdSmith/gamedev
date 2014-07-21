@@ -499,7 +499,10 @@ namespace PikeAndShot
 
             foreach (DrawJob dj in _drawJobs)
             {
-                dj.sprite.draw(spriteBatch, dj.position, dj.side);
+                if(dj.flashAmount>0)
+                    dj.sprite.draw(spriteBatch, dj.position, dj.side, dj.flashAmount);
+                else
+                    dj.sprite.draw(spriteBatch, dj.position, dj.side);
             }
             _drawJobs.Clear();
         }
@@ -704,6 +707,7 @@ namespace PikeAndShot
         public Vector2 position;
         public int side;
         public float drawingY;
+        public float flashAmount;
 
         public DrawJob(Sprite sprite, Vector2 position, int side, float drawingY)
         {
@@ -711,6 +715,13 @@ namespace PikeAndShot
             this.position = position;
             this.side = side;
             this.drawingY = drawingY;
+            flashAmount = 0;
+        }
+
+        public DrawJob(Sprite sprite, Vector2 position, int side, float drawingY, float flashAmount) :
+            this(sprite, position, side, drawingY)
+        {
+            this.flashAmount = flashAmount;
         }
     }
 }

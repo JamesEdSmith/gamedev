@@ -569,6 +569,11 @@ namespace PikeAndShot
             return _position;
         }
 
+        public int getState()
+        {
+            return _state;
+        }
+
         public Vector2 getScreenPosition()
         {
             return _position - _screen.getMapOffset();
@@ -701,7 +706,7 @@ namespace PikeAndShot
                         if (d is Dopple && d.getState() != Soldier.STATE_MELEE_LOSS && d.getState() != Soldier.STATE_MELEE_WIN)
                         {
                             Dopple dopple = (Dopple)d;
-                            dopple.patternTimer = (float)doppleCount * doppleSpacing;
+                            dopple.patternTimer = (float)doppleCount * doppleSpacing - MathHelper.PiOver2;
                             dopple.charge();
                             doppleCount++;
                         }
@@ -713,9 +718,12 @@ namespace PikeAndShot
             {
                 foreach (Dopple d in looseDoppels)
                 {
-                    _screen.removeLooseSoldier(d);
-                    addSoldier(d);
-                    d.cancelAttack();
+                    if (d.getState() != Soldier.STATE_MELEE_LOSS && d.getState() != Soldier.STATE_MELEE_WIN && d.getState() != Soldier.STATE_READY && d.getState() != Soldier.STATE_DYING && d.getState() != Soldier.STATE_DEAD)
+                    {
+                        _screen.removeLooseSoldier(d);
+                        addSoldier(d);
+                        d.cancelAttack();
+                    }
                 }
             }
         }
@@ -734,10 +742,9 @@ namespace PikeAndShot
             {
                 foreach (Soldier d in (ArrayList)_supportRows[0])
                 {
-                    if (d is Dopple && d.getState() != Soldier.STATE_MELEE_LOSS && d.getState() != Soldier.STATE_MELEE_WIN && d.getState() != Soldier.STATE_READY)
+                    if (d is Dopple && d.getState() != Soldier.STATE_MELEE_LOSS && d.getState() != Soldier.STATE_MELEE_WIN && d.getState() != Soldier.STATE_READY && d.getState() != Soldier.STATE_DYING && d.getState() != Soldier.STATE_DEAD)
                     {
-                        if (d.getState() != Soldier.STATE_MELEE_LOSS && d.getState() != Soldier.STATE_MELEE_WIN)
-                            d.cancelAttack();
+                        d.cancelAttack();
                     }
                 }
             }
