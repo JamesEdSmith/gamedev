@@ -16,8 +16,8 @@ namespace PikeAndShot
         public const int STATE_PIKE = 1;
         public const int STATE_SHOT = 2;
 
-        private BattleScreen _screen;
-        private Vector2 _position;
+        public BattleScreen _screen;
+        public Vector2 _position;
         private ArrayList _soldiers;
         private ArrayList _soldiersToRemove;
         private ArrayList _soldiersToMove;
@@ -1877,7 +1877,7 @@ namespace PikeAndShot
             this.name = name;
             _pattern = pattern;
             _currentAction = 0;
-            if(pattern.Count > 0)
+            if(pattern != null && pattern.Count > 0)
                 _currentDuration = ((PatternAction)pattern[0]).duration;
 
             _pikesRaised = false;
@@ -1890,7 +1890,17 @@ namespace PikeAndShot
             if (this.getSoldiers().Count <= 0)
                 return;
 
-            if (!(((Soldier)this.getSoldiers()[0]).getScreen() is LevelEditorScreen))
+            if (_pattern == null)
+            {
+                _position = new Vector2(_screen.getPlayerFormation().getCenter().X, _screen.getPlayerFormation().getCenter().Y);
+                foreach (Soldier s in this.getSoldiers())
+                {
+                    s._destination = new Vector2(_position.X, _position.Y);
+                    s.setSpeed(this.getSpeed());
+                    s.update(timeSpan);
+                }
+            }
+            else if (!(((Soldier)this.getSoldiers()[0]).getScreen() is LevelEditorScreen))
             {
                 for (int i = 0; i < ((PatternAction)_pattern[_currentAction]).count(); i++)
                 {

@@ -113,15 +113,7 @@ namespace PikeAndShot
         {            
             if (PikeAndShotGame.random.Next(100) > 49)
             {
-                List<PatternAction> pActions = new List<PatternAction>();
-                List<int> actions = new List<int>();
-                actions.Add(PatternAction.ACTION_UP);
-                pActions.Add(new PatternAction(actions, 1500f));
-                List<int> actions2 = new List<int>();
-                actions.Add(PatternAction.ACTION_IDLE);
-                pActions.Add(new PatternAction(actions2, 999999999f));
-
-                EnemyFormation formation = new EnemyFormation("Reinforcement", pActions, this,
+                EnemyFormation formation = new EnemyFormation("Reinforcement", null, this,
                     (float)PikeAndShotGame.SCREENWIDTH / 2f + getMapOffset().X,
                     (float)PikeAndShotGame.SCREENHEIGHT, 1, SIDE_PLAYER);
 
@@ -130,15 +122,7 @@ namespace PikeAndShot
             }
             else
             {
-                List<PatternAction> pActions = new List<PatternAction>();
-                List<int> actions = new List<int>();
-                actions.Add(PatternAction.ACTION_DOWN);
-                pActions.Add(new PatternAction(actions, 1500f));
-                List<int> actions2 = new List<int>();
-                actions.Add(PatternAction.ACTION_IDLE);
-                pActions.Add(new PatternAction(actions2, 999999999f));
-
-                EnemyFormation formation = new EnemyFormation("Reinforcement", pActions, this,
+                EnemyFormation formation = new EnemyFormation("Reinforcement", null, this,
                     (float)PikeAndShotGame.SCREENWIDTH / 2f + getMapOffset().X,
                     0f - (float)Soldier.HEIGHT * 2f, 1, SIDE_PLAYER);
 

@@ -36,6 +36,7 @@ namespace PikeAndShot
         public const int SCREEN_FORMATIONMAKER = 1;
         public const int SCREEN_LEVELEDITOR = 2;
 
+        public static Effect effect;
 
         public static Texture2D TERRAIN_DRY_GRASS;
 
@@ -255,6 +256,8 @@ namespace PikeAndShot
             spriteBatch = new SpriteBatch(GraphicsDevice);
             viewport = GraphicsDevice.Viewport;
             soldierFont = Content.Load<SpriteFont>("SpriteFont1");
+
+            effect = Content.Load<Effect>(@"cgwg-xna");
 
             //TERRAIN_DRY_GRASS = Content.Load<Texture2D>(@"dry_grass");
             ROAD_TERRAIN = new List<Texture2D>(11);
@@ -513,6 +516,8 @@ namespace PikeAndShot
             spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None);
             graphics.GraphicsDevice.SamplerStates[0].MagFilter = TextureFilter.None;
 
+            effect.Begin();
+            effect.Techniques[0].Passes[0].Begin();
             if (_currScreen != null)
             {
                 _currScreen.draw(gameTime, spriteBatch);
@@ -520,6 +525,8 @@ namespace PikeAndShot
             base.Draw(gameTime);
 
             spriteBatch.End();
+            effect.Techniques[0].Passes[0].End();
+            effect.End();
         }
 
         internal static SpriteFont getSpriteFont()

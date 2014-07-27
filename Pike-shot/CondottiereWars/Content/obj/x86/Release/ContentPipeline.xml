@@ -1612,7 +1612,16 @@
       <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Release\Content\pucelle_motion.xnb</Output>
       <Time>2014-07-07T23:56:17.4483538-04:00</Time>
     </Item>
-    <BuildSuccessful>true</BuildSuccessful>
+    <Item>
+      <Source>cgwg-xna.fx</Source>
+      <Name>cgwg-xna</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna.xnb</Output>
+      <Time>0001-01-01T00:00:00</Time>
+    </Item>
+    <BuildSuccessful>false</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
       <BuildConfiguration>Release</BuildConfiguration>
