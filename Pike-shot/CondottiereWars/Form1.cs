@@ -28,6 +28,7 @@ namespace PikeAndShot
         private int currTerrain;
         private List<FormListener> _formListeners;
         private int copyTally;
+        private Level copiedLevel;
 
         public LevelConstructorForm(List<Level>levels)
         {
@@ -1059,6 +1060,64 @@ namespace PikeAndShot
             refreshFormationListBox();
         }
 
+        private void copyLevel_Click(object sender, EventArgs e)
+        {
+            copiedLevel = _levels[currLevel];
+        }
+
+        private void pasteLevel_Click(object sender, EventArgs e)
+        {
+            if(copiedLevel != null)
+            {
+                foreach(List<string> list in copiedLevel.formationActionNames)
+                {
+                    List<string> newList = new List<string>();
+                    foreach(string s in list)
+                    {
+                        newList.Add(String.Copy(s));
+                    }
+                    _levels[currLevel].formationActionNames.Add(newList);
+                }
+                foreach (List<PatternAction> newPAList in copiedLevel.formationActions)
+                {
+                    List<PatternAction> newList = new List<PatternAction>();
+                    foreach (PatternAction pa in newPAList)
+                    {
+                        newList.Add(pa.copy());
+                    }
+                    _levels[currLevel].formationActions.Add(newList);
+                }
+                foreach (string str in copiedLevel.formationNames)
+                {
+                    _levels[currLevel].formationNames.Add(String.Copy(str));
+                }
+                foreach(Vector2 vect in copiedLevel.formationPositions)
+                {
+                    _levels[currLevel].formationPositions.Add(new Vector2(vect.X, vect.Y));
+                }
+                foreach(List<int> list in copiedLevel.formations)
+                {
+                    List<int> newList = new List<int>();
+                    foreach(int i in list)
+                    {
+                        newList.Add(i);
+                    }
+                    _levels[currLevel].formations.Add(newList);
+                }
+                foreach (int i in copiedLevel.formationSides)
+                {
+                    _levels[currLevel].formationSides.Add(i);
+                }
+                foreach(double d in copiedLevel.formationTimes)
+                {
+                    _levels[currLevel].formationTimes.Add(d);
+                }
+                sendUpdate();
+                refreshFormationListBox();
+                refreshPatternListBox();
+                refreshSoldierListBox();
+            }
+        }
     }
 
     public class SoldierClass

@@ -208,7 +208,7 @@ namespace PikeAndShot
                 else if (obj is Soldier)
                 {
                     _looseSoldiers.Remove(obj);
-                    if (obj.getSide() == SIDE_ENEMY)
+                    if (obj.getSide() == SIDE_ENEMY && ((Soldier)obj).getState() == Soldier.STATE_DEAD)
                         collectCoin();
                 }
                 else if (obj is Terrain)
@@ -499,7 +499,10 @@ namespace PikeAndShot
 
             foreach (DrawJob dj in _drawJobs)
             {
-                dj.sprite.draw(spriteBatch, dj.position, dj.side);
+                if(dj.flashAmount>0)
+                    dj.sprite.draw(spriteBatch, dj.position, dj.side, dj.flashAmount);
+                else
+                    dj.sprite.draw(spriteBatch, dj.position, dj.side);
             }
             _drawJobs.Clear();
         }
@@ -535,6 +538,11 @@ namespace PikeAndShot
                 _newThings.Add(sold);
                 sold.myFormation = null;
             }
+        }
+
+        internal ArrayList getLooseSoldiers()
+        {
+            return _looseSoldiers;
         }
 
         internal void removeLooseSoldier(Soldier sold)
@@ -639,7 +647,7 @@ namespace PikeAndShot
                         else if (soldier.getSide() == SIDE_PLAYER && pt.getSide() == SIDE_ENEMY)
                         {
                             if (
-                                (ptX > soX + soldier.getWidth() && ptX - (soX + soldier.getWidth()) <= Soldier.WIDTH * range) &&
+                                (ptX > soX && ptX - (soX + soldier.getWidth()) <= Soldier.WIDTH * range) &&
                                 (Math.Abs(ptY - soY) <= Soldier.WIDTH * spread)
                                )
                             {
@@ -699,6 +707,7 @@ namespace PikeAndShot
         public Vector2 position;
         public int side;
         public float drawingY;
+        public float flashAmount;
 
         public DrawJob(Sprite sprite, Vector2 position, int side, float drawingY)
         {
@@ -706,6 +715,13 @@ namespace PikeAndShot
             this.position = position;
             this.side = side;
             this.drawingY = drawingY;
+            flashAmount = 0;
+        }
+
+        public DrawJob(Sprite sprite, Vector2 position, int side, float drawingY, float flashAmount) :
+            this(sprite, position, side, drawingY)
+        {
+            this.flashAmount = flashAmount;
         }
     }
 }

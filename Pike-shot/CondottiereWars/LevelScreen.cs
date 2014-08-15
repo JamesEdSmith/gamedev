@@ -42,6 +42,8 @@ namespace PikeAndShot
             _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            
+            _formation.addSoldier(new Leader(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
             _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
@@ -79,15 +81,13 @@ namespace PikeAndShot
 
             if (_coins >= MAX_COINS)
             {
-                if (_formation.numberOfPikes < 10 && _formation.numberOfShots < 10)
-                    spawnRescue();
+                spawnRescue();
                 _coins = 0;
                 foreach (Coin coin in _coinSprites)
                 {
                     coin.drop();
                 }
             }
-            //TODO: POWER UP LEADER
 
             ArrayList coinsDone = new ArrayList();
             for (int i = 0; i < _coinSprites.Count; i++)
@@ -110,37 +110,19 @@ namespace PikeAndShot
         }
 
         private void spawnRescue()
-        {
+        {            
             if (PikeAndShotGame.random.Next(100) > 49)
             {
-                List<PatternAction> pActions = new List<PatternAction>();
-                List<int> actions = new List<int>();
-                actions.Add(PatternAction.ACTION_UP);
-                pActions.Add(new PatternAction(actions, 1500f));
-                List<int> actions2 = new List<int>();
-                actions.Add(PatternAction.ACTION_IDLE);
-                pActions.Add(new PatternAction(actions2, 999999999f));
-
-                EnemyFormation formation = new EnemyFormation("Reinforcement", pActions, this,
-                    (float)PikeAndShotGame.SCREENWIDTH / 2f + getMapOffset().X,
-                    (float)PikeAndShotGame.SCREENHEIGHT, 1, SIDE_PLAYER);
+                EnemyFormation formation = new EnemyFormation("Reinforcement", null, this,
+                    _formation._position.X, (float)PikeAndShotGame.SCREENHEIGHT, 1, SIDE_PLAYER);
 
                 assignRescue(formation);
                 _enemyFormations.Add(formation);
             }
             else
             {
-                List<PatternAction> pActions = new List<PatternAction>();
-                List<int> actions = new List<int>();
-                actions.Add(PatternAction.ACTION_DOWN);
-                pActions.Add(new PatternAction(actions, 1500f));
-                List<int> actions2 = new List<int>();
-                actions.Add(PatternAction.ACTION_IDLE);
-                pActions.Add(new PatternAction(actions2, 999999999f));
-
-                EnemyFormation formation = new EnemyFormation("Reinforcement", pActions, this,
-                    (float)PikeAndShotGame.SCREENWIDTH / 2f + getMapOffset().X,
-                    0f - (float)Soldier.HEIGHT * 2f, 1, SIDE_PLAYER);
+                EnemyFormation formation = new EnemyFormation("Reinforcement", null, this,
+                    _formation._position.X, 0f - (float)Soldier.HEIGHT * 2f, 1, SIDE_PLAYER);
 
                 assignRescue(formation);
                 _enemyFormations.Add(formation);
@@ -162,14 +144,17 @@ namespace PikeAndShot
 
             spriteBatch.Draw(PikeAndShotGame.COIN_METER, COIN_METER_POSITION, Color.White);
 
-            /*spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "mapOffset: " + _mapOffset.X + ", " + _mapOffset.Y, new Vector2(5, 35), Color.White);
-            spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Loose: " + _looseSoldiers.Count, new Vector2(5, 5), Color.White);
-            spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "eFormations: " + _enemyFormations.Count, new Vector2(105, 5), Color.White);
-            spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "shots: " + _shots.Count, new Vector2(205, 5), Color.White);
-            spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Objects: " + _screenObjects.Count, new Vector2(305, 5), Color.White);
-            spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Colliders: " + _screenColliders.Count, new Vector2(405, 5), Color.White);
-            spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "fps: " + _fps, new Vector2(405, 35), Color.White);
-            spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "terrain: " + _terrain.Count, new Vector2(505, 5), Color.White);*/
+            if (getDrawDots())
+            {
+                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "mapOffset: " + _mapOffset.X + ", " + _mapOffset.Y, new Vector2(5, 35), Color.White);
+                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Loose: " + _looseSoldiers.Count, new Vector2(5, 5), Color.White);
+                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "eFormations: " + _enemyFormations.Count, new Vector2(105, 5), Color.White);
+                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "shots: " + _shots.Count, new Vector2(205, 5), Color.White);
+                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Objects: " + _screenObjects.Count, new Vector2(305, 5), Color.White);
+                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Colliders: " + _screenColliders.Count, new Vector2(405, 5), Color.White);
+                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "fps: " + _fps, new Vector2(405, 35), Color.White);
+                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "terrain: " + _terrain.Count, new Vector2(505, 5), Color.White);
+            }
         }
 
         protected override void getInput(TimeSpan timeSpan)
@@ -252,14 +237,14 @@ namespace PikeAndShot
                 _formation.meleeCharge();
                 //_formation.swingAttack();
             }
-            else if ((keyboardState.IsKeyUp(Keys.Z) || keyboardState.IsKeyUp(Keys.X)) && (previousKeyboardState.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyDown(Keys.X)))
-            {
-                _formation.cancelCharge();
-            }
-            else if ((gamePadState.IsButtonUp(Buttons.A) || gamePadState.IsButtonUp(Buttons.X)) && (previousGamePadState.IsButtonDown(Buttons.A) && previousGamePadState.IsButtonDown(Buttons.X)))
-            {
-                _formation.cancelCharge();
-            }
+            //else if ((keyboardState.IsKeyUp(Keys.Z) || keyboardState.IsKeyUp(Keys.X)) && (previousKeyboardState.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyDown(Keys.X)))
+            //{
+            //    _formation.cancelCharge();
+            //}
+            //else if ((gamePadState.IsButtonUp(Buttons.A) || gamePadState.IsButtonUp(Buttons.X)) && (previousGamePadState.IsButtonDown(Buttons.A) && previousGamePadState.IsButtonDown(Buttons.X)))
+            //{
+            //    _formation.cancelCharge();
+            //}
             //if ((keyboardState.IsKeyDown(Keys.Z) && keyboardState.IsKeyUp(Keys.X) && previousKeyboardState.IsKeyDown(Keys.X)) || (gamePadState.IsButtonDown(Buttons.A) && gamePadState.IsButtonUp(Buttons.X) && previousGamePadState.IsButtonDown(Buttons.X)))
             //{
             //    _formation.swingRelease();
@@ -328,6 +313,10 @@ namespace PikeAndShot
             {
                 _formation.increaseWidth();
             }
+            else if (keyboardState.IsKeyDown(Keys.L) && previousKeyboardState.IsKeyUp(Keys.L))
+            {
+                spawnRescue();
+            }
             if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D) && previousKeyboardState.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.D))
                 toggleDrawDots();
                 
@@ -389,11 +378,24 @@ namespace PikeAndShot
 
         private void assignRescue(EnemyFormation formation)
         {
-            if(_formation.getLeastType() == Soldier.TYPE_PIKE)
-                formation.addSoldier(new Pikeman(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER));
+            if (_formation.numberOfPikes < 10 || _formation.numberOfShots < 10)
+            {
+                Soldier soldier;
+                if (_formation.getLeastType() == Soldier.TYPE_PIKE)
+                {
+                    soldier = new Pikeman(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER);
+                }
+                else
+                {
+                    soldier = new Arquebusier(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER);
+                }
+                formation.addSoldier(soldier);
+                soldier.setSpeed(0.075f);
+            }
             else
-                formation.addSoldier(new Arquebusier(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER));
-
+            {
+                formation.addSoldier(new Dopple(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER));
+            }
         }
 
         internal ArrayList shotBeforeFormation()

@@ -21,6 +21,7 @@ namespace PikeAndShot
         protected int _state;
         protected int _side;
         protected float _stateTimer;
+        protected float _stateTime;
         public Vector2 _guardPositionOffset;
 
         public ScreenObject(BattleScreen screen, int side)
@@ -80,11 +81,11 @@ namespace PikeAndShot
         {
             return _state;
         }
-        public void setState(int state)
+
+        public virtual void setState(int state)
         {
             _state = state;
         }
-
     }
 
     public class ScreenAnimation
