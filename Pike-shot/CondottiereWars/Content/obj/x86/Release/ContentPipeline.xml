@@ -497,15 +497,6 @@
       <Time>2014-03-17T18:21:58.9140854-04:00</Time>
     </Item>
     <Item>
-      <Source>beserker_defend1.png</Source>
-      <Name>beserker_defend1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Release\Content\beserker_defend1.xnb</Output>
-      <Time>2014-03-17T18:21:58.6110681-04:00</Time>
-    </Item>
-    <Item>
       <Source>beserker_idle.png</Source>
       <Name>beserker_idle</Name>
       <Importer>TextureImporter</Importer>
@@ -513,15 +504,6 @@
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Release\Content\beserker_idle.xnb</Output>
       <Time>2014-03-17T18:21:58.6120682-04:00</Time>
-    </Item>
-    <Item>
-      <Source>beserker_melee1.png</Source>
-      <Name>beserker_melee1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Release\Content\beserker_melee1.xnb</Output>
-      <Time>2014-03-17T18:21:58.6660712-04:00</Time>
     </Item>
     <Item>
       <Source>beserker_route.png</Source>
@@ -918,24 +900,6 @@
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_melee2.xnb</Output>
       <Time>2014-03-17T18:21:58.7530762-04:00</Time>
-    </Item>
-    <Item>
-      <Source>berzerker_defend2.png</Source>
-      <Name>berzerker_defend2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_defend2.xnb</Output>
-      <Time>2014-03-17T18:21:58.6030676-04:00</Time>
-    </Item>
-    <Item>
-      <Source>berzerker_melee2.png</Source>
-      <Name>berzerker_melee2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_melee2.xnb</Output>
-      <Time>2014-03-17T18:21:58.609068-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_route.png</Source>
@@ -1613,15 +1577,51 @@
       <Time>2014-07-07T23:56:17.4483538-04:00</Time>
     </Item>
     <Item>
+      <Source>berzerker_idle.png</Source>
+      <Name>berzerker_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_idle.xnb</Output>
+      <Time>2014-08-05T22:17:42.9289038-04:00</Time>
+    </Item>
+    <Item>
+      <Source>berserker_defend2.png</Source>
+      <Name>berserker_defend2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Release\Content\berserker_defend2.xnb</Output>
+      <Time>2014-08-05T22:14:45.4317943-04:00</Time>
+    </Item>
+    <Item>
+      <Source>berserker_melee2.png</Source>
+      <Name>berserker_melee2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Release\Content\berserker_melee2.xnb</Output>
+      <Time>2014-08-05T22:15:33.5422782-04:00</Time>
+    </Item>
+    <Item>
+      <Source>berserker_charge.png</Source>
+      <Name>berserker_charge</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Release\Content\berserker_charge.xnb</Output>
+      <Time>2014-08-05T23:00:34.4184224-04:00</Time>
+    </Item>
+    <Item>
       <Source>cgwg-xna.fx</Source>
       <Name>cgwg-xna</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna.xnb</Output>
-      <Time>0001-01-01T00:00:00</Time>
+      <Time>2014-07-21T23:01:27.4828869-04:00</Time>
     </Item>
-    <BuildSuccessful>false</BuildSuccessful>
+    <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
       <BuildConfiguration>Release</BuildConfiguration>
@@ -1654,7 +1654,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Users\James\Documents\gamedev\Pike-shot\ContentPipelineExtension1\bin\x86\Debug\ContentPipelineExtension1.dll</Key>
-        <Value>2014-07-20T19:02:43.3237936-04:00</Value>
+        <Value>2014-08-06T22:35:51.7312357-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\3.0.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>

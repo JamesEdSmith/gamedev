@@ -99,6 +99,8 @@ namespace PikeAndShot
             this.label15 = new System.Windows.Forms.Label();
             this.shiftFormationsTextBox = new System.Windows.Forms.TextBox();
             this.shiftFormationsButton = new System.Windows.Forms.Button();
+            this.copyLevel = new System.Windows.Forms.Button();
+            this.pasteLevel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // levelComboBox
@@ -627,11 +629,33 @@ namespace PikeAndShot
             this.shiftFormationsButton.UseVisualStyleBackColor = true;
             this.shiftFormationsButton.Click += new System.EventHandler(this.shiftFormationsButton_Click);
             // 
+            // copyLevel
+            // 
+            this.copyLevel.Location = new System.Drawing.Point(200, 69);
+            this.copyLevel.Name = "copyLevel";
+            this.copyLevel.Size = new System.Drawing.Size(75, 23);
+            this.copyLevel.TabIndex = 59;
+            this.copyLevel.Text = "copy";
+            this.copyLevel.UseVisualStyleBackColor = true;
+            this.copyLevel.Click += new System.EventHandler(this.copyLevel_Click);
+            // 
+            // pasteLevel
+            // 
+            this.pasteLevel.Location = new System.Drawing.Point(282, 69);
+            this.pasteLevel.Name = "pasteLevel";
+            this.pasteLevel.Size = new System.Drawing.Size(75, 23);
+            this.pasteLevel.TabIndex = 60;
+            this.pasteLevel.Text = "paste";
+            this.pasteLevel.UseVisualStyleBackColor = true;
+            this.pasteLevel.Click += new System.EventHandler(this.pasteLevel_Click);
+            // 
             // LevelConstructorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(789, 746);
+            this.Controls.Add(this.pasteLevel);
+            this.Controls.Add(this.copyLevel);
             this.Controls.Add(this.shiftFormationsButton);
             this.Controls.Add(this.shiftFormationsTextBox);
             this.Controls.Add(this.label15);
@@ -757,6 +781,8 @@ namespace PikeAndShot
         private Label label15;
         private TextBox shiftFormationsTextBox;
         private Button shiftFormationsButton;
+        private Button copyLevel;
+        private Button pasteLevel;
     }
 }
 

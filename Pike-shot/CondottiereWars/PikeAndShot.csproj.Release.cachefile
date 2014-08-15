@@ -1,7 +1,7 @@
 Content\roadTerrain1.xnb
 Content\brigand_charge.xnb
 Content\GoblinRaid_level.xml
-Content\berzerker_defend2.xnb
+Content\skirmisher_retreat.xnb
 Content\roadTerrain6.xnb
 Content\gobraider1_defend2.xnb
 Content\pucelle_ready2.xnb
@@ -14,7 +14,7 @@ Content\crossbowman_ground.xnb
 Content\crossbowman_defend2.xnb
 Content\gobraider1_idlenoshield.xnb
 Content\pikeman1_idle.xnb
-Content\skirmisher_retreat.xnb
+Content\berzerker_idle.xnb
 Content\slinger_routed.xnb
 Content\soldier_chargenoshield.xnb
 Content\pucelle_ready.xnb
@@ -25,6 +25,7 @@ Content\soldier_idlenoshield.xnb
 Content\berzerker_idlenoshield.xnb
 Content\slinger_ground.xnb
 Content\pikeman_routed.xnb
+Content\berserker_charge.xnb
 Content\dopple_routed.xnb
 Content\brigand_death.xnb
 Content\skirmisher_reload.xnb
@@ -72,10 +73,10 @@ Content\crossbowman_death.xnb
 Content\gobraider1_shieldbreak.xnb
 Content\pikeman2_lower_low.xnb
 Content\arquebusier_shoot.xnb
-Content\beserker_melee1.xnb
 Content\pikeman2_recoil.xnb
 Content\dismountedcavalry_fall.xnb
 Content\beserker_routed.xnb
+Content\berserker_defend2.xnb
 Content\cgwg-xna.xnb
 Content\a_new_level.xml
 Content\roadTerrain0.xnb
@@ -84,8 +85,10 @@ Content\crossbowman_idle.xnb
 Content\slinger_retreat.xnb
 Content\pikeman_melee.xnb
 Content\placed_pavise.xnb
+Content\berserker_melee2.xnb
 Content\gobraider1_idle.xnb
 Content\gobraider2_defend2.xnb
+Content\sinewave_level.xml
 Content\dismountedcavalry_death.xnb
 Content\horse_halt.xnb
 Content\gobraider1_defend1.xnb
@@ -101,6 +104,7 @@ Content\soldier_idle.xnb
 Content\cavalry_fall.xnb
 Content\pikeman2_lower_high.xnb
 Content\crossbowman_bolt2.xnb
+Content\cavalry_leftfoot.xnb
 Content\skirmisher_melee2.xnb
 Content\pikeman2_idle.xnb
 Content\cavalry_rightidle.xnb
@@ -141,7 +145,6 @@ Content\skirmisher_ground.xnb
 Content\gobraider2_defend1.xnb
 Content\roadTerrain3.xnb
 Content\beserker_route.xnb
-Content\berzerker_melee2.xnb
 Content\crossbowman_route.xnb
 Content\arquebusier_feet.xnb
 Content\pikeman_recoil.xnb
@@ -149,7 +152,7 @@ Content\roadTerrain2.xnb
 Content\arquebusier_smoke.xnb
 Content\Benz1_level.xml
 Content\shot2.xnb
-Content\cavalry_leftfoot.xnb
+Content\coin_meter.xnb
 Content\horse_idle.xnb
 Content\bezerker_death.xnb
 Content\pikeman_death.xnb
@@ -177,9 +180,7 @@ Content\berzerker_chargenoshield.xnb
 Content\arquebusier_idle.xnb
 Content\gobraider2_chargenoshield.xnb
 Content\pucelle_motion.xnb
-Content\beserker_defend1.xnb
 Content\gobraider1_melee2.xnb
-Content\coin_meter.xnb
 Content\crossbowman_reload2.xnb
 Content\gobraider1_charge.xnb
 Content\berzerker_shieldbreak.xnb

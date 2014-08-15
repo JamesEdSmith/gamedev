@@ -421,11 +421,11 @@ namespace PikeAndShot
             BERZERKER2_CHARGENOSHIELD = Content.Load<Texture2D>(@"gobraider2_chargenoshield");
             BERZERKER2_CHARGE = Content.Load<Texture2D>(@"gobraider2_charge");
 
-            BRIGAND1_IDLE = Content.Load<Texture2D>(@"berzerker_idlenoshield");
+            BRIGAND1_IDLE = Content.Load<Texture2D>(@"berzerker_idle");
             BRIGAND1_DEATH = Content.Load<Texture2D>(@"bezerker_death");
-            BRIGAND1_MELEE1 = Content.Load<Texture2D>(@"berzerker_melee2");
-            BRIGAND1_DEFEND1 = Content.Load<Texture2D>(@"berzerker_defend2");
-            BRIGAND1_CHARGE = Content.Load<Texture2D>(@"berzerker_chargenoshield");
+            BRIGAND1_MELEE1 = Content.Load<Texture2D>(@"berserker_melee2");
+            BRIGAND1_DEFEND1 = Content.Load<Texture2D>(@"berserker_defend2");
+            BRIGAND1_CHARGE = Content.Load<Texture2D>(@"berserker_charge");
 
             BRIGAND2_IDLE = Content.Load<Texture2D>(@"brigand_idle");
             BRIGAND2_DEATH = Content.Load<Texture2D>(@"brigand_death");
@@ -516,8 +516,8 @@ namespace PikeAndShot
             spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None);
             graphics.GraphicsDevice.SamplerStates[0].MagFilter = TextureFilter.None;
 
-            effect.Begin();
-            effect.Techniques[0].Passes[0].Begin();
+            //effect.Begin();
+            //effect.Techniques[0].Passes[0].Begin();
             if (_currScreen != null)
             {
                 _currScreen.draw(gameTime, spriteBatch);
@@ -525,8 +525,8 @@ namespace PikeAndShot
             base.Draw(gameTime);
 
             spriteBatch.End();
-            effect.Techniques[0].Passes[0].End();
-            effect.End();
+            //effect.Techniques[0].Passes[0].End();
+            //effect.End();
         }
 
         internal static SpriteFont getSpriteFont()

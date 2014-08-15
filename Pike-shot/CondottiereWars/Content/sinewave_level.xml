@@ -1,0 +1,728 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="LevelPipeline.LevelContent">
+    <levelName>sinewave_level</levelName>
+    <formations>
+      <Item>10</Item>
+      <Item>10</Item>
+      <Item>10</Item>
+      <Item>10</Item>
+      <Item>10</Item>
+      <Item>10</Item>
+      <Item>10</Item>
+      <Item>10</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+    </formations>
+    <formationPositions>1505 196 1505 196 1729 457 1729 457 1100 250 1100 250 1195 400 1195 400 1745.001 320 1784.336 362 1767.001 368 1414.001 313 1445.001 337 1436.001 361 1429.001 276 1452.001 294 1760.001 283 1791.336 300</formationPositions>
+    <formationTimes>1305 1305 1529 1529 1000 1000 1095 1095 1305 1329.33508300781 1305 1000 1016.00048828126 1000 1000 1023.00024414063 1305 1336.33508300781</formationTimes>
+    <formationSides>-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1</formationSides>
+    <formationActions>
+      <Item>
+        <Item>
+          <actions>1 -1</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 2</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 4</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 2</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 11</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>7 -1</actions>
+          <duration>1</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>599</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>2</actions>
+          <duration>5000</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>99999999</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 2</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 4</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 11</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>7 -1</actions>
+          <duration>1</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>599</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>2 -1</actions>
+          <duration>5000</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>99999999</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1 -1</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 2</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 4</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 2</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 11</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>7 -1</actions>
+          <duration>1</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>599</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>4</actions>
+          <duration>5000</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>99999999</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 2</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 4</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 11</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>7 -1</actions>
+          <duration>1</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>599</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>4 -1</actions>
+          <duration>5000</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>99999999</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1 -1</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 2</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 4</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 2</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 11</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>7 -1</actions>
+          <duration>1</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>599</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>2</actions>
+          <duration>5000</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>99999999</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 2</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 4</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 11</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>7 -1</actions>
+          <duration>1</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>599</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>2 -1</actions>
+          <duration>5000</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>99999999</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1 -1</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 2</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 4</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 2</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 11</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>7 -1</actions>
+          <duration>1</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>599</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>4</actions>
+          <duration>5000</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>99999999</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 2</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 4</actions>
+          <duration>750</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>1 0</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>0 11</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>7 -1</actions>
+          <duration>1</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>599</duration>
+        </Item>
+        <Item>
+          <actions>0 -1</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>4 -1</actions>
+          <duration>5000</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>99999999</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1 -1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>1</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>1</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>1</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1 -1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>1</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>1</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>1</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>1</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>1</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>1</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>1</duration>
+        </Item>
+      </Item>
+    </formationActions>
+    <terrains />
+    <terrainPositions />
+    <terrainTimes />
+    <formationNames>
+      <Item>sine slinger</Item>
+      <Item>sine slinger2</Item>
+      <Item>sine slinger</Item>
+      <Item>sineslinger2end</Item>
+      <Item>sine slinger</Item>
+      <Item>sine slinger2</Item>
+      <Item>sine slinger</Item>
+      <Item>sine slinger2</Item>
+      <Item>mans</Item>
+      <Item>mans</Item>
+      <Item>mans</Item>
+      <Item>mans</Item>
+      <Item>mans</Item>
+      <Item>mans</Item>
+      <Item>mans_copy1</Item>
+      <Item>mans_copy2</Item>
+      <Item>mans_copy3</Item>
+      <Item>mans_copy4</Item>
+    </formationNames>
+    <formationActionNames>
+      <Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>load</Item>
+        <Item>slong</Item>
+        <Item>slinging</Item>
+        <Item>idle</Item>
+        <Item>escape</Item>
+        <Item>despawn</Item>
+      </Item>
+      <Item>
+        <Item>idle</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>load</Item>
+        <Item>slong</Item>
+        <Item>slinging</Item>
+        <Item>idle</Item>
+        <Item>escape</Item>
+        <Item>despawn</Item>
+      </Item>
+      <Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>load</Item>
+        <Item>slong</Item>
+        <Item>slinging</Item>
+        <Item>idle</Item>
+        <Item>escape</Item>
+        <Item>despawn</Item>
+      </Item>
+      <Item>
+        <Item>idle</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>load</Item>
+        <Item>slong</Item>
+        <Item>slinging</Item>
+        <Item>idle</Item>
+        <Item>escape</Item>
+        <Item>despawn</Item>
+      </Item>
+      <Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>load</Item>
+        <Item>slong</Item>
+        <Item>slinging</Item>
+        <Item>idle</Item>
+        <Item>escape</Item>
+        <Item>despawn</Item>
+      </Item>
+      <Item>
+        <Item>idle</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>load</Item>
+        <Item>slong</Item>
+        <Item>slinging</Item>
+        <Item>idle</Item>
+        <Item>escape</Item>
+        <Item>despawn</Item>
+      </Item>
+      <Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>load</Item>
+        <Item>slong</Item>
+        <Item>slinging</Item>
+        <Item>idle</Item>
+        <Item>escape</Item>
+        <Item>despawn</Item>
+      </Item>
+      <Item>
+        <Item>idle</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>walk</Item>
+        <Item>load</Item>
+        <Item>slong</Item>
+        <Item>slinging</Item>
+        <Item>idle</Item>
+        <Item>escape</Item>
+        <Item>despawn</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>New Action</Item>
+        <Item>New Action</Item>
+      </Item>
+    </formationActionNames>
+  </Asset>
+</XnaContent>

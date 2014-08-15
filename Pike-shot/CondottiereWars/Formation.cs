@@ -949,6 +949,7 @@ namespace PikeAndShot
             if (_screen.getPlayerFormation() == this)
                 soldier.inPlayerFormation = true;
             soldier.initCharge = false;
+            soldier.setSpeed(0.15f);
 
             // determine speed
             avgSpeed = 0;
@@ -1896,7 +1897,7 @@ namespace PikeAndShot
                 foreach (Soldier s in this.getSoldiers())
                 {
                     s._destination = new Vector2(_position.X, _position.Y);
-                    s.setSpeed(this.getSpeed());
+                    //s.setSpeed(this.getSpeed());
                     s.update(timeSpan);
                 }
             }

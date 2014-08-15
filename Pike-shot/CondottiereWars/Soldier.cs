@@ -322,9 +322,9 @@ namespace PikeAndShot
             if (this is Dopple)
             {
                 if(_state == STATE_CHARGING)
-                    _speed = 0.25f;
+                    setSpeed(0.25f);
                 else
-                    _speed = 0.15f;
+                    setSpeed(0.15f);
             }
             if (guarding)
             {
@@ -393,7 +393,7 @@ namespace PikeAndShot
                 _dest = _meleeDestination;
             }
 
-            if (_side == BattleScreen.SIDE_PLAYER)
+            if (_side == BattleScreen.SIDE_PLAYER && myFormation == _screen.getPlayerFormation())
             {
                 _travel.X = (float)timeSpan.TotalMilliseconds * _speed;
                 _travel.Y = (float)timeSpan.TotalMilliseconds * _speed;
@@ -604,7 +604,7 @@ namespace PikeAndShot
                         _stateTimer -= (float)timeSpan.TotalMilliseconds;
                         if (initCharge)
                         {
-                            _speed = 0.11f + (0.03f * (1f - (_stateTimer / (_chargeTime/2f))));
+                            setSpeed(0.11f + (0.03f * (1f - (_stateTimer / (_chargeTime/2f)))));
                         }
 
                         if (_stateTimer <= 0)
@@ -1220,6 +1220,7 @@ namespace PikeAndShot
         internal void setSpeed(float p)
         {
             _speed = p;
+            _feet.setAnimationSpeed(15f / (_speed - 0.04f));
         }
 
         internal void cancelAttack()
