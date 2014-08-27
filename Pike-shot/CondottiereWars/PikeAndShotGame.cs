@@ -441,6 +441,7 @@ namespace PikeAndShot
             COIN_METER = Content.Load<Texture2D>(@"coin_meter");
 
             DOT = Content.Load<Texture2D>(@"dot");
+
             SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
 
             _gameScreens = new ArrayList(3);

@@ -91,7 +91,7 @@ namespace PikeAndShot
             }
 
             _drawJobs = new ArrayList(255);
-            _coins = 0;
+            _coins = 10;
             _coinSprites = new ArrayList();
             //for(int i = 0; i<20; i++)
             //    _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i*4f)));
@@ -240,8 +240,12 @@ namespace PikeAndShot
 
         private void collectCoin()
         {
-            _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - _coins * 4f)));
-            _coins++;
+            if (_coins < MAX_COINS)
+            {
+                _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - _coins * 4f)));
+                _coins++;
+            }
+            //TODO: otherwise put you into some sort of super coiny state I guess, right?
         }
 
         public void addScreenObject(ScreenObject so)

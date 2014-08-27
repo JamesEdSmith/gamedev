@@ -17,6 +17,7 @@ namespace PikeAndShot
     public class LevelScreen : BattleScreen, FormListener
     {
         public static float NEXT_SPAWN_POINT = 2000f;
+        public static float COIN_METER_FLASH_TIME = 300f;
 
         protected EnemyFormation _newEnemyFormation;
         protected Level _levelData;
@@ -26,6 +27,9 @@ namespace PikeAndShot
         float nextSpawnPosition = NEXT_SPAWN_POINT;
         public ArrayList _spawners;
         public ArrayList _deadSpawners;
+        private Sprite _coinMeter;
+        private float _coinMeterTimer;
+        private bool _coinMeterAnimating;
 
         public LevelScreen(PikeAndShotGame game, Level level)
             : base(game)
@@ -56,6 +60,14 @@ namespace PikeAndShot
             _usedFormations = new List<int>(_levelData.formations.Count);
             _spawners = new ArrayList(2);
             _deadSpawners = new ArrayList(2);
+
+            for (int i = 0; i < _coins; i++)
+            {
+                _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i * 4f)));
+            }
+            _coinMeter = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 134), 36, 134, false, true);
+            _coinMeterAnimating = false;
+            _coinMeterTimer = 0f;
         }
 
         public override void update(GameTime gameTime)
@@ -79,7 +91,7 @@ namespace PikeAndShot
             _deadSpawners.Clear();
 
 
-            if (_coins >= MAX_COINS)
+            /*if (_coins >= MAX_COINS)
             {
                 spawnRescue();
                 _coins = 0;
@@ -87,7 +99,7 @@ namespace PikeAndShot
                 {
                     coin.drop();
                 }
-            }
+            }*/
 
             ArrayList coinsDone = new ArrayList();
             for (int i = 0; i < _coinSprites.Count; i++)
@@ -109,24 +121,54 @@ namespace PikeAndShot
             _draws = 0;
         }
 
-        private void spawnRescue()
-        {            
+        public bool loseCoin()
+        {
+            if (_coins > 0)
+            {
+                ((Coin)_coinSprites[_coinSprites.Count - 1]).setDone();
+                _coinSprites.RemoveAt(_coinSprites.Count - 1);
+                //TODO: make sure this isn't doing some Screen object not getting removed fuckery
+                _coins--;
+
+                if (_coins < 1)
+                {
+                    retreat();
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public void retreat()
+        {
+            foreach (Soldier s in _looseSoldiers)
+            {
+                s.route();
+            }
+            getPlayerFormation().retreat();
+            foreach(EnemyFormation ef in _enemyFormations)
+            {
+                if (ef.getSide() == SIDE_PLAYER)
+                    ef.retreat();
+            }
+        }
+
+        public void spawnRescue(int type)
+        {
+            EnemyFormation formation;
             if (PikeAndShotGame.random.Next(100) > 49)
             {
-                EnemyFormation formation = new EnemyFormation("Reinforcement", null, this,
+                formation = new EnemyFormation("Reinforcement", null, this,
                     _formation._position.X, (float)PikeAndShotGame.SCREENHEIGHT, 1, SIDE_PLAYER);
-
-                assignRescue(formation);
-                _enemyFormations.Add(formation);
             }
             else
             {
-                EnemyFormation formation = new EnemyFormation("Reinforcement", null, this,
+                formation = new EnemyFormation("Reinforcement", null, this,
                     _formation._position.X, 0f - (float)Soldier.HEIGHT * 2f, 1, SIDE_PLAYER);
-
-                assignRescue(formation);
-                _enemyFormations.Add(formation);
             }
+            assignRescue(formation, type);
+            _enemyFormations.Add(formation);
         }
 
         public override void draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -153,7 +195,8 @@ namespace PikeAndShot
                 spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Objects: " + _screenObjects.Count, new Vector2(305, 5), Color.White);
                 spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Colliders: " + _screenColliders.Count, new Vector2(405, 5), Color.White);
                 spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "fps: " + _fps, new Vector2(405, 35), Color.White);
-                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "terrain: " + _terrain.Count, new Vector2(505, 5), Color.White);
+                //spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "terrain: " + _terrain.Count, new Vector2(505, 5), Color.White);
+                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "pike: " + _formation.numberOfPikes + "shot: " + _formation.numberOfShots, new Vector2(505, 5), Color.White);
             }
         }
 
@@ -315,7 +358,7 @@ namespace PikeAndShot
             }
             else if (keyboardState.IsKeyDown(Keys.L) && previousKeyboardState.IsKeyUp(Keys.L))
             {
-                spawnRescue();
+                //spawnRescue();
             }
             if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D) && previousKeyboardState.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.D))
                 toggleDrawDots();
@@ -341,7 +384,7 @@ namespace PikeAndShot
                     float x = _newEnemyFormation.getPosition().X;
                     float y = _newEnemyFormation.getPosition().Y;
                     if (_newEnemyFormation.getSide() == SIDE_PLAYER)
-                        assignRescue(_newEnemyFormation);
+                        assignRescue(_newEnemyFormation, PikeAndShotGame.random.Next(100) < 50 ? Soldier.TYPE_PIKE : Soldier.TYPE_SHOT);
                     else
                     {
                         for (int i = 0; i < _levelData.formations[f].Count; i++)
@@ -376,12 +419,12 @@ namespace PikeAndShot
             return null;
         }
 
-        private void assignRescue(EnemyFormation formation)
+        private void assignRescue(EnemyFormation formation, int type)
         {
             if (_formation.numberOfPikes < 10 || _formation.numberOfShots < 10)
             {
                 Soldier soldier;
-                if (_formation.getLeastType() == Soldier.TYPE_PIKE)
+                if (type == Soldier.TYPE_PIKE)
                 {
                     soldier = new Pikeman(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER);
                 }
@@ -392,6 +435,7 @@ namespace PikeAndShot
                 formation.addSoldier(soldier);
                 soldier.setSpeed(0.075f);
             }
+                //TODO: HEY MAN, THIS COULD CAUSE PRO-BLEMS
             else
             {
                 formation.addSoldier(new Dopple(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER));
@@ -493,7 +537,14 @@ namespace PikeAndShot
             _screenObjectsToAdd.Clear();
             _screenColliders.Clear();
             _spawners.Clear();
+            _screenAnimations.Clear();
 
+            _coins = 10;
+            _coinSprites.Clear();
+            for(int i = 0; i < _coins; i++)
+            {
+                _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i * 4f)));
+            }
             
             _formation = new Formation(this, 200, 200, 20, SIDE_PLAYER);
             //_formation.addSoldier(new Cavalry(this, 200, 200, BattleScreen.SIDE_PLAYER));

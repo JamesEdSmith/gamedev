@@ -47,6 +47,7 @@ namespace PikeAndShot
         public bool selected;
         public int numberOfPikes;
         public int numberOfShots;
+        public bool retreated;
 
         public Formation(BattleScreen screen, float x, float y, int initialCapacity, int side)
         {
@@ -78,6 +79,7 @@ namespace PikeAndShot
             _addedSoldier = false;
             DEBUGdangerClose = false;
             selected = false;
+            retreated = false;
             numberOfPikes = 0;
             numberOfShots = 0;
         }
@@ -274,20 +276,11 @@ namespace PikeAndShot
 
             if (_addedSoldier)
             {
-                /*if (_soldiers.Count > 25)
+                if (_width < 5)
                 {
-                    if (_width != (int)Math.Sqrt((double)_soldiers.Count))
-                    {
-                        _width = (int)Math.Sqrt((double)_soldiers.Count);
-                    }
-                }*/
-                //else
-                //{
-                    if (_width < 5)
-                    {
-                        _width = 5;
-                    }
-                //}
+                    _width = 5;
+                }
+                
                 _addedSoldier = false;
                 resetupFormation();
             }
@@ -1854,6 +1847,7 @@ namespace PikeAndShot
 
         internal void retreat()
         {
+            retreated = true;
             foreach(Soldier soldier in _soldiers)
             {
                 _screen.addLooseSoldierNext(soldier);
