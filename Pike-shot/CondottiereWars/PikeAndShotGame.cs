@@ -210,6 +210,8 @@ namespace PikeAndShot
         public static Texture2D BRIGAND2_DEFEND1;
         public static Texture2D BRIGAND2_CHARGE;
 
+        public static Texture2D HAULER_HAUL;
+
         public static Texture2D BROWN_FEET;
 
         public static List<Texture2D> ROAD_TERRAIN;
@@ -432,6 +434,8 @@ namespace PikeAndShot
             BRIGAND2_MELEE1 = Content.Load<Texture2D>(@"brigand_melee2");
             BRIGAND2_DEFEND1 = Content.Load<Texture2D>(@"brigand_defend2");
             BRIGAND2_CHARGE = Content.Load<Texture2D>(@"brigand_charge");
+
+            HAULER_HAUL = Content.Load<Texture2D>(@"hauler_haul");
 
             GOBLIN_FEET = Content.Load<Texture2D>(@"goblin_feet");
             BROWN_FEET = Content.Load<Texture2D>(@"brown_feet");
