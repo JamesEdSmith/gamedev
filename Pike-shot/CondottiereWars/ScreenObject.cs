@@ -190,9 +190,10 @@ namespace PikeAndShot
         private bool _drop;
         private const float GRAVITY = 9.8f;
         private float velocity;
+        private bool doneFlashing;
 
         public Coin(BattleScreen screen, Vector2 position)
-            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN, new Rectangle(0, 0, 24, 14), 24, 14), COIN_TIME)
+            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN, new Rectangle(0, 0, 24, 14), 24, 14, false, true, 128), COIN_TIME)
         {
             int rando = PikeAndShotGame.random.Next(3);
             if (rando == 1)
@@ -202,15 +203,20 @@ namespace PikeAndShot
 
             _drop = false;
             velocity = -1.5f;
+            doneFlashing = false;
         }
 
         public override void update(TimeSpan timeSpan)
         {
-            _time -= (float)timeSpan.TotalMilliseconds;
-
-            if (_time <= 0)
+            if (!doneFlashing)
             {
-                _time = 0;
+                _time -= (float)timeSpan.TotalMilliseconds;
+
+                if (_time <= 0)
+                {
+                    _time = 0;
+                    doneFlashing = true;
+                }
             }
 
             int maxFrames = _sprite.getMaxFrames();
@@ -228,7 +234,10 @@ namespace PikeAndShot
 
         public override void draw(SpriteBatch spritebatch)
         {
-            _sprite.draw(spritebatch, _position, _side);
+            if (_sprite.flashable && !doneFlashing)
+                _sprite.draw(spritebatch, _position, _side, _time / _duration);
+            else
+                _sprite.draw(spritebatch, _position, _side);
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position, Color.White);
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(2,0), Color.White);
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(0,2), Color.White);

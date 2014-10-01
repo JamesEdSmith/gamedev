@@ -208,8 +208,6 @@ namespace PikeAndShot
                 else if (obj is Soldier)
                 {
                     _looseSoldiers.Remove(obj);
-                    if (obj.getSide() == SIDE_ENEMY && ((Soldier)obj).getState() == Soldier.STATE_DEAD)
-                        collectCoin();
                 }
                 else if (obj is Terrain)
                 {
@@ -238,7 +236,7 @@ namespace PikeAndShot
             _deadThings.Clear();
         }
 
-        private void collectCoin()
+        public void collectCoin()
         {
             if (_coins < MAX_COINS)
             {

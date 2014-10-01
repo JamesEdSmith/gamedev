@@ -1136,6 +1136,9 @@ namespace PikeAndShot
             _destination = _position;
             _screen.addLooseSoldier(this);
 
+            if (getSide() == BattleScreen.SIDE_ENEMY)
+                _screen.collectCoin();
+
             if (myFormation == _screen.getPlayerFormation() && _screen is LevelScreen)
             {
                 if (((LevelScreen)_screen).loseCoin())
@@ -1585,14 +1588,14 @@ namespace PikeAndShot
             _attackTime = 300f;
             _reloadTime = 3000f;
 
-            _feet = new Sprite(PikeAndShotGame.ARQUEBUSIER_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true, true);
+            _feet = new Sprite(PikeAndShotGame.ARQUEBUSIER_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true, true, 25);
             _feet.flashable = false;
             _idle = new Sprite(PikeAndShotGame.ARQUEBUSIER_IDLE, new Rectangle(6, 4, 16, 28), 44, 42);
             _death = new Sprite(PikeAndShotGame.ARQUEBUSIER_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
             _melee1 = new Sprite(PikeAndShotGame.ARQUEBUSIER_MELEE, new Rectangle(8, 12, 16, 28), 48, 48);
             _route = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTE, new Rectangle(16, 16, 16, 28), 48, 52);
             _routed = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTED, new Rectangle(16, 16, 16, 28), 52, 52, true);
-            _arquebusierReload = new Sprite(PikeAndShotGame.ARQUEBUSIER_RELOAD, new Rectangle(8, 4, 16, 28), 44, 42, false, true);
+            _arquebusierReload = new Sprite(PikeAndShotGame.ARQUEBUSIER_RELOAD, new Rectangle(8, 4, 16, 28), 44, 42, false, true, 25);
             _arquebusierShoot = new Sprite(PikeAndShotGame.ARQUEBUSIER_SHOOT, new Rectangle(6, 4, 16, 28), 44, 42);
 
             _feet.setAnimationSpeed(15f / 0.11f);
@@ -2261,11 +2264,6 @@ namespace PikeAndShot
                 _screen.getPlayerFormation().retreat();
             }
         }
-
-        protected override void hit()
-        {
-            base.hit();
-        }
     }
 
     public class Slinger : Soldier
@@ -2912,7 +2910,7 @@ namespace PikeAndShot
         public void shield()
         {
             if (!_hasShield)
-                return;//hit();
+                return;
             else if (_state != STATE_DEFEND)
             {
                 if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
@@ -3745,9 +3743,7 @@ namespace PikeAndShot
 
             if (_state != STATE_LOWERED)
                 _state = STATE_ATTACKING;
-            
-            //if (_state != STATE_DYING)
-                //hit();
+           
             return true;
         }
 

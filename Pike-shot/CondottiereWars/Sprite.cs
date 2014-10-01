@@ -26,6 +26,7 @@ namespace PikeAndShot
         private float _animationSpeed;
         private float _animationTime;
         public bool flashable;
+        private int flashStartThreshold;
 
         public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop)
         {
@@ -44,10 +45,11 @@ namespace PikeAndShot
             _animationSpeed = _animationTime = 1000;
         }
 
-        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable):
+        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreshold):
             this(bitmap, boundingRect, frameWidth, frameHeight, loop)
         {
             this.flashable = true;
+            this.flashStartThreshold = flashStartThreshold;
 
             //create flash texture
             Color[] pixelData = new Color[bitmap.Width * bitmap.Height];
@@ -181,10 +183,10 @@ namespace PikeAndShot
             Color color = Color.Black;
             color.A = (byte)(255f * flashAmount);
 
-            if(color.A < 25)
+            if(color.A < flashStartThreshold)
             {
                 Color white = Color.White;
-                white.A -= (byte)(255f * (float)color.A / 25f);
+                white.A -= (byte)(255f * (float)color.A / (float)flashStartThreshold);
                 color = white;
             }
             else
