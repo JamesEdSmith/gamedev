@@ -27,6 +27,7 @@ namespace PikeAndShot
         private float _animationTime;
         public bool flashable;
         private int flashStartThreshold;
+        private Color flashColor;
 
         public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop)
         {
@@ -45,11 +46,12 @@ namespace PikeAndShot
             _animationSpeed = _animationTime = 1000;
         }
 
-        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreshold):
+        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreshold, Color color):
             this(bitmap, boundingRect, frameWidth, frameHeight, loop)
         {
             this.flashable = true;
             this.flashStartThreshold = flashStartThreshold;
+            this.flashColor = color;
 
             //create flash texture
             Color[] pixelData = new Color[bitmap.Width * bitmap.Height];
@@ -62,6 +64,16 @@ namespace PikeAndShot
             }
             _flashTexture = new Texture2D(bitmap.GraphicsDevice, bitmap.Width, bitmap.Height);
             _flashTexture.SetData<Color>(pixelData);
+        }
+
+        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable) :
+            this(bitmap, boundingRect, frameWidth, frameHeight, loop, flashable, 25, Color.White)
+        {
+        }
+
+        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreashold) :
+            this(bitmap, boundingRect, frameWidth, frameHeight, loop, flashable, flashStartThreashold, Color.White)
+        {
         }
 
         public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight): 
@@ -185,7 +197,7 @@ namespace PikeAndShot
 
             if(color.A < flashStartThreshold)
             {
-                Color white = Color.White;
+                Color white = flashColor;
                 white.A -= (byte)(255f * (float)color.A / (float)flashStartThreshold);
                 color = white;
             }

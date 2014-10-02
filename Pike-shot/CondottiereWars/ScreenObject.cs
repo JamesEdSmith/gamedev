@@ -186,7 +186,7 @@ namespace PikeAndShot
 
     public class Coin : ScreenAnimation
     {
-        static float COIN_TIME = 250f;
+        static float COIN_TIME = 400f;
         private bool _drop;
         private const float GRAVITY = 9.8f;
         private float velocity;

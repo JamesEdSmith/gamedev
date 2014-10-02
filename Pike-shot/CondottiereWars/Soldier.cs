@@ -1137,7 +1137,7 @@ namespace PikeAndShot
             _screen.addLooseSoldier(this);
 
             if (getSide() == BattleScreen.SIDE_ENEMY)
-                _screen.collectCoin();
+                ((LevelScreen)_screen).collectCoin();
 
             if (myFormation == _screen.getPlayerFormation() && _screen is LevelScreen)
             {

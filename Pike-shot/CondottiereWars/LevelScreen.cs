@@ -17,7 +17,8 @@ namespace PikeAndShot
     public class LevelScreen : BattleScreen, FormListener
     {
         public static float NEXT_SPAWN_POINT = 2000f;
-        public static float COIN_METER_FLASH_TIME = 300f;
+        public static float COIN_METER_FLASH_TIME = 400f;
+        public static float COIN_METER_HURT_FLASH_TIME = 400f;
 
         protected EnemyFormation _newEnemyFormation;
         protected Level _levelData;
@@ -28,8 +29,9 @@ namespace PikeAndShot
         public ArrayList _spawners;
         public ArrayList _deadSpawners;
         private Sprite _coinMeter;
+        private Sprite _coinMeterHurt;
         private float _coinMeterTimer;
-        private bool _coinMeterAnimating;
+        private float _coinMeterHurtTimer;
 
         public LevelScreen(PikeAndShotGame game, Level level)
             : base(game)
@@ -65,8 +67,8 @@ namespace PikeAndShot
             {
                 _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i * 4f)));
             }
-            _coinMeter = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 134), 36, 134, false, true, 128);
-            _coinMeterAnimating = false;
+            _coinMeter = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 134), 36, 134, false, true, 128, Color.Gold);
+            _coinMeterHurt = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 134), 36, 134, false, true, 128, Color.Red);
             _coinMeterTimer = 0f;
         }
 
@@ -90,17 +92,6 @@ namespace PikeAndShot
             }
             _deadSpawners.Clear();
 
-
-            /*if (_coins >= MAX_COINS)
-            {
-                spawnRescue();
-                _coins = 0;
-                foreach (Coin coin in _coinSprites)
-                {
-                    coin.drop();
-                }
-            }*/
-
             ArrayList coinsDone = new ArrayList();
             for (int i = 0; i < _coinSprites.Count; i++)
             {
@@ -123,6 +114,7 @@ namespace PikeAndShot
 
         public bool loseCoin()
         {
+            _coinMeterHurtTimer = COIN_METER_HURT_FLASH_TIME;
             if (_coins > 0)
             {
                 ((Coin)_coinSprites[_coinSprites.Count - 1]).setDone();
@@ -171,6 +163,17 @@ namespace PikeAndShot
             _enemyFormations.Add(formation);
         }
 
+        public void collectCoin()
+        {
+            _coinMeterTimer = COIN_METER_FLASH_TIME;
+            if (_coins < MAX_COINS)
+            {
+                _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - _coins * 4f)));
+                _coins++;
+            }
+            //TODO: otherwise put you into some sort of super coiny state I guess, right?
+        }
+
         public override void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.draw(gameTime, spriteBatch);
@@ -185,6 +188,20 @@ namespace PikeAndShot
             }
 
             spriteBatch.Draw(PikeAndShotGame.COIN_METER, COIN_METER_POSITION, Color.White);
+
+            //I draw the flash overtop, I was worried about missing a frame.
+            if (_coinMeterTimer > 0)
+            {
+                _coinMeter.draw(spriteBatch, COIN_METER_POSITION, SIDE_PLAYER, _coinMeterTimer / COIN_METER_FLASH_TIME);
+                _coinMeterTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
+
+            if (_coinMeterHurtTimer > 0)
+            {
+                _coinMeterHurt.draw(spriteBatch, COIN_METER_POSITION, SIDE_PLAYER, _coinMeterHurtTimer / COIN_METER_HURT_FLASH_TIME);
+                _coinMeterHurtTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
+
 
             if (getDrawDots())
             {

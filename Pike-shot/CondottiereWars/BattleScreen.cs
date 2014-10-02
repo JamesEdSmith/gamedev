@@ -236,16 +236,6 @@ namespace PikeAndShot
             _deadThings.Clear();
         }
 
-        public void collectCoin()
-        {
-            if (_coins < MAX_COINS)
-            {
-                _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - _coins * 4f)));
-                _coins++;
-            }
-            //TODO: otherwise put you into some sort of super coiny state I guess, right?
-        }
-
         public void addScreenObject(ScreenObject so)
         {
             _screenObjectsToAdd.Add(so);
