@@ -163,9 +163,10 @@ namespace PikeAndShot
             _enemyFormations.Add(formation);
         }
 
-        public void collectCoin()
+        public void collectCoin(Soldier soldier)
         {
             _coinMeterTimer = COIN_METER_FLASH_TIME;
+            addAnimation(new Loot(this,soldier.getPosition()));
             if (_coins < MAX_COINS)
             {
                 _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - _coins * 4f)));

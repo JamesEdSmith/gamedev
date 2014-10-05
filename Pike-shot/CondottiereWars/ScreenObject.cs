@@ -253,4 +253,43 @@ namespace PikeAndShot
             _drop = true;
         }
     }
+
+    public class Loot : ScreenAnimation
+    {
+        static float FLASH_TIME = 2500f;
+
+        public Loot(BattleScreen screen, Vector2 position)
+            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.LOOT, new Rectangle(0, 0, 22, 22), 22, 22, false, true, 128, Color.Yellow), FLASH_TIME)
+        {
+            int rando = PikeAndShotGame.random.Next(_sprite.getMaxFrames());
+            _sprite.setFrame(rando);
+            _done = false;
+        }
+
+        public override void update(TimeSpan timeSpan)
+        {
+            if (!_done)
+            {
+                _time -= (float)timeSpan.TotalMilliseconds;
+
+                if (_time <= 0)
+                {
+                    _time = 0;
+                    _done = true;
+                }
+            }
+        }
+
+        public override void draw(SpriteBatch spritebatch)
+        {
+            Vector2 mapOffset = _screen.getMapOffset();
+            if (_sprite.flashable && !_done)
+                _sprite.draw(spritebatch, _position - mapOffset, _side, _time / _duration);
+            else
+                _sprite.draw(spritebatch, _position - mapOffset, _side);
+            //spritebatch.Draw(BattleScreen.getDotTexture(), _position, Color.White);
+            //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(2,0), Color.White);
+            //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(0,2), Color.White);
+        }
+    }
 }

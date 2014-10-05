@@ -1137,9 +1137,10 @@ namespace PikeAndShot
             _screen.addLooseSoldier(this);
 
             if (getSide() == BattleScreen.SIDE_ENEMY)
-                ((LevelScreen)_screen).collectCoin();
+                ((LevelScreen)_screen).collectCoin(this);
 
-            if (myFormation == _screen.getPlayerFormation() && _screen is LevelScreen)
+            //I want guys that are running in as replacements to count as a loss
+            if ((myFormation == _screen.getPlayerFormation() || (this._type != TYPE_SWINGER && _side == BattleScreen.SIDE_PLAYER)) && _screen is LevelScreen)
             {
                 if (((LevelScreen)_screen).loseCoin())
                     ((LevelScreen)_screen).spawnRescue(getType());
