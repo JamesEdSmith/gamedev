@@ -166,7 +166,11 @@ namespace PikeAndShot
         public void collectCoin(Soldier soldier)
         {
             _coinMeterTimer = COIN_METER_FLASH_TIME;
-            addAnimation(new Loot(this,soldier.getPosition()));
+            Loot loot = new Loot(this, soldier.getPosition());
+            addAnimation(loot);
+            LootTwinkle twinkle = new LootTwinkle(this, soldier.getPosition(), 1000f, Vector2.Zero);
+            addAnimation(twinkle);
+            loot.addListener(twinkle);
             if (_coins < MAX_COINS)
             {
                 _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - _coins * 4f)));
