@@ -21,9 +21,13 @@ namespace PikeAndShot
     public class PikeAndShotGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        //RenderTarget2D tempTarget;
         Viewport viewport;
         SpriteBatch spriteBatch;
+
+        RenderTarget2D ShaderRenderTarget;
+        Texture2D WorkingTexture;
+        Texture2D WorkingTexture1;
+
         static SpriteFont soldierFont;
         public static Random random = new Random();
 
@@ -261,7 +265,21 @@ namespace PikeAndShot
             viewport = GraphicsDevice.Viewport;
             soldierFont = Content.Load<SpriteFont>("SpriteFont1");
 
+            ShaderRenderTarget = new RenderTarget2D(spriteBatch.GraphicsDevice, spriteBatch.GraphicsDevice.PresentationParameters.BackBufferWidth, spriteBatch.GraphicsDevice.PresentationParameters.BackBufferHeight, false, SurfaceFormat.Color, DepthFormat.None);
+            WorkingTexture = new Texture2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT);
+            WorkingTexture1 = new Texture2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT);
+
             effect = Content.Load<Effect>(@"cgwg-xna");
+            Matrix projection = Matrix.CreateOrthographicOffCenter(0, viewport.Width, viewport.Height, 0, 0, 1);
+            Matrix halfPixelOffset = Matrix.CreateTranslation(-0.5f, -0.5f, 0);
+            effect.Parameters["World"].SetValue(Matrix.Identity);
+            effect.Parameters["View"].SetValue(Matrix.Identity);
+            effect.Parameters["Projection"].SetValue(halfPixelOffset * projection);
+            effect.Parameters["Worldview"].SetValue(Matrix.Identity * Matrix.Identity);
+            effect.Parameters["ViewProjection"].SetValue((Matrix.Identity * (halfPixelOffset * projection)));
+            effect.Parameters["WorldViewProjection"].SetValue((Matrix.Identity * (halfPixelOffset * projection)));
+            effect.Parameters["WorkingTexture"].SetValue(WorkingTexture);
+            effect.Parameters["WorkingTexture1"].SetValue(WorkingTexture1);
 
             //TERRAIN_DRY_GRASS = Content.Load<Texture2D>(@"dry_grass");
             ROAD_TERRAIN = new List<Texture2D>(11);
@@ -520,14 +538,14 @@ namespace PikeAndShot
 
         protected override void Draw(GameTime gameTime)
         {
+
+            GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
             GraphicsDevice.Viewport = viewport;
             GraphicsDevice.Clear(Color.Black);
 
             //get rid of blurry sprites
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
-            //effect.Begin();
-            //effect.Techniques[0].Passes[0].Begin();
             if (_currScreen != null)
             {
                 _currScreen.draw(gameTime, spriteBatch);
@@ -535,8 +553,12 @@ namespace PikeAndShot
             base.Draw(gameTime);
 
             spriteBatch.End();
-            //effect.Techniques[0].Passes[0].End();
-            //effect.End();
+
+            GraphicsDevice.SetRenderTarget(null);
+            effect.Parameters["SourceTexture"].SetValue(ShaderRenderTarget);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, effect);
+            spriteBatch.Draw(ShaderRenderTarget, Vector2.Zero, Color.White);
+            spriteBatch.End();
         }
 
         internal static SpriteFont getSpriteFont()

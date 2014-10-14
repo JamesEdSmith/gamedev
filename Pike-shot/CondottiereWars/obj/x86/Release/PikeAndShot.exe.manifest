@@ -110,14 +110,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PikeAndShot.exe" size="173056">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PikeAndShot.exe" size="174592">
       <assemblyIdentity name="PikeAndShot" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>PxX5D5wbx5jsq4+sL3dQarJrunI=</dsig:DigestValue>
+        <dsig:DigestValue>D0Raw8VdGAPR5cvu9GNJc+p3rL8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
