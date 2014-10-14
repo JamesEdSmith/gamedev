@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="LevelPipeline.LevelContent">
+    <levelName>editor0</levelName>
+    <formations>
+      <Item>0</Item>
+    </formations>
+    <formationPositions>0 0</formationPositions>
+    <formationTimes>0</formationTimes>
+    <formationActions>
+      <Item>
+        <Item>
+          <actions>0</actions>
+          <duration>-0.0166667</duration>
+        </Item>
+        <Item>
+          <actions>6</actions>
+          <duration>2800.0056</duration>
+        </Item>
+        <Item>
+          <actions>6</actions>
+          <duration>66.666799999999967</duration>
+        </Item>
+        <Item>
+          <actions>6</actions>
+          <duration>2783.3389</duration>
+        </Item>
+        <Item>
+          <actions>6</actions>
+          <duration>83.333499999999731</duration>
+        </Item>
+        <Item>
+          <actions>6</actions>
+          <duration>4550.0091</duration>
+        </Item>
+        <Item>
+          <actions>1 6</actions>
+          <duration>950.00190000000111</duration>
+        </Item>
+        <Item>
+          <actions>1 4 6</actions>
+          <duration>466.66759999999886</duration>
+        </Item>
+        <Item>
+          <actions>1 6</actions>
+          <duration>416.66750000000138</duration>
+        </Item>
+        <Item>
+          <actions>1 5</actions>
+          <duration>466.66759999999886</duration>
+        </Item>
+        <Item>
+          <actions>5</actions>
+          <duration>1383.3361000000004</duration>
+        </Item>
+        <Item>
+          <actions>6</actions>
+          <duration>1200.0023999999994</duration>
+        </Item>
+      </Item>
+    </formationActions>
+    <terrains />
+    <terrainPositions />
+    <terrainTimes />
+    <formationNames>
+      <Item>Cock</Item>
+    </formationNames>
+    <formationActionNames>
+      <Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+      </Item>
+    </formationActionNames>
+  </Asset>
+</XnaContent>

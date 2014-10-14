@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="LevelPipeline.LevelContent">
+    <levelName>GoblinLevel</levelName>
+    <formations>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+      <Item>12</Item>
+    </formations>
+    <formationPositions>974.0001 339 974.000061 289 1223 45 1273 45 1323 45 973 520 973 470</formationPositions>
+    <formationTimes>790.000061035156 790.00006103515625 1123 1123 1123 873 873</formationTimes>
+    <formationActions>
+      <Item>
+        <Item>
+          <actions>0</actions>
+          <duration>2500</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>1 4</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>200</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0</actions>
+          <duration>2500</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>1 4</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>200</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>1 -1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>1 4</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>4 -1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>200</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>1 -1</actions>
+          <duration>1500</duration>
+        </Item>
+        <Item>
+          <actions>1 4</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>4 -1</actions>
+          <duration>1500</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>200</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>1 -1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>1 4</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>4 -1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>200</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0</actions>
+          <duration>2500</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>1 2</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>200</duration>
+        </Item>
+      </Item>
+      <Item>
+        <Item>
+          <actions>0</actions>
+          <duration>2500</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>1 2</actions>
+          <duration>500</duration>
+        </Item>
+        <Item>
+          <actions>10</actions>
+          <duration>200</duration>
+        </Item>
+      </Item>
+    </formationActions>
+    <terrains Null="true" />
+    <terrainPositions Null="true" />
+    <terrainTimes Null="true" />
+    <formationNames>
+      <Item>brigand</Item>
+      <Item>brigand</Item>
+      <Item>brigands</Item>
+      <Item>brigands</Item>
+      <Item>brigands</Item>
+      <Item>brigand</Item>
+      <Item>brigand</Item>
+    </formationNames>
+    <formationActionNames>
+      <Item>
+        <Item>Idle</Item>
+        <Item>walkout1</Item>
+        <Item>Walkout2</Item>
+        <Item>charge</Item>
+      </Item>
+      <Item>
+        <Item>Idle</Item>
+        <Item>walkout1</Item>
+        <Item>Walkout2</Item>
+        <Item>charge</Item>
+      </Item>
+      <Item>
+        <Item>Idle</Item>
+        <Item>walkout1</Item>
+        <Item>Walkout2</Item>
+        <Item>down</Item>
+        <Item>charge</Item>
+      </Item>
+      <Item>
+        <Item>Idle</Item>
+        <Item>walkout1</Item>
+        <Item>Walkout2</Item>
+        <Item>down</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>Idle</Item>
+        <Item>walkout1</Item>
+        <Item>Walkout2</Item>
+        <Item>down</Item>
+        <Item>New Action</Item>
+      </Item>
+      <Item>
+        <Item>Idle</Item>
+        <Item>walkout1</Item>
+        <Item>Walkout2</Item>
+        <Item>charge</Item>
+      </Item>
+      <Item>
+        <Item>Idle</Item>
+        <Item>walkout1</Item>
+        <Item>Walkout2</Item>
+        <Item>charge</Item>
+      </Item>
+    </formationActionNames>
+  </Asset>
+</XnaContent>

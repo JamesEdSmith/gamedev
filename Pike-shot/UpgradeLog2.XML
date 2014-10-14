@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="PikeAndShot">
+</Property><Property Name="Solution File" Value="C:\Users\James\Documents\gamedev\pike-shot\PikeAndShot.sln">
+</Property><Property Name="Date" Value="Monday, October 13, 2014">
+</Property><Property Name="Time" Value="23:30:25 PM">
+</Property><Property Name="Log Number" Value="2">
+</Property></Properties><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\PikeAndShot.csproj" Description="Project file successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\PikeAndShot.csproj">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\PikeAndShot.csproj.user" Description="Project user file successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\PikeAndShot.csproj.user">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Formation.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Formation.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Level.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Level.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\FormationEditorScreen.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\FormationEditorScreen.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\LevelReader.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\LevelReader.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\LevelScreen.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\LevelScreen.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\PikeAndShotGame.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\PikeAndShotGame.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Program.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Program.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\BattleScreen.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\BattleScreen.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\ScreenObject.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\ScreenObject.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Shot.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Shot.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Soldier.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Soldier.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Sprite.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Sprite.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Form1.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Form1.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Form1.Designer.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Form1.Designer.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\LevelEditorScreen.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\LevelEditorScreen.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\pike_icon.ico" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\pike_icon.ico">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Properties\Resources.Designer.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Spawner.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Spawner.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Terrain.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Terrain.cs">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\ClassDiagram1.cd" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\ClassDiagram1.cd">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\CondottiereWars_TemporaryKey.pfx" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\CondottiereWars_TemporaryKey.pfx">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\PikeAndShot_TemporaryKey.pfx" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\PikeAndShot_TemporaryKey.pfx">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Game.ico" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Game.ico">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\GameThumbnail.png" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\GameThumbnail.png">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Form1.resx" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Form1.resx">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\Properties\Resources.resx" Description="File successfully backed up as C:\Users\James\Documents\gamedev\pike-shot\Backup1\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="PikeAndShot" Source="CondottiereWars\PikeAndShot.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="PikeAndShot" Source="CondottiereWars\PikeAndShot.csproj" Description="Converted">
+</Event></UpgradeLog>

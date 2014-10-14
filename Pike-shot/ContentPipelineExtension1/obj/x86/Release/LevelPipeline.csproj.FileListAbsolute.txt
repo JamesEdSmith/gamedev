@@ -5,6 +5,5 @@ E:\projects\CondottiereWars\ContentPipelineExtension1\obj\x86\Release\ContentPip
 E:\projects\CondottiereWars\ContentPipelineExtension1\obj\x86\Release\ContentPipelineExtension1.pdb
 C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll
 C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.pdb
-C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\obj\x86\Release\ResolveAssemblyReference.cache
 C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\obj\x86\Release\ContentPipelineExtension1.dll
 C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\obj\x86\Release\ContentPipelineExtension1.pdb

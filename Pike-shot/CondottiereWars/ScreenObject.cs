@@ -99,6 +99,7 @@ namespace PikeAndShot
         protected float _time;
         protected int _maxFrames;
         protected BattleScreen _screen;
+        private List<ScreenAnimationListener> listeners; 
 
         public ScreenAnimation(BattleScreen screen, int side, Vector2 position, Sprite sprite, float duration )
         {
@@ -112,6 +113,12 @@ namespace PikeAndShot
 
             screen.addAnimation(this);
             _screen = screen;
+            listeners = new List<ScreenAnimationListener>(1);
+        }
+
+        public void addListener(ScreenAnimationListener listener)
+        {
+            listeners.Add(listener);
         }
 
         public void restart()
@@ -126,7 +133,7 @@ namespace PikeAndShot
 
             if (_time <= 0)
             {
-                _done = true;
+                setDone();
             }
 
             for (int i = 1; i <= _maxFrames; i++)
@@ -138,6 +145,16 @@ namespace PikeAndShot
                 }
             }            
         }
+
+        public void setDone()
+        {
+            _done = true;
+            foreach (ScreenAnimationListener listener in listeners)
+            {
+                listener.onAnimationTrigger(this);
+            }
+        }
+
 
         public virtual void draw(SpriteBatch spritebatch)
         {
@@ -167,7 +184,7 @@ namespace PikeAndShot
 
             if (_time <= 0)
             {
-                _done = true;
+                setDone();
             }
 
             // custom timing for the smoke where the first few frames are really quick
@@ -243,11 +260,6 @@ namespace PikeAndShot
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(0,2), Color.White);
         }
 
-        public void setDone()
-        {
-            _done = true;
-        }
-
         internal void drop()
         {
             _drop = true;
@@ -275,7 +287,7 @@ namespace PikeAndShot
                 if (_time <= 0)
                 {
                     _time = 0;
-                    _done = true;
+                    setDone();
                 }
             }
         }
@@ -291,5 +303,76 @@ namespace PikeAndShot
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(2,0), Color.White);
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(0,2), Color.White);
         }
+    }
+
+    public class LootTwinkle : ScreenAnimation, ScreenAnimationListener
+    {
+        private const float TARGET_TOLERANCE = 10f;
+        private const float ACCELERATION = 0.2f;
+        private const float MAX_SPEED = 5f;
+
+        private bool started;
+        private float duration;
+        private Vector2 destination;
+        private Vector2 velocity;
+
+        public LootTwinkle(BattleScreen screen, Vector2 position, float duration, Vector2 destination)
+            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN, new Rectangle(0, 0, 24, 14), 24, 14, false), duration)
+        {
+            this.duration = duration;
+            started = false;
+            this.destination = destination;
+            velocity = Vector2.Zero;
+        }
+
+        public void onAnimationTrigger(ScreenAnimation screenAnimaton)
+        {
+            started = true;
+        }
+
+        public override void update(TimeSpan timeSpan)
+        {
+            if (!_done && started)
+            {
+                if (hitTarget())
+                {
+                    setDone();
+                }
+                else
+                {
+                    float xDiff = destination.X - _position.X;
+                    float yDiff = destination.Y - _position.Y;
+
+                    velocity.X += ACCELERATION * (float)timeSpan.TotalMilliseconds * xDiff >= 0 ? 1 : -1;
+                    velocity.Y += ACCELERATION * (float)timeSpan.TotalMilliseconds * yDiff >= 0 ? 1 : -1;
+
+                    _position += velocity;
+                }
+            }
+        }
+
+
+
+        private bool hitTarget()
+        {
+            if (Math.Abs(_position.X - destination.X) > TARGET_TOLERANCE)
+                return false;
+            else if (Math.Abs(_position.Y - destination.Y) > TARGET_TOLERANCE)
+                return false;
+
+            return true;
+        }
+
+        public override void draw(SpriteBatch spritebatch)
+        {
+            if (started)
+                base.draw(spritebatch);
+        }
+    }
+
+
+    public interface ScreenAnimationListener
+    {
+        void onAnimationTrigger(ScreenAnimation screenAnimaton);
     }
 }

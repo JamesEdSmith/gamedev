@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="LevelPipeline.LevelContent">
+    <levelName>editor1</levelName>
+    <formations>
+      <Item>1</Item>
+    </formations>
+    <formationPositions>0 0</formationPositions>
+    <formationTimes>0</formationTimes>
+    <formationActions>
+      <Item>
+        <Item>
+          <actions>5</actions>
+          <duration>116.66690000000017</duration>
+        </Item>
+        <Item>
+          <actions>6</actions>
+          <duration>800.0015999999996</duration>
+        </Item>
+        <Item>
+          <actions>6 7</actions>
+          <duration>83.33350000000064</duration>
+        </Item>
+        <Item>
+          <actions>6</actions>
+          <duration>383.33410000000003</duration>
+        </Item>
+        <Item>
+          <actions>4 6</actions>
+          <duration>666.66799999999785</duration>
+        </Item>
+        <Item>
+          <actions>6</actions>
+          <duration>2350.0047000000013</duration>
+        </Item>
+        <Item>
+          <actions>6 7</actions>
+          <duration>166.66700000000128</duration>
+        </Item>
+        <Item>
+          <actions>6</actions>
+          <duration>3616.673899999998</duration>
+        </Item>
+      </Item>
+    </formationActions>
+    <terrains />
+    <terrainPositions />
+    <terrainTimes />
+    <formationNames>
+      <Item>Cock</Item>
+    </formationNames>
+    <formationActionNames>
+      <Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+        <Item>Balls</Item>
+      </Item>
+    </formationActionNames>
+  </Asset>
+</XnaContent>
