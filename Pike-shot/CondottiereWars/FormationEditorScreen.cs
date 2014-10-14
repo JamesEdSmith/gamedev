@@ -14,6 +14,7 @@ using System.Collections;
 using System.Xml;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
 
+
 namespace PikeAndShot
 {
     class FormationEditorScreen : BattleScreen

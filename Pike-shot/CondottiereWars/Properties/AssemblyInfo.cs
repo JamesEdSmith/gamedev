@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -9,6 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("PikeAndShot")]
 [assembly: AssemblyDescription("DEMO")]
 [assembly: AssemblyCompany("Bonus Room Studios")]
+[assembly: SecurityRules(SecurityRuleSet.Level1)]
 
 [assembly: AssemblyCopyright("Copyright ©  2009")]
 [assembly: AssemblyTrademark("")]

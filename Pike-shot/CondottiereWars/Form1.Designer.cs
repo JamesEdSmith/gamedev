@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using System.Xml;
-using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
 using PikeAndShot;
 
 namespace PikeAndShot

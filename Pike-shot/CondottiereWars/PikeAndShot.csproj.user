@@ -1,4 +1,5 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <PublishUrlHistory>C:\Users\James\Desktop\PikeAndShotAlpha0.1\|C:\Users\James\Desktop\Pike &amp; Shot Alpha 0.1\|E:\projects\publish\</PublishUrlHistory>
     <InstallUrlHistory>

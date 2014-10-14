@@ -520,8 +520,7 @@ namespace PikeAndShot
             GraphicsDevice.Clear(Color.Black);
 
             //get rid of blurry sprites
-            spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None);
-            graphics.GraphicsDevice.SamplerStates[0].MagFilter = TextureFilter.None;
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
             //effect.Begin();
             //effect.Techniques[0].Passes[0].Begin();

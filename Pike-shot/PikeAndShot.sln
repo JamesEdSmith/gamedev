@@ -1,12 +1,14 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PikeAndShot", "CondottiereWars\PikeAndShot.csproj", "{33E724DA-3950-410A-A574-99A27C9768F1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C93722D2-94BA-4B57-B118-0A1C8979F716} = {C93722D2-94BA-4B57-B118-0A1C8979F716}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LevelPipeline", "ContentPipelineExtension1\LevelPipeline.csproj", "{C93722D2-94BA-4B57-B118-0A1C8979F716}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CondottiereWarsContent", "CondottiereWars\Content\CondottiereWarsContent.contentproj", "{562FBD7A-D594-4F8D-8E27-D2196F9B9FD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
