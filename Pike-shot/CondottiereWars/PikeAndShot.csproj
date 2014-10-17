@@ -19,7 +19,7 @@
     <ManifestCertificateThumbprint>1A9F750E3BE02660C1C98F19F38A7F3395383E05</ManifestCertificateThumbprint>
     <ManifestKeyFile>PikeAndShot_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -29,7 +29,8 @@
     </XnaUpgrade>
     <XnaOutputType>Game</XnaOutputType>
     <XnaProfile>HiDef</XnaProfile>
-    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <PublishUrl>C:\Users\James\Desktop\PikeAndShotAlpha0.1\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -211,8 +212,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
-    <None Include="CondottiereWars_TemporaryKey.pfx" />
-    <None Include="PikeAndShot_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContentPipelineExtension1\LevelPipeline.csproj">

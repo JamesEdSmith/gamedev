@@ -265,21 +265,11 @@ namespace PikeAndShot
             viewport = GraphicsDevice.Viewport;
             soldierFont = Content.Load<SpriteFont>("SpriteFont1");
 
-            ShaderRenderTarget = new RenderTarget2D(spriteBatch.GraphicsDevice, spriteBatch.GraphicsDevice.PresentationParameters.BackBufferWidth, spriteBatch.GraphicsDevice.PresentationParameters.BackBufferHeight, false, SurfaceFormat.Color, DepthFormat.None);
-            WorkingTexture = new Texture2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT);
-            WorkingTexture1 = new Texture2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT);
+            ShaderRenderTarget = new RenderTarget2D(spriteBatch.GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
 
-            effect = Content.Load<Effect>(@"cgwg-xna");
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, viewport.Width, viewport.Height, 0, 0, 1);
-            Matrix halfPixelOffset = Matrix.CreateTranslation(-0.5f, -0.5f, 0);
-            effect.Parameters["World"].SetValue(Matrix.Identity);
-            effect.Parameters["View"].SetValue(Matrix.Identity);
-            effect.Parameters["Projection"].SetValue(halfPixelOffset * projection);
-            effect.Parameters["Worldview"].SetValue(Matrix.Identity * Matrix.Identity);
-            effect.Parameters["ViewProjection"].SetValue((Matrix.Identity * (halfPixelOffset * projection)));
-            effect.Parameters["WorldViewProjection"].SetValue((Matrix.Identity * (halfPixelOffset * projection)));
-            effect.Parameters["WorkingTexture"].SetValue(WorkingTexture);
-            effect.Parameters["WorkingTexture1"].SetValue(WorkingTexture1);
+            effect = Content.Load<Effect>(@"cgwg-xna_new");
+            effect.Parameters["TexelSize"].SetValue(new Vector2(1.0f / (float)SCREENWIDTH, 1.0f / (float)SCREENHEIGHT));
+            effect.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
 
             //TERRAIN_DRY_GRASS = Content.Load<Texture2D>(@"dry_grass");
             ROAD_TERRAIN = new List<Texture2D>(11);
@@ -538,10 +528,9 @@ namespace PikeAndShot
 
         protected override void Draw(GameTime gameTime)
         {
-
             GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
             GraphicsDevice.Viewport = viewport;
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(new Color(25, 25, 25, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
 
             //get rid of blurry sprites
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
@@ -555,7 +544,10 @@ namespace PikeAndShot
             spriteBatch.End();
 
             GraphicsDevice.SetRenderTarget(null);
-            effect.Parameters["SourceTexture"].SetValue(ShaderRenderTarget);
+
+            // [dsl] Don't have to set the texture. The spriteBatch will set it for us in the draw() call
+            // effect.Parameters["SourceTexture"].SetValue(ShaderRenderTarget); 
+
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, effect);
             spriteBatch.Draw(ShaderRenderTarget, Vector2.Zero, Color.White);
             spriteBatch.End();
