@@ -139,10 +139,10 @@ VS_OUTPUT_PRODUCT VS_Product(
 #endif
 
 // Simulate a CRT gamma of 2.4.
-#define inputGamma  2.4
+#define inputGamma  2.0
 
 // Compensate for the standard sRGB gamma of 2.2.
-#define outputGamma 2.2
+#define outputGamma 3.0
 
 // Apply radial distortion to the given coordinate.
 float2 radialDistortion(float2 coord, float2 pos)

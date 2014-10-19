@@ -25,8 +25,14 @@ namespace PikeAndShot
         SpriteBatch spriteBatch;
 
         RenderTarget2D ShaderRenderTarget;
-        Texture2D WorkingTexture;
-        Texture2D WorkingTexture1;
+        RenderTarget2D ShaderRenderTarget2;
+        RenderTarget2D _bloomTarget;
+
+        int _bloomTargetWidth, _bloomTargetHeight;
+
+        Effect _bloomFx, _bloomExtractFx;
+        float _blurPower = 0.01f, _baseIntensity = 1.0f, _bloomIntensity = 1.0f,
+            _baseSaturation = 1.0f, _bloomSaturation = 1.0f, _bloomThreshold = 0.25f;
 
         static SpriteFont soldierFont;
         public static Random random = new Random();
@@ -241,6 +247,7 @@ namespace PikeAndShot
             //graphics.IsFullScreen = true;
 
             Content.RootDirectory = "Content";
+
         }
 
         /// <summary>
@@ -266,10 +273,18 @@ namespace PikeAndShot
             soldierFont = Content.Load<SpriteFont>("SpriteFont1");
 
             ShaderRenderTarget = new RenderTarget2D(spriteBatch.GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
+            ShaderRenderTarget2 = new RenderTarget2D(spriteBatch.GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
+            _bloomTargetWidth = SCREENWIDTH / 2;
+            _bloomTargetHeight = SCREENHEIGHT / 2;
+
+            _bloomTarget = new RenderTarget2D(GraphicsDevice, _bloomTargetWidth, _bloomTargetHeight, false, SurfaceFormat.Color, DepthFormat.None);
 
             effect = Content.Load<Effect>(@"cgwg-xna_new");
             effect.Parameters["TexelSize"].SetValue(new Vector2(1.0f / (float)SCREENWIDTH, 1.0f / (float)SCREENHEIGHT));
             effect.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
+
+            _bloomFx = Content.Load<Effect>("Bloom");
+            _bloomExtractFx = Content.Load<Effect>("BloomExtract");
 
             //TERRAIN_DRY_GRASS = Content.Load<Texture2D>(@"dry_grass");
             ROAD_TERRAIN = new List<Texture2D>(11);
@@ -509,6 +524,7 @@ namespace PikeAndShot
             {
                 _currScreen.update(gameTime);
             }
+            UpdateValues();
             base.Update(gameTime);
         }
 
@@ -530,7 +546,7 @@ namespace PikeAndShot
         {
             GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
             GraphicsDevice.Viewport = viewport;
-            GraphicsDevice.Clear(new Color(25, 25, 25, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
+            GraphicsDevice.Clear(new Color(5, 5, 5, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
 
             //get rid of blurry sprites
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
@@ -543,14 +559,44 @@ namespace PikeAndShot
 
             spriteBatch.End();
 
-            GraphicsDevice.SetRenderTarget(null);
-
-            // [dsl] Don't have to set the texture. The spriteBatch will set it for us in the draw() call
-            // effect.Parameters["SourceTexture"].SetValue(ShaderRenderTarget); 
+            GraphicsDevice.SetRenderTarget(ShaderRenderTarget2);
 
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, effect);
             spriteBatch.Draw(ShaderRenderTarget, Vector2.Zero, Color.White);
             spriteBatch.End();
+           
+            GraphicsDevice.SetRenderTarget(_bloomTarget);
+            GraphicsDevice.Clear(Color.Black);           
+
+            //Extract highlights on the original image using BloomExtract
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, _bloomExtractFx);
+            spriteBatch.Draw(ShaderRenderTarget2, new Rectangle(0, 0, _bloomTargetWidth, _bloomTargetHeight), null, Color.White);
+            spriteBatch.End();
+
+            //Set original backbuffer as target
+            GraphicsDevice.SetRenderTarget(null);
+            GraphicsDevice.Clear(Color.Black);
+
+            //Compose bloomed image using Bloom effect
+            GraphicsDevice.Textures[1] = _bloomTarget;
+
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, _bloomFx);
+
+            spriteBatch.Draw(ShaderRenderTarget2, Vector2.Zero, Color.White);
+
+            spriteBatch.End();
+
+        }
+
+        private void UpdateValues()
+        {
+            _bloomFx.Parameters["BlurPower"].SetValue(_blurPower);
+            _bloomFx.Parameters["BaseIntensity"].SetValue(_baseIntensity);
+            _bloomFx.Parameters["BloomIntensity"].SetValue(_bloomIntensity);
+            _bloomFx.Parameters["BaseSaturation"].SetValue(_baseSaturation);
+            _bloomFx.Parameters["BloomSaturation"].SetValue(_bloomSaturation);
+
+            _bloomExtractFx.Parameters["BloomThreshold"].SetValue(_bloomThreshold);
         }
 
         internal static SpriteFont getSpriteFont()
