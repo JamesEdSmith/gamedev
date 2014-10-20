@@ -147,10 +147,40 @@ namespace PikeAndShot
 
             if (_boxSelecting)
             {
-                spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_startingMousePosition.X - _mapOffset.X, _startingMousePosition.Y - _mapOffset.Y), Color.White);
-                spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_startingMousePosition.X - _mapOffset.X, _endingMousePosition.Y - _mapOffset.Y), Color.White);
-                spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_endingMousePosition.X - _mapOffset.X, _startingMousePosition.Y - _mapOffset.Y), Color.White);
-                spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_endingMousePosition.X - _mapOffset.X, _endingMousePosition.Y - _mapOffset.Y), Color.White);
+                //spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_startingMousePosition.X - _mapOffset.X, _startingMousePosition.Y - _mapOffset.Y), Color.White);
+                //spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_startingMousePosition.X - _mapOffset.X, _endingMousePosition.Y - _mapOffset.Y), Color.White);
+                //spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_endingMousePosition.X - _mapOffset.X, _startingMousePosition.Y - _mapOffset.Y), Color.White);
+                //spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_endingMousePosition.X - _mapOffset.X, _endingMousePosition.Y - _mapOffset.Y), Color.White);
+
+                // [dsl] Actual box
+                spriteBatch.Draw(PikeAndShotGame.getDotTexture(),
+                    new Rectangle(
+                        (int)(Math.Min(_startingMousePosition.X, _endingMousePosition.X) - _mapOffset.X),
+                        (int)(Math.Min(_startingMousePosition.Y, _endingMousePosition.Y) - _mapOffset.Y),
+                        (int)(Math.Abs(_endingMousePosition.X - _startingMousePosition.X)),
+                        1),
+                    Color.White);
+                spriteBatch.Draw(PikeAndShotGame.getDotTexture(),
+                    new Rectangle(
+                        (int)(Math.Min(_startingMousePosition.X, _endingMousePosition.X) - _mapOffset.X),
+                        (int)(Math.Max(_startingMousePosition.Y, _endingMousePosition.Y) - _mapOffset.Y),
+                        (int)(Math.Abs(_endingMousePosition.X - _startingMousePosition.X)),
+                        1),
+                    Color.White);
+                spriteBatch.Draw(PikeAndShotGame.getDotTexture(),
+                    new Rectangle(
+                        (int)(Math.Min(_startingMousePosition.X, _endingMousePosition.X) - _mapOffset.X),
+                        (int)(Math.Min(_startingMousePosition.Y, _endingMousePosition.Y) - _mapOffset.Y),
+                        1,
+                        (int)(Math.Abs(_endingMousePosition.Y - _startingMousePosition.Y))),
+                    Color.White);
+                spriteBatch.Draw(PikeAndShotGame.getDotTexture(),
+                    new Rectangle(
+                        (int)(Math.Max(_startingMousePosition.X, _endingMousePosition.X) - _mapOffset.X),
+                        (int)(Math.Min(_startingMousePosition.Y, _endingMousePosition.Y) - _mapOffset.Y),
+                        1,
+                        (int)(Math.Abs(_endingMousePosition.Y - _startingMousePosition.Y))),
+                    Color.White);
             }
             _pointerSprite.draw(spriteBatch, _pointerPos, SIDE_ENEMY);
         }
