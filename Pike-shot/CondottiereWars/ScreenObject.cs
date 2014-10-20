@@ -268,10 +268,10 @@ namespace PikeAndShot
 
     public class Loot : ScreenAnimation
     {
-        static float FLASH_TIME = 2500f;
+        static float FLASH_TIME = 5000f;
 
         public Loot(BattleScreen screen, Vector2 position)
-            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.LOOT, new Rectangle(0, 0, 22, 22), 22, 22, false, true, 128, Color.Yellow), FLASH_TIME)
+            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.LOOT, new Rectangle(0, 0, 22, 22), 22, 22, false, true, 128, new Color(Color.Yellow.R, Color.Yellow.G, 100)), FLASH_TIME)
         {
             int rando = PikeAndShotGame.random.Next(_sprite.getMaxFrames());
             _sprite.setFrame(rando);
@@ -307,14 +307,13 @@ namespace PikeAndShot
 
     public class LootTwinkle : ScreenAnimation, ScreenAnimationListener
     {
-        private const float TARGET_TOLERANCE = 10f;
-        private const float ACCELERATION = 0.2f;
-        private const float MAX_SPEED = 5f;
+        private const float CONTROL_POINT_GAP = 0.25f;
 
         private bool started;
         private float duration;
         private Vector2 destination;
-        private Vector2 velocity;
+        private Vector2 origin;
+        private Vector2 control1, control2;
 
         public LootTwinkle(BattleScreen screen, Vector2 position, float duration, Vector2 destination)
             : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN, new Rectangle(0, 0, 24, 14), 24, 14, false), duration)
@@ -322,51 +321,49 @@ namespace PikeAndShot
             this.duration = duration;
             started = false;
             this.destination = destination;
-            velocity = Vector2.Zero;
+            origin = new Vector2(_position.X, _position.Y);
+
+            /*Vector2 diff = new Vector2( destination.X - origin.X, destination.Y - origin.Y);
+            float length = (float)Math.Sqrt(Math.Pow(diff.X, 2) + Math.Pow(diff.Y, 2));
+            float angle = (float)Math.Atan2(diff.Y, diff.X);
+            Vector2 controlVector = new Vector2((float)(Math.Cos(angle) * length * CONTROL_POINT_GAP), (float)(Math.Sin(angle) * length * CONTROL_POINT_GAP));
+            control1 = origin + controlVector;
+            control2 = destination - controlVector;*/
         }
 
         public void onAnimationTrigger(ScreenAnimation screenAnimaton)
         {
             started = true;
+            origin -= _screen.getMapOffset();
+            control1 = new Vector2(origin.X, destination.Y);
+            control2 = new Vector2((origin.X - destination.X) / 2f, destination.Y);
         }
 
         public override void update(TimeSpan timeSpan)
         {
             if (!_done && started)
-            {
-                if (hitTarget())
+            {    
+                _duration -= (float)timeSpan.TotalMilliseconds;
+                if (_duration <= 0)
                 {
+                    _duration = 0;
                     setDone();
                 }
-                else
-                {
-                    float xDiff = destination.X - _position.X;
-                    float yDiff = destination.Y - _position.Y;
-
-                    velocity.X += ACCELERATION * (float)timeSpan.TotalMilliseconds * xDiff >= 0 ? 1 : -1;
-                    velocity.Y += ACCELERATION * (float)timeSpan.TotalMilliseconds * yDiff >= 0 ? 1 : -1;
-
-                    _position += velocity;
-                }
+                _position = bezier(origin, control1, control2, destination, (duration - _duration) / duration);
             }
         }
 
-
-
-        private bool hitTarget()
+        // for bezier curve
+        Vector2 bezier(Vector2 P0, Vector2 P1, Vector2 P2, Vector2 P3, float t)
         {
-            if (Math.Abs(_position.X - destination.X) > TARGET_TOLERANCE)
-                return false;
-            else if (Math.Abs(_position.Y - destination.Y) > TARGET_TOLERANCE)
-                return false;
-
-            return true;
+            float invT = 1 - t;
+            return invT * invT * invT * P0 + 3 * invT * invT * t * P1 + 3 * invT * t * t * P2 + t * t * t * P3;
         }
 
         public override void draw(SpriteBatch spritebatch)
         {
             if (started)
-                base.draw(spritebatch);
+                _sprite.draw(spritebatch, _position, _side);
         }
     }
 
