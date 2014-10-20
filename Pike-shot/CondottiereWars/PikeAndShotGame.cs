@@ -21,7 +21,7 @@ namespace PikeAndShot
     public class PikeAndShotGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        Viewport viewport;
+        public static Viewport viewport;
         SpriteBatch spriteBatch;
 
         RenderTarget2D ShaderRenderTarget;
@@ -237,6 +237,8 @@ namespace PikeAndShot
 
         private ArrayList _gameScreens;
         private BattleScreen _currScreen;
+
+        public static float ZOOM = 1.0f;
 
         public PikeAndShotGame()
         {
@@ -549,7 +551,8 @@ namespace PikeAndShot
             GraphicsDevice.Clear(new Color(5, 5, 5, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
 
             //get rid of blurry sprites
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            Matrix mapTransform = Matrix.CreateScale(ZOOM);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
 
             if (_currScreen != null)
             {
