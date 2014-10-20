@@ -384,7 +384,8 @@ namespace PikeAndShot
             }
             if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D) && previousKeyboardState.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.D))
                 toggleDrawDots();
-                
+
+            base.getInput(timeSpan);
             previousKeyboardState = keyboardState;
             previousGamePadState = gamePadState;
         }

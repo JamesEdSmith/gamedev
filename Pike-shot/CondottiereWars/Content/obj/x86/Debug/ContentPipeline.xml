@@ -7,8 +7,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\SpriteFont1.xnb</Output>
-      <Time>2014-10-16T19:47:06.1252478-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\SpriteFont1.xnb</Output>
+      <Time>2014-03-17T18:21:58.5020619-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman_feet.png</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_feet.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_feet.xnb</Output>
+      <Time>2014-03-17T18:21:58.8820836-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman_idle.png</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_idle.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.8840837-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman_lower_high.png</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_lower_high.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_lower_high.xnb</Output>
+      <Time>2014-03-17T18:21:58.8850838-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman_lower_low.png</Source>
@@ -43,8 +43,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_lower_low.xnb</Output>
-      <Time>2014-10-16T19:47:07.0924495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_lower_low.xnb</Output>
+      <Time>2014-03-17T18:21:58.8860838-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman_recoil.png</Source>
@@ -52,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_recoil.xnb</Output>
-      <Time>2014-10-16T19:47:07.0924495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_recoil.xnb</Output>
+      <Time>2014-03-17T18:21:58.8870839-04:00</Time>
     </Item>
     <Item>
       <Source>arquebusier_feet.png</Source>
@@ -61,8 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_feet.xnb</Output>
-      <Time>2014-10-16T19:47:06.1252478-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_feet.xnb</Output>
+      <Time>2014-03-17T18:21:58.504062-04:00</Time>
     </Item>
     <Item>
       <Source>arquebusier_reload.png</Source>
@@ -70,8 +70,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_reload.xnb</Output>
-      <Time>2014-10-16T19:47:06.1408478-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_reload.xnb</Output>
+      <Time>2014-03-17T18:21:58.5070622-04:00</Time>
     </Item>
     <Item>
       <Source>arquebusier_shoot.png</Source>
@@ -79,8 +79,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_shoot.xnb</Output>
-      <Time>2014-10-16T19:47:06.1876479-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_shoot.xnb</Output>
+      <Time>2014-03-17T18:21:58.5080622-04:00</Time>
     </Item>
     <Item>
       <Source>arquebusier_smoke.png</Source>
@@ -88,8 +88,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_smoke.xnb</Output>
-      <Time>2014-10-16T19:47:06.1876479-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_smoke.xnb</Output>
+      <Time>2014-03-17T18:21:58.5080622-04:00</Time>
     </Item>
     <Item>
       <Source>arquebusier_idle.png</Source>
@@ -97,8 +97,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_idle.xnb</Output>
-      <Time>2014-10-16T19:47:06.1252478-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.505062-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman_death.png</Source>
@@ -106,8 +106,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_death.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.8800835-04:00</Time>
     </Item>
     <Item>
       <Source>dot.png</Source>
@@ -115,8 +115,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dot.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dot.xnb</Output>
+      <Time>2014-03-17T18:21:58.7760775-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman_melee.png</Source>
@@ -124,8 +124,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_melee.xnb</Output>
-      <Time>2014-10-16T19:47:07.0924495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_melee.xnb</Output>
+      <Time>2014-03-17T18:21:58.8870839-04:00</Time>
     </Item>
     <Item>
       <Source>arquebusier_melee.png</Source>
@@ -133,8 +133,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_melee.xnb</Output>
-      <Time>2014-10-16T19:47:06.1252478-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_melee.xnb</Output>
+      <Time>2014-03-17T18:21:58.5060621-04:00</Time>
     </Item>
     <Item>
       <Source>arquebusier_death.png</Source>
@@ -142,8 +142,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_death.xnb</Output>
-      <Time>2014-10-16T19:47:06.1252478-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.5030619-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_death.png</Source>
@@ -151,8 +151,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_death.xnb</Output>
-      <Time>2014-10-16T19:47:06.4216483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.7470759-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_idle.png</Source>
@@ -160,8 +160,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_idle.xnb</Output>
-      <Time>2014-10-16T19:47:06.4528484-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.7500761-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_melee.png</Source>
@@ -169,8 +169,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_melee.xnb</Output>
-      <Time>2014-10-16T19:47:06.4684484-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_melee.xnb</Output>
+      <Time>2014-03-17T18:21:58.7510761-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_reload.png</Source>
@@ -178,8 +178,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_reload.xnb</Output>
-      <Time>2014-10-16T19:47:06.4684484-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_reload.xnb</Output>
+      <Time>2014-03-17T18:21:58.7570765-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_shoot.png</Source>
@@ -187,8 +187,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_shoot.xnb</Output>
-      <Time>2014-10-16T19:47:06.4996485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_shoot.xnb</Output>
+      <Time>2014-03-17T18:21:58.7600766-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_bolt.png</Source>
@@ -196,8 +196,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_bolt.xnb</Output>
-      <Time>2014-10-16T19:47:06.4216483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_bolt.xnb</Output>
+      <Time>2014-03-17T18:21:58.7440757-04:00</Time>
     </Item>
     <Item>
       <Source>shot1.png</Source>
@@ -205,8 +205,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\shot1.xnb</Output>
-      <Time>2014-10-16T19:47:07.1236496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\shot1.xnb</Output>
+      <Time>2014-03-17T18:21:58.9010847-04:00</Time>
     </Item>
     <Item>
       <Source>shot2.png</Source>
@@ -214,8 +214,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\shot2.xnb</Output>
-      <Time>2014-10-16T19:47:07.1236496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\shot2.xnb</Output>
+      <Time>2014-03-17T18:21:58.9020847-04:00</Time>
     </Item>
     <Item>
       <Source>shot3.png</Source>
@@ -223,8 +223,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\shot3.xnb</Output>
-      <Time>2014-10-16T19:47:07.1236496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\shot3.xnb</Output>
+      <Time>2014-03-17T18:21:58.9020847-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_bolt2.png</Source>
@@ -232,8 +232,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_bolt2.xnb</Output>
-      <Time>2014-10-16T19:47:06.4216483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_bolt2.xnb</Output>
+      <Time>2014-03-17T18:21:58.7450758-04:00</Time>
     </Item>
     <Item>
       <Source>goblin_feet.png</Source>
@@ -241,8 +241,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\goblin_feet.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\goblin_feet.xnb</Output>
+      <Time>2014-03-17T18:21:58.7790777-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_death.png</Source>
@@ -250,8 +250,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_death.xnb</Output>
-      <Time>2014-10-16T19:47:07.1392496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.9080851-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_idle.png</Source>
@@ -259,8 +259,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_idle.xnb</Output>
-      <Time>2014-10-16T19:47:07.1704496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.9100852-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_melee.png</Source>
@@ -268,8 +268,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_melee.xnb</Output>
-      <Time>2014-10-16T19:47:07.1704496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_melee.xnb</Output>
+      <Time>2014-03-17T18:21:58.9100852-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_reload.png</Source>
@@ -277,8 +277,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_reload.xnb</Output>
-      <Time>2014-10-16T19:47:07.1860497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_reload.xnb</Output>
+      <Time>2014-03-17T18:21:58.9110853-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_rock.png</Source>
@@ -286,8 +286,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_rock.xnb</Output>
-      <Time>2014-10-16T19:47:07.1860497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_rock.xnb</Output>
+      <Time>2014-03-17T18:21:58.9120853-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_shoot.png</Source>
@@ -295,8 +295,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_shoot.xnb</Output>
-      <Time>2014-10-16T19:47:07.2016497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_shoot.xnb</Output>
+      <Time>2014-03-17T18:21:58.9130854-04:00</Time>
     </Item>
     <Item>
       <Source>dopple_death.png</Source>
@@ -304,8 +304,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dopple_death.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dopple_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.7710773-04:00</Time>
     </Item>
     <Item>
       <Source>dopple_idle.png</Source>
@@ -313,8 +313,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dopple_idle.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dopple_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.7720773-04:00</Time>
     </Item>
     <Item>
       <Source>dopple_reload1.png</Source>
@@ -322,8 +322,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dopple_reload1.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dopple_reload1.xnb</Output>
+      <Time>2014-03-17T18:21:58.7720773-04:00</Time>
     </Item>
     <Item>
       <Source>dopple_swing1.png</Source>
@@ -331,8 +331,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dopple_swing1.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dopple_swing1.xnb</Output>
+      <Time>2014-03-17T18:21:58.7750775-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman_route.png</Source>
@@ -340,8 +340,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_route.xnb</Output>
-      <Time>2014-10-16T19:47:07.0924495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_route.xnb</Output>
+      <Time>2014-03-17T18:21:58.8880839-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman_routed.png</Source>
@@ -349,8 +349,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_routed.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman_routed.xnb</Output>
+      <Time>2014-03-17T18:21:58.889084-04:00</Time>
     </Item>
     <Item>
       <Source>arquebusier_ground.png</Source>
@@ -358,8 +358,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_ground.xnb</Output>
-      <Time>2014-10-16T19:47:06.1252478-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_ground.xnb</Output>
+      <Time>2014-03-17T18:21:58.505062-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_ground.png</Source>
@@ -367,8 +367,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_ground.xnb</Output>
-      <Time>2014-10-16T19:47:06.4216483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_ground.xnb</Output>
+      <Time>2014-03-17T18:21:58.749076-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_ground.png</Source>
@@ -376,8 +376,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_ground.xnb</Output>
-      <Time>2014-10-16T19:47:07.1704496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_ground.xnb</Output>
+      <Time>2014-03-17T18:21:58.9090851-04:00</Time>
     </Item>
     <Item>
       <Source>arquebusier_route.png</Source>
@@ -385,8 +385,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_route.xnb</Output>
-      <Time>2014-10-16T19:47:06.1564479-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_route.xnb</Output>
+      <Time>2014-03-17T18:21:58.5070622-04:00</Time>
     </Item>
     <Item>
       <Source>arquebusier_routed.png</Source>
@@ -394,8 +394,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_routed.xnb</Output>
-      <Time>2014-10-16T19:47:06.1876479-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\arquebusier_routed.xnb</Output>
+      <Time>2014-03-17T18:21:58.5080622-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_route.png</Source>
@@ -403,8 +403,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_route.xnb</Output>
-      <Time>2014-10-16T19:47:07.2016497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_route.xnb</Output>
+      <Time>2014-03-17T18:21:58.9120853-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_routed.png</Source>
@@ -412,8 +412,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_routed.xnb</Output>
-      <Time>2014-10-16T19:47:07.2016497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_routed.xnb</Output>
+      <Time>2014-03-17T18:21:58.9130854-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_route.png</Source>
@@ -421,8 +421,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_route.xnb</Output>
-      <Time>2014-10-16T19:47:06.4684484-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_route.xnb</Output>
+      <Time>2014-03-17T18:21:58.7590766-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_routed.png</Source>
@@ -430,8 +430,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_routed.xnb</Output>
-      <Time>2014-10-16T19:47:06.4996485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_routed.xnb</Output>
+      <Time>2014-03-17T18:21:58.7600766-04:00</Time>
     </Item>
     <Item>
       <Source>dopple_route.png</Source>
@@ -439,8 +439,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dopple_route.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dopple_route.xnb</Output>
+      <Time>2014-03-17T18:21:58.7730774-04:00</Time>
     </Item>
     <Item>
       <Source>dopple_routed.png</Source>
@@ -448,8 +448,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dopple_routed.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dopple_routed.xnb</Output>
+      <Time>2014-03-17T18:21:58.7740774-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_feet.png</Source>
@@ -457,8 +457,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_feet.xnb</Output>
-      <Time>2014-10-16T19:47:07.2172497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_feet.xnb</Output>
+      <Time>2014-03-17T18:21:58.9160855-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_idle.png</Source>
@@ -466,8 +466,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_idle.xnb</Output>
-      <Time>2014-10-16T19:47:07.2172497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.9160855-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_melee1.png</Source>
@@ -475,8 +475,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_melee1.xnb</Output>
-      <Time>2014-10-16T19:47:07.5916504-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_melee1.xnb</Output>
+      <Time>2014-03-17T18:21:58.9170856-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_defend1.png</Source>
@@ -484,8 +484,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_defend1.xnb</Output>
-      <Time>2014-10-16T19:47:07.2016497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_defend1.xnb</Output>
+      <Time>2014-03-17T18:21:58.9150855-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_death.png</Source>
@@ -493,8 +493,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_death.xnb</Output>
-      <Time>2014-10-16T19:47:07.2016497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.9140854-04:00</Time>
     </Item>
     <Item>
       <Source>beserker_idle.png</Source>
@@ -502,8 +502,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\beserker_idle.xnb</Output>
-      <Time>2014-10-16T19:47:06.250048-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\beserker_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.6120682-04:00</Time>
     </Item>
     <Item>
       <Source>beserker_route.png</Source>
@@ -511,8 +511,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\beserker_route.xnb</Output>
-      <Time>2014-10-16T19:47:06.250048-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\beserker_route.xnb</Output>
+      <Time>2014-03-17T18:21:58.6670713-04:00</Time>
     </Item>
     <Item>
       <Source>beserker_routed.png</Source>
@@ -520,8 +520,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\beserker_routed.xnb</Output>
-      <Time>2014-10-16T19:47:06.250048-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\beserker_routed.xnb</Output>
+      <Time>2014-03-17T18:21:58.6680714-04:00</Time>
     </Item>
     <Item>
       <Source>bezerker_death.png</Source>
@@ -529,8 +529,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\bezerker_death.xnb</Output>
-      <Time>2014-10-16T19:47:06.2968481-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\bezerker_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.6690714-04:00</Time>
     </Item>
     <Item>
       <Source>sword_pointer.PNG</Source>
@@ -538,8 +538,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\sword_pointer.xnb</Output>
-      <Time>2014-10-16T19:47:07.6072504-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\sword_pointer.xnb</Output>
+      <Time>2014-03-17T18:21:58.9190857-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_pavise_idle.png</Source>
@@ -547,8 +547,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_pavise_idle.xnb</Output>
-      <Time>2014-10-16T19:47:06.4684484-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_pavise_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.7540763-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_pavise_place.png</Source>
@@ -556,8 +556,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_pavise_place.xnb</Output>
-      <Time>2014-10-16T19:47:06.4684484-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_pavise_place.xnb</Output>
+      <Time>2014-03-17T18:21:58.7550763-04:00</Time>
     </Item>
     <Item>
       <Source>placed_pavise.png</Source>
@@ -565,8 +565,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\placed_pavise.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\placed_pavise.xnb</Output>
+      <Time>2014-03-17T18:21:58.8900841-04:00</Time>
     </Item>
     <Item>
       <Source>pavise_fall.png</Source>
@@ -574,8 +574,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pavise_fall.xnb</Output>
-      <Time>2014-10-16T19:47:07.0300494-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pavise_fall.xnb</Output>
+      <Time>2014-03-17T18:21:58.7990789-04:00</Time>
     </Item>
     <Item>
       <Source>dry_grass.png</Source>
@@ -583,8 +583,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dry_grass.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dry_grass.xnb</Output>
+      <Time>2014-03-17T18:21:58.7770776-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_retreat.png</Source>
@@ -592,8 +592,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_retreat.xnb</Output>
-      <Time>2014-10-16T19:47:07.1860497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_retreat.xnb</Output>
+      <Time>2014-03-17T18:21:58.9110853-04:00</Time>
     </Item>
     <Item>
       <Source>horse_idle.png</Source>
@@ -601,8 +601,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\horse_idle.xnb</Output>
-      <Time>2014-10-16T19:47:06.8740491-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\horse_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.7930785-04:00</Time>
     </Item>
     <Item>
       <Source>horse_run.png</Source>
@@ -610,8 +610,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\horse_run.xnb</Output>
-      <Time>2014-10-16T19:47:06.8740491-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\horse_run.xnb</Output>
+      <Time>2014-03-17T18:21:58.7940786-04:00</Time>
     </Item>
     <Item>
       <Source>cavalry_leftfoot.png</Source>
@@ -619,8 +619,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_leftfoot.xnb</Output>
-      <Time>2014-10-16T19:47:06.4060483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_leftfoot.xnb</Output>
+      <Time>2014-03-17T18:21:58.7330751-04:00</Time>
     </Item>
     <Item>
       <Source>cavalry_leftidle.png</Source>
@@ -628,8 +628,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_leftidle.xnb</Output>
-      <Time>2014-10-16T19:47:06.4060483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_leftidle.xnb</Output>
+      <Time>2014-03-17T18:21:58.7340751-04:00</Time>
     </Item>
     <Item>
       <Source>cavalry_rightfoot.png</Source>
@@ -637,8 +637,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_rightfoot.xnb</Output>
-      <Time>2014-10-16T19:47:06.4216483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_rightfoot.xnb</Output>
+      <Time>2014-03-17T18:21:58.7370753-04:00</Time>
     </Item>
     <Item>
       <Source>cavalry_rightidle.png</Source>
@@ -646,8 +646,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_rightidle.xnb</Output>
-      <Time>2014-10-16T19:47:06.4216483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_rightidle.xnb</Output>
+      <Time>2014-03-17T18:21:58.7400755-04:00</Time>
     </Item>
     <Item>
       <Source>horse_halt.png</Source>
@@ -655,8 +655,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\horse_halt.xnb</Output>
-      <Time>2014-10-16T19:47:06.8740491-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\horse_halt.xnb</Output>
+      <Time>2014-03-17T18:21:58.7920785-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_reload2.png</Source>
@@ -664,8 +664,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_reload2.xnb</Output>
-      <Time>2014-10-16T19:47:06.4684484-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_reload2.xnb</Output>
+      <Time>2014-03-17T18:21:58.7580765-04:00</Time>
     </Item>
     <Item>
       <Source>horse_turn.png</Source>
@@ -673,8 +673,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\horse_turn.xnb</Output>
-      <Time>2014-10-16T19:47:06.8740491-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\horse_turn.xnb</Output>
+      <Time>2014-03-17T18:21:58.7940786-04:00</Time>
     </Item>
     <Item>
       <Source>horse_death.png</Source>
@@ -682,8 +682,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\horse_death.xnb</Output>
-      <Time>2014-10-16T19:47:06.8740491-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\horse_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.7920785-04:00</Time>
     </Item>
     <Item>
       <Source>cavalry_leftlower.png</Source>
@@ -691,8 +691,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_leftlower.xnb</Output>
-      <Time>2014-10-16T19:47:06.4216483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_leftlower.xnb</Output>
+      <Time>2014-03-17T18:21:58.7350752-04:00</Time>
     </Item>
     <Item>
       <Source>cavalry_rightlower.png</Source>
@@ -700,8 +700,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_rightlower.xnb</Output>
-      <Time>2014-10-16T19:47:06.4216483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_rightlower.xnb</Output>
+      <Time>2014-03-17T18:21:58.7420756-04:00</Time>
     </Item>
     <Item>
       <Source>cavalry_leftrecoil.png</Source>
@@ -709,8 +709,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_leftrecoil.xnb</Output>
-      <Time>2014-10-16T19:47:06.4216483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_leftrecoil.xnb</Output>
+      <Time>2014-03-17T18:21:58.7360752-04:00</Time>
     </Item>
     <Item>
       <Source>cavalry_rightrecoil.png</Source>
@@ -718,8 +718,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_rightrecoil.xnb</Output>
-      <Time>2014-10-16T19:47:06.4216483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_rightrecoil.xnb</Output>
+      <Time>2014-03-17T18:21:58.7430756-04:00</Time>
     </Item>
     <Item>
       <Source>cavalry_fall.png</Source>
@@ -727,8 +727,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_fall.xnb</Output>
-      <Time>2014-10-16T19:47:06.4060483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cavalry_fall.xnb</Output>
+      <Time>2014-03-17T18:21:58.732075-04:00</Time>
     </Item>
     <Item>
       <Source>dismountedcavalry_death.png</Source>
@@ -736,8 +736,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dismountedcavalry_death.xnb</Output>
-      <Time>2014-10-16T19:47:06.4996485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dismountedcavalry_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.7610767-04:00</Time>
     </Item>
     <Item>
       <Source>dismountedcavalry_idle.png</Source>
@@ -745,8 +745,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dismountedcavalry_idle.xnb</Output>
-      <Time>2014-10-16T19:47:06.5152485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dismountedcavalry_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.7640769-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_shieldbreak.png</Source>
@@ -754,8 +754,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_shieldbreak.xnb</Output>
-      <Time>2014-10-16T19:47:07.6072504-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_shieldbreak.xnb</Output>
+      <Time>2014-03-17T18:21:58.9190857-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_idlenoshield.png</Source>
@@ -763,8 +763,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_idlenoshield.xnb</Output>
-      <Time>2014-10-16T19:47:07.2172497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_idlenoshield.xnb</Output>
+      <Time>2014-03-17T18:21:58.9170856-04:00</Time>
     </Item>
     <Item>
       <Source>brokenshield1.png</Source>
@@ -772,8 +772,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brokenshield1.xnb</Output>
-      <Time>2014-10-16T19:47:06.3124481-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brokenshield1.xnb</Output>
+      <Time>2014-03-17T18:21:58.7270747-04:00</Time>
     </Item>
     <Item>
       <Source>brokenshield2.png</Source>
@@ -781,8 +781,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brokenshield2.xnb</Output>
-      <Time>2014-10-16T19:47:06.3124481-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brokenshield2.xnb</Output>
+      <Time>2014-03-17T18:21:58.7280748-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_fall.png</Source>
@@ -790,8 +790,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_fall.xnb</Output>
-      <Time>2014-10-16T19:47:07.2172497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_fall.xnb</Output>
+      <Time>2014-03-17T18:21:58.9160855-04:00</Time>
     </Item>
     <Item>
       <Source>berzerker_idlenoshield.png</Source>
@@ -799,8 +799,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berzerker_idlenoshield.xnb</Output>
-      <Time>2014-10-16T19:47:06.234448-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berzerker_idlenoshield.xnb</Output>
+      <Time>2014-03-17T18:21:58.6070679-04:00</Time>
     </Item>
     <Item>
       <Source>berzerker_shieldbreak.png</Source>
@@ -808,8 +808,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berzerker_shieldbreak.xnb</Output>
-      <Time>2014-10-16T19:47:06.250048-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berzerker_shieldbreak.xnb</Output>
+      <Time>2014-03-17T18:21:58.6110681-04:00</Time>
     </Item>
     <Item>
       <Source>berzerker_fall.png</Source>
@@ -817,8 +817,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berzerker_fall.xnb</Output>
-      <Time>2014-10-16T19:47:06.234448-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berzerker_fall.xnb</Output>
+      <Time>2014-03-17T18:21:58.6050678-04:00</Time>
     </Item>
     <Item>
       <Source>dismountedcavalry_idlenoshield.png</Source>
@@ -826,8 +826,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dismountedcavalry_idlenoshield.xnb</Output>
-      <Time>2014-10-16T19:47:06.5152485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dismountedcavalry_idlenoshield.xnb</Output>
+      <Time>2014-03-17T18:21:58.766077-04:00</Time>
     </Item>
     <Item>
       <Source>dismountedcavalry_shieldbreak.png</Source>
@@ -835,8 +835,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dismountedcavalry_shieldbreak.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dismountedcavalry_shieldbreak.xnb</Output>
+      <Time>2014-03-17T18:21:58.7700772-04:00</Time>
     </Item>
     <Item>
       <Source>dismountedcavalry_fall.png</Source>
@@ -844,8 +844,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dismountedcavalry_fall.xnb</Output>
-      <Time>2014-10-16T19:47:06.4996485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dismountedcavalry_fall.xnb</Output>
+      <Time>2014-03-17T18:21:58.7630768-04:00</Time>
     </Item>
     <Item>
       <Source>dismountedcavalry_melee1.png</Source>
@@ -853,8 +853,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dismountedcavalry_melee1.xnb</Output>
-      <Time>2014-10-16T19:47:06.5152485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dismountedcavalry_melee1.xnb</Output>
+      <Time>2014-03-17T18:21:58.7680771-04:00</Time>
     </Item>
     <Item>
       <Source>dismountedcavalry_defend1.png</Source>
@@ -862,8 +862,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dismountedcavalry_defend1.xnb</Output>
-      <Time>2014-10-16T19:47:06.4996485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\dismountedcavalry_defend1.xnb</Output>
+      <Time>2014-03-17T18:21:58.7620767-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_defend2.png</Source>
@@ -871,8 +871,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_defend2.xnb</Output>
-      <Time>2014-10-16T19:47:07.2016497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_defend2.xnb</Output>
+      <Time>2014-03-17T18:21:58.9150855-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_melee2.png</Source>
@@ -880,8 +880,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_melee2.xnb</Output>
-      <Time>2014-10-16T19:47:07.5916504-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_melee2.xnb</Output>
+      <Time>2014-03-17T18:21:58.9180857-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_defend2.png</Source>
@@ -889,8 +889,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_defend2.xnb</Output>
-      <Time>2014-10-16T19:47:06.4216483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_defend2.xnb</Output>
+      <Time>2014-03-17T18:21:58.7480759-04:00</Time>
     </Item>
     <Item>
       <Source>crossbowman_melee2.png</Source>
@@ -898,8 +898,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_melee2.xnb</Output>
-      <Time>2014-10-16T19:47:06.4684484-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\crossbowman_melee2.xnb</Output>
+      <Time>2014-03-17T18:21:58.7530762-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_route.png</Source>
@@ -907,8 +907,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_route.xnb</Output>
-      <Time>2014-10-16T19:47:07.5916504-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_route.xnb</Output>
+      <Time>2014-03-17T18:21:58.9180857-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_routed.png</Source>
@@ -916,8 +916,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_routed.xnb</Output>
-      <Time>2014-10-16T19:47:07.5916504-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_routed.xnb</Output>
+      <Time>2014-03-17T18:21:58.9180857-04:00</Time>
     </Item>
     <Item>
       <Source>berzerker_charge.png</Source>
@@ -925,8 +925,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berzerker_charge.xnb</Output>
-      <Time>2014-10-16T19:47:06.218848-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berzerker_charge.xnb</Output>
+      <Time>2014-03-17T18:21:58.5980674-04:00</Time>
     </Item>
     <Item>
       <Source>berzerker_chargenoshield.png</Source>
@@ -934,8 +934,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berzerker_chargenoshield.xnb</Output>
-      <Time>2014-10-16T19:47:06.234448-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berzerker_chargenoshield.xnb</Output>
+      <Time>2014-03-17T18:21:58.5990674-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_charge.png</Source>
@@ -943,8 +943,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_charge.xnb</Output>
-      <Time>2014-10-16T19:47:07.2016497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_charge.xnb</Output>
+      <Time>2014-03-17T18:21:58.9130854-04:00</Time>
     </Item>
     <Item>
       <Source>soldier_chargenoshield.png</Source>
@@ -952,8 +952,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_chargenoshield.xnb</Output>
-      <Time>2014-10-16T19:47:07.2016497-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\soldier_chargenoshield.xnb</Output>
+      <Time>2014-03-17T18:21:58.9140854-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman1_idle.png</Source>
@@ -961,8 +961,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman1_idle.xnb</Output>
-      <Time>2014-10-16T19:47:07.0612494-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman1_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.801079-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman1_lower_high.png</Source>
@@ -970,8 +970,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman1_lower_high.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman1_lower_high.xnb</Output>
+      <Time>2014-03-17T18:21:58.801079-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman1_lower_low.png</Source>
@@ -979,8 +979,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman1_lower_low.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman1_lower_low.xnb</Output>
+      <Time>2014-03-17T18:21:58.802079-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman1_recoil.png</Source>
@@ -988,8 +988,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman1_recoil.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman1_recoil.xnb</Output>
+      <Time>2014-03-17T18:21:58.8670827-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman2_idle.png</Source>
@@ -997,8 +997,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman2_idle.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman2_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.871083-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman2_lower_high.png</Source>
@@ -1006,8 +1006,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman2_lower_high.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman2_lower_high.xnb</Output>
+      <Time>2014-03-17T18:21:58.8730831-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman2_lower_low.png</Source>
@@ -1015,8 +1015,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman2_lower_low.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman2_lower_low.xnb</Output>
+      <Time>2014-03-17T18:21:58.8740831-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman2_recoil.png</Source>
@@ -1024,8 +1024,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman2_recoil.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman2_recoil.xnb</Output>
+      <Time>2014-03-17T18:21:58.8780834-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman1_death.png</Source>
@@ -1033,8 +1033,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman1_death.xnb</Output>
-      <Time>2014-10-16T19:47:07.0612494-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman1_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.7990789-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman2_death.png</Source>
@@ -1042,8 +1042,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman2_death.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman2_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.8680828-04:00</Time>
     </Item>
     <Item>
       <Source>brigand_defend2.png</Source>
@@ -1051,8 +1051,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brigand_defend2.xnb</Output>
-      <Time>2014-10-16T19:47:06.2968481-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brigand_defend2.xnb</Output>
+      <Time>2014-03-17T18:21:58.6710715-04:00</Time>
     </Item>
     <Item>
       <Source>brigand_melee2.png</Source>
@@ -1060,8 +1060,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brigand_melee2.xnb</Output>
-      <Time>2014-10-16T19:47:06.3124481-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brigand_melee2.xnb</Output>
+      <Time>2014-03-17T18:21:58.6730716-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider1_defend1.png</Source>
@@ -1069,8 +1069,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_defend1.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_defend1.xnb</Output>
+      <Time>2014-03-17T18:21:58.7800778-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider1_idle.png</Source>
@@ -1078,8 +1078,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_idle.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.7820779-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider1_idlenoshield.png</Source>
@@ -1087,8 +1087,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_idlenoshield.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_idlenoshield.xnb</Output>
+      <Time>2014-03-17T18:21:58.7820779-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider1_melee1.png</Source>
@@ -1096,8 +1096,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_melee1.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_melee1.xnb</Output>
+      <Time>2014-03-17T18:21:58.7830779-04:00</Time>
     </Item>
     <Item>
       <Source>brown_feet.png</Source>
@@ -1105,8 +1105,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brown_feet.xnb</Output>
-      <Time>2014-10-16T19:47:06.4060483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brown_feet.xnb</Output>
+      <Time>2014-03-17T18:21:58.7300749-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider1_death.png</Source>
@@ -1114,8 +1114,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_death.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.7800778-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider1_fall.png</Source>
@@ -1123,8 +1123,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_fall.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_fall.xnb</Output>
+      <Time>2014-03-17T18:21:58.7810778-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider1_shieldbreak.png</Source>
@@ -1132,8 +1132,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_shieldbreak.xnb</Output>
-      <Time>2014-10-16T19:47:06.7492489-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_shieldbreak.xnb</Output>
+      <Time>2014-03-17T18:21:58.784078-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider1_charge.png</Source>
@@ -1141,8 +1141,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_charge.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_charge.xnb</Output>
+      <Time>2014-03-17T18:21:58.7790777-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider1_defend2.png</Source>
@@ -1150,8 +1150,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_defend2.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_defend2.xnb</Output>
+      <Time>2014-03-17T18:21:58.7810778-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider1_melee2.png</Source>
@@ -1159,8 +1159,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_melee2.xnb</Output>
-      <Time>2014-10-16T19:47:06.7492489-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_melee2.xnb</Output>
+      <Time>2014-03-17T18:21:58.7830779-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider2_death.png</Source>
@@ -1168,8 +1168,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_death.xnb</Output>
-      <Time>2014-10-16T19:47:06.7648489-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.7850781-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider2_defend1.png</Source>
@@ -1177,8 +1177,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_defend1.xnb</Output>
-      <Time>2014-10-16T19:47:06.7648489-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_defend1.xnb</Output>
+      <Time>2014-03-17T18:21:58.7860781-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider2_defend2.png</Source>
@@ -1186,8 +1186,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_defend2.xnb</Output>
-      <Time>2014-10-16T19:47:06.780449-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_defend2.xnb</Output>
+      <Time>2014-03-17T18:21:58.7870782-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider2_fall.png</Source>
@@ -1195,8 +1195,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_fall.xnb</Output>
-      <Time>2014-10-16T19:47:06.811649-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_fall.xnb</Output>
+      <Time>2014-03-17T18:21:58.7880782-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider2_idle.png</Source>
@@ -1204,8 +1204,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_idle.xnb</Output>
-      <Time>2014-10-16T19:47:06.811649-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.7880782-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider2_idlenoshield.png</Source>
@@ -1213,8 +1213,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_idlenoshield.xnb</Output>
-      <Time>2014-10-16T19:47:06.811649-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_idlenoshield.xnb</Output>
+      <Time>2014-03-17T18:21:58.7890783-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider2_melee1.png</Source>
@@ -1222,8 +1222,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_melee1.xnb</Output>
-      <Time>2014-10-16T19:47:06.827249-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_melee1.xnb</Output>
+      <Time>2014-03-17T18:21:58.7900783-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider2_melee2.png</Source>
@@ -1231,8 +1231,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_melee2.xnb</Output>
-      <Time>2014-10-16T19:47:06.827249-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_melee2.xnb</Output>
+      <Time>2014-03-17T18:21:58.7900783-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider2_shieldbreak.png</Source>
@@ -1240,8 +1240,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_shieldbreak.xnb</Output>
-      <Time>2014-10-16T19:47:06.827249-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_shieldbreak.xnb</Output>
+      <Time>2014-03-17T18:21:58.7910784-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider2_charge.png</Source>
@@ -1249,8 +1249,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_charge.xnb</Output>
-      <Time>2014-10-16T19:47:06.7648489-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_charge.xnb</Output>
+      <Time>2014-03-17T18:21:58.784078-04:00</Time>
     </Item>
     <Item>
       <Source>brigand_charge.png</Source>
@@ -1258,8 +1258,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brigand_charge.xnb</Output>
-      <Time>2014-10-16T19:47:06.2968481-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brigand_charge.xnb</Output>
+      <Time>2014-03-17T18:21:58.6690714-04:00</Time>
     </Item>
     <Item>
       <Source>brigand_death.png</Source>
@@ -1267,8 +1267,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brigand_death.xnb</Output>
-      <Time>2014-10-16T19:47:06.2968481-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brigand_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.6700715-04:00</Time>
     </Item>
     <Item>
       <Source>brigand_idle.png</Source>
@@ -1276,8 +1276,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brigand_idle.xnb</Output>
-      <Time>2014-10-16T19:47:06.3124481-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\brigand_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.6720716-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider1_chargenoshield.png</Source>
@@ -1285,8 +1285,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_chargenoshield.xnb</Output>
-      <Time>2014-10-16T19:47:06.5464485-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider1_chargenoshield.xnb</Output>
+      <Time>2014-03-17T18:21:58.7800778-04:00</Time>
     </Item>
     <Item>
       <Source>gobraider2_chargenoshield.png</Source>
@@ -1294,8 +1294,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_chargenoshield.xnb</Output>
-      <Time>2014-10-16T19:47:06.7648489-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\gobraider2_chargenoshield.xnb</Output>
+      <Time>2014-03-17T18:21:58.7850781-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman1_defend1.png</Source>
@@ -1303,8 +1303,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman1_defend1.xnb</Output>
-      <Time>2014-10-16T19:47:07.0612494-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman1_defend1.xnb</Output>
+      <Time>2014-03-17T18:21:58.8000789-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman1_melee1.png</Source>
@@ -1312,8 +1312,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman1_melee1.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman1_melee1.xnb</Output>
+      <Time>2014-03-17T18:21:58.8660827-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman2_defend1.png</Source>
@@ -1321,8 +1321,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman2_defend1.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman2_defend1.xnb</Output>
+      <Time>2014-03-17T18:21:58.8690829-04:00</Time>
     </Item>
     <Item>
       <Source>pikeman2_melee1.png</Source>
@@ -1330,8 +1330,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman2_melee1.xnb</Output>
-      <Time>2014-10-16T19:47:07.0768495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pikeman2_melee1.xnb</Output>
+      <Time>2014-03-17T18:21:58.8760833-04:00</Time>
     </Item>
     <Item>
       <Source>skirmisher_idle.png</Source>
@@ -1339,8 +1339,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_idle.xnb</Output>
-      <Time>2014-10-16T19:47:07.1236496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_idle.xnb</Output>
+      <Time>2014-03-17T18:21:58.9050849-04:00</Time>
     </Item>
     <Item>
       <Source>skirmisher_reload.png</Source>
@@ -1348,8 +1348,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_reload.xnb</Output>
-      <Time>2014-10-16T19:47:07.1236496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_reload.xnb</Output>
+      <Time>2014-03-17T18:21:58.906085-04:00</Time>
     </Item>
     <Item>
       <Source>skirmisher_shoot.png</Source>
@@ -1357,8 +1357,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_shoot.xnb</Output>
-      <Time>2014-10-16T19:47:07.1236496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_shoot.xnb</Output>
+      <Time>2014-03-17T18:21:58.907085-04:00</Time>
     </Item>
     <Item>
       <Source>skirmisher_javelin.png</Source>
@@ -1366,8 +1366,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_javelin.xnb</Output>
-      <Time>2014-10-16T19:47:07.1236496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_javelin.xnb</Output>
+      <Time>2014-03-17T18:21:58.9050849-04:00</Time>
     </Item>
     <Item>
       <Source>skirmisher_ground.png</Source>
@@ -1375,8 +1375,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_ground.xnb</Output>
-      <Time>2014-10-16T19:47:07.1236496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_ground.xnb</Output>
+      <Time>2014-03-17T18:21:58.9040849-04:00</Time>
     </Item>
     <Item>
       <Source>skirmisher_death.png</Source>
@@ -1384,8 +1384,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_death.xnb</Output>
-      <Time>2014-10-16T19:47:07.1236496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_death.xnb</Output>
+      <Time>2014-03-17T18:21:58.9030848-04:00</Time>
     </Item>
     <Item>
       <Source>skirmisher_defend2.png</Source>
@@ -1393,8 +1393,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_defend2.xnb</Output>
-      <Time>2014-10-16T19:47:07.1236496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_defend2.xnb</Output>
+      <Time>2014-03-17T18:21:58.9040849-04:00</Time>
     </Item>
     <Item>
       <Source>skirmisher_melee2.png</Source>
@@ -1402,8 +1402,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_melee2.xnb</Output>
-      <Time>2014-10-16T19:47:07.1236496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_melee2.xnb</Output>
+      <Time>2014-03-17T18:21:58.906085-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_defend2.png</Source>
@@ -1411,8 +1411,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_defend2.xnb</Output>
-      <Time>2014-10-16T19:47:07.1704496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_defend2.xnb</Output>
+      <Time>2014-03-17T18:21:58.9090851-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_melee2.png</Source>
@@ -1420,8 +1420,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_melee2.xnb</Output>
-      <Time>2014-10-16T19:47:07.1704496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\slinger_melee2.xnb</Output>
+      <Time>2014-03-17T18:21:58.9100852-04:00</Time>
     </Item>
     <Item>
       <Source>roadTerrain10.png</Source>
@@ -1429,8 +1429,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain10.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain10.xnb</Output>
+      <Time>2014-03-17T18:21:58.8920842-04:00</Time>
     </Item>
     <Item>
       <Source>roadTerrain0.png</Source>
@@ -1438,8 +1438,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain0.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain0.xnb</Output>
+      <Time>2014-03-17T18:21:58.8910841-04:00</Time>
     </Item>
     <Item>
       <Source>roadTerrain1.png</Source>
@@ -1447,8 +1447,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain1.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain1.xnb</Output>
+      <Time>2014-03-17T18:21:58.8920842-04:00</Time>
     </Item>
     <Item>
       <Source>roadTerrain2.png</Source>
@@ -1456,8 +1456,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain2.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain2.xnb</Output>
+      <Time>2014-03-17T18:21:58.8940843-04:00</Time>
     </Item>
     <Item>
       <Source>roadTerrain3.png</Source>
@@ -1465,8 +1465,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain3.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain3.xnb</Output>
+      <Time>2014-03-17T18:21:58.8940843-04:00</Time>
     </Item>
     <Item>
       <Source>roadTerrain4.png</Source>
@@ -1474,8 +1474,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain4.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain4.xnb</Output>
+      <Time>2014-03-17T18:21:58.8960844-04:00</Time>
     </Item>
     <Item>
       <Source>roadTerrain5.png</Source>
@@ -1483,8 +1483,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain5.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain5.xnb</Output>
+      <Time>2014-03-17T18:21:58.8970845-04:00</Time>
     </Item>
     <Item>
       <Source>roadTerrain6.png</Source>
@@ -1492,8 +1492,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain6.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain6.xnb</Output>
+      <Time>2014-03-17T18:21:58.8970845-04:00</Time>
     </Item>
     <Item>
       <Source>roadTerrain7.png</Source>
@@ -1501,8 +1501,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain7.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain7.xnb</Output>
+      <Time>2014-03-17T18:21:58.8980845-04:00</Time>
     </Item>
     <Item>
       <Source>roadTerrain8.png</Source>
@@ -1510,8 +1510,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain8.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain8.xnb</Output>
+      <Time>2014-03-17T18:21:58.8980845-04:00</Time>
     </Item>
     <Item>
       <Source>roadTerrain9.png</Source>
@@ -1519,8 +1519,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain9.xnb</Output>
-      <Time>2014-10-16T19:47:07.1236496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\roadTerrain9.xnb</Output>
+      <Time>2014-03-17T18:21:58.8990846-04:00</Time>
     </Item>
     <Item>
       <Source>skirmisher_retreat.png</Source>
@@ -1528,8 +1528,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_retreat.xnb</Output>
-      <Time>2014-10-16T19:47:07.1236496-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\skirmisher_retreat.xnb</Output>
+      <Time>2014-03-17T18:21:58.907085-04:00</Time>
     </Item>
     <Item>
       <Source>coin.png</Source>
@@ -1537,8 +1537,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\coin.xnb</Output>
-      <Time>2014-10-16T19:47:06.4216483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\coin.xnb</Output>
+      <Time>2014-06-29T16:44:23.7186386-04:00</Time>
     </Item>
     <Item>
       <Source>coin_meter.png</Source>
@@ -1546,8 +1546,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\coin_meter.xnb</Output>
-      <Time>2014-10-16T19:47:06.4216483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\coin_meter.xnb</Output>
+      <Time>2014-06-29T16:44:23.7196387-04:00</Time>
     </Item>
     <Item>
       <Source>pucelle_ready.png</Source>
@@ -1555,8 +1555,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pucelle_ready.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pucelle_ready.xnb</Output>
+      <Time>2014-06-29T16:44:23.7206387-04:00</Time>
     </Item>
     <Item>
       <Source>pucelle_ready2.png</Source>
@@ -1564,8 +1564,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pucelle_ready2.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pucelle_ready2.xnb</Output>
+      <Time>2014-07-01T21:13:54.333886-04:00</Time>
     </Item>
     <Item>
       <Source>pucelle_motion.png</Source>
@@ -1573,8 +1573,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pucelle_motion.xnb</Output>
-      <Time>2014-10-16T19:47:07.1080495-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\pucelle_motion.xnb</Output>
+      <Time>2014-07-07T23:56:17.4483538-04:00</Time>
     </Item>
     <Item>
       <Source>berserker_defend2.png</Source>
@@ -1582,8 +1582,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berserker_defend2.xnb</Output>
-      <Time>2014-10-16T19:47:06.218848-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berserker_defend2.xnb</Output>
+      <Time>2014-08-05T22:14:45.4317943-04:00</Time>
     </Item>
     <Item>
       <Source>berserker_melee2.png</Source>
@@ -1591,8 +1591,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berserker_melee2.xnb</Output>
-      <Time>2014-10-16T19:47:06.218848-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berserker_melee2.xnb</Output>
+      <Time>2014-08-05T22:15:33.5422782-04:00</Time>
     </Item>
     <Item>
       <Source>berzerker_idle.png</Source>
@@ -1600,8 +1600,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berzerker_idle.xnb</Output>
-      <Time>2014-10-16T19:47:06.234448-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berzerker_idle.xnb</Output>
+      <Time>2014-08-05T22:17:42.9289038-04:00</Time>
     </Item>
     <Item>
       <Source>berserker_charge.png</Source>
@@ -1609,8 +1609,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berserker_charge.xnb</Output>
-      <Time>2014-10-16T19:47:06.218848-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\berserker_charge.xnb</Output>
+      <Time>2014-08-05T23:00:34.4184224-04:00</Time>
     </Item>
     <Item>
       <Source>hauler_haul.png</Source>
@@ -1618,8 +1618,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\hauler_haul.xnb</Output>
-      <Time>2014-10-16T19:47:06.827249-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\hauler_haul.xnb</Output>
+      <Time>2014-10-05T23:22:06.2584553-04:00</Time>
     </Item>
     <Item>
       <Source>loot.png</Source>
@@ -1627,8 +1627,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\loot.xnb</Output>
-      <Time>2014-10-16T19:47:06.8740491-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\loot.xnb</Output>
+      <Time>2014-10-05T23:22:06.2604554-04:00</Time>
     </Item>
     <Item>
       <Source>cgwg-xna.fx</Source>
@@ -1636,8 +1636,26 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cgwg-xna.xnb</Output>
-      <Time>2014-10-16T19:47:06.4216483-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cgwg-xna.xnb</Output>
+      <Time>2014-07-21T23:01:27.4828869-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Bloom.fx</Source>
+      <Name>Bloom</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\Bloom.xnb</Output>
+      <Time>2014-10-19T23:59:33.7048621-04:00</Time>
+    </Item>
+    <Item>
+      <Source>BloomExtract.fx</Source>
+      <Name>BloomExtract</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\BloomExtract.xnb</Output>
+      <Time>2014-10-19T23:59:33.7058622-04:00</Time>
     </Item>
     <Item>
       <Source>cgwg-xna_new.fx</Source>
@@ -1645,8 +1663,8 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cgwg-xna_new.xnb</Output>
-      <Time>2014-10-16T21:01:03.7165295-04:00</Time>
+      <Output>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\cgwg-xna_new.xnb</Output>
+      <Time>2014-10-19T23:59:33.7078623-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -1654,10 +1672,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\Content\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\Content\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\Content\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\James\Documents\gamedev\Pike-shot\CondottiereWars\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -1685,12 +1703,12 @@
         <Value>2010-08-23T12:41:18-04:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Users\DAVID\Desktop\pikeshot\gamedev\Pike-shot\ContentPipelineExtension1\bin\x86\Debug\ContentPipelineExtension1.dll</Key>
-        <Value>2014-10-16T19:52:43.5914623-04:00</Value>
+        <Key>C:\Users\James\Documents\gamedev\Pike-shot\ContentPipelineExtension1\bin\x86\Debug\ContentPipelineExtension1.dll</Key>
+        <Value>2014-10-19T23:59:34.0888841-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2014-07-30T12:34:32.4861455-04:00</Value>
+        <Value>2014-07-20T18:48:56.9535279-04:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

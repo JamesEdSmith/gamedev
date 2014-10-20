@@ -106,24 +106,6 @@ namespace PikeAndShot
         {
             getInput(gameTime.ElapsedGameTime);
 
-            // check for screen change
-            if (keyboardState.IsKeyDown(Keys.D1) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
-            {
-                _game.setScreen(PikeAndShotGame.SCREEN_LEVELPLAY);
-            }
-            else if (keyboardState.IsKeyDown(Keys.D2) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
-            {
-                _game.setScreen(PikeAndShotGame.SCREEN_FORMATIONMAKER);
-            }
-            else if (keyboardState.IsKeyDown(Keys.D3) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
-            {
-                _game.setScreen(PikeAndShotGame.SCREEN_LEVELEDITOR);
-            }
-            else if (keyboardState.IsKeyDown(Keys.D0) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
-            {
-                _game.fullScreen();
-            }
-
             _elapsedTime = gameTime.TotalGameTime.TotalMilliseconds;
 
             foreach (Shot shot in _shots)
@@ -431,7 +413,27 @@ namespace PikeAndShot
 
         protected virtual void getInput(TimeSpan timeSpan)
         {
-            
+            // check for screen change
+            if (keyboardState.IsKeyDown(Keys.D1) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
+            {
+                _game.setScreen(PikeAndShotGame.SCREEN_LEVELPLAY);
+            }
+            else if (keyboardState.IsKeyDown(Keys.D2) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
+            {
+                _game.setScreen(PikeAndShotGame.SCREEN_FORMATIONMAKER);
+            }
+            else if (keyboardState.IsKeyDown(Keys.D3) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
+            {
+                _game.setScreen(PikeAndShotGame.SCREEN_LEVELEDITOR);
+            }
+            else if (keyboardState.IsKeyDown(Keys.D0) && previousKeyboardState.IsKeyUp(Keys.D0) && keyboardState.IsKeyDown(Keys.LeftControl))
+            {
+                _game.fullScreen();
+            }
+            else if (keyboardState.IsKeyDown(Keys.D9) && previousKeyboardState.IsKeyUp(Keys.D9) && keyboardState.IsKeyDown(Keys.LeftControl))
+            {
+                PikeAndShotGame.useShaders = !PikeAndShotGame.useShaders;
+            }
         }
 
         protected float getScrollAdjustSpeed()

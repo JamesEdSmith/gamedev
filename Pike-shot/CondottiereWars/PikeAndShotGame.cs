@@ -36,6 +36,7 @@ namespace PikeAndShot
 
         static SpriteFont soldierFont;
         public static Random random = new Random();
+        public static bool useShaders = false;
 
         public LevelConstructorForm _form;
 
@@ -544,48 +545,68 @@ namespace PikeAndShot
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
-            GraphicsDevice.Viewport = viewport;
-            GraphicsDevice.Clear(new Color(5, 5, 5, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
 
-            //get rid of blurry sprites
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-
-            if (_currScreen != null)
+            if (!useShaders)
             {
-                _currScreen.draw(gameTime, spriteBatch);
+                GraphicsDevice.Viewport = viewport;
+                GraphicsDevice.Clear(new Color(5, 5, 5, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
+
+                //get rid of blurry sprites
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+
+                if (_currScreen != null)
+                {
+                    _currScreen.draw(gameTime, spriteBatch);
+                }
+
+                base.Draw(gameTime);
+
+                spriteBatch.End();
             }
-            base.Draw(gameTime);
+            else
+            {
+                GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
+                GraphicsDevice.Viewport = viewport;
+                GraphicsDevice.Clear(new Color(5, 5, 5, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
 
-            spriteBatch.End();
+                //get rid of blurry sprites
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
-            GraphicsDevice.SetRenderTarget(ShaderRenderTarget2);
+                if (_currScreen != null)
+                {
+                    _currScreen.draw(gameTime, spriteBatch);
+                }
+                base.Draw(gameTime);
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, effect);
-            spriteBatch.Draw(ShaderRenderTarget, Vector2.Zero, Color.White);
-            spriteBatch.End();
-           
-            GraphicsDevice.SetRenderTarget(_bloomTarget);
-            GraphicsDevice.Clear(Color.Black);           
+                spriteBatch.End();
 
-            //Extract highlights on the original image using BloomExtract
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, _bloomExtractFx);
-            spriteBatch.Draw(ShaderRenderTarget2, new Rectangle(0, 0, _bloomTargetWidth, _bloomTargetHeight), null, Color.White);
-            spriteBatch.End();
+                GraphicsDevice.SetRenderTarget(ShaderRenderTarget2);
 
-            //Set original backbuffer as target
-            GraphicsDevice.SetRenderTarget(null);
-            GraphicsDevice.Clear(Color.Black);
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, effect);
+                spriteBatch.Draw(ShaderRenderTarget, Vector2.Zero, Color.White);
+                spriteBatch.End();
 
-            //Compose bloomed image using Bloom effect
-            GraphicsDevice.Textures[1] = _bloomTarget;
+                GraphicsDevice.SetRenderTarget(_bloomTarget);
+                GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, _bloomFx);
+                //Extract highlights on the original image using BloomExtract
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, _bloomExtractFx);
+                spriteBatch.Draw(ShaderRenderTarget2, new Rectangle(0, 0, _bloomTargetWidth, _bloomTargetHeight), null, Color.White);
+                spriteBatch.End();
 
-            spriteBatch.Draw(ShaderRenderTarget2, Vector2.Zero, Color.White);
+                //Set original backbuffer as target
+                GraphicsDevice.SetRenderTarget(null);
+                GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.End();
+                //Compose bloomed image using Bloom effect
+                GraphicsDevice.Textures[1] = _bloomTarget;
 
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, _bloomFx);
+
+                spriteBatch.Draw(ShaderRenderTarget2, Vector2.Zero, Color.White);
+
+                spriteBatch.End();
+            }
         }
 
         private void UpdateValues()
@@ -623,8 +644,6 @@ namespace PikeAndShot
         internal void fullScreen()
         {
             graphics.ToggleFullScreen();
-            //spriteBatch = new SpriteBatch(GraphicsDevice);
-            //viewport = GraphicsDevice.Viewport;
         }
     }
 }
