@@ -1,2 +1,0 @@
-E:\projects\CondottiereWars\CondottiereWars\Content\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\James\Desktop\CondottiereWars - vacation\CondottiereWars\Content\obj\x86\Debug\ResolveAssemblyReference.cache

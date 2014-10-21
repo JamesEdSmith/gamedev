@@ -1640,15 +1640,6 @@
       <Time>2014-10-16T21:25:19.7841796-04:00</Time>
     </Item>
     <Item>
-      <Source>cgwg-xna_new.fx</Source>
-      <Name>cgwg-xna_new</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna_new.xnb</Output>
-      <Time>2014-10-16T22:31:24.8554687-04:00</Time>
-    </Item>
-    <Item>
       <Source>Bloom.fx</Source>
       <Name>Bloom</Name>
       <Importer>EffectImporter</Importer>
@@ -1665,6 +1656,15 @@
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\BloomExtract.xnb</Output>
       <Time>2014-10-19T00:54:53.1074218-04:00</Time>
+    </Item>
+    <Item>
+      <Source>cgwg-xna_new.fx</Source>
+      <Name>cgwg-xna_new</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna_new.xnb</Output>
+      <Time>2014-10-16T22:31:24.8554687-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -1704,7 +1704,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
-        <Value>2014-10-14T00:31:38.6777343-04:00</Value>
+        <Value>2014-10-20T23:35:38.4082031-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>

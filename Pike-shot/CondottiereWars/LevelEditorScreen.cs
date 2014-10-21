@@ -27,6 +27,10 @@ namespace PikeAndShot
         private ArrayList _grabbedFormations;
         private bool _boxSelecting;
         private bool _boxMoving;
+
+        // [dsl] Added zoom stuff
+        private float[] _zoomLevels = new float[] { 1.0f, .75f, .50f, .25f, .125f };
+        private int _currentZoom = 0;
         
         public LevelEditorScreen(PikeAndShotGame game, LevelConstructorForm form)
             : base(game)
@@ -108,14 +112,14 @@ namespace PikeAndShot
             base.update(gameTime);
             if (_grabbedFormation != null)
             {
-                _grabbedFormation.setPosition((float)mouseState.X + _mapOffset.X, (float)mouseState.Y + _mapOffset.Y);
+                _grabbedFormation.setPosition((float)_pointerPos.X + _mapOffset.X, (float)_pointerPos.Y + _mapOffset.Y);
                 _grabbedFormation.resetupFormation();
                 _grabbedFormation.reformFormation();
                 _grabbedFormation.selected = true;
             }
             if (_boxMoving)
             {
-                Vector2 mousePosition = new Vector2(mouseState.X, mouseState.Y) + _mapOffset;
+                Vector2 mousePosition = new Vector2(_pointerPos.X, _pointerPos.Y) + _mapOffset;
                 _startingMousePosition += mousePosition - _oldMousePosition;
                 _endingMousePosition += mousePosition - _oldMousePosition;
                 foreach (EnemyFormation ef in _grabbedFormations)
@@ -144,15 +148,64 @@ namespace PikeAndShot
             }
 
             spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "mapOffset: " + _mapOffset.X + ", " + _mapOffset.Y, new Vector2(5, 35), Color.White);
+            spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "zoom: " + _currentZoom, new Vector2(5, 50), Color.White);
+
+            int lineThickness = (int)(2.0f / PikeAndShotGame.ZOOM);
 
             if (_boxSelecting)
             {
-                spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_startingMousePosition.X - _mapOffset.X, _startingMousePosition.Y - _mapOffset.Y), Color.White);
-                spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_startingMousePosition.X - _mapOffset.X, _endingMousePosition.Y - _mapOffset.Y), Color.White);
-                spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_endingMousePosition.X - _mapOffset.X, _startingMousePosition.Y - _mapOffset.Y), Color.White);
-                spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_endingMousePosition.X - _mapOffset.X, _endingMousePosition.Y - _mapOffset.Y), Color.White);
+                //spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_startingMousePosition.X - _mapOffset.X, _startingMousePosition.Y - _mapOffset.Y), Color.White);
+                //spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_startingMousePosition.X - _mapOffset.X, _endingMousePosition.Y - _mapOffset.Y), Color.White);
+                //spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_endingMousePosition.X - _mapOffset.X, _startingMousePosition.Y - _mapOffset.Y), Color.White);
+                //spriteBatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_endingMousePosition.X - _mapOffset.X, _endingMousePosition.Y - _mapOffset.Y), Color.White);
+
+                // [dsl] Actual box
+                spriteBatch.Draw(PikeAndShotGame.getDotTexture(),
+                    new Rectangle(
+                        (int)(Math.Min(_startingMousePosition.X, _endingMousePosition.X) - _mapOffset.X),
+                        (int)(Math.Min(_startingMousePosition.Y, _endingMousePosition.Y) - _mapOffset.Y),
+                        (int)(Math.Abs(_endingMousePosition.X - _startingMousePosition.X)),
+                        lineThickness),
+                    Color.White);
+                spriteBatch.Draw(PikeAndShotGame.getDotTexture(),
+                    new Rectangle(
+                        (int)(Math.Min(_startingMousePosition.X, _endingMousePosition.X) - _mapOffset.X),
+                        (int)(Math.Max(_startingMousePosition.Y, _endingMousePosition.Y) - _mapOffset.Y),
+                        (int)(Math.Abs(_endingMousePosition.X - _startingMousePosition.X)),
+                        lineThickness),
+                    Color.White);
+                spriteBatch.Draw(PikeAndShotGame.getDotTexture(),
+                    new Rectangle(
+                        (int)(Math.Min(_startingMousePosition.X, _endingMousePosition.X) - _mapOffset.X),
+                        (int)(Math.Min(_startingMousePosition.Y, _endingMousePosition.Y) - _mapOffset.Y),
+                        lineThickness,
+                        (int)(Math.Abs(_endingMousePosition.Y - _startingMousePosition.Y))),
+                    Color.White);
+                spriteBatch.Draw(PikeAndShotGame.getDotTexture(),
+                    new Rectangle(
+                        (int)(Math.Max(_startingMousePosition.X, _endingMousePosition.X) - _mapOffset.X),
+                        (int)(Math.Min(_startingMousePosition.Y, _endingMousePosition.Y) - _mapOffset.Y),
+                        lineThickness,
+                        (int)(Math.Abs(_endingMousePosition.Y - _startingMousePosition.Y))),
+                    Color.White);
             }
-            _pointerSprite.draw(spriteBatch, _pointerPos, SIDE_ENEMY);
+            _pointerSprite.drawWithScale(spriteBatch, _pointerPos, SIDE_ENEMY, 1.0f / PikeAndShotGame.ZOOM);
+
+            // Draw map boundaries, that will help when zoomed out or moved vertically
+            spriteBatch.Draw(PikeAndShotGame.getDotTexture(),
+                    new Rectangle(
+                        0,
+                        (int)(-_mapOffset.Y),
+                        (int)((float)PikeAndShotGame.viewport.Width / PikeAndShotGame.ZOOM),
+                        lineThickness),
+                    Color.CornflowerBlue);
+            spriteBatch.Draw(PikeAndShotGame.getDotTexture(),
+                    new Rectangle(
+                        0,
+                        PikeAndShotGame.viewport.Height - (int)_mapOffset.Y,
+                        (int)((float)PikeAndShotGame.viewport.Width / PikeAndShotGame.ZOOM),
+                        lineThickness),
+                    Color.CornflowerBlue);
         }
 
         protected override void getInput(TimeSpan timeSpan)
@@ -161,10 +214,16 @@ namespace PikeAndShot
             gamePadState = GamePad.GetState(PlayerIndex.One);
             mouseState = Mouse.GetState();
 
-            _pointerPos = new Vector2(mouseState.X, mouseState.Y);
+            _pointerPos = new Vector2(mouseState.X, mouseState.Y) / PikeAndShotGame.ZOOM;
 
             if (_game.IsActive)
             {
+                // [dsl] Zoom stuff
+                if (mouseState.ScrollWheelValue > prevMouseState.ScrollWheelValue)
+                    _currentZoom = Math.Max(_currentZoom - 1, 0);
+                else if (mouseState.ScrollWheelValue < prevMouseState.ScrollWheelValue)
+                    _currentZoom = Math.Min(_currentZoom + 1, _zoomLevels.Count() - 1);
+                PikeAndShotGame.ZOOM = _zoomLevels[_currentZoom];
 
                 if (mouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && prevMouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released)
                 {
@@ -180,7 +239,7 @@ namespace PikeAndShot
                     {
                         if (_boxSelecting && !_boxMoving)
                         {
-                            _endingMousePosition = new Vector2(_mapOffset.X + mouseState.X, _mapOffset.Y + mouseState.Y);
+                            _endingMousePosition = new Vector2(_mapOffset.X + _pointerPos.X, _mapOffset.Y + _pointerPos.Y);
                         }
                     }
                 }
@@ -278,19 +337,19 @@ namespace PikeAndShot
         {
             bool didCollide = true;
 
-            if (mouseState.X + _mapOffset.X < _startingMousePosition.X)
+            if (_pointerPos.X + _mapOffset.X < _startingMousePosition.X)
                 didCollide = false;
-            if (mouseState.X + _mapOffset.X > _endingMousePosition.X)
+            if (_pointerPos.X + _mapOffset.X > _endingMousePosition.X)
                 didCollide = false;
-            if (mouseState.Y + _mapOffset.Y < _startingMousePosition.Y)
+            if (_pointerPos.Y + _mapOffset.Y < _startingMousePosition.Y)
                 didCollide = false;
-            if (mouseState.Y + _mapOffset.Y > _endingMousePosition.Y)
+            if (_pointerPos.Y + _mapOffset.Y > _endingMousePosition.Y)
                 didCollide = false;
 
             if (didCollide)
             {
                 _boxMoving = true;
-                _oldMousePosition = new Vector2(mouseState.X + _mapOffset.X, mouseState.Y + _mapOffset.Y);
+                _oldMousePosition = new Vector2(_pointerPos.X + _mapOffset.X, _pointerPos.Y + _mapOffset.Y);
             }
             else
             {
@@ -339,7 +398,7 @@ namespace PikeAndShot
 
         private void startSelectorBox()
         {
-            _startingMousePosition = new Vector2(_mapOffset.X + mouseState.X, _mapOffset.Y + mouseState.Y);
+            _startingMousePosition = new Vector2(_mapOffset.X + _pointerPos.X, _mapOffset.Y + _pointerPos.Y);
             _boxSelecting = true;
         }
 
