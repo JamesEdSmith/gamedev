@@ -305,6 +305,8 @@ namespace PikeAndShot
                     toggleDrawDots();
             }
 
+            base.getInput(timeSpan);
+
             previousKeyboardState = keyboardState;
             previousGamePadState = gamePadState;
             prevMouseState = mouseState;
