@@ -21,7 +21,7 @@ namespace PikeAndShot
     public class PikeAndShotGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        Viewport viewport;
+        public static Viewport viewport;
         SpriteBatch spriteBatch;
 
         RenderTarget2D ShaderRenderTarget;
@@ -238,6 +238,8 @@ namespace PikeAndShot
 
         private ArrayList _gameScreens;
         private BattleScreen _currScreen;
+
+        public static float ZOOM = 1.0f;
 
         public PikeAndShotGame()
         {
@@ -546,66 +548,69 @@ namespace PikeAndShot
         protected override void Draw(GameTime gameTime)
         {
 
-            if (!useShaders)
+            if (_currScreen != null)
             {
-                GraphicsDevice.Viewport = viewport;
-                GraphicsDevice.Clear(new Color(5, 5, 5, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
-
-                //get rid of blurry sprites
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-
-                if (_currScreen != null)
+                Matrix mapTransform = Matrix.CreateScale(ZOOM);
+                if (!useShaders)
                 {
-                    _currScreen.draw(gameTime, spriteBatch);
+                    GraphicsDevice.Viewport = viewport;
+                    GraphicsDevice.Clear(new Color(5, 5, 5, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
+
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
+
+                    if (_currScreen != null)
+                    {
+                        _currScreen.draw(gameTime, spriteBatch);
+                    }
+
+                    base.Draw(gameTime);
+
+                    spriteBatch.End();
                 }
-
-                base.Draw(gameTime);
-
-                spriteBatch.End();
-            }
-            else
-            {
-                GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
-                GraphicsDevice.Viewport = viewport;
-                GraphicsDevice.Clear(new Color(5, 5, 5, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
-
-                //get rid of blurry sprites
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-
-                if (_currScreen != null)
+                else
                 {
-                    _currScreen.draw(gameTime, spriteBatch);
+                    GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
+                    GraphicsDevice.Viewport = viewport;
+                    GraphicsDevice.Clear(new Color(5, 5, 5, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
+
+                    //get rid of blurry sprites
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
+
+                    if (_currScreen != null)
+                    {
+                        _currScreen.draw(gameTime, spriteBatch);
+                    }
+                    base.Draw(gameTime);
+
+                    spriteBatch.End();
+
+                    GraphicsDevice.SetRenderTarget(ShaderRenderTarget2);
+
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, effect);
+                    spriteBatch.Draw(ShaderRenderTarget, Vector2.Zero, Color.White);
+                    spriteBatch.End();
+
+                    GraphicsDevice.SetRenderTarget(_bloomTarget);
+                    GraphicsDevice.Clear(Color.Black);
+
+                    //Extract highlights on the original image using BloomExtract
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, _bloomExtractFx);
+                    spriteBatch.Draw(ShaderRenderTarget2, new Rectangle(0, 0, _bloomTargetWidth, _bloomTargetHeight), null, Color.White);
+                    spriteBatch.End();
+
+                    //Set original backbuffer as target
+                    GraphicsDevice.SetRenderTarget(null);
+                    GraphicsDevice.Clear(Color.Black);
+
+                    //Compose bloomed image using Bloom effect
+                    GraphicsDevice.Textures[1] = _bloomTarget;
+
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, _bloomFx);
+
+                    spriteBatch.Draw(ShaderRenderTarget2, Vector2.Zero, Color.White);
+
+                    spriteBatch.End();
                 }
-                base.Draw(gameTime);
-
-                spriteBatch.End();
-
-                GraphicsDevice.SetRenderTarget(ShaderRenderTarget2);
-
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, effect);
-                spriteBatch.Draw(ShaderRenderTarget, Vector2.Zero, Color.White);
-                spriteBatch.End();
-
-                GraphicsDevice.SetRenderTarget(_bloomTarget);
-                GraphicsDevice.Clear(Color.Black);
-
-                //Extract highlights on the original image using BloomExtract
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, _bloomExtractFx);
-                spriteBatch.Draw(ShaderRenderTarget2, new Rectangle(0, 0, _bloomTargetWidth, _bloomTargetHeight), null, Color.White);
-                spriteBatch.End();
-
-                //Set original backbuffer as target
-                GraphicsDevice.SetRenderTarget(null);
-                GraphicsDevice.Clear(Color.Black);
-
-                //Compose bloomed image using Bloom effect
-                GraphicsDevice.Textures[1] = _bloomTarget;
-
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, _bloomFx);
-
-                spriteBatch.Draw(ShaderRenderTarget2, Vector2.Zero, Color.White);
-
-                spriteBatch.End();
             }
         }
 

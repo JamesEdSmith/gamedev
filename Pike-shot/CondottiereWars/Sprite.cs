@@ -164,6 +164,7 @@ namespace PikeAndShot
         {
             return _size;
         }
+
         public int getMaxFrames()
         {
             return _maxFrames;
@@ -177,15 +178,28 @@ namespace PikeAndShot
             adjustBoundingRect();
         }
 
+        // [dsl] For zoom stuff. The mouse cursor needs to inverse the scale
+        public void drawWithScale(SpriteBatch spritebatch, Vector2 _position, int side, float scale = 1.0f)
+        {
+            if (side == BattleScreen.SIDE_PLAYER)
+            {
+                spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+            }
+            else
+            {
+                spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, Color.White, 0, Vector2.Zero, scale, SpriteEffects.FlipHorizontally, 0);
+            }
+        }
+
         public void draw(SpriteBatch spritebatch, Vector2 _position, int side)
         {
             if (side == BattleScreen.SIDE_PLAYER)
             {
-                spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White);
+                spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
             else
             {
-                spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.FlipHorizontally, 0);
+                spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
             }
         }
 
