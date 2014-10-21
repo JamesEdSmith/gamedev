@@ -31,12 +31,12 @@ namespace PikeAndShot
         int _bloomTargetWidth, _bloomTargetHeight;
 
         Effect _bloomFx, _bloomExtractFx;
-        float _blurPower = 0.01f, _baseIntensity = 1.0f, _bloomIntensity = 0.75f,
+        float _blurPower = 0.01f, _baseIntensity = 1.0f, _bloomIntensity = 0.6f,
             _baseSaturation = 1.0f, _bloomSaturation = 1.0f, _bloomThreshold = 0.1f;
 
         static SpriteFont soldierFont;
         public static Random random = new Random();
-        public static bool useShaders = false;
+        public static bool useShaders = true;
 
         public LevelConstructorForm _form;
 
