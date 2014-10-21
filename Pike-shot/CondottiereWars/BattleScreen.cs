@@ -26,6 +26,7 @@ namespace PikeAndShot
         public const float SCROLLPOINT = 0.33f;
         public const float BATTLEHEIGHTEXTEND = 384f;
         public static Vector2 COIN_METER_POSITION = new Vector2(25f, 25f);
+        public static Vector2 BASE_COIN_START_POSITION = new Vector2(25f + 6f, 30f);
         public static Vector2 BASE_COIN_POSITION = new Vector2(25f + 6f, 113f);
         public static int MAX_COINS = 20;
 
@@ -40,6 +41,7 @@ namespace PikeAndShot
         protected ArrayList _screenObjectsToAdd;
         protected ArrayList _screenColliders;
         protected ArrayList _screenAnimations;
+        protected ArrayList _screenAnimationsToAdd;
         public ArrayList _enemyFormations;
         protected ArrayList _terrain;
         protected ArrayList _drawJobs;
@@ -74,6 +76,7 @@ namespace PikeAndShot
             _screenObjectsToAdd = new ArrayList(40);
             _screenColliders = new ArrayList(40);
             _screenAnimations = new ArrayList(40);
+            _screenAnimationsToAdd = new ArrayList(40);
 
             _enemyFormations = new ArrayList(25);
             _looseSoldiers = new ArrayList(40);
@@ -93,8 +96,6 @@ namespace PikeAndShot
             _drawJobs = new ArrayList(255);
             _coins = 10;
             _coinSprites = new ArrayList();
-            //for(int i = 0; i<20; i++)
-            //    _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i*4f)));
         }
 
         /// <summary>
@@ -105,24 +106,6 @@ namespace PikeAndShot
         public virtual void update(GameTime gameTime)
         {
             getInput(gameTime.ElapsedGameTime);
-
-            // check for screen change
-            if (keyboardState.IsKeyDown(Keys.D1) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
-            {
-                _game.setScreen(PikeAndShotGame.SCREEN_LEVELPLAY);
-            }
-            else if (keyboardState.IsKeyDown(Keys.D2) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
-            {
-                _game.setScreen(PikeAndShotGame.SCREEN_FORMATIONMAKER);
-            }
-            else if (keyboardState.IsKeyDown(Keys.D3) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
-            {
-                _game.setScreen(PikeAndShotGame.SCREEN_LEVELEDITOR);
-            }
-            else if (keyboardState.IsKeyDown(Keys.D0) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
-            {
-                _game.fullScreen();
-            }
 
             _elapsedTime = gameTime.TotalGameTime.TotalMilliseconds;
 
@@ -141,6 +124,12 @@ namespace PikeAndShot
                 _screenObjects.Add(screeny);
             }
             _screenObjectsToAdd.Clear();
+
+            foreach (ScreenAnimation screeny in this._screenAnimationsToAdd)
+            {
+                _screenAnimations.Add(screeny);
+            }
+            _screenAnimationsToAdd.Clear();
 
             foreach (Formation f in _enemyFormations)
             {
@@ -431,7 +420,27 @@ namespace PikeAndShot
 
         protected virtual void getInput(TimeSpan timeSpan)
         {
-            
+            // check for screen change
+            if (keyboardState.IsKeyDown(Keys.D1) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
+            {
+                _game.setScreen(PikeAndShotGame.SCREEN_LEVELPLAY);
+            }
+            else if (keyboardState.IsKeyDown(Keys.D2) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
+            {
+                _game.setScreen(PikeAndShotGame.SCREEN_FORMATIONMAKER);
+            }
+            else if (keyboardState.IsKeyDown(Keys.D3) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
+            {
+                _game.setScreen(PikeAndShotGame.SCREEN_LEVELEDITOR);
+            }
+            else if (keyboardState.IsKeyDown(Keys.D0) && previousKeyboardState.IsKeyUp(Keys.D0) && keyboardState.IsKeyDown(Keys.LeftControl))
+            {
+                _game.fullScreen();
+            }
+            else if (keyboardState.IsKeyDown(Keys.D9) && previousKeyboardState.IsKeyUp(Keys.D9) && keyboardState.IsKeyDown(Keys.LeftControl))
+            {
+                PikeAndShotGame.useShaders = !PikeAndShotGame.useShaders;
+            }
         }
 
         protected float getScrollAdjustSpeed()
@@ -545,7 +554,7 @@ namespace PikeAndShot
 
         internal void addAnimation(ScreenAnimation screenAnimation)
         {
-            _screenAnimations.Add(screenAnimation);
+            this._screenAnimationsToAdd.Add(screenAnimation);
         }
 
         internal bool getDrawDots()

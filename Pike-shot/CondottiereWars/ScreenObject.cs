@@ -208,8 +208,9 @@ namespace PikeAndShot
         private const float GRAVITY = 9.8f;
         private float velocity;
         private bool doneFlashing;
+        Vector2 finalPosition;
 
-        public Coin(BattleScreen screen, Vector2 position)
+        public Coin(BattleScreen screen, Vector2 position, Vector2 finalPosition)
             : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN, new Rectangle(0, 0, 24, 14), 24, 14, false, true, 128), COIN_TIME)
         {
             int rando = PikeAndShotGame.random.Next(3);
@@ -219,13 +220,22 @@ namespace PikeAndShot
                 _position.X -= 2f;
 
             _drop = false;
-            velocity = -1.5f;
+            velocity = 0f;//-1.5f;
             doneFlashing = false;
+            this.finalPosition = finalPosition;
         }
 
         public override void update(TimeSpan timeSpan)
         {
-            if (!doneFlashing)
+            if (_position.Y != finalPosition.Y)
+            {
+                velocity += GRAVITY * (float)timeSpan.TotalSeconds;
+                _position.Y += velocity;
+
+                if (_position.Y > finalPosition.Y)
+                    _position.Y = finalPosition.Y;
+            }
+            else if (!doneFlashing)
             {
                 _time -= (float)timeSpan.TotalMilliseconds;
 
@@ -268,7 +278,7 @@ namespace PikeAndShot
 
     public class Loot : ScreenAnimation
     {
-        static float FLASH_TIME = 5000f;
+        static float FLASH_TIME = 3000f;
 
         public Loot(BattleScreen screen, Vector2 position)
             : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.LOOT, new Rectangle(0, 0, 22, 22), 22, 22, false, true, 128, new Color(Color.Yellow.R, Color.Yellow.G, 100)), FLASH_TIME)
