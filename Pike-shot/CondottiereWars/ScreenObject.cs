@@ -208,8 +208,9 @@ namespace PikeAndShot
         private const float GRAVITY = 9.8f;
         private float velocity;
         private bool doneFlashing;
+        Vector2 finalPosition;
 
-        public Coin(BattleScreen screen, Vector2 position)
+        public Coin(BattleScreen screen, Vector2 position, Vector2 finalPosition)
             : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN, new Rectangle(0, 0, 24, 14), 24, 14, false, true, 128), COIN_TIME)
         {
             int rando = PikeAndShotGame.random.Next(3);
@@ -219,13 +220,22 @@ namespace PikeAndShot
                 _position.X -= 2f;
 
             _drop = false;
-            velocity = -1.5f;
+            velocity = 0f;//-1.5f;
             doneFlashing = false;
+            this.finalPosition = finalPosition;
         }
 
         public override void update(TimeSpan timeSpan)
         {
-            if (!doneFlashing)
+            if (_position.Y != finalPosition.Y)
+            {
+                velocity += GRAVITY * (float)timeSpan.TotalSeconds;
+                _position.Y += velocity;
+
+                if (_position.Y > finalPosition.Y)
+                    _position.Y = finalPosition.Y;
+            }
+            else if (!doneFlashing)
             {
                 _time -= (float)timeSpan.TotalMilliseconds;
 
@@ -322,13 +332,6 @@ namespace PikeAndShot
             started = false;
             this.destination = destination;
             origin = new Vector2(_position.X, _position.Y);
-
-            /*Vector2 diff = new Vector2( destination.X - origin.X, destination.Y - origin.Y);
-            float length = (float)Math.Sqrt(Math.Pow(diff.X, 2) + Math.Pow(diff.Y, 2));
-            float angle = (float)Math.Atan2(diff.Y, diff.X);
-            Vector2 controlVector = new Vector2((float)(Math.Cos(angle) * length * CONTROL_POINT_GAP), (float)(Math.Sin(angle) * length * CONTROL_POINT_GAP));
-            control1 = origin + controlVector;
-            control2 = destination - controlVector;*/
         }
 
         public void onAnimationTrigger(ScreenAnimation screenAnimaton)

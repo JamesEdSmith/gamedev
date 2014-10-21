@@ -65,7 +65,7 @@ namespace PikeAndShot
 
             for (int i = 0; i < _coins; i++)
             {
-                _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i * 4f)));
+                _coinSprites.Add(new Coin(this, BASE_COIN_START_POSITION, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i * 4f)));
             }
             _coinMeter = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 134), 36, 134, false, true, 128, new Color(Color.Yellow.R, Color.Yellow.G, 100));
             _coinMeterHurt = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 134), 36, 134, false, true, 128, Color.Red);
@@ -166,7 +166,7 @@ namespace PikeAndShot
         {
             Loot loot = new Loot(this, soldier.getPosition());
             addAnimation(loot);
-            LootTwinkle twinkle = new LootTwinkle(this, soldier.getPosition(), 1000f, COIN_METER_POSITION);
+            LootTwinkle twinkle = new LootTwinkle(this, soldier.getPosition(), 1000f, COIN_METER_POSITION + new Vector2(_coinMeter.getBoundingRect().Width/2, 0f));
             addAnimation(twinkle);
             loot.addListener(twinkle);
             twinkle.addListener(this);
@@ -177,7 +177,7 @@ namespace PikeAndShot
             _coinMeterTimer = COIN_METER_FLASH_TIME;
             if (_coins < MAX_COINS)
             {
-                _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - _coins * 4f)));
+                _coinSprites.Add(new Coin(this, BASE_COIN_START_POSITION, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - _coins * 4f)));
                 _coins++;
             }
         }
@@ -569,7 +569,7 @@ namespace PikeAndShot
             _coinSprites.Clear();
             for(int i = 0; i < _coins; i++)
             {
-                _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i * 4f)));
+                _coinSprites.Add(new Coin(this, BASE_COIN_START_POSITION, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i * 4f)));
             }
             
             _formation = new Formation(this, 200, 200, 20, SIDE_PLAYER);
