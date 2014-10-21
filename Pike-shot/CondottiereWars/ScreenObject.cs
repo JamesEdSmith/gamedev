@@ -322,13 +322,6 @@ namespace PikeAndShot
             started = false;
             this.destination = destination;
             origin = new Vector2(_position.X, _position.Y);
-
-            /*Vector2 diff = new Vector2( destination.X - origin.X, destination.Y - origin.Y);
-            float length = (float)Math.Sqrt(Math.Pow(diff.X, 2) + Math.Pow(diff.Y, 2));
-            float angle = (float)Math.Atan2(diff.Y, diff.X);
-            Vector2 controlVector = new Vector2((float)(Math.Cos(angle) * length * CONTROL_POINT_GAP), (float)(Math.Sin(angle) * length * CONTROL_POINT_GAP));
-            control1 = origin + controlVector;
-            control2 = destination - controlVector;*/
         }
 
         public void onAnimationTrigger(ScreenAnimation screenAnimaton)

@@ -1637,7 +1637,34 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna.xnb</Output>
-      <Time>2014-10-14T01:40:55.8037109-04:00</Time>
+      <Time>2014-10-16T21:25:19.7841796-04:00</Time>
+    </Item>
+    <Item>
+      <Source>cgwg-xna_new.fx</Source>
+      <Name>cgwg-xna_new</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna_new.xnb</Output>
+      <Time>2014-10-16T22:31:24.8554687-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Bloom.fx</Source>
+      <Name>Bloom</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\Bloom.xnb</Output>
+      <Time>2008-04-24T11:54:27.9463955-04:00</Time>
+    </Item>
+    <Item>
+      <Source>BloomExtract.fx</Source>
+      <Name>BloomExtract</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\BloomExtract.xnb</Output>
+      <Time>2014-10-19T00:54:53.1074218-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
