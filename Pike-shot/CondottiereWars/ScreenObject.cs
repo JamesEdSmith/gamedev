@@ -268,7 +268,7 @@ namespace PikeAndShot
 
     public class Loot : ScreenAnimation
     {
-        static float FLASH_TIME = 5000f;
+        static float FLASH_TIME = 3000f;
 
         public Loot(BattleScreen screen, Vector2 position)
             : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.LOOT, new Rectangle(0, 0, 22, 22), 22, 22, false, true, 128, new Color(Color.Yellow.R, Color.Yellow.G, 100)), FLASH_TIME)

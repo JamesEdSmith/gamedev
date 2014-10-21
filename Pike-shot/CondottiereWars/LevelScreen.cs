@@ -14,7 +14,7 @@ using System.Collections;
 
 namespace PikeAndShot
 {
-    public class LevelScreen : BattleScreen, FormListener
+    public class LevelScreen : BattleScreen, FormListener, ScreenAnimationListener
     {
         public static float NEXT_SPAWN_POINT = 2000f;
         public static float COIN_METER_FLASH_TIME = 400f;
@@ -67,7 +67,7 @@ namespace PikeAndShot
             {
                 _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i * 4f)));
             }
-            _coinMeter = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 134), 36, 134, false, true, 128, Color.Gold);
+            _coinMeter = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 134), 36, 134, false, true, 128, new Color(Color.Yellow.R, Color.Yellow.G, 100));
             _coinMeterHurt = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 134), 36, 134, false, true, 128, Color.Red);
             _coinMeterTimer = 0f;
         }
@@ -95,7 +95,6 @@ namespace PikeAndShot
             ArrayList coinsDone = new ArrayList();
             for (int i = 0; i < _coinSprites.Count; i++)
             {
-                //((Coin)_coinSprites[i]).update(gameTime.ElapsedGameTime);
                 if (((Coin)_coinSprites[i])._position.Y >= BASE_COIN_POSITION.Y + 4f)
                 {
                     coinsDone.Add(_coinSprites[i]);
@@ -165,18 +164,22 @@ namespace PikeAndShot
 
         public void collectCoin(Soldier soldier)
         {
-            _coinMeterTimer = COIN_METER_FLASH_TIME;
             Loot loot = new Loot(this, soldier.getPosition());
             addAnimation(loot);
             LootTwinkle twinkle = new LootTwinkle(this, soldier.getPosition(), 1000f, COIN_METER_POSITION);
             addAnimation(twinkle);
             loot.addListener(twinkle);
+            twinkle.addListener(this);
+        }
+
+        public void onAnimationTrigger(ScreenAnimation screenAnimaton)
+        {
+            _coinMeterTimer = COIN_METER_FLASH_TIME;
             if (_coins < MAX_COINS)
             {
                 _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - _coins * 4f)));
                 _coins++;
             }
-            //TODO: otherwise put you into some sort of super coiny state I guess, right?
         }
 
         public override void draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -603,6 +606,5 @@ namespace PikeAndShot
                 _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[PikeAndShotGame.random.Next(7)], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
             }
         }
-
     }
 }

@@ -40,6 +40,7 @@ namespace PikeAndShot
         protected ArrayList _screenObjectsToAdd;
         protected ArrayList _screenColliders;
         protected ArrayList _screenAnimations;
+        protected ArrayList _screenAnimationsToAdd;
         public ArrayList _enemyFormations;
         protected ArrayList _terrain;
         protected ArrayList _drawJobs;
@@ -74,6 +75,7 @@ namespace PikeAndShot
             _screenObjectsToAdd = new ArrayList(40);
             _screenColliders = new ArrayList(40);
             _screenAnimations = new ArrayList(40);
+            _screenAnimationsToAdd = new ArrayList(40);
 
             _enemyFormations = new ArrayList(25);
             _looseSoldiers = new ArrayList(40);
@@ -93,6 +95,7 @@ namespace PikeAndShot
             _drawJobs = new ArrayList(255);
             _coins = 10;
             _coinSprites = new ArrayList();
+
             //for(int i = 0; i<20; i++)
             //    _coinSprites.Add(new Coin(this, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i*4f)));
         }
@@ -123,6 +126,12 @@ namespace PikeAndShot
                 _screenObjects.Add(screeny);
             }
             _screenObjectsToAdd.Clear();
+
+            foreach (ScreenAnimation screeny in this._screenAnimationsToAdd)
+            {
+                _screenAnimations.Add(screeny);
+            }
+            _screenAnimationsToAdd.Clear();
 
             foreach (Formation f in _enemyFormations)
             {
@@ -547,7 +556,7 @@ namespace PikeAndShot
 
         internal void addAnimation(ScreenAnimation screenAnimation)
         {
-            _screenAnimations.Add(screenAnimation);
+            this._screenAnimationsToAdd.Add(screenAnimation);
         }
 
         internal bool getDrawDots()
