@@ -318,6 +318,7 @@ namespace PikeAndShot
     public class LootTwinkle : ScreenAnimation, ScreenAnimationListener
     {
         private const float CONTROL_POINT_GAP = 0.25f;
+        private const float ANIMATION_TIME = 500f;
 
         private bool started;
         private float duration;
@@ -326,12 +327,13 @@ namespace PikeAndShot
         private Vector2 control1, control2;
 
         public LootTwinkle(BattleScreen screen, Vector2 position, float duration, Vector2 destination)
-            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN, new Rectangle(0, 0, 24, 14), 24, 14, false), duration)
+            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN_SPINNA, new Rectangle(0, 0, 6, 6), 6, 6, true), duration)
         {
             this.duration = duration;
             started = false;
             this.destination = destination;
             origin = new Vector2(_position.X, _position.Y);
+            this._time = ANIMATION_TIME;
         }
 
         public void onAnimationTrigger(ScreenAnimation screenAnimaton)
@@ -350,9 +352,22 @@ namespace PikeAndShot
                 if (_duration <= 0)
                 {
                     _duration = 0;
+                    _sprite.stop();
                     setDone();
                 }
                 _position = bezier(origin, control1, control2, destination, (duration - _duration) / duration);
+
+                _time -= (float)timeSpan.TotalMilliseconds;
+                if (_time < 0)
+                {
+                    _time = ANIMATION_TIME + _time;
+                }
+
+                int maxFrames = _sprite.getMaxFrames();
+                float frameTime = ANIMATION_TIME/ (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_time / frameTime) - 1;
+
+                _sprite.setFrame(frameNumber);
             }
         }
 

@@ -1666,6 +1666,15 @@
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna_new.xnb</Output>
       <Time>2014-10-16T22:31:24.8554687-04:00</Time>
     </Item>
+    <Item>
+      <Source>coin_spinna.png</Source>
+      <Name>coin_spinna</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin_spinna.xnb</Output>
+      <Time>2014-10-25T23:09:24.0849609-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
@@ -1704,7 +1713,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
-        <Value>2014-10-20T23:35:38.4082031-04:00</Value>
+        <Value>2014-10-21T00:12:32.2265625-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>

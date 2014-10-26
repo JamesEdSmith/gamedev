@@ -230,7 +230,7 @@ namespace PikeAndShot
         public static Texture2D COIN;
         public static Texture2D COIN_METER;
         public static Texture2D LOOT;
-        public static Texture2D BIG_DOT;
+        public static Texture2D COIN_SPINNA;
 
         //Utility Graphics
         public static Texture2D DOT;
@@ -476,9 +476,7 @@ namespace PikeAndShot
             DOT = Content.Load<Texture2D>(@"dot");
             SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
 
-            //BIG_DOT = new Texture2D(graphics.GraphicsDevice, 4, 4);
-            //Color[] yellowPixels = { Color.Gold, Color.Yellow, Color.Yellow, Color.Yellow };
-            //BIG_DOT.SetData<Color>(yellowPixels);
+            COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
 
             _gameScreens = new ArrayList(3);
 
