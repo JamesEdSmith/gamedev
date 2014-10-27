@@ -45,6 +45,7 @@ namespace PikeAndShot
         public ArrayList _enemyFormations;
         protected ArrayList _terrain;
         protected ArrayList _drawJobs;
+        protected ArrayList _enemyFormationsToAdd;
 
         public PikeAndShotGame _game;
 
@@ -77,6 +78,7 @@ namespace PikeAndShot
             _screenColliders = new ArrayList(40);
             _screenAnimations = new ArrayList(40);
             _screenAnimationsToAdd = new ArrayList(40);
+            _enemyFormationsToAdd = new ArrayList(3);
 
             _enemyFormations = new ArrayList(25);
             _looseSoldiers = new ArrayList(40);
@@ -140,6 +142,11 @@ namespace PikeAndShot
                         _deadFormations.Add(f);
                 }
             }
+
+            foreach (Formation f in _enemyFormationsToAdd)
+                _enemyFormations.Add(f);
+
+            _enemyFormationsToAdd.Clear();
             
             //checking for empty or off screen formations
             foreach (Formation f in _deadFormations)

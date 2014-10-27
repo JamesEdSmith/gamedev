@@ -111,24 +111,24 @@ namespace PikeAndShot
             _draws = 0;
         }
 
-        public bool loseCoin()
+        public void loseCoin(int soldierType)
         {
             _coinMeterHurtTimer = COIN_METER_HURT_FLASH_TIME;
             if (_coins > 0)
             {
-                ((Coin)_coinSprites[_coinSprites.Count - 1]).setDone();
-                _coinSprites.RemoveAt(_coinSprites.Count - 1);
-                //TODO: make sure this isn't doing some Screen object not getting removed fuckery
                 _coins--;
+                ((Coin)_coinSprites[_coinSprites.Count - 1]).setDone();
 
                 if (_coins < 1)
                 {
                     retreat();
-                    return false;
                 }
-                return true;
+                else
+                {
+                    spawnRescue(soldierType);
+                }
+                _coinSprites.RemoveAt(_coinSprites.Count - 1);
             }
-            return false;
         }
 
         public void retreat()
@@ -145,7 +145,7 @@ namespace PikeAndShot
             }
         }
 
-        public void spawnRescue(int type)
+        public Vector2 spawnRescue(int type)
         {
             EnemyFormation formation;
             if (PikeAndShotGame.random.Next(100) > 49)
@@ -159,7 +159,8 @@ namespace PikeAndShot
                     _formation._position.X, 0f - (float)Soldier.HEIGHT * 2f, 1, SIDE_PLAYER);
             }
             assignRescue(formation, type);
-            _enemyFormations.Add(formation);
+            _enemyFormationsToAdd.Add(formation);
+            return formation.getPosition();
         }
 
         public void collectCoin(Soldier soldier)
@@ -174,11 +175,14 @@ namespace PikeAndShot
 
         public void onAnimationTrigger(ScreenAnimation screenAnimaton)
         {
-            _coinMeterTimer = COIN_METER_FLASH_TIME;
-            if (_coins < MAX_COINS)
+            if (screenAnimaton is LootTwinkle)
             {
-                _coinSprites.Add(new Coin(this, BASE_COIN_START_POSITION, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - _coins * 4f)));
-                _coins++;
+                _coinMeterTimer = COIN_METER_FLASH_TIME;
+                if (_coins < MAX_COINS)
+                {
+                    _coinSprites.Add(new Coin(this, BASE_COIN_START_POSITION, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - _coins * 4f)));
+                    _coins++;
+                }
             }
         }
 

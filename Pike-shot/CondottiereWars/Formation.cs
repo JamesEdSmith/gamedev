@@ -1891,7 +1891,6 @@ namespace PikeAndShot
                 foreach (Soldier s in this.getSoldiers())
                 {
                     s._destination = new Vector2(_position.X, _position.Y);
-                    //s.setSpeed(this.getSpeed());
                     s.update(timeSpan);
                 }
             }

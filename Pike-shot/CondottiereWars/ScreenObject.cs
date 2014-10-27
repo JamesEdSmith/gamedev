@@ -227,32 +227,33 @@ namespace PikeAndShot
 
         public override void update(TimeSpan timeSpan)
         {
-            if (_position.Y != finalPosition.Y)
+            if (!_drop)
             {
-                velocity += GRAVITY * (float)timeSpan.TotalSeconds;
-                _position.Y += velocity;
-
-                if (_position.Y > finalPosition.Y)
-                    _position.Y = finalPosition.Y;
-            }
-            else if (!doneFlashing)
-            {
-                _time -= (float)timeSpan.TotalMilliseconds;
-
-                if (_time <= 0)
+                if (_position.Y != finalPosition.Y)
                 {
-                    _time = 0;
-                    doneFlashing = true;
+                    velocity += GRAVITY * (float)timeSpan.TotalSeconds;
+                    _position.Y += velocity;
+
+                    if (_position.Y > finalPosition.Y)
+                        _position.Y = finalPosition.Y;
                 }
+                else if (!doneFlashing)
+                {
+                    _time -= (float)timeSpan.TotalMilliseconds;
+
+                    if (_time <= 0)
+                    {
+                        _time = 0;
+                        doneFlashing = true;
+                    }
+                }
+
+                int maxFrames = _sprite.getMaxFrames();
+                float deathFrameTime = COIN_TIME / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_time / deathFrameTime) - 1;
+                _sprite.setFrame(frameNumber);
             }
-
-            int maxFrames = _sprite.getMaxFrames();
-            float deathFrameTime = COIN_TIME / (float)maxFrames;
-            int frameNumber = maxFrames - (int)(_time / deathFrameTime) - 1;
-
-            _sprite.setFrame(frameNumber);
-
-            if (_drop)
+            else
             {
                 velocity += GRAVITY * (float)timeSpan.TotalSeconds;
                 _position.Y += velocity;
@@ -273,6 +274,7 @@ namespace PikeAndShot
         internal void drop()
         {
             _drop = true;
+            velocity = 10f;
         }
     }
 
@@ -340,6 +342,13 @@ namespace PikeAndShot
         {
             started = true;
             origin -= _screen.getMapOffset();
+            control1 = new Vector2(origin.X, destination.Y);
+            control2 = new Vector2((origin.X - destination.X) / 2f, destination.Y);
+        }
+
+        public void start()
+        {
+            started = true;
             control1 = new Vector2(origin.X, destination.Y);
             control2 = new Vector2((origin.X - destination.X) / 2f, destination.Y);
         }
