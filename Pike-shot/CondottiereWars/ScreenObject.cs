@@ -90,6 +90,9 @@ namespace PikeAndShot
 
     public class ScreenAnimation
     {
+        public const float GRAVITY = 9.8f;
+        public static Vector2 GRAVITY_VECTOR = new Vector2(0f, GRAVITY);
+
         public Vector2 _position;
         public float _drawingY;
         protected int _side;
@@ -205,7 +208,6 @@ namespace PikeAndShot
     {
         static float COIN_TIME = 400f;
         private bool _drop;
-        private const float GRAVITY = 9.8f;
         private float velocity;
         private bool doneFlashing;
         Vector2 finalPosition;
@@ -280,7 +282,7 @@ namespace PikeAndShot
 
     public class Loot : ScreenAnimation
     {
-        static float FLASH_TIME = 3000f;
+        static float FLASH_TIME = 1500f;
 
         public Loot(BattleScreen screen, Vector2 position)
             : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.LOOT, new Rectangle(0, 0, 22, 22), 22, 22, false, true, 128, new Color(Color.Yellow.R, Color.Yellow.G, 100)), FLASH_TIME)
@@ -317,10 +319,89 @@ namespace PikeAndShot
         }
     }
 
+    public class LootSpill : ScreenAnimation
+    {
+        private const float ANIMATION_TIME = 250f;
+        private float startingDelay;
+        private Vector2 velocity;        
+        bool started;
+        
+        public LootSpill(BattleScreen screen, Vector2 position, float duration, Vector2 destination)
+            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN_SPINNA, new Rectangle(0, 0, 6, 6), 6, 6, true), duration)
+        {
+            reset(position);
+            _done = true;
+        }
+
+        public void reset(Vector2 position)
+        {
+            this._time = ANIMATION_TIME;
+            _position = new Vector2(position.X, position.Y);
+            startingDelay = (float)(PikeAndShotGame.random.NextDouble() * 100f);
+
+            velocity = new Vector2((float)(PikeAndShotGame.random.NextDouble() * PikeAndShotGame.getRandPlusMinus()),
+                (float)(PikeAndShotGame.random.NextDouble() * -2f));
+
+            started = false;
+            _done = false;
+            _screen.addAnimation(this);
+        }
+
+        public override void update(TimeSpan timeSpan)
+        {
+            if (!_done && started)
+            {
+                //use this if you want it to finish before it gets to the bottom of the screen
+                /*_duration -= (float)timeSpan.TotalMilliseconds;
+                if (_duration <= 0)
+                {
+                    _duration = 0;
+                    _sprite.stop();
+                    setDone();
+                }*/
+
+                velocity += GRAVITY_VECTOR * (float)timeSpan.TotalMilliseconds * 0.001f;
+                _position += velocity;
+
+                if (_position.Y > PikeAndShotGame.SCREENHEIGHT)
+                {
+                    _sprite.stop();
+                    setDone();
+                }
+
+                _time -= (float)timeSpan.TotalMilliseconds;
+                if (_time < 0)
+                {
+                    _time = ANIMATION_TIME + _time;
+                }
+
+                int maxFrames = _sprite.getMaxFrames();
+                float frameTime = ANIMATION_TIME / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_time / frameTime) - 1;
+
+                _sprite.setFrame(frameNumber);
+
+            }
+
+            startingDelay -= (float)timeSpan.TotalMilliseconds;
+
+            if (startingDelay <= 0)
+                started = true;
+        }
+
+
+        public override void draw(SpriteBatch spritebatch)
+        {
+            if (started)
+                _sprite.draw(spritebatch, _position, _side);
+        }
+
+    }
+
     public class LootTwinkle : ScreenAnimation, ScreenAnimationListener
     {
         private const float CONTROL_POINT_GAP = 0.25f;
-        private const float ANIMATION_TIME = 500f;
+        private const float ANIMATION_TIME = 250f;
 
         private bool started;
         private float duration;

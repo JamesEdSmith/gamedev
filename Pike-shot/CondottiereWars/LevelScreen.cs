@@ -32,6 +32,7 @@ namespace PikeAndShot
         private Sprite _coinMeterHurt;
         private float _coinMeterTimer;
         private float _coinMeterHurtTimer;
+        LootSpill[] lootSpills;
 
         public LevelScreen(PikeAndShotGame game, Level level)
             : base(game)
@@ -70,6 +71,11 @@ namespace PikeAndShot
             _coinMeter = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 134), 36, 134, false, true, 128, new Color(Color.Yellow.R, Color.Yellow.G, 100));
             _coinMeterHurt = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 134), 36, 134, false, true, 128, Color.Red);
             _coinMeterTimer = 0f;
+            lootSpills = new LootSpill[4];
+            for (int i = 0; i < 4; i++)
+            {
+                lootSpills[i] = new LootSpill(this, Vector2.Zero, 0f, Vector2.Zero);
+            }
         }
 
         public override void update(GameTime gameTime)
@@ -114,10 +120,15 @@ namespace PikeAndShot
         public void loseCoin(int soldierType)
         {
             _coinMeterHurtTimer = COIN_METER_HURT_FLASH_TIME;
+            
             if (_coins > 0)
             {
                 _coins--;
                 ((Coin)_coinSprites[_coinSprites.Count - 1]).setDone();
+                foreach (LootSpill spill in lootSpills)
+                {
+                    spill.reset(((Coin)_coinSprites[_coinSprites.Count - 1])._position);
+                }
 
                 if (_coins < 1)
                 {
@@ -166,9 +177,7 @@ namespace PikeAndShot
         public void collectCoin(Soldier soldier)
         {
             Loot loot = new Loot(this, soldier.getPosition());
-            addAnimation(loot);
-            LootTwinkle twinkle = new LootTwinkle(this, soldier.getPosition(), 1000f, COIN_METER_POSITION + new Vector2(_coinMeter.getBoundingRect().Width/2, 0f));
-            addAnimation(twinkle);
+            LootTwinkle twinkle = new LootTwinkle(this, soldier.getPosition(), 500f, COIN_METER_POSITION + new Vector2(_coinMeter.getBoundingRect().Width/2, 0f));
             loot.addListener(twinkle);
             twinkle.addListener(this);
         }

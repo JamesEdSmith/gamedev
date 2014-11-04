@@ -644,6 +644,16 @@ namespace PikeAndShot
                 return number * -1;
         }
 
+        internal static int getRandPlusMinus()
+        {
+            int number = 1;
+
+            if (random.Next(2) == 0)
+                return number;
+            else
+                return number * -1;
+        }
+
         internal void fullScreen()
         {
             graphics.ToggleFullScreen();
