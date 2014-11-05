@@ -25,10 +25,6 @@ namespace PikeAndShot
 
         public const float SCROLLPOINT = 0.33f;
         public const float BATTLEHEIGHTEXTEND = 384f;
-        public static Vector2 COIN_METER_POSITION = new Vector2(25f, 25f);
-        public static Vector2 BASE_COIN_START_POSITION = new Vector2(25f + 6f, 30f);
-        public static Vector2 BASE_COIN_POSITION = new Vector2(25f + 6f, 113f);
-        public static int MAX_COINS = 20;
 
         private bool _drawDots;
 
@@ -58,8 +54,6 @@ namespace PikeAndShot
         protected double _elapsedTime;
         protected Vector2 _mapOffset;
         protected bool _active;
-        protected int _coins;
-        protected ArrayList _coinSprites;
 
         public BattleScreen(PikeAndShotGame game)
         {
@@ -96,8 +90,6 @@ namespace PikeAndShot
             }
 
             _drawJobs = new ArrayList(255);
-            _coins = 10;
-            _coinSprites = new ArrayList();
         }
 
         /// <summary>

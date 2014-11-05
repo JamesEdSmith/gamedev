@@ -229,6 +229,8 @@ namespace PikeAndShot
 
         public static Texture2D COIN;
         public static Texture2D COIN_METER;
+        public static Texture2D COIN_METER_BACK;
+        public static Texture2D DOPPEL_METER;
         public static Texture2D LOOT;
         public static Texture2D COIN_SPINNA;
 
@@ -471,7 +473,9 @@ namespace PikeAndShot
 
             COIN = Content.Load<Texture2D>(@"coin");
             COIN_METER = Content.Load<Texture2D>(@"coin_meter");
+            COIN_METER_BACK = Content.Load<Texture2D>(@"coin_meter_back");
             LOOT = Content.Load<Texture2D>(@"loot");
+            DOPPEL_METER = Content.Load<Texture2D>(@"doppel_meter");
 
             DOT = Content.Load<Texture2D>(@"dot");
             SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");

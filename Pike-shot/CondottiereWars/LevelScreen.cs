@@ -16,9 +16,15 @@ namespace PikeAndShot
 {
     public class LevelScreen : BattleScreen, FormListener, ScreenAnimationListener
     {
+        public static int MAX_COINS = 20;
         public static float NEXT_SPAWN_POINT = 2000f;
         public static float COIN_METER_FLASH_TIME = 400f;
         public static float COIN_METER_HURT_FLASH_TIME = 400f;
+        public static Vector2 COIN_METER_POSITION = new Vector2(25f, 25f);
+        public static float COIN_METER_OFFSET = 140f + 25f;
+        public static Vector2 BASE_COIN_START_POSITION = new Vector2(COIN_METER_POSITION.X + 6f, COIN_METER_POSITION.Y + 5f);
+        public static Vector2 BASE_COIN_POSITION = new Vector2(COIN_METER_POSITION.X + 6f, COIN_METER_POSITION.Y + 88f);
+        const float COIN_METER_DROPTIME = 500f;
 
         protected EnemyFormation _newEnemyFormation;
         protected Level _levelData;
@@ -33,6 +39,13 @@ namespace PikeAndShot
         private float _coinMeterTimer;
         private float _coinMeterHurtTimer;
         LootSpill[] lootSpills;
+        protected int _coins;
+        protected int _doubleCoins;
+        protected ArrayList _coinSprites;
+        protected ArrayList _doubleCoinSprites;
+        float coinMeterTimer;
+        Vector2 coinMeterPosition;
+        bool doppel;
 
         public LevelScreen(PikeAndShotGame game, Level level)
             : base(game)
@@ -59,6 +72,12 @@ namespace PikeAndShot
             _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+
+            _coins = 10;
+            _doubleCoins = 0;
+            _coinSprites = new ArrayList(20);
+            _doubleCoinSprites = new ArrayList(20);
+            coinMeterPosition = new Vector2(COIN_METER_POSITION.X, COIN_METER_POSITION.Y);
             
             _usedFormations = new List<int>(_levelData.formations.Count);
             _spawners = new ArrayList(2);
@@ -98,7 +117,7 @@ namespace PikeAndShot
             }
             _deadSpawners.Clear();
 
-            ArrayList coinsDone = new ArrayList();
+            /*ArrayList coinsDone = new ArrayList();
             for (int i = 0; i < _coinSprites.Count; i++)
             {
                 if (((Coin)_coinSprites[i])._position.Y >= BASE_COIN_POSITION.Y + 4f)
@@ -111,7 +130,24 @@ namespace PikeAndShot
             foreach (Coin c in coinsDone)
                 _coinSprites.Remove(c);
 
-            coinsDone.Clear();
+            coinsDone.Clear();*/
+
+            if (coinMeterTimer > 0)
+            {
+                if(doppel)
+                    coinMeterPosition.Y = easeInEaseOut(COIN_METER_DROPTIME - coinMeterTimer, COIN_METER_POSITION.Y, COIN_METER_OFFSET, COIN_METER_DROPTIME);
+                else
+                    coinMeterPosition.Y = easeInEaseOut(COIN_METER_DROPTIME - coinMeterTimer, COIN_METER_OFFSET, COIN_METER_POSITION.Y, COIN_METER_DROPTIME);
+
+                //new Coin(this, BASE_COIN_START_POSITION, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - _coins * 4f)));
+                int i = 0;
+                foreach (Coin c in _coinSprites)
+                {
+                    c.finalPosition.Y = coinMeterPosition.Y + 88 - i++ * 4f;
+                }
+
+                coinMeterTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
 
             _fps = (double)_draws / gameTime.ElapsedGameTime.TotalSeconds;
             _draws = 0;
@@ -182,15 +218,28 @@ namespace PikeAndShot
             twinkle.addListener(this);
         }
 
+        public float easeInEaseOut (float t, float b, float c, float d) 
+        {
+            t /= d/2;
+            if (t < 1) return c/2*t*t + b;
+            t--;
+            return -c/2 * (t*(t-2) - 1) + b;
+        }
+
         public void onAnimationTrigger(ScreenAnimation screenAnimaton)
         {
             if (screenAnimaton is LootTwinkle)
             {
-                _coinMeterTimer = COIN_METER_FLASH_TIME;
                 if (_coins < MAX_COINS)
                 {
+                    _coinMeterTimer = COIN_METER_FLASH_TIME;
                     _coinSprites.Add(new Coin(this, BASE_COIN_START_POSITION, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - _coins * 4f)));
                     _coins++;
+                    if (_coins == MAX_COINS && !doppel)
+                    {
+                        doppel = true;
+                        coinMeterTimer = COIN_METER_DROPTIME;
+                    }
                 }
             }
         }
@@ -203,23 +252,25 @@ namespace PikeAndShot
 
             //draw UI
 
+            spriteBatch.Draw(PikeAndShotGame.COIN_METER_BACK, coinMeterPosition, Color.Black);
+
             for (int i = 0; i < _coinSprites.Count; i++)
             {
                 ((Coin)_coinSprites[i]).draw(spriteBatch);
             }
 
-            spriteBatch.Draw(PikeAndShotGame.COIN_METER, COIN_METER_POSITION, Color.White);
+            spriteBatch.Draw(PikeAndShotGame.COIN_METER, coinMeterPosition, Color.White);
 
             //I draw the flash overtop, I was worried about missing a frame.
             if (_coinMeterTimer > 0)
             {
-                _coinMeter.draw(spriteBatch, COIN_METER_POSITION, SIDE_PLAYER, _coinMeterTimer / COIN_METER_FLASH_TIME);
+                _coinMeter.draw(spriteBatch, coinMeterPosition, SIDE_PLAYER, _coinMeterTimer / COIN_METER_FLASH_TIME);
                 _coinMeterTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             }
 
             if (_coinMeterHurtTimer > 0)
             {
-                _coinMeterHurt.draw(spriteBatch, COIN_METER_POSITION, SIDE_PLAYER, _coinMeterHurtTimer / COIN_METER_HURT_FLASH_TIME);
+                _coinMeterHurt.draw(spriteBatch, coinMeterPosition, SIDE_PLAYER, _coinMeterHurtTimer / COIN_METER_HURT_FLASH_TIME);
                 _coinMeterHurtTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             }
 
@@ -380,7 +431,8 @@ namespace PikeAndShot
             }
             if (keyboardState.IsKeyDown(Keys.C) && previousKeyboardState.IsKeyUp(Keys.C))
             {
-                _formation.haltHorses();
+                //_formation.haltHorses();
+                collectCoin(new Brigand(this, getMapOffset().X, getMapOffset().Y + PikeAndShotGame.SCREENHEIGHT * 0.5f, SIDE_PLAYER));
             }
             if (keyboardState.IsKeyDown(Keys.V) && previousKeyboardState.IsKeyUp(Keys.V))
             {

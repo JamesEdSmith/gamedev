@@ -210,7 +210,7 @@ namespace PikeAndShot
         private bool _drop;
         private float velocity;
         private bool doneFlashing;
-        Vector2 finalPosition;
+        public Vector2 finalPosition;
 
         public Coin(BattleScreen screen, Vector2 position, Vector2 finalPosition)
             : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN, new Rectangle(0, 0, 24, 14), 24, 14, false, true, 128), COIN_TIME)
