@@ -28,6 +28,7 @@ namespace PikeAndShot
         public bool flashable;
         private int flashStartThreshold;
         private Color flashColor;
+        private float dampening;
 
         public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop)
         {
@@ -46,12 +47,13 @@ namespace PikeAndShot
             _animationSpeed = _animationTime = 1000;
         }
 
-        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreshold, Color color):
+        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreshold, Color color, float dampening):
             this(bitmap, boundingRect, frameWidth, frameHeight, loop)
         {
             this.flashable = true;
             this.flashStartThreshold = flashStartThreshold;
             this.flashColor = color;
+            this.dampening = dampening;
 
             //create flash texture
             Color[] pixelData = new Color[bitmap.Width * bitmap.Height];
@@ -67,12 +69,12 @@ namespace PikeAndShot
         }
 
         public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable) :
-            this(bitmap, boundingRect, frameWidth, frameHeight, loop, flashable, 25, Color.White)
+            this(bitmap, boundingRect, frameWidth, frameHeight, loop, flashable, 25, Color.White, 2)
         {
         }
 
         public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreashold) :
-            this(bitmap, boundingRect, frameWidth, frameHeight, loop, flashable, flashStartThreashold, Color.White)
+            this(bitmap, boundingRect, frameWidth, frameHeight, loop, flashable, flashStartThreashold, Color.White, 2)
         {
         }
 
@@ -209,14 +211,19 @@ namespace PikeAndShot
             Color color = Color.Black;
             color.A = (byte)(255f * flashAmount);
 
-            if(color.A < flashStartThreshold)
+            if (color.A < flashStartThreshold)
             {
                 Color white = flashColor;
                 white.A -= (byte)(255f * (float)color.A / (float)flashStartThreshold);
                 color = white;
             }
             else
-                color.A /= 2;
+            {
+                float a = (float)color.A / dampening;
+                if(a > 255)
+                    a= 255;
+                color.A = (byte)a;
+            }
 
             if (side == BattleScreen.SIDE_PLAYER)
             {
