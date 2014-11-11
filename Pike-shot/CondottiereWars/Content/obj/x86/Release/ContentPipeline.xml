@@ -1631,6 +1631,33 @@
       <Time>2014-10-05T17:55:47.8408203-04:00</Time>
     </Item>
     <Item>
+      <Source>coin_spinna.png</Source>
+      <Name>coin_spinna</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin_spinna.xnb</Output>
+      <Time>2014-10-25T23:09:24.0849609-04:00</Time>
+    </Item>
+    <Item>
+      <Source>doppel_meter.png</Source>
+      <Name>doppel_meter</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\doppel_meter.xnb</Output>
+      <Time>2014-11-04T21:55:24.2382812-05:00</Time>
+    </Item>
+    <Item>
+      <Source>coin_meter_back.png</Source>
+      <Name>coin_meter_back</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin_meter_back.xnb</Output>
+      <Time>2014-11-04T22:02:11.5849609-05:00</Time>
+    </Item>
+    <Item>
       <Source>cgwg-xna.fx</Source>
       <Name>cgwg-xna</Name>
       <Importer>EffectImporter</Importer>
@@ -1665,33 +1692,6 @@
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna_new.xnb</Output>
       <Time>2014-10-16T22:31:24.8554687-04:00</Time>
-    </Item>
-    <Item>
-      <Source>coin_spinna.png</Source>
-      <Name>coin_spinna</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin_spinna.xnb</Output>
-      <Time>2014-10-25T23:09:24.0849609-04:00</Time>
-    </Item>
-    <Item>
-      <Source>doppel_meter.png</Source>
-      <Name>doppel_meter</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\doppel_meter.xnb</Output>
-      <Time>2014-11-04T21:55:24.2382812-05:00</Time>
-    </Item>
-    <Item>
-      <Source>coin_meter_back.png</Source>
-      <Name>coin_meter_back</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin_meter_back.xnb</Output>
-      <Time>2014-11-04T22:02:11.5849609-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -1731,7 +1731,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
-        <Value>2014-10-21T00:12:32.2265625-04:00</Value>
+        <Value>2014-11-09T20:59:39.81725-05:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>

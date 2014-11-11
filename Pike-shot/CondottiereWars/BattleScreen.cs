@@ -216,9 +216,12 @@ namespace PikeAndShot
                     _deadThings.Add(ani);
             }
 
-            foreach (ScreenAnimation ani in _deadThings)
+            foreach (Object ani in _deadThings)
             {
-                _screenAnimations.Remove(ani);
+                if (ani is ScreenAnimation)
+                    _screenAnimations.Remove(ani);
+                else if (ani is ScreenObject)
+                    _screenObjects.Remove(ani);
             }
 
             _deadThings.Clear();

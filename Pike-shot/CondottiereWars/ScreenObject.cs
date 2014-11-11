@@ -211,6 +211,7 @@ namespace PikeAndShot
         private float velocity;
         private bool doneFlashing;
         public Vector2 finalPosition;
+        private float dropTarget = 0;
 
         public Coin(BattleScreen screen, Vector2 position, Vector2 finalPosition)
             : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN, new Rectangle(0, 0, 24, 14), 24, 14, false, true, 128), COIN_TIME)
@@ -259,6 +260,9 @@ namespace PikeAndShot
             {
                 velocity += GRAVITY * (float)timeSpan.TotalSeconds;
                 _position.Y += velocity;
+
+                if (_position.Y >= dropTarget)
+                    setDone();
             }
         }
 
@@ -273,10 +277,11 @@ namespace PikeAndShot
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(0,2), Color.White);
         }
 
-        internal void drop()
+        internal void drop(float target)
         {
             _drop = true;
-            velocity = 10f;
+            dropTarget = target;
+            velocity = -0f;
         }
     }
 

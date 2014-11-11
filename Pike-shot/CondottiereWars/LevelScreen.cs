@@ -47,6 +47,7 @@ namespace PikeAndShot
         float coinMeterTimer;
         Vector2 coinMeterPosition;
         bool doppel;
+        ArrayList coinsDone;
 
         public LevelScreen(PikeAndShotGame game, Level level)
             : base(game)
@@ -97,6 +98,8 @@ namespace PikeAndShot
             {
                 lootSpills[i] = new LootSpill(this, Vector2.Zero, 0f, Vector2.Zero);
             }
+
+            coinsDone = new ArrayList();
         }
 
         public override void update(GameTime gameTime)
@@ -119,20 +122,29 @@ namespace PikeAndShot
             }
             _deadSpawners.Clear();
 
-            /*ArrayList coinsDone = new ArrayList();
-            for (int i = 0; i < _coinSprites.Count; i++)
+            foreach(Coin c in _coinSprites)
             {
-                if (((Coin)_coinSprites[i])._position.Y >= BASE_COIN_POSITION.Y + 4f)
+                if (c.isDone())
                 {
-                    coinsDone.Add(_coinSprites[i]);
-                    ((Coin)_coinSprites[i]).setDone();
+                    coinsDone.Add(c);
                 }
             }
-
             foreach (Coin c in coinsDone)
                 _coinSprites.Remove(c);
 
-            coinsDone.Clear();*/
+            coinsDone.Clear();
+
+            foreach (Coin c in _doppelCoinSprites)
+            {
+                if (c.isDone())
+                {
+                    coinsDone.Add(c);
+                }
+            }
+            foreach (Coin c in coinsDone)
+                _doppelCoinSprites.Remove(c);
+
+            coinsDone.Clear();
 
             if (coinMeterTimer > 0)
             {
@@ -142,7 +154,7 @@ namespace PikeAndShot
                 }
                 else
                 {
-                    coinMeterPosition.Y = easeInEaseOut(COIN_METER_DROPTIME - coinMeterTimer, COIN_METER_OFFSET, COIN_METER_POSITION.Y, COIN_METER_DROPTIME);
+                    coinMeterPosition.Y = easeInEaseOut(COIN_METER_DROPTIME - coinMeterTimer, COIN_METER_POSITION.Y + COIN_METER_OFFSET, -COIN_METER_OFFSET, COIN_METER_DROPTIME);
                 }
                 coinMeterTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             }
@@ -165,8 +177,39 @@ namespace PikeAndShot
         public void loseCoin(int soldierType)
         {
             _coinMeterHurtTimer = COIN_METER_HURT_FLASH_TIME;
-            
-            if (_coins > 0)
+            int i = 0;
+            if (_doubleCoins > 0)
+            {
+                _doubleCoins = 0;
+                doppel = false;
+                coinMeterTimer = COIN_METER_DROPTIME;
+                LootSpill spill;
+                foreach (Coin c in _doppelCoinSprites)
+                {
+                    c.setDone();
+                    for (int j = 0; j < 3; j++)
+                    {
+                        spill = new LootSpill(this, Vector2.Zero, 0f, Vector2.Zero);
+                        spill.reset(c._position);
+                    }
+                }
+
+                foreach (Coin c in _coinSprites)
+                {
+                    c.finalPosition.Y = COIN_METER_POSITION.Y + 88 - i++ * 4f;
+                }
+                _coins--;
+                ((Coin)_coinSprites[_coinSprites.Count - 1]).setDone();
+                foreach (LootSpill spilly in lootSpills)
+                {
+                    spilly.reset(((Coin)_coinSprites[_coinSprites.Count - 1])._position);
+                }
+                if (soldierType != Soldier.TYPE_SWINGER)
+                {
+                    spawnRescue(soldierType);
+                }
+            }
+            else if (_coins > 0)
             {
                 _coins--;
                 ((Coin)_coinSprites[_coinSprites.Count - 1]).setDone();
@@ -179,11 +222,10 @@ namespace PikeAndShot
                 {
                     retreat();
                 }
-                else
+                else if (soldierType != Soldier.TYPE_SWINGER)
                 {
                     spawnRescue(soldierType);
                 }
-                _coinSprites.RemoveAt(_coinSprites.Count - 1);
             }
         }
 
@@ -263,13 +305,12 @@ namespace PikeAndShot
                     _doubleCoins++;
                     if (_doubleCoins == MAX_COINS)
                     {
-                        doppel = false;
-                        coinMeterTimer = COIN_METER_DROPTIME;
-                        int i = 0;
-                        foreach (Coin c in _coinSprites)
+                        foreach (Coin c in _doppelCoinSprites)
                         {
-                            c.finalPosition.Y = COIN_METER_POSITION.Y + 88 - i++ * 4f;
+                            c.drop(BASE_COIN_POSITION.Y + 14f);
                         }
+                        _doubleCoins = 0;
+                        spawnRescue(Soldier.TYPE_SWINGER);
                     }
                 }
             }
@@ -561,13 +602,20 @@ namespace PikeAndShot
             if (_formation.numberOfPikes < 10 || _formation.numberOfShots < 10)
             {
                 Soldier soldier;
-                if (type == Soldier.TYPE_PIKE)
+                switch(type)
                 {
-                    soldier = new Pikeman(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER);
-                }
-                else
-                {
-                    soldier = new Arquebusier(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER);
+                    case Soldier.TYPE_PIKE:
+                        soldier = new Pikeman(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER);
+                        break;
+                    case Soldier.TYPE_SHOT:
+                        soldier = new Arquebusier(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER);
+                        break;
+                    case Soldier.TYPE_SWINGER:
+                        soldier = new Dopple(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER);
+                        break;
+                    default:
+                        soldier = new Dopple(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER);
+                        break;
                 }
                 formation.addSoldier(soldier);
                 soldier.setSpeed(0.075f);

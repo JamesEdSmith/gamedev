@@ -557,7 +557,6 @@ namespace PikeAndShot
                 {
                     GraphicsDevice.Viewport = viewport;
                     GraphicsDevice.Clear(new Color(5, 5, 5, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
-
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
 
                     if (_currScreen != null)
@@ -573,8 +572,7 @@ namespace PikeAndShot
                 {
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
                     GraphicsDevice.Viewport = viewport;
-                    GraphicsDevice.Clear(new Color(5, 5, 5, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
-
+                    GraphicsDevice.Clear(new Color(8, 8, 8, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
                     //get rid of blurry sprites
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
 
