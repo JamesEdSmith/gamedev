@@ -386,7 +386,10 @@ namespace PikeAndShot
                 && (_state != Soldier.STATE_ATTACKING || !(this is Arquebusier || this is Dopple))
                 && (_state != Soldier.STATE_RELOADING || !(this is Dopple)))
             {
-                _delta = _destination - _position;
+                if(this is Dopple)
+                    _delta = _destination - _position;
+                else
+                    _delta = _destination - _position;
                 _dest = _destination;
             }
             else
@@ -2066,6 +2069,7 @@ namespace PikeAndShot
         protected override void shotDone()
         {
             _shotMade = true;
+            _meleeDestination = _position;
             _screen.addScreenObject(_weaponSwing);
         }
 
