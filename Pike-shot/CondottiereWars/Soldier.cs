@@ -1137,7 +1137,7 @@ namespace PikeAndShot
             _screen.addLooseSoldier(this);
 
             //I want guys that are running in as replacements to count as a loss
-            if ((myFormation == _screen.getPlayerFormation() || (this._type != TYPE_SWINGER && _side == BattleScreen.SIDE_PLAYER)) && _screen is LevelScreen)
+            if (((myFormation == _screen.getPlayerFormation() && this._type != TYPE_SWINGER) || (this._type != TYPE_SWINGER && _side == BattleScreen.SIDE_PLAYER)) && _screen is LevelScreen)
             {
                 ((LevelScreen)_screen).loseCoin(getType());
             }
@@ -1937,6 +1937,7 @@ namespace PikeAndShot
 
             _feet.setAnimationSpeed(15f / 0.11f);
             _weaponSwing = new WeaponSwing(_screen, this);
+            _screen.removeScreenObject(_weaponSwing);
             playerFormation = _screen.getPlayerFormation();
             _speed = 0.15f;
         }

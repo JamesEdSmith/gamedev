@@ -29,6 +29,7 @@ namespace PikeAndShot
         private bool _drawDots;
 
         protected ArrayList _shots;
+        protected ArrayList _moreDeadThings;
         protected ArrayList _deadThings;
         protected ArrayList _newThings;
         protected ArrayList _deadFormations;
@@ -63,6 +64,7 @@ namespace PikeAndShot
             //shot and clean up arrays
             _shots = new ArrayList(40);
             _deadThings = new ArrayList(40);
+            _moreDeadThings = new ArrayList(2);
             _newThings = new ArrayList(40);
             _deadFormations = new ArrayList(20);
 
@@ -189,6 +191,11 @@ namespace PikeAndShot
             _newThings.Clear();
 
             // clean up of dead objects
+            foreach (ScreenObject obj in _moreDeadThings)
+                _deadThings.Add(obj);
+
+            _moreDeadThings.Clear();
+
             foreach (ScreenObject obj in _deadThings)
             {
                 if (obj is Shot)
@@ -202,6 +209,9 @@ namespace PikeAndShot
                     _terrain.Remove(obj);
                     _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[PikeAndShotGame.random.Next(7)], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
                 }
+
+                if (obj is WeaponSwing)
+                    ((WeaponSwing)obj).getHeight();
 
                 _screenObjects.Remove(obj);
             }
@@ -411,7 +421,7 @@ namespace PikeAndShot
 
         public void removeScreenObject(ScreenObject so)
         {
-            _deadThings.Add(so);
+            _moreDeadThings.Add(so);
             //_screenObjects.Remove(so);
         }
 
