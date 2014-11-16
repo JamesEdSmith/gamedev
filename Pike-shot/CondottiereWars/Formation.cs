@@ -110,13 +110,16 @@ namespace PikeAndShot
             {
                 if (pike.guardTarget != null)
                 {
-                    answer = Math.Abs(pike.guardTarget.getPosition().Y - pike._destination.Y) >= pike.getHeight();
+                    if (pike is Pikeman)
+                        answer = Math.Abs(pike.guardTarget.getPosition().Y - pike._destination.Y) >= pike.getHeight();
+                    else
+                        answer = false;
 
                     if (pike.guardTarget.getState() == Soldier.STATE_DYING || pike.guardTarget.getState() == Soldier.STATE_DEAD
-                    || pike.guardTarget.getState() == Soldier.STATE_MELEE_WIN || pike.guardTarget.getState() == Soldier.STATE_MELEE_LOSS
+                    //|| pike.guardTarget.getState() == Soldier.STATE_MELEE_WIN || pike.guardTarget.getState() == Soldier.STATE_MELEE_LOSS
                     || pike.guardTarget.getState() == Soldier.STATE_ROUTE || pike.guardTarget.getState() == Soldier.STATE_ROUTED
                     || pike.guardTarget.getState() == Soldier.STATE_RETREAT
-                    || Math.Abs(pike.guardTarget.getPosition().X - this._position.X) > Soldier.WIDTH * 10f
+                    || Math.Abs(pike.guardTarget.getPosition().X - this._position.X) > pike.breakRange
                     || (answer))
                     {
                         pike.guardTarget = null;
@@ -221,7 +224,7 @@ namespace PikeAndShot
             foreach (Soldier s in _soldiers)
             {
                 s.update(timeSpan);
-                if (s.isDead() || s.getState() == Soldier.STATE_DYING || s.getState() == Soldier.STATE_ROUTE || s.getState() == Soldier.STATE_ROUTED || (s.getState() == Soldier.STATE_CHARGING && s.initCharge))
+                if (s.isDead() || s.getState() == Soldier.STATE_DYING || s.getState() == Soldier.STATE_ROUTE || s.getState() == Soldier.STATE_ROUTED || (s.getState() == Soldier.STATE_CHARGING && s.initCharge && !(s is Dopple)))
                 {
                     _soldiersToRemove.Add(s);
                     _soldierDied = true;
@@ -678,44 +681,17 @@ namespace PikeAndShot
                 }
             }
 
-            ArrayList looseDoppels = new ArrayList();
-            if (this._side == BattleScreen.SIDE_PLAYER)
-            {
-                foreach (Soldier s in _screen.getLooseSoldiers())
-                {
-                    if (s.getSide() == BattleScreen.SIDE_PLAYER && s is Dopple)
-                        looseDoppels.Add(s);
-                }
-            }
             // ACTIVATE THE DOPPELS
-            if (looseDoppels.Count == 0)
+
+            if (_supportRows.Count > 0)
             {
-                int doppleCount = 0;
-                float doppleSpacing = (MathHelper.Pi * 2f) / (float)getTotalSoldiers(Soldier.TYPE_SWINGER);
-                if (_supportRows.Count > 0)
+                foreach (Soldier d in (ArrayList)_supportRows[0])
                 {
-                    foreach (Soldier d in (ArrayList)_supportRows[0])
+                    if (d is Dopple && d.getState() != Soldier.STATE_MELEE_LOSS && d.getState() != Soldier.STATE_MELEE_WIN)
                     {
-                        if (d is Dopple && d.getState() != Soldier.STATE_MELEE_LOSS && d.getState() != Soldier.STATE_MELEE_WIN)
-                        {
-                            Dopple dopple = (Dopple)d;
-                            dopple.patternTimer = (float)doppleCount * doppleSpacing - MathHelper.PiOver2;
-                            dopple.charge();
-                            doppleCount++;
-                        }
-                    }
-                }
-            }
-            //RECALL THE DOPPELS
-            else
-            {
-                foreach (Dopple d in looseDoppels)
-                {
-                    if (d.getState() != Soldier.STATE_MELEE_LOSS && d.getState() != Soldier.STATE_MELEE_WIN && d.getState() != Soldier.STATE_READY && d.getState() != Soldier.STATE_DYING && d.getState() != Soldier.STATE_DEAD)
-                    {
-                        _screen.removeLooseSoldier(d);
-                        addSoldier(d);
-                        d.cancelAttack();
+                        Dopple dopple = (Dopple)d;
+                        dopple.charge();
+                        break;
                     }
                 }
             }
