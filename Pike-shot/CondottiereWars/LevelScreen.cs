@@ -37,6 +37,7 @@ namespace PikeAndShot
         private Sprite _coinMeter;
         private Sprite _doppelMeter;
         private Sprite _coinMeterHurt;
+        private Sprite _doppelMeterHurt;
         private float _coinMeterTimer;
         private float _coinMeterHurtTimer;
         LootSpill[] lootSpills;
@@ -92,6 +93,7 @@ namespace PikeAndShot
             _coinMeter = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 134), 36, 134, false, true, 128, new Color(Color.Yellow.R, Color.Yellow.G, 100), 2);
             _coinMeterHurt = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 134), 36, 134, false, true, 128, Color.Red,2);
             _doppelMeter = new Sprite(PikeAndShotGame.DOPPEL_METER, new Rectangle(0, 0, 36, 140), 36, 140, false, true, 80, Color.White, 0.5f);
+            _doppelMeterHurt = new Sprite(PikeAndShotGame.DOPPEL_METER, new Rectangle(0, 0, 36, 140), 36, 140, false, true, 80, Color.Red, 2f);
             _coinMeterTimer = 0f;
             lootSpills = new LootSpill[4];
             for (int i = 0; i < 4; i++)
@@ -157,6 +159,13 @@ namespace PikeAndShot
                     coinMeterPosition.Y = easeInEaseOut(COIN_METER_DROPTIME - coinMeterTimer, COIN_METER_POSITION.Y + COIN_METER_OFFSET, -COIN_METER_OFFSET, COIN_METER_DROPTIME);
                 }
                 coinMeterTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (coinMeterTimer <= 0)
+                {
+                    if (doppel)
+                        _doppelMeter.dampening = 2;
+                    else
+                        _doppelMeter.dampening = 0.5f;
+                }
             }
             else
             {
@@ -183,6 +192,7 @@ namespace PikeAndShot
                 _doubleCoins = 0;
                 doppel = false;
                 coinMeterTimer = COIN_METER_DROPTIME;
+
                 LootSpill spill;
                 foreach (Coin c in _doppelCoinSprites)
                 {
@@ -351,7 +361,11 @@ namespace PikeAndShot
             //I draw the flash overtop, I was worried about missing a frame.
             if (_coinMeterTimer > 0)
             {
-                _coinMeter.draw(spriteBatch, coinMeterPosition, SIDE_PLAYER, _coinMeterTimer / COIN_METER_FLASH_TIME);
+                if (doppel && coinMeterTimer <=0)
+                    _doppelMeter.draw(spriteBatch, COIN_METER_POSITION, SIDE_PLAYER, _coinMeterTimer / COIN_METER_FLASH_TIME);
+                else
+                    _coinMeter.draw(spriteBatch, coinMeterPosition, SIDE_PLAYER, _coinMeterTimer / COIN_METER_FLASH_TIME);
+
                 _coinMeterTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             }
 

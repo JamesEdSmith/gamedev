@@ -28,7 +28,7 @@ namespace PikeAndShot
         public bool flashable;
         private int flashStartThreshold;
         private Color flashColor;
-        private float dampening;
+        public float dampening;
 
         public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop)
         {

@@ -31,7 +31,7 @@ namespace PikeAndShot
         int _bloomTargetWidth, _bloomTargetHeight;
 
         Effect _bloomFx, _bloomExtractFx;
-        float _blurPower = 0.01f, _baseIntensity = 1.0f, _bloomIntensity = 0.6f,
+        float _blurPower = 0.0075f, _baseIntensity = 1.0f, _bloomIntensity = 0.5f,
             _baseSaturation = 1.0f, _bloomSaturation = 1.0f, _bloomThreshold = 0.1f;
 
         static SpriteFont soldierFont;
