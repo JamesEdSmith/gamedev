@@ -24,7 +24,7 @@ namespace PikeAndShot
         public static float COIN_METER_OFFSET = 132f;
         public static Vector2 BASE_COIN_START_POSITION = new Vector2(COIN_METER_POSITION.X + 6f, COIN_METER_POSITION.Y + 5f);
         public static Vector2 BASE_COIN_POSITION = new Vector2(COIN_METER_POSITION.X + 6f, COIN_METER_POSITION.Y + 88f);
-        const float COIN_METER_DROPTIME = 500f;
+        const float COIN_METER_DROPTIME = 750f;
 
         protected EnemyFormation _newEnemyFormation;
         protected Level _levelData;
@@ -713,6 +713,46 @@ namespace PikeAndShot
                 if ((bool1 && bool2) && bool3 && ef.getState() != Soldier.STATE_DEAD && ef.getState() != Soldier.STATE_DYING && ef.getSide() == SIDE_ENEMY)
                 {
                     enemies.Add(ef);
+                }
+            }
+
+            return enemies;
+        }
+
+        internal ArrayList dangerOnScreen()
+        {
+            ArrayList enemies = new ArrayList(_enemyFormations.Count * 10);
+            foreach (EnemyFormation f in _enemyFormations)
+            {
+                foreach (Soldier s in f.getSoldiers())
+                {
+                    if (s.getSide() == SIDE_ENEMY
+                        && s.getState() != Soldier.STATE_DYING && s.getState() != Soldier.STATE_DEAD
+                        && s._position.X + Soldier.WIDTH * 2f - (getMapOffset().X) > 0 
+                        && s._position.X - Soldier.WIDTH - (getMapOffset().X) < PikeAndShotGame.SCREENWIDTH
+                        && s._position.Y + Soldier.HEIGHT - (getMapOffset().Y) > 0
+                        && s._position.Y - Soldier.HEIGHT - (getMapOffset().Y) < PikeAndShotGame.SCREENHEIGHT)
+                        enemies.Add(s);
+                }
+            }
+
+            foreach (Soldier s in _looseSoldiers)
+            {
+                if (s.getSide() == SIDE_ENEMY
+                    && s.getState() != Soldier.STATE_DYING && s.getState() != Soldier.STATE_DEAD
+                    && s._position.X + Soldier.WIDTH * 2f - (getMapOffset().X) > 0
+                    && s._position.X - Soldier.WIDTH - (getMapOffset().X) < PikeAndShotGame.SCREENWIDTH
+                    && s._position.Y + Soldier.HEIGHT - (getMapOffset().Y) > 0
+                    && s._position.Y - Soldier.HEIGHT - (getMapOffset().Y) < PikeAndShotGame.SCREENHEIGHT)
+                    enemies.Add(s);
+            }
+
+            foreach (ArrayList row in _formation._supportRows)
+            {
+                foreach (Soldier d in row)
+                {
+                    if ((d is Dopple) && d.guardTarget != null)
+                        enemies.Remove(d.guardTarget);
                 }
             }
 

@@ -329,7 +329,13 @@ namespace PikeAndShot
             }
             if (guarding)
             {
-                guarding = guardTarget != null;
+                guarding = guardTarget != null && _state != STATE_DYING && _state != STATE_DEAD;
+                if (guardTarget != null && guardTarget._position.X - _screen.getMapOffset().X < 0 - WIDTH)
+                {
+                    guardTarget = null;
+                    guarding = false;
+                }
+                    
             }
 
             if (_stateToHave != -1)
@@ -757,7 +763,7 @@ namespace PikeAndShot
                 else
                     _body = _death;
             }
-            else if (_state == STATE_CHARGING)
+            else if (_state == STATE_CHARGING && !(this is Dopple))
             {
                 int maxFrames = initCharge ? _defend1.getMaxFrames() : _charge.getMaxFrames() * 2;
                 float frameTime = _chargeTime / (float)maxFrames;
@@ -766,7 +772,7 @@ namespace PikeAndShot
                 frameNumber -= 1;
                 if (initCharge)
                 {
-                    if ((!(this is Targeteer) && !(this is Dopple)) || (this is Targeteer && ((Targeteer)this)._hasShield))
+                    if (!(this is Targeteer) || (this is Targeteer && ((Targeteer)this)._hasShield))
                     {
                         _defend1.setFrame(frameNumber);
                         _body = _defend1;
@@ -1935,8 +1941,8 @@ namespace PikeAndShot
             _class = Soldier.CLASS_MERC_DOPPLE;
             _attackTime = 300f;
             _reloadTime = 500f;
-            guardTargetDist = (float)getWidth()*2f;
-            guardTargetRange = 200f;
+            guardTargetDist = (float)getWidth()*3f;
+            guardTargetRange = 2000f;
             breakRange = Soldier.WIDTH * 1000f;
             _chargeTime = 200f;
 
@@ -2053,6 +2059,20 @@ namespace PikeAndShot
                 _doppleSwing1.setFrame(frameNumber);
 
                 _body = _doppleSwing1;
+            }
+            else if (_state == STATE_CHARGING)
+            {
+                int maxFrames = _doppleReload1.getMaxFrames();
+                float frameTime = _chargeTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime)-1;
+
+                if (initCharge)
+                    _body = _idle;
+                else
+                {
+                    _doppleReload1.setFrame(_doppleReload1.getMaxFrames() - frameNumber - 1);
+                    _body = _doppleReload1;
+                }
             }
         }
 
@@ -2180,7 +2200,7 @@ namespace PikeAndShot
                 if (!initCharge)
                 {
                     initCharge = true;
-                    possibleTargets = ((LevelScreen)_screen).dangerCloseToFormation();
+                    possibleTargets = ((LevelScreen)_screen).dangerOnScreen();
 
                     Soldier bestTarget = null;
                     Vector2 bestDistance = new Vector2(99999,99999);

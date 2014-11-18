@@ -26,7 +26,7 @@ namespace PikeAndShot
         private ArrayList _meleeRows;
         //private ArrayList _swingerRows;
         private ArrayList _cavRows;
-        private ArrayList _supportRows;
+        public ArrayList _supportRows;
         private ArrayList _enemiesToGuard;
         private ArrayList _enemiesToShoot;
         private ArrayList _shotsToBlock;
@@ -682,16 +682,23 @@ namespace PikeAndShot
             }
 
             // ACTIVATE THE DOPPELS
-
+            Vector2 distanceFromHome;
             if (_supportRows.Count > 0)
             {
-                foreach (Soldier d in (ArrayList)_supportRows[0])
+                foreach (ArrayList row in _supportRows)
                 {
-                    if (d is Dopple && d.getState() != Soldier.STATE_MELEE_LOSS && d.getState() != Soldier.STATE_MELEE_WIN)
-                    {
-                        Dopple dopple = (Dopple)d;
-                        dopple.charge();
-                        break;
+                    foreach (Soldier d in row)
+                    {   
+                        if (d is Dopple && d.getState() == Soldier.STATE_READY)
+                        {
+                            distanceFromHome = d._destination - d._position;
+                            if (distanceFromHome.Length() < 5f)
+                            {
+                                Dopple dopple = (Dopple)d;
+                                dopple.charge();
+                                break;
+                            }
+                        }
                     }
                 }
             }
