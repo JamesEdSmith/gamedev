@@ -20,6 +20,8 @@ namespace PikeAndShot
 {
     public class PikeAndShotGame : Microsoft.Xna.Framework.Game
     {
+        public const bool DEBUG = true;
+
         GraphicsDeviceManager graphics;
         public static Viewport viewport;
         SpriteBatch spriteBatch;
@@ -249,10 +251,10 @@ namespace PikeAndShot
             graphics.PreferredBackBufferWidth = SCREENWIDTH;
             graphics.PreferredBackBufferHeight = SCREENHEIGHT;
             graphics.PreferMultiSampling = false;
-            //graphics.IsFullScreen = true;
+            if(!DEBUG)
+                graphics.IsFullScreen = true;
 
             Content.RootDirectory = "Content";
-
         }
 
         /// <summary>

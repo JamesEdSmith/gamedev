@@ -151,7 +151,7 @@ namespace PikeAndShot
             }
             _deadFormations.Clear();
             
-            checkCollisions();
+            checkCollisions(gameTime.ElapsedGameTime);
 
             foreach (Soldier sold in _looseSoldiers)
             {
@@ -253,7 +253,7 @@ namespace PikeAndShot
             return _mapOffset;
         }
 
-        protected void checkCollisions()
+        protected void checkCollisions(TimeSpan timeSpan)
         {
             int x = 0;
 
@@ -330,9 +330,9 @@ namespace PikeAndShot
 
                             if (collision)
                             {
-                                so.collide(co);
+                                so.collide(co, timeSpan);
                                 oneCollision = true;
-                                co.collide(so);
+                                co.collide(so, timeSpan);
                             }
                         }
                     }
@@ -342,7 +342,7 @@ namespace PikeAndShot
             }
         }
 
-        public void checkNonFatalCollision(ScreenObject so)
+        public void checkNonFatalCollision(ScreenObject so, TimeSpan timeSpan)
         {
             float soX, soY, soWidth, soHeight;
             float coX, coY, coWidth, coHeight;
@@ -410,8 +410,8 @@ namespace PikeAndShot
 
                         if (collision)
                         {
-                            so.collide(co);
-                            co.collide(so);
+                            so.collide(co, timeSpan);
+                            co.collide(so, timeSpan);
                         }
                     }
                 }
@@ -433,19 +433,23 @@ namespace PikeAndShot
         protected virtual void getInput(TimeSpan timeSpan)
         {
             // check for screen change
+            
             if (keyboardState.IsKeyDown(Keys.D1) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
             {
                 _game.setScreen(PikeAndShotGame.SCREEN_LEVELPLAY);
             }
-            else if (keyboardState.IsKeyDown(Keys.D2) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
+            if (PikeAndShotGame.DEBUG)
             {
-                _game.setScreen(PikeAndShotGame.SCREEN_FORMATIONMAKER);
+                if (keyboardState.IsKeyDown(Keys.D2) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
+                {
+                    _game.setScreen(PikeAndShotGame.SCREEN_FORMATIONMAKER);
+                }
+                else if (keyboardState.IsKeyDown(Keys.D3) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
+                {
+                    _game.setScreen(PikeAndShotGame.SCREEN_LEVELEDITOR);
+                }
             }
-            else if (keyboardState.IsKeyDown(Keys.D3) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
-            {
-                _game.setScreen(PikeAndShotGame.SCREEN_LEVELEDITOR);
-            }
-            else if (keyboardState.IsKeyDown(Keys.D0) && previousKeyboardState.IsKeyUp(Keys.D0) && keyboardState.IsKeyDown(Keys.LeftControl))
+            if (keyboardState.IsKeyDown(Keys.D0) && previousKeyboardState.IsKeyUp(Keys.D0) && keyboardState.IsKeyDown(Keys.LeftControl))
             {
                 _game.fullScreen();
             }

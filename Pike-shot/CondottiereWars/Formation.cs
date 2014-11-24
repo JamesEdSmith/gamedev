@@ -224,7 +224,7 @@ namespace PikeAndShot
             foreach (Soldier s in _soldiers)
             {
                 s.update(timeSpan);
-                if (s.isDead() || s.getState() == Soldier.STATE_DYING || s.getState() == Soldier.STATE_ROUTE || s.getState() == Soldier.STATE_ROUTED || (s.getState() == Soldier.STATE_CHARGING && s.initCharge && !(s is Dopple)))
+                if (s.isDead() || s.getState() == Soldier.STATE_DYING || s.getState() == Soldier.STATE_ROUTE || s.getState() == Soldier.STATE_ROUTED || (s.getState() == Soldier.STATE_CHARGING && s.initCharge && !(s is DoppelSoldier)))
                 {
                     _soldiersToRemove.Add(s);
                     _soldierDied = true;
@@ -689,12 +689,12 @@ namespace PikeAndShot
                 {
                     foreach (Soldier d in row)
                     {   
-                        if (d is Dopple && d.getState() == Soldier.STATE_READY)
+                        if (d is DoppelSoldier && d.getState() == Soldier.STATE_READY)
                         {
                             distanceFromHome = d._destination - d._position;
                             if (distanceFromHome.Length() < 5f)
                             {
-                                Dopple dopple = (Dopple)d;
+                                DoppelSoldier dopple = (DoppelSoldier)d;
                                 dopple.charge();
                                 break;
                             }
