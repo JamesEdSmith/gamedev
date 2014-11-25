@@ -371,7 +371,7 @@ namespace PikeAndShot
             }
         }
 
-        public override void collide(ScreenObject collider)
+        public override void collide(ScreenObject collider, TimeSpan timeSpan)
         {
             if (_state != STATE_GROUND)
             {
@@ -592,7 +592,7 @@ namespace PikeAndShot
             initiatePosition();
         }
 
-        public override void collide(ScreenObject collider)
+        public override void collide(ScreenObject collider, TimeSpan timeSpan)
         {
             if (collider is PikeTip)
             {
@@ -658,7 +658,7 @@ namespace PikeAndShot
             initiatePosition();
         }
 
-        public override void collide(ScreenObject collider)
+        public override void collide(ScreenObject collider, TimeSpan timeSpan)
         {
             if (collider is PikeTip && _side != collider.getSide())
             {

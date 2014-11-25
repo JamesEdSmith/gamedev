@@ -57,7 +57,7 @@ namespace PikeAndShot
             return Vector2.Zero;
         }
 
-        public virtual void collide(ScreenObject collider)
+        public virtual void collide(ScreenObject collider, TimeSpan timeSpan)
         {
 
         }

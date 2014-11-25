@@ -9,6 +9,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace PikeAndShot
 {
+    public interface DoppelSoldier
+    {
+        void chargeLogic(TimeSpan timeSpan);
+        void charge();
+    }
+
     public class Soldier : ScreenObject
     {
         // soldier types
@@ -320,7 +326,7 @@ namespace PikeAndShot
             _stateChanged = false;
             bool guarding = true;//this is Pikeman || this is Dopple || _type == TYPE_SHOT;
 
-            if (this is Dopple)
+            if (this is DoppelSoldier)
             {
                 if(_state == STATE_CHARGING)
                     setSpeed(0.25f);
@@ -389,13 +395,12 @@ namespace PikeAndShot
             else if (_state != STATE_MELEE_LOSS && _state != STATE_MELEE_WIN && _state != STATE_ONEATTACK 
                 && (_state != Cavalry.STATE_SLOWDOWN || !(this is Cavalry)) && (_state != Cavalry.STATE_TURNING || !(this is Cavalry))
                 && (_state != Targeteer.STATE_SHIELDBREAK || !(this is Targeteer)) && (_state != Targeteer.STATE_DEFEND || !(this is Targeteer)) && (_state != DismountedCavalry.STATE_FALLING || !(this is DismountedCavalry))
-                && (_state != Soldier.STATE_ATTACKING || !(this is Arquebusier || this is Dopple))
-                && (_state != Soldier.STATE_RELOADING || !(this is Dopple)))
-            {
-                if(this is Dopple)
-                    _delta = _destination - _position;
-                else
-                    _delta = _destination - _position;
+                && (_state != Soldier.STATE_ATTACKING || !(this is Arquebusier || this is Dopple || this is CrossbowmanPavise))
+                && (_state != Soldier.STATE_RELOADING || !(this is Dopple || this is CrossbowmanPavise))
+                && ((_state != Soldier.STATE_CHARGING || !initCharge )|| !(this is CrossbowmanPavise))
+                && ((_state != CrossbowmanPavise.STATE_PLACING) || !(this is CrossbowmanPavise)))
+            {                
+                _delta = _destination - _position;
                 _dest = _destination;
             }
             else
@@ -616,8 +621,8 @@ namespace PikeAndShot
                 }
                 else if (_state == STATE_CHARGING)
                 {
-                    if (this is Dopple)
-                        ((Dopple)this).chargeLogic(timeSpan);
+                    if (this is DoppelSoldier)
+                        ((DoppelSoldier)this).chargeLogic(timeSpan);
                     else
                     {
                         _stateTimer -= (float)timeSpan.TotalMilliseconds;
@@ -953,7 +958,7 @@ namespace PikeAndShot
             return _idle.getBoundingRect().Height;
         }
 
-        public override void collide(ScreenObject collider)
+        public override void collide(ScreenObject collider, TimeSpan timeSpan)
         {
             if (collider == _killer || _state == STATE_DEAD || _state == STATE_DYING)
                 return;
@@ -962,7 +967,7 @@ namespace PikeAndShot
             {
                 if (this is Targeteer)
                 {
-                    if(collider is ArquebusierShot)
+                    if (collider is ArquebusierShot || (collider is CrossbowShot && collider.getSide() == BattleScreen.SIDE_PLAYER))
                         ((Targeteer)this).shieldBreak();
                     else
                         ((Targeteer)this).shieldBlock();
@@ -1031,15 +1036,19 @@ namespace PikeAndShot
                 }
                 if (_state != STATE_DEAD && _state != STATE_DYING && _state != STATE_MELEE_WIN && _state != STATE_MELEE_LOSS && (!(this is Targeteer) || _state != Targeteer.STATE_SHIELDBREAK) && (!(this is DismountedCavalry) || _state != DismountedCavalry.STATE_FALLING))
                 {
-                    //recruitment
-                    /*if (_side == BattleScreen.SIDE_PLAYER && collider.getSide() == BattleScreen.SIDE_ENEMY && (collider.getState() == STATE_ROUTE || collider.getState() == STATE_ROUTED))
+                    //push from collisions with other charging enemy soldiers
+                    if (_screen.getLooseSoldiers().Contains(this) && _screen.getLooseSoldiers().Contains(collider) && _side == BattleScreen.SIDE_ENEMY && collider.getSide() == BattleScreen.SIDE_ENEMY && (collider.getState() != STATE_DYING || collider.getState() != STATE_DEAD))
                     {
-                        ((Soldier)collider)._state = STATE_READY;
-                        ((Soldier)collider)._reacting = false;
-                        _screen.getPlayerFormation().addSoldier((Soldier)collider);
-                        _screen.removeLooseSoldier((Soldier)collider);
+                        if (this._position.Y < collider._position.Y)
+                        {
+                            this._position -= new Vector2(0f, (float)timeSpan.TotalMilliseconds * _speed);
+                        }
+                        else
+                        {
+                            this._position += new Vector2(0f, (float)timeSpan.TotalMilliseconds * _speed);
+                        }
                     }
-                    else*/ 
+                    else 
                     if (_side == BattleScreen.SIDE_ENEMY && collider.getSide() == BattleScreen.SIDE_PLAYER && (_state == STATE_ROUTE || _state == STATE_ROUTED))
                     {
                         _state = STATE_READY;
@@ -1496,7 +1505,7 @@ namespace PikeAndShot
                     if (_stateTimer <= 0)
                     {
                         _state = STATE_CHECKING_EXIT;
-                        _screen.checkNonFatalCollision(_pikeTip);
+                        _screen.checkNonFatalCollision(_pikeTip, timeSpan);
                         if (_state != STATE_RECOILING)
                         {
                             _stateTimer = 0f;
@@ -1726,7 +1735,7 @@ namespace PikeAndShot
     public class Crossbowman : Soldier
     {
         protected Sprite _crossbowmanReload;
-        private Sprite _crossbowmanShoot;
+        protected Sprite _crossbowmanShoot;
 
         public Crossbowman(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
@@ -1734,7 +1743,7 @@ namespace PikeAndShot
             _type = Soldier.TYPE_SHOT;
             _class = Soldier.CLASS_MERC_CROSSBOWMAN;
             _attackTime = 300f;
-            _reloadTime = 2750f;
+            _reloadTime = 2000f;
 
             _feet = new Sprite(PikeAndShotGame.PIKEMAN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
             _idle = new Sprite(PikeAndShotGame.CROSSBOWMAN_IDLE, new Rectangle(6, 4, 16, 28), 44, 42);
@@ -1802,7 +1811,10 @@ namespace PikeAndShot
                     if (_stateTimer <= 0)
                     {
                         _stateTimer = 0f;
-                        _state = STATE_READY;
+                        if (_side == BattleScreen.SIDE_ENEMY)
+                            _state = STATE_READY;
+                        else
+                            _state = STATE_CHARGING;
                     }
                 }
                 else if (_state == STATE_ATTACKING)
@@ -1836,22 +1848,71 @@ namespace PikeAndShot
         }
     }
 
-    public class CrossbowmanPavise : Crossbowman
+    public class CrossbowmanPavise : Crossbowman, DoppelSoldier
     {
         public const int STATE_PLACING = 100;
         private Sprite _crossbowmanPavisePlace;
         protected bool hasPavise;
         private float _placeTime;
+        private int _bolts;
 
         public CrossbowmanPavise(BattleScreen screen, float x, float y, int side)
             : base(screen, x, y, side)
         {
+            _type = TYPE_SWINGER;
             _class = Soldier.CLASS_MERC_CROSSBOWMAN_PAVISE;
             hasPavise = true;
             _idle = new Sprite(PikeAndShotGame.CROSSBOWMAN_PAVISE, new Rectangle(10, 2, 16, 28), 44, 38);
             _crossbowmanReload = new Sprite(PikeAndShotGame.CROSSBOWMAN_RELOAD2, new Rectangle(8, 4, 16, 28), 44, 42);
             _crossbowmanPavisePlace = new Sprite(PikeAndShotGame.CROSSBOWMAN_PAVISE_PLACE, new Rectangle(12, 2, 16, 28), 46, 38);
-            _placeTime = 800f;
+            if(side == BattleScreen.SIDE_ENEMY)
+                _placeTime = 800f;
+            else
+                _placeTime = 200f;
+            _chargeTime = 200f;
+        }
+    
+        public void charge()
+        {
+            if (_state == STATE_READY)
+            {
+                _state = STATE_CHARGING;
+                initCharge = false;
+                _stateTimer = _chargeTime;
+                _meleeDestination = myFormation.getCenter() + new Vector2(100f, -13f);
+            }
+        }
+
+        public void chargeLogic(TimeSpan timeSpan)
+        {
+            _stateTimer -= (float)timeSpan.TotalMilliseconds;
+            if (_stateTimer <= 0)
+            {
+                if (!initCharge)
+                {
+                    initCharge = true;
+                    _bolts = 4;
+                }
+                else
+                {
+                    if(_bolts <= 0)
+                    {
+                        _state = STATE_READY;
+                    }
+                    if (_position == _meleeDestination && _state == STATE_CHARGING)
+                    {
+                        attack();
+                    }
+                }
+            }
+        }
+
+        protected override void attackDone()
+        {
+            _state = STATE_RELOADING;
+            _stateTimer = _reloadTime - _plusMinus;
+            _crossbowmanShoot.setFrame(0);
+            _shotMade = false;
         }
 
         public override bool attack()
@@ -1860,7 +1921,7 @@ namespace PikeAndShot
 
             if (hasPavise)
             {
-                if (_state == STATE_READY && (Math.Abs(formationPosition.X) < _speed * 100 /*&& Math.Abs(formationPosition.Y) < _speed * 100*/))
+                if (_state != STATE_DYING)
                 {
                     _state = STATE_PLACING;
                     _stateTimer = _placeTime + PikeAndShotGame.getRandPlusMinus(50);
@@ -1868,7 +1929,16 @@ namespace PikeAndShot
                 }
             }
             else
-                return base.attack();
+            {
+                _bolts--;
+                if (_state == STATE_READY || _state == STATE_CHARGING)
+                {
+                    _state = STATE_ATTACKING;
+                    _plusMinus = 0;
+                    _stateTimer = _attackTime + _plusMinus;
+                    return true;
+                }
+            }
 
             return false;
         }
@@ -1884,8 +1954,15 @@ namespace PikeAndShot
 
                     if (_stateTimer <= 0)
                     {
-                        _stateTimer = _reloadTime;
-                        _state = STATE_RELOADING;
+                        if (_side == BattleScreen.SIDE_ENEMY)
+                        {
+                            _stateTimer = _reloadTime;
+                            _state = STATE_RELOADING;
+                        }
+                        else
+                        {
+                            _state = STATE_CHARGING;
+                        }
                         _stateChanged = true;
                     }
                     if (this._crossbowmanPavisePlace.getCurrFrame() == 4 && hasPavise)
@@ -1908,6 +1985,10 @@ namespace PikeAndShot
 
                 _body = _crossbowmanPavisePlace;
             }
+            else if (_state == STATE_CHARGING)
+            {
+                _body = _idle;
+            }
         }
 
         private void pavisePlaced()
@@ -1915,13 +1996,16 @@ namespace PikeAndShot
             hasPavise = false;
             _idle = new Sprite(PikeAndShotGame.CROSSBOWMAN_IDLE, new Rectangle(6, 4, 16, 28), 44, 42);
             if (_side == BattleScreen.SIDE_PLAYER)
-                _screen.addShot(new Pavise(new Vector2(this._position.X + 8f + _randDestOffset.X, this._position.Y + 16f + _randDestOffset.Y), this._screen, _side, 24f));
+            {
+                _screen.addShot(new Pavise(new Vector2(this._position.X + 16f + _randDestOffset.X, this._position.Y + 16f + _randDestOffset.Y), this._screen, _side, 24f));
+                _meleeDestination -= new Vector2(8, 0);
+            }
             else
                 _screen.addShot(new Pavise(new Vector2(this._position.X + 4f + _randDestOffset.X, this._position.Y + 16f + _randDestOffset.Y), this._screen, _side, 24f));
         }
     }
 
-    public class Dopple : Soldier
+    public class Dopple : Soldier, DoppelSoldier
     {
         private ArrayList possibleTargets;
         private Formation playerFormation;
@@ -2183,11 +2267,12 @@ namespace PikeAndShot
             return false;
         }
 
-        internal void charge()
+        public void charge()
         {
             if (_state == STATE_READY)
             {
                 _state = STATE_CHARGING;
+                initCharge = false;
                 _stateTimer = _chargeTime;
             }
         }
@@ -3527,7 +3612,7 @@ namespace PikeAndShot
                     if (_stateTimer <= 0)
                     {
                         _state = STATE_CHECKING_EXIT;
-                        _screen.checkNonFatalCollision(_lanceTip);
+                        _screen.checkNonFatalCollision(_lanceTip, timeSpan);
                         if (_state != STATE_RECOILING)
                         {
                             _stateTimer = 0f;
