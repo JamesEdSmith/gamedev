@@ -406,11 +406,16 @@ namespace PikeAndShot
                 }
                 else if ((collider is Soldier) && collider.getSide() != _side && collider.getState() != STATE_DEAD && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && collider.getState() != Soldier.STATE_ONEATTACK && _state != STATE_GROUND && _state != STATE_GETTINGHIT)
                 {
-                    ((Soldier)collider).oneAttack();
+                    ((Soldier)collider).oneAttack(this);
                     _state = STATE_GETTINGHIT;
                     _stateTimer = ((Soldier)collider).getOneAttackTime();
                 }
             }
+        }
+        public void knockOver()
+        {
+            _state = STATE_GROUND;
+            _stateTimer = _groundTime;
         }
     }
 

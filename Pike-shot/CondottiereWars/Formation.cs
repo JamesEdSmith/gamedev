@@ -123,6 +123,7 @@ namespace PikeAndShot
                     || (answer))
                     {
                         pike.guardTarget = null;
+                        pike.setSpeed(0.15f);
                     }
                 }
             }
@@ -167,12 +168,14 @@ namespace PikeAndShot
                         foreach (Pikeman pike in (ArrayList)_pikeRows[0])
                         {
                             pike.guardTarget = null;
+                            pike.setSpeed(0.15f);
                         }
                         if (_pikeRows.Count > 1)
                         {
                             foreach (Pikeman pike in (ArrayList)_pikeRows[1])
                             {
                                 pike.guardTarget = null;
+                                pike.setSpeed(0.15f);
                             }
                         }
                     }
@@ -451,8 +454,11 @@ namespace PikeAndShot
                     }
                 }
             }
-            if(guard != null)
+            if (guard != null)
+            {
                 guard.guardTarget = enemy;
+                guard.setSpeed(0.18f);
+            }
         }
 
         private void moveUpShooter()
@@ -1838,6 +1844,7 @@ namespace PikeAndShot
                 soldier.route();
             }
         }
+
     }
 
     public class EnemyFormation : Formation

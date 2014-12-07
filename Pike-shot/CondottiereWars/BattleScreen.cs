@@ -542,6 +542,17 @@ namespace PikeAndShot
             _shots.Add(shot);
         }
 
+        public void removeShot(Shot shot)
+        {
+            _shots.Remove(shot);
+            removeScreenObject(shot);
+        }
+
+        public ArrayList getShots()
+        {
+            return _shots;
+        }
+
         internal void addLooseSoldier(Soldier sold)
         {
             if(!_looseSoldiers.Contains(sold))

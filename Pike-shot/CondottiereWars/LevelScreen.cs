@@ -625,7 +625,7 @@ namespace PikeAndShot
                         break;
                 }
                 formation.addSoldier(soldier);
-                soldier.setSpeed(0.075f);
+                soldier.setSpeed(0.25f);
             }
                 //TODO: HEY MAN, THIS COULD CAUSE PRO-BLEMS
             else

@@ -68,7 +68,7 @@ namespace PikeAndShot
 
         protected int _lastAction;
         protected Vector2 _delta;
-        protected float _speed;         //per second
+        public float _speed;         //per second
         protected Vector2 _travel;
         protected int _type;
         protected int _class;
@@ -339,6 +339,7 @@ namespace PikeAndShot
                 if (guardTarget != null && guardTarget._position.X - _screen.getMapOffset().X < 0 - WIDTH)
                 {
                     guardTarget = null;
+                    _speed = 0.15f;
                     guarding = false;
                 }
                     
@@ -398,7 +399,8 @@ namespace PikeAndShot
                 && (_state != Soldier.STATE_ATTACKING || !(this is Arquebusier || this is Dopple || this is CrossbowmanPavise))
                 && (_state != Soldier.STATE_RELOADING || !(this is Dopple || this is CrossbowmanPavise))
                 && ((_state != Soldier.STATE_CHARGING || !initCharge )|| !(this is CrossbowmanPavise))
-                && ((_state != CrossbowmanPavise.STATE_PLACING) || !(this is CrossbowmanPavise)))
+                && ((_state != CrossbowmanPavise.STATE_PLACING) || !(this is CrossbowmanPavise))
+                && ((_state != CrossbowmanPavise.STATE_RETRIEVING) || !(this is CrossbowmanPavise)))
             {                
                 _delta = _destination - _position;
                 _dest = _destination;
@@ -696,7 +698,8 @@ namespace PikeAndShot
                             {
                                 _stateTimer = 0f;
                                 _state = preAttackState;
-                                hit();
+                                if(!(this is Leader))
+                                    hit();
                                 _stateChanged = true;
                             }
                             else
@@ -736,6 +739,7 @@ namespace PikeAndShot
                         _stateTimer = 0f;
                         _state = preAttackState;
                         _stateChanged = true;
+                        paviseToHit.knockOver();
                     }
                 }
             }
@@ -972,7 +976,7 @@ namespace PikeAndShot
                     else
                         ((Targeteer)this).shieldBlock();
                 }
-                else
+                else if (!(this is Leader))
                     hit();
 
                 ((Shot)collider).hit();
@@ -1036,8 +1040,29 @@ namespace PikeAndShot
                 }
                 if (_state != STATE_DEAD && _state != STATE_DYING && _state != STATE_MELEE_WIN && _state != STATE_MELEE_LOSS && (!(this is Targeteer) || _state != Targeteer.STATE_SHIELDBREAK) && (!(this is DismountedCavalry) || _state != DismountedCavalry.STATE_FALLING))
                 {
+                    if (this is CrossbowmanPavise && collider is CrossbowmanPavise
+                        && (this._state == STATE_CHARGING || this._state == STATE_RELOADING || this._state == STATE_ATTACKING|| this._state == CrossbowmanPavise.STATE_PLACING || this._state == CrossbowmanPavise.STATE_RETRIEVING)
+                        && (collider.getState() == STATE_CHARGING || collider.getState() == STATE_RELOADING || collider.getState() == STATE_ATTACKING || collider.getState() == CrossbowmanPavise.STATE_PLACING || collider.getState() == CrossbowmanPavise.STATE_RETRIEVING))
+                    {
+                        Vector2 changeVector = new Vector2(0f, (float)timeSpan.TotalMilliseconds * _speed);
+                        ((CrossbowmanPavise)this).postRetrieveState = _state;
+                        ((CrossbowmanPavise)this).paviseRetrieve();
+                        if (this._position.Y < collider._position.Y)
+                        {
+
+                            this._position -= changeVector;
+                            this._meleeDestination -= changeVector;
+                        }
+                        else
+                        {
+                            this._position += changeVector;
+                            this._meleeDestination += changeVector;
+                        }
+                    }
                     //push from collisions with other charging enemy soldiers
-                    if (_screen.getLooseSoldiers().Contains(this) && _screen.getLooseSoldiers().Contains(collider) && _side == BattleScreen.SIDE_ENEMY && collider.getSide() == BattleScreen.SIDE_ENEMY && (collider.getState() != STATE_DYING || collider.getState() != STATE_DEAD))
+                    else if (_screen.getLooseSoldiers().Contains(this) && _screen.getLooseSoldiers().Contains(collider)
+                        && _side == BattleScreen.SIDE_ENEMY && collider.getSide() == BattleScreen.SIDE_ENEMY
+                        && (collider.getState() != STATE_DYING && collider.getState() != STATE_DEAD))
                     {
                         if (this._position.Y < collider._position.Y)
                         {
@@ -1048,77 +1073,85 @@ namespace PikeAndShot
                             this._position += new Vector2(0f, (float)timeSpan.TotalMilliseconds * _speed);
                         }
                     }
-                    else 
-                    if (_side == BattleScreen.SIDE_ENEMY && collider.getSide() == BattleScreen.SIDE_PLAYER && (_state == STATE_ROUTE || _state == STATE_ROUTED))
-                    {
-                        _state = STATE_READY;
-                        _reacting = false;
-                        _screen.getPlayerFormation().addSoldier(this);
-                        _screen.removeLooseSoldier(this);
-                    }
-                    //shove
-                    else if (collider.getSide() == BattleScreen.SIDE_NEUTRAL)
-                    {
-                        collisionPush(collider);
-                    }
-                    //fighting
-                    else if (_side != collider.getSide() && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && collider.getState() != STATE_MELEE_WIN && collider.getState() != STATE_MELEE_LOSS && (!(collider is Targeteer) || collider.getState() != Targeteer.STATE_SHIELDBREAK) && (!(collider is DismountedCavalry) || collider.getState() != DismountedCavalry.STATE_FALLING))
-                    {
-                        bool rescueFight = (_side == BattleScreen.SIDE_PLAYER && !thisInFormation) ||
-                                           (collider.getSide() == BattleScreen.SIDE_PLAYER && !colliderInFormation);
-                        if (this is Dopple)
+                    else
+                        if (_side == BattleScreen.SIDE_ENEMY && collider.getSide() == BattleScreen.SIDE_PLAYER && (_state == STATE_ROUTE || _state == STATE_ROUTED))
                         {
-                            if(_state != STATE_ATTACKING)
-                                attack();
-                            ((Soldier)collider).engage(false, _position, this, rescueFight);
-                        }
-                        else if (collider is Dopple)
-                        {
-                            if (collider.getState() != STATE_ATTACKING)
-                                ((Dopple)collider).attack();
-                            engage(false, collider.getPosition(), (Soldier)collider, rescueFight);
-                        }
-                        else if (_side == BattleScreen.SIDE_ENEMY)
-                        {
-                            engage(true, collider.getPosition(), (Soldier)collider, rescueFight);
-                            ((Soldier)collider).engage(false, _position, this, rescueFight);
-                        }
-                        else
-                        {
-                            engage(false, collider.getPosition(), (Soldier)collider, rescueFight);
-                            ((Soldier)collider).engage(true, _position, this, rescueFight);
-                        }
-                    }
-                    //rescue
-                    else if (_side == BattleScreen.SIDE_PLAYER && collider.getSide() == BattleScreen.SIDE_PLAYER && (thisInFormation != colliderInFormation))
-                    {
-                        if (thisInFormation &&
-                            collider.getState() != STATE_CHARGING && collider.getState() != STATE_DYING 
-                            && collider.getState() != STATE_DEAD
-                            && collider.getState() != STATE_MELEE_LOSS && collider.getState() != STATE_MELEE_WIN
-                            && collider.getState() != STATE_ATTACKING && collider.getState() != STATE_RELOADING)
-                        {
-                            ((Soldier)collider)._state = STATE_READY;
-                            ((Soldier)collider)._reacting = false;
-                            if (((Soldier)collider).myFormation != null && ((Soldier)collider).myFormation != _screen.getPlayerFormation())
-                                ((Soldier)collider).myFormation.removeSoldier(((Soldier)collider));
-                            _screen.getPlayerFormation().addSoldier((Soldier)collider);
-                            _screen.removeLooseSoldier((Soldier)collider);
-                        }
-                        else if (colliderInFormation &&
-                            this.getState() != STATE_CHARGING && this.getState() != STATE_DYING 
-                            && this.getState() != STATE_DEAD
-                            && this.getState() != STATE_MELEE_LOSS && this.getState() != STATE_MELEE_WIN
-                            && this.getState() != STATE_ATTACKING && this.getState() != STATE_RELOADING)
-                        {
-                            _reacting = false;
                             _state = STATE_READY;
-                            if(myFormation != null)
-                                myFormation.removeSoldier(this);
-                            _screen.getPlayerFormation().addSoldier(this);                            
-                            _screen.removeLooseSoldier(this);   
+                            _reacting = false;
+                            _screen.getPlayerFormation().addSoldier(this);
+                            _screen.removeLooseSoldier(this);
                         }
-                    }
+                        //shove
+                        else if (collider.getSide() == BattleScreen.SIDE_NEUTRAL)
+                        {
+                            collisionPush(collider);
+                        }
+                        //fighting
+                        else if (_side != collider.getSide() && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && collider.getState() != STATE_MELEE_WIN && collider.getState() != STATE_MELEE_LOSS && (!(collider is Targeteer) || collider.getState() != Targeteer.STATE_SHIELDBREAK) && (!(collider is DismountedCavalry) || collider.getState() != DismountedCavalry.STATE_FALLING))
+                        {
+                            bool rescueFight = (_side == BattleScreen.SIDE_PLAYER && !thisInFormation) ||
+                                               (collider.getSide() == BattleScreen.SIDE_PLAYER && !colliderInFormation);
+                            if (this is Dopple)
+                            {
+                                if (_state != STATE_ATTACKING)
+                                    attack();
+                                ((Soldier)collider).engage(false, _position, this, rescueFight);
+                            }
+                            else if (collider is Dopple)
+                            {
+                                if (collider.getState() != STATE_ATTACKING)
+                                    ((Dopple)collider).attack();
+                                engage(false, collider.getPosition(), (Soldier)collider, rescueFight);
+                            }
+                            else if (collider is CrossbowmanPavise && ((((CrossbowmanPavise)collider).myPavise != null && ((CrossbowmanPavise)collider).myPavise.getState() != Shot.STATE_GROUND) || ((CrossbowmanPavise)collider).hasPavise))
+                            {
+                                this._position += new Vector2(((Soldier)collider)._speed * 3f * (float)timeSpan.TotalMilliseconds, 0);
+                            }
+                            else if (this is CrossbowmanPavise && (((CrossbowmanPavise)this).myPavise != null && ((CrossbowmanPavise)this).myPavise.getState() != Shot.STATE_GROUND || ((CrossbowmanPavise)this).hasPavise))
+                            {
+                                //collider._position += new Vector2(_speed * (float)timeSpan.TotalMilliseconds, 0);
+                            }
+                            else if (_side == BattleScreen.SIDE_ENEMY)
+                            {
+                                engage(true, collider.getPosition(), (Soldier)collider, rescueFight);
+                                ((Soldier)collider).engage(false, _position, this, rescueFight);
+                            }
+                            else
+                            {
+                                engage(false, collider.getPosition(), (Soldier)collider, rescueFight);
+                                ((Soldier)collider).engage(true, _position, this, rescueFight);
+                            }
+                        }
+                        //rescue
+                        else if (_side == BattleScreen.SIDE_PLAYER && collider.getSide() == BattleScreen.SIDE_PLAYER && (thisInFormation != colliderInFormation))
+                        {
+                            if (thisInFormation &&
+                                collider.getState() != STATE_CHARGING && collider.getState() != STATE_DYING
+                                && collider.getState() != STATE_DEAD
+                                && collider.getState() != STATE_MELEE_LOSS && collider.getState() != STATE_MELEE_WIN
+                                && collider.getState() != STATE_ATTACKING && collider.getState() != STATE_RELOADING)
+                            {
+                                ((Soldier)collider)._state = STATE_READY;
+                                ((Soldier)collider)._reacting = false;
+                                if (((Soldier)collider).myFormation != null && ((Soldier)collider).myFormation != _screen.getPlayerFormation())
+                                    ((Soldier)collider).myFormation.removeSoldier(((Soldier)collider));
+                                _screen.getPlayerFormation().addSoldier((Soldier)collider);
+                                _screen.removeLooseSoldier((Soldier)collider);
+                            }
+                            else if (colliderInFormation &&
+                                this.getState() != STATE_CHARGING && this.getState() != STATE_DYING
+                                && this.getState() != STATE_DEAD
+                                && this.getState() != STATE_MELEE_LOSS && this.getState() != STATE_MELEE_WIN
+                                && this.getState() != STATE_ATTACKING && this.getState() != STATE_RELOADING)
+                            {
+                                _reacting = false;
+                                _state = STATE_READY;
+                                if (myFormation != null)
+                                    myFormation.removeSoldier(this);
+                                _screen.getPlayerFormation().addSoldier(this);
+                                _screen.removeLooseSoldier(this);
+                            }
+                        }
                 }
             }   
         }
@@ -1234,8 +1267,11 @@ namespace PikeAndShot
             }
         }
 
-        internal void oneAttack()
+        Pavise paviseToHit;
+
+        internal void oneAttack(Pavise pavise)
         {
+            paviseToHit = pavise;
             preAttackState = _state;
             _state = STATE_ONEATTACK;
             _stateTimer = _oneAttackTime;
@@ -1388,6 +1424,7 @@ namespace PikeAndShot
         {
             base.hit();
             guardTarget = null;
+            _speed = 0.15f;
             _screen.removeScreenObject(_pikeTip);
         }
 
@@ -1460,6 +1497,7 @@ namespace PikeAndShot
             }
             
             guardTarget = null;
+            _speed = 0.15f;
 
         }
 
@@ -1851,10 +1889,13 @@ namespace PikeAndShot
     public class CrossbowmanPavise : Crossbowman, DoppelSoldier
     {
         public const int STATE_PLACING = 100;
+        public const int STATE_RETRIEVING = 101;
         private Sprite _crossbowmanPavisePlace;
-        protected bool hasPavise;
+        public bool hasPavise;
         private float _placeTime;
         private int _bolts;
+        public int postRetrieveState;
+        public Pavise myPavise;
 
         public CrossbowmanPavise(BattleScreen screen, float x, float y, int side)
             : base(screen, x, y, side)
@@ -1879,6 +1920,7 @@ namespace PikeAndShot
                 _state = STATE_CHARGING;
                 initCharge = false;
                 _stateTimer = _chargeTime;
+                //determine how many other guys are already shooting
                 _meleeDestination = myFormation.getCenter() + new Vector2(100f, -13f);
             }
         }
@@ -1895,11 +1937,12 @@ namespace PikeAndShot
                 }
                 else
                 {
-                    if(_bolts <= 0)
+                    if (_bolts <= 0 || (_meleeDestination == _position && myFormation.getCenter().X > _position.X))
                     {
-                        _state = STATE_READY;
+                        postRetrieveState = STATE_READY;
+                        paviseRetrieve();
                     }
-                    if (_position == _meleeDestination && _state == STATE_CHARGING)
+                    else if (_position == _meleeDestination && _state == STATE_CHARGING)
                     {
                         attack();
                     }
@@ -1968,6 +2011,26 @@ namespace PikeAndShot
                     if (this._crossbowmanPavisePlace.getCurrFrame() == 4 && hasPavise)
                         pavisePlaced();
                 }
+                else if (_state == STATE_RETRIEVING)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+
+                    if (_stateTimer <= 0)
+                    {
+                        if (_side == BattleScreen.SIDE_ENEMY)
+                        {
+                            _stateTimer = _reloadTime;
+                            _state = STATE_RELOADING;
+                        }
+                        else
+                        {
+                            if (postRetrieveState == STATE_CHARGING)
+                                _stateTimer = 0;
+                            _state = postRetrieveState;
+                        }
+                        _stateChanged = true;
+                    }
+                }
             }
         }
 
@@ -1985,6 +2048,16 @@ namespace PikeAndShot
 
                 _body = _crossbowmanPavisePlace;
             }
+            else if(_state == STATE_RETRIEVING)
+            {
+                int maxFrames = _crossbowmanPavisePlace.getMaxFrames();
+                float frameTime = _placeTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                _crossbowmanPavisePlace.setFrame(maxFrames - frameNumber - 1);
+
+                _body = _crossbowmanPavisePlace;
+            }
             else if (_state == STATE_CHARGING)
             {
                 _body = _idle;
@@ -1997,11 +2070,28 @@ namespace PikeAndShot
             _idle = new Sprite(PikeAndShotGame.CROSSBOWMAN_IDLE, new Rectangle(6, 4, 16, 28), 44, 42);
             if (_side == BattleScreen.SIDE_PLAYER)
             {
-                _screen.addShot(new Pavise(new Vector2(this._position.X + 16f + _randDestOffset.X, this._position.Y + 16f + _randDestOffset.Y), this._screen, _side, 24f));
+                myPavise = new Pavise(new Vector2(this._position.X + 16f + _randDestOffset.X, this._position.Y + 16f + _randDestOffset.Y), this._screen, _side, 24f);
+                _screen.addShot(myPavise);
                 _meleeDestination -= new Vector2(8, 0);
             }
             else
                 _screen.addShot(new Pavise(new Vector2(this._position.X + 4f + _randDestOffset.X, this._position.Y + 16f + _randDestOffset.Y), this._screen, _side, 24f));
+        }
+
+        public void paviseRetrieve()
+        {
+            if (_state == STATE_PLACING || _state == STATE_RETRIEVING)
+            {
+                _state = STATE_CHARGING;
+            }
+            if (_screen.getShots().Contains(myPavise) && _state != STATE_DYING && _state != STATE_DEAD)
+            {
+                _screen.removeShot(myPavise);
+                hasPavise = true;
+                _idle = new Sprite(PikeAndShotGame.CROSSBOWMAN_PAVISE, new Rectangle(10, 2, 16, 28), 44, 38);
+                _state = STATE_RETRIEVING;
+                _stateTimer = _placeTime;
+            }
         }
     }
 
