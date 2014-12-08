@@ -16,7 +16,7 @@ namespace PikeAndShot
 {
     public class LevelScreen : BattleScreen, FormListener, ScreenAnimationListener
     {
-        public static int MAX_COINS = 20;
+        public static int MAX_COINS = 10;
         public static float NEXT_SPAWN_POINT = 2000f;
         public static float COIN_METER_FLASH_TIME = 400f;
         public static float COIN_METER_HURT_FLASH_TIME = 400f;
@@ -74,7 +74,7 @@ namespace PikeAndShot
             _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
-            _coins = 10;
+            _coins = MAX_COINS/2;
             _doubleCoins = 0;
             _coinSprites = new ArrayList(20);
             _doppelCoinSprites = new ArrayList(20);
@@ -286,7 +286,7 @@ namespace PikeAndShot
                     _coinMeterTimer = COIN_METER_FLASH_TIME;
                     _coinSprites.Add(new Coin(this, BASE_COIN_START_POSITION, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - _coins * 4f)));
                     _coins++;
-                    if (_coins == MAX_COINS)
+                    if (_coins >= MAX_COINS)
                     {
                         doppel = true;
                         coinMeterTimer = COIN_METER_DROPTIME;
@@ -302,7 +302,7 @@ namespace PikeAndShot
                     _coinMeterTimer = COIN_METER_FLASH_TIME;
                     _doppelCoinSprites.Add(new Coin(this, BASE_COIN_START_POSITION, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y + 10f - _doubleCoins * 4f)));
                     _doubleCoins++;
-                    if (_doubleCoins == MAX_COINS)
+                    if (_doubleCoins >= MAX_COINS)
                     {
                         foreach (Coin c in _doppelCoinSprites)
                         {

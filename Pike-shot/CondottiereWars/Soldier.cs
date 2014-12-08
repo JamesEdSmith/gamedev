@@ -328,9 +328,10 @@ namespace PikeAndShot
 
             if (this is DoppelSoldier)
             {
+                Vector2 distanceFromDest = _position - _destination;
                 if(_state == STATE_CHARGING)
                     setSpeed(0.25f);
-                else
+                else if(distanceFromDest.Length() < 2)
                     setSpeed(0.15f);
             }
             if (guarding)
@@ -1074,6 +1075,7 @@ namespace PikeAndShot
                         }
                     }
                     else
+                    {
                         if (_side == BattleScreen.SIDE_ENEMY && collider.getSide() == BattleScreen.SIDE_PLAYER && (_state == STATE_ROUTE || _state == STATE_ROUTED))
                         {
                             _state = STATE_READY;
@@ -1152,6 +1154,7 @@ namespace PikeAndShot
                                 _screen.removeLooseSoldier(this);
                             }
                         }
+                    }
                 }
             }   
         }
@@ -1896,6 +1899,7 @@ namespace PikeAndShot
         private int _bolts;
         public int postRetrieveState;
         public Pavise myPavise;
+        private ArrayList possibleTargets;
 
         public CrossbowmanPavise(BattleScreen screen, float x, float y, int side)
             : base(screen, x, y, side)
@@ -1911,6 +1915,7 @@ namespace PikeAndShot
             else
                 _placeTime = 200f;
             _chargeTime = 200f;
+            possibleTargets = new ArrayList();
         }
     
         public void charge()
@@ -1925,6 +1930,36 @@ namespace PikeAndShot
             }
         }
 
+        protected override void shotDone()
+        {
+            _shotMade = true;
+            if (_side == BattleScreen.SIDE_PLAYER)
+            {
+                possibleTargets = ((LevelScreen)_screen).dangerOnScreen();
+
+                Soldier bestTarget = null;
+                Vector2 bestDistance = new Vector2(99999, 99999);
+                Vector2 distance;
+                double angle;
+                foreach (Soldier s in possibleTargets)
+                {
+                    distance = s.getCenter() - this.getCenter();
+                    angle = Math.Atan2(distance.Y, distance.X);
+                    if ((bestTarget == null || bestDistance.Length() > distance.Length()) && angle < MathHelper.PiOver4 && angle > -MathHelper.PiOver4)
+                    {
+                        bestTarget = s;
+                        bestDistance = distance;
+                    }
+                }
+                if(bestTarget != null)
+                    _screen.addShot(new AimedBolt(new Vector2(this._position.X + 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10, bestTarget.getCenter()));
+                else
+                    _screen.addShot(new AimedBolt(new Vector2(this._position.X + 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10, this.getCenter() + new Vector2(100f, 0)));
+            }
+            else
+                _screen.addShot(new CrossbowShot(new Vector2(this._position.X - 14 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10));
+        }
+
         public void chargeLogic(TimeSpan timeSpan)
         {
             _stateTimer -= (float)timeSpan.TotalMilliseconds;
@@ -1937,7 +1972,7 @@ namespace PikeAndShot
                 }
                 else
                 {
-                    if (_bolts <= 0 || (_meleeDestination == _position && myFormation.getCenter().X > _position.X))
+                    if (_bolts <= 0 || (_meleeDestination == _position && myFormation.getCenter().X > PikeAndShotGame.SCREENWIDTH/5 + getCenter().X))
                     {
                         postRetrieveState = STATE_READY;
                         paviseRetrieve();
@@ -2101,6 +2136,7 @@ namespace PikeAndShot
         private Formation playerFormation;
         private Sprite _doppleReload1;
         private Sprite _doppleSwing1;
+        private int targets;
 
         private WeaponSwing _weaponSwing;
 
@@ -2363,6 +2399,7 @@ namespace PikeAndShot
             {
                 _state = STATE_CHARGING;
                 initCharge = false;
+                targets = 2;
                 _stateTimer = _chargeTime;
             }
         }
@@ -2375,21 +2412,7 @@ namespace PikeAndShot
                 if (!initCharge)
                 {
                     initCharge = true;
-                    possibleTargets = ((LevelScreen)_screen).dangerOnScreen();
-
-                    Soldier bestTarget = null;
-                    Vector2 bestDistance = new Vector2(99999,99999);
-                    Vector2 distance;
-                    foreach (Soldier s in possibleTargets)
-                    {
-                        distance = s.getCenter() - myFormation.getCenter();
-                        if (bestTarget == null || bestDistance.Length() > distance.Length())
-                        {
-                            bestTarget = s;
-                            bestDistance = distance;
-                        }
-                    }
-
+                    Soldier bestTarget = getBestTarget();
                     if (bestTarget != null)
                         guardTarget = bestTarget;
                 }
@@ -2397,11 +2420,46 @@ namespace PikeAndShot
                 {
                     if (guardTarget == null)
                     {
-                        _state = STATE_READY;
-                        initCharge = false;
+                        if (targets <= 0)
+                        {
+                            _state = STATE_READY;
+                            initCharge = false;
+                        }
+                        else
+                        {
+                            targets--;
+                            Soldier bestTarget = getBestTarget();
+                            if (bestTarget != null)
+                                guardTarget = bestTarget;
+                            else
+                            {
+                                _state = STATE_READY;
+                                initCharge = false;
+                            }
+                        }
                     }
                 }
             }
+        }
+
+        private Soldier getBestTarget()
+        {
+            possibleTargets = ((LevelScreen)_screen).dangerOnScreen();
+
+            Soldier bestTarget = null;
+            Vector2 bestDistance = new Vector2(99999, 99999);
+            Vector2 distance;
+            foreach (Soldier s in possibleTargets)
+            {
+                distance = s.getCenter() - myFormation.getCenter();
+                if (bestTarget == null || bestDistance.Length() > distance.Length())
+                {
+                    bestTarget = s;
+                    bestDistance = distance;
+                }
+            }
+
+            return bestTarget;
         }
     }
 

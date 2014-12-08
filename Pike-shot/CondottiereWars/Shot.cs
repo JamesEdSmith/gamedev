@@ -313,6 +313,62 @@ namespace PikeAndShot
 
     }
 
+    public class AimedBolt : CrossbowShot
+    {
+        private Vector2 _trajectory;
+        private float _lifeTime;
+
+        public AimedBolt (Vector2 position, BattleScreen screen, int side, float height, Vector2 target)
+            : base(position, screen, side, height)
+        {
+            _speed = 0.5f;
+            _lifeTime = 1000f;
+            Vector2 _delta = target - position;
+
+            double angle = Math.Atan2(_delta.Y, _delta.X);
+            double cos = Math.Cos(angle);
+            double sin = Math.Sin(angle);
+            _trajectory = new Vector2((float)cos * _speed, (float)sin * _speed);
+        }
+
+        public override void update(TimeSpan timeSpan)
+        {
+            if (_state == STATE_FLYING)
+            {
+                _position.X += (float)timeSpan.TotalMilliseconds * _trajectory.X;
+                _position.Y += (float)timeSpan.TotalMilliseconds * _trajectory.Y;
+
+                // check to see if hit ground
+                if (_lifeTime <= 0f)
+                {
+                    _state = STATE_GROUND;
+                    _stateTimer = _groundTime;
+                }   
+
+                // check to see if out of play
+                if ((_position.X + WIDTH < 0 + _screen.getMapOffset().X || _position.X > PikeAndShotGame.SCREENWIDTH + _screen.getMapOffset().X) || (_position.Y + HEIGHT < 0 + _screen.getMapOffset().Y || _position.Y > PikeAndShotGame.SCREENHEIGHT + _screen.getMapOffset().Y))
+                {
+                    _state = STATE_DEAD;
+                }
+
+                if (_stateTimer <= 0)
+                {
+                    _stateTimer = _animationTime;
+                }
+            }
+            else if (_state == STATE_GROUND)
+            {
+                if (_stateTimer <= 0)
+                {
+                    _state = STATE_DEAD;
+                }
+            }
+
+            _stateTimer -= (float)timeSpan.TotalMilliseconds;
+            _lifeTime -= (float)timeSpan.TotalMilliseconds;
+        }
+    }
+
     public class Pavise : Shot
     {
         public const int STATE_GETTINGHIT = 100;
@@ -452,8 +508,6 @@ namespace PikeAndShot
             Vector2 _delta = target - position;
 
             double angle = Math.Atan2(_delta.Y, _delta.X);
-            //_travel.X = (absDeltaX / (absDeltaX + absDeltaY)) * (float)timeSpan.TotalMilliseconds * _speed;
-            //_travel.Y = (absDeltaY / (absDeltaX + absDeltaY)) * (float)timeSpan.TotalMilliseconds * _speed;
             double cos = Math.Cos(angle);
             double sin = Math.Sin(angle);
             _trajectory = new Vector2((float)cos * _speed, (float)sin * _speed);

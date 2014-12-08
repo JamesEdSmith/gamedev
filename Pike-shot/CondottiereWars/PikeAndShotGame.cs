@@ -251,8 +251,13 @@ namespace PikeAndShot
             graphics.PreferredBackBufferWidth = SCREENWIDTH;
             graphics.PreferredBackBufferHeight = SCREENHEIGHT;
             graphics.PreferMultiSampling = false;
-            if(!DEBUG)
+            if (!DEBUG)
+            {
                 graphics.IsFullScreen = true;
+                useShaders = true;
+            }
+            else
+                useShaders = false;
 
             Content.RootDirectory = "Content";
         }
