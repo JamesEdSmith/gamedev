@@ -43,7 +43,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>Pike%27n Shot</ProductName>
     <PublisherName>Smith%27s Fine Electric Amusements</PublisherName>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>9</ApplicationRevision>
     <ApplicationVersion>0.0.3.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
