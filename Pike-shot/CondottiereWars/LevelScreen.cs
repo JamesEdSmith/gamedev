@@ -16,7 +16,7 @@ namespace PikeAndShot
 {
     public class LevelScreen : BattleScreen, FormListener, ScreenAnimationListener
     {
-        public static int MAX_COINS = 10;
+        public static int MAX_COINS = 20;
         public static float NEXT_SPAWN_POINT = 2000f;
         public static float COIN_METER_FLASH_TIME = 400f;
         public static float COIN_METER_HURT_FLASH_TIME = 400f;
@@ -456,21 +456,9 @@ namespace PikeAndShot
             }
             if ((keyboardState.IsKeyDown(Keys.Z) && keyboardState.IsKeyDown(Keys.X) && (previousKeyboardState.IsKeyUp(Keys.Z) || previousKeyboardState.IsKeyUp(Keys.X))) || (gamePadState.IsButtonDown(Buttons.A) && gamePadState.IsButtonDown(Buttons.X) && (previousGamePadState.IsButtonUp(Buttons.A) || previousGamePadState.IsButtonUp(Buttons.X))))
             {
-                _formation.meleeCharge();
+                //_formation.meleeCharge();
                 //_formation.swingAttack();
             }
-            //else if ((keyboardState.IsKeyUp(Keys.Z) || keyboardState.IsKeyUp(Keys.X)) && (previousKeyboardState.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyDown(Keys.X)))
-            //{
-            //    _formation.cancelCharge();
-            //}
-            //else if ((gamePadState.IsButtonUp(Buttons.A) || gamePadState.IsButtonUp(Buttons.X)) && (previousGamePadState.IsButtonDown(Buttons.A) && previousGamePadState.IsButtonDown(Buttons.X)))
-            //{
-            //    _formation.cancelCharge();
-            //}
-            //if ((keyboardState.IsKeyDown(Keys.Z) && keyboardState.IsKeyUp(Keys.X) && previousKeyboardState.IsKeyDown(Keys.X)) || (gamePadState.IsButtonDown(Buttons.A) && gamePadState.IsButtonUp(Buttons.X) && previousGamePadState.IsButtonDown(Buttons.X)))
-            //{
-            //    _formation.swingRelease();
-            //}
             if ((keyboardState.IsKeyDown(Keys.X) && !keyboardState.IsKeyDown(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.X) && !gamePadState.IsButtonDown(Buttons.A)))
             {
                 _formation.shotAttack();

@@ -585,10 +585,17 @@ namespace PikeAndShot
         {
             if (_supportRows.Count != 0)
             {
-                foreach (Soldier s in (ArrayList)_supportRows[0])
+                foreach (ArrayList row in _supportRows)
                 {
-                    if (s is Leader)
-                        s.attack();
+                    foreach (Soldier s in row)
+                    {
+                        if (s is Leader)
+                            s.attack();
+                        else if (s is Dopple)
+                            ((Dopple)s).charge();
+                        else if (s is CrossbowmanPavise)
+                            ((DoppelSoldier)s).chargeEnd();
+                    }
                 }
             }
 
@@ -638,6 +645,15 @@ namespace PikeAndShot
 
         public void pikeRaise()
         {
+            foreach (ArrayList row in _supportRows)
+            {
+                foreach (Soldier s in row)
+                {
+                    if (s is Dopple)
+                        ((DoppelSoldier)s).chargeEnd();
+                }
+            }
+
             _state = STATE_MELEE;
             resetupFormation();
             foreach (Soldier pikeman in _soldiers)
@@ -784,10 +800,15 @@ namespace PikeAndShot
 
             if (_supportRows.Count != 0)
             {
-                foreach (Soldier s in (ArrayList)_supportRows[0])
+                foreach (ArrayList row in _supportRows)
                 {
-                    if (s is Leader)
-                        s.attack();
+                    foreach (Soldier s in row)
+                    {
+                        if (s is Leader)
+                            s.attack();
+                        else if (s is CrossbowmanPavise)
+                            ((DoppelSoldier)s).charge();
+                    }
                 }
             }
 

@@ -33,7 +33,7 @@ namespace PikeAndShot
         int _bloomTargetWidth, _bloomTargetHeight;
 
         Effect _bloomFx, _bloomExtractFx;
-        float _blurPower = 0.0075f, _baseIntensity = 1.0f, _bloomIntensity = 0.5f,
+        float _blurPower = 0.0075f, _baseIntensity = 1.0f, _bloomIntensity = 0.25f,
             _baseSaturation = 1.0f, _bloomSaturation = 1.0f, _bloomThreshold = 0.1f;
 
         static SpriteFont soldierFont;
@@ -563,7 +563,7 @@ namespace PikeAndShot
                 if (!useShaders)
                 {
                     GraphicsDevice.Viewport = viewport;
-                    GraphicsDevice.Clear(new Color(5, 5, 5, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
+                    GraphicsDevice.Clear(new Color(2, 2, 2, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
 
                     if (_currScreen != null)

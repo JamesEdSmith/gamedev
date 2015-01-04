@@ -13,6 +13,7 @@ namespace PikeAndShot
     {
         void chargeLogic(TimeSpan timeSpan);
         void charge();
+        void chargeEnd();
     }
 
     public class Soldier : ScreenObject
@@ -326,14 +327,6 @@ namespace PikeAndShot
             _stateChanged = false;
             bool guarding = true;//this is Pikeman || this is Dopple || _type == TYPE_SHOT;
 
-            if (this is DoppelSoldier)
-            {
-                Vector2 distanceFromDest = _position - _destination;
-                if(_state == STATE_CHARGING)
-                    setSpeed(0.25f);
-                else if(distanceFromDest.Length() < 2)
-                    setSpeed(0.15f);
-            }
             if (guarding)
             {
                 guarding = guardTarget != null && _state != STATE_DYING && _state != STATE_DEAD;
@@ -1930,6 +1923,11 @@ namespace PikeAndShot
             }
         }
 
+        public void chargeEnd()
+        {
+
+        }
+
         protected override void shotDone()
         {
             _shotMade = true;
@@ -2136,7 +2134,6 @@ namespace PikeAndShot
         private Formation playerFormation;
         private Sprite _doppleReload1;
         private Sprite _doppleSwing1;
-        private int targets;
 
         private WeaponSwing _weaponSwing;
 
@@ -2399,47 +2396,60 @@ namespace PikeAndShot
             {
                 _state = STATE_CHARGING;
                 initCharge = false;
-                targets = 2;
                 _stateTimer = _chargeTime;
+            }
+        }
+
+        public void chargeEnd()
+        {
+            if (_state != STATE_DYING && _state != STATE_DEAD)
+            {
+                _state = STATE_READY;
+                guardTarget = null;
+                _stateTimer = 0;
             }
         }
 
         public void chargeLogic(TimeSpan timeSpan)
         {
-            _stateTimer -= (float)timeSpan.TotalMilliseconds;
-            if (_stateTimer <= 0)
+            if (!initCharge)
             {
-                if (!initCharge)
+                _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                if (_stateTimer <= 0)
                 {
+                    _stateTimer = 0;
                     initCharge = true;
                     Soldier bestTarget = getBestTarget();
                     if (bestTarget != null)
-                        guardTarget = bestTarget;
-                }
-                else
-                {
-                    if (guardTarget == null)
                     {
-                        if (targets <= 0)
-                        {
-                            _state = STATE_READY;
-                            initCharge = false;
-                        }
-                        else
-                        {
-                            targets--;
-                            Soldier bestTarget = getBestTarget();
-                            if (bestTarget != null)
-                                guardTarget = bestTarget;
-                            else
-                            {
-                                _state = STATE_READY;
-                                initCharge = false;
-                            }
-                        }
+                        guardTarget = bestTarget;
+                        setSpeed(0.25f);
+                    }
+                    else
+                    {
+                        _stateTimer = _chargeTime;
+                        setSpeed(0.15f);
                     }
                 }
             }
+            else
+            {
+                if (guardTarget == null)
+                {
+                    Soldier bestTarget = getBestTarget();
+                    if (bestTarget != null)
+                    {
+                        guardTarget = bestTarget;
+                        setSpeed(0.25f);
+                    }
+                    else
+                    {
+                        _stateTimer = _chargeTime;
+                        setSpeed(0.15f);
+                    }
+                }
+            }
+            
         }
 
         private Soldier getBestTarget()
@@ -2447,12 +2457,12 @@ namespace PikeAndShot
             possibleTargets = ((LevelScreen)_screen).dangerOnScreen();
 
             Soldier bestTarget = null;
-            Vector2 bestDistance = new Vector2(99999, 99999);
+            Vector2 bestDistance = new Vector2(112, 112);
             Vector2 distance;
             foreach (Soldier s in possibleTargets)
             {
                 distance = s.getCenter() - myFormation.getCenter();
-                if (bestTarget == null || bestDistance.Length() > distance.Length())
+                if (bestDistance.Length() > distance.Length())
                 {
                     bestTarget = s;
                     bestDistance = distance;
