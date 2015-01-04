@@ -705,17 +705,33 @@ namespace PikeAndShot
         internal ArrayList dangerOnScreen()
         {
             ArrayList enemies = new ArrayList(_enemyFormations.Count * 10);
+            ArrayList aimedShots = new ArrayList(_shots.Count);
+            bool addSoldier;
+            foreach(Shot shot in _shots)
+            {
+                if (shot is AimedBolt)
+                    aimedShots.Add(shot);
+            }
             foreach (EnemyFormation f in _enemyFormations)
             {
                 foreach (Soldier s in f.getSoldiers())
                 {
                     if (s.getSide() == SIDE_ENEMY
                         && s.getState() != Soldier.STATE_DYING && s.getState() != Soldier.STATE_DEAD
-                        && s._position.X + Soldier.WIDTH * 2f - (getMapOffset().X) > 0 
+                        && s._position.X + Soldier.WIDTH * 2f - (getMapOffset().X) > 0
                         && s._position.X - Soldier.WIDTH - (getMapOffset().X) < PikeAndShotGame.SCREENWIDTH
                         && s._position.Y + Soldier.HEIGHT - (getMapOffset().Y) > 0
                         && s._position.Y - Soldier.HEIGHT - (getMapOffset().Y) < PikeAndShotGame.SCREENHEIGHT)
-                        enemies.Add(s);
+                    {
+                        addSoldier = true;
+                        foreach (AimedBolt ab in aimedShots)
+                        {
+                            if (ab.targetSoldier == s)
+                                addSoldier = false;
+                        }
+                        if(addSoldier)
+                            enemies.Add(s);
+                    }
                 }
             }
 
