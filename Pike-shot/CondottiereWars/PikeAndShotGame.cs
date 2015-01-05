@@ -240,6 +240,12 @@ namespace PikeAndShot
         public static Texture2D DOT;
         public static Texture2D SWORD_POINTER;
 
+        //Audio
+        public static Song THEME_1;
+        public static SoundEffect SHOT_0;
+        public static SoundEffect SHOT_1;
+        public static SoundEffect SHOT_2;
+
         private ArrayList _gameScreens;
         private BattleScreen _currScreen;
 
@@ -488,6 +494,11 @@ namespace PikeAndShot
             SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
+
+            THEME_1 = Content.Load<Song>(@"theme");
+            SHOT_0 = Content.Load<SoundEffect>(@"shot00");
+            SHOT_1 = Content.Load<SoundEffect>(@"shot01");
+            SHOT_2 = Content.Load<SoundEffect>(@"shot02");
 
             _gameScreens = new ArrayList(3);
 

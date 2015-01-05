@@ -50,6 +50,9 @@ namespace PikeAndShot
         bool doppel;
         ArrayList coinsDone;
 
+        ArrayList shotSounds;
+        int shotSoundsPlayed;
+
         public LevelScreen(PikeAndShotGame game, Level level)
             : base(game)
         {
@@ -100,6 +103,15 @@ namespace PikeAndShot
             }
 
             coinsDone = new ArrayList();
+
+            shotSounds = new ArrayList(3);
+            shotSounds.Add(PikeAndShotGame.SHOT_0.CreateInstance());
+            shotSounds.Add(PikeAndShotGame.SHOT_1.CreateInstance());
+            shotSounds.Add(PikeAndShotGame.SHOT_1.CreateInstance());
+
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(PikeAndShotGame.THEME_1);
+            
         }
 
         public override void update(GameTime gameTime)
@@ -819,6 +831,24 @@ namespace PikeAndShot
             {
                 _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[PikeAndShotGame.random.Next(7)], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
             }
+            MediaPlayer.Stop();
+            MediaPlayer.Play(PikeAndShotGame.THEME_1);
+        }
+
+        internal void makeShotSound()
+        {
+            if(shotSoundsPlayed < 3)
+            {
+                ((SoundEffectInstance)shotSounds[shotSoundsPlayed++]).Play();
+            }
+        }
+
+        public void clearShotSounds()
+        {
+            shotSoundsPlayed = 0;
+            SoundEffectInstance instance = (SoundEffectInstance)shotSounds[PikeAndShotGame.random.Next(2)];
+            shotSounds.Remove(instance);
+            shotSounds.Add(instance);
         }
     }
 }

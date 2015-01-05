@@ -1693,6 +1693,43 @@
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna_new.xnb</Output>
       <Time>2014-10-16T22:31:24.8554687-04:00</Time>
     </Item>
+    <Item>
+      <Source>shot00.wav</Source>
+      <Name>shot00</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot00.xnb</Output>
+      <Time>2015-01-03T21:36:14.6386718-05:00</Time>
+    </Item>
+    <Item>
+      <Source>shot01.wav</Source>
+      <Name>shot01</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot01.xnb</Output>
+      <Time>2015-01-03T21:36:34.0097656-05:00</Time>
+    </Item>
+    <Item>
+      <Source>shot02.wav</Source>
+      <Name>shot02</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot02.xnb</Output>
+      <Time>2015-01-03T21:37:09.46875-05:00</Time>
+    </Item>
+    <Item>
+      <Source>theme.mp3</Source>
+      <Name>theme</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\theme.xnb</Output>
+      <Extra>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\theme.wma</Extra>
+      <Time>2015-01-04T23:14:57.7998046-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

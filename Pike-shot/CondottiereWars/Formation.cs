@@ -837,6 +837,8 @@ namespace PikeAndShot
                     if (!didAttack)
                         return;
 
+                    ((LevelScreen)_screen).clearShotSounds();
+
                     for (int i = _shotRows.Count - 1; i >= 0; i--)
                     {
                         tempRow = (ArrayList)_shotRows[i];
