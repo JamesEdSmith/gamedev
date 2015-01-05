@@ -1892,6 +1892,8 @@ namespace PikeAndShot
         public bool hasPavise;
         private float _placeTime;
         public int postRetrieveState;
+        public int postPlaceState;
+        public float preRetrieveStateTimer;
         public Pavise myPavise;
         private ArrayList possibleTargets;
         public Vector2 chargePosition;
@@ -1923,6 +1925,11 @@ namespace PikeAndShot
                 _stateTimer = _chargeTime;
                 chargePosition = new Vector2(100f, -13f);
                 _meleeDestination = myFormation.getCenter() + chargePosition;
+                postRetrieveState = STATE_CHARGING;
+                postPlaceState = STATE_ATTACKING;
+                preRetrieveStateTimer = _attackTime;
+                _stateTimer = _attackTime;
+                setSpeed(0.25f);
             }
         }
 
@@ -1940,12 +1947,13 @@ namespace PikeAndShot
                     if (_meleeDestination != myFormation.getCenter() + chargePosition)
                     {
                         _meleeDestination = myFormation.getCenter() + chargePosition;
-                        postRetrieveState = STATE_CHARGING;
                         paviseRetrieve();
+                        setSpeed(0.15f);
                     }
                     else if (_position == _meleeDestination && _state == STATE_CHARGING)
                     {
                         attack();
+                        setSpeed(0.15f);
                     }
                 }
             }
@@ -1962,6 +1970,8 @@ namespace PikeAndShot
                 }
                 else
                     _state = STATE_READY;
+
+                setSpeed(0.15f);
             }
         }
 
@@ -2035,7 +2045,18 @@ namespace PikeAndShot
             base.updateState(timeSpan);
             if (!_stateChanged)
             {
-                if (_state == STATE_PLACING)
+                if (_state == STATE_RELOADING)
+                {
+                    if (_meleeDestination != myFormation.getCenter() + chargePosition)
+                    {
+                        _meleeDestination = myFormation.getCenter() + chargePosition;
+                        postPlaceState = _state;
+                        preRetrieveStateTimer = _stateTimer;
+                        paviseRetrieve();
+                        setSpeed(0.15f);
+                    }
+                }
+                else if (_state == STATE_PLACING)
                 {
                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
 
@@ -2048,7 +2069,8 @@ namespace PikeAndShot
                         }
                         else
                         {
-                            _state = STATE_CHARGING;
+                            _state = postPlaceState;
+                            _stateTimer = preRetrieveStateTimer;
                         }
                         _stateChanged = true;
                     }
@@ -2068,13 +2090,10 @@ namespace PikeAndShot
                         }
                         else
                         {
-                            if (postRetrieveState == STATE_CHARGING)
-                            {
-                                _stateTimer = 0;
-                                chargePosition += new Vector2(8, 0);
-                                _meleeDestination = myFormation.getCenter() + chargePosition;
-                            }
-                            _state = postRetrieveState;
+                            _stateTimer = 0;
+                            _state = postRetrieveState;        
+                            chargePosition += new Vector2(8, 0);
+                            _meleeDestination = myFormation.getCenter() + chargePosition;
                         }
                         _stateChanged = true;
                     }
