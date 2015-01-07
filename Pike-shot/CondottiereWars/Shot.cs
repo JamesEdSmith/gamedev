@@ -317,8 +317,9 @@ namespace PikeAndShot
     {
         private Vector2 _trajectory;
         private float _lifeTime;
+        public Soldier targetSoldier;
 
-        public AimedBolt (Vector2 position, BattleScreen screen, int side, float height, Vector2 target)
+        public AimedBolt (Vector2 position, BattleScreen screen, int side, float height, Vector2 target, Soldier targetSoldier)
             : base(position, screen, side, height)
         {
             _speed = 0.5f;
@@ -329,6 +330,7 @@ namespace PikeAndShot
             double cos = Math.Cos(angle);
             double sin = Math.Sin(angle);
             _trajectory = new Vector2((float)cos * _speed, (float)sin * _speed);
+            this.targetSoldier = targetSoldier;
         }
 
         public override void update(TimeSpan timeSpan)

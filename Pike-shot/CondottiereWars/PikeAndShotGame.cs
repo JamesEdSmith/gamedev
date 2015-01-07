@@ -33,7 +33,7 @@ namespace PikeAndShot
         int _bloomTargetWidth, _bloomTargetHeight;
 
         Effect _bloomFx, _bloomExtractFx;
-        float _blurPower = 0.0075f, _baseIntensity = 1.0f, _bloomIntensity = 0.5f,
+        float _blurPower = 0.0075f, _baseIntensity = 1.0f, _bloomIntensity = 0.25f,
             _baseSaturation = 1.0f, _bloomSaturation = 1.0f, _bloomThreshold = 0.1f;
 
         static SpriteFont soldierFont;
@@ -239,6 +239,12 @@ namespace PikeAndShot
         //Utility Graphics
         public static Texture2D DOT;
         public static Texture2D SWORD_POINTER;
+
+        //Audio
+        public static Song THEME_1;
+        public static SoundEffect SHOT_0;
+        public static SoundEffect SHOT_1;
+        public static SoundEffect SHOT_2;
 
         private ArrayList _gameScreens;
         private BattleScreen _currScreen;
@@ -489,6 +495,11 @@ namespace PikeAndShot
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
 
+            THEME_1 = Content.Load<Song>(@"theme");
+            SHOT_0 = Content.Load<SoundEffect>(@"shot00");
+            SHOT_1 = Content.Load<SoundEffect>(@"shot01");
+            SHOT_2 = Content.Load<SoundEffect>(@"shot02");
+
             _gameScreens = new ArrayList(3);
 
             // MAKE LEVELS
@@ -563,7 +574,7 @@ namespace PikeAndShot
                 if (!useShaders)
                 {
                     GraphicsDevice.Viewport = viewport;
-                    GraphicsDevice.Clear(new Color(5, 5, 5, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
+                    GraphicsDevice.Clear(new Color(2, 2, 2, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
 
                     if (_currScreen != null)

@@ -13,6 +13,7 @@ namespace PikeAndShot
     {
         void chargeLogic(TimeSpan timeSpan);
         void charge();
+        void chargeEnd();
     }
 
     public class Soldier : ScreenObject
@@ -326,14 +327,6 @@ namespace PikeAndShot
             _stateChanged = false;
             bool guarding = true;//this is Pikeman || this is Dopple || _type == TYPE_SHOT;
 
-            if (this is DoppelSoldier)
-            {
-                Vector2 distanceFromDest = _position - _destination;
-                if(_state == STATE_CHARGING)
-                    setSpeed(0.25f);
-                else if(distanceFromDest.Length() < 2)
-                    setSpeed(0.15f);
-            }
             if (guarding)
             {
                 guarding = guardTarget != null && _state != STATE_DYING && _state != STATE_DEAD;
@@ -1052,12 +1045,14 @@ namespace PikeAndShot
                         {
 
                             this._position -= changeVector;
-                            this._meleeDestination -= changeVector;
+                            ((CrossbowmanPavise)this)._meleeDestination -= changeVector;
+                            ((CrossbowmanPavise)this).chargePosition -= changeVector;
                         }
                         else
                         {
                             this._position += changeVector;
-                            this._meleeDestination += changeVector;
+                            ((CrossbowmanPavise)this)._meleeDestination += changeVector;
+                            ((CrossbowmanPavise)this).chargePosition += changeVector;
                         }
                     }
                     //push from collisions with other charging enemy soldiers
@@ -1770,6 +1765,8 @@ namespace PikeAndShot
                 _screen.addShot(new ArquebusierShot(new Vector2(this._position.X + 34 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _arquebusierShoot.getBoundingRect().Height - 10));
             else
                 _screen.addShot(new ArquebusierShot(new Vector2(this._position.X - 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _arquebusierShoot.getBoundingRect().Height - 10));
+
+            ((LevelScreen)_screen).makeShotSound();
         }
     }
 
@@ -1896,10 +1893,12 @@ namespace PikeAndShot
         private Sprite _crossbowmanPavisePlace;
         public bool hasPavise;
         private float _placeTime;
-        private int _bolts;
         public int postRetrieveState;
+        public int postPlaceState;
+        public float preRetrieveStateTimer;
         public Pavise myPavise;
         private ArrayList possibleTargets;
+        public Vector2 chargePosition;
 
         public CrossbowmanPavise(BattleScreen screen, float x, float y, int side)
             : base(screen, x, y, side)
@@ -1916,6 +1915,7 @@ namespace PikeAndShot
                 _placeTime = 200f;
             _chargeTime = 200f;
             possibleTargets = new ArrayList();
+            chargePosition = new Vector2(100f, -13f);
         }
     
         public void charge()
@@ -1925,8 +1925,55 @@ namespace PikeAndShot
                 _state = STATE_CHARGING;
                 initCharge = false;
                 _stateTimer = _chargeTime;
-                //determine how many other guys are already shooting
-                _meleeDestination = myFormation.getCenter() + new Vector2(100f, -13f);
+                chargePosition = new Vector2(100f, -13f);
+                _meleeDestination = myFormation.getCenter() + chargePosition;
+                postRetrieveState = STATE_CHARGING;
+                postPlaceState = STATE_ATTACKING;
+                preRetrieveStateTimer = _attackTime;
+                _stateTimer = _attackTime;
+                setSpeed(0.25f);
+            }
+        }
+
+        public void chargeLogic(TimeSpan timeSpan)
+        {
+            _stateTimer -= (float)timeSpan.TotalMilliseconds;
+            if (_stateTimer <= 0)
+            {
+                if (!initCharge)
+                {
+                    initCharge = true;
+                }
+                else
+                {
+                    if (_meleeDestination != myFormation.getCenter() + chargePosition)
+                    {
+                        _meleeDestination = myFormation.getCenter() + chargePosition;
+                        paviseRetrieve();
+                        setSpeed(0.15f);
+                    }
+                    else if (_position == _meleeDestination && _state == STATE_CHARGING)
+                    {
+                        attack();
+                        setSpeed(0.15f);
+                    }
+                }
+            }
+        }
+
+        public void chargeEnd()
+        {
+            if (_state != STATE_DYING && _state != STATE_MELEE_LOSS && _state != STATE_MELEE_WIN)
+            {
+                if (!hasPavise)
+                {
+                    postRetrieveState = STATE_READY;
+                    paviseRetrieve();
+                }
+                else
+                    _state = STATE_READY;
+
+                setSpeed(0.15f);
             }
         }
 
@@ -1952,37 +1999,12 @@ namespace PikeAndShot
                     }
                 }
                 if(bestTarget != null)
-                    _screen.addShot(new AimedBolt(new Vector2(this._position.X + 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10, bestTarget.getCenter()));
+                    _screen.addShot(new AimedBolt(new Vector2(this._position.X + 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10, bestTarget.getCenter(), bestTarget));
                 else
-                    _screen.addShot(new AimedBolt(new Vector2(this._position.X + 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10, this.getCenter() + new Vector2(100f, 0)));
+                    _screen.addShot(new AimedBolt(new Vector2(this._position.X + 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10, this.getCenter() + new Vector2(100f, 0), bestTarget));
             }
             else
                 _screen.addShot(new CrossbowShot(new Vector2(this._position.X - 14 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10));
-        }
-
-        public void chargeLogic(TimeSpan timeSpan)
-        {
-            _stateTimer -= (float)timeSpan.TotalMilliseconds;
-            if (_stateTimer <= 0)
-            {
-                if (!initCharge)
-                {
-                    initCharge = true;
-                    _bolts = 4;
-                }
-                else
-                {
-                    if (_bolts <= 0 || (_meleeDestination == _position && myFormation.getCenter().X > PikeAndShotGame.SCREENWIDTH/5 + getCenter().X))
-                    {
-                        postRetrieveState = STATE_READY;
-                        paviseRetrieve();
-                    }
-                    else if (_position == _meleeDestination && _state == STATE_CHARGING)
-                    {
-                        attack();
-                    }
-                }
-            }
         }
 
         protected override void attackDone()
@@ -2008,7 +2030,6 @@ namespace PikeAndShot
             }
             else
             {
-                _bolts--;
                 if (_state == STATE_READY || _state == STATE_CHARGING)
                 {
                     _state = STATE_ATTACKING;
@@ -2026,7 +2047,18 @@ namespace PikeAndShot
             base.updateState(timeSpan);
             if (!_stateChanged)
             {
-                if (_state == STATE_PLACING)
+                if (_state == STATE_RELOADING)
+                {
+                    if (_meleeDestination != myFormation.getCenter() + chargePosition)
+                    {
+                        _meleeDestination = myFormation.getCenter() + chargePosition;
+                        postPlaceState = _state;
+                        preRetrieveStateTimer = _stateTimer;
+                        paviseRetrieve();
+                        setSpeed(0.15f);
+                    }
+                }
+                else if (_state == STATE_PLACING)
                 {
                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
 
@@ -2039,7 +2071,8 @@ namespace PikeAndShot
                         }
                         else
                         {
-                            _state = STATE_CHARGING;
+                            _state = postPlaceState;
+                            _stateTimer = preRetrieveStateTimer;
                         }
                         _stateChanged = true;
                     }
@@ -2059,9 +2092,10 @@ namespace PikeAndShot
                         }
                         else
                         {
-                            if (postRetrieveState == STATE_CHARGING)
-                                _stateTimer = 0;
-                            _state = postRetrieveState;
+                            _stateTimer = 0;
+                            _state = postRetrieveState;        
+                            chargePosition += new Vector2(8, 0);
+                            _meleeDestination = myFormation.getCenter() + chargePosition;
                         }
                         _stateChanged = true;
                     }
@@ -2107,7 +2141,8 @@ namespace PikeAndShot
             {
                 myPavise = new Pavise(new Vector2(this._position.X + 16f + _randDestOffset.X, this._position.Y + 16f + _randDestOffset.Y), this._screen, _side, 24f);
                 _screen.addShot(myPavise);
-                _meleeDestination -= new Vector2(8, 0);
+                chargePosition -= new Vector2(8, 0);
+                _meleeDestination = myFormation.getCenter() + chargePosition;
             }
             else
                 _screen.addShot(new Pavise(new Vector2(this._position.X + 4f + _randDestOffset.X, this._position.Y + 16f + _randDestOffset.Y), this._screen, _side, 24f));
@@ -2136,7 +2171,6 @@ namespace PikeAndShot
         private Formation playerFormation;
         private Sprite _doppleReload1;
         private Sprite _doppleSwing1;
-        private int targets;
 
         private WeaponSwing _weaponSwing;
 
@@ -2399,47 +2433,60 @@ namespace PikeAndShot
             {
                 _state = STATE_CHARGING;
                 initCharge = false;
-                targets = 2;
                 _stateTimer = _chargeTime;
+            }
+        }
+
+        public void chargeEnd()
+        {
+            if (_state != STATE_DYING && _state != STATE_DEAD)
+            {
+                _state = STATE_READY;
+                guardTarget = null;
+                _stateTimer = 0;
             }
         }
 
         public void chargeLogic(TimeSpan timeSpan)
         {
-            _stateTimer -= (float)timeSpan.TotalMilliseconds;
-            if (_stateTimer <= 0)
+            if (!initCharge)
             {
-                if (!initCharge)
+                _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                if (_stateTimer <= 0)
                 {
+                    _stateTimer = 0;
                     initCharge = true;
                     Soldier bestTarget = getBestTarget();
                     if (bestTarget != null)
-                        guardTarget = bestTarget;
-                }
-                else
-                {
-                    if (guardTarget == null)
                     {
-                        if (targets <= 0)
-                        {
-                            _state = STATE_READY;
-                            initCharge = false;
-                        }
-                        else
-                        {
-                            targets--;
-                            Soldier bestTarget = getBestTarget();
-                            if (bestTarget != null)
-                                guardTarget = bestTarget;
-                            else
-                            {
-                                _state = STATE_READY;
-                                initCharge = false;
-                            }
-                        }
+                        guardTarget = bestTarget;
+                        setSpeed(0.25f);
+                    }
+                    else
+                    {
+                        _stateTimer = _chargeTime;
+                        setSpeed(0.15f);
                     }
                 }
             }
+            else
+            {
+                if (guardTarget == null)
+                {
+                    Soldier bestTarget = getBestTarget();
+                    if (bestTarget != null)
+                    {
+                        guardTarget = bestTarget;
+                        setSpeed(0.25f);
+                    }
+                    else
+                    {
+                        _stateTimer = _chargeTime;
+                        setSpeed(0.15f);
+                    }
+                }
+            }
+            
         }
 
         private Soldier getBestTarget()
@@ -2447,12 +2494,12 @@ namespace PikeAndShot
             possibleTargets = ((LevelScreen)_screen).dangerOnScreen();
 
             Soldier bestTarget = null;
-            Vector2 bestDistance = new Vector2(99999, 99999);
+            Vector2 bestDistance = new Vector2(112, 112);
             Vector2 distance;
             foreach (Soldier s in possibleTargets)
             {
                 distance = s.getCenter() - myFormation.getCenter();
-                if (bestTarget == null || bestDistance.Length() > distance.Length())
+                if (bestDistance.Length() > distance.Length())
                 {
                     bestTarget = s;
                     bestDistance = distance;

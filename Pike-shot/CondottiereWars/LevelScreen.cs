@@ -16,7 +16,7 @@ namespace PikeAndShot
 {
     public class LevelScreen : BattleScreen, FormListener, ScreenAnimationListener
     {
-        public static int MAX_COINS = 10;
+        public static int MAX_COINS = 20;
         public static float NEXT_SPAWN_POINT = 2000f;
         public static float COIN_METER_FLASH_TIME = 400f;
         public static float COIN_METER_HURT_FLASH_TIME = 400f;
@@ -49,6 +49,9 @@ namespace PikeAndShot
         Vector2 coinMeterPosition;
         bool doppel;
         ArrayList coinsDone;
+
+        ArrayList shotSounds;
+        int shotSoundsPlayed;
 
         public LevelScreen(PikeAndShotGame game, Level level)
             : base(game)
@@ -100,6 +103,15 @@ namespace PikeAndShot
             }
 
             coinsDone = new ArrayList();
+
+            shotSounds = new ArrayList(3);
+            shotSounds.Add(PikeAndShotGame.SHOT_0.CreateInstance());
+            shotSounds.Add(PikeAndShotGame.SHOT_1.CreateInstance());
+            shotSounds.Add(PikeAndShotGame.SHOT_1.CreateInstance());
+
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(PikeAndShotGame.THEME_1);
+            
         }
 
         public override void update(GameTime gameTime)
@@ -456,21 +468,9 @@ namespace PikeAndShot
             }
             if ((keyboardState.IsKeyDown(Keys.Z) && keyboardState.IsKeyDown(Keys.X) && (previousKeyboardState.IsKeyUp(Keys.Z) || previousKeyboardState.IsKeyUp(Keys.X))) || (gamePadState.IsButtonDown(Buttons.A) && gamePadState.IsButtonDown(Buttons.X) && (previousGamePadState.IsButtonUp(Buttons.A) || previousGamePadState.IsButtonUp(Buttons.X))))
             {
-                _formation.meleeCharge();
+                //_formation.meleeCharge();
                 //_formation.swingAttack();
             }
-            //else if ((keyboardState.IsKeyUp(Keys.Z) || keyboardState.IsKeyUp(Keys.X)) && (previousKeyboardState.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyDown(Keys.X)))
-            //{
-            //    _formation.cancelCharge();
-            //}
-            //else if ((gamePadState.IsButtonUp(Buttons.A) || gamePadState.IsButtonUp(Buttons.X)) && (previousGamePadState.IsButtonDown(Buttons.A) && previousGamePadState.IsButtonDown(Buttons.X)))
-            //{
-            //    _formation.cancelCharge();
-            //}
-            //if ((keyboardState.IsKeyDown(Keys.Z) && keyboardState.IsKeyUp(Keys.X) && previousKeyboardState.IsKeyDown(Keys.X)) || (gamePadState.IsButtonDown(Buttons.A) && gamePadState.IsButtonUp(Buttons.X) && previousGamePadState.IsButtonDown(Buttons.X)))
-            //{
-            //    _formation.swingRelease();
-            //}
             if ((keyboardState.IsKeyDown(Keys.X) && !keyboardState.IsKeyDown(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.X) && !gamePadState.IsButtonDown(Buttons.A)))
             {
                 _formation.shotAttack();
@@ -717,17 +717,33 @@ namespace PikeAndShot
         internal ArrayList dangerOnScreen()
         {
             ArrayList enemies = new ArrayList(_enemyFormations.Count * 10);
+            ArrayList aimedShots = new ArrayList(_shots.Count);
+            bool addSoldier;
+            foreach(Shot shot in _shots)
+            {
+                if (shot is AimedBolt)
+                    aimedShots.Add(shot);
+            }
             foreach (EnemyFormation f in _enemyFormations)
             {
                 foreach (Soldier s in f.getSoldiers())
                 {
                     if (s.getSide() == SIDE_ENEMY
                         && s.getState() != Soldier.STATE_DYING && s.getState() != Soldier.STATE_DEAD
-                        && s._position.X + Soldier.WIDTH * 2f - (getMapOffset().X) > 0 
+                        && s._position.X + Soldier.WIDTH * 2f - (getMapOffset().X) > 0
                         && s._position.X - Soldier.WIDTH - (getMapOffset().X) < PikeAndShotGame.SCREENWIDTH
                         && s._position.Y + Soldier.HEIGHT - (getMapOffset().Y) > 0
                         && s._position.Y - Soldier.HEIGHT - (getMapOffset().Y) < PikeAndShotGame.SCREENHEIGHT)
-                        enemies.Add(s);
+                    {
+                        addSoldier = true;
+                        foreach (AimedBolt ab in aimedShots)
+                        {
+                            if (ab.targetSoldier == s)
+                                addSoldier = false;
+                        }
+                        if(addSoldier)
+                            enemies.Add(s);
+                    }
                 }
             }
 
@@ -815,6 +831,24 @@ namespace PikeAndShot
             {
                 _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[PikeAndShotGame.random.Next(7)], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
             }
+            MediaPlayer.Stop();
+            MediaPlayer.Play(PikeAndShotGame.THEME_1);
+        }
+
+        internal void makeShotSound()
+        {
+            if(shotSoundsPlayed < 3)
+            {
+                ((SoundEffectInstance)shotSounds[shotSoundsPlayed++]).Play();
+            }
+        }
+
+        public void clearShotSounds()
+        {
+            shotSoundsPlayed = 0;
+            SoundEffectInstance instance = (SoundEffectInstance)shotSounds[PikeAndShotGame.random.Next(2)];
+            shotSounds.Remove(instance);
+            shotSounds.Add(instance);
         }
     }
 }
