@@ -1957,6 +1957,40 @@ namespace PikeAndShot
         }
     }
 
+    public class ColmillosFormation : Formation
+    {
+        public const int NUMBER_OF_WOLVES = 8;
+        bool intro;
+
+        public ColmillosFormation(BattleScreen screen, float x, float y)
+            : base(screen, x, y, NUMBER_OF_WOLVES + 1, BattleScreen.SIDE_ENEMY)
+        {
+            addSoldier(new Berzerker(screen, x, y, BattleScreen.SIDE_ENEMY));
+            for (int i = 0; i < NUMBER_OF_WOLVES; i++)
+                addSoldier(new Brigand(screen, x, y, BattleScreen.SIDE_ENEMY));
+
+            intro = true;
+        }
+
+        public override void update(TimeSpan timeSpan)
+        {
+ 	        base.update(timeSpan);
+
+            //boss behaviour code
+            if (intro)
+                performIntro(timeSpan);
+            else
+            {
+
+            }
+        }
+
+        private void performIntro(TimeSpan timeSpan)
+        {
+            
+        }
+    }
+
     public class Subformation : Formation
     {
         private Formation _parent;
