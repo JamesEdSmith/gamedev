@@ -107,7 +107,7 @@ namespace PikeAndShot
             shotSounds = new ArrayList(3);
             shotSounds.Add(PikeAndShotGame.SHOT_0.CreateInstance());
             shotSounds.Add(PikeAndShotGame.SHOT_1.CreateInstance());
-            shotSounds.Add(PikeAndShotGame.SHOT_1.CreateInstance());
+            shotSounds.Add(PikeAndShotGame.SHOT_2.CreateInstance());
 
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(PikeAndShotGame.THEME_1);

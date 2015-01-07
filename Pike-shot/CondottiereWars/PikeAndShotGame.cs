@@ -245,6 +245,11 @@ namespace PikeAndShot
         public static SoundEffect SHOT_0;
         public static SoundEffect SHOT_1;
         public static SoundEffect SHOT_2;
+        public static SoundEffectInstance PIKES_LOWER;
+        public static SoundEffectInstance PIKES_RAISE;
+        public static SoundEffect SHOT_HIT;
+        public static SoundEffect ROCK_HIT;
+        public static SoundEffect SLING_ROCK;
 
         private ArrayList _gameScreens;
         private BattleScreen _currScreen;
@@ -499,6 +504,13 @@ namespace PikeAndShot
             SHOT_0 = Content.Load<SoundEffect>(@"shot00");
             SHOT_1 = Content.Load<SoundEffect>(@"shot01");
             SHOT_2 = Content.Load<SoundEffect>(@"shot02");
+            PIKES_LOWER = Content.Load<SoundEffect>(@"down").CreateInstance();
+            PIKES_LOWER.Volume = 0.5f;
+            PIKES_RAISE = Content.Load<SoundEffect>(@"drop").CreateInstance();
+            PIKES_RAISE.Volume = 0.5f;
+            SHOT_HIT = Content.Load<SoundEffect>(@"hit");
+            ROCK_HIT = Content.Load<SoundEffect>(@"smack");
+            SLING_ROCK = Content.Load<SoundEffect>(@"huck");
 
             _gameScreens = new ArrayList(3);
 

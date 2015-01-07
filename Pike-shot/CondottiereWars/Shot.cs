@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace PikeAndShot
 {
@@ -24,8 +25,9 @@ namespace PikeAndShot
         protected float _height;
         protected Sprite _sprite;
         protected Sprite _ground;
+        protected SoundEffectInstance hitSound;
 
-        public Shot(Vector2 position, BattleScreen screen, int side, float height) : base(screen, side)
+        public Shot(Vector2 position, BattleScreen screen, int side, float height, SoundEffectInstance hitSound) : base(screen, side)
         {
             _position = position;
             _state = STATE_FLYING;
@@ -35,6 +37,7 @@ namespace PikeAndShot
 
             _drawingY = _position.Y + height;
             _guardPositionOffset = new Vector2(0f, -15f);
+            this.hitSound = hitSound;
         }
 
         public virtual void draw(SpriteBatch spritebatch)
@@ -67,8 +70,7 @@ namespace PikeAndShot
                 // check to see if hit ground
                 if (_position.Y - _origin.Y > _height)
                 {
-                    _state = STATE_GROUND;
-                    _stateTimer = _groundTime;
+                    ground();
                 }
 
                 if (_stateTimer <= 0)
@@ -85,6 +87,14 @@ namespace PikeAndShot
             }
 
             _stateTimer -= (float)timeSpan.TotalMilliseconds;
+        }
+
+        protected void ground()
+        {
+            _state = STATE_GROUND;
+            _stateTimer = _groundTime;
+            if(hitSound != null)
+                hitSound.Play();
         }
 
         public override int getWidth()
@@ -104,8 +114,7 @@ namespace PikeAndShot
 
         internal void hit()
         {
-            _state = STATE_GROUND;
-            _stateTimer = _groundTime;
+            ground();
         }
 
         public override Vector2 getCenter()
@@ -119,8 +128,8 @@ namespace PikeAndShot
         private ScreenAnimation _smoke;
         private float metaphoricalHeight;
 
-        public ArquebusierShot(Vector2 position, BattleScreen screen, int side, float height)
-            : base(position, screen, side, height)
+        public ArquebusierShot(Vector2 position, BattleScreen screen, int side, float height, SoundEffectInstance hitSound)
+            : base(position, screen, side, height, hitSound)
         {
             _speed = 0.5f;
             _damage = 1;
@@ -159,8 +168,7 @@ namespace PikeAndShot
                 // check to see if hit ground
                 if (metaphoricalHeight > _height)
                 {
-                    _state = STATE_GROUND;
-                    _stateTimer = _groundTime;
+                    ground();
                 }
 
                 if (_stateTimer <= 0)
@@ -225,7 +233,7 @@ namespace PikeAndShot
     public class CrossbowShot : Shot
     {        
         public CrossbowShot(Vector2 position, BattleScreen screen, int side, float height)
-            : base(position, screen, side, height)
+            : base(position, screen, side, height, null)
         {
             _speed = 0.4f;
             _damage = 1;
@@ -343,8 +351,7 @@ namespace PikeAndShot
                 // check to see if hit ground
                 if (_lifeTime <= 0f)
                 {
-                    _state = STATE_GROUND;
-                    _stateTimer = _groundTime;
+                    ground();
                 }   
 
                 // check to see if out of play
@@ -376,7 +383,7 @@ namespace PikeAndShot
         public const int STATE_GETTINGHIT = 100;
 
         public Pavise(Vector2 position, BattleScreen screen, int side, float height)
-            : base(position, screen, side, height)
+            : base(position, screen, side, height, null)
         {
             _animationTime = 200f;
             _speed = 0f;
@@ -423,8 +430,7 @@ namespace PikeAndShot
 
                 if (_stateTimer <= 0f)
                 {
-                    _stateTimer = _groundTime;
-                    _state = STATE_GROUND;
+                    ground();
                 }
             }
         }
@@ -441,8 +447,7 @@ namespace PikeAndShot
                         if (pikeman.getState() != Pikeman.STATE_RECOILING && pikeman.getState() != STATE_DYING && pikeman.getState() != STATE_DEAD && pikeman.getState() != Soldier.STATE_MELEE_LOSS && pikeman.getState() != Soldier.STATE_MELEE_WIN)
                         {
                             pikeman.recoil();
-                            _state = STATE_GROUND;
-                            _stateTimer = _groundTime;
+                            ground();
                         }
                     }
                     else if (collider is LanceTip)
@@ -451,15 +456,13 @@ namespace PikeAndShot
                         if (pikeman.getState() != Cavalry.STATE_RECOILING && pikeman.getState() != STATE_DYING && pikeman.getState() != STATE_DEAD && pikeman.getState() != Soldier.STATE_MELEE_LOSS && pikeman.getState() != Soldier.STATE_MELEE_WIN)
                         {
                             pikeman.recoil();
-                            _state = STATE_GROUND;
-                            _stateTimer = _groundTime;
+                            ground();
                         }
                     }
                     else if (collider is Shot)
                     {
                         collider.setState(STATE_DEAD);
-                        _state = STATE_GROUND;
-                        _stateTimer = _groundTime;
+                        ground();
                     }
                 }
                 else if ((collider is Soldier) && collider.getSide() != _side && collider.getState() != STATE_DEAD && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && collider.getState() != Soldier.STATE_ONEATTACK && _state != STATE_GROUND && _state != STATE_GETTINGHIT)
@@ -472,15 +475,14 @@ namespace PikeAndShot
         }
         public void knockOver()
         {
-            _state = STATE_GROUND;
-            _stateTimer = _groundTime;
+            ground();
         }
     }
 
     public class SkirmisherJavelin : SlingerRock
     {
-        public SkirmisherJavelin(Vector2 position, BattleScreen screen, int side, float height)
-            : base(position, screen, side, height)
+        public SkirmisherJavelin(Vector2 position, BattleScreen screen, int side, float height, SoundEffectInstance sound)
+            : base(position, screen, side, height, sound)
         {
             _damage = 1;
             _animationTime = 250f;
@@ -495,8 +497,8 @@ namespace PikeAndShot
         private Vector2 _trajectory;
         private float _lifeTime;
 
-        public SlingerRock(Vector2 position, BattleScreen screen, int side, float height)
-            : base(position, screen, side, height)
+        public SlingerRock(Vector2 position, BattleScreen screen, int side, float height, SoundEffectInstance sound)
+            : base(position, screen, side, height, sound)
         {
             _speed = 0.27f;
             _damage = 1;
@@ -527,8 +529,7 @@ namespace PikeAndShot
                     // check to see if hit ground
                     if (_position.Y - _origin.Y > _height)
                     {
-                        _state = STATE_GROUND;
-                        _stateTimer = _groundTime;
+                        ground();
                     }
                 }
                 else
@@ -539,8 +540,7 @@ namespace PikeAndShot
                     // check to see if hit ground
                     if (_lifeTime <= 0f)
                     {
-                        _state = STATE_GROUND;
-                        _stateTimer = _groundTime;
+                        ground();
                     }
                 }
 

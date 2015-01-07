@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace PikeAndShot
 {
@@ -1470,6 +1471,7 @@ namespace PikeAndShot
             {
                 _state = STATE_LOWERED;
                 _screen.addScreenObject(_pikeTip);
+                PikeAndShotGame.PIKES_LOWER.Play();
             }
         }
 
@@ -1514,6 +1516,7 @@ namespace PikeAndShot
                     {
                         _stateTimer = 0f;
                         _state = STATE_READY;
+                        PikeAndShotGame.PIKES_RAISE.Play();
                     }
                 }
                 else if (_state == STATE_LOWER45)
@@ -1641,6 +1644,7 @@ namespace PikeAndShot
 
         private Sprite _arquebusierReload;
         private Sprite _arquebusierShoot;
+        private SoundEffectInstance shotHitSound;
 
         public Arquebusier(BattleScreen screen, float x, float y, int side): base(screen, side, x, y)
         {
@@ -1660,6 +1664,8 @@ namespace PikeAndShot
             _arquebusierShoot = new Sprite(PikeAndShotGame.ARQUEBUSIER_SHOOT, new Rectangle(6, 4, 16, 28), 44, 42);
 
             _feet.setAnimationSpeed(15f / 0.11f);
+            shotHitSound = PikeAndShotGame.SHOT_HIT.CreateInstance();
+            shotHitSound.Volume = 0.5f;
         }
 
         public override bool attack()
@@ -1762,9 +1768,9 @@ namespace PikeAndShot
         {
             _shotMade = true;
             if (_side == BattleScreen.SIDE_PLAYER)
-                _screen.addShot(new ArquebusierShot(new Vector2(this._position.X + 34 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _arquebusierShoot.getBoundingRect().Height - 10));
+                _screen.addShot(new ArquebusierShot(new Vector2(this._position.X + 34 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _arquebusierShoot.getBoundingRect().Height - 10, shotHitSound));
             else
-                _screen.addShot(new ArquebusierShot(new Vector2(this._position.X - 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _arquebusierShoot.getBoundingRect().Height - 10));
+                _screen.addShot(new ArquebusierShot(new Vector2(this._position.X - 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _arquebusierShoot.getBoundingRect().Height - 10, shotHitSound));
 
             ((LevelScreen)_screen).makeShotSound();
         }
@@ -2600,8 +2606,11 @@ namespace PikeAndShot
     {
         private Sprite _slingerReload;
         private Sprite _slingerShoot;
+        private SoundEffectInstance slingSound;
+        private SoundEffectInstance rockHitSound;
 
         private bool variant;
+        private bool soundMade;
 
         public Slinger(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
@@ -2610,6 +2619,7 @@ namespace PikeAndShot
             _class = Soldier.CLASS_GOBLIN_SLINGER;
             _attackTime = 600f;
             _reloadTime = 1000f;
+            soundMade = false;
 
             if (PikeAndShotGame.random.Next(51) > 25)
             {
@@ -2639,6 +2649,8 @@ namespace PikeAndShot
 
             _feet.setAnimationSpeed(15f / 0.11f);
             _retreat.setAnimationSpeed(15f / _speed);
+            slingSound = PikeAndShotGame.SLING_ROCK.CreateInstance();
+            rockHitSound = PikeAndShotGame.ROCK_HIT.CreateInstance();
         }
 
         public override bool attack()
@@ -2703,6 +2715,12 @@ namespace PikeAndShot
                 }
                 else if (_state == STATE_ATTACKING)
                 {
+                    if (_slingerShoot.getCurrFrame() == (variant ? 10 : 9) && !soundMade)
+                    {
+                        soundMade = true;
+                        slingSound.Play();
+                    }
+
                     if (_slingerShoot.getCurrFrame() == (variant ? 12 : 11) && !_shotMade)
                     {
                         shotDone();
@@ -2750,6 +2768,7 @@ namespace PikeAndShot
                 _reacting = false;
             }
             _shotMade = false;
+            soundMade = false;
         }
 
         protected override void shotDone()
@@ -2758,16 +2777,16 @@ namespace PikeAndShot
             if (_side == BattleScreen.SIDE_PLAYER)
             {
                 if(variant)
-                    _screen.addShot(new SkirmisherJavelin(new Vector2(this._position.X + 32 + _randDestOffset.X, this._position.Y + 4 + _randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height));
+                    _screen.addShot(new SkirmisherJavelin(new Vector2(this._position.X + 32 + _randDestOffset.X, this._position.Y + 4 + _randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
                 else
-                    _screen.addShot(new SlingerRock(new Vector2(this._position.X + 28 + _randDestOffset.X, this._position.Y + _randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height));
+                    _screen.addShot(new SlingerRock(new Vector2(this._position.X + 28 + _randDestOffset.X, this._position.Y + _randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
             }
             else
             {
                 if (variant)
-                    _screen.addShot(new SkirmisherJavelin(new Vector2(this._position.X - 18 + _randDestOffset.X, this._position.Y + 4 + _randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height));
+                    _screen.addShot(new SkirmisherJavelin(new Vector2(this._position.X - 18 + _randDestOffset.X, this._position.Y + 4 + _randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
                 else
-                    _screen.addShot(new SlingerRock(new Vector2(this._position.X - 12 + _randDestOffset.X, this._position.Y + _randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height));
+                    _screen.addShot(new SlingerRock(new Vector2(this._position.X - 12 + _randDestOffset.X, this._position.Y + _randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
             }
         }
     }
