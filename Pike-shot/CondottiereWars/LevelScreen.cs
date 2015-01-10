@@ -110,6 +110,7 @@ namespace PikeAndShot
             shotSounds.Add(PikeAndShotGame.SHOT_2.CreateInstance());
 
             MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume = 0.6f;
             MediaPlayer.Play(PikeAndShotGame.THEME_1);
             
         }

@@ -250,6 +250,9 @@ namespace PikeAndShot
         public static SoundEffect SHOT_HIT;
         public static SoundEffect ROCK_HIT;
         public static SoundEffect SLING_ROCK;
+        public static SoundEffect OWW_ALLY;
+        public static SoundEffect OWW_ENEMY;
+        public static SoundEffect BODY_FALL;
 
         private ArrayList _gameScreens;
         private BattleScreen _currScreen;
@@ -511,6 +514,10 @@ namespace PikeAndShot
             SHOT_HIT = Content.Load<SoundEffect>(@"hit");
             ROCK_HIT = Content.Load<SoundEffect>(@"smack");
             SLING_ROCK = Content.Load<SoundEffect>(@"huck");
+
+            OWW_ALLY = Content.Load<SoundEffect>(@"oww");
+            OWW_ENEMY = Content.Load<SoundEffect>(@"bark");
+            BODY_FALL = Content.Load<SoundEffect>(@"thud"); 
 
             _gameScreens = new ArrayList(3);
 

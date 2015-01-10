@@ -120,6 +120,10 @@ namespace PikeAndShot
         public bool DEBUGFOUNDPIKE;
         public float breakRange = 0;
 
+        protected SoundEffectInstance bodyFallSound;
+        protected SoundEffectInstance hitSound;
+        protected bool playedFallSound;
+
         public Soldier(BattleScreen screen, int side, float x, float y): base(screen, side)
         {
             _position = new Vector2(x, y);
@@ -178,6 +182,10 @@ namespace PikeAndShot
 
             // DEBUG VARS
             DEBUGFOUNDPIKE = false;
+            bodyFallSound = PikeAndShotGame.BODY_FALL.CreateInstance();
+            bodyFallSound.Volume = 0.5f;
+            hitSound = PikeAndShotGame.OWW_ALLY.CreateInstance();
+            playedFallSound = false;
         }
 
         public static void getNewSoldier(int soldierClass, BattleScreen screen, Formation _newEnemyFormation, float x, float y)
@@ -757,6 +765,12 @@ namespace PikeAndShot
                 float deathFrameTime = _deathTime / (float)maxFrames;
                 int frameNumber = maxFrames - (int)(_stateTimer / deathFrameTime) -1;
 
+                if(frameNumber == _death.getMaxFrames()-1 && !playedFallSound)
+                {
+                    bodyFallSound.Play();
+                    playedFallSound = true;
+                }
+
                 if (frameNumber < _death.getMaxFrames())
                     _death.setFrame(frameNumber);
                 else
@@ -1194,6 +1208,7 @@ namespace PikeAndShot
             _stateTimer = _deathTime;
             _destination = _position;
             _screen.addLooseSoldier(this);
+            hitSound.Play();
 
             //I want guys that are running in as replacements to count as a loss
             if (((myFormation == _screen.getPlayerFormation() && this._type != TYPE_SWINGER) || (this._type != TYPE_SWINGER && _side == BattleScreen.SIDE_PLAYER)) && _screen is LevelScreen)
@@ -3412,13 +3427,12 @@ namespace PikeAndShot
                 float frameTime = _shieldBreakTime / (float)maxFrames;
                 int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
 
-                /*if (frameNumber == 6 && !_dropShield)
+                if (frameNumber == 3 && !playedFallSound)
                 {
-                    new ScreenAnimation(_screen, _side, new Vector2(_position.X, _position.Y), new Sprite(PikeAndShotGame.SOLDIER_BROKENSHIELD2, new Rectangle(24, 4, 16, 28), 60, 46), (_shieldBreakTime / 8f) * 6f);
-                    _dropShield = true;
-                }*/
+                    bodyFallSound.Play();
+                    playedFallSound = true;                    
+                }
 
-                //_shieldBreak.setFrame(frameNumber + 5);
                 _shieldFall.setFrame(frameNumber);
 
                 _body = _shieldFall;
