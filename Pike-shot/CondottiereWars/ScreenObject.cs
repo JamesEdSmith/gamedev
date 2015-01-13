@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections;
+using Microsoft.Xna.Framework.Audio;
 
 namespace PikeAndShot
 {
@@ -149,7 +150,7 @@ namespace PikeAndShot
             }            
         }
 
-        public void setDone()
+        public virtual void setDone()
         {
             _done = true;
             foreach (ScreenAnimationListener listener in listeners)
@@ -288,6 +289,7 @@ namespace PikeAndShot
     public class Loot : ScreenAnimation
     {
         static float FLASH_TIME = 1500f;
+        SoundEffectInstance lootSound;
 
         public Loot(BattleScreen screen, Vector2 position)
             : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.LOOT, new Rectangle(0, 0, 22, 22), 22, 22, false, true, 128, new Color(Color.Yellow.R, Color.Yellow.G, 100), 2), FLASH_TIME)
@@ -295,6 +297,8 @@ namespace PikeAndShot
             int rando = PikeAndShotGame.random.Next(_sprite.getMaxFrames());
             _sprite.setFrame(rando);
             _done = false;
+            lootSound = PikeAndShotGame.LOOT_SOUND.CreateInstance();
+            lootSound.Volume = 0.5f;
         }
 
         public override void update(TimeSpan timeSpan)
@@ -307,6 +311,7 @@ namespace PikeAndShot
                 {
                     _time = 0;
                     setDone();
+                    lootSound.Play();
                 }
             }
         }
@@ -413,6 +418,7 @@ namespace PikeAndShot
         private Vector2 destination;
         private Vector2 origin;
         private Vector2 control1, control2;
+        private SoundEffectInstance coinSound;
 
         public LootTwinkle(BattleScreen screen, Vector2 position, float duration, Vector2 destination)
             : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN_SPINNA, new Rectangle(0, 0, 6, 6), 6, 6, true), duration)
@@ -422,6 +428,8 @@ namespace PikeAndShot
             this.destination = destination;
             origin = new Vector2(_position.X, _position.Y);
             this._time = ANIMATION_TIME;
+            coinSound = PikeAndShotGame.COIN_SOUND.CreateInstance();
+            coinSound.Volume = 0.5f;
         }
 
         public void onAnimationTrigger(ScreenAnimation screenAnimaton)
@@ -478,6 +486,12 @@ namespace PikeAndShot
             if (started)
                 _sprite.draw(spritebatch, _position, _side);
         }
+
+        public override void setDone()
+        {
+            base.setDone();
+            coinSound.Play();
+        }
     }
 
 

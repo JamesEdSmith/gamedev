@@ -122,6 +122,7 @@ namespace PikeAndShot
 
         protected SoundEffectInstance bodyFallSound;
         protected SoundEffectInstance hitSound;
+        protected SoundEffectInstance chargeSound;
         protected bool playedFallSound;
 
         public Soldier(BattleScreen screen, int side, float x, float y): base(screen, side)
@@ -183,8 +184,10 @@ namespace PikeAndShot
             // DEBUG VARS
             DEBUGFOUNDPIKE = false;
             bodyFallSound = PikeAndShotGame.BODY_FALL.CreateInstance();
-            bodyFallSound.Volume = 0.5f;
+            bodyFallSound.Volume = 0.3f;
             hitSound = PikeAndShotGame.OWW_ALLY.CreateInstance();
+            chargeSound = PikeAndShotGame.CHARGE_ROAR.CreateInstance();
+            chargeSound.Volume = 0.25f;
             playedFallSound = false;
         }
 
@@ -947,6 +950,8 @@ namespace PikeAndShot
             {
                 _state = STATE_CHARGING;
                 _stateTimer = _chargeTime;
+                if(_position.X < _screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH)
+                chargeSound.Play();
             }
             return false;
         }
@@ -1680,7 +1685,7 @@ namespace PikeAndShot
 
             _feet.setAnimationSpeed(15f / 0.11f);
             shotHitSound = PikeAndShotGame.SHOT_HIT.CreateInstance();
-            shotHitSound.Volume = 0.5f;
+            shotHitSound.Volume = 0.25f;
         }
 
         public override bool attack()
@@ -2666,6 +2671,9 @@ namespace PikeAndShot
             _retreat.setAnimationSpeed(15f / _speed);
             slingSound = PikeAndShotGame.SLING_ROCK.CreateInstance();
             rockHitSound = PikeAndShotGame.ROCK_HIT.CreateInstance();
+            rockHitSound.Volume = 0.6f;
+            hitSound = PikeAndShotGame.OWW_ENEMY.CreateInstance();
+            hitSound.Volume = 0.25f;
         }
 
         public override bool attack()
@@ -2851,6 +2859,8 @@ namespace PikeAndShot
             _body = _idle;
 
             _feet.setAnimationSpeed(15f / 0.11f);
+            hitSound = PikeAndShotGame.OWW_ENEMY.CreateInstance();
+            hitSound.Volume = 0.25f;
         }
     }
 
@@ -2887,6 +2897,8 @@ namespace PikeAndShot
             _body = _idle;
 
             _feet.setAnimationSpeed(15f / 0.11f);
+            hitSound = PikeAndShotGame.OWW_ENEMY.CreateInstance();
+            hitSound.Volume = 0.25f;
         }
 
         protected override bool checkReactions(TimeSpan timeSpan)

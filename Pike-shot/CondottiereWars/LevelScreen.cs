@@ -108,6 +108,14 @@ namespace PikeAndShot
             shotSounds.Add(PikeAndShotGame.SHOT_0.CreateInstance());
             shotSounds.Add(PikeAndShotGame.SHOT_1.CreateInstance());
             shotSounds.Add(PikeAndShotGame.SHOT_2.CreateInstance());
+            shotSounds.Add(PikeAndShotGame.SHOT_3.CreateInstance());
+            shotSounds.Add(PikeAndShotGame.SHOT_4.CreateInstance());
+
+            foreach (SoundEffectInstance sfx in shotSounds)
+                sfx.Volume = 0.5f;
+
+            ((SoundEffectInstance)shotSounds[3]).Volume = 0.25f;
+            ((SoundEffectInstance)shotSounds[4]).Volume = 0.25f;
 
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 0.6f;

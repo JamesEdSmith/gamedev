@@ -245,6 +245,8 @@ namespace PikeAndShot
         public static SoundEffect SHOT_0;
         public static SoundEffect SHOT_1;
         public static SoundEffect SHOT_2;
+        public static SoundEffect SHOT_3;
+        public static SoundEffect SHOT_4;
         public static SoundEffectInstance PIKES_LOWER;
         public static SoundEffectInstance PIKES_RAISE;
         public static SoundEffect SHOT_HIT;
@@ -253,6 +255,9 @@ namespace PikeAndShot
         public static SoundEffect OWW_ALLY;
         public static SoundEffect OWW_ENEMY;
         public static SoundEffect BODY_FALL;
+        public static SoundEffect CHARGE_ROAR;
+        public static SoundEffect LOOT_SOUND;
+        public static SoundEffect COIN_SOUND;
 
         private ArrayList _gameScreens;
         private BattleScreen _currScreen;
@@ -507,6 +512,8 @@ namespace PikeAndShot
             SHOT_0 = Content.Load<SoundEffect>(@"shot00");
             SHOT_1 = Content.Load<SoundEffect>(@"shot01");
             SHOT_2 = Content.Load<SoundEffect>(@"shot02");
+            SHOT_3 = Content.Load<SoundEffect>(@"shot04");
+            SHOT_4 = Content.Load<SoundEffect>(@"shot05");
             PIKES_LOWER = Content.Load<SoundEffect>(@"down").CreateInstance();
             PIKES_LOWER.Volume = 0.5f;
             PIKES_RAISE = Content.Load<SoundEffect>(@"drop").CreateInstance();
@@ -514,10 +521,12 @@ namespace PikeAndShot
             SHOT_HIT = Content.Load<SoundEffect>(@"hit");
             ROCK_HIT = Content.Load<SoundEffect>(@"smack");
             SLING_ROCK = Content.Load<SoundEffect>(@"huck");
-
             OWW_ALLY = Content.Load<SoundEffect>(@"oww");
             OWW_ENEMY = Content.Load<SoundEffect>(@"bark");
-            BODY_FALL = Content.Load<SoundEffect>(@"thud"); 
+            BODY_FALL = Content.Load<SoundEffect>(@"thud");
+            CHARGE_ROAR = Content.Load<SoundEffect>(@"roar2");
+            LOOT_SOUND = Content.Load<SoundEffect>(@"coin3");
+            COIN_SOUND = Content.Load<SoundEffect>(@"coin2");
 
             _gameScreens = new ArrayList(3);
 
