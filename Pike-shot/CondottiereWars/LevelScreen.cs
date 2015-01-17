@@ -53,6 +53,9 @@ namespace PikeAndShot
         ArrayList shotSounds;
         int shotSoundsPlayed;
 
+        ArrayList pikeSounds;
+        int pikeSoundsPlayed;
+
         public LevelScreen(PikeAndShotGame game, Level level)
             : base(game)
         {
@@ -104,7 +107,7 @@ namespace PikeAndShot
 
             coinsDone = new ArrayList();
 
-            shotSounds = new ArrayList(3);
+            shotSounds = new ArrayList(5);
             shotSounds.Add(PikeAndShotGame.SHOT_0.CreateInstance());
             shotSounds.Add(PikeAndShotGame.SHOT_1.CreateInstance());
             shotSounds.Add(PikeAndShotGame.SHOT_2.CreateInstance());
@@ -117,9 +120,20 @@ namespace PikeAndShot
             ((SoundEffectInstance)shotSounds[3]).Volume = 0.25f;
             ((SoundEffectInstance)shotSounds[4]).Volume = 0.25f;
 
+            pikeSounds = new ArrayList(6);
+            pikeSounds.Add(PikeAndShotGame.PIKE_0.CreateInstance());
+            pikeSounds.Add(PikeAndShotGame.PIKE_1.CreateInstance());
+            pikeSounds.Add(PikeAndShotGame.PIKE_2.CreateInstance());
+            pikeSounds.Add(PikeAndShotGame.PIKE_3.CreateInstance());
+            pikeSounds.Add(PikeAndShotGame.PIKE_4.CreateInstance());
+            pikeSounds.Add(PikeAndShotGame.PIKE_5.CreateInstance());
+
+            foreach (SoundEffectInstance sfx in pikeSounds)
+                sfx.Volume = 0.5f;
+
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 0.6f;
-            MediaPlayer.Play(PikeAndShotGame.THEME_1);
+            //MediaPlayer.Play(PikeAndShotGame.THEME_1);
             
         }
 
@@ -855,9 +869,27 @@ namespace PikeAndShot
         public void clearShotSounds()
         {
             shotSoundsPlayed = 0;
-            SoundEffectInstance instance = (SoundEffectInstance)shotSounds[PikeAndShotGame.random.Next(2)];
+            SoundEffectInstance instance = (SoundEffectInstance)shotSounds[PikeAndShotGame.random.Next(shotSounds.Count -1)];
             shotSounds.Remove(instance);
             shotSounds.Add(instance);
+        }
+
+        internal void makePikeSound()
+        {
+            if (pikeSoundsPlayed < pikeSounds.Count)
+            {
+                ((SoundEffectInstance)pikeSounds[pikeSoundsPlayed++]).Play();
+                if (pikeSoundsPlayed < pikeSounds.Count)
+                    clearPikeSounds();
+            }
+        }
+
+        public void clearPikeSounds()
+        {
+            pikeSoundsPlayed = 0;
+            SoundEffectInstance instance = (SoundEffectInstance)pikeSounds[PikeAndShotGame.random.Next(pikeSounds.Count - 1)];
+            pikeSounds.Remove(instance);
+            pikeSounds.Add(instance);
         }
     }
 }

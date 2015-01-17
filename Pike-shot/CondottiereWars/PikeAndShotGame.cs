@@ -247,6 +247,12 @@ namespace PikeAndShot
         public static SoundEffect SHOT_2;
         public static SoundEffect SHOT_3;
         public static SoundEffect SHOT_4;
+        public static SoundEffect PIKE_0;
+        public static SoundEffect PIKE_1;
+        public static SoundEffect PIKE_2;
+        public static SoundEffect PIKE_3;
+        public static SoundEffect PIKE_4;
+        public static SoundEffect PIKE_5;
         public static SoundEffectInstance PIKES_LOWER;
         public static SoundEffectInstance PIKES_RAISE;
         public static SoundEffect SHOT_HIT;
@@ -258,6 +264,7 @@ namespace PikeAndShot
         public static SoundEffect CHARGE_ROAR;
         public static SoundEffect LOOT_SOUND;
         public static SoundEffect COIN_SOUND;
+        public static SoundEffect SHIELD_BREAK;
 
         private ArrayList _gameScreens;
         private BattleScreen _currScreen;
@@ -527,7 +534,13 @@ namespace PikeAndShot
             CHARGE_ROAR = Content.Load<SoundEffect>(@"roar2");
             LOOT_SOUND = Content.Load<SoundEffect>(@"coin3");
             COIN_SOUND = Content.Load<SoundEffect>(@"coin2");
-
+            SHIELD_BREAK = Content.Load<SoundEffect>(@"shield");
+            PIKE_0 = Content.Load<SoundEffect>(@"pike1");
+            PIKE_1 = Content.Load<SoundEffect>(@"pike2");
+            PIKE_2 = Content.Load<SoundEffect>(@"pike3");
+            PIKE_3 = Content.Load<SoundEffect>(@"pike4");
+            PIKE_4 = Content.Load<SoundEffect>(@"pike5");
+            PIKE_5 = Content.Load<SoundEffect>(@"pike6");
             _gameScreens = new ArrayList(3);
 
             // MAKE LEVELS

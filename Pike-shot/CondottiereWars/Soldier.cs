@@ -1214,6 +1214,7 @@ namespace PikeAndShot
             _destination = _position;
             _screen.addLooseSoldier(this);
             hitSound.Play();
+            playedFallSound = false;
 
             //I want guys that are running in as replacements to count as a loss
             if (((myFormation == _screen.getPlayerFormation() && this._type != TYPE_SWINGER) || (this._type != TYPE_SWINGER && _side == BattleScreen.SIDE_PLAYER)) && _screen is LevelScreen)
@@ -1653,6 +1654,8 @@ namespace PikeAndShot
         {
             _state = STATE_RECOILING;
             _stateTimer = _reloadTime;
+            if (_screen is LevelScreen)
+                ((LevelScreen)_screen).makePikeSound();
             //_stateChanged = true;
         }
     }
@@ -3080,6 +3083,8 @@ namespace PikeAndShot
         public bool _hasShield;
         protected bool _dropShield;
 
+        protected SoundEffectInstance shieldBreakSound;
+
         public Targeteer(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
         {
@@ -3099,6 +3104,9 @@ namespace PikeAndShot
             _chargeNoShield = new Sprite(PikeAndShotGame.SOLDIER_CHARGENOSHIELD, new Rectangle(20, 20, 16, 28), 60, 56);
             _hasShield = true;
             _dropShield = false;
+
+            shieldBreakSound = PikeAndShotGame.SHIELD_BREAK.CreateInstance();
+            shieldBreakSound.Volume = 0.5f;
         }
 
         public override bool attack()
@@ -3345,6 +3353,7 @@ namespace PikeAndShot
                 _reacting = false;
                 _meleeDestination = _position;
                 //_chargeTime = 2000f;
+                shieldBreakSound.Play();
             }
             else
                 hit();
