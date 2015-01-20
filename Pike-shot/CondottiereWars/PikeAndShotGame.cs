@@ -265,6 +265,10 @@ namespace PikeAndShot
         public static SoundEffect LOOT_SOUND;
         public static SoundEffect COIN_SOUND;
         public static SoundEffect SHIELD_BREAK;
+        public static SoundEffect MELEE_CLANG_0;
+        public static SoundEffect MELEE_CLANG_1;
+        public static SoundEffect MELEE_CLANG_2;
+        public static SoundEffect SLASH;
 
         private ArrayList _gameScreens;
         private BattleScreen _currScreen;
@@ -541,6 +545,11 @@ namespace PikeAndShot
             PIKE_3 = Content.Load<SoundEffect>(@"pike4");
             PIKE_4 = Content.Load<SoundEffect>(@"pike5");
             PIKE_5 = Content.Load<SoundEffect>(@"pike6");
+            MELEE_CLANG_0 = Content.Load<SoundEffect>(@"clang2");
+            MELEE_CLANG_1 = Content.Load<SoundEffect>(@"clang3");
+            MELEE_CLANG_2 = Content.Load<SoundEffect>(@"clang4");
+            SLASH = Content.Load<SoundEffect>(@"slash");
+
             _gameScreens = new ArrayList(3);
 
             // MAKE LEVELS

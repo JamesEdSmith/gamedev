@@ -124,6 +124,7 @@ namespace PikeAndShot
         protected SoundEffectInstance hitSound;
         protected SoundEffectInstance chargeSound;
         protected bool playedFallSound;
+        protected bool playedMeleeSound;
 
         public Soldier(BattleScreen screen, int side, float x, float y): base(screen, side)
         {
@@ -857,6 +858,13 @@ namespace PikeAndShot
                     frameNumber -= _defend1.getMaxFrames();
                     _melee1.setFrame(frameNumber);
                     _body = _melee1;
+                    if (!playedMeleeSound && frameNumber == _melee1.getMaxFrames() - 2 && _screen is LevelScreen)
+                    {
+                        ((LevelScreen)_screen).makeMeleeSound();
+                        playedMeleeSound = true;
+                    }
+                    else if (frameNumber == _melee1.getMaxFrames() - 1)
+                        playedMeleeSound = false;
                 }
                 else
                 {
@@ -892,6 +900,13 @@ namespace PikeAndShot
                 {
                     _melee1.setFrame(frameNumber);
                     _body = _melee1;
+                    if (!playedMeleeSound && frameNumber == _melee1.getMaxFrames() - 2 && _screen is LevelScreen)
+                    {
+                        ((LevelScreen)_screen).makeMeleeSound();
+                        playedMeleeSound = true;
+                    }
+                    else if (frameNumber == _melee1.getMaxFrames() - 1)
+                        playedMeleeSound = false;
                 }
             }
             else if (_state == STATE_ROUTE)
@@ -2202,6 +2217,7 @@ namespace PikeAndShot
         private Sprite _doppleSwing1;
 
         private WeaponSwing _weaponSwing;
+        private SoundEffectInstance slashSound;
 
         public static float CHARGE_PERIOD = 650f; 
 
@@ -2235,6 +2251,7 @@ namespace PikeAndShot
             playerFormation = _screen.getPlayerFormation();
             _speed = 0.15f;
             possibleTargets = new ArrayList(5);
+            slashSound = PikeAndShotGame.SLASH.CreateInstance();
         }
 
         public override void setSide(int side)
@@ -2364,6 +2381,7 @@ namespace PikeAndShot
             _shotMade = true;
             _meleeDestination = _position;
             _screen.addScreenObject(_weaponSwing);
+            slashSound.Play();
         }
 
         public override void react(float p)

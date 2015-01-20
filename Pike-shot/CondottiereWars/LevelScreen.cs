@@ -56,6 +56,9 @@ namespace PikeAndShot
         ArrayList pikeSounds;
         int pikeSoundsPlayed;
 
+        ArrayList meleeSounds;
+        int meleeSoundsPlayed;
+
         public LevelScreen(PikeAndShotGame game, Level level)
             : base(game)
         {
@@ -130,6 +133,17 @@ namespace PikeAndShot
 
             foreach (SoundEffectInstance sfx in pikeSounds)
                 sfx.Volume = 0.5f;
+
+            meleeSounds = new ArrayList(6);
+            meleeSounds.Add(PikeAndShotGame.MELEE_CLANG_0.CreateInstance());
+            meleeSounds.Add(PikeAndShotGame.MELEE_CLANG_1.CreateInstance());
+            meleeSounds.Add(PikeAndShotGame.MELEE_CLANG_2.CreateInstance());
+            meleeSounds.Add(PikeAndShotGame.MELEE_CLANG_0.CreateInstance());
+            meleeSounds.Add(PikeAndShotGame.MELEE_CLANG_1.CreateInstance());
+            meleeSounds.Add(PikeAndShotGame.MELEE_CLANG_2.CreateInstance());
+
+            foreach (SoundEffectInstance sfx in meleeSounds)
+                sfx.Volume = 0.25f;
 
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 0.6f;
@@ -890,6 +904,15 @@ namespace PikeAndShot
             SoundEffectInstance instance = (SoundEffectInstance)pikeSounds[PikeAndShotGame.random.Next(pikeSounds.Count - 1)];
             pikeSounds.Remove(instance);
             pikeSounds.Add(instance);
+        }
+
+        public void makeMeleeSound()
+        {
+            if (meleeSoundsPlayed >= meleeSounds.Count)
+            {
+                meleeSoundsPlayed = 0;
+            }
+            ((SoundEffectInstance)meleeSounds[meleeSoundsPlayed++]).Play();
         }
     }
 }
