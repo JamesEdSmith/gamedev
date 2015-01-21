@@ -1012,7 +1012,7 @@ namespace PikeAndShot
 
         private void addSoldierToRow(Soldier soldier, ArrayList rows)
         {
-            int addLeader = soldier.getType() == Soldier.TYPE_SWINGER ? 1 : 0;
+            int addLeader = soldier.getType() == Soldier.TYPE_SWINGER ? 2 : 0;
             int rowsOfType = (getTotalSoldiers(soldier.getType()) + addLeader) / _width;
             Soldier prevSoldier;
             ArrayList row;

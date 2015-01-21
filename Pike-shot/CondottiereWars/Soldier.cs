@@ -1106,15 +1106,7 @@ namespace PikeAndShot
                     }
                     else
                     {
-                        if (_side == BattleScreen.SIDE_ENEMY && collider.getSide() == BattleScreen.SIDE_PLAYER && (_state == STATE_ROUTE || _state == STATE_ROUTED))
-                        {
-                            _state = STATE_READY;
-                            _reacting = false;
-                            _screen.getPlayerFormation().addSoldier(this);
-                            _screen.removeLooseSoldier(this);
-                        }
-                        //shove
-                        else if (collider.getSide() == BattleScreen.SIDE_NEUTRAL)
+                        if (collider.getSide() == BattleScreen.SIDE_NEUTRAL)
                         {
                             collisionPush(collider);
                         }

@@ -1946,6 +1946,42 @@
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slash.xnb</Output>
       <Time>2015-01-03T21:46:24.8320312-05:00</Time>
     </Item>
+    <Item>
+      <Source>downbeat.wav</Source>
+      <Name>downbeat</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\downbeat.xnb</Output>
+      <Time>2015-01-20T21:41:39.0800781-05:00</Time>
+    </Item>
+    <Item>
+      <Source>go.wav</Source>
+      <Name>go</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\go.xnb</Output>
+      <Time>2015-01-03T21:45:08.6191406-05:00</Time>
+    </Item>
+    <Item>
+      <Source>loot_sound.wav</Source>
+      <Name>loot_sound</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\loot_sound.xnb</Output>
+      <Time>2015-01-12T22:25:39.7802734-05:00</Time>
+    </Item>
+    <Item>
+      <Source>loaded.wav</Source>
+      <Name>loaded</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\loaded.xnb</Output>
+      <Time>2015-01-03T22:30:36.274414-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

@@ -16,7 +16,7 @@ namespace PikeAndShot
 {
     public class LevelScreen : BattleScreen, FormListener, ScreenAnimationListener
     {
-        public static int MAX_COINS = 20;
+        public static int MAX_COINS = 10;
         public static float NEXT_SPAWN_POINT = 2000f;
         public static float COIN_METER_FLASH_TIME = 400f;
         public static float COIN_METER_HURT_FLASH_TIME = 400f;
@@ -48,6 +48,7 @@ namespace PikeAndShot
         float coinMeterTimer;
         Vector2 coinMeterPosition;
         bool doppel;
+        bool doppelType;
         ArrayList coinsDone;
 
         ArrayList shotSounds;
@@ -148,7 +149,7 @@ namespace PikeAndShot
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 0.6f;
             //MediaPlayer.Play(PikeAndShotGame.THEME_1);
-            
+            doppelType = true;
         }
 
         public override void update(GameTime gameTime)
@@ -239,6 +240,7 @@ namespace PikeAndShot
                 _doubleCoins = 0;
                 doppel = false;
                 coinMeterTimer = COIN_METER_DROPTIME;
+                PikeAndShotGame.DOPPEL_DOWN.Play(0.25f,0,0);
 
                 LootSpill spill;
                 foreach (Coin c in _doppelCoinSprites)
@@ -298,6 +300,7 @@ namespace PikeAndShot
                 if (ef.getSide() == SIDE_PLAYER)
                     ef.retreat();
             }
+            PikeAndShotGame.GAME_OVER.Play();
         }
 
         public Vector2 spawnRescue(int type)
@@ -338,6 +341,7 @@ namespace PikeAndShot
                     if (_coins >= MAX_COINS)
                     {
                         doppel = true;
+                        PikeAndShotGame.DOPPEL_UP.Play();
                         coinMeterTimer = COIN_METER_DROPTIME;
                         int i = 0;
                         foreach (Coin c in _coinSprites)
@@ -346,19 +350,23 @@ namespace PikeAndShot
                         }
                     }
                 }
-                else
+                else if (_doubleCoins < MAX_COINS)
                 {
                     _coinMeterTimer = COIN_METER_FLASH_TIME;
                     _doppelCoinSprites.Add(new Coin(this, BASE_COIN_START_POSITION, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y + 10f - _doubleCoins * 4f)));
                     _doubleCoins++;
                     if (_doubleCoins >= MAX_COINS)
                     {
-                        foreach (Coin c in _doppelCoinSprites)
+                        if (((ArrayList)_formation._supportRows[0]).Count < 3)
                         {
-                            c.drop(BASE_COIN_POSITION.Y + 14f);
+                            foreach (Coin c in _doppelCoinSprites)
+                            {
+                                c.drop(BASE_COIN_POSITION.Y + 14f);
+                            }
+                            _doubleCoins = 0;
+                            spawnRescue(Soldier.TYPE_SWINGER);
+                            PikeAndShotGame.POWER_UP.Play();
                         }
-                        _doubleCoins = 0;
-                        spawnRescue(Soldier.TYPE_SWINGER);
                     }
                 }
             }
@@ -582,6 +590,10 @@ namespace PikeAndShot
                 }
                 if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.D) && previousKeyboardState.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.D))
                     toggleDrawDots();
+                if (keyboardState.IsKeyDown(Keys.D7) && previousKeyboardState.IsKeyUp(Keys.D7))
+                {
+                    doppelType = !doppelType;
+                }
             }
 
             base.getInput(timeSpan);
@@ -655,7 +667,10 @@ namespace PikeAndShot
                         soldier = new Arquebusier(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER);
                         break;
                     case Soldier.TYPE_SWINGER:
-                        soldier = new Dopple(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER);
+                        if(doppelType)
+                            soldier = new Dopple(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER);
+                        else
+                            soldier = new CrossbowmanPavise(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER);
                         break;
                     default:
                         soldier = new Dopple(this, formation.getPosition().X, formation.getPosition().Y, SIDE_PLAYER);
@@ -868,8 +883,8 @@ namespace PikeAndShot
             {
                 _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[PikeAndShotGame.random.Next(7)], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
             }
-            MediaPlayer.Stop();
-            MediaPlayer.Play(PikeAndShotGame.THEME_1);
+            //MediaPlayer.Stop();
+            //MediaPlayer.Play(PikeAndShotGame.THEME_1);
         }
 
         internal void makeShotSound()

@@ -269,6 +269,10 @@ namespace PikeAndShot
         public static SoundEffect MELEE_CLANG_1;
         public static SoundEffect MELEE_CLANG_2;
         public static SoundEffect SLASH;
+        public static SoundEffect GAME_OVER;
+        public static SoundEffect POWER_UP;
+        public static SoundEffect DOPPEL_UP;
+        public static SoundEffect DOPPEL_DOWN;
 
         private ArrayList _gameScreens;
         private BattleScreen _currScreen;
@@ -549,6 +553,10 @@ namespace PikeAndShot
             MELEE_CLANG_1 = Content.Load<SoundEffect>(@"clang3");
             MELEE_CLANG_2 = Content.Load<SoundEffect>(@"clang4");
             SLASH = Content.Load<SoundEffect>(@"slash");
+            GAME_OVER = Content.Load<SoundEffect>(@"go");
+            POWER_UP = Content.Load<SoundEffect>(@"loaded");
+            DOPPEL_DOWN = Content.Load<SoundEffect>(@"downbeat");
+            DOPPEL_UP = Content.Load<SoundEffect>(@"loot_sound");
 
             _gameScreens = new ArrayList(3);
 
