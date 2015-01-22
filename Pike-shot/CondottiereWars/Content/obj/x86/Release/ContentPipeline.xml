@@ -1547,7 +1547,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin_meter.xnb</Output>
-      <Time>2014-06-19T21:20:34.3300781-04:00</Time>
+      <Time>2015-01-21T22:01:44.9902343-05:00</Time>
     </Item>
     <Item>
       <Source>pucelle_ready.png</Source>
@@ -1646,7 +1646,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\doppel_meter.xnb</Output>
-      <Time>2014-11-04T21:55:24.2382812-05:00</Time>
+      <Time>2015-01-21T22:02:20.9853515-05:00</Time>
     </Item>
     <Item>
       <Source>coin_meter_back.png</Source>
@@ -1655,7 +1655,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin_meter_back.xnb</Output>
-      <Time>2014-11-04T22:02:11.5849609-05:00</Time>
+      <Time>2015-01-21T22:15:06.9912109-05:00</Time>
     </Item>
     <Item>
       <Source>cgwg-xna.fx</Source>
