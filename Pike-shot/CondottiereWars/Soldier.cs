@@ -1005,7 +1005,7 @@ namespace PikeAndShot
                     else
                         ((Targeteer)this).shieldBlock();
                 }
-                else if (!(this is Leader))
+                else if (!(this is Leader) && (this._side == BattleScreen.SIDE_ENEMY || _screen.getPlayerFormation().getSoldiers().Contains(this)))
                     hit();
 
                 ((Shot)collider).hit();
@@ -1111,7 +1111,7 @@ namespace PikeAndShot
                             collisionPush(collider);
                         }
                         //fighting
-                        else if (_side != collider.getSide() && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && collider.getState() != STATE_MELEE_WIN && collider.getState() != STATE_MELEE_LOSS && (!(collider is Targeteer) || collider.getState() != Targeteer.STATE_SHIELDBREAK) && (!(collider is DismountedCavalry) || collider.getState() != DismountedCavalry.STATE_FALLING))
+                        else if (_side != collider.getSide() && (thisInFormation || colliderInFormation) && !(this is Leader || collider is Leader) && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && collider.getState() != STATE_MELEE_WIN && collider.getState() != STATE_MELEE_LOSS && (!(collider is Targeteer) || collider.getState() != Targeteer.STATE_SHIELDBREAK) && (!(collider is DismountedCavalry) || collider.getState() != DismountedCavalry.STATE_FALLING))
                         {
                             bool rescueFight = (_side == BattleScreen.SIDE_PLAYER && !thisInFormation) ||
                                                (collider.getSide() == BattleScreen.SIDE_PLAYER && !colliderInFormation);
@@ -1935,6 +1935,7 @@ namespace PikeAndShot
         public Pavise myPavise;
         private ArrayList possibleTargets;
         public Vector2 chargePosition;
+        private Soldier bestTarget;
 
         public CrossbowmanPavise(BattleScreen screen, float x, float y, int side)
             : base(screen, x, y, side)
@@ -1964,7 +1965,7 @@ namespace PikeAndShot
                 chargePosition = new Vector2(100f, -13f);
                 _meleeDestination = myFormation.getCenter() + chargePosition;
                 postRetrieveState = STATE_CHARGING;
-                postPlaceState = STATE_ATTACKING;
+                postPlaceState = STATE_CHARGING;
                 preRetrieveStateTimer = _attackTime;
                 _stateTimer = _attackTime;
                 setSpeed(0.25f);
@@ -2018,22 +2019,6 @@ namespace PikeAndShot
             _shotMade = true;
             if (_side == BattleScreen.SIDE_PLAYER)
             {
-                possibleTargets = ((LevelScreen)_screen).dangerOnScreen();
-
-                Soldier bestTarget = null;
-                Vector2 bestDistance = new Vector2(99999, 99999);
-                Vector2 distance;
-                double angle;
-                foreach (Soldier s in possibleTargets)
-                {
-                    distance = s.getCenter() - this.getCenter();
-                    angle = Math.Atan2(distance.Y, distance.X);
-                    if ((bestTarget == null || bestDistance.Length() > distance.Length()) && angle < MathHelper.PiOver4 && angle > -MathHelper.PiOver4)
-                    {
-                        bestTarget = s;
-                        bestDistance = distance;
-                    }
-                }
                 if(bestTarget != null)
                     _screen.addShot(new AimedBolt(new Vector2(this._position.X + 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10, bestTarget.getCenter(), bestTarget));
                 else
@@ -2054,6 +2039,7 @@ namespace PikeAndShot
         public override bool attack()
         {
             Vector2 formationPosition = _position - _destination;
+            bestTarget = null;
 
             if (hasPavise)
             {
@@ -2068,9 +2054,26 @@ namespace PikeAndShot
             {
                 if (_state == STATE_READY || _state == STATE_CHARGING)
                 {
-                    _state = STATE_ATTACKING;
-                    _plusMinus = 0;
-                    _stateTimer = _attackTime + _plusMinus;
+                    possibleTargets = ((LevelScreen)_screen).dangerOnScreen();
+                    Vector2 bestDistance = new Vector2(600, 600);
+                    Vector2 distance;
+                    double angle;
+                    foreach (Soldier s in possibleTargets)
+                    {
+                        distance = s.getCenter() - this.getCenter();
+                        angle = Math.Atan2(distance.Y, distance.X);
+                        if ((bestTarget == null || bestDistance.Length() > distance.Length()) && angle < MathHelper.PiOver4 && angle > -MathHelper.PiOver4)
+                        {
+                            bestTarget = s;
+                            bestDistance = distance;
+                        }
+                    }
+                    if (bestTarget != null)
+                    {
+                        _state = STATE_ATTACKING;
+                        _plusMinus = 0;
+                        _stateTimer = _attackTime + _plusMinus;
+                    }
                     return true;
                 }
             }
@@ -2129,7 +2132,7 @@ namespace PikeAndShot
                         else
                         {
                             _stateTimer = 0;
-                            _state = postRetrieveState;        
+                            _state = postRetrieveState;
                             chargePosition += new Vector2(8, 0);
                             _meleeDestination = myFormation.getCenter() + chargePosition;
                         }

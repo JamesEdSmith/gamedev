@@ -357,7 +357,7 @@ namespace PikeAndShot
                     _doubleCoins++;
                     if (_doubleCoins >= MAX_COINS)
                     {
-                        if (((ArrayList)_formation._supportRows[0]).Count < 3)
+                        if (((ArrayList)_formation._supportRows[0]).Count < 4)
                         {
                             foreach (Coin c in _doppelCoinSprites)
                             {
@@ -576,14 +576,14 @@ namespace PikeAndShot
                 {
                     _formation.turnHorses();
                 }
-                if (keyboardState.IsKeyDown(Keys.A) && previousKeyboardState.IsKeyUp(Keys.A) || (gamePadState.IsButtonDown(Buttons.LeftShoulder) && previousGamePadState.IsButtonUp(Buttons.LeftShoulder)))
+                /*if (keyboardState.IsKeyDown(Keys.A) && previousKeyboardState.IsKeyUp(Keys.A) || (gamePadState.IsButtonDown(Buttons.LeftShoulder) && previousGamePadState.IsButtonUp(Buttons.LeftShoulder)))
                 {
                     _formation.reduceWidth();
                 }
                 else if (keyboardState.IsKeyDown(Keys.S) && previousKeyboardState.IsKeyUp(Keys.S) || (gamePadState.IsButtonDown(Buttons.RightShoulder) && previousGamePadState.IsButtonUp(Buttons.RightShoulder)))
                 {
                     _formation.increaseWidth();
-                }
+                }*/
                 else if (keyboardState.IsKeyDown(Keys.L) && previousKeyboardState.IsKeyUp(Keys.L))
                 {
                     //spawnRescue();
@@ -841,7 +841,7 @@ namespace PikeAndShot
             _spawners.Clear();
             _screenAnimations.Clear();
 
-            _coins = 10;
+            _coins = MAX_COINS/2;
             _doubleCoins = 0;
             _coinSprites.Clear();
             _doppelCoinSprites.Clear();
