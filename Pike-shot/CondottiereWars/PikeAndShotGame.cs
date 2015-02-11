@@ -109,6 +109,7 @@ namespace PikeAndShot
         public static Texture2D CROSSBOWMAN_ROUTED;
         public static Texture2D CROSSBOWMAN_PAVISE;
         public static Texture2D CROSSBOWMAN_PAVISE_PLACE;
+        public static Texture2D CROSSBOWMAN_SHIELDBREAK;
         
         public static Texture2D PLACED_PAVISE;
         public static Texture2D PAVISE_FALL;
@@ -434,6 +435,7 @@ namespace PikeAndShot
             CROSSBOWMAN_ROUTED = Content.Load<Texture2D>(@"crossbowman_routed");
             CROSSBOWMAN_PAVISE = Content.Load<Texture2D>(@"crossbowman_pavise_idle");
             CROSSBOWMAN_PAVISE_PLACE = Content.Load<Texture2D>(@"crossbowman_pavise_place");
+            CROSSBOWMAN_SHIELDBREAK = Content.Load<Texture2D>(@"crossbowman_shieldbreak");
             
             PLACED_PAVISE = Content.Load<Texture2D>(@"placed_pavise");
             PAVISE_FALL = Content.Load<Texture2D>(@"pavise_fall");

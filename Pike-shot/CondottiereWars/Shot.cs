@@ -387,8 +387,8 @@ namespace PikeAndShot
         {
             _animationTime = 200f;
             _speed = 0f;
-            _sprite = new Sprite(PikeAndShotGame.PLACED_PAVISE, new Rectangle(8, 4, 12, 20), 24, 24);
-            _ground = new Sprite(PikeAndShotGame.PAVISE_FALL, new Rectangle(26, 6, 12, 20), 50, 28);
+            _sprite = new Sprite(PikeAndShotGame.PLACED_PAVISE, new Rectangle(8, 0, 12, 24), 24, 24);
+            _ground = new Sprite(PikeAndShotGame.PAVISE_FALL, new Rectangle(26, 2, 12, 24), 50, 28);
         }
 
         public override void draw(SpriteBatch spritebatch)

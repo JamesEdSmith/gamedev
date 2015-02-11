@@ -240,7 +240,7 @@ namespace PikeAndShot
                 _doubleCoins = 0;
                 doppel = false;
                 coinMeterTimer = COIN_METER_DROPTIME;
-                PikeAndShotGame.DOPPEL_DOWN.Play(0.25f,0,0);
+                PikeAndShotGame.DOPPEL_DOWN.Play(0.25f, 0, 0);
 
                 LootSpill spill;
                 foreach (Coin c in _doppelCoinSprites)

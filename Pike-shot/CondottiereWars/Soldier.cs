@@ -1005,6 +1005,13 @@ namespace PikeAndShot
                     else
                         ((Targeteer)this).shieldBlock();
                 }
+                else if (this is CrossbowmanPavise)
+                {
+                    if (_side == BattleScreen.SIDE_PLAYER)
+                        ((CrossbowmanPavise)this).shieldBlock();
+                    else
+                        hit();
+                }
                 else if (!(this is Leader) && (this._side == BattleScreen.SIDE_ENEMY || _screen.getPlayerFormation().getSoldiers().Contains(this)))
                     hit();
 
@@ -1127,10 +1134,10 @@ namespace PikeAndShot
                                     ((Dopple)collider).attack();
                                 engage(false, collider.getPosition(), (Soldier)collider, rescueFight);
                             }
-                            else if (collider is CrossbowmanPavise && ((((CrossbowmanPavise)collider).myPavise != null && ((CrossbowmanPavise)collider).myPavise.getState() != Shot.STATE_GROUND) || ((CrossbowmanPavise)collider).hasPavise))
+                            /*else if (collider is CrossbowmanPavise && ((((CrossbowmanPavise)collider).myPavise != null && ((CrossbowmanPavise)collider).myPavise.getState() != Shot.STATE_GROUND) || ((CrossbowmanPavise)collider).hasPavise))
                             {
                                 this._position += new Vector2(((Soldier)collider)._speed * 3f * (float)timeSpan.TotalMilliseconds, 0);
-                            }
+                            }*/
                             else if (this is CrossbowmanPavise && (((CrossbowmanPavise)this).myPavise != null && ((CrossbowmanPavise)this).myPavise.getState() != Shot.STATE_GROUND || ((CrossbowmanPavise)this).hasPavise))
                             {
                                 //collider._position += new Vector2(_speed * (float)timeSpan.TotalMilliseconds, 0);
@@ -1926,8 +1933,12 @@ namespace PikeAndShot
     {
         public const int STATE_PLACING = 100;
         public const int STATE_RETRIEVING = 101;
+        public const float COVER_TIME = 375f;
         private Sprite _crossbowmanPavisePlace;
         public bool hasPavise;
+        private bool covering;
+        private bool uncovering;
+        private bool blocking;
         private float _placeTime;
         public int postRetrieveState;
         public int postPlaceState;
@@ -1936,6 +1947,7 @@ namespace PikeAndShot
         private ArrayList possibleTargets;
         public Vector2 chargePosition;
         private Soldier bestTarget;
+        private Sprite _shieldBreak;
 
         public CrossbowmanPavise(BattleScreen screen, float x, float y, int side)
             : base(screen, x, y, side)
@@ -1946,6 +1958,7 @@ namespace PikeAndShot
             _idle = new Sprite(PikeAndShotGame.CROSSBOWMAN_PAVISE, new Rectangle(10, 2, 16, 28), 44, 38);
             _crossbowmanReload = new Sprite(PikeAndShotGame.CROSSBOWMAN_RELOAD2, new Rectangle(8, 4, 16, 28), 44, 42);
             _crossbowmanPavisePlace = new Sprite(PikeAndShotGame.CROSSBOWMAN_PAVISE_PLACE, new Rectangle(12, 2, 16, 28), 46, 38);
+            _shieldBreak = new Sprite(PikeAndShotGame.CROSSBOWMAN_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46);
             if(side == BattleScreen.SIDE_ENEMY)
                 _placeTime = 800f;
             else
@@ -1954,7 +1967,12 @@ namespace PikeAndShot
             possibleTargets = new ArrayList();
             chargePosition = new Vector2(100f, -13f);
         }
-    
+
+        internal void setSpeed(float p)
+        {
+            _speed = p;
+        }
+
         public void charge()
         {
             if (_state == STATE_READY)
@@ -1987,15 +2005,42 @@ namespace PikeAndShot
                     {
                         _meleeDestination = myFormation.getCenter() + chargePosition;
                         paviseRetrieve();
-                        setSpeed(0.15f);
+                        setSpeed(0.25f);
                     }
                     else if (_position == _meleeDestination && _state == STATE_CHARGING)
                     {
                         attack();
-                        setSpeed(0.15f);
+                        setSpeed(0.25f);
+                    }
+
+                    if (_screen.findShot(this, 30f))
+                    {
+                        if(hasPavise && !covering)
+                            cover();
+                    }
+                    else if (covering)
+                    {
+                        uncover();
                     }
                 }
             }
+        }
+
+        internal void shieldBlock()
+        {
+        }
+
+        private void uncover()
+        {
+            covering = false;
+            _stateTimer = COVER_TIME;
+            uncovering = true;
+        }
+
+        private void cover()
+        {
+            covering = true;
+            _stateTimer = COVER_TIME;
         }
 
         public void chargeEnd()
@@ -2139,6 +2184,16 @@ namespace PikeAndShot
                         _stateChanged = true;
                     }
                 }
+                if (covering || uncovering)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                    if (_stateTimer < 0)
+                    {
+                        _stateTimer = 0;
+                        if (uncovering)
+                            uncovering = false;
+                    }
+                }
             }
         }
 
@@ -2169,6 +2224,28 @@ namespace PikeAndShot
             else if (_state == STATE_CHARGING)
             {
                 _body = _idle;
+                if (covering)
+                {
+                    int maxFrames = 5;
+                    float frameTime = COVER_TIME / (float)maxFrames;
+                    int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                    _shieldBreak.setFrame(frameNumber);
+
+                    _body = _shieldBreak;
+                }
+                else if (uncovering)
+                {
+                    //the reverse of the previous case
+
+                    int maxFrames = 5;
+                    float frameTime = COVER_TIME / (float)maxFrames;
+                    int frameNumber = (int)(_stateTimer / frameTime);
+
+                    _shieldBreak.setFrame(frameNumber == maxFrames ? maxFrames - 1 : frameNumber);
+
+                    _body = _shieldBreak;
+                }
             }
         }
 
@@ -2178,13 +2255,13 @@ namespace PikeAndShot
             _idle = new Sprite(PikeAndShotGame.CROSSBOWMAN_IDLE, new Rectangle(6, 4, 16, 28), 44, 42);
             if (_side == BattleScreen.SIDE_PLAYER)
             {
-                myPavise = new Pavise(new Vector2(this._position.X + 16f + _randDestOffset.X, this._position.Y + 16f + _randDestOffset.Y), this._screen, _side, 24f);
+                myPavise = new Pavise(new Vector2(this._position.X + 16f + _randDestOffset.X, this._position.Y + 12f + _randDestOffset.Y), this._screen, _side, 24f);
                 _screen.addShot(myPavise);
                 chargePosition -= new Vector2(8, 0);
                 _meleeDestination = myFormation.getCenter() + chargePosition;
             }
             else
-                _screen.addShot(new Pavise(new Vector2(this._position.X + 4f + _randDestOffset.X, this._position.Y + 16f + _randDestOffset.Y), this._screen, _side, 24f));
+                _screen.addShot(new Pavise(new Vector2(this._position.X + 4f + _randDestOffset.X, this._position.Y + 12f + _randDestOffset.Y), this._screen, _side, 24f));
         }
 
         public void paviseRetrieve()
@@ -2507,7 +2584,7 @@ namespace PikeAndShot
                     else
                     {
                         _stateTimer = _chargeTime;
-                        setSpeed(0.15f);
+                        setSpeed(0.25f);
                     }
                 }
             }
@@ -2524,7 +2601,7 @@ namespace PikeAndShot
                     else
                     {
                         _stateTimer = _chargeTime;
-                        setSpeed(0.15f);
+                        setSpeed(0.25f);
                     }
                 }
             }
@@ -3392,19 +3469,6 @@ namespace PikeAndShot
 
             if (_state == STATE_DEFEND)
             {
-                /* OLD VERSION OF THIS ANIMATION
-                int maxFrames = _defend1.getMaxFrames();
-                float frameTime = _meleeTime * 2 / 3 / (float)(maxFrames * 2);
-                float time = _stateTimer;
-
-                int frameNumber = (maxFrames * 2) - (int)(time / frameTime) - 1;
-
-                // we want to run this animation in reverse once we get halfway
-                if (frameNumber > (maxFrames-1))
-                {
-                    frameNumber = maxFrames - 1 - (frameNumber - maxFrames);
-                }
-                */
                 bool isFirstHalf;
                 int maxFrames = _defend1.getMaxFrames();
                 float animationTime = _meleeTime * 2f / 6f;

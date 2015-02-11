@@ -1982,6 +1982,15 @@
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\loaded.xnb</Output>
       <Time>2015-01-03T22:30:36.274414-05:00</Time>
     </Item>
+    <Item>
+      <Source>crossbowman_shieldbreak.png</Source>
+      <Name>crossbowman_shieldbreak</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_shieldbreak.xnb</Output>
+      <Time>2015-02-10T21:40:36.5419921-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
