@@ -386,7 +386,6 @@ namespace PikeAndShot
                 else
                     _destination = new Vector2(_screen.getPlayerFormation().getCenter().X, _screen.getPlayerFormation().getCenter().Y);
             }
-
             if (guarding)
             {
                 if (Math.Abs(guardTarget.getCenter().X - getCenter().X) > guardTargetRange)
@@ -416,6 +415,7 @@ namespace PikeAndShot
             {
                 _delta = _meleeDestination - _position;
                 _dest = _meleeDestination;
+
             }
 
             if (_side == BattleScreen.SIDE_PLAYER && myFormation == _screen.getPlayerFormation())
@@ -1933,7 +1933,7 @@ namespace PikeAndShot
     {
         public const int STATE_PLACING = 100;
         public const int STATE_RETRIEVING = 101;
-        public const float COVER_TIME = 375f;
+        public const float COVER_TIME = 1000f;
         private Sprite _crossbowmanPavisePlace;
         public bool hasPavise;
         private bool covering;
@@ -1982,6 +1982,8 @@ namespace PikeAndShot
                 _stateTimer = _chargeTime;
                 chargePosition = new Vector2(100f, -13f);
                 _meleeDestination = myFormation.getCenter() + chargePosition;
+                if (_meleeDestination.X > _screen.getMapOffset().X + 1000)
+                    Console.WriteLine("WTF");
                 postRetrieveState = STATE_CHARGING;
                 postPlaceState = STATE_CHARGING;
                 preRetrieveStateTimer = _attackTime;
@@ -1993,7 +1995,7 @@ namespace PikeAndShot
         public void chargeLogic(TimeSpan timeSpan)
         {
             _stateTimer -= (float)timeSpan.TotalMilliseconds;
-            if (_stateTimer <= 0)
+            if (_stateTimer <= 0 || covering || uncovering)
             {
                 if (!initCharge)
                 {
@@ -2004,16 +2006,20 @@ namespace PikeAndShot
                     if (_meleeDestination != myFormation.getCenter() + chargePosition)
                     {
                         _meleeDestination = myFormation.getCenter() + chargePosition;
+                        if (_meleeDestination.X > _screen.getMapOffset().X + 1000)
+                            Console.WriteLine("WTF");
                         paviseRetrieve();
                         setSpeed(0.25f);
+                        if (!covering && hasPavise)
+                            cover();
                     }
-                    else if (_position == _meleeDestination && _state == STATE_CHARGING)
+                    else if (_position == _meleeDestination && _state == STATE_CHARGING /*&& !covering && !uncovering*/)
                     {
                         attack();
                         setSpeed(0.25f);
                     }
 
-                    if (_screen.findShot(this, 30f))
+                    /*if (_screen.findShot(this, 30f))
                     {
                         if(hasPavise && !covering)
                             cover();
@@ -2021,7 +2027,7 @@ namespace PikeAndShot
                     else if (covering)
                     {
                         uncover();
-                    }
+                    }*/
                 }
             }
         }
@@ -2051,11 +2057,15 @@ namespace PikeAndShot
                 {
                     postRetrieveState = STATE_READY;
                     paviseRetrieve();
+                    covering = false;
                 }
                 else
+                {
                     _state = STATE_READY;
+                    uncover();
+                }
 
-                setSpeed(0.15f);
+                setSpeed(0.25f);
             }
         }
 
@@ -2085,6 +2095,8 @@ namespace PikeAndShot
         {
             Vector2 formationPosition = _position - _destination;
             bestTarget = null;
+            covering = false;
+            uncovering = false;
 
             if (hasPavise)
             {
@@ -2136,6 +2148,8 @@ namespace PikeAndShot
                     if (_meleeDestination != myFormation.getCenter() + chargePosition)
                     {
                         _meleeDestination = myFormation.getCenter() + chargePosition;
+                        if (_meleeDestination.X > _screen.getMapOffset().X + 1000)
+                            Console.WriteLine("WTF");
                         postPlaceState = _state;
                         preRetrieveStateTimer = _stateTimer;
                         paviseRetrieve();
@@ -2178,13 +2192,16 @@ namespace PikeAndShot
                         {
                             _stateTimer = 0;
                             _state = postRetrieveState;
+                            chargePosition = new Vector2(100f, chargePosition.Y);
                             chargePosition += new Vector2(8, 0);
                             _meleeDestination = myFormation.getCenter() + chargePosition;
+                            if (_meleeDestination.X > _screen.getMapOffset().X + 1000)
+                                Console.WriteLine("WTF");
                         }
                         _stateChanged = true;
                     }
                 }
-                if (covering || uncovering)
+                if (_state == STATE_CHARGING && (covering || uncovering))
                 {
                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
                     if (_stateTimer < 0)
@@ -2259,6 +2276,8 @@ namespace PikeAndShot
                 _screen.addShot(myPavise);
                 chargePosition -= new Vector2(8, 0);
                 _meleeDestination = myFormation.getCenter() + chargePosition;
+                if (_meleeDestination.X > _screen.getMapOffset().X + 1000)
+                    Console.WriteLine("WTF");
             }
             else
                 _screen.addShot(new Pavise(new Vector2(this._position.X + 4f + _randDestOffset.X, this._position.Y + 12f + _randDestOffset.Y), this._screen, _side, 24f));
@@ -2278,6 +2297,13 @@ namespace PikeAndShot
                 _state = STATE_RETRIEVING;
                 _stateTimer = _placeTime;
             }
+        }
+
+        internal void setChargePosition(Vector2 vector2)
+        {
+            _stateTimer = 0;
+            //chargePosition = vector2;
+            //_meleeDestination = new Vector2(_meleeDestination.X, myFormation.getCenter().Y + chargePosition.Y);
         }
     }
 
@@ -2452,6 +2478,8 @@ namespace PikeAndShot
         {
             _shotMade = true;
             _meleeDestination = _position;
+            if (_meleeDestination.X > _screen.getMapOffset().X + 1000)
+                Console.WriteLine("WTF");
             _screen.addScreenObject(_weaponSwing);
             slashSound.Play();
         }

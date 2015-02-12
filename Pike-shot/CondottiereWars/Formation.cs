@@ -798,16 +798,21 @@ namespace PikeAndShot
             ArrayList tempRow;
             ArrayList prevRow;
 
-            if (_supportRows.Count != 0)
+            if (_supportRows.Count != 0 && !needTriggerUp)
             {
                 foreach (ArrayList row in _supportRows)
                 {
+                    float chargeY = (float)(Soldier.HEIGHT*(row.Count - 1))/-2f;
                     foreach (Soldier s in row)
                     {
                         if (s is Leader)
                             s.attack();
                         else if (s is CrossbowmanPavise)
+                        {
                             ((DoppelSoldier)s).charge();
+                            ((CrossbowmanPavise)s).chargePosition = new Vector2(100f, chargeY);
+                            chargeY += Soldier.HEIGHT;
+                        }
                     }
                 }
             }
@@ -1194,6 +1199,22 @@ namespace PikeAndShot
             {
                 s.alterDestination(false, -amount);
             }
+
+            if (_supportRows.Count != 0)
+            {
+                foreach (ArrayList row in _supportRows)
+                {
+                    float chargeY = (float)(Soldier.HEIGHT * (row.Count - 1)) / -2f;
+                    foreach (Soldier s in row)
+                    {
+                        if (s is CrossbowmanPavise)
+                        {
+                            ((CrossbowmanPavise)s).setChargePosition(new Vector2(100f, chargeY));
+                            chargeY += Soldier.HEIGHT;
+                        }
+                    }
+                }
+            }
         }
 
         public void marchDown(double milliseconds, bool diagonal)
@@ -1210,6 +1231,22 @@ namespace PikeAndShot
             foreach (Soldier s in _soldiers)
             {
                 s.alterDestination(false, amount);
+            }
+
+            if (_supportRows.Count != 0)
+            {
+                foreach (ArrayList row in _supportRows)
+                {
+                    float chargeY = (float)(Soldier.HEIGHT * (row.Count - 1)) / -2f;
+                    foreach (Soldier s in row)
+                    {
+                        if (s is CrossbowmanPavise)
+                        {
+                            ((CrossbowmanPavise)s).setChargePosition(new Vector2(100f, chargeY));
+                            chargeY += Soldier.HEIGHT;
+                        }
+                    }
+                }
             }
         }
 
@@ -1263,24 +1300,6 @@ namespace PikeAndShot
                         lastSoldier = null;
                 }
 
-                /*if (lastSoldier == null)
-                {
-                    if (_swingerRows.Count > 0)
-                    {
-                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_swingerRows[_swingerRows.Count - 1]);
-                        if (lastSoldier != null)
-                        {
-                            if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
-                            {
-                                lastSoldier = null;
-                                swing = false;
-                            }
-                        }
-                    }
-                    else
-                        lastSoldier = null;
-                }*/
-
                 if (lastSoldier != null)
                 {
                     if (_side * lastSoldier._position.X - _side * lastSoldier._destination.X > _speed)
@@ -1309,24 +1328,6 @@ namespace PikeAndShot
                 }
                 else
                     lastSoldier = null;
-
-                /*if (lastSoldier == null)
-                {
-                    if (_swingerRows.Count > 0)
-                    {
-                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_swingerRows[_swingerRows.Count - 1]);
-                        if (lastSoldier != null)
-                        {
-                            if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
-                            {
-                                lastSoldier = null;
-                                swing = false;
-                            }
-                        }
-                    }
-                    else
-                        lastSoldier = null;
-                }*/
 
                 if (lastSoldier == null)
                 {
@@ -1379,28 +1380,6 @@ namespace PikeAndShot
                 }
                 else
                     lastSoldier = null;
-
-                /*if (lastSoldier == null)
-                {
-                    if (_swingerRows.Count > 0)
-                    {
-                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_swingerRows[_swingerRows.Count - 1]);
-                        if (lastSoldier != null)
-                        {
-                            if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
-                            {
-                                lastSoldier = null;
-                                swing = false;
-                            }
-                        }
-                        else
-                        {
-                            lastSoldier = null;
-                        }
-                    }
-                    else
-                        lastSoldier = null;
-                }*/
 
                 if (lastSoldier == null)
                 {
@@ -1464,7 +1443,22 @@ namespace PikeAndShot
             {
                 s.alterDestination(true, -amount);
             }
-            
+
+            if (_supportRows.Count != 0)
+            {
+                foreach (ArrayList row in _supportRows)
+                {
+                    float chargeY = (float)(Soldier.HEIGHT * (row.Count - 1)) / -2f;
+                    foreach (Soldier s in row)
+                    {
+                        if (s is CrossbowmanPavise)
+                        {
+                            ((CrossbowmanPavise)s).setChargePosition(new Vector2(100f, chargeY));
+                            chargeY += Soldier.HEIGHT;
+                        }
+                    }
+                }
+            }
         }
 
         public void marchRight(double milliseconds, bool diagonal)
@@ -1497,21 +1491,6 @@ namespace PikeAndShot
                 }
                 else
                     lastSoldier = null;
-
-                /*if (lastSoldier == null)
-                {
-                    if (_swingerRows.Count > 0)
-                    {
-                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_swingerRows[_swingerRows.Count - 1]);
-                        if (lastSoldier != null)
-                        {
-                            if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
-                                lastSoldier = null;
-                        }
-                    }
-                    else
-                        lastSoldier = null;
-                }*/
 
                 if (lastSoldier == null)
                 {
@@ -1591,23 +1570,6 @@ namespace PikeAndShot
                         lastSoldier = null;
                 }
 
-                /*if (lastSoldier == null)
-                {
-                    if (_swingerRows.Count > 0)
-                    {
-                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_swingerRows[_swingerRows.Count - 1]);
-                        if (lastSoldier != null)
-                        {
-                            if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
-                            {
-                                lastSoldier = null;
-                            }
-                        }
-                    }
-                    else
-                        lastSoldier = null;
-                }*/
-
                 if (firstSoldier != null && lastSoldier != null)
                 {
                     if ((_side * firstSoldier._destination.X - _side * firstSoldier._position.X) > _speed)
@@ -1633,23 +1595,6 @@ namespace PikeAndShot
                 }
                 else
                     lastSoldier = null;
-
-                /*if (lastSoldier == null)
-                {
-                    if (_swingerRows.Count > 0)
-                    {
-                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_swingerRows[_swingerRows.Count - 1]);
-                        if (lastSoldier != null)
-                        {
-                            if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
-                            {
-                                lastSoldier = null;
-                            }
-                        }
-                    }
-                    else
-                        lastSoldier = null;
-                }*/
 
                 if (lastSoldier == null)
                 {
@@ -1681,6 +1626,22 @@ namespace PikeAndShot
             foreach (Soldier s in _soldiers)
             {
                 s.alterDestination(true, amount);
+            }
+
+            if (_supportRows.Count != 0)
+            {
+                foreach (ArrayList row in _supportRows)
+                {
+                    float chargeY = (float)(Soldier.HEIGHT * (row.Count - 1)) / -2f;
+                    foreach (Soldier s in row)
+                    {
+                        if (s is CrossbowmanPavise)
+                        {
+                            ((CrossbowmanPavise)s).setChargePosition(new Vector2(100f, chargeY));
+                            chargeY += Soldier.HEIGHT;
+                        }
+                    }
+                }
             }
         }
 

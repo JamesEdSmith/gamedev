@@ -301,7 +301,7 @@ namespace PikeAndShot
                         if (so != co)
                         {
                             // pavise HACK
-                            if (so is Pavise)
+                            if (co is Pavise || co is CrossbowmanPavise && so is Shot)
                             {
                                 coX = co.getPosition().X;
                                 coY = co.getPosition().Y - 10;
@@ -314,6 +314,12 @@ namespace PikeAndShot
                                 coY = co.getPosition().Y;
                                 coWidth = co.getWidth();
                                 coHeight = co.getHeight();
+                            }
+
+                            if (so is CrossbowmanPavise && co is Shot)
+                            {
+                                soY = so.getPosition().Y - 10;
+                                soHeight = so.getHeight() + 10;
                             }
 
                             collision = true;
