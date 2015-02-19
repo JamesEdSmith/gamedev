@@ -1134,14 +1134,6 @@ namespace PikeAndShot
                                     ((Dopple)collider).attack();
                                 engage(false, collider.getPosition(), (Soldier)collider, rescueFight);
                             }
-                            /*else if (collider is CrossbowmanPavise && ((((CrossbowmanPavise)collider).myPavise != null && ((CrossbowmanPavise)collider).myPavise.getState() != Shot.STATE_GROUND) || ((CrossbowmanPavise)collider).hasPavise))
-                            {
-                                this._position += new Vector2(((Soldier)collider)._speed * 3f * (float)timeSpan.TotalMilliseconds, 0);
-                            }*/
-                            else if (this is CrossbowmanPavise && (((CrossbowmanPavise)this).myPavise != null && ((CrossbowmanPavise)this).myPavise.getState() != Shot.STATE_GROUND || ((CrossbowmanPavise)this).hasPavise))
-                            {
-                                //collider._position += new Vector2(_speed * (float)timeSpan.TotalMilliseconds, 0);
-                            }
                             else if (_side == BattleScreen.SIDE_ENEMY)
                             {
                                 engage(true, collider.getPosition(), (Soldier)collider, rescueFight);
@@ -1687,7 +1679,7 @@ namespace PikeAndShot
         {
             _type = Soldier.TYPE_SHOT;
             _class = Soldier.CLASS_MERC_ARQUEBUSIER;
-            _attackTime = 300f;
+            _attackTime = 150f;
             _reloadTime = 3000f;
 
             _feet = new Sprite(PikeAndShotGame.ARQUEBUSIER_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true, true, 25);
@@ -1964,6 +1956,7 @@ namespace PikeAndShot
             else
                 _placeTime = 200f;
             _chargeTime = 200f;
+            _attackTime = 150f;
             possibleTargets = new ArrayList();
             chargePosition = new Vector2(100f, -13f);
         }
@@ -2301,7 +2294,10 @@ namespace PikeAndShot
 
         internal void setChargePosition(Vector2 vector2)
         {
-            _stateTimer = 0;
+            if (_state != STATE_MELEE_LOSS && _state != STATE_MELEE_WIN && _state != STATE_DYING)
+            {
+                _stateTimer = 0;
+            }
             //chargePosition = vector2;
             //_meleeDestination = new Vector2(_meleeDestination.X, myFormation.getCenter().Y + chargePosition.Y);
         }
