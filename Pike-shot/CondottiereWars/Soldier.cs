@@ -1319,7 +1319,7 @@ namespace PikeAndShot
             return _killer;
         }
 
-        internal void setSpeed(float p)
+        internal virtual void setSpeed(float p)
         {
             _speed = p;
             _feet.setAnimationSpeed(15f / (_speed - 0.04f));
@@ -1961,7 +1961,7 @@ namespace PikeAndShot
             chargePosition = new Vector2(100f, -13f);
         }
 
-        internal void setSpeed(float p)
+        internal override void setSpeed(float p)
         {
             _speed = p;
         }
@@ -1999,28 +1999,17 @@ namespace PikeAndShot
                     if (_meleeDestination != myFormation.getCenter() + chargePosition)
                     {
                         _meleeDestination = myFormation.getCenter() + chargePosition;
-                        if (_meleeDestination.X > _screen.getMapOffset().X + 1000)
-                            Console.WriteLine("WTF");
-                        paviseRetrieve();
-                        setSpeed(0.25f);
-                        if (!covering && hasPavise)
+                        if(!hasPavise)
+                            paviseRetrieve();
+                        else if (!covering)
                             cover();
+                        setSpeed(0.25f);
                     }
                     else if (_position == _meleeDestination && _state == STATE_CHARGING /*&& !covering && !uncovering*/)
                     {
                         attack();
                         setSpeed(0.25f);
                     }
-
-                    /*if (_screen.findShot(this, 30f))
-                    {
-                        if(hasPavise && !covering)
-                            cover();
-                    }
-                    else if (covering)
-                    {
-                        uncover();
-                    }*/
                 }
             }
         }
@@ -2031,6 +2020,7 @@ namespace PikeAndShot
 
         private void uncover()
         {
+            Console.WriteLine("UNCOVER");
             covering = false;
             _stateTimer = COVER_TIME;
             uncovering = true;
@@ -2038,8 +2028,10 @@ namespace PikeAndShot
 
         private void cover()
         {
+            Console.WriteLine("COVER");
             covering = true;
-            _stateTimer = COVER_TIME;
+            if(_state == STATE_CHARGING)
+                _stateTimer = COVER_TIME;
         }
 
         public void chargeEnd()
@@ -2131,9 +2123,16 @@ namespace PikeAndShot
             return false;
         }
 
+        int debug= -1;
         protected override void updateState(TimeSpan timeSpan)
         {
             base.updateState(timeSpan);
+            if (_state != debug || _state == STATE_RETRIEVING)
+            {
+                debug = _state;
+                Console.WriteLine(_stateTimer + " o " + debug + " o " + _body.getCurrFrame());
+            }
+
             if (!_stateChanged)
             {
                 if (_state == STATE_RELOADING)
@@ -2141,8 +2140,6 @@ namespace PikeAndShot
                     if (_meleeDestination != myFormation.getCenter() + chargePosition)
                     {
                         _meleeDestination = myFormation.getCenter() + chargePosition;
-                        if (_meleeDestination.X > _screen.getMapOffset().X + 1000)
-                            Console.WriteLine("WTF");
                         postPlaceState = _state;
                         preRetrieveStateTimer = _stateTimer;
                         paviseRetrieve();
@@ -2185,6 +2182,7 @@ namespace PikeAndShot
                         {
                             _stateTimer = 0;
                             _state = postRetrieveState;
+                            _stateTimer = preRetrieveStateTimer;
                             chargePosition = new Vector2(100f, chargePosition.Y);
                             chargePosition += new Vector2(8, 0);
                             _meleeDestination = myFormation.getCenter() + chargePosition;
@@ -2358,6 +2356,11 @@ namespace PikeAndShot
         {
             base.engage(win, position, engager, rescueFight);
             _screen.removeScreenObject(_weaponSwing);
+        }
+
+        internal override void setSpeed(float p)
+        {
+            _speed = p;
         }
 
         protected override void hit()
