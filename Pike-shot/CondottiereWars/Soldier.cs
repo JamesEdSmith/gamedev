@@ -1938,7 +1938,7 @@ namespace PikeAndShot
         public Pavise myPavise;
         private ArrayList possibleTargets;
         public Vector2 chargePosition;
-        private Soldier bestTarget;
+        public Soldier bestTarget;
         private Sprite _shieldBreak;
 
         public CrossbowmanPavise(BattleScreen screen, float x, float y, int side)

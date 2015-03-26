@@ -770,12 +770,21 @@ namespace PikeAndShot
         {
             ArrayList enemies = new ArrayList(_enemyFormations.Count * 10);
             ArrayList aimedShots = new ArrayList(_shots.Count);
+            ArrayList crossbowmen = new ArrayList(5);
             bool addSoldier;
+
             foreach(Shot shot in _shots)
             {
                 if (shot is AimedBolt)
                     aimedShots.Add(shot);
             }
+
+            foreach (Soldier s in _formation.getSoldiers())
+            {
+                if (s is CrossbowmanPavise)
+                    crossbowmen.Add(s);
+            }
+
             foreach (EnemyFormation f in _enemyFormations)
             {
                 foreach (Soldier s in f.getSoldiers())
@@ -791,6 +800,11 @@ namespace PikeAndShot
                         foreach (AimedBolt ab in aimedShots)
                         {
                             if (ab.targetSoldier == s)
+                                addSoldier = false;
+                        }
+                        foreach (CrossbowmanPavise cp in crossbowmen)
+                        {
+                            if (cp.bestTarget == s)
                                 addSoldier = false;
                         }
                         if(addSoldier)
