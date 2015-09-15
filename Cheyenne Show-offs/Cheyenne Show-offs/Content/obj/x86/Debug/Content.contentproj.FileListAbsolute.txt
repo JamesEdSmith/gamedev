@@ -1,0 +1,3 @@
+C:\Users\James\Desktop\cheyenneshowoffs\Cheyenne Show-offs\Cheyenne Show-offs\Content\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\cheyenneshowoffs_december\Cheyenne Show-offs\Cheyenne Show-offs\Content\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\James\Desktop\cheyenneshowoffs_April2013\Cheyenne Show-offs\Cheyenne Show-offs\Content\obj\x86\Debug\ResolveAssemblyReference.cache

@@ -1,0 +1,66 @@
+Content\gun.xnb
+Content\dumb_arm.xnb
+Content\BG.xnb
+Content\CB2_Body.xnb
+Content\CB2_GunForearm.xnb
+Content\CB2_Head.xnb
+Content\CB2_HitHead.xnb
+Content\CB2_Holster.xnb
+Content\CB2_LeftLeg.xnb
+Content\CB2_RightArm.xnb
+Content\CB2_RightLeg.xnb
+Content\CB2_UpperArm.xnb
+Content\CB2_VictoryHead.xnb
+Content\CB_Body.xnb
+Content\CB_GunForearm.xnb
+Content\CB_Head.xnb
+Content\CB_HitHead.xnb
+Content\CB_Holster.xnb
+Content\CB_LeftArm.xnb
+Content\CB_LeftLeg.xnb
+Content\CB_RightLeg.xnb
+Content\CB_UpperArm.xnb
+Content\CB_VictoryHead.xnb
+Content\Colt.xnb
+Content\ColtHammer.xnb
+Content\ColtTrigger.xnb
+Content\OL.xnb
+Content\SW_Body.xnb
+Content\SW_Hammer.xnb
+Content\SW_Trigger.xnb
+Content\Tumbleweed.xnb
+Content\dot.xnb
+Content\CB1_Fisthand.xnb
+Content\CB1_Openhand.xnb
+Content\CB1_Spinhand.xnb
+Content\CB2_Openhand.xnb
+Content\CB2_Fisthand.xnb
+Content\CB2_Spinhand.xnb
+Content\SpriteFont1.xnb
+Content\gun1.xnb
+Content\gun2.xnb
+Content\Title.xnb
+Content\RingingForJames.xnb
+Content\For A Few Dollars More Theme (Ennio Morricone).xnb
+Content\For A Few Dollars More Theme (Ennio Morricone).wma
+Content\Mexican Music.xnb
+Content\Mexican Music.wma
+Content\Ennio Morricone Two Mules for Sister Sara.xnb
+Content\Ennio Morricone Two Mules for Sister Sara.wma
+Content\cock.xnb
+Content\ricochet.xnb
+Content\shoot.xnb
+Content\trigger.xnb
+Content\twirl.xnb
+Content\whirl.xnb
+Content\holster1.xnb
+Content\holster2.xnb
+Content\bullet.xnb
+Content\dead.xnb
+Content\red_arrow.xnb
+Content\bad_sound.xnb
+Content\good_sound.xnb
+Content\throw_sound.xnb
+Content\drop_sound.xnb
+Content\anvi.xnb
+Content\anvil.xnb
