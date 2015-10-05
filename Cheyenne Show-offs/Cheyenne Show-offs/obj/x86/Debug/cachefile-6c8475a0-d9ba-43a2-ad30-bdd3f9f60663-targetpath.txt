@@ -36,17 +36,15 @@ Content\CB1_Spinhand.xnb
 Content\CB2_Openhand.xnb
 Content\CB2_Fisthand.xnb
 Content\CB2_Spinhand.xnb
-Content\SpriteFont1.xnb
 Content\gun1.xnb
 Content\gun2.xnb
 Content\Title.xnb
+Content\bullet.xnb
+Content\red_arrow.xnb
+Content\anvi.xnb
+Content\SpriteFont1.xnb
+Content\anvil.xnb
 Content\RingingForJames.xnb
-Content\For A Few Dollars More Theme (Ennio Morricone).xnb
-Content\For A Few Dollars More Theme (Ennio Morricone).wma
-Content\Mexican Music.xnb
-Content\Mexican Music.wma
-Content\Ennio Morricone Two Mules for Sister Sara.xnb
-Content\Ennio Morricone Two Mules for Sister Sara.wma
 Content\cock.xnb
 Content\ricochet.xnb
 Content\shoot.xnb
@@ -55,12 +53,14 @@ Content\twirl.xnb
 Content\whirl.xnb
 Content\holster1.xnb
 Content\holster2.xnb
-Content\bullet.xnb
 Content\dead.xnb
-Content\red_arrow.xnb
 Content\bad_sound.xnb
 Content\good_sound.xnb
 Content\throw_sound.xnb
 Content\drop_sound.xnb
-Content\anvi.xnb
-Content\anvil.xnb
+Content\For A Few Dollars More Theme (Ennio Morricone).xnb
+Content\For A Few Dollars More Theme (Ennio Morricone).wma
+Content\Mexican Music.xnb
+Content\Mexican Music.wma
+Content\Ennio Morricone Two Mules for Sister Sara.xnb
+Content\Ennio Morricone Two Mules for Sister Sara.wma

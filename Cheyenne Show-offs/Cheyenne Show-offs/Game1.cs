@@ -20,7 +20,7 @@ namespace Cheyenne_Show_offs
     {
         public const int SCREENWIDTH = 1024;
         public const int SCREENHEIGHT = 768;
-        public const bool VERTICAL_SCREEN = true;
+        public const bool VERTICAL_SCREEN = false;
 
         public enum modes {splash, title, duel};
 
@@ -339,8 +339,8 @@ namespace Cheyenne_Show_offs
                 p2Screen.draw(gameTime, spriteBatch);
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None);
-                if (p2Screen.gunWindow != null)
-                    p2Screen.gunWindow.draw(spriteBatch);
+                //if (p2Screen.gunWindow != null)
+                //    p2Screen.gunWindow.draw(spriteBatch);
                 spriteBatch.End();               
                 GraphicsDevice.SetRenderTarget(0,null);
             }
