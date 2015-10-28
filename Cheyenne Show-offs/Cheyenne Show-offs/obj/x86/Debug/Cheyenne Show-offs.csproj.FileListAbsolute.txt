@@ -154,3 +154,79 @@ C:\Users\James\Desktop\cheyenneshowoffs_April2013\Cheyenne Show-offs\Cheyenne Sh
 C:\Users\James\Desktop\cheyenneshowoffs_April2013\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\good_sound.xnb
 C:\Users\James\Desktop\cheyenneshowoffs_April2013\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\drop_sound.xnb
 C:\Users\James\Desktop\cheyenneshowoffs_April2013\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\anvi.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\bullet.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB2_UpperArm.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\bad_sound.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB2_Openhand.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\Tumbleweed.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\gun.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB_Body.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB_VictoryHead.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB_RightLeg.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\OL.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\SW_Hammer.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB2_RightLeg.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\Mexican Music.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\trigger.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB1_Openhand.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\gun2.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\drop_sound.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\dead.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\Ennio Morricone Two Mules for Sister Sara.wma
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB2_LeftLeg.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\Title.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\SW_Body.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\ColtTrigger.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\red_arrow.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\anvi.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\RingingForJames.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB_UpperArm.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\shoot.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\ColtHammer.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB2_Fisthand.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB2_RightArm.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB_HitHead.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB_GunForearm.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB2_VictoryHead.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\For A Few Dollars More Theme (Ennio Morricone).wma
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\holster2.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\dumb_arm.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\SpriteFont1.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB2_Body.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\throw_sound.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\twirl.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB2_Head.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB2_GunForearm.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\dot.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB_Head.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\Mexican Music.wma
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\good_sound.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB1_Fisthand.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB2_HitHead.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\Colt.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\Ennio Morricone Two Mules for Sister Sara.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\SW_Trigger.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\gun1.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\whirl.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\For A Few Dollars More Theme (Ennio Morricone).xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB_LeftArm.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\BG.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB1_Spinhand.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\cock.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB2_Holster.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\ricochet.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\holster1.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB_LeftLeg.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB_Holster.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\anvil.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Content\CB2_Spinhand.xnb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Cheyenne Show-offs.exe
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Cheyenne Show-offs.pdb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\obj\x86\Debug\Cheyenne Show-offs.exe
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\obj\x86\Debug\Cheyenne Show-offs.pdb
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Cheyenne Show-offs.exe.manifest
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\bin\x86\Debug\Cheyenne Show-offs.application
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\obj\x86\Debug\Cheyenne Show-offs.exe.manifest
+C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs\obj\x86\Debug\Cheyenne Show-offs.application
