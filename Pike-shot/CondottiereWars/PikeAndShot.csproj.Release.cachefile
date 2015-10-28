@@ -182,6 +182,7 @@ Content\loot.xnb
 Content\coin_spinna.xnb
 Content\doppel_meter.xnb
 Content\coin_meter_back.xnb
+Content\crossbowman_shieldbreak.xnb
 Content\cgwg-xna.xnb
 Content\Bloom.xnb
 Content\BloomExtract.xnb
@@ -189,7 +190,6 @@ Content\cgwg-xna_new.xnb
 Content\shot00.xnb
 Content\shot01.xnb
 Content\shot02.xnb
-Content\theme.xnb
 Content\down.xnb
 Content\drop.xnb
 Content\hit.xnb
@@ -218,7 +218,7 @@ Content\downbeat.xnb
 Content\go.xnb
 Content\loot_sound.xnb
 Content\loaded.xnb
-Content\crossbowman_shieldbreak.xnb
+Content\theme.xnb
 Content\theme.wma
 Content\Benz1_level.xml
 Content\HorseAttack_level.xml
