@@ -1991,6 +1991,24 @@
       <Extra>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\theme.wma</Extra>
       <Time>2015-01-04T23:14:57.7998046-05:00</Time>
     </Item>
+    <Item>
+      <Source>wolf_idle.png</Source>
+      <Name>wolf_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_idle.xnb</Output>
+      <Time>2015-10-31T16:37:57.7880859-04:00</Time>
+    </Item>
+    <Item>
+      <Source>wolf_run.png</Source>
+      <Name>wolf_run</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_run.xnb</Output>
+      <Time>2015-10-31T18:05:37.727539-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

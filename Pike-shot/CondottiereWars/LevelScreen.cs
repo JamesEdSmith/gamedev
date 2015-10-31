@@ -66,9 +66,9 @@ namespace PikeAndShot
             _levelData = level;
 
             _formation = new Formation(this, 200, 200, 20, SIDE_PLAYER);
-            //_formation.addSoldier(new Cavalry(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Hauler(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER)); 
+            /*_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER)); 
             _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
@@ -82,7 +82,7 @@ namespace PikeAndShot
             _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));*/
 
             _coins = MAX_COINS/2;
             _doubleCoins = 0;
@@ -513,7 +513,7 @@ namespace PikeAndShot
             }
             if ((keyboardState.IsKeyDown(Keys.Z) && keyboardState.IsKeyDown(Keys.X) && (previousKeyboardState.IsKeyUp(Keys.Z) || previousKeyboardState.IsKeyUp(Keys.X))) || (gamePadState.IsButtonDown(Buttons.A) && gamePadState.IsButtonDown(Buttons.X) && (previousGamePadState.IsButtonUp(Buttons.A) || previousGamePadState.IsButtonUp(Buttons.X))))
             {
-                //_formation.meleeCharge();
+                _formation.meleeCharge();
                 //_formation.swingAttack();
             }
             if ((keyboardState.IsKeyDown(Keys.X) && !keyboardState.IsKeyDown(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.X) && !gamePadState.IsButtonDown(Buttons.A)))

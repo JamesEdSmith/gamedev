@@ -41,6 +41,7 @@ namespace PikeAndShot
         public const int CLASS_GOBLIN_BERZERKER = 11;
         public const int CLASS_GOBLIN_BRIGAND = 12;
         public const int CLASS_GOBLIN_HAULER = 13;
+        public const int CLASS_GOBLIN_WOLF = 14;
 
         // leader classes
         public const int CLASS_LEADER_PUCELLE = -1;
@@ -324,7 +325,7 @@ namespace PikeAndShot
             //spritebatch.Draw(PikeAndShotGame.getDotTexture(), _drawingPosition, Color.White);
         }
 
-        private void addDrawjob(DrawJob drawJob)
+        protected void addDrawjob(DrawJob drawJob)
         {
             _screen.addDrawjob(drawJob);
             Sprite sprite = drawJob.sprite;
@@ -3098,6 +3099,98 @@ namespace PikeAndShot
                 int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
 
                 _idle.setFrame(frameNumber);
+
+                _body = _idle;
+            }
+        }
+    }
+
+    public class Wolf : Soldier
+    {
+        public const int STATE_ATTACK = 100;
+        protected Sprite _idleFeet;
+        protected Sprite _runningFeet;
+
+        public Wolf(BattleScreen screen, float x, float y, int side)
+            : base(screen, side, x, y)
+        {
+            _type = Soldier.TYPE_MELEE;
+            _class = Soldier.CLASS_GOBLIN_WOLF;
+            _attackTime = 1000f;
+
+            _idleFeet = new Sprite(PikeAndShotGame.WOLF_IDLE, new Rectangle(16, 18, 14, 14), 48, 38, true);
+            _feet = _runningFeet = new Sprite(PikeAndShotGame.WOLF_RUN, new Rectangle(16, 15, 14, 14), 48, 38, true);
+
+            _body = _idle;
+
+            _feet.setAnimationSpeed(300f);
+        }
+
+        protected override bool checkReactions(TimeSpan timeSpan)
+        {
+            return false;
+        }
+
+        public override bool attack()
+        {
+            if (_state == STATE_READY)
+            {
+                _state = STATE_ATTACK;
+                _stateTimer = _attackTime;
+                return true;
+            }
+
+            return false;
+        }
+
+        public override void draw(SpriteBatch spritebatch)
+        {
+            _drawingPosition = _position + _randDestOffset - _screen.getMapOffset();
+
+            if (_state != STATE_DYING && _state != STATE_DEAD)
+            {
+                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+            }
+
+            //addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+
+            //spritebatch.Draw(PikeAndShotGame.getDotTexture(), _drawingPosition, Color.White);
+        }
+
+        protected override void updateState(TimeSpan timeSpan)
+        {
+            base.updateState(timeSpan);
+            if (_delta.Length() != 0)
+                _feet = _runningFeet;
+            else
+                _feet = _idleFeet;
+
+            if (!_stateChanged)
+            {
+                if (_state == STATE_ATTACK)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+
+                    if (_stateTimer <= 0)
+                    {
+                        _stateTimer = 0f;
+                        _state = STATE_READY;
+                    }
+                }
+            }
+        }
+
+        protected override void updateAnimation(TimeSpan timeSpan)
+        {
+            base.updateAnimation(timeSpan);
+
+            if (_state == STATE_ATTACK)
+            {
+                int maxFrames = _feet.getMaxFrames();
+                float frameTime = _attackTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                _feet.setFrame(frameNumber);
 
                 _body = _idle;
             }
