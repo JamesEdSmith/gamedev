@@ -1667,6 +1667,33 @@
       <Time>2015-02-10T21:40:36.5419921-05:00</Time>
     </Item>
     <Item>
+      <Source>wolf_idle.png</Source>
+      <Name>wolf_idle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_idle.xnb</Output>
+      <Time>2015-11-14T21:45:26.1367187-05:00</Time>
+    </Item>
+    <Item>
+      <Source>wolf_run.png</Source>
+      <Name>wolf_run</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_run.xnb</Output>
+      <Time>2015-10-31T18:05:37.727539-04:00</Time>
+    </Item>
+    <Item>
+      <Source>wolf_spooked.png</Source>
+      <Name>wolf_spooked</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_spooked.xnb</Output>
+      <Time>2015-11-14T22:00:22.1787109-05:00</Time>
+    </Item>
+    <Item>
       <Source>cgwg-xna.fx</Source>
       <Name>cgwg-xna</Name>
       <Importer>EffectImporter</Importer>
@@ -1700,7 +1727,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna_new.xnb</Output>
-      <Time>2014-10-16T22:31:24.8554687-04:00</Time>
+      <Time>2016-01-15T03:36:57.2021484-05:00</Time>
     </Item>
     <Item>
       <Source>shot00.wav</Source>
@@ -1991,24 +2018,6 @@
       <Extra>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\theme.wma</Extra>
       <Time>2015-01-04T23:14:57.7998046-05:00</Time>
     </Item>
-    <Item>
-      <Source>wolf_idle.png</Source>
-      <Name>wolf_idle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_idle.xnb</Output>
-      <Time>2015-10-31T16:37:57.7880859-04:00</Time>
-    </Item>
-    <Item>
-      <Source>wolf_run.png</Source>
-      <Name>wolf_run</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_run.xnb</Output>
-      <Time>2015-10-31T18:05:37.727539-04:00</Time>
-    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
@@ -2047,7 +2056,7 @@
       </Assembly>
       <Assembly>
         <Key>D:\backup\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
-        <Value>2015-10-28T06:18:41.461914-04:00</Value>
+        <Value>2016-01-15T03:28:23.4140625-05:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>

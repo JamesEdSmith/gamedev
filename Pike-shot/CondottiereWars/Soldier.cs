@@ -72,6 +72,7 @@ namespace PikeAndShot
         protected int _lastAction;
         protected Vector2 _delta;
         public float _speed;         //per second
+        protected float _footSpeed;
         protected Vector2 _travel;
         protected int _type;
         protected int _class;
@@ -156,6 +157,7 @@ namespace PikeAndShot
             _longMelee = 0;
             _drawingY = _position.Y + 36f;
             _speed = 0.15f;
+            _footSpeed = 15;
             _type = Soldier.TYPE_MELEE;
             _class = Soldier.CLASS_MERC_SOLDIER;
             _attackTime = 600f;
@@ -179,8 +181,8 @@ namespace PikeAndShot
 
             _body = _idle;
 
-            _feet.setAnimationSpeed(15f / 0.11f);
-            _retreat.setAnimationSpeed(15f / 0.11f);
+            _feet.setAnimationSpeed(_footSpeed / 0.11f);
+            _retreat.setAnimationSpeed(_footSpeed / 0.11f);
             inPlayerFormation = false;
 
             // DEBUG VARS
@@ -1323,7 +1325,7 @@ namespace PikeAndShot
         internal virtual void setSpeed(float p)
         {
             _speed = p;
-            _feet.setAnimationSpeed(15f / (_speed - 0.04f));
+            _feet.setAnimationSpeed(_footSpeed / (_speed - 0.04f));
         }
 
         internal void cancelAttack()
@@ -1395,7 +1397,7 @@ namespace PikeAndShot
             _route = new Sprite(PikeAndShotGame.PIKEMAN_ROUTE, new Rectangle(6, 78, 16, 28), 50, 116);
             _routed = new Sprite(PikeAndShotGame.PIKEMAN_ROUTED, new Rectangle(6, 78, 16, 28), 48, 116, true);
 
-            _feet.setAnimationSpeed(15f / 0.11f);
+            _feet.setAnimationSpeed(_footSpeed / 0.11f);
             _loweredSprite = _pikemanLowerLow;
 
             _pikeTip = new PikeTip(_screen, this);
@@ -1693,7 +1695,7 @@ namespace PikeAndShot
             _arquebusierReload = new Sprite(PikeAndShotGame.ARQUEBUSIER_RELOAD, new Rectangle(8, 4, 16, 28), 44, 42, false, true, 25);
             _arquebusierShoot = new Sprite(PikeAndShotGame.ARQUEBUSIER_SHOOT, new Rectangle(6, 4, 16, 28), 44, 42);
 
-            _feet.setAnimationSpeed(15f / 0.11f);
+            _feet.setAnimationSpeed(_footSpeed / 0.11f);
             shotHitSound = PikeAndShotGame.SHOT_HIT.CreateInstance();
             shotHitSound.Volume = 0.25f;
         }
@@ -1829,7 +1831,7 @@ namespace PikeAndShot
             _crossbowmanReload = new Sprite(PikeAndShotGame.CROSSBOWMAN_RELOAD, new Rectangle(8, 4, 16, 28), 44, 42);
             _crossbowmanShoot = new Sprite(PikeAndShotGame.CROSSBOWMAN_SHOOT, new Rectangle(6, 4, 16, 28), 44, 42);
 
-            _feet.setAnimationSpeed(15f / 0.11f);
+            _feet.setAnimationSpeed(_footSpeed / 0.11f);
         }
 
         protected override void updateAnimation(TimeSpan timeSpan)
@@ -2338,7 +2340,7 @@ namespace PikeAndShot
             _doppleReload1 = new Sprite(PikeAndShotGame.DOPPLE_RELOAD1, new Rectangle(24, 16, 16, 28), 76, 64);
             _doppleSwing1 = new Sprite(PikeAndShotGame.DOPPLE_SWING1, new Rectangle(24, 20, 16, 28), 76, 68);
 
-            _feet.setAnimationSpeed(15f / 0.11f);
+            _feet.setAnimationSpeed(_footSpeed / 0.11f);
             _weaponSwing = new WeaponSwing(_screen, this);
             _screen.removeScreenObject(_weaponSwing);
             playerFormation = _screen.getPlayerFormation();
@@ -2674,8 +2676,8 @@ namespace PikeAndShot
 
             _feet = new Sprite(PikeAndShotGame.PIKEMAN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
 
-            _feet.setAnimationSpeed(15f / 0.11f);
-            _retreat.setAnimationSpeed(15f / _speed);
+            _feet.setAnimationSpeed(_footSpeed / 0.11f);
+            _retreat.setAnimationSpeed(_footSpeed / _speed);
             _stateTimer = _idleTime = 3000f;
             _motionTime = 2000f;
         }
@@ -2788,8 +2790,8 @@ namespace PikeAndShot
             _route = new Sprite(PikeAndShotGame.SLINGER_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
             _routed = new Sprite(PikeAndShotGame.SLINGER_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
 
-            _feet.setAnimationSpeed(15f / 0.11f);
-            _retreat.setAnimationSpeed(15f / _speed);
+            _feet.setAnimationSpeed(_footSpeed / 0.11f);
+            _retreat.setAnimationSpeed(_footSpeed / _speed);
             slingSound = PikeAndShotGame.SLING_ROCK.CreateInstance();
             rockHitSound = PikeAndShotGame.ROCK_HIT.CreateInstance();
             rockHitSound.Volume = 0.6f;
@@ -2979,7 +2981,7 @@ namespace PikeAndShot
 
             _body = _idle;
 
-            _feet.setAnimationSpeed(15f / 0.11f);
+            _feet.setAnimationSpeed(_footSpeed / 0.11f);
             hitSound = PikeAndShotGame.OWW_ENEMY.CreateInstance();
             hitSound.Volume = 0.25f;
         }
@@ -3017,7 +3019,7 @@ namespace PikeAndShot
 
             _body = _idle;
 
-            _feet.setAnimationSpeed(15f / 0.11f);
+            _feet.setAnimationSpeed(_footSpeed / 0.11f);
             hitSound = PikeAndShotGame.OWW_ENEMY.CreateInstance();
             hitSound.Volume = 0.25f;
         }
@@ -3050,7 +3052,7 @@ namespace PikeAndShot
 
             _body = _idle;
 
-            _feet.setAnimationSpeed(15f / 0.11f);
+            _feet.setAnimationSpeed(_footSpeed / 0.11f);
         }
 
         protected override bool checkReactions(TimeSpan timeSpan)
@@ -3110,20 +3112,25 @@ namespace PikeAndShot
         public const int STATE_ATTACK = 100;
         protected Sprite _idleFeet;
         protected Sprite _runningFeet;
+        protected Sprite _attackFeet;
+        float _idleTime;
 
         public Wolf(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
         {
             _type = Soldier.TYPE_MELEE;
             _class = Soldier.CLASS_GOBLIN_WOLF;
+            _idleTime = 3000f;
             _attackTime = 1000f;
 
             _idleFeet = new Sprite(PikeAndShotGame.WOLF_IDLE, new Rectangle(16, 18, 14, 14), 48, 38, true);
+            //_idleFeet = new Sprite(PikeAndShotGame.TEST, new Rectangle(0, 0, 512, 512), 1276, 368, true);
+            _attackFeet = new Sprite(PikeAndShotGame.WOLF_SPOOKED, new Rectangle(18, 16, 14, 14), 48, 38, true);
             _feet = _runningFeet = new Sprite(PikeAndShotGame.WOLF_RUN, new Rectangle(16, 15, 14, 14), 48, 38, true);
 
             _body = _idle;
-
-            _feet.setAnimationSpeed(300f);
+            _footSpeed = 8f;
+            _feet.setAnimationSpeed(_footSpeed/0.11f);
         }
 
         protected override bool checkReactions(TimeSpan timeSpan)
@@ -3162,6 +3169,8 @@ namespace PikeAndShot
             base.updateState(timeSpan);
             if (_delta.Length() != 0)
                 _feet = _runningFeet;
+            else if (_state == STATE_ATTACK)
+                _feet = _attackFeet;
             else
                 _feet = _idleFeet;
 
@@ -3173,8 +3182,17 @@ namespace PikeAndShot
 
                     if (_stateTimer <= 0)
                     {
-                        _stateTimer = 0f;
+                        _stateTimer = _idleTime;
                         _state = STATE_READY;
+                    }
+                }
+                else if (_state == STATE_READY)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+
+                    if (_stateTimer <= 0)
+                    {
+                        _stateTimer = _idleTime;
                     }
                 }
             }
@@ -3186,13 +3204,24 @@ namespace PikeAndShot
 
             if (_state == STATE_ATTACK)
             {
-                int maxFrames = _feet.getMaxFrames();
+                int maxFrames = _attackFeet.getMaxFrames();
                 float frameTime = _attackTime / (float)maxFrames;
                 int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
 
-                _feet.setFrame(frameNumber);
+                _attackFeet.setFrame(frameNumber);
+            }
+            else if (_state == STATE_READY && _delta.Length() == 0)
+            {
+                if (_stateTimer <= _attackTime)
+                {
+                    int maxFrames = _idleFeet.getMaxFrames();
+                    float frameTime = _attackTime / (float)maxFrames;
+                    int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
 
-                _body = _idle;
+                    _idleFeet.setFrame(frameNumber);
+                }
+                else
+                    _idleFeet.setFrame(0);
             }
         }
     }
@@ -3225,7 +3254,7 @@ namespace PikeAndShot
 
             _body = _idle;
 
-            _feet.setAnimationSpeed(15f / 0.11f);
+            _feet.setAnimationSpeed(_footSpeed / 0.11f);
             _fallTime = 1500f;
         }
 

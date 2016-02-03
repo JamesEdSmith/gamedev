@@ -227,6 +227,7 @@ namespace PikeAndShot
         public static Texture2D HAULER_HAUL;
         public static Texture2D WOLF_IDLE;
         public static Texture2D WOLF_RUN;
+        public static Texture2D WOLF_SPOOKED;
 
         public static Texture2D BROWN_FEET;
 
@@ -242,6 +243,7 @@ namespace PikeAndShot
         //Utility Graphics
         public static Texture2D DOT;
         public static Texture2D SWORD_POINTER;
+        public static Texture2D TEST;
 
         //Audio
         public static Song THEME_1;
@@ -514,6 +516,7 @@ namespace PikeAndShot
 
             WOLF_IDLE = Content.Load<Texture2D>(@"wolf_idle");
             WOLF_RUN = Content.Load<Texture2D>(@"wolf_run");
+            WOLF_SPOOKED = Content.Load<Texture2D>(@"wolf_spooked");
 
             GOBLIN_FEET = Content.Load<Texture2D>(@"goblin_feet");
             BROWN_FEET = Content.Load<Texture2D>(@"brown_feet");
@@ -527,6 +530,7 @@ namespace PikeAndShot
 
             DOT = Content.Load<Texture2D>(@"dot");
             SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
+            //TEST = Content.Load<Texture2D>(@"sfea");
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
 
