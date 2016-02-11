@@ -1498,15 +1498,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="wolf_run.png">
-      <Name>wolf_run</Name>
+    <Compile Include="wolf_spooked.png">
+      <Name>wolf_spooked</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="wolf_spooked.png">
-      <Name>wolf_spooked</Name>
+    <Compile Include="wolf_run.png">
+      <Name>wolf_run</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

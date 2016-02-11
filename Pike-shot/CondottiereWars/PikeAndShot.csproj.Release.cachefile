@@ -184,9 +184,8 @@ Content\doppel_meter.xnb
 Content\coin_meter_back.xnb
 Content\crossbowman_shieldbreak.xnb
 Content\wolf_idle.xnb
-Content\wolf_run.xnb
 Content\wolf_spooked.xnb
-Content\jes.xnb
+Content\wolf_run.xnb
 Content\cgwg-xna.xnb
 Content\Bloom.xnb
 Content\BloomExtract.xnb
@@ -223,7 +222,6 @@ Content\go.xnb
 Content\loot_sound.xnb
 Content\loaded.xnb
 Content\theme.xnb
-Content\sfea.xnb
 Content\theme.wma
 Content\Benz1_level.xml
 Content\HorseAttack_level.xml

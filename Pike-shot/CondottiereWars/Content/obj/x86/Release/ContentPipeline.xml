@@ -1676,15 +1676,6 @@
       <Time>2015-11-14T21:45:26.1367187-05:00</Time>
     </Item>
     <Item>
-      <Source>wolf_run.png</Source>
-      <Name>wolf_run</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_run.xnb</Output>
-      <Time>2015-10-31T18:05:37.727539-04:00</Time>
-    </Item>
-    <Item>
       <Source>wolf_spooked.png</Source>
       <Name>wolf_spooked</Name>
       <Importer>TextureImporter</Importer>
@@ -1692,6 +1683,15 @@
       <Options>None</Options>
       <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_spooked.xnb</Output>
       <Time>2015-11-14T22:00:22.1787109-05:00</Time>
+    </Item>
+    <Item>
+      <Source>wolf_run.png</Source>
+      <Name>wolf_run</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_run.xnb</Output>
+      <Time>2016-02-11T05:28:08.7903883-05:00</Time>
     </Item>
     <Item>
       <Source>cgwg-xna.fx</Source>
@@ -2056,7 +2056,7 @@
       </Assembly>
       <Assembly>
         <Key>D:\backup\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
-        <Value>2016-01-15T03:28:23.4140625-05:00</Value>
+        <Value>2016-02-11T05:28:59.6452971-05:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
