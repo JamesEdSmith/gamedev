@@ -226,7 +226,7 @@ namespace PikeAndShot
             {
                 float a = (float)color.A / dampening;
                 if(a > 255)
-                    a= 255;
+                    a = 255;
                 color.A = (byte)a;
             }
 
