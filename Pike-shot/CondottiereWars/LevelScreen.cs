@@ -66,7 +66,8 @@ namespace PikeAndShot
             _levelData = level;
 
             _formation = new Formation(this, 200, 200, 20, SIDE_PLAYER);
-            _formation.addSoldier(new Wolf(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            //_formation.addSoldier(new Wolf(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Cavalry(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
             /*_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER)); 
             _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
@@ -569,8 +570,8 @@ namespace PikeAndShot
                 }
                 if (keyboardState.IsKeyDown(Keys.C) && previousKeyboardState.IsKeyUp(Keys.C))
                 {
-                    //_formation.haltHorses();
-                    collectCoin(new Brigand(this, getMapOffset().X, getMapOffset().Y + PikeAndShotGame.SCREENHEIGHT * 0.5f, SIDE_PLAYER));
+                    _formation.haltHorses();
+                    //collectCoin(new Brigand(this, getMapOffset().X, getMapOffset().Y + PikeAndShotGame.SCREENHEIGHT * 0.5f, SIDE_PLAYER));
                 }
                 if (keyboardState.IsKeyDown(Keys.V) && previousKeyboardState.IsKeyUp(Keys.V))
                 {
