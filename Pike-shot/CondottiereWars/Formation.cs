@@ -777,6 +777,17 @@ namespace PikeAndShot
                     }
                 }
             }
+            foreach (ArrayList al in _meleeRows)
+            {
+                foreach (Wolf s in al)
+                {
+                    if (s.getState() != Soldier.STATE_MELEE_LOSS && s.getState() != Soldier.STATE_MELEE_WIN)
+                    {
+                        s.turn();
+                    }
+                }
+
+            }
 
         }
 

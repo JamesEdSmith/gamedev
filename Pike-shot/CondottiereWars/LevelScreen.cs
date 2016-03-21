@@ -66,8 +66,8 @@ namespace PikeAndShot
             _levelData = level;
 
             _formation = new Formation(this, 200, 200, 20, SIDE_PLAYER);
-            //_formation.addSoldier(new Wolf(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Cavalry(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Wolf(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            //_formation.addSoldier(new Cavalry(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
             /*_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER)); 
             _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));

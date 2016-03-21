@@ -1691,7 +1691,16 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_run.xnb</Output>
-      <Time>2016-02-11T05:28:08.7903883-05:00</Time>
+      <Time>2016-03-20T14:30:08.215809-04:00</Time>
+    </Item>
+    <Item>
+      <Source>wolf_turn.png</Source>
+      <Name>wolf_turn</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_turn.xnb</Output>
+      <Time>2016-03-20T17:26:48.8101283-04:00</Time>
     </Item>
     <Item>
       <Source>cgwg-xna.fx</Source>
@@ -2056,7 +2065,7 @@
       </Assembly>
       <Assembly>
         <Key>D:\backup\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
-        <Value>2016-02-11T05:28:59.6452971-05:00</Value>
+        <Value>2016-03-20T17:27:12.9575095-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
