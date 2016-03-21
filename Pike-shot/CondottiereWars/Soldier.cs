@@ -477,34 +477,37 @@ namespace PikeAndShot
                 _jostleOffset.Y = 0f;
 
             // as long as we are not at destination, keep trying to get there, but don't overshoot
-            if (_delta.X > 0)
+            if (!(this is Wolf && _state == Wolf.STATE_TURNING))
             {
-                if (_delta.X - _travel.X >= 0)
-                    _position.X += _travel.X;
-                else
-                    _position.X = _dest.X;
-            }
-            else if (_delta.X < 0)
-            {
-                if (_delta.X + _travel.X <= 0)
-                    _position.X -= _travel.X;
-                else
-                    _position.X = _dest.X;
-            }
+                if (_delta.X > 0)
+                {
+                    if (_delta.X - _travel.X >= 0)
+                        _position.X += _travel.X;
+                    else
+                        _position.X = _dest.X;
+                }
+                else if (_delta.X < 0)
+                {
+                    if (_delta.X + _travel.X <= 0)
+                        _position.X -= _travel.X;
+                    else
+                        _position.X = _dest.X;
+                }
 
-            if (_delta.Y > 0)
-            {
-                if (_delta.Y - _travel.Y >= 0)
-                    _position.Y += _travel.Y;
-                else
-                    _position.Y = _dest.Y;
-            }
-            else if (_delta.Y < 0)
-            {
-                if (_delta.Y + _travel.Y <= 0)
-                    _position.Y -= _travel.Y;
-                else
-                    _position.Y = _dest.Y;
+                if (_delta.Y > 0)
+                {
+                    if (_delta.Y - _travel.Y >= 0)
+                        _position.Y += _travel.Y;
+                    else
+                        _position.Y = _dest.Y;
+                }
+                else if (_delta.Y < 0)
+                {
+                    if (_delta.Y + _travel.Y <= 0)
+                        _position.Y -= _travel.Y;
+                    else
+                        _position.Y = _dest.Y;
+                }
             }
 
             updateState(timeSpan);
@@ -3126,7 +3129,7 @@ namespace PikeAndShot
             _class = Soldier.CLASS_GOBLIN_WOLF;
             _idleTime = 3000f;
             _attackTime = 1000f;
-            _turnTime = 400f;
+            _turnTime = 300f;
             _turned = false;
 
             _idleFeet = new Sprite(PikeAndShotGame.WOLF_IDLE, new Rectangle(16, 18, 14, 14), 48, 38, true);
@@ -3205,14 +3208,6 @@ namespace PikeAndShot
         protected override void updateState(TimeSpan timeSpan)
         {
             base.updateState(timeSpan);
-            if (_delta.Length() != 0)
-                _feet = _runningFeet;
-            else if (_state == STATE_ATTACK)
-                _feet = _attackFeet;
-            else if (_state == STATE_TURNING)
-                _feet = _turnFeet;
-            else
-                _feet = _idleFeet;
 
             if (!_stateChanged)
             {
@@ -3247,6 +3242,15 @@ namespace PikeAndShot
                     }
                 }
             }
+
+            if (_state == STATE_ATTACK)
+                _feet = _attackFeet;
+            else if (_state == STATE_TURNING)
+                _feet = _turnFeet;
+            else if (_delta.Length() != 0)
+                _feet = _runningFeet;
+            else
+                _feet = _idleFeet;
         }
 
         protected override void updateAnimation(TimeSpan timeSpan)
