@@ -2027,6 +2027,15 @@
       <Extra>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\theme.wma</Extra>
       <Time>2015-01-04T23:14:57.7998046-05:00</Time>
     </Item>
+    <Item>
+      <Source>wolf_bite.png</Source>
+      <Name>wolf_bite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_bite.xnb</Output>
+      <Time>2016-03-22T00:33:35.5074423-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
@@ -2065,7 +2074,7 @@
       </Assembly>
       <Assembly>
         <Key>D:\backup\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
-        <Value>2016-03-20T17:27:12.9575095-04:00</Value>
+        <Value>2016-03-21T18:15:22.1964592-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>

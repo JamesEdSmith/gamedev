@@ -3279,10 +3279,10 @@ namespace PikeAndShot
             }
             else if (_state == STATE_READY && _delta.Length() == 0)
             {
-                if (_stateTimer <= _attackTime)
+                if (_stateTimer <= _spookedTime)
                 {
                     int maxFrames = _idleFeet.getMaxFrames();
-                    float frameTime = _attackTime / (float)maxFrames;
+                    float frameTime = _spookedTime / (float)maxFrames;
                     int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
 
                     _idleFeet.setFrame(frameNumber);
