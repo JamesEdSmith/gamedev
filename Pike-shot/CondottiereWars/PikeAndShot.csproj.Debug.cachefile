@@ -186,6 +186,8 @@ Content\crossbowman_shieldbreak.xnb
 Content\wolf_idle.xnb
 Content\wolf_spooked.xnb
 Content\wolf_run.xnb
+Content\wolf_turn.xnb
+Content\wolf_bite.xnb
 Content\cgwg-xna.xnb
 Content\Bloom.xnb
 Content\BloomExtract.xnb

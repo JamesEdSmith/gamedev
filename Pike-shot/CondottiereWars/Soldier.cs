@@ -3116,6 +3116,7 @@ namespace PikeAndShot
         public const int STATE_TURNING = 101;
         protected Sprite _idleFeet;
         protected Sprite _runningFeet;
+        protected Sprite _spookedFeet;
         protected Sprite _attackFeet;
         protected Sprite _turnFeet;
         float _idleTime;
@@ -3128,14 +3129,15 @@ namespace PikeAndShot
             _type = Soldier.TYPE_MELEE;
             _class = Soldier.CLASS_GOBLIN_WOLF;
             _idleTime = 3000f;
-            _attackTime = 1000f;
+            _attackTime = 300f;
             _turnTime = 300f;
             _turned = false;
 
             _idleFeet = new Sprite(PikeAndShotGame.WOLF_IDLE, new Rectangle(16, 18, 14, 14), 48, 38, true);
             //_idleFeet = new Sprite(PikeAndShotGame.TEST, new Rectangle(0, 0, 512, 512), 1276, 368, true);
-            _attackFeet = new Sprite(PikeAndShotGame.WOLF_SPOOKED, new Rectangle(18, 16, 14, 14), 48, 38, true);
+            _spookedFeet = new Sprite(PikeAndShotGame.WOLF_SPOOKED, new Rectangle(18, 16, 14, 14), 48, 38, true);
             _turnFeet = new Sprite(PikeAndShotGame.WOLF_TURN, new Rectangle(26, 10, 14, 14), 54, 24, true);
+            _attackFeet = new Sprite(PikeAndShotGame.WOLF_BITE, new Rectangle(20, 8, 14, 14), 54, 26, true);
             _feet = _runningFeet = new Sprite(PikeAndShotGame.WOLF_RUN, new Rectangle(16, 10, 14, 14), 44, 26, true);
 
             _body = _idle;
