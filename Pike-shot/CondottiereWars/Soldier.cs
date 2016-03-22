@@ -3121,6 +3121,7 @@ namespace PikeAndShot
         protected Sprite _turnFeet;
         float _idleTime;
         float _turnTime;
+        float _spookedTime;
         bool _turned;
 
         public Wolf(BattleScreen screen, float x, float y, int side)
@@ -3131,6 +3132,7 @@ namespace PikeAndShot
             _idleTime = 3000f;
             _attackTime = 300f;
             _turnTime = 300f;
+            _spookedTime = 1000f;
             _turned = false;
 
             _idleFeet = new Sprite(PikeAndShotGame.WOLF_IDLE, new Rectangle(16, 18, 14, 14), 48, 38, true);
