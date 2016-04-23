@@ -3140,6 +3140,8 @@ namespace PikeAndShot
             _death = new Sprite(PikeAndShotGame.WOLF_SPOOKED, new Rectangle(18, 16, 14, 14), 48, 38, true);
             _turnFeet = new Sprite(PikeAndShotGame.WOLF_TURN, new Rectangle(26, 10, 14, 14), 54, 24, true);
             _attackFeet = new Sprite(PikeAndShotGame.WOLF_BITE, new Rectangle(20, 8, 14, 14), 54, 26, true);
+            _melee1 = new Sprite(PikeAndShotGame.WOLF_MELEE, new Rectangle(16, 10, 14, 14), 64, 24, true);
+            _defend1 = new Sprite(PikeAndShotGame.WOLF_DEFEND, new Rectangle(16, 12, 14, 14), 64, 26, true);
             _feet = _runningFeet = new Sprite(PikeAndShotGame.WOLF_RUN, new Rectangle(16, 10, 14, 14), 44, 26, true);
 
             _body = _idle;
@@ -3289,6 +3291,8 @@ namespace PikeAndShot
                 _feet = _turnFeet;
             else if (_state == STATE_DYING)
                 _feet = _death;
+            else if (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS)
+                _feet = _body;
             else if (_delta.Length() != 0)
                 _feet = _runningFeet;
             else

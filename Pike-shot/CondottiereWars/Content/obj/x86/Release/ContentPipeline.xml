@@ -2036,6 +2036,24 @@
       <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_bite.xnb</Output>
       <Time>2016-03-22T00:33:35.5074423-04:00</Time>
     </Item>
+    <Item>
+      <Source>wolf_defend.png</Source>
+      <Name>wolf_defend</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_defend.xnb</Output>
+      <Time>2016-04-23T17:41:53.2967023-04:00</Time>
+    </Item>
+    <Item>
+      <Source>wolf_melee.png</Source>
+      <Name>wolf_melee</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_melee.xnb</Output>
+      <Time>2016-04-23T17:41:53.3067029-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
