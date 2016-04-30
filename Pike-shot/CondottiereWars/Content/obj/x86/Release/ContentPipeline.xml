@@ -7,7 +7,7 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\SpriteFont1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\SpriteFont1.xnb</Output>
       <Time>2011-04-16T03:21:58-04:00</Time>
     </Item>
     <Item>
@@ -16,7 +16,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_feet.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_feet.xnb</Output>
       <Time>2010-11-11T22:43:08-05:00</Time>
     </Item>
     <Item>
@@ -25,7 +25,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_idle.xnb</Output>
       <Time>2010-05-10T19:44:12-04:00</Time>
     </Item>
     <Item>
@@ -34,7 +34,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_lower_high.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_lower_high.xnb</Output>
       <Time>2010-05-10T19:42:06-04:00</Time>
     </Item>
     <Item>
@@ -43,7 +43,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_lower_low.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_lower_low.xnb</Output>
       <Time>2010-05-10T19:46:38-04:00</Time>
     </Item>
     <Item>
@@ -52,7 +52,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_recoil.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_recoil.xnb</Output>
       <Time>2010-05-10T19:43:14-04:00</Time>
     </Item>
     <Item>
@@ -61,7 +61,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_feet.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_feet.xnb</Output>
       <Time>2010-11-11T22:43:30-05:00</Time>
     </Item>
     <Item>
@@ -70,7 +70,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_reload.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_reload.xnb</Output>
       <Time>2010-01-24T21:50:40-05:00</Time>
     </Item>
     <Item>
@@ -79,7 +79,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_shoot.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_shoot.xnb</Output>
       <Time>2010-01-24T21:51:58-05:00</Time>
     </Item>
     <Item>
@@ -88,7 +88,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_smoke.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_smoke.xnb</Output>
       <Time>2010-01-28T23:48:04-05:00</Time>
     </Item>
     <Item>
@@ -97,7 +97,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_idle.xnb</Output>
       <Time>2010-01-24T21:49:38-05:00</Time>
     </Item>
     <Item>
@@ -106,7 +106,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_death.xnb</Output>
       <Time>2010-02-22T23:15:28-05:00</Time>
     </Item>
     <Item>
@@ -115,7 +115,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dot.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dot.xnb</Output>
       <Time>2010-03-01T10:51:50-05:00</Time>
     </Item>
     <Item>
@@ -124,7 +124,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_melee.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_melee.xnb</Output>
       <Time>2010-03-07T20:01:12-05:00</Time>
     </Item>
     <Item>
@@ -133,7 +133,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_melee.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_melee.xnb</Output>
       <Time>2010-03-16T16:24:10-04:00</Time>
     </Item>
     <Item>
@@ -142,7 +142,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_death.xnb</Output>
       <Time>2010-03-16T16:23:16-04:00</Time>
     </Item>
     <Item>
@@ -151,7 +151,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_death.xnb</Output>
       <Time>2010-03-25T20:37:16-04:00</Time>
     </Item>
     <Item>
@@ -160,7 +160,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_idle.xnb</Output>
       <Time>2011-07-20T17:43:46-04:00</Time>
     </Item>
     <Item>
@@ -169,7 +169,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_melee.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_melee.xnb</Output>
       <Time>2010-03-25T20:37:56-04:00</Time>
     </Item>
     <Item>
@@ -178,7 +178,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_reload.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_reload.xnb</Output>
       <Time>2011-07-20T02:00:40-04:00</Time>
     </Item>
     <Item>
@@ -187,7 +187,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_shoot.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_shoot.xnb</Output>
       <Time>2011-07-20T03:16:02-04:00</Time>
     </Item>
     <Item>
@@ -196,7 +196,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_bolt.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_bolt.xnb</Output>
       <Time>2010-04-02T00:37:36-04:00</Time>
     </Item>
     <Item>
@@ -205,7 +205,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot1.xnb</Output>
       <Time>2010-04-01T22:19:08-04:00</Time>
     </Item>
     <Item>
@@ -214,7 +214,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot2.xnb</Output>
       <Time>2010-04-01T22:21:58-04:00</Time>
     </Item>
     <Item>
@@ -223,7 +223,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot3.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot3.xnb</Output>
       <Time>2010-04-01T22:22:24-04:00</Time>
     </Item>
     <Item>
@@ -232,7 +232,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_bolt2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_bolt2.xnb</Output>
       <Time>2010-04-02T12:07:50-04:00</Time>
     </Item>
     <Item>
@@ -241,7 +241,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\goblin_feet.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\goblin_feet.xnb</Output>
       <Time>2010-11-11T22:43:52-05:00</Time>
     </Item>
     <Item>
@@ -250,7 +250,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_death.xnb</Output>
       <Time>2010-04-12T17:35:54-04:00</Time>
     </Item>
     <Item>
@@ -259,7 +259,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_idle.xnb</Output>
       <Time>2010-04-12T17:29:16-04:00</Time>
     </Item>
     <Item>
@@ -268,7 +268,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_melee.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_melee.xnb</Output>
       <Time>2010-04-12T17:31:06-04:00</Time>
     </Item>
     <Item>
@@ -277,7 +277,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_reload.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_reload.xnb</Output>
       <Time>2010-04-12T17:30:18-04:00</Time>
     </Item>
     <Item>
@@ -286,7 +286,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_rock.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_rock.xnb</Output>
       <Time>2010-04-12T17:32:26-04:00</Time>
     </Item>
     <Item>
@@ -295,7 +295,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_shoot.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_shoot.xnb</Output>
       <Time>2010-05-04T00:05:36-04:00</Time>
     </Item>
     <Item>
@@ -304,7 +304,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dopple_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dopple_death.xnb</Output>
       <Time>2010-04-22T18:30:08-04:00</Time>
     </Item>
     <Item>
@@ -313,7 +313,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dopple_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dopple_idle.xnb</Output>
       <Time>2010-04-22T18:28:02-04:00</Time>
     </Item>
     <Item>
@@ -322,7 +322,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dopple_reload1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dopple_reload1.xnb</Output>
       <Time>2010-05-05T17:05:50-04:00</Time>
     </Item>
     <Item>
@@ -331,7 +331,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dopple_swing1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dopple_swing1.xnb</Output>
       <Time>2010-05-05T17:05:40-04:00</Time>
     </Item>
     <Item>
@@ -340,7 +340,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_route.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_route.xnb</Output>
       <Time>2010-04-26T16:59:04-04:00</Time>
     </Item>
     <Item>
@@ -349,7 +349,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_routed.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman_routed.xnb</Output>
       <Time>2010-04-26T17:00:50-04:00</Time>
     </Item>
     <Item>
@@ -358,7 +358,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_ground.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_ground.xnb</Output>
       <Time>2010-05-02T23:02:10-04:00</Time>
     </Item>
     <Item>
@@ -367,7 +367,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_ground.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_ground.xnb</Output>
       <Time>2010-05-02T23:01:36-04:00</Time>
     </Item>
     <Item>
@@ -376,7 +376,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_ground.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_ground.xnb</Output>
       <Time>2010-05-02T23:02:32-04:00</Time>
     </Item>
     <Item>
@@ -385,7 +385,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_route.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_route.xnb</Output>
       <Time>2010-05-03T23:27:34-04:00</Time>
     </Item>
     <Item>
@@ -394,7 +394,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_routed.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arquebusier_routed.xnb</Output>
       <Time>2010-05-03T23:30:16-04:00</Time>
     </Item>
     <Item>
@@ -403,7 +403,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_route.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_route.xnb</Output>
       <Time>2010-05-04T17:46:22-04:00</Time>
     </Item>
     <Item>
@@ -412,7 +412,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_routed.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_routed.xnb</Output>
       <Time>2010-05-04T17:46:50-04:00</Time>
     </Item>
     <Item>
@@ -421,7 +421,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_route.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_route.xnb</Output>
       <Time>2010-05-04T20:25:26-04:00</Time>
     </Item>
     <Item>
@@ -430,7 +430,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_routed.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_routed.xnb</Output>
       <Time>2010-05-04T20:25:46-04:00</Time>
     </Item>
     <Item>
@@ -439,7 +439,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dopple_route.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dopple_route.xnb</Output>
       <Time>2010-05-05T18:02:06-04:00</Time>
     </Item>
     <Item>
@@ -448,7 +448,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dopple_routed.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dopple_routed.xnb</Output>
       <Time>2010-05-05T18:47:06-04:00</Time>
     </Item>
     <Item>
@@ -457,7 +457,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_feet.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_feet.xnb</Output>
       <Time>2010-11-15T19:31:48-05:00</Time>
     </Item>
     <Item>
@@ -466,7 +466,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_idle.xnb</Output>
       <Time>2010-11-12T02:48:12-05:00</Time>
     </Item>
     <Item>
@@ -475,7 +475,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_melee1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_melee1.xnb</Output>
       <Time>2010-11-23T23:24:54-05:00</Time>
     </Item>
     <Item>
@@ -484,7 +484,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_defend1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_defend1.xnb</Output>
       <Time>2010-11-18T00:06:52-05:00</Time>
     </Item>
     <Item>
@@ -493,7 +493,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_death.xnb</Output>
       <Time>2010-11-17T22:31:52-05:00</Time>
     </Item>
     <Item>
@@ -502,7 +502,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\beserker_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\beserker_idle.xnb</Output>
       <Time>2010-12-06T22:44:06-05:00</Time>
     </Item>
     <Item>
@@ -511,7 +511,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\beserker_route.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\beserker_route.xnb</Output>
       <Time>2010-12-06T22:47:04-05:00</Time>
     </Item>
     <Item>
@@ -520,7 +520,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\beserker_routed.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\beserker_routed.xnb</Output>
       <Time>2010-12-06T22:47:36-05:00</Time>
     </Item>
     <Item>
@@ -529,7 +529,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\bezerker_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\bezerker_death.xnb</Output>
       <Time>2011-10-26T01:57:50-04:00</Time>
     </Item>
     <Item>
@@ -538,7 +538,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\sword_pointer.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\sword_pointer.xnb</Output>
       <Time>2011-02-06T14:41:18-05:00</Time>
     </Item>
     <Item>
@@ -547,7 +547,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_pavise_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_pavise_idle.xnb</Output>
       <Time>2011-03-09T16:58:12-05:00</Time>
     </Item>
     <Item>
@@ -556,7 +556,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_pavise_place.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_pavise_place.xnb</Output>
       <Time>2011-03-09T16:58:50-05:00</Time>
     </Item>
     <Item>
@@ -565,7 +565,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\placed_pavise.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\placed_pavise.xnb</Output>
       <Time>2011-03-11T05:50:22-05:00</Time>
     </Item>
     <Item>
@@ -574,7 +574,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pavise_fall.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pavise_fall.xnb</Output>
       <Time>2011-03-11T11:30:34-05:00</Time>
     </Item>
     <Item>
@@ -583,7 +583,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dry_grass.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dry_grass.xnb</Output>
       <Time>2011-03-26T23:20:50-04:00</Time>
     </Item>
     <Item>
@@ -592,7 +592,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_retreat.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_retreat.xnb</Output>
       <Time>2011-05-15T16:12:42-04:00</Time>
     </Item>
     <Item>
@@ -601,7 +601,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\horse_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\horse_idle.xnb</Output>
       <Time>2011-06-26T15:52:34-04:00</Time>
     </Item>
     <Item>
@@ -610,7 +610,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\horse_run.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\horse_run.xnb</Output>
       <Time>2011-07-06T21:59:58-04:00</Time>
     </Item>
     <Item>
@@ -619,7 +619,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_leftfoot.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_leftfoot.xnb</Output>
       <Time>2011-07-06T22:49:12-04:00</Time>
     </Item>
     <Item>
@@ -628,7 +628,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_leftidle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_leftidle.xnb</Output>
       <Time>2011-07-23T14:12:54-04:00</Time>
     </Item>
     <Item>
@@ -637,7 +637,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_rightfoot.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_rightfoot.xnb</Output>
       <Time>2011-07-06T22:50:36-04:00</Time>
     </Item>
     <Item>
@@ -646,7 +646,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_rightidle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_rightidle.xnb</Output>
       <Time>2011-07-23T14:13:32-04:00</Time>
     </Item>
     <Item>
@@ -655,7 +655,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\horse_halt.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\horse_halt.xnb</Output>
       <Time>2011-07-16T17:06:06-04:00</Time>
     </Item>
     <Item>
@@ -664,7 +664,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_reload2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_reload2.xnb</Output>
       <Time>2011-07-20T12:58:56-04:00</Time>
     </Item>
     <Item>
@@ -673,7 +673,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\horse_turn.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\horse_turn.xnb</Output>
       <Time>2011-07-23T12:58:24-04:00</Time>
     </Item>
     <Item>
@@ -682,7 +682,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\horse_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\horse_death.xnb</Output>
       <Time>2011-07-28T22:41:40-04:00</Time>
     </Item>
     <Item>
@@ -691,7 +691,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_leftlower.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_leftlower.xnb</Output>
       <Time>2011-07-31T22:56:12-04:00</Time>
     </Item>
     <Item>
@@ -700,7 +700,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_rightlower.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_rightlower.xnb</Output>
       <Time>2011-08-02T01:18:16-04:00</Time>
     </Item>
     <Item>
@@ -709,7 +709,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_leftrecoil.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_leftrecoil.xnb</Output>
       <Time>2011-08-02T01:58:08-04:00</Time>
     </Item>
     <Item>
@@ -718,7 +718,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_rightrecoil.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_rightrecoil.xnb</Output>
       <Time>2011-08-02T01:58:36-04:00</Time>
     </Item>
     <Item>
@@ -727,7 +727,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_fall.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cavalry_fall.xnb</Output>
       <Time>2011-08-11T23:51:36-04:00</Time>
     </Item>
     <Item>
@@ -736,7 +736,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_death.xnb</Output>
       <Time>2011-08-11T18:31:44-04:00</Time>
     </Item>
     <Item>
@@ -745,7 +745,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_idle.xnb</Output>
       <Time>2011-08-11T18:33:00-04:00</Time>
     </Item>
     <Item>
@@ -754,7 +754,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_shieldbreak.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_shieldbreak.xnb</Output>
       <Time>2011-11-08T17:54:38-05:00</Time>
     </Item>
     <Item>
@@ -763,7 +763,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_idlenoshield.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_idlenoshield.xnb</Output>
       <Time>2011-08-28T00:53:06-04:00</Time>
     </Item>
     <Item>
@@ -772,7 +772,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brokenshield1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brokenshield1.xnb</Output>
       <Time>2011-08-28T01:25:32-04:00</Time>
     </Item>
     <Item>
@@ -781,7 +781,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brokenshield2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brokenshield2.xnb</Output>
       <Time>2011-08-28T01:35:00-04:00</Time>
     </Item>
     <Item>
@@ -790,7 +790,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_fall.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_fall.xnb</Output>
       <Time>2011-09-08T03:11:30-04:00</Time>
     </Item>
     <Item>
@@ -799,7 +799,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_idlenoshield.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_idlenoshield.xnb</Output>
       <Time>2011-10-26T01:56:58-04:00</Time>
     </Item>
     <Item>
@@ -808,7 +808,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_shieldbreak.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_shieldbreak.xnb</Output>
       <Time>2011-09-14T02:38:56-04:00</Time>
     </Item>
     <Item>
@@ -817,7 +817,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_fall.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_fall.xnb</Output>
       <Time>2011-09-14T02:42:04-04:00</Time>
     </Item>
     <Item>
@@ -826,7 +826,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_idlenoshield.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_idlenoshield.xnb</Output>
       <Time>2011-09-14T04:03:40-04:00</Time>
     </Item>
     <Item>
@@ -835,7 +835,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_shieldbreak.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_shieldbreak.xnb</Output>
       <Time>2011-11-08T17:56:12-05:00</Time>
     </Item>
     <Item>
@@ -844,7 +844,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_fall.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_fall.xnb</Output>
       <Time>2011-09-14T04:13:56-04:00</Time>
     </Item>
     <Item>
@@ -853,7 +853,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_melee1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_melee1.xnb</Output>
       <Time>2011-09-13T00:53:04-04:00</Time>
     </Item>
     <Item>
@@ -862,7 +862,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_defend1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\dismountedcavalry_defend1.xnb</Output>
       <Time>2011-09-13T00:55:50-04:00</Time>
     </Item>
     <Item>
@@ -871,7 +871,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_defend2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_defend2.xnb</Output>
       <Time>2011-09-15T03:44:56-04:00</Time>
     </Item>
     <Item>
@@ -880,7 +880,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_melee2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_melee2.xnb</Output>
       <Time>2011-09-15T21:26:58-04:00</Time>
     </Item>
     <Item>
@@ -889,7 +889,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_defend2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_defend2.xnb</Output>
       <Time>2011-09-16T01:24:44-04:00</Time>
     </Item>
     <Item>
@@ -898,7 +898,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_melee2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_melee2.xnb</Output>
       <Time>2011-09-16T01:25:18-04:00</Time>
     </Item>
     <Item>
@@ -907,7 +907,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_route.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_route.xnb</Output>
       <Time>2011-09-20T22:55:46-04:00</Time>
     </Item>
     <Item>
@@ -916,7 +916,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_routed.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_routed.xnb</Output>
       <Time>2011-09-20T22:56:04-04:00</Time>
     </Item>
     <Item>
@@ -925,7 +925,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_charge.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_charge.xnb</Output>
       <Time>2011-09-21T17:48:06-04:00</Time>
     </Item>
     <Item>
@@ -934,7 +934,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_chargenoshield.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_chargenoshield.xnb</Output>
       <Time>2011-10-26T01:55:26-04:00</Time>
     </Item>
     <Item>
@@ -943,7 +943,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_charge.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_charge.xnb</Output>
       <Time>2011-09-21T17:48:54-04:00</Time>
     </Item>
     <Item>
@@ -952,7 +952,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_chargenoshield.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\soldier_chargenoshield.xnb</Output>
       <Time>2011-09-21T17:49:44-04:00</Time>
     </Item>
     <Item>
@@ -961,7 +961,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman1_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman1_idle.xnb</Output>
       <Time>2011-10-08T04:47:04-04:00</Time>
     </Item>
     <Item>
@@ -970,7 +970,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman1_lower_high.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman1_lower_high.xnb</Output>
       <Time>2011-10-08T05:41:06-04:00</Time>
     </Item>
     <Item>
@@ -979,7 +979,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman1_lower_low.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman1_lower_low.xnb</Output>
       <Time>2011-10-08T05:41:16-04:00</Time>
     </Item>
     <Item>
@@ -988,7 +988,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman1_recoil.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman1_recoil.xnb</Output>
       <Time>2011-10-30T09:13:24-04:00</Time>
     </Item>
     <Item>
@@ -997,7 +997,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman2_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman2_idle.xnb</Output>
       <Time>2011-10-08T04:48:20-04:00</Time>
     </Item>
     <Item>
@@ -1006,7 +1006,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman2_lower_high.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman2_lower_high.xnb</Output>
       <Time>2011-10-08T05:42:14-04:00</Time>
     </Item>
     <Item>
@@ -1015,7 +1015,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman2_lower_low.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman2_lower_low.xnb</Output>
       <Time>2011-10-08T05:42:28-04:00</Time>
     </Item>
     <Item>
@@ -1024,7 +1024,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman2_recoil.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman2_recoil.xnb</Output>
       <Time>2011-10-30T09:13:44-04:00</Time>
     </Item>
     <Item>
@@ -1033,7 +1033,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman1_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman1_death.xnb</Output>
       <Time>2011-10-08T05:20:48-04:00</Time>
     </Item>
     <Item>
@@ -1042,7 +1042,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman2_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman2_death.xnb</Output>
       <Time>2011-10-08T05:20:26-04:00</Time>
     </Item>
     <Item>
@@ -1051,7 +1051,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brigand_defend2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brigand_defend2.xnb</Output>
       <Time>2011-10-26T01:20:10-04:00</Time>
     </Item>
     <Item>
@@ -1060,7 +1060,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brigand_melee2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brigand_melee2.xnb</Output>
       <Time>2011-10-26T01:20:56-04:00</Time>
     </Item>
     <Item>
@@ -1069,7 +1069,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_defend1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_defend1.xnb</Output>
       <Time>2011-10-17T04:00:50-04:00</Time>
     </Item>
     <Item>
@@ -1078,7 +1078,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_idle.xnb</Output>
       <Time>2011-10-17T03:59:48-04:00</Time>
     </Item>
     <Item>
@@ -1087,7 +1087,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_idlenoshield.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_idlenoshield.xnb</Output>
       <Time>2011-10-17T04:00:08-04:00</Time>
     </Item>
     <Item>
@@ -1096,7 +1096,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_melee1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_melee1.xnb</Output>
       <Time>2011-10-17T04:01:12-04:00</Time>
     </Item>
     <Item>
@@ -1105,7 +1105,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brown_feet.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brown_feet.xnb</Output>
       <Time>2011-10-17T22:59:16-04:00</Time>
     </Item>
     <Item>
@@ -1114,7 +1114,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_death.xnb</Output>
       <Time>2011-10-17T22:59:48-04:00</Time>
     </Item>
     <Item>
@@ -1123,7 +1123,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_fall.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_fall.xnb</Output>
       <Time>2011-10-17T23:00:36-04:00</Time>
     </Item>
     <Item>
@@ -1132,7 +1132,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_shieldbreak.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_shieldbreak.xnb</Output>
       <Time>2011-10-17T23:01:04-04:00</Time>
     </Item>
     <Item>
@@ -1141,7 +1141,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_charge.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_charge.xnb</Output>
       <Time>2011-10-18T00:12:06-04:00</Time>
     </Item>
     <Item>
@@ -1150,7 +1150,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_defend2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_defend2.xnb</Output>
       <Time>2011-10-24T02:41:20-04:00</Time>
     </Item>
     <Item>
@@ -1159,7 +1159,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_melee2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_melee2.xnb</Output>
       <Time>2011-10-24T02:41:56-04:00</Time>
     </Item>
     <Item>
@@ -1168,7 +1168,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_death.xnb</Output>
       <Time>2011-10-24T02:47:46-04:00</Time>
     </Item>
     <Item>
@@ -1177,7 +1177,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_defend1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_defend1.xnb</Output>
       <Time>2011-10-24T02:48:04-04:00</Time>
     </Item>
     <Item>
@@ -1186,7 +1186,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_defend2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_defend2.xnb</Output>
       <Time>2011-10-24T02:48:28-04:00</Time>
     </Item>
     <Item>
@@ -1195,7 +1195,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_fall.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_fall.xnb</Output>
       <Time>2011-10-24T02:48:50-04:00</Time>
     </Item>
     <Item>
@@ -1204,7 +1204,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_idle.xnb</Output>
       <Time>2011-10-24T02:49:18-04:00</Time>
     </Item>
     <Item>
@@ -1213,7 +1213,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_idlenoshield.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_idlenoshield.xnb</Output>
       <Time>2011-10-24T02:49:32-04:00</Time>
     </Item>
     <Item>
@@ -1222,7 +1222,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_melee1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_melee1.xnb</Output>
       <Time>2011-10-24T02:49:50-04:00</Time>
     </Item>
     <Item>
@@ -1231,7 +1231,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_melee2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_melee2.xnb</Output>
       <Time>2011-10-24T02:50:06-04:00</Time>
     </Item>
     <Item>
@@ -1240,7 +1240,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_shieldbreak.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_shieldbreak.xnb</Output>
       <Time>2011-10-24T02:50:38-04:00</Time>
     </Item>
     <Item>
@@ -1249,7 +1249,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_charge.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_charge.xnb</Output>
       <Time>2011-10-24T02:56:18-04:00</Time>
     </Item>
     <Item>
@@ -1258,7 +1258,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brigand_charge.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brigand_charge.xnb</Output>
       <Time>2011-10-26T04:19:54-04:00</Time>
     </Item>
     <Item>
@@ -1267,7 +1267,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brigand_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brigand_death.xnb</Output>
       <Time>2011-10-26T01:48:48-04:00</Time>
     </Item>
     <Item>
@@ -1276,7 +1276,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brigand_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\brigand_idle.xnb</Output>
       <Time>2011-10-26T01:20:28-04:00</Time>
     </Item>
     <Item>
@@ -1285,7 +1285,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_chargenoshield.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider1_chargenoshield.xnb</Output>
       <Time>2011-10-26T02:09:46-04:00</Time>
     </Item>
     <Item>
@@ -1294,7 +1294,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_chargenoshield.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\gobraider2_chargenoshield.xnb</Output>
       <Time>2011-10-26T02:10:18-04:00</Time>
     </Item>
     <Item>
@@ -1303,7 +1303,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman1_defend1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman1_defend1.xnb</Output>
       <Time>2011-10-27T03:56:54-04:00</Time>
     </Item>
     <Item>
@@ -1312,7 +1312,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman1_melee1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman1_melee1.xnb</Output>
       <Time>2011-10-27T03:57:32-04:00</Time>
     </Item>
     <Item>
@@ -1321,7 +1321,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman2_defend1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman2_defend1.xnb</Output>
       <Time>2011-10-27T03:57:56-04:00</Time>
     </Item>
     <Item>
@@ -1330,7 +1330,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman2_melee1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pikeman2_melee1.xnb</Output>
       <Time>2011-10-27T03:58:16-04:00</Time>
     </Item>
     <Item>
@@ -1339,7 +1339,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_idle.xnb</Output>
       <Time>2011-11-08T02:08:58-05:00</Time>
     </Item>
     <Item>
@@ -1348,7 +1348,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_reload.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_reload.xnb</Output>
       <Time>2011-11-08T01:48:02-05:00</Time>
     </Item>
     <Item>
@@ -1357,7 +1357,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_shoot.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_shoot.xnb</Output>
       <Time>2011-11-08T01:48:24-05:00</Time>
     </Item>
     <Item>
@@ -1366,7 +1366,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_javelin.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_javelin.xnb</Output>
       <Time>2011-11-08T02:29:56-05:00</Time>
     </Item>
     <Item>
@@ -1375,7 +1375,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_ground.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_ground.xnb</Output>
       <Time>2011-11-08T03:22:26-05:00</Time>
     </Item>
     <Item>
@@ -1384,7 +1384,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_death.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_death.xnb</Output>
       <Time>2011-11-08T14:33:58-05:00</Time>
     </Item>
     <Item>
@@ -1393,7 +1393,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_defend2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_defend2.xnb</Output>
       <Time>2011-11-10T18:13:46-05:00</Time>
     </Item>
     <Item>
@@ -1402,7 +1402,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_melee2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_melee2.xnb</Output>
       <Time>2011-11-10T18:14:16-05:00</Time>
     </Item>
     <Item>
@@ -1411,7 +1411,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_defend2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_defend2.xnb</Output>
       <Time>2011-11-10T17:33:30-05:00</Time>
     </Item>
     <Item>
@@ -1420,7 +1420,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_melee2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_melee2.xnb</Output>
       <Time>2011-11-10T17:40:24-05:00</Time>
     </Item>
     <Item>
@@ -1429,7 +1429,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain10.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain10.xnb</Output>
       <Time>2011-11-26T23:36:30-05:00</Time>
     </Item>
     <Item>
@@ -1438,7 +1438,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain0.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain0.xnb</Output>
       <Time>2011-11-26T23:36:14-05:00</Time>
     </Item>
     <Item>
@@ -1447,7 +1447,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain1.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain1.xnb</Output>
       <Time>2011-11-26T23:34:54-05:00</Time>
     </Item>
     <Item>
@@ -1456,7 +1456,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain2.xnb</Output>
       <Time>2011-11-26T23:37:48-05:00</Time>
     </Item>
     <Item>
@@ -1465,7 +1465,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain3.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain3.xnb</Output>
       <Time>2011-11-26T23:38:22-05:00</Time>
     </Item>
     <Item>
@@ -1474,7 +1474,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain4.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain4.xnb</Output>
       <Time>2011-11-26T23:37:32-05:00</Time>
     </Item>
     <Item>
@@ -1483,7 +1483,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain5.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain5.xnb</Output>
       <Time>2011-11-26T23:37:20-05:00</Time>
     </Item>
     <Item>
@@ -1492,7 +1492,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain6.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain6.xnb</Output>
       <Time>2011-11-26T23:36:48-05:00</Time>
     </Item>
     <Item>
@@ -1501,7 +1501,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain7.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain7.xnb</Output>
       <Time>2011-11-26T23:35:20-05:00</Time>
     </Item>
     <Item>
@@ -1510,7 +1510,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain8.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain8.xnb</Output>
       <Time>2011-11-26T23:38:06-05:00</Time>
     </Item>
     <Item>
@@ -1519,7 +1519,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain9.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roadTerrain9.xnb</Output>
       <Time>2011-11-26T23:35:58-05:00</Time>
     </Item>
     <Item>
@@ -1528,7 +1528,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_retreat.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_retreat.xnb</Output>
       <Time>2011-12-02T20:47:30-05:00</Time>
     </Item>
     <Item>
@@ -1537,7 +1537,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin.xnb</Output>
       <Time>2014-06-18T23:38:44.274414-04:00</Time>
     </Item>
     <Item>
@@ -1546,7 +1546,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin_meter.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin_meter.xnb</Output>
       <Time>2015-01-21T22:01:44.9902343-05:00</Time>
     </Item>
     <Item>
@@ -1555,7 +1555,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pucelle_ready.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pucelle_ready.xnb</Output>
       <Time>2014-06-24T23:16:25.4589843-04:00</Time>
     </Item>
     <Item>
@@ -1564,7 +1564,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pucelle_ready2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pucelle_ready2.xnb</Output>
       <Time>2014-08-14T23:25:21.0009765-04:00</Time>
     </Item>
     <Item>
@@ -1573,7 +1573,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pucelle_motion.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pucelle_motion.xnb</Output>
       <Time>2014-08-14T23:25:21-04:00</Time>
     </Item>
     <Item>
@@ -1582,7 +1582,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berserker_defend2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berserker_defend2.xnb</Output>
       <Time>2014-08-14T23:25:20.9970703-04:00</Time>
     </Item>
     <Item>
@@ -1591,7 +1591,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berserker_melee2.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berserker_melee2.xnb</Output>
       <Time>2014-08-14T23:25:20.9980468-04:00</Time>
     </Item>
     <Item>
@@ -1600,7 +1600,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berzerker_idle.xnb</Output>
       <Time>2014-08-14T23:25:20.9990234-04:00</Time>
     </Item>
     <Item>
@@ -1609,7 +1609,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berserker_charge.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\berserker_charge.xnb</Output>
       <Time>2014-08-14T23:25:20.9960937-04:00</Time>
     </Item>
     <Item>
@@ -1618,7 +1618,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\hauler_haul.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\hauler_haul.xnb</Output>
       <Time>2014-08-26T23:39:57.4570312-04:00</Time>
     </Item>
     <Item>
@@ -1627,7 +1627,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\loot.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\loot.xnb</Output>
       <Time>2014-10-05T17:55:47.8408203-04:00</Time>
     </Item>
     <Item>
@@ -1636,7 +1636,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin_spinna.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin_spinna.xnb</Output>
       <Time>2014-10-25T23:09:24.0849609-04:00</Time>
     </Item>
     <Item>
@@ -1645,7 +1645,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\doppel_meter.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\doppel_meter.xnb</Output>
       <Time>2015-01-21T22:02:20.9853515-05:00</Time>
     </Item>
     <Item>
@@ -1654,7 +1654,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin_meter_back.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin_meter_back.xnb</Output>
       <Time>2015-01-21T22:15:06.9912109-05:00</Time>
     </Item>
     <Item>
@@ -1663,7 +1663,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_shieldbreak.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\crossbowman_shieldbreak.xnb</Output>
       <Time>2015-02-10T21:40:36.5419921-05:00</Time>
     </Item>
     <Item>
@@ -1672,7 +1672,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_idle.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_idle.xnb</Output>
       <Time>2015-11-14T21:45:26.1367187-05:00</Time>
     </Item>
     <Item>
@@ -1681,7 +1681,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_spooked.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_spooked.xnb</Output>
       <Time>2015-11-14T22:00:22.1787109-05:00</Time>
     </Item>
     <Item>
@@ -1690,7 +1690,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_run.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_run.xnb</Output>
       <Time>2016-03-20T14:30:08.215809-04:00</Time>
     </Item>
     <Item>
@@ -1699,333 +1699,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_turn.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_turn.xnb</Output>
       <Time>2016-03-20T17:26:48.8101283-04:00</Time>
-    </Item>
-    <Item>
-      <Source>cgwg-xna.fx</Source>
-      <Name>cgwg-xna</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna.xnb</Output>
-      <Time>2014-10-16T21:25:19.7841796-04:00</Time>
-    </Item>
-    <Item>
-      <Source>Bloom.fx</Source>
-      <Name>Bloom</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\Bloom.xnb</Output>
-      <Time>2008-04-24T11:54:27.9463955-04:00</Time>
-    </Item>
-    <Item>
-      <Source>BloomExtract.fx</Source>
-      <Name>BloomExtract</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\BloomExtract.xnb</Output>
-      <Time>2014-10-19T00:54:53.1074218-04:00</Time>
-    </Item>
-    <Item>
-      <Source>cgwg-xna_new.fx</Source>
-      <Name>cgwg-xna_new</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna_new.xnb</Output>
-      <Time>2016-01-15T03:36:57.2021484-05:00</Time>
-    </Item>
-    <Item>
-      <Source>shot00.wav</Source>
-      <Name>shot00</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot00.xnb</Output>
-      <Time>2015-01-03T21:36:14.6386718-05:00</Time>
-    </Item>
-    <Item>
-      <Source>shot01.wav</Source>
-      <Name>shot01</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot01.xnb</Output>
-      <Time>2015-01-03T21:36:34.0097656-05:00</Time>
-    </Item>
-    <Item>
-      <Source>shot02.wav</Source>
-      <Name>shot02</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot02.xnb</Output>
-      <Time>2015-01-03T21:37:09.46875-05:00</Time>
-    </Item>
-    <Item>
-      <Source>down.wav</Source>
-      <Name>down</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\down.xnb</Output>
-      <Time>2015-01-12T00:22:48.4609375-05:00</Time>
-    </Item>
-    <Item>
-      <Source>drop.wav</Source>
-      <Name>drop</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\drop.xnb</Output>
-      <Time>2015-01-12T00:22:48.4814453-05:00</Time>
-    </Item>
-    <Item>
-      <Source>hit.wav</Source>
-      <Name>hit</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\hit.xnb</Output>
-      <Time>2015-01-12T00:22:48.493164-05:00</Time>
-    </Item>
-    <Item>
-      <Source>huck.wav</Source>
-      <Name>huck</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\huck.xnb</Output>
-      <Time>2015-01-12T00:22:48.5107421-05:00</Time>
-    </Item>
-    <Item>
-      <Source>smack.wav</Source>
-      <Name>smack</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\smack.xnb</Output>
-      <Time>2015-01-12T00:22:48.5615234-05:00</Time>
-    </Item>
-    <Item>
-      <Source>thud.wav</Source>
-      <Name>thud</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\thud.xnb</Output>
-      <Time>2015-01-12T00:22:48.5732421-05:00</Time>
-    </Item>
-    <Item>
-      <Source>bark.wav</Source>
-      <Name>bark</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\bark.xnb</Output>
-      <Time>2015-01-12T00:22:48.4375-05:00</Time>
-    </Item>
-    <Item>
-      <Source>oww.wav</Source>
-      <Name>oww</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\oww.xnb</Output>
-      <Time>2015-01-12T00:22:48.5351562-05:00</Time>
-    </Item>
-    <Item>
-      <Source>roar2.wav</Source>
-      <Name>roar2</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roar2.xnb</Output>
-      <Time>2015-01-03T21:56:47.6679687-05:00</Time>
-    </Item>
-    <Item>
-      <Source>coin2.wav</Source>
-      <Name>coin2</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin2.xnb</Output>
-      <Time>2015-01-12T22:23:21.9160156-05:00</Time>
-    </Item>
-    <Item>
-      <Source>coin3.wav</Source>
-      <Name>coin3</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin3.xnb</Output>
-      <Time>2015-01-12T22:34:29.9814453-05:00</Time>
-    </Item>
-    <Item>
-      <Source>shot04.wav</Source>
-      <Name>shot04</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot04.xnb</Output>
-      <Time>2015-01-12T22:17:55.3242187-05:00</Time>
-    </Item>
-    <Item>
-      <Source>shot05.wav</Source>
-      <Name>shot05</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot05.xnb</Output>
-      <Time>2015-01-12T22:19:25.4208984-05:00</Time>
-    </Item>
-    <Item>
-      <Source>shield.wav</Source>
-      <Name>shield</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shield.xnb</Output>
-      <Time>2015-01-18T19:19:06.3603515-05:00</Time>
-    </Item>
-    <Item>
-      <Source>pike1.wav</Source>
-      <Name>pike1</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pike1.xnb</Output>
-      <Time>2015-01-18T19:19:06.290039-05:00</Time>
-    </Item>
-    <Item>
-      <Source>pike2.wav</Source>
-      <Name>pike2</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pike2.xnb</Output>
-      <Time>2015-01-18T19:19:06.2910156-05:00</Time>
-    </Item>
-    <Item>
-      <Source>pike3.wav</Source>
-      <Name>pike3</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pike3.xnb</Output>
-      <Time>2015-01-18T19:19:06.2919921-05:00</Time>
-    </Item>
-    <Item>
-      <Source>pike4.wav</Source>
-      <Name>pike4</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pike4.xnb</Output>
-      <Time>2015-01-18T19:19:06.2919921-05:00</Time>
-    </Item>
-    <Item>
-      <Source>pike5.wav</Source>
-      <Name>pike5</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pike5.xnb</Output>
-      <Time>2015-01-18T19:19:06.2929687-05:00</Time>
-    </Item>
-    <Item>
-      <Source>pike6.wav</Source>
-      <Name>pike6</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pike6.xnb</Output>
-      <Time>2015-01-18T19:19:06.2939453-05:00</Time>
-    </Item>
-    <Item>
-      <Source>clang2.wav</Source>
-      <Name>clang2</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\clang2.xnb</Output>
-      <Time>2015-01-03T22:22:59.8720703-05:00</Time>
-    </Item>
-    <Item>
-      <Source>clang3.wav</Source>
-      <Name>clang3</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\clang3.xnb</Output>
-      <Time>2015-01-03T22:23:37.640625-05:00</Time>
-    </Item>
-    <Item>
-      <Source>clang4.wav</Source>
-      <Name>clang4</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\clang4.xnb</Output>
-      <Time>2015-01-03T22:24:14.9833984-05:00</Time>
-    </Item>
-    <Item>
-      <Source>slash.wav</Source>
-      <Name>slash</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slash.xnb</Output>
-      <Time>2015-01-03T21:46:24.8320312-05:00</Time>
-    </Item>
-    <Item>
-      <Source>downbeat.wav</Source>
-      <Name>downbeat</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\downbeat.xnb</Output>
-      <Time>2015-01-20T21:41:39.0800781-05:00</Time>
-    </Item>
-    <Item>
-      <Source>go.wav</Source>
-      <Name>go</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\go.xnb</Output>
-      <Time>2015-01-03T21:45:08.6191406-05:00</Time>
-    </Item>
-    <Item>
-      <Source>loot_sound.wav</Source>
-      <Name>loot_sound</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\loot_sound.xnb</Output>
-      <Time>2015-01-12T22:25:39.7802734-05:00</Time>
-    </Item>
-    <Item>
-      <Source>loaded.wav</Source>
-      <Name>loaded</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\loaded.xnb</Output>
-      <Time>2015-01-03T22:30:36.274414-05:00</Time>
-    </Item>
-    <Item>
-      <Source>theme.mp3</Source>
-      <Name>theme</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\theme.xnb</Output>
-      <Extra>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\theme.wma</Extra>
-      <Time>2015-01-04T23:14:57.7998046-05:00</Time>
     </Item>
     <Item>
       <Source>wolf_bite.png</Source>
@@ -2033,7 +1708,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_bite.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_bite.xnb</Output>
       <Time>2016-03-22T00:33:35.5074423-04:00</Time>
     </Item>
     <Item>
@@ -2042,7 +1717,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_defend.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_defend.xnb</Output>
       <Time>2016-04-23T17:41:53.2967023-04:00</Time>
     </Item>
     <Item>
@@ -2051,8 +1726,342 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_melee.xnb</Output>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_melee.xnb</Output>
       <Time>2016-04-23T17:41:53.3067029-04:00</Time>
+    </Item>
+    <Item>
+      <Source>wolf_kill.png</Source>
+      <Name>wolf_kill</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_kill.xnb</Output>
+      <Time>2016-04-29T23:59:52.4346229-04:00</Time>
+    </Item>
+    <Item>
+      <Source>cgwg-xna.fx</Source>
+      <Name>cgwg-xna</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna.xnb</Output>
+      <Time>2014-10-16T21:25:19.7841796-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Bloom.fx</Source>
+      <Name>Bloom</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\Bloom.xnb</Output>
+      <Time>2008-04-24T11:54:27.9463955-04:00</Time>
+    </Item>
+    <Item>
+      <Source>BloomExtract.fx</Source>
+      <Name>BloomExtract</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\BloomExtract.xnb</Output>
+      <Time>2014-10-19T00:54:53.1074218-04:00</Time>
+    </Item>
+    <Item>
+      <Source>cgwg-xna_new.fx</Source>
+      <Name>cgwg-xna_new</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna_new.xnb</Output>
+      <Time>2016-01-15T03:36:57.2021484-05:00</Time>
+    </Item>
+    <Item>
+      <Source>shot00.wav</Source>
+      <Name>shot00</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot00.xnb</Output>
+      <Time>2015-01-03T21:36:14.6386718-05:00</Time>
+    </Item>
+    <Item>
+      <Source>shot01.wav</Source>
+      <Name>shot01</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot01.xnb</Output>
+      <Time>2015-01-03T21:36:34.0097656-05:00</Time>
+    </Item>
+    <Item>
+      <Source>shot02.wav</Source>
+      <Name>shot02</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot02.xnb</Output>
+      <Time>2015-01-03T21:37:09.46875-05:00</Time>
+    </Item>
+    <Item>
+      <Source>down.wav</Source>
+      <Name>down</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\down.xnb</Output>
+      <Time>2015-01-12T00:22:48.4609375-05:00</Time>
+    </Item>
+    <Item>
+      <Source>drop.wav</Source>
+      <Name>drop</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\drop.xnb</Output>
+      <Time>2015-01-12T00:22:48.4814453-05:00</Time>
+    </Item>
+    <Item>
+      <Source>hit.wav</Source>
+      <Name>hit</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\hit.xnb</Output>
+      <Time>2015-01-12T00:22:48.493164-05:00</Time>
+    </Item>
+    <Item>
+      <Source>huck.wav</Source>
+      <Name>huck</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\huck.xnb</Output>
+      <Time>2015-01-12T00:22:48.5107421-05:00</Time>
+    </Item>
+    <Item>
+      <Source>smack.wav</Source>
+      <Name>smack</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\smack.xnb</Output>
+      <Time>2015-01-12T00:22:48.5615234-05:00</Time>
+    </Item>
+    <Item>
+      <Source>thud.wav</Source>
+      <Name>thud</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\thud.xnb</Output>
+      <Time>2015-01-12T00:22:48.5732421-05:00</Time>
+    </Item>
+    <Item>
+      <Source>bark.wav</Source>
+      <Name>bark</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\bark.xnb</Output>
+      <Time>2015-01-12T00:22:48.4375-05:00</Time>
+    </Item>
+    <Item>
+      <Source>oww.wav</Source>
+      <Name>oww</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\oww.xnb</Output>
+      <Time>2015-01-12T00:22:48.5351562-05:00</Time>
+    </Item>
+    <Item>
+      <Source>roar2.wav</Source>
+      <Name>roar2</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\roar2.xnb</Output>
+      <Time>2015-01-03T21:56:47.6679687-05:00</Time>
+    </Item>
+    <Item>
+      <Source>coin2.wav</Source>
+      <Name>coin2</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin2.xnb</Output>
+      <Time>2015-01-12T22:23:21.9160156-05:00</Time>
+    </Item>
+    <Item>
+      <Source>coin3.wav</Source>
+      <Name>coin3</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\coin3.xnb</Output>
+      <Time>2015-01-12T22:34:29.9814453-05:00</Time>
+    </Item>
+    <Item>
+      <Source>shot04.wav</Source>
+      <Name>shot04</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot04.xnb</Output>
+      <Time>2015-01-12T22:17:55.3242187-05:00</Time>
+    </Item>
+    <Item>
+      <Source>shot05.wav</Source>
+      <Name>shot05</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shot05.xnb</Output>
+      <Time>2015-01-12T22:19:25.4208984-05:00</Time>
+    </Item>
+    <Item>
+      <Source>shield.wav</Source>
+      <Name>shield</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\shield.xnb</Output>
+      <Time>2015-01-18T19:19:06.3603515-05:00</Time>
+    </Item>
+    <Item>
+      <Source>pike1.wav</Source>
+      <Name>pike1</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pike1.xnb</Output>
+      <Time>2015-01-18T19:19:06.290039-05:00</Time>
+    </Item>
+    <Item>
+      <Source>pike2.wav</Source>
+      <Name>pike2</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pike2.xnb</Output>
+      <Time>2015-01-18T19:19:06.2910156-05:00</Time>
+    </Item>
+    <Item>
+      <Source>pike3.wav</Source>
+      <Name>pike3</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pike3.xnb</Output>
+      <Time>2015-01-18T19:19:06.2919921-05:00</Time>
+    </Item>
+    <Item>
+      <Source>pike4.wav</Source>
+      <Name>pike4</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pike4.xnb</Output>
+      <Time>2015-01-18T19:19:06.2919921-05:00</Time>
+    </Item>
+    <Item>
+      <Source>pike5.wav</Source>
+      <Name>pike5</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pike5.xnb</Output>
+      <Time>2015-01-18T19:19:06.2929687-05:00</Time>
+    </Item>
+    <Item>
+      <Source>pike6.wav</Source>
+      <Name>pike6</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\pike6.xnb</Output>
+      <Time>2015-01-18T19:19:06.2939453-05:00</Time>
+    </Item>
+    <Item>
+      <Source>clang2.wav</Source>
+      <Name>clang2</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\clang2.xnb</Output>
+      <Time>2015-01-03T22:22:59.8720703-05:00</Time>
+    </Item>
+    <Item>
+      <Source>clang3.wav</Source>
+      <Name>clang3</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\clang3.xnb</Output>
+      <Time>2015-01-03T22:23:37.640625-05:00</Time>
+    </Item>
+    <Item>
+      <Source>clang4.wav</Source>
+      <Name>clang4</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\clang4.xnb</Output>
+      <Time>2015-01-03T22:24:14.9833984-05:00</Time>
+    </Item>
+    <Item>
+      <Source>slash.wav</Source>
+      <Name>slash</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slash.xnb</Output>
+      <Time>2015-01-03T21:46:24.8320312-05:00</Time>
+    </Item>
+    <Item>
+      <Source>downbeat.wav</Source>
+      <Name>downbeat</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\downbeat.xnb</Output>
+      <Time>2015-01-20T21:41:39.0800781-05:00</Time>
+    </Item>
+    <Item>
+      <Source>go.wav</Source>
+      <Name>go</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\go.xnb</Output>
+      <Time>2015-01-03T21:45:08.6191406-05:00</Time>
+    </Item>
+    <Item>
+      <Source>loot_sound.wav</Source>
+      <Name>loot_sound</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\loot_sound.xnb</Output>
+      <Time>2015-01-12T22:25:39.7802734-05:00</Time>
+    </Item>
+    <Item>
+      <Source>loaded.wav</Source>
+      <Name>loaded</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\loaded.xnb</Output>
+      <Time>2015-01-03T22:30:36.274414-05:00</Time>
+    </Item>
+    <Item>
+      <Source>theme.mp3</Source>
+      <Name>theme</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\theme.xnb</Output>
+      <Extra>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\theme.wma</Extra>
+      <Time>2015-01-04T23:14:57.7998046-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -2060,10 +2069,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Release</BuildConfiguration>
       <CompressContent>true</CompressContent>
-      <RootDirectory>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\Content\</RootDirectory>
-      <LoggerRootDirectory>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\</LoggerRootDirectory>
-      <IntermediateDirectory>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\Content\obj\x86\Release\</IntermediateDirectory>
-      <OutputDirectory>D:\backup\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\Content\obj\x86\Release\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -2091,8 +2100,8 @@
         <Value>2010-08-23T12:41:18-04:00</Value>
       </Assembly>
       <Assembly>
-        <Key>D:\backup\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
-        <Value>2016-03-21T18:15:22.1964592-04:00</Value>
+        <Key>C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
+        <Value>2016-04-29T23:59:57.874934-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>

@@ -232,6 +232,7 @@ namespace PikeAndShot
         public static Texture2D WOLF_BITE;
         public static Texture2D WOLF_MELEE;
         public static Texture2D WOLF_DEFEND;
+        public static Texture2D WOLF_KILL;
 
         public static Texture2D BROWN_FEET;
 
@@ -525,6 +526,7 @@ namespace PikeAndShot
             WOLF_BITE = Content.Load<Texture2D>(@"wolf_bite");
             WOLF_MELEE = Content.Load<Texture2D>(@"wolf_melee");
             WOLF_DEFEND = Content.Load<Texture2D>(@"wolf_defend");
+            WOLF_KILL = Content.Load<Texture2D>(@"wolf_kill");
 
             GOBLIN_FEET = Content.Load<Texture2D>(@"goblin_feet");
             BROWN_FEET = Content.Load<Texture2D>(@"brown_feet");
