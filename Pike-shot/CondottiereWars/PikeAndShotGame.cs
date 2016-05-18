@@ -668,6 +668,7 @@ namespace PikeAndShot
                 Matrix mapTransform = Matrix.CreateScale(ZOOM);
                 if (!useShaders)
                 {
+                    GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
                     GraphicsDevice.Viewport = viewport;
                     GraphicsDevice.Clear(screenColor); 
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
@@ -679,6 +680,12 @@ namespace PikeAndShot
 
                     base.Draw(gameTime);
 
+                    spriteBatch.End();
+
+                    GraphicsDevice.SetRenderTarget(null);
+                    GraphicsDevice.Clear(screenColor);
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null);
+                    spriteBatch.Draw(ShaderRenderTarget, drawRectangle, drawSourceRectangle, Color.White);
                     spriteBatch.End();
                 }
                 else
