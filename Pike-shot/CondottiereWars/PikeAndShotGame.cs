@@ -20,7 +20,7 @@ namespace PikeAndShot
 {
     public class PikeAndShotGame : Microsoft.Xna.Framework.Game
     {
-        public const bool DEBUG = true;
+        public const bool DEBUG = false;
 
         GraphicsDeviceManager graphics;
         public static Viewport viewport;
@@ -28,13 +28,14 @@ namespace PikeAndShot
 
         RenderTarget2D ShaderRenderTarget;
         RenderTarget2D ShaderRenderTarget2;
+        RenderTarget2D ShaderRenderTarget3;
         RenderTarget2D _bloomTarget;
 
         int _bloomTargetWidth, _bloomTargetHeight;
 
         Effect _bloomFx, _bloomExtractFx;
-        float _blurPower = 0.0075f, _baseIntensity = 1.0f, _bloomIntensity = 0.25f,
-            _baseSaturation = 1.0f, _bloomSaturation = 1.0f, _bloomThreshold = 0.1f;
+        float _blurPower = 0.01f, _baseIntensity = 1f, _bloomIntensity = 0.2f,
+            _baseSaturation = 1f, _bloomSaturation = 1f, _bloomThreshold = 0.1f;
 
         static SpriteFont soldierFont;
         public static Random random = new Random();
@@ -50,6 +51,7 @@ namespace PikeAndShot
         public const int SCREEN_LEVELEDITOR = 2;
 
         public static Effect effect;
+        public static Effect effect2;
 
         public static Texture2D TERRAIN_DRY_GRASS;
 
@@ -288,6 +290,8 @@ namespace PikeAndShot
         private BattleScreen _currScreen;
 
         public static float ZOOM = 1.0f;
+        public Color screenColor;
+        public Color screenColorShader;
 
         public PikeAndShotGame()
         {
@@ -304,6 +308,8 @@ namespace PikeAndShot
                 useShaders = false;
 
             Content.RootDirectory = "Content";
+            screenColor = new Color(16, 16, 16, 255);
+            screenColorShader = new Color(8, 8, 8, 255);
         }
 
         /// <summary>
@@ -330,17 +336,20 @@ namespace PikeAndShot
 
             ShaderRenderTarget = new RenderTarget2D(spriteBatch.GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
             ShaderRenderTarget2 = new RenderTarget2D(spriteBatch.GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
+            ShaderRenderTarget3 = new RenderTarget2D(spriteBatch.GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
             _bloomTargetWidth = SCREENWIDTH / 2;
             _bloomTargetHeight = SCREENHEIGHT / 2;
 
             _bloomTarget = new RenderTarget2D(GraphicsDevice, _bloomTargetWidth, _bloomTargetHeight, false, SurfaceFormat.Color, DepthFormat.None);
 
             effect = Content.Load<Effect>(@"cgwg-xna_new");
-            effect.Parameters["TexelSize"].SetValue(new Vector2(1.0f / (float)SCREENWIDTH, 1.0f / (float)SCREENHEIGHT));
+            effect.Parameters["TexelSize"].SetValue(new Vector2(1f / (float)SCREENWIDTH, 1f / (float)SCREENHEIGHT));
             effect.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
 
             _bloomFx = Content.Load<Effect>("Bloom");
             _bloomExtractFx = Content.Load<Effect>("BloomExtract");
+
+            effect2 = Content.Load<Effect>(@"cgwg-xna");
 
             //TERRAIN_DRY_GRASS = Content.Load<Texture2D>(@"dry_grass");
             ROAD_TERRAIN = new List<Texture2D>(11);
@@ -653,7 +662,8 @@ namespace PikeAndShot
                 if (!useShaders)
                 {
                     GraphicsDevice.Viewport = viewport;
-                    GraphicsDevice.Clear(new Color(8, 8, 8, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
+                    //GraphicsDevice.Clear(new Color(8, 8, 8, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
+                    GraphicsDevice.Clear(screenColor); 
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
 
                     if (_currScreen != null)
@@ -669,7 +679,8 @@ namespace PikeAndShot
                 {
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
                     GraphicsDevice.Viewport = viewport;
-                    GraphicsDevice.Clear(new Color(8, 8, 8, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
+                    //GraphicsDevice.Clear(new Color(8, 8, 8, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
+                    GraphicsDevice.Clear(screenColorShader);
                     //get rid of blurry sprites
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
 
@@ -687,12 +698,18 @@ namespace PikeAndShot
                     spriteBatch.Draw(ShaderRenderTarget, Vector2.Zero, Color.White);
                     spriteBatch.End();
 
+                    GraphicsDevice.SetRenderTarget(ShaderRenderTarget3);
+
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, effect2);
+                    spriteBatch.Draw(ShaderRenderTarget2, Vector2.Zero, Color.White);
+                    spriteBatch.End();
+                    
                     GraphicsDevice.SetRenderTarget(_bloomTarget);
                     GraphicsDevice.Clear(Color.Black);
-
+                    
                     //Extract highlights on the original image using BloomExtract
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, _bloomExtractFx);
-                    spriteBatch.Draw(ShaderRenderTarget2, new Rectangle(0, 0, _bloomTargetWidth, _bloomTargetHeight), null, Color.White);
+                    spriteBatch.Draw(ShaderRenderTarget3, new Rectangle(0, 0, _bloomTargetWidth, _bloomTargetHeight), null, Color.White);
                     spriteBatch.End();
 
                     //Set original backbuffer as target
@@ -704,7 +721,7 @@ namespace PikeAndShot
 
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, _bloomFx);
 
-                    spriteBatch.Draw(ShaderRenderTarget2, Vector2.Zero, Color.White);
+                    spriteBatch.Draw(ShaderRenderTarget3, Vector2.Zero, Color.White);
 
                     spriteBatch.End();
                 }

@@ -95,6 +95,9 @@ namespace PikeAndShot
                         case Soldier.CLASS_MERC_CAVALRY:
                             _newEnemyFormation.addSoldier(new Cavalry(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
                             break;
+                        case Soldier.CLASS_GOBLIN_WOLF:
+                            _newEnemyFormation.addSoldier(new Wolf(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
+                            break;
 
                     }
                 }

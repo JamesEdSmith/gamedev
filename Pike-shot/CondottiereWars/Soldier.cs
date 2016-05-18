@@ -229,6 +229,9 @@ namespace PikeAndShot
                 case Soldier.CLASS_MERC_CAVALRY:
                     _newEnemyFormation.addSoldier(new Cavalry(screen, x, y, BattleScreen.SIDE_ENEMY));
                     break;
+                case Soldier.CLASS_GOBLIN_WOLF:
+                    _newEnemyFormation.addSoldier(new Wolf(screen, x, y, BattleScreen.SIDE_ENEMY));
+                    break;
             }
         }
 
@@ -3178,13 +3181,13 @@ namespace PikeAndShot
         {
             if (_state == STATE_READY)
             {
-                //_state = STATE_ATTACK;
-                //_stateTimer = _attackTime;
-                //chargeSound.Play();
+                _state = STATE_ATTACK;
+                _stateTimer = _attackTime;
+                chargeSound.Play();
 
-                _state = STATE_MELEE_WIN;
-                _stateTimer = _meleeTime;
-                _meleeDestination = _destination;
+                //_state = STATE_MELEE_WIN;
+                //_stateTimer = _meleeTime;
+                //_meleeDestination = _destination;
                 
                 return true;
             }
@@ -3208,7 +3211,8 @@ namespace PikeAndShot
         {
             _turned = !_turned;
 
-            if (_turned)
+            //doing a sneaky XOR
+            if (_turned != (_side == BattleScreen.SIDE_ENEMY))
             {
                 _position.X -= 12f;
                 myFormation._position.X -= 12f;
@@ -3228,11 +3232,10 @@ namespace PikeAndShot
 
             if (_state != STATE_DEAD)
             {
-                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED && !_turned ? _side : _side * -1, _drawingY));
+                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), (_state != STATE_RETREAT && _state != STATE_ROUTED && !_turned) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || _state == STATE_KILL) ? _side : _side * -1, _drawingY));
             }
 
             //addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
-
             //spritebatch.Draw(PikeAndShotGame.getDotTexture(), _drawingPosition, Color.White);
         }
 
