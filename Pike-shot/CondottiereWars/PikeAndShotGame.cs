@@ -20,11 +20,22 @@ namespace PikeAndShot
 {
     public class PikeAndShotGame : Microsoft.Xna.Framework.Game
     {
-        public const bool DEBUG = false;
+        public const bool DEBUG = true;
+
+        public const int SCREENWIDTH = 1024;
+        public const int SCREENHEIGHT = 768;
+
+        public const int SCREEN_LEVELPLAY = 0;
+        public const int SCREEN_FORMATIONMAKER = 1;
+        public const int SCREEN_LEVELEDITOR = 2;
+
 
         GraphicsDeviceManager graphics;
         public static Viewport viewport;
         SpriteBatch spriteBatch;
+
+        Rectangle drawRectangle = new Rectangle(0, 0, SCREENWIDTH, SCREENHEIGHT);
+        Rectangle drawSourceRectangle = new Rectangle(2, 2, SCREENWIDTH, SCREENHEIGHT);
 
         RenderTarget2D ShaderRenderTarget;
         RenderTarget2D ShaderRenderTarget2;
@@ -42,13 +53,6 @@ namespace PikeAndShot
         public static bool useShaders = true;
 
         public LevelConstructorForm _form;
-
-        public const int SCREENWIDTH = 1024;
-        public const int SCREENHEIGHT = 768;
-
-        public const int SCREEN_LEVELPLAY = 0;
-        public const int SCREEN_FORMATIONMAKER = 1;
-        public const int SCREEN_LEVELEDITOR = 2;
 
         public static Effect effect;
         public static Effect effect2;
@@ -332,11 +336,14 @@ namespace PikeAndShot
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             viewport = GraphicsDevice.Viewport;
+
+            setDrawRect();
+
             soldierFont = Content.Load<SpriteFont>("SpriteFont1");
 
-            ShaderRenderTarget = new RenderTarget2D(spriteBatch.GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
-            ShaderRenderTarget2 = new RenderTarget2D(spriteBatch.GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
-            ShaderRenderTarget3 = new RenderTarget2D(spriteBatch.GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
+            ShaderRenderTarget = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
+            ShaderRenderTarget2 = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
+            ShaderRenderTarget3 = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
             _bloomTargetWidth = SCREENWIDTH / 2;
             _bloomTargetHeight = SCREENHEIGHT / 2;
 
@@ -662,7 +669,6 @@ namespace PikeAndShot
                 if (!useShaders)
                 {
                     GraphicsDevice.Viewport = viewport;
-                    //GraphicsDevice.Clear(new Color(8, 8, 8, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
                     GraphicsDevice.Clear(screenColor); 
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
 
@@ -679,7 +685,6 @@ namespace PikeAndShot
                 {
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
                     GraphicsDevice.Viewport = viewport;
-                    //GraphicsDevice.Clear(new Color(8, 8, 8, 255)); // [dsl] Background was very black. So we couldn't see the scanlines like an old TV! (Black is not black on old TVs)
                     GraphicsDevice.Clear(screenColorShader);
                     //get rid of blurry sprites
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
@@ -721,7 +726,7 @@ namespace PikeAndShot
 
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, _bloomFx);
 
-                    spriteBatch.Draw(ShaderRenderTarget3, Vector2.Zero, Color.White);
+                    spriteBatch.Draw(ShaderRenderTarget3, drawRectangle, drawSourceRectangle, Color.White);
 
                     spriteBatch.End();
                 }
@@ -773,6 +778,33 @@ namespace PikeAndShot
         internal void fullScreen()
         {
             graphics.ToggleFullScreen();
+            setDrawRect();
+        }
+
+        void setDrawRect()
+        {
+            if (graphics.IsFullScreen && (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height / (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width < 0.74f)
+            {
+                float oldWidth = graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+                float newWidth = (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height * 4f / 3f;
+                int drawWidth = (int)(viewport.Width * newWidth / oldWidth);
+
+                int drawX = (SCREENWIDTH - drawWidth) / 2;
+                drawRectangle = new Rectangle(drawX, 0, drawWidth, SCREENHEIGHT);
+            }
+            else if (graphics.IsFullScreen && (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height / (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width > 0.76f)
+            {
+                float oldHeight = graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
+                float newHeight = (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width * 3f / 4f;
+                int drawHeight = (int)(viewport.Height * newHeight / oldHeight);
+
+                int drawY = (SCREENHEIGHT - drawHeight) / 2;
+                drawRectangle = new Rectangle(0, drawY, SCREENWIDTH, drawHeight);
+            }
+            else
+            {
+                drawRectangle = new Rectangle(0, 0, SCREENWIDTH, SCREENHEIGHT);
+            }
         }
     }
 }
