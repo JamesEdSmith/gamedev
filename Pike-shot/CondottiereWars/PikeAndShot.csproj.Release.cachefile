@@ -187,6 +187,10 @@ Content\wolf_idle.xnb
 Content\wolf_spooked.xnb
 Content\wolf_run.xnb
 Content\wolf_turn.xnb
+Content\wolf_bite.xnb
+Content\wolf_defend.xnb
+Content\wolf_melee.xnb
+Content\wolf_kill.xnb
 Content\cgwg-xna.xnb
 Content\Bloom.xnb
 Content\BloomExtract.xnb
