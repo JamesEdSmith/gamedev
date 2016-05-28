@@ -46,7 +46,7 @@ namespace PikeAndShot
 
         Effect _bloomFx, _bloomExtractFx;
         float _blurPower = 0.01f, _baseIntensity = 1f, _bloomIntensity = 0.2f,
-            _baseSaturation = 1f, _bloomSaturation = 1f, _bloomThreshold = 0.1f;
+            _baseSaturation = 1f, _bloomSaturation = 1.0f, _bloomThreshold = 0.1f;
 
         static SpriteFont soldierFont;
         public static Random random = new Random();

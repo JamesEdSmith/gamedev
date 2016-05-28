@@ -4,7 +4,7 @@ sampler ColorMapSampler : register(s0);
 float4 PixelShaderFunction(float4 color: COLOR0, float2 texCoord : TEXCOORD0) : COLOR0 
 { 
     // fake chromatic aberration in the stupidest way possible 
-    float2 texCoordOffset = float2(0.0015, 0); 
+    float2 texCoordOffset = float2(0.0014, 0); 
     float r = tex2D(ColorMapSampler, texCoord - texCoordOffset).r; 
     float g = tex2D(ColorMapSampler, texCoord).g; 
     float b = tex2D(ColorMapSampler, texCoord + texCoordOffset).b; 

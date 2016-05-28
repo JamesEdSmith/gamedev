@@ -1745,7 +1745,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna.xnb</Output>
-      <Time>2016-05-18T02:24:13.6579232-04:00</Time>
+      <Time>2016-05-19T03:06:48.4129177-04:00</Time>
     </Item>
     <Item>
       <Source>Bloom.fx</Source>
@@ -1772,7 +1772,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\cgwg-xna_new.xnb</Output>
-      <Time>2016-01-15T03:36:57.2021484-05:00</Time>
+      <Time>2016-05-25T05:08:59.2785322-04:00</Time>
     </Item>
     <Item>
       <Source>shot00.wav</Source>
