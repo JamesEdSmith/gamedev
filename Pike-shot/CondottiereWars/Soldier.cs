@@ -2793,7 +2793,7 @@ namespace PikeAndShot
                 _retreat = new Sprite(PikeAndShotGame.SKIRMISHER_RETREAT, new Rectangle(6, 2, 16, 28), 46, 40, true);
                 variant = true;
             }
-            _feet = new Sprite(PikeAndShotGame.GOBLIN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+            _feet = new Sprite(PikeAndShotGame.SOLDIER_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
             _route = new Sprite(PikeAndShotGame.SLINGER_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
             _routed = new Sprite(PikeAndShotGame.SLINGER_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
 

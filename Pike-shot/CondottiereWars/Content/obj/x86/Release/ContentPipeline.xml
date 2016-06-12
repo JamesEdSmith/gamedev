@@ -251,7 +251,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_death.xnb</Output>
-      <Time>2010-04-12T17:35:54-04:00</Time>
+      <Time>2016-06-12T03:38:04.1765295-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_idle.png</Source>
@@ -260,7 +260,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_idle.xnb</Output>
-      <Time>2010-04-12T17:29:16-04:00</Time>
+      <Time>2016-06-12T03:36:56.1646395-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_melee.png</Source>
@@ -278,7 +278,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_reload.xnb</Output>
-      <Time>2010-04-12T17:30:18-04:00</Time>
+      <Time>2016-06-12T03:38:44.5178369-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_rock.png</Source>
@@ -296,7 +296,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_shoot.xnb</Output>
-      <Time>2010-05-04T00:05:36-04:00</Time>
+      <Time>2016-06-12T03:39:08.3281988-04:00</Time>
     </Item>
     <Item>
       <Source>dopple_death.png</Source>
@@ -1340,7 +1340,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_idle.xnb</Output>
-      <Time>2011-11-08T02:08:58-05:00</Time>
+      <Time>2016-06-12T02:36:05.1248119-04:00</Time>
     </Item>
     <Item>
       <Source>skirmisher_reload.png</Source>
@@ -1349,7 +1349,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_reload.xnb</Output>
-      <Time>2011-11-08T01:48:02-05:00</Time>
+      <Time>2016-06-12T02:36:49.8053675-04:00</Time>
     </Item>
     <Item>
       <Source>skirmisher_shoot.png</Source>
@@ -1358,7 +1358,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_shoot.xnb</Output>
-      <Time>2011-11-08T01:48:24-05:00</Time>
+      <Time>2016-06-12T02:37:43.5494415-04:00</Time>
     </Item>
     <Item>
       <Source>skirmisher_javelin.png</Source>
@@ -1385,7 +1385,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_death.xnb</Output>
-      <Time>2011-11-08T14:33:58-05:00</Time>
+      <Time>2016-06-12T02:35:40.7074153-04:00</Time>
     </Item>
     <Item>
       <Source>skirmisher_defend2.png</Source>
@@ -1394,7 +1394,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_defend2.xnb</Output>
-      <Time>2011-11-10T18:13:46-05:00</Time>
+      <Time>2016-06-12T02:34:59.7130706-04:00</Time>
     </Item>
     <Item>
       <Source>skirmisher_melee2.png</Source>
@@ -1403,7 +1403,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\skirmisher_melee2.xnb</Output>
-      <Time>2011-11-10T18:14:16-05:00</Time>
+      <Time>2016-06-12T02:36:25.6949885-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_defend2.png</Source>
@@ -1412,7 +1412,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_defend2.xnb</Output>
-      <Time>2011-11-10T17:33:30-05:00</Time>
+      <Time>2016-06-12T03:37:43.2733339-04:00</Time>
     </Item>
     <Item>
       <Source>slinger_melee2.png</Source>
@@ -1421,7 +1421,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\slinger_melee2.xnb</Output>
-      <Time>2011-11-10T17:40:24-05:00</Time>
+      <Time>2016-06-12T03:38:28.2869085-04:00</Time>
     </Item>
     <Item>
       <Source>roadTerrain10.png</Source>
@@ -2101,7 +2101,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
-        <Value>2016-04-29T23:59:57.874934-04:00</Value>
+        <Value>2016-06-12T02:38:05.4916965-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
