@@ -66,10 +66,10 @@ namespace PikeAndShot
             _levelData = level;
 
             _formation = new Formation(this, 200, 200, 20, SIDE_PLAYER);
-            _formation.addSoldier(new Wolf(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            //_formation.addSoldier(new Wolf(this, 200, 200, BattleScreen.SIDE_PLAYER));
             //_formation.addSoldier(new Cavalry(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
-            /*_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER)); 
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
@@ -83,7 +83,7 @@ namespace PikeAndShot
             _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
             _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));*/
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
             _coins = MAX_COINS/2;
             _doubleCoins = 0;
@@ -594,6 +594,10 @@ namespace PikeAndShot
                 if (keyboardState.IsKeyDown(Keys.D7) && previousKeyboardState.IsKeyUp(Keys.D7))
                 {
                     doppelType = !doppelType;
+                }
+                if (keyboardState.IsKeyDown(Keys.A) && !previousKeyboardState.IsKeyDown(Keys.A))
+                {
+                    _formation.kill();
                 }
             }
 

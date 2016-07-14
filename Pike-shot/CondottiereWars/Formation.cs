@@ -94,6 +94,15 @@ namespace PikeAndShot
             return _side;
         }
 
+        public void kill()
+        {
+            foreach (Soldier s in _soldiers)
+            {
+                if(s is Pikeman)
+                    s.hit();
+            }
+        }
+
         public virtual void update(TimeSpan timeSpan)
         {
             if (this.getSoldiers().Count <= 0)
@@ -138,7 +147,7 @@ namespace PikeAndShot
                     {
                         foreach (Soldier pikeman in (ArrayList)_pikeRows[0])
                         {
-                            if (pikeman is Pikeman && (pikeman.getState() != Soldier.STATE_MELEE_WIN && pikeman.getState() != Soldier.STATE_MELEE_LOSS))
+                            if (pikeman is Pikeman && !_soldiersToRemove.Contains(pikeman) && (pikeman.getState() != Soldier.STATE_MELEE_WIN && pikeman.getState() != Soldier.STATE_MELEE_LOSS))
                                 ((Pikeman)pikeman).lower45();
                         }
                         DEBUGdangerClose = true;
@@ -147,7 +156,7 @@ namespace PikeAndShot
                     {
                         foreach (Soldier pikeman in (ArrayList)_pikeRows[0])
                         {
-                            if (pikeman is Pikeman && (pikeman.getState() != Soldier.STATE_MELEE_WIN && pikeman.getState() != Soldier.STATE_MELEE_LOSS))
+                            if (pikeman is Pikeman && !_soldiersToRemove.Contains(pikeman) && (pikeman.getState() != Soldier.STATE_MELEE_WIN && pikeman.getState() != Soldier.STATE_MELEE_LOSS))
                                 ((Pikeman)pikeman).raise();
                         }
                         DEBUGdangerClose = false;
@@ -989,6 +998,10 @@ namespace PikeAndShot
                 reiteratePikeCommand((Pikeman)soldier);
                 numberOfPikes++;
             }
+            else if (soldier is Dopple && _state == STATE_PIKE)
+            {
+                ((Dopple)soldier).charge();
+            }
             else if (soldier.getType() == Soldier.TYPE_SHOT)
             {
                 numberOfShots++;
@@ -1000,7 +1013,7 @@ namespace PikeAndShot
             ArrayList firstRow = (ArrayList)_pikeRows[0];
             Pikeman pikeman = (Pikeman)firstRow[0];
             if (pikeman.getState() == Pikeman.STATE_ATTACKING || pikeman.getState() == Pikeman.STATE_LOWERED ||
-                pikeman.getState() == Pikeman.STATE_RECOILING)
+                pikeman.getState() == Pikeman.STATE_RECOILING || (pikeman.getState() == Pikeman.STATE_READY && _state == STATE_PIKE))
                 pikeAttack();
             else if (pikeman.getState() == Pikeman.STATE_RAISING)
                 pikeRaise();

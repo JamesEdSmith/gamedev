@@ -1220,7 +1220,7 @@ namespace PikeAndShot
             }
         }
 
-        protected virtual void hit()
+        public virtual void hit()
         {
             if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
                 _engager.setState(_engager.preAttackState);
@@ -1456,7 +1456,7 @@ namespace PikeAndShot
             _screen.removeScreenObject(_pikeTip);
         }
 
-        protected override void hit()
+        public override void hit()
         {
             base.hit();
             guardTarget = null;
@@ -2373,7 +2373,7 @@ namespace PikeAndShot
             _speed = p;
         }
 
-        protected override void hit()
+        public override void hit()
         {
             base.hit();
             _screen.removeScreenObject(_weaponSwing);
@@ -2824,7 +2824,7 @@ namespace PikeAndShot
 
         }
 
-        protected override void hit()
+        public override void hit()
         {
             base.hit();
             if (getSide() == BattleScreen.SIDE_ENEMY)
@@ -3725,7 +3725,7 @@ namespace PikeAndShot
             _screen.removeScreenObject(_shieldBlock);
         }
 
-        protected override void hit()
+        public override void hit()
         {
             base.hit();
             _screen.removeScreenObject(_shieldBlock);
@@ -4499,7 +4499,7 @@ namespace PikeAndShot
             _screen.removeScreenObject(_lanceTip);
         }
 
-        protected override void hit()
+        public override void hit()
         {
             base.hit();
             _screen.removeScreenObject(_lanceTip);
