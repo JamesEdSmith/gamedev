@@ -240,6 +240,11 @@ namespace PikeAndShot
         public static Texture2D WOLF_DEFEND;
         public static Texture2D WOLF_KILL;
 
+        public static Texture2D COLMILLOS_IDLE;
+        public static Texture2D COLMILLOS_IDLENOSHIELD;
+        public static Texture2D COLMILLOS_SHIELDBREAK;
+        public static Texture2D COLMILLOS_FALL;
+
         public static Texture2D BROWN_FEET;
 
         public static List<Texture2D> ROAD_TERRAIN;
@@ -543,6 +548,11 @@ namespace PikeAndShot
             WOLF_MELEE = Content.Load<Texture2D>(@"wolf_melee");
             WOLF_DEFEND = Content.Load<Texture2D>(@"wolf_defend");
             WOLF_KILL = Content.Load<Texture2D>(@"wolf_kill");
+
+            COLMILLOS_IDLE = Content.Load<Texture2D>(@"los_colmillos_idle0");
+            COLMILLOS_IDLENOSHIELD = Content.Load<Texture2D>(@"los_colmillos_idle1");
+            COLMILLOS_SHIELDBREAK = Content.Load<Texture2D>(@"los_colmillos_shieldbreak");
+            COLMILLOS_FALL = Content.Load<Texture2D>(@"los_colmillos_fall1");
 
             GOBLIN_FEET = Content.Load<Texture2D>(@"goblin_feet");
             BROWN_FEET = Content.Load<Texture2D>(@"brown_feet");

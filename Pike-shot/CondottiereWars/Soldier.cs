@@ -2956,14 +2956,18 @@ namespace PikeAndShot
             if (PikeAndShotGame.random.Next(51) > 25)
             {
                 _idle = new Sprite(PikeAndShotGame.BERZERKER2_IDLE, new Rectangle(10, 2, 16, 28), 46, 42);
+                //_idle = new Sprite(PikeAndShotGame.COLMILLOS_IDLE, new Rectangle(20, 4, 16, 28), 54, 42);
                 _death = new Sprite(PikeAndShotGame.BERZERKER2_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
                 _melee1 = new Sprite(PikeAndShotGame.BERZERKER2_MELEE1, new Rectangle(24, 30, 16, 28), 64, 68);
                 _defend1 = new Sprite(PikeAndShotGame.BERZERKER2_DEFEND1, new Rectangle(20, 2, 16, 28), 52, 40);
                 _route = new Sprite(PikeAndShotGame.BERZERKER2_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
                 _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
                 _noshieldIdle = new Sprite(PikeAndShotGame.BERZERKER2_IDLENOSHIELD, new Rectangle(10, 2, 16, 28), 46, 42);
+                //_noshieldIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42);
                 _shieldBreak = new Sprite(PikeAndShotGame.BERZERKER2_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46);
+                //_shieldBreak = new Sprite(PikeAndShotGame.COLMILLOS_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46);
                 _shieldFall = new Sprite(PikeAndShotGame.BERZERKER2_FALL, new Rectangle(76, 42, 16, 18), 110, 86);
+                //_shieldFall = new Sprite(PikeAndShotGame.COLMILLOS_FALL, new Rectangle(76, 42, 16, 18), 110, 86);
                 _melee2 = new Sprite(PikeAndShotGame.BERZERKER2_MELEE2, new Rectangle(24, 30, 16, 28), 64, 68);
                 _defend2 = new Sprite(PikeAndShotGame.BERZERKER2_DEFEND2, new Rectangle(20, 2, 16, 28), 52, 40);
                 _chargeNoShield = new Sprite(PikeAndShotGame.BERZERKER2_CHARGENOSHIELD, new Rectangle(20, 20, 16, 28), 60, 56);
