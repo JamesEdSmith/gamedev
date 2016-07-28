@@ -2108,6 +2108,15 @@
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_shieldbreak.xnb</Output>
       <Time>2016-07-24T04:06:16.1243051-04:00</Time>
     </Item>
+    <Item>
+      <Source>los_colmillos_attack.png</Source>
+      <Name>los_colmillos_attack</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_attack.xnb</Output>
+      <Time>2016-07-28T09:46:27.2401615-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

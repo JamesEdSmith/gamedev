@@ -42,6 +42,7 @@ namespace PikeAndShot
         public const int CLASS_GOBLIN_BRIGAND = 12;
         public const int CLASS_GOBLIN_HAULER = 13;
         public const int CLASS_GOBLIN_WOLF = 14;
+        public const int CLASS_GOBLIN_COLMILLOS = 15;
 
         // leader classes
         public const int CLASS_LEADER_PUCELLE = -1;
@@ -3115,6 +3116,112 @@ namespace PikeAndShot
 
                 _body = _idle;
             }
+        }
+    }
+
+    public class Colmillos : Targeteer
+    {
+        public const int STATE_ATTACK = 200;
+        
+        Sprite _attack;
+
+        public Colmillos(BattleScreen screen, float x, float y, int side)
+            : base(screen, x, y, side)
+        {
+            _type = Soldier.TYPE_MELEE;
+            _class = Soldier.CLASS_GOBLIN_COLMILLOS;
+            _attackTime = 2100f;
+            _deathTime = 1000f;
+
+            _feet = new Sprite(PikeAndShotGame.BROWN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+            _idle = new Sprite(PikeAndShotGame.COLMILLOS_IDLE, new Rectangle(20, 4, 16, 28), 54, 42);
+            _death = new Sprite(PikeAndShotGame.BERZERKER2_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
+            _melee1 = new Sprite(PikeAndShotGame.BERZERKER2_MELEE1, new Rectangle(24, 30, 16, 28), 64, 68);
+            _defend1 = new Sprite(PikeAndShotGame.BERZERKER2_DEFEND1, new Rectangle(20, 2, 16, 28), 52, 40);
+            _route = new Sprite(PikeAndShotGame.BERZERKER2_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
+            _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
+            _noshieldIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42);
+            _attack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK, new Rectangle(12, 14, 16, 28), 78, 50);
+            
+            _shieldBreak = new Sprite(PikeAndShotGame.COLMILLOS_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46);
+            _shieldFall = new Sprite(PikeAndShotGame.COLMILLOS_FALL, new Rectangle(76, 42, 16, 18), 110, 86);
+
+            _body = _idle;
+            _feet.setAnimationSpeed(_footSpeed / 0.11f);
+            hitSound = chargeSound;
+        }
+
+        protected override bool checkReactions(TimeSpan timeSpan)
+        {
+            return false;
+        }
+
+        public override bool attack()
+        {
+            if (_state == STATE_READY)
+            {
+                _state = STATE_ATTACK;
+                _stateTimer = _attackTime;
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public override void draw(SpriteBatch spritebatch)
+        {
+            _drawingPosition = _position + _randDestOffset - _screen.getMapOffset();
+
+            if (_state == STATE_ATTACK)
+            {
+                addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+            }
+            else
+                base.draw(spritebatch);
+        }
+
+        protected override void updateState(TimeSpan timeSpan)
+        {
+            base.updateState(timeSpan);
+
+            if (!_stateChanged)
+            {
+                if (_state == STATE_ATTACK)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+
+                    if (_stateTimer <= 0)
+                    {
+                        _stateTimer = 0;
+                        _position.X += 14;
+                        myFormation._position.X += 14f;
+                        alterDestination(true, 14);
+                        _state = STATE_READY;
+                    }
+                }
+            }
+        }
+
+        protected override void updateAnimation(TimeSpan timeSpan)
+        {
+            base.updateAnimation(timeSpan);
+
+            if (_state == STATE_ATTACK)
+            {
+                int maxFrames = _attack.getMaxFrames();
+                float frameTime = _attackTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                _attack.setFrame(frameNumber);
+                _body = _attack;
+            }
+            else if (_state == STATE_READY)
+            {
+                _body = _idle;
+            }
+
+
         }
     }
 
