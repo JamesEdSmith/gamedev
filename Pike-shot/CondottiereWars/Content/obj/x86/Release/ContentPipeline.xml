@@ -2117,6 +2117,15 @@
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_attack.xnb</Output>
       <Time>2016-07-28T09:46:27.2401615-04:00</Time>
     </Item>
+    <Item>
+      <Source>los_colmillos_attack2.png</Source>
+      <Name>los_colmillos_attack2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_attack2.xnb</Output>
+      <Time>2016-08-04T18:03:13.483696-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

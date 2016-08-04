@@ -3130,7 +3130,8 @@ namespace PikeAndShot
         {
             _type = Soldier.TYPE_MELEE;
             _class = Soldier.CLASS_GOBLIN_COLMILLOS;
-            _attackTime = 2100f;
+            //_attackTime = 2100f;
+            _attackTime = 1500f;
             _deathTime = 1000f;
 
             _feet = new Sprite(PikeAndShotGame.BROWN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
@@ -3140,8 +3141,10 @@ namespace PikeAndShot
             _defend1 = new Sprite(PikeAndShotGame.BERZERKER2_DEFEND1, new Rectangle(20, 2, 16, 28), 52, 40);
             _route = new Sprite(PikeAndShotGame.BERZERKER2_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
             _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
-            _noshieldIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42);
-            _attack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK, new Rectangle(12, 14, 16, 28), 78, 50);
+            //_noshieldIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42);
+            _idle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42);
+            //_attack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK, new Rectangle(12, 14, 16, 28), 78, 50);
+            _attack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK2, new Rectangle(22, 12, 16, 28), 98, 50);
             
             _shieldBreak = new Sprite(PikeAndShotGame.COLMILLOS_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46);
             _shieldFall = new Sprite(PikeAndShotGame.COLMILLOS_FALL, new Rectangle(76, 42, 16, 18), 110, 86);
@@ -3194,9 +3197,12 @@ namespace PikeAndShot
                     if (_stateTimer <= 0)
                     {
                         _stateTimer = 0;
-                        _position.X += 14;
-                        myFormation._position.X += 14f;
-                        alterDestination(true, 14);
+                        //_position.X += 14;
+                        //myFormation._position.X += 14f;
+                        //alterDestination(true, 14);
+                        _position.X += 30;
+                        myFormation._position.X += 30f;
+                        alterDestination(true, 30);
                         _state = STATE_READY;
                     }
                 }
