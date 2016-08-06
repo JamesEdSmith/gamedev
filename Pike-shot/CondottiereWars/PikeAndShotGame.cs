@@ -242,8 +242,11 @@ namespace PikeAndShot
 
         public static Texture2D COLMILLOS_IDLE;
         public static Texture2D COLMILLOS_IDLENOSHIELD;
+        public static Texture2D COLMILLOS_IDLENOARMOUR;
         public static Texture2D COLMILLOS_SHIELDBREAK;
         public static Texture2D COLMILLOS_FALL;
+        public static Texture2D COLMILLOS_FALLNOSHIELD;
+
         public static Texture2D COLMILLOS_ATTACK;
         public static Texture2D COLMILLOS_ATTACK2;
 
@@ -553,8 +556,11 @@ namespace PikeAndShot
 
             COLMILLOS_IDLE = Content.Load<Texture2D>(@"los_colmillos_idle0");
             COLMILLOS_IDLENOSHIELD = Content.Load<Texture2D>(@"los_colmillos_idle1");
+            COLMILLOS_IDLENOARMOUR = Content.Load<Texture2D>(@"los_colmillos_idle2");
             COLMILLOS_SHIELDBREAK = Content.Load<Texture2D>(@"los_colmillos_shieldbreak");
+
             COLMILLOS_FALL = Content.Load<Texture2D>(@"los_colmillos_fall1");
+            COLMILLOS_FALLNOSHIELD = Content.Load<Texture2D>(@"los_colmillos_fall2");
             COLMILLOS_ATTACK = Content.Load<Texture2D>(@"los_colmillos_attack");
             COLMILLOS_ATTACK2 = Content.Load<Texture2D>(@"los_colmillos_attack2");
 

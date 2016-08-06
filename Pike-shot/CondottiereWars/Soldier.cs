@@ -2957,18 +2957,14 @@ namespace PikeAndShot
             if (PikeAndShotGame.random.Next(51) > 25)
             {
                 _idle = new Sprite(PikeAndShotGame.BERZERKER2_IDLE, new Rectangle(10, 2, 16, 28), 46, 42);
-                //_idle = new Sprite(PikeAndShotGame.COLMILLOS_IDLE, new Rectangle(20, 4, 16, 28), 54, 42);
                 _death = new Sprite(PikeAndShotGame.BERZERKER2_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
                 _melee1 = new Sprite(PikeAndShotGame.BERZERKER2_MELEE1, new Rectangle(24, 30, 16, 28), 64, 68);
                 _defend1 = new Sprite(PikeAndShotGame.BERZERKER2_DEFEND1, new Rectangle(20, 2, 16, 28), 52, 40);
                 _route = new Sprite(PikeAndShotGame.BERZERKER2_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
                 _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
                 _noshieldIdle = new Sprite(PikeAndShotGame.BERZERKER2_IDLENOSHIELD, new Rectangle(10, 2, 16, 28), 46, 42);
-                //_noshieldIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42);
                 _shieldBreak = new Sprite(PikeAndShotGame.BERZERKER2_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46);
-                //_shieldBreak = new Sprite(PikeAndShotGame.COLMILLOS_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46);
                 _shieldFall = new Sprite(PikeAndShotGame.BERZERKER2_FALL, new Rectangle(76, 42, 16, 18), 110, 86);
-                //_shieldFall = new Sprite(PikeAndShotGame.COLMILLOS_FALL, new Rectangle(76, 42, 16, 18), 110, 86);
                 _melee2 = new Sprite(PikeAndShotGame.BERZERKER2_MELEE2, new Rectangle(24, 30, 16, 28), 64, 68);
                 _defend2 = new Sprite(PikeAndShotGame.BERZERKER2_DEFEND2, new Rectangle(20, 2, 16, 28), 52, 40);
                 _chargeNoShield = new Sprite(PikeAndShotGame.BERZERKER2_CHARGENOSHIELD, new Rectangle(20, 20, 16, 28), 60, 56);
@@ -3124,13 +3120,18 @@ namespace PikeAndShot
         public const int STATE_ATTACK = 200;
         
         Sprite _attack;
+        Sprite _noShieldAttack;
+        Sprite _armourFall;
+        Sprite _noArmourIdle;
+
+        bool hasArmour;
 
         public Colmillos(BattleScreen screen, float x, float y, int side)
             : base(screen, x, y, side)
         {
             _type = Soldier.TYPE_MELEE;
             _class = Soldier.CLASS_GOBLIN_COLMILLOS;
-            //_attackTime = 2100f;
+            _attackTime = 2100f;
             _attackTime = 1500f;
             _deathTime = 1000f;
 
@@ -3141,17 +3142,19 @@ namespace PikeAndShot
             _defend1 = new Sprite(PikeAndShotGame.BERZERKER2_DEFEND1, new Rectangle(20, 2, 16, 28), 52, 40);
             _route = new Sprite(PikeAndShotGame.BERZERKER2_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
             _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
-            //_noshieldIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42);
-            _idle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42);
-            //_attack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK, new Rectangle(12, 14, 16, 28), 78, 50);
-            _attack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK2, new Rectangle(22, 12, 16, 28), 98, 50);
-            
+            _noshieldIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42);
+            _attack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK, new Rectangle(12, 14, 16, 28), 78, 50);
+            _noShieldAttack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK2, new Rectangle(22, 12, 16, 28), 98, 50);
+            _noArmourIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOARMOUR, new Rectangle(20, 4, 16, 28), 54, 42);
             _shieldBreak = new Sprite(PikeAndShotGame.COLMILLOS_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46);
             _shieldFall = new Sprite(PikeAndShotGame.COLMILLOS_FALL, new Rectangle(76, 42, 16, 18), 110, 86);
+            _armourFall = new Sprite(PikeAndShotGame.COLMILLOS_FALLNOSHIELD, new Rectangle(76, 42, 16, 18), 110, 86);
 
             _body = _idle;
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
             hitSound = chargeSound;
+
+            hasArmour = true;
         }
 
         protected override bool checkReactions(TimeSpan timeSpan)
@@ -3170,6 +3173,41 @@ namespace PikeAndShot
             }
 
             return false;
+        }
+
+        public override void shieldBreak()
+        {
+            if (_hasShield)
+            {
+                if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
+                    _engager.setState(_engager.preAttackState);
+
+                _state = STATE_SHIELDBREAK;
+                _stateTimer = _shieldBreakTime;
+                new ScreenAnimation(_screen, _side, new Vector2(_position.X, _position.Y), new Sprite(PikeAndShotGame.SOLDIER_BROKENSHIELD1, new Rectangle(24, 4, 16, 28), 60, 46), (_shieldBreakTime / 8f) * 11f);
+                _idle = _noshieldIdle;
+                _attackTime = 1500f;
+                _attack = _noShieldAttack;
+                _hasShield = false;
+                _reacting = false;
+                _meleeDestination = _position;
+                //_chargeTime = 2000f;
+                shieldBreakSound.Play();
+            }
+            else if (hasArmour)
+            {
+                _state = STATE_SHIELDBREAK;
+                _stateTimer = _shieldBreakTime;
+                _idle = _noArmourIdle;
+                _shieldFall = _armourFall;
+                hasArmour = false;
+                _reacting = false;
+                _meleeDestination = _position;
+                //_chargeTime = 2000f;
+                shieldBreakSound.Play();
+            }
+            else
+                hit();
         }
 
         public override void draw(SpriteBatch spritebatch)
@@ -3197,12 +3235,18 @@ namespace PikeAndShot
                     if (_stateTimer <= 0)
                     {
                         _stateTimer = 0;
-                        //_position.X += 14;
-                        //myFormation._position.X += 14f;
-                        //alterDestination(true, 14);
-                        _position.X += 30;
-                        myFormation._position.X += 30f;
-                        alterDestination(true, 30);
+                        if (_hasShield)
+                        {
+                            _position.X += 14;
+                            myFormation._position.X += 14f;
+                            alterDestination(true, 14);
+                        }
+                        else
+                        {
+                            _position.X += 30;
+                            myFormation._position.X += 30f;
+                            alterDestination(true, 30);
+                        }
                         _state = STATE_READY;
                     }
                 }
@@ -3226,8 +3270,6 @@ namespace PikeAndShot
             {
                 _body = _idle;
             }
-
-
         }
     }
 
@@ -3558,7 +3600,6 @@ namespace PikeAndShot
         public Sprite _defend2;
         public Sprite _chargeNoShield;
         public bool _hasShield;
-        protected bool _dropShield;
 
         protected SoundEffectInstance shieldBreakSound;
 
@@ -3580,7 +3621,6 @@ namespace PikeAndShot
             _defend2 = new Sprite(PikeAndShotGame.SOLDIER_DEFEND2, new Rectangle(20, 2, 16, 28), 52, 40);
             _chargeNoShield = new Sprite(PikeAndShotGame.SOLDIER_CHARGENOSHIELD, new Rectangle(20, 20, 16, 28), 60, 56);
             _hasShield = true;
-            _dropShield = false;
 
             shieldBreakSound = PikeAndShotGame.SHIELD_BREAK.CreateInstance();
             shieldBreakSound.Volume = 0.5f;
@@ -3815,7 +3855,7 @@ namespace PikeAndShot
             }
         }
 
-        public void shieldBreak()
+        public virtual void shieldBreak()
         {
             if (_hasShield)
             {

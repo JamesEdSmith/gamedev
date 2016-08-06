@@ -1739,6 +1739,78 @@
       <Time>2016-04-29T23:59:52.4346229-04:00</Time>
     </Item>
     <Item>
+      <Source>los_colmillos_fall1.png</Source>
+      <Name>los_colmillos_fall1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_fall1.xnb</Output>
+      <Time>2016-07-24T04:00:08.5742824-04:00</Time>
+    </Item>
+    <Item>
+      <Source>los_colmillos_idle0.png</Source>
+      <Name>los_colmillos_idle0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_idle0.xnb</Output>
+      <Time>2016-07-24T04:03:05.2893899-04:00</Time>
+    </Item>
+    <Item>
+      <Source>los_colmillos_idle1.png</Source>
+      <Name>los_colmillos_idle1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_idle1.xnb</Output>
+      <Time>2016-07-24T04:03:28.6007233-04:00</Time>
+    </Item>
+    <Item>
+      <Source>los_colmillos_idle2.png</Source>
+      <Name>los_colmillos_idle2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_idle2.xnb</Output>
+      <Time>2016-08-05T22:52:35.2306155-04:00</Time>
+    </Item>
+    <Item>
+      <Source>los_colmillos_shieldbreak.png</Source>
+      <Name>los_colmillos_shieldbreak</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_shieldbreak.xnb</Output>
+      <Time>2016-07-24T04:06:16.1243051-04:00</Time>
+    </Item>
+    <Item>
+      <Source>los_colmillos_attack.png</Source>
+      <Name>los_colmillos_attack</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_attack.xnb</Output>
+      <Time>2016-07-28T09:46:27.2401615-04:00</Time>
+    </Item>
+    <Item>
+      <Source>los_colmillos_attack2.png</Source>
+      <Name>los_colmillos_attack2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_attack2.xnb</Output>
+      <Time>2016-08-04T18:03:13.483696-04:00</Time>
+    </Item>
+    <Item>
+      <Source>los_colmillos_fall2.png</Source>
+      <Name>los_colmillos_fall2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_fall2.xnb</Output>
+      <Time>2016-08-05T22:36:19.3998011-04:00</Time>
+    </Item>
+    <Item>
       <Source>cgwg-xna.fx</Source>
       <Name>cgwg-xna</Name>
       <Importer>EffectImporter</Importer>
@@ -2063,69 +2135,6 @@
       <Extra>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\theme.wma</Extra>
       <Time>2015-01-04T23:14:57.7998046-05:00</Time>
     </Item>
-    <Item>
-      <Source>los_colmillos_fall1.png</Source>
-      <Name>los_colmillos_fall1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_fall1.xnb</Output>
-      <Time>2016-07-24T04:00:08.5742824-04:00</Time>
-    </Item>
-    <Item>
-      <Source>los_colmillos_idle0.png</Source>
-      <Name>los_colmillos_idle0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_idle0.xnb</Output>
-      <Time>2016-07-24T04:03:05.2893899-04:00</Time>
-    </Item>
-    <Item>
-      <Source>los_colmillos_idle1.png</Source>
-      <Name>los_colmillos_idle1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_idle1.xnb</Output>
-      <Time>2016-07-24T04:03:28.6007233-04:00</Time>
-    </Item>
-    <Item>
-      <Source>los_colmillos_idle2.png</Source>
-      <Name>los_colmillos_idle2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_idle2.xnb</Output>
-      <Time>2016-07-24T04:03:57.6653857-04:00</Time>
-    </Item>
-    <Item>
-      <Source>los_colmillos_shieldbreak.png</Source>
-      <Name>los_colmillos_shieldbreak</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_shieldbreak.xnb</Output>
-      <Time>2016-07-24T04:06:16.1243051-04:00</Time>
-    </Item>
-    <Item>
-      <Source>los_colmillos_attack.png</Source>
-      <Name>los_colmillos_attack</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_attack.xnb</Output>
-      <Time>2016-07-28T09:46:27.2401615-04:00</Time>
-    </Item>
-    <Item>
-      <Source>los_colmillos_attack2.png</Source>
-      <Name>los_colmillos_attack2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_attack2.xnb</Output>
-      <Time>2016-08-04T18:03:13.483696-04:00</Time>
-    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
@@ -2164,7 +2173,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
-        <Value>2016-06-12T02:38:05.4916965-04:00</Value>
+        <Value>2016-08-05T23:15:39.0687665-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>

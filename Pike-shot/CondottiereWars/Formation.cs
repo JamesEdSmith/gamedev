@@ -771,6 +771,15 @@ namespace PikeAndShot
                 }
             }
 
+            if (_meleeRows.Count > 0)
+            {
+                foreach (Soldier s in (ArrayList)_meleeRows[0])
+                {
+                    if (s.getState() != Soldier.STATE_MELEE_LOSS && s.getState() != Soldier.STATE_MELEE_WIN && s is Colmillos)
+                        ((Colmillos)s).shieldBreak();
+                }
+            }
+
             //_position.X += 50f;
         }
 
