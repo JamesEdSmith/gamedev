@@ -342,6 +342,19 @@ namespace PikeAndShot
             }
         }
 
+        protected void addDrawjob(DrawJob drawJob, bool flicker)
+        {
+            if (!flicker)
+                addDrawjob(drawJob);
+            else
+            {
+                Sprite sprite = drawJob.sprite;
+                DrawJob flickerJob = new DrawJob(sprite, drawJob.position, drawJob.side, drawJob.drawingY + 1, true, 500f);
+                _screen.addDrawjob(flickerJob);
+            }
+                
+        }
+
         public virtual void update(TimeSpan timeSpan)
         {
             _stateChanged = false;
@@ -679,11 +692,22 @@ namespace PikeAndShot
                 else if (_state == STATE_DYING)
                 {
                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                    
                     if (_stateTimer <= 0)
                     {
-                        _stateTimer = 0f;
-                        _state = STATE_DEAD;
-                        _stateChanged = true;
+                        if (this is Colmillos)
+                        {
+                            _stateTimer = ((Colmillos)this)._riseTime;
+                            _state = Colmillos.STATE_RISE;
+                            ScreenAnimation sa = new ScreenAnimation(_screen, _side, new Vector2(_position.X - 22f, _position.Y + 22f), new Sprite(PikeAndShotGame.COLMILLOS_HELMET, new Rectangle(42, 8, 16, 16), 60, 24), Colmillos.helmetTime);
+                            _stateChanged = true;
+                        }
+                        else
+                        {
+                            _stateTimer = 0f;
+                            _state = STATE_DEAD;
+                            _stateChanged = true;
+                        }
                     }
                 }
                 else if (_state == STATE_MELEE_WIN)
@@ -3118,11 +3142,19 @@ namespace PikeAndShot
     public class Colmillos : Targeteer
     {
         public const int STATE_ATTACK = 200;
+        public const int STATE_RISE = 201;
+        public const int STATE_EATEN = 202;
         
         Sprite _attack;
         Sprite _noShieldAttack;
+        Sprite _noArmourAttack;
         Sprite _armourFall;
         Sprite _noArmourIdle;
+        Sprite _rise;
+
+        public float _riseTime = 1000f;
+        public float _eatenTime = 10000f;
+        public static float helmetTime = 2000f;
 
         bool hasArmour;
 
@@ -3133,11 +3165,11 @@ namespace PikeAndShot
             _class = Soldier.CLASS_GOBLIN_COLMILLOS;
             _attackTime = 2100f;
             _attackTime = 1500f;
-            _deathTime = 1000f;
+            _deathTime = 2000f;
 
             _feet = new Sprite(PikeAndShotGame.BROWN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
             _idle = new Sprite(PikeAndShotGame.COLMILLOS_IDLE, new Rectangle(20, 4, 16, 28), 54, 42);
-            _death = new Sprite(PikeAndShotGame.BERZERKER2_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
+            _death = new Sprite(PikeAndShotGame.COLMILLOS_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
             _melee1 = new Sprite(PikeAndShotGame.BERZERKER2_MELEE1, new Rectangle(24, 30, 16, 28), 64, 68);
             _defend1 = new Sprite(PikeAndShotGame.BERZERKER2_DEFEND1, new Rectangle(20, 2, 16, 28), 52, 40);
             _route = new Sprite(PikeAndShotGame.BERZERKER2_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
@@ -3145,11 +3177,12 @@ namespace PikeAndShot
             _noshieldIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42);
             _attack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK, new Rectangle(12, 14, 16, 28), 78, 50);
             _noShieldAttack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK2, new Rectangle(22, 12, 16, 28), 98, 50);
+            _noArmourAttack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK3, new Rectangle(14, 22, 16, 28), 114, 60);
             _noArmourIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOARMOUR, new Rectangle(20, 4, 16, 28), 54, 42);
             _shieldBreak = new Sprite(PikeAndShotGame.COLMILLOS_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46);
             _shieldFall = new Sprite(PikeAndShotGame.COLMILLOS_FALL, new Rectangle(76, 42, 16, 18), 110, 86);
             _armourFall = new Sprite(PikeAndShotGame.COLMILLOS_FALLNOSHIELD, new Rectangle(76, 42, 16, 18), 110, 86);
-
+            _rise = new Sprite(PikeAndShotGame.COLMILLOS_RISE, new Rectangle(40, 2, 16, 28), 72, 40);
             _body = _idle;
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
             hitSound = chargeSound;
@@ -3198,8 +3231,11 @@ namespace PikeAndShot
             {
                 _state = STATE_SHIELDBREAK;
                 _stateTimer = _shieldBreakTime;
+                new ScreenAnimation(_screen, _side, new Vector2(_position.X + (_side == BattleScreen.SIDE_PLAYER ? -8f : 8f), _position.Y), new Sprite(PikeAndShotGame.SOLDIER_BROKENARMOUR, new Rectangle(24, 4, 16, 28), 60, 46), (_shieldBreakTime / 8f) * 8f);
                 _idle = _noArmourIdle;
                 _shieldFall = _armourFall;
+                _attackTime = 2000f;
+                _attack = _noArmourAttack;
                 hasArmour = false;
                 _reacting = false;
                 _meleeDestination = _position;
@@ -3217,6 +3253,14 @@ namespace PikeAndShot
             if (_state == STATE_ATTACK)
             {
                 addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+            }
+            else if (_state == STATE_RISE)
+            {
+                addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+            }
+            else if (_state == STATE_EATEN)
+            {
+                addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 50f));
             }
             else
                 base.draw(spritebatch);
@@ -3241,13 +3285,39 @@ namespace PikeAndShot
                             myFormation._position.X += 14f;
                             alterDestination(true, 14);
                         }
-                        else
+                        else if (hasArmour)
                         {
                             _position.X += 30;
                             myFormation._position.X += 30f;
                             alterDestination(true, 30);
                         }
+                        else
+                        {
+                            _position.X += 64;
+                            myFormation._position.X += 64f;
+                            alterDestination(true, 64);
+                        }
                         _state = STATE_READY;
+                    }
+                }
+                else if (_state == STATE_RISE)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                    if (_stateTimer <= 0)
+                    {
+                        _state = STATE_EATEN;
+                        _stateTimer = _eatenTime;
+                        _stateChanged = true;
+                    }
+                }
+                else if (_state == STATE_EATEN)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                    if (_stateTimer <= 0)
+                    {
+                        _state = STATE_DEAD;
+                        _stateTimer = 0f;
+                        _stateChanged = true;
                     }
                 }
             }
@@ -3265,6 +3335,20 @@ namespace PikeAndShot
 
                 _attack.setFrame(frameNumber);
                 _body = _attack;
+            }
+            else if (_state == STATE_RISE)
+            {
+                int maxFrames = _rise.getMaxFrames();
+                float frameTime = _riseTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                _rise.setFrame(frameNumber);
+                _body = _rise;
+            }
+            else if (_state == STATE_RISE)
+            {
+                _rise.setFrame(_rise.getMaxFrames()-1);
+                _body = _rise;
             }
             else if (_state == STATE_READY)
             {
@@ -3864,7 +3948,7 @@ namespace PikeAndShot
 
                 _state = STATE_SHIELDBREAK;
                 _stateTimer = _shieldBreakTime;
-                new ScreenAnimation(_screen, _side, new Vector2(_position.X, _position.Y), new Sprite(PikeAndShotGame.SOLDIER_BROKENSHIELD1, new Rectangle(24, 4, 16, 28), 60, 46), (_shieldBreakTime / 8f) * 11f);
+                new ScreenAnimation(_screen, _side, new Vector2(_drawingPosition.X, _drawingPosition.Y), new Sprite(PikeAndShotGame.SOLDIER_BROKENSHIELD1, new Rectangle(24, 4, 16, 28), 60, 46), (_shieldBreakTime / 8f) * 11f);
                 _idle = _noshieldIdle;
                 _hasShield = false;
                 _reacting = false;

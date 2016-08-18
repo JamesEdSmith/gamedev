@@ -21,6 +21,7 @@ namespace PikeAndShot
     public class PikeAndShotGame : Microsoft.Xna.Framework.Game
     {
         public const bool DEBUG = true;
+        public const bool TEST_BOSS = true;
 
         public const int SCREENWIDTH = 1024;
         public const int SCREENHEIGHT = 768;
@@ -140,6 +141,7 @@ namespace PikeAndShot
         public static Texture2D SOLDIER_IDLENOSHIELD;
         public static Texture2D SOLDIER_BROKENSHIELD1;
         public static Texture2D SOLDIER_BROKENSHIELD2;
+        public static Texture2D SOLDIER_BROKENARMOUR;
         public static Texture2D SOLDIER_FALL;
         public static Texture2D SOLDIER_CHARGE;
         public static Texture2D SOLDIER_CHARGENOSHIELD;
@@ -246,9 +248,12 @@ namespace PikeAndShot
         public static Texture2D COLMILLOS_SHIELDBREAK;
         public static Texture2D COLMILLOS_FALL;
         public static Texture2D COLMILLOS_FALLNOSHIELD;
-
+        public static Texture2D COLMILLOS_DEATH;
         public static Texture2D COLMILLOS_ATTACK;
         public static Texture2D COLMILLOS_ATTACK2;
+        public static Texture2D COLMILLOS_ATTACK3;
+        public static Texture2D COLMILLOS_RISE;
+        public static Texture2D COLMILLOS_HELMET;
 
         public static Texture2D BROWN_FEET;
 
@@ -388,6 +393,7 @@ namespace PikeAndShot
             SOLDIER_FALL = Content.Load<Texture2D>(@"soldier_fall");
             SOLDIER_BROKENSHIELD1 = Content.Load<Texture2D>(@"brokenshield1");
             SOLDIER_BROKENSHIELD2 = Content.Load<Texture2D>(@"brokenshield2");
+            SOLDIER_BROKENARMOUR = Content.Load<Texture2D>(@"brokenarmour");
             SOLDIER_IDLENOSHIELD = Content.Load<Texture2D>(@"soldier_idlenoshield");
             SOLDIER_ROUTE = Content.Load<Texture2D>(@"soldier_route");
             SOLDIER_ROUTED = Content.Load<Texture2D>(@"soldier_routed");
@@ -563,6 +569,10 @@ namespace PikeAndShot
             COLMILLOS_FALLNOSHIELD = Content.Load<Texture2D>(@"los_colmillos_fall2");
             COLMILLOS_ATTACK = Content.Load<Texture2D>(@"los_colmillos_attack");
             COLMILLOS_ATTACK2 = Content.Load<Texture2D>(@"los_colmillos_attack2");
+            COLMILLOS_ATTACK3 = Content.Load<Texture2D>(@"los_colmillos_attack3");
+            COLMILLOS_DEATH = Content.Load<Texture2D>(@"los_colmillos_death");
+            COLMILLOS_HELMET = Content.Load<Texture2D>(@"helmet");
+            COLMILLOS_RISE = Content.Load<Texture2D>(@"los_colmillos_rise");
 
             GOBLIN_FEET = Content.Load<Texture2D>(@"goblin_feet");
             BROWN_FEET = Content.Load<Texture2D>(@"brown_feet");

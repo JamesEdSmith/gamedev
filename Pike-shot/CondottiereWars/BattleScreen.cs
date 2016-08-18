@@ -524,6 +524,8 @@ namespace PikeAndShot
             {
                 if(dj.flashAmount>0)
                     dj.sprite.draw(spriteBatch, dj.position, dj.side, dj.flashAmount);
+                else if (dj.flickerTime > 0)
+                    dj.sprite.draw(spriteBatch, dj.position, dj.side, (float)gameTime.TotalGameTime.TotalMilliseconds, dj.flickerTime);
                 else
                     dj.sprite.draw(spriteBatch, dj.position, dj.side);
             }
@@ -742,6 +744,7 @@ namespace PikeAndShot
         public int side;
         public float drawingY;
         public float flashAmount;
+        public float flickerTime;
 
         public DrawJob(Sprite sprite, Vector2 position, int side, float drawingY)
         {
@@ -750,12 +753,19 @@ namespace PikeAndShot
             this.side = side;
             this.drawingY = drawingY;
             flashAmount = 0;
+            flickerTime = 0;
         }
 
         public DrawJob(Sprite sprite, Vector2 position, int side, float drawingY, float flashAmount) :
             this(sprite, position, side, drawingY)
         {
             this.flashAmount = flashAmount;
+        }
+
+        public DrawJob(Sprite sprite, Vector2 position, int side, float drawingY, bool flickering, float flickerTime) :
+            this(sprite, position, side, drawingY)
+        {
+            this.flickerTime = flickerTime;
         }
     }
 }

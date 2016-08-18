@@ -282,7 +282,7 @@ namespace PikeAndShot
                 {
                     retreat();
                 }
-                else if (soldierType != Soldier.TYPE_SWINGER)
+                else if (soldierType != Soldier.TYPE_SWINGER && !PikeAndShotGame.TEST_BOSS)
                 {
                     spawnRescue(soldierType);
                 }

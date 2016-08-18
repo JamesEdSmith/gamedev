@@ -114,6 +114,7 @@ namespace PikeAndShot
             _time = duration;
             _done = false;
             _maxFrames = _sprite.getMaxFrames();
+            _drawingY = _position.Y + _sprite.getBoundingRect().Height;
 
             screen.addAnimation(this);
             _screen = screen;
@@ -162,7 +163,10 @@ namespace PikeAndShot
 
         public virtual void draw(SpriteBatch spritebatch)
         {
-            _sprite.draw(spritebatch, _position - _screen.getMapOffset(), _side);
+            Vector2 _drawingPosition = _position - _screen.getMapOffset();
+            //_sprite.draw(spritebatch, _position - _screen.getMapOffset(), _side);
+
+            _screen.addDrawjob(new DrawJob(_sprite, _drawingPosition, _side, _drawingY));
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position, Color.White);
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(2,0), Color.White);
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(0,2), Color.White);
