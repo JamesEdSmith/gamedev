@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="Cheyenne Show-offs">
+</Property><Property Name="Solution File" Value="C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs.sln">
+</Property><Property Name="User Options File" Value="C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs.suo">
+</Property><Property Name="Date" Value="August-18-16">
+</Property><Property Name="Time" Value="15:17 PM">
+</Property><Property Name="Solution" Value="Cheyenne Show-offs">
+</Property><Property Name="Solution File" Value="C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Cheyenne Show-offs.sln">
+</Property><Property Name="Date" Value="August-18-16">
+</Property><Property Name="Time" Value="15:17:13 PM">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="Cheyenne Show-offs.sln" Description="File successfully backed up as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs.sln">
+</Event><Event ErrorLevel="0" Project="" Source="Cheyenne Show-offs.suo" Description="File successfully backed up as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs.suo">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Cheyenne Show-offs.csproj" Description="Upgraded XNA Game Studio project to XNA Framework 4.0.">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Cheyenne Show-offs.csproj" Description="Project file successfully backed up as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs\Cheyenne Show-offs.csproj">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Cheyenne Show-offs.csproj.user" Description="Project user file successfully backed up as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs\Cheyenne Show-offs.csproj.user">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Camera.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs\Camera.cs">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Score.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs\Score.cs">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\GameScreen.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs\GameScreen.cs">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Gun.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs\Gun.cs">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Program.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs\Program.cs">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Game1.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs\Game1.cs">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\TextPopup.cs" Description="File successfully backed up as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs\TextPopup.cs">
+</Event><Event ErrorLevel="2" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Cheyenne Show-offs_TemporaryKey.pfx" Description="Failed to backup file as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs\Cheyenne Show-offs_TemporaryKey.pfx">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Game.ico" Description="File successfully backed up as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs\Game.ico">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\GameThumbnail.png" Description="File successfully backed up as C:\Users\James\Documents\gamedev\Cheyenne Show-offs\Backup\Cheyenne Show-offs\GameThumbnail.png">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Cheyenne Show-offs.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Cheyenne Show-offs.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="Cheyenne Show-offs.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="Cheyenne Show-offs.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Cheyenne Show-offs.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offs" Source="Cheyenne Show-offs\Cheyenne Show-offs.csproj" Description="Upgraded XNA Framework references to XNA Framework 4.0.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="anvi.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="anvil.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="bad_sound.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="BG.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="bullet.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB1_Fisthand.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB1_Openhand.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB1_Spinhand.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB2_Body.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB2_Fisthand.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB2_GunForearm.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB2_Head.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB2_HitHead.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB2_Holster.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB2_LeftLeg.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB2_Openhand.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB2_RightArm.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB2_RightLeg.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB2_Spinhand.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB2_UpperArm.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB2_VictoryHead.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB_Body.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB_GunForearm.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB_Head.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB_HitHead.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB_Holster.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB_LeftArm.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB_LeftLeg.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB_RightLeg.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB_UpperArm.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="CB_VictoryHead.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="cock.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="Colt.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="ColtHammer.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="ColtTrigger.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="Content.contentproj" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="dead.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="dot.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="drop_sound.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="dumb_arm.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="Ennio Morricone Two Mules for Sister Sara.mp3" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="For A Few Dollars More Theme (Ennio Morricone).mp3" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="good_sound.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="gun.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="gun1.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="gun2.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="holster1.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="holster2.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="Mexican Music.mp3" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="OL.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="red_arrow.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="ricochet.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="RingingForJames.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="shoot.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="SpriteFont1.spritefont" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="SW_Body.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="SW_Hammer.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="SW_Trigger.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="throw_sound.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="Title.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="trigger.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="Tumbleweed.png" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="twirl.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Content.contentproj" Source="whirl.wav" Description="Copied XNA Game Studio Content Project content to backup location.">
+</Event><Event ErrorLevel="0" Project="Cheyenne Show-offsContent" Source="Cheyenne Show-offs\Content\Cheyenne Show-offsContent.contentproj" Description="Upgraded XNA Game Studio nested content projects to XNA Framework 4.0 and promoted to sibling project.">
+</Event></UpgradeLog>

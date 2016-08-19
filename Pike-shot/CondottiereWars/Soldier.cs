@@ -3153,7 +3153,7 @@ namespace PikeAndShot
         Sprite _rise;
 
         public float _riseTime = 1000f;
-        public float _eatenTime = 10000f;
+        public float _eatenTime = 5000f;
         public static float helmetTime = 2000f;
 
         bool hasArmour;

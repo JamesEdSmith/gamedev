@@ -1844,7 +1844,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\helmet.xnb</Output>
-      <Time>2016-08-17T20:25:20.9181837-04:00</Time>
+      <Time>2016-08-18T02:11:37.9325609-04:00</Time>
     </Item>
     <Item>
       <Source>los_colmillos_rise.png</Source>
@@ -2218,7 +2218,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
-        <Value>2016-08-17T22:01:45.6400509-04:00</Value>
+        <Value>2016-08-18T02:11:50.7932965-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>

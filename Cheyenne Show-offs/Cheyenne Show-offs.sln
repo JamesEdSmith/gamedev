@@ -1,7 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C# Express 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheyenne Show-offs", "Cheyenne Show-offs\Cheyenne Show-offs.csproj", "{633017F8-7D04-416A-A74B-8100B6EA4ADE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheyenne Show-offsContent", "Cheyenne Show-offs\Content\Cheyenne Show-offsContent.contentproj", "{6C8475A0-D9BA-43A2-AD30-BDD3F9F60663}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
