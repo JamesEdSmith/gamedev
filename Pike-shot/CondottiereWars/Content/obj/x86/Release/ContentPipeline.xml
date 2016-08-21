@@ -1826,7 +1826,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_death.xnb</Output>
-      <Time>2016-08-10T18:09:11.6435548-04:00</Time>
+      <Time>2016-08-21T00:17:51.6494837-04:00</Time>
     </Item>
     <Item>
       <Source>brokenarmour.png</Source>
@@ -1853,7 +1853,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_rise.xnb</Output>
-      <Time>2016-08-17T22:01:41.2327988-04:00</Time>
+      <Time>2016-08-21T00:17:26.9390704-04:00</Time>
     </Item>
     <Item>
       <Source>cgwg-xna.fx</Source>
@@ -2218,7 +2218,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
-        <Value>2016-08-18T02:11:50.7932965-04:00</Value>
+        <Value>2016-08-21T00:21:03.7574717-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>

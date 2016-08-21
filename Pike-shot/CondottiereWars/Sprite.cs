@@ -244,9 +244,7 @@ namespace PikeAndShot
         {
             Color color = Color.White;
 
-            float a = (float)(255f * ((curTime % flickerTime)/flickerTime));
-            if (a > 1f)
-                a = 1f;
+            float a = (float)((curTime % flickerTime)/flickerTime);
             color *= a;
 
             if (side == BattleScreen.SIDE_PLAYER)

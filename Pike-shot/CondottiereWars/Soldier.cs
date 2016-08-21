@@ -699,7 +699,6 @@ namespace PikeAndShot
                         {
                             _stateTimer = ((Colmillos)this)._riseTime;
                             _state = Colmillos.STATE_RISE;
-                            ScreenAnimation sa = new ScreenAnimation(_screen, _side, new Vector2(_position.X - 22f, _position.Y + 22f), new Sprite(PikeAndShotGame.COLMILLOS_HELMET, new Rectangle(42, 8, 16, 16), 60, 24), Colmillos.helmetTime);
                             _stateChanged = true;
                         }
                         else
@@ -796,6 +795,7 @@ namespace PikeAndShot
             _stateChanged = true;
         }
 
+        int lastDyingFrame = 0;
         protected virtual void updateAnimation(TimeSpan timeSpan)
         {
             if (_state == STATE_DYING)
@@ -814,6 +814,12 @@ namespace PikeAndShot
                     _death.setFrame(frameNumber);
                 else
                     _death.setFrame(_death.getMaxFrames() - 1);
+
+                if(_death.getCurrFrame() == _death.getMaxFrames() - 1 && lastDyingFrame == _death.getMaxFrames() - 2)
+                    new ScreenAnimation(_screen, _side, new Vector2(_position.X - 22f, _position.Y + 22f), new Sprite(PikeAndShotGame.COLMILLOS_HELMET, new Rectangle(42, 8, 16, 16), 60, 24), Colmillos.helmetTime);
+
+
+                lastDyingFrame = _death.getCurrFrame();
 
                 if (this is Cavalry || this is Wolf)
                     _feet = _death;
@@ -3260,7 +3266,7 @@ namespace PikeAndShot
             }
             else if (_state == STATE_EATEN)
             {
-                addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 50f));
+                addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f));
             }
             else
                 base.draw(spritebatch);
