@@ -73,7 +73,7 @@ namespace PikeAndShot
         protected int _lastAction;
         protected Vector2 _delta;
         public float _speed;         //per second
-        protected float _footSpeed;
+        public float _footSpeed;
         protected Vector2 _travel;
         protected int _type;
         protected int _class;
@@ -97,7 +97,7 @@ namespace PikeAndShot
 
         public int preAttackState;
         
-        protected Sprite _feet;
+        public Sprite _feet;
         protected Sprite _body;
 
         protected Sprite _idle;
@@ -3404,7 +3404,7 @@ namespace PikeAndShot
             _feet = _runningFeet = new Sprite(PikeAndShotGame.WOLF_RUN, new Rectangle(16, 10, 14, 14), 44, 26, true);
 
             _body = _idle;
-            _footSpeed = 8f;
+            _footSpeed = 6.5f;
             _speed = 0.22f;
             _feet.setAnimationSpeed(_footSpeed/0.11f);
             hitSound = chargeSound;

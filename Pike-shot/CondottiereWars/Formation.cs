@@ -2107,6 +2107,13 @@ namespace PikeAndShot
                         w._destination.Y = colmillos._position.Y + this.getWidth() * yDist * Soldier.WIDTH * (float)Math.Sin((double)tempPatternTimer);
                         tempPatternTimer += wolfSpacing;
 
+                        float a = (this.getWidth() * xDist * Soldier.WIDTH * (float)Math.Abs((float)Math.Sin((double)tempPatternTimer)))/(this.getWidth() * xDist * Soldier.WIDTH);
+
+                        if (i % 2 == 0)
+                            a = a * 2f / 3f;
+                        
+                        w._feet.setAnimationSpeed((w._footSpeed*2 - w._footSpeed*(a))/0.11f);
+
                         if (((w._destination.X > w._position.X && !((Wolf)w)._turned) || (w._destination.X < w._position.X && ((Wolf)w)._turned)) && (w.getState() != Wolf.STATE_TURNING))
                         {
                             ((Wolf)w).turn();
