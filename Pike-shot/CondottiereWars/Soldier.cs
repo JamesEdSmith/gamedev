@@ -495,8 +495,8 @@ namespace PikeAndShot
                 _jostleOffset.Y = 0f;
 
             // as long as we are not at destination, keep trying to get there, but don't overshoot
-            if (!(this is Wolf && _state == Wolf.STATE_TURNING))
-            {
+            //if (!(this is Wolf && _state == Wolf.STATE_TURNING))
+            //{
                 if (_delta.X > 0)
                 {
                     if (_delta.X - _travel.X >= 0)
@@ -526,7 +526,7 @@ namespace PikeAndShot
                     else
                         _position.Y = _dest.Y;
                 }
-            }
+            //}
 
             updateState(timeSpan);
             updateAnimation(timeSpan);
@@ -815,8 +815,8 @@ namespace PikeAndShot
                 else
                     _death.setFrame(_death.getMaxFrames() - 1);
 
-                if(_death.getCurrFrame() == _death.getMaxFrames() - 1 && lastDyingFrame == _death.getMaxFrames() - 2)
-                    new ScreenAnimation(_screen, _side, new Vector2(_position.X - 22f, _position.Y + 22f), new Sprite(PikeAndShotGame.COLMILLOS_HELMET, new Rectangle(42, 8, 16, 16), 60, 24), Colmillos.helmetTime);
+                if(_death.getCurrFrame() == _death.getMaxFrames() - 1 && lastDyingFrame == _death.getMaxFrames() - 2 && this is Colmillos)
+                    new ScreenAnimation(_screen, _side, new Vector2(_position.X - (_side == BattleScreen.SIDE_PLAYER ? 22f : -22f), _position.Y + 22f), new Sprite(PikeAndShotGame.COLMILLOS_HELMET, new Rectangle(42, 8, 16, 16), 60, 24), Colmillos.helmetTime);
 
 
                 lastDyingFrame = _death.getCurrFrame();
@@ -3377,7 +3377,8 @@ namespace PikeAndShot
         float _turnTime;
         float _killTime;
         float _idleAnimTime;
-        bool _turned;
+        public bool _turned;
+        float turnOffset;
 
         public Wolf(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
@@ -3404,6 +3405,7 @@ namespace PikeAndShot
 
             _body = _idle;
             _footSpeed = 8f;
+            _speed = 0.22f;
             _feet.setAnimationSpeed(_footSpeed/0.11f);
             hitSound = chargeSound;
         }
@@ -3461,6 +3463,7 @@ namespace PikeAndShot
             _turned = !_turned;
 
             //doing a sneaky XOR
+            /*
             if (_turned != (_side == BattleScreen.SIDE_ENEMY))
             {
                 _position.X -= 12f;
@@ -3473,11 +3476,24 @@ namespace PikeAndShot
                 myFormation._position.X += 12f;
                 alterDestination(true, 12);
             }
+            */
         }
 
         public override void draw(SpriteBatch spritebatch)
         {
-            _drawingPosition = _position + _randDestOffset - _screen.getMapOffset();
+            turnOffset = 0;
+            if (_state == STATE_TURNING)
+            {
+                if (_turned != (_side == BattleScreen.SIDE_ENEMY))
+                {
+                    turnOffset = -12 * ((_turnTime - _stateTimer) / _turnTime);
+                }
+                else
+                {
+                    turnOffset = 12 * ((_turnTime - _stateTimer) / _turnTime);
+                }
+            }
+            _drawingPosition = _position + _randDestOffset - _screen.getMapOffset() + new Vector2(turnOffset,0);
 
             if (_state != STATE_DEAD)
             {

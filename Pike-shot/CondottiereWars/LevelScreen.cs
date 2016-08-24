@@ -66,24 +66,25 @@ namespace PikeAndShot
             _levelData = level;
 
             _formation = new Formation(this, 200, 200, 20, SIDE_PLAYER);
-            _formation.addSoldier(new Colmillos(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            cFormation = new ColmillosFormation(this, 800, 500);
+            //_formation.addSoldier(new Colmillos(this, 200, 200, BattleScreen.SIDE_PLAYER));
             //_formation.addSoldier(new Cavalry(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Leader(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Leader(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
             _coins = MAX_COINS/2;
             _doubleCoins = 0;
@@ -153,6 +154,8 @@ namespace PikeAndShot
             doppelType = true;
         }
 
+        ColmillosFormation cFormation;
+
         public override void update(GameTime gameTime)
         {
             base.update(gameTime);
@@ -160,6 +163,9 @@ namespace PikeAndShot
             /* formations and terrain are generated on the far right of the screen 
             at their height when the player gets to their spawn trigger point*/
             checkLevelData();
+
+            if (cFormation != null)
+                cFormation.update(gameTime.ElapsedGameTime);
 
             foreach (Spawner spawny in _spawners)
             {
@@ -376,6 +382,9 @@ namespace PikeAndShot
         public override void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.draw(gameTime, spriteBatch);
+
+            if (cFormation != null)
+                cFormation.draw(spriteBatch);
 
             _draws++;
 
@@ -870,25 +879,25 @@ namespace PikeAndShot
             }
             
             _formation = new Formation(this, 200, 200, 20, SIDE_PLAYER);
-            _formation.addSoldier(new Colmillos(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            //_formation.addSoldier(new Colmillos(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
-            //_formation.addSoldier(new Leader(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Leader(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
             foreach (Soldier s in _formation.getSoldiers())
             {

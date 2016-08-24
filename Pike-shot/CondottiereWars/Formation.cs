@@ -18,7 +18,7 @@ namespace PikeAndShot
 
         public BattleScreen _screen;
         public Vector2 _position;
-        private ArrayList _soldiers;
+        protected ArrayList _soldiers;
         private ArrayList _soldiersToRemove;
         private ArrayList _soldiersToMove;
         private ArrayList _shotRows;
@@ -34,9 +34,9 @@ namespace PikeAndShot
         private Vector2 _size;
         private int _side;
         private int _width;
-        private float _speed;
+        protected float _speed;
         private float avgSpeed;
-        private int _state;
+        protected int _state;
         public bool needTriggerUp;
         private bool _soldierDied;
         private bool _allShotsMade;
@@ -1976,17 +1976,40 @@ namespace PikeAndShot
 
     public class ColmillosFormation : Formation
     {
-        public const int NUMBER_OF_WOLVES = 8;
-        bool intro;
+        public const int STATE_INTRO = 100;
+        public const int STATE_HOLD = 101;
+        
+        public const int NUMBER_OF_WOLVES = 20;
+
+        float WOLF_PERIOD = 650f;
+
+        Vector2[] destinations;
+        Vector2 _delta;
+        Vector2 _travel;
+        int curDest = 0;
+        float patternTimer = 0;
+        float wolfSpacing;
+
+        Colmillos colmillos;
 
         public ColmillosFormation(BattleScreen screen, float x, float y)
             : base(screen, x, y, NUMBER_OF_WOLVES + 1, BattleScreen.SIDE_ENEMY)
         {
-            addSoldier(new Berzerker(screen, x, y, BattleScreen.SIDE_ENEMY));
+            colmillos = new Colmillos(screen, x, y, BattleScreen.SIDE_ENEMY);
+            addSoldier(colmillos);
             for (int i = 0; i < NUMBER_OF_WOLVES; i++)
-                addSoldier(new Brigand(screen, x, y, BattleScreen.SIDE_ENEMY));
+                addSoldier(new Wolf(screen, x, y, BattleScreen.SIDE_ENEMY));
 
-            intro = true;
+            _state = STATE_INTRO;
+            destinations = new Vector2[2];
+            destinations[0] = new Vector2(PikeAndShotGame.SCREENWIDTH * 3 / 4, PikeAndShotGame.SCREENHEIGHT - 200);
+            destinations[1] = new Vector2(PikeAndShotGame.SCREENWIDTH * 3 / 4, 100);
+
+            _delta = new Vector2(0, 0);
+            _travel = new Vector2(0, 0);
+
+            wolfSpacing = (MathHelper.Pi * 2f) / (float)NUMBER_OF_WOLVES;
+
         }
 
         public override void update(TimeSpan timeSpan)
@@ -1994,17 +2017,104 @@ namespace PikeAndShot
  	        base.update(timeSpan);
 
             //boss behaviour code
-            if (intro)
-                performIntro(timeSpan);
-            else
+            if (_state == STATE_INTRO)
             {
-
+                _state = STATE_HOLD;
+                foreach (Soldier w in _soldiers)
+                {
+                    if (w is Wolf)
+                    {
+                        w._speed = 0.24f;
+                    }
+                }
             }
-        }
+            else if (_state == STATE_HOLD)
+            {
+                _delta = destinations[curDest] - _position;
+                double angle = Math.Atan2(_delta.Y, _delta.X);
+                double cos = Math.Cos(angle);
+                double sin = Math.Sin(angle);
+                _travel.X = (float)cos * (float)timeSpan.TotalMilliseconds * _speed;
+                _travel.Y = (float)sin * (float)timeSpan.TotalMilliseconds * _speed;
 
-        private void performIntro(TimeSpan timeSpan)
-        {
-            
+                //fix the sign for the trig quadrant
+                if (_delta.X < 0)
+                    _travel.X *= -1;
+                if (_delta.Y < 0)
+                    _travel.Y *= -1;
+
+                if (_delta.X > 0)
+                {
+                    if (_delta.X - _travel.X >= 0)
+                        _position.X += _travel.X;
+                    else
+                        _position.X = destinations[curDest].X;
+                }
+                else if (_delta.X < 0)
+                {
+                    if (_delta.X + _travel.X <= 0)
+                        _position.X -= _travel.X;
+                    else
+                        _position.X = destinations[curDest].X;
+                }
+
+                if (_delta.Y > 0)
+                {
+                    if (_delta.Y - _travel.Y >= 0)
+                        _position.Y += _travel.Y;
+                    else
+                        _position.Y = destinations[curDest].Y;
+                }
+                else if (_delta.Y < 0)
+                {
+                    if (_delta.Y + _travel.Y <= 0)
+                        _position.Y -= _travel.Y;
+                    else
+                        _position.Y = destinations[curDest].Y;
+                }
+
+                if (_position.Equals(destinations[curDest]))
+                {
+                    curDest++;
+                    if (curDest >= destinations.Length)
+                        curDest = 0;
+                }
+
+                
+                colmillos._destination = _position;
+                
+
+                patternTimer += (float)timeSpan.TotalMilliseconds / WOLF_PERIOD;
+                float tempPatternTimer = patternTimer;
+                int i = 1;
+                float xDist;
+                float yDist;
+                foreach (Soldier w in _soldiers)
+                {
+                    if (w is Wolf)
+                    {
+                        if (i % 2 > 0)
+                        {
+                            xDist = 0.75f;
+                            yDist = 0.45f;
+                        }
+                        else
+                        {
+                            xDist = 0.50f;
+                            yDist = 0.30f;
+                        }
+                        w._destination.X = colmillos._position.X + this.getWidth() * xDist * Soldier.WIDTH * (float)Math.Cos((double)tempPatternTimer);
+                        w._destination.Y = colmillos._position.Y + this.getWidth() * yDist * Soldier.WIDTH * (float)Math.Sin((double)tempPatternTimer);
+                        tempPatternTimer += wolfSpacing;
+
+                        if (((w._destination.X > w._position.X && !((Wolf)w)._turned) || (w._destination.X < w._position.X && ((Wolf)w)._turned)) && (w.getState() != Wolf.STATE_TURNING))
+                        {
+                            ((Wolf)w).turn();
+                        }
+                        i++;
+                    }
+                }
+            }
         }
     }
 
