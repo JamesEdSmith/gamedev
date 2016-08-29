@@ -161,7 +161,7 @@ namespace PikeAndShot
 
                 if (sold.getSide() == BattleScreen.SIDE_PLAYER && sold.getPosition().X > PikeAndShotGame.SCREENWIDTH + getMapOffset().X + 2f * Soldier.WIDTH)
                     sold.setState(Soldier.STATE_DEAD);
-                else if (sold.getSide() == BattleScreen.SIDE_ENEMY && sold.getPosition().X < -2f * Soldier.WIDTH + getMapOffset().X)
+                else if (sold.getSide() == BattleScreen.SIDE_ENEMY && sold.getPosition().X < -210 + getMapOffset().X)
                     sold.setState(Soldier.STATE_DEAD);
 
                 if (sold.isDead())

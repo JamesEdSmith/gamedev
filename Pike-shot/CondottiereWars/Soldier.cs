@@ -64,24 +64,7 @@ namespace PikeAndShot
 
         public const int MELEE_REPETITIONS = 3;
 
-        Vector2 d;
-
-        public Vector2 _destination
-        {
-            get
-            {
-                if (_state == Wolf.STATE_FLEE)
-                    Console.WriteLine("fuck");
-                if (d == null)
-                    d = new Vector2();
-                return d;
-            }
-
-            set
-            {
-                d = value;
-            }
-        }
+        public Vector2 _destination;
         public Vector2 _randDestOffset;
         public Vector2 _drawingPosition;
         public Vector2 _dest;

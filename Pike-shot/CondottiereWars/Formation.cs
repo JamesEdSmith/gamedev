@@ -289,7 +289,7 @@ namespace PikeAndShot
                 reformFormation();
             }
 
-            if (_addedSoldier)
+            if (_addedSoldier && !(this is ColmillosFormation))
             {
                 if (_width < 5)
                 {
@@ -1995,7 +1995,7 @@ namespace PikeAndShot
         float patternTimer = 0;
         float wolfSpacing;
         int wolfCount;
-        public int numberOfWolves = 3;
+        public int numberOfWolves = 20;
 
         Colmillos colmillos;
 
@@ -2051,7 +2051,7 @@ namespace PikeAndShot
                 if (holdWaveTimer > MathHelper.Pi * 2f)
                     holdWaveTimer -= (MathHelper.Pi * 2f);
 
-                tempDest.X = (float)Math.Cos(this.holdWaveTimer) * (float)timeSpan.TotalMilliseconds * _speed;
+                tempDest.X = (float)Math.Cos(this.holdWaveTimer)/2f * (float)timeSpan.TotalMilliseconds * _speed;
                 tempDest.Y = (holdUp ? -1 : 1) * (float)timeSpan.TotalMilliseconds * _speed;
 
                 _delta = _position + tempDest - _position;
@@ -2143,7 +2143,7 @@ namespace PikeAndShot
                         }
                         tempPatternTimer += wolfSpacing;
 
-                        float a = (this.getWidth() * xDist * Soldier.WIDTH * (float)Math.Abs((float)Math.Sin((double)tempPatternTimer)))/(this.getWidth() * xDist * Soldier.WIDTH);
+                        float a = (this.getWidth() * xDist * Soldier.WIDTH * (float)Math.Abs((float)Math.Cos((double)tempPatternTimer)))/(this.getWidth() * xDist * Soldier.WIDTH);
 
                         if (i % 2 == 0)
                             a = a * 2f / 3f;
@@ -2164,14 +2164,14 @@ namespace PikeAndShot
                     {
                         wolvesTimer = 0;
                         wolfCount--;
-                        //launchWolf();
+                        launchWolf();
                     }
                 }
                 else if (wolvesTimer >= WOLVES_TIME)
                 {
                     wolvesTimer = 0;
                     wolfCount = 2;
-                   // launchWolf();
+                    launchWolf();
                 }
             }
         }
