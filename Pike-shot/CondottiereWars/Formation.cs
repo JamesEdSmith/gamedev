@@ -956,7 +956,7 @@ namespace PikeAndShot
             }
         }
 
-        public void addSoldier(Soldier soldier)
+        public virtual void addSoldier(Soldier soldier)
         {
             _addedSoldier = true;
             switch(soldier.getType())
@@ -1979,25 +1979,32 @@ namespace PikeAndShot
         public const int STATE_INTRO = 100;
         public const int STATE_HOLD = 101;
         
-        public const int NUMBER_OF_WOLVES = 20;
-
-        float WOLF_PERIOD = 650f;
-
+        const float WOLF_PERIOD = 650f;
+        private const float WOLVES_TIME = 4000f;
+        private const float WOLVES_INTERVAL = 1000f;
+        
+        float wolvesTimer;
         Vector2[] destinations;
         Vector2 _delta;
         Vector2 _travel;
         int curDest = 0;
+        bool holdUp = true;
+        float edgeDist = 150f;
+        Vector2 tempDest;
+        float holdWaveTimer = 0;
         float patternTimer = 0;
         float wolfSpacing;
+        int wolfCount;
+        public int numberOfWolves = 3;
 
         Colmillos colmillos;
 
         public ColmillosFormation(BattleScreen screen, float x, float y)
-            : base(screen, x, y, NUMBER_OF_WOLVES + 1, BattleScreen.SIDE_ENEMY)
+            : base(screen, x, y, 21, BattleScreen.SIDE_ENEMY)
         {
             colmillos = new Colmillos(screen, x, y, BattleScreen.SIDE_ENEMY);
             addSoldier(colmillos);
-            for (int i = 0; i < NUMBER_OF_WOLVES; i++)
+            for (int i = 0; i < numberOfWolves; i++)
                 addSoldier(new Wolf(screen, x, y, BattleScreen.SIDE_ENEMY));
 
             _state = STATE_INTRO;
@@ -2008,10 +2015,19 @@ namespace PikeAndShot
             _delta = new Vector2(0, 0);
             _travel = new Vector2(0, 0);
 
-            wolfSpacing = (MathHelper.Pi * 2f) / (float)NUMBER_OF_WOLVES;
-
+            wolfSpacing = (MathHelper.Pi * 2f) / (float)numberOfWolves;
+            tempDest = new Vector2();
         }
 
+        public override void addSoldier(Soldier soldier)
+        {
+            base.addSoldier(soldier);
+            if (soldier is Wolf)
+            {
+                ((Wolf)soldier).bossFormation = this;
+            }
+        }
+        
         public override void update(TimeSpan timeSpan)
         {
  	        base.update(timeSpan);
@@ -2030,10 +2046,19 @@ namespace PikeAndShot
             }
             else if (_state == STATE_HOLD)
             {
-                _delta = destinations[curDest] - _position;
+                holdWaveTimer += (float)timeSpan.TotalSeconds*2f;
+
+                if (holdWaveTimer > MathHelper.Pi * 2f)
+                    holdWaveTimer -= (MathHelper.Pi * 2f);
+
+                tempDest.X = (float)Math.Cos(this.holdWaveTimer) * (float)timeSpan.TotalMilliseconds * _speed;
+                tempDest.Y = (holdUp ? -1 : 1) * (float)timeSpan.TotalMilliseconds * _speed;
+
+                _delta = _position + tempDest - _position;
                 double angle = Math.Atan2(_delta.Y, _delta.X);
                 double cos = Math.Cos(angle);
                 double sin = Math.Sin(angle);
+
                 _travel.X = (float)cos * (float)timeSpan.TotalMilliseconds * _speed;
                 _travel.Y = (float)sin * (float)timeSpan.TotalMilliseconds * _speed;
 
@@ -2073,17 +2098,25 @@ namespace PikeAndShot
                         _position.Y = destinations[curDest].Y;
                 }
 
-                if (_position.Equals(destinations[curDest]))
+                if (holdUp)
                 {
-                    curDest++;
-                    if (curDest >= destinations.Length)
-                        curDest = 0;
+                    if (_position.Y < this.edgeDist)
+                    {
+                        holdUp = !holdUp;
+                    }
+                }
+                else
+                {
+                    if (_position.Y > PikeAndShotGame.SCREENHEIGHT - this.edgeDist)
+                    {
+                        holdUp = !holdUp;
+                    }
                 }
 
-                
-                colmillos._destination = _position;
-                
+                if (colmillos.getState() != Colmillos.STATE_RISE && colmillos.getState() != Colmillos.STATE_DYING && colmillos.getState() != Colmillos.STATE_EATEN)
+                    colmillos._destination = _position;
 
+                wolfSpacing = (MathHelper.Pi * 2f) / (float)numberOfWolves;
                 patternTimer += (float)timeSpan.TotalMilliseconds / WOLF_PERIOD;
                 float tempPatternTimer = patternTimer;
                 int i = 1;
@@ -2103,16 +2136,19 @@ namespace PikeAndShot
                             xDist = 0.50f;
                             yDist = 0.30f;
                         }
-                        w._destination.X = colmillos._position.X + this.getWidth() * xDist * Soldier.WIDTH * (float)Math.Cos((double)tempPatternTimer);
-                        w._destination.Y = colmillos._position.Y + this.getWidth() * yDist * Soldier.WIDTH * (float)Math.Sin((double)tempPatternTimer);
+                        if (w.getState() != Wolf.STATE_SPOOKED)
+                        {
+                            w._destination.X = colmillos._position.X + this.getWidth() * xDist * Soldier.WIDTH * (float)Math.Cos((double)tempPatternTimer);
+                            w._destination.Y = colmillos._position.Y + this.getWidth() * yDist * Soldier.WIDTH * (float)Math.Sin((double)tempPatternTimer);
+                        }
                         tempPatternTimer += wolfSpacing;
 
                         float a = (this.getWidth() * xDist * Soldier.WIDTH * (float)Math.Abs((float)Math.Sin((double)tempPatternTimer)))/(this.getWidth() * xDist * Soldier.WIDTH);
 
                         if (i % 2 == 0)
                             a = a * 2f / 3f;
-                        
-                        w._feet.setAnimationSpeed((w._footSpeed*2 - w._footSpeed*(a))/0.11f);
+
+                        ((Wolf)w)._runningFeet.setAnimationSpeed((w._footSpeed * 2 - w._footSpeed * (a)) / 0.11f);
 
                         if (((w._destination.X > w._position.X && !((Wolf)w)._turned) || (w._destination.X < w._position.X && ((Wolf)w)._turned)) && (w.getState() != Wolf.STATE_TURNING))
                         {
@@ -2121,6 +2157,51 @@ namespace PikeAndShot
                         i++;
                     }
                 }
+                wolvesTimer += (float)timeSpan.TotalMilliseconds;
+                if (wolfCount > 0)
+                {   
+                    if (wolvesTimer >= WOLVES_INTERVAL)
+                    {
+                        wolvesTimer = 0;
+                        wolfCount--;
+                        //launchWolf();
+                    }
+                }
+                else if (wolvesTimer >= WOLVES_TIME)
+                {
+                    wolvesTimer = 0;
+                    wolfCount = 2;
+                   // launchWolf();
+                }
+            }
+        }
+
+        void launchWolf()
+        {
+            float leastX = _screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH;
+            Wolf wolf = null;
+            foreach (Soldier s in _soldiers)
+            {
+                if (s is Wolf && s._position.X < leastX)
+                {
+                    leastX = s._position.X;
+                    wolf = (Wolf)s;
+                }
+            }
+            if (wolf != null)
+            {
+                removeSoldier(wolf);
+                _screen.addLooseSoldier(wolf);
+                wolf.alterDestination(true, -PikeAndShotGame.SCREENWIDTH);
+
+                if (wolf.getState() == Wolf.STATE_TURNING)
+                    wolf.setState(Soldier.STATE_READY);
+
+                if (wolf._turned)
+                    wolf.turn();
+
+                wolf._runningFeet.setAnimationSpeed(wolf._footSpeed / 0.11f);
+                numberOfWolves--;
             }
         }
     }

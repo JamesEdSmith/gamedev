@@ -162,7 +162,8 @@ namespace PikeAndShot
 
             /* formations and terrain are generated on the far right of the screen 
             at their height when the player gets to their spawn trigger point*/
-            checkLevelData();
+            if (!PikeAndShotGame.TEST_BOSS)
+                checkLevelData();
 
             if (cFormation != null)
                 cFormation.update(gameTime.ElapsedGameTime);
@@ -288,7 +289,7 @@ namespace PikeAndShot
                 {
                     retreat();
                 }
-                else if (soldierType != Soldier.TYPE_SWINGER && !PikeAndShotGame.TEST_BOSS)
+                else if (soldierType != Soldier.TYPE_SWINGER/* && !PikeAndShotGame.TEST_BOSS*/)
                 {
                     spawnRescue(soldierType);
                 }
@@ -467,20 +468,20 @@ namespace PikeAndShot
                 if ((keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp) || gamePadState.ThumbSticks.Left.Y < 0) || (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y > 0))
                 {
                     _formation.marchRight(timeSpan.TotalMilliseconds, true);
-                    if (_formation.getCenter().X >= PikeAndShotGame.SCREENWIDTH * BattleScreen.SCROLLPOINT + _mapOffset.X)
+                    if (_formation.getCenter().X >= PikeAndShotGame.SCREENWIDTH * BattleScreen.SCROLLPOINT + _mapOffset.X && cFormation == null)
                         _mapOffset.X += _formation.getSpeed() * (float)timeSpan.TotalMilliseconds * 0.708f *0.75f;
                 }
                 else
                 {
                     _formation.marchRight(timeSpan.TotalMilliseconds, false);
-                    if (_formation.getCenter().X >= PikeAndShotGame.SCREENWIDTH * BattleScreen.SCROLLPOINT + _mapOffset.X)
+                    if (_formation.getCenter().X >= PikeAndShotGame.SCREENWIDTH * BattleScreen.SCROLLPOINT + _mapOffset.X && cFormation == null)
                         _mapOffset.X += _formation.getSpeed() * (float)timeSpan.TotalMilliseconds * 0.75f;
                 }
 
             }
             else
             {
-                if (_formation.getCenter().X >= PikeAndShotGame.SCREENWIDTH * BattleScreen.SCROLLPOINT + _mapOffset.X)
+                if (_formation.getCenter().X >= PikeAndShotGame.SCREENWIDTH * BattleScreen.SCROLLPOINT + _mapOffset.X && cFormation == null)
                     _mapOffset.X += getScrollAdjustSpeed() * (float)timeSpan.TotalMilliseconds;
             }
             if (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y < 0)

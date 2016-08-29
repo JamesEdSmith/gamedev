@@ -30,7 +30,8 @@ namespace PikeAndShot
 
         protected ArrayList _shots;
         protected ArrayList _moreDeadThings;
-        protected ArrayList _deadThings;
+        public ArrayList _deadThings;
+        public ArrayList unlooseSoldiers;
         protected ArrayList _newThings;
         protected ArrayList _deadFormations;
         protected ArrayList _looseSoldiers;
@@ -78,6 +79,7 @@ namespace PikeAndShot
 
             _enemyFormations = new ArrayList(25);
             _looseSoldiers = new ArrayList(40);
+            unlooseSoldiers = new ArrayList(5);
             
             previousKeyboardState = Keyboard.GetState();
             _elapsedTime = 0.0;
@@ -167,6 +169,11 @@ namespace PikeAndShot
                     _deadThings.Add(sold);
                 }
             }
+            foreach (Soldier s in unlooseSoldiers)
+            {
+                _looseSoldiers.Remove(s);
+            }
+            unlooseSoldiers.Clear();
 
             foreach (Terrain t in _terrain)
             {
