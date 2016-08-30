@@ -2031,6 +2031,7 @@ namespace PikeAndShot
         public override void update(TimeSpan timeSpan)
         {
  	        base.update(timeSpan);
+            _speed = colmillos._speed - 0.04f;
 
             //boss behaviour code
             if (_state == STATE_INTRO)
@@ -2201,8 +2202,20 @@ namespace PikeAndShot
                     wolf.turn();
 
                 wolf._runningFeet.setAnimationSpeed(wolf._footSpeed / 0.11f);
-                numberOfWolves--;
+                reduceWolfNumber();
             }
+        }
+
+        internal void reduceWolfNumber()
+        {
+            numberOfWolves--;
+            patternTimer += ((float)Math.PI * 2f) / numberOfWolves;
+        }
+
+        internal void increaseNumberOfWolves()
+        {
+            numberOfWolves++;
+            patternTimer += ((float)Math.PI * 2f) / (numberOfWolves-1);
         }
     }
 

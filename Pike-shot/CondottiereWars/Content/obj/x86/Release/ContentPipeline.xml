@@ -2180,6 +2180,15 @@
       <Extra>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\theme.wma</Extra>
       <Time>2015-01-04T23:14:57.7998046-05:00</Time>
     </Item>
+    <Item>
+      <Source>wolf_howl.png</Source>
+      <Name>wolf_howl</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_howl.xnb</Output>
+      <Time>2016-08-30T03:37:10.5174771-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

@@ -172,6 +172,11 @@ namespace PikeAndShot
             return _maxFrames;
         }
 
+        public void setMaxFrames(int i)
+        {
+            _maxFrames = i;
+        }
+
         public void setFrame(int number)
         {
             if (number < 0)

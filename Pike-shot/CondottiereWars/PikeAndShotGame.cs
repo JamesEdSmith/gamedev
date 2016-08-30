@@ -30,7 +30,6 @@ namespace PikeAndShot
         public const int SCREEN_FORMATIONMAKER = 1;
         public const int SCREEN_LEVELEDITOR = 2;
 
-
         GraphicsDeviceManager graphics;
         public static Viewport viewport;
         SpriteBatch spriteBatch;
@@ -241,6 +240,7 @@ namespace PikeAndShot
         public static Texture2D WOLF_MELEE;
         public static Texture2D WOLF_DEFEND;
         public static Texture2D WOLF_KILL;
+        public static Texture2D WOLF_HOWL;
 
         public static Texture2D COLMILLOS_IDLE;
         public static Texture2D COLMILLOS_IDLENOSHIELD;
@@ -559,6 +559,7 @@ namespace PikeAndShot
             WOLF_MELEE = Content.Load<Texture2D>(@"wolf_melee");
             WOLF_DEFEND = Content.Load<Texture2D>(@"wolf_defend");
             WOLF_KILL = Content.Load<Texture2D>(@"wolf_kill");
+            WOLF_HOWL = Content.Load<Texture2D>(@"wolf_howl");
 
             COLMILLOS_IDLE = Content.Load<Texture2D>(@"los_colmillos_idle0");
             COLMILLOS_IDLENOSHIELD = Content.Load<Texture2D>(@"los_colmillos_idle1");
