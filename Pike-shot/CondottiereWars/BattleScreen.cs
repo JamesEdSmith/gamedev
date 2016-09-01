@@ -38,6 +38,7 @@ namespace PikeAndShot
         protected ArrayList _screenObjects;
         protected ArrayList _screenObjectsToAdd;
         protected ArrayList _screenColliders;
+        protected ArrayList _screenNonColliders;
         protected ArrayList _screenAnimations;
         protected ArrayList _screenAnimationsToAdd;
         public ArrayList _enemyFormations;
@@ -73,6 +74,7 @@ namespace PikeAndShot
             _screenObjects = new ArrayList(40);
             _screenObjectsToAdd = new ArrayList(40);
             _screenColliders = new ArrayList(40);
+            _screenNonColliders = new ArrayList(20);
             _screenAnimations = new ArrayList(40);
             _screenAnimationsToAdd = new ArrayList(40);
             _enemyFormationsToAdd = new ArrayList(3);
@@ -271,12 +273,22 @@ namespace PikeAndShot
             bool oneCollision = false;
 
             _screenColliders.Clear();
+            _screenNonColliders.Clear();
 
             // pour all of the screen objects into the list of objects to check for collisions against to start with
             foreach (ScreenObject so in _screenObjects)
             {
-                if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING)
+                if (so is Wolf)
+                {
+                    if (so.getState() != Wolf.STATE_SPOOKED && so.getState() != Wolf.STATE_FLEE && (so.getState() != Wolf.STATE_TURNING || !((Wolf)so).flee))
+                        _screenColliders.Add(so);
+                    else
+                        _screenNonColliders.Add(so);
+                }
+                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING)
                     _screenColliders.Add(so);
+                else
+                    _screenNonColliders.Add(so);
             }
             
             // Now for every object see if it hit any of the colliders
@@ -285,7 +297,7 @@ namespace PikeAndShot
             {
                 if (so is WeaponSwing)
                     x++;
-                if (so.getState() != ScreenObject.STATE_DEAD || so.getState() != ScreenObject.STATE_DYING)
+                if (!_screenNonColliders.Contains(so))
                 {
                     // get the values here so we aren't calling functions like crazy
                     // pavise HACK

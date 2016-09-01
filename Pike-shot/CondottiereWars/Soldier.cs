@@ -3394,7 +3394,7 @@ namespace PikeAndShot
         float turnOffset;
         public ColmillosFormation bossFormation;
 
-        bool flee;
+        public bool flee;
 
         public Wolf(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)

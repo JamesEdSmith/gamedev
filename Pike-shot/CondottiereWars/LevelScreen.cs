@@ -301,7 +301,8 @@ namespace PikeAndShot
         {
             foreach (Soldier s in _looseSoldiers)
             {
-                s.route();
+                if(s.getSide() == SIDE_PLAYER)
+                    s.route();
             }
             getPlayerFormation().retreat();
             foreach(EnemyFormation ef in _enemyFormations)
