@@ -254,6 +254,7 @@ namespace PikeAndShot
         public static Texture2D COLMILLOS_ATTACK3;
         public static Texture2D COLMILLOS_RISE;
         public static Texture2D COLMILLOS_HELMET;
+        public static Texture2D COLMILLOS_HOWL;
 
         public static Texture2D BROWN_FEET;
 
@@ -574,6 +575,7 @@ namespace PikeAndShot
             COLMILLOS_DEATH = Content.Load<Texture2D>(@"los_colmillos_death");
             COLMILLOS_HELMET = Content.Load<Texture2D>(@"helmet");
             COLMILLOS_RISE = Content.Load<Texture2D>(@"los_colmillos_rise");
+            COLMILLOS_HOWL = Content.Load<Texture2D>(@"los_colmillos_howl");
 
             GOBLIN_FEET = Content.Load<Texture2D>(@"goblin_feet");
             BROWN_FEET = Content.Load<Texture2D>(@"brown_feet");

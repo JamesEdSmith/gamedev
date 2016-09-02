@@ -93,7 +93,7 @@ namespace PikeAndShot
             _doppelCoinSprites = new ArrayList(20);
             coinMeterPosition = new Vector2(COIN_METER_POSITION.X, COIN_METER_POSITION.Y);
             
-            _usedFormations = new List<int>(_levelData.formations.Count);
+            _usedFormations = new List<int>(_levelData != null ?_levelData.formations.Count:20);
             _spawners = new ArrayList(2);
             _deadSpawners = new ArrayList(2);
 

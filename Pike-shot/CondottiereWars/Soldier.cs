@@ -1325,13 +1325,6 @@ namespace PikeAndShot
 
         internal void alterDestination(bool changeX, float amount)
         {
-            int i = 1;
-            if (_state == Wolf.STATE_FLEE)
-            {
-                i = 2;
-                changeX = changeX;
-            }
-
             if (_state != STATE_DYING && _state != STATE_DEAD)
             {
                 if (changeX)
@@ -3157,6 +3150,7 @@ namespace PikeAndShot
         public const int STATE_ATTACK = 200;
         public const int STATE_RISE = 201;
         public const int STATE_EATEN = 202;
+        public const int STATE_HOWL = 203;
         
         Sprite _attack;
         Sprite _noShieldAttack;
@@ -3164,8 +3158,10 @@ namespace PikeAndShot
         Sprite _armourFall;
         Sprite _noArmourIdle;
         Sprite _rise;
+        Sprite _howl;
 
         public float _riseTime = 1000f;
+        public float _howlTime = 1000f;
         public float _eatenTime = 5000f;
         public static float helmetTime = 2000f;
 
@@ -3196,6 +3192,7 @@ namespace PikeAndShot
             _shieldFall = new Sprite(PikeAndShotGame.COLMILLOS_FALL, new Rectangle(76, 42, 16, 18), 110, 86);
             _armourFall = new Sprite(PikeAndShotGame.COLMILLOS_FALLNOSHIELD, new Rectangle(76, 42, 16, 18), 110, 86);
             _rise = new Sprite(PikeAndShotGame.COLMILLOS_RISE, new Rectangle(40, 2, 16, 28), 72, 40);
+            _howl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL, new Rectangle(12, 10, 16, 28), 50, 54);
             _body = _idle;
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
             hitSound = chargeSound;
@@ -3333,6 +3330,16 @@ namespace PikeAndShot
                         _stateChanged = true;
                     }
                 }
+                else if (_state == STATE_HOWL)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                    if (_stateTimer <= 0)
+                    {
+                        _state = STATE_READY;
+                        _stateTimer = 0f;
+                        _stateChanged = true;
+                    }
+                }
             }
         }
 
@@ -3358,15 +3365,30 @@ namespace PikeAndShot
                 _rise.setFrame(frameNumber);
                 _body = _rise;
             }
-            else if (_state == STATE_RISE)
+            else if (_state == STATE_EATEN)
             {
                 _rise.setFrame(_rise.getMaxFrames()-1);
                 _body = _rise;
+            }
+            else if (_state == STATE_HOWL)
+            {
+                int maxFrames = _howl.getMaxFrames();
+                float frameTime = _howlTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                _howl.setFrame(frameNumber);
+                _body = _howl;
             }
             else if (_state == STATE_READY)
             {
                 _body = _idle;
             }
+        }
+
+        public void howl()
+        {
+            _state = STATE_HOWL;
+            _stateTimer = _howlTime;
         }
     }
 
@@ -3402,7 +3424,7 @@ namespace PikeAndShot
             _type = Soldier.TYPE_MELEE;
             _class = Soldier.CLASS_GOBLIN_WOLF;
             _idleTime = 3000f;
-            _attackTime = 300f;
+            _attackTime = 500f;
             _turnTime = 300f;
             _idleAnimTime = 1000f;
             _deathTime = 800f;
@@ -3438,11 +3460,14 @@ namespace PikeAndShot
             _destination = _position;
             hitSound.Play();
 
-            if(bossFormation.getSoldiers().Contains(this))
+            if (bossFormation != null)
             {
-                bossFormation.removeSoldier(this);
-                bossFormation.reduceWolfNumber();
-                _screen.addLooseSoldier(this);
+                if (bossFormation.getSoldiers().Contains(this))
+                {
+                    bossFormation.removeSoldier(this);
+                    bossFormation.reduceWolfNumber();
+                    _screen.addLooseSoldier(this);
+                }
             }
         }
 
@@ -3450,11 +3475,12 @@ namespace PikeAndShot
         {
             base.update(timeSpan);
             _drawingY += 2;
+
             if (bossFormation != null)
             {
                 if (!bossFormation.getSoldiers().Contains(this))
                 {
-                    if (_position.X < _screen.getMapOffset().X - 200 || _position.X > _screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH + 200)
+                    if (_position.X < (_screen.getMapOffset().X - 200) || _position.X > (_screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH + 200))
                     {
                         _screen.unlooseSoldiers.Add(this);
                         bossFormation.addSoldier(this);
@@ -3495,22 +3521,25 @@ namespace PikeAndShot
             return false;
         }
 
+        public void howl()
+        {
+            _state = STATE_HOWLING;
+            _stateTimer = _howlTime;
+            chargeSound.Play();
+        }
+
         public bool turn()
         {
-            if (_state == STATE_READY || _state == STATE_SPOOKED || _state == STATE_FLEE)
-            {
-                _state = STATE_TURNING;
-                _stateTimer = _turnTime;
-                return true;
-            }
-
-            return false;
+            _state = STATE_TURNING;
+            _stateTimer = _turnTime;
+            return true;
+            
         }
 
         void fleeStart()
         {
             _state = STATE_FLEE;
-            alterDestination(true, PikeAndShotGame.SCREENWIDTH);
+            alterDestination(true, _screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH + 201 - _destination.X);
         }
 
         public void turnDone()
@@ -3604,7 +3633,15 @@ namespace PikeAndShot
                     if (_stateTimer <= 0)
                     {
                         _stateTimer = _idleTime;
-                        _state = STATE_READY;
+                        if (!_turned)
+                        {
+                            flee = true;
+                            turn();
+                        }
+                        else
+                        {
+                            fleeStart();
+                        }
                     }
                 }
                 else if (_state == STATE_READY)

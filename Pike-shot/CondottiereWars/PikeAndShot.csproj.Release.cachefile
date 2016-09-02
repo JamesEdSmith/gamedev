@@ -204,6 +204,8 @@ Content\los_colmillos_death.xnb
 Content\brokenarmour.xnb
 Content\helmet.xnb
 Content\los_colmillos_rise.xnb
+Content\wolf_howl.xnb
+Content\los_colmillos_howl.xnb
 Content\cgwg-xna.xnb
 Content\Bloom.xnb
 Content\BloomExtract.xnb
@@ -240,7 +242,6 @@ Content\go.xnb
 Content\loot_sound.xnb
 Content\loaded.xnb
 Content\theme.xnb
-Content\wolf_howl.xnb
 Content\theme.wma
 Content\Benz1_level.xml
 Content\HorseAttack_level.xml

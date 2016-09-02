@@ -1856,6 +1856,24 @@
       <Time>2016-08-21T00:17:26.9390704-04:00</Time>
     </Item>
     <Item>
+      <Source>wolf_howl.png</Source>
+      <Name>wolf_howl</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_howl.xnb</Output>
+      <Time>2016-08-30T03:37:10.5174771-04:00</Time>
+    </Item>
+    <Item>
+      <Source>los_colmillos_howl.png</Source>
+      <Name>los_colmillos_howl</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_howl.xnb</Output>
+      <Time>2016-09-01T23:40:18.0475052-04:00</Time>
+    </Item>
+    <Item>
       <Source>cgwg-xna.fx</Source>
       <Name>cgwg-xna</Name>
       <Importer>EffectImporter</Importer>
@@ -2180,15 +2198,6 @@
       <Extra>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\theme.wma</Extra>
       <Time>2015-01-04T23:14:57.7998046-05:00</Time>
     </Item>
-    <Item>
-      <Source>wolf_howl.png</Source>
-      <Name>wolf_howl</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_howl.xnb</Output>
-      <Time>2016-08-30T03:37:10.5174771-04:00</Time>
-    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
@@ -2227,7 +2236,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
-        <Value>2016-08-21T00:21:03.7574717-04:00</Value>
+        <Value>2016-09-01T23:40:28.1440827-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>

@@ -1226,24 +1226,28 @@ namespace PikeAndShot
             else
                 amount = _speed * (float)milliseconds;
 
-            _position.Y -= amount;
-
-            foreach (Soldier s in _soldiers)
+            if (getCenter().Y - this.getWidth() * Soldier.WIDTH / 2 > _screen.getMapOffset().Y)
             {
-                s.alterDestination(false, -amount);
-            }
 
-            if (_supportRows.Count != 0)
-            {
-                foreach (ArrayList row in _supportRows)
+                _position.Y -= amount;
+
+                foreach (Soldier s in _soldiers)
                 {
-                    float chargeY = (float)(Soldier.HEIGHT * (row.Count - 1)) / -2f;
-                    foreach (Soldier s in row)
+                    s.alterDestination(false, -amount);
+                }
+
+                if (_supportRows.Count != 0)
+                {
+                    foreach (ArrayList row in _supportRows)
                     {
-                        if (s is CrossbowmanPavise)
+                        float chargeY = (float)(Soldier.HEIGHT * (row.Count - 1)) / -2f;
+                        foreach (Soldier s in row)
                         {
-                            ((CrossbowmanPavise)s).setChargePosition(new Vector2(100f, chargeY));
-                            chargeY += Soldier.HEIGHT;
+                            if (s is CrossbowmanPavise)
+                            {
+                                ((CrossbowmanPavise)s).setChargePosition(new Vector2(100f, chargeY));
+                                chargeY += Soldier.HEIGHT;
+                            }
                         }
                     }
                 }
@@ -1259,24 +1263,27 @@ namespace PikeAndShot
             else
                 amount = _speed * (float)milliseconds;
 
-            _position.Y += amount;
-            
-            foreach (Soldier s in _soldiers)
+            if (getCenter().Y + this.getWidth() * Soldier.WIDTH / 2 < _screen.getMapOffset().Y + PikeAndShotGame.SCREENHEIGHT)
             {
-                s.alterDestination(false, amount);
-            }
+                _position.Y += amount;
 
-            if (_supportRows.Count != 0)
-            {
-                foreach (ArrayList row in _supportRows)
+                foreach (Soldier s in _soldiers)
                 {
-                    float chargeY = (float)(Soldier.HEIGHT * (row.Count - 1)) / -2f;
-                    foreach (Soldier s in row)
+                    s.alterDestination(false, amount);
+                }
+
+                if (_supportRows.Count != 0)
+                {
+                    foreach (ArrayList row in _supportRows)
                     {
-                        if (s is CrossbowmanPavise)
+                        float chargeY = (float)(Soldier.HEIGHT * (row.Count - 1)) / -2f;
+                        foreach (Soldier s in row)
                         {
-                            ((CrossbowmanPavise)s).setChargePosition(new Vector2(100f, chargeY));
-                            chargeY += Soldier.HEIGHT;
+                            if (s is CrossbowmanPavise)
+                            {
+                                ((CrossbowmanPavise)s).setChargePosition(new Vector2(100f, chargeY));
+                                chargeY += Soldier.HEIGHT;
+                            }
                         }
                     }
                 }
@@ -1291,31 +1298,111 @@ namespace PikeAndShot
             bool pike = true;
             float amount;
 
-            if (diagonal)
-                amount = _speed * (float)milliseconds * 0.708f;
-            else
-                amount = _speed * (float)milliseconds;
-
-            _position.X -= amount;
-
-            if (_state == STATE_PIKE && _pikeRows.Count > 0)
+            if (getCenter().X - this.getWidth() * Soldier.WIDTH/2 > _screen.getMapOffset().X)
             {
-                if (_shotRows.Count > 0)
+                if (diagonal)
+                    amount = _speed * (float)milliseconds * 0.708f;
+                else
+                    amount = _speed * (float)milliseconds;
+
+                _position.X -= amount;
+
+                if (_state == STATE_PIKE && _pikeRows.Count > 0)
                 {
-                    lastSoldier = getFirstNonMeleeSoldier((ArrayList)_shotRows[_shotRows.Count - 1]);
+                    if (_shotRows.Count > 0)
+                    {
+                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_shotRows[_shotRows.Count - 1]);
+                        if (lastSoldier != null)
+                        {
+                            if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
+                            {
+                                lastSoldier = null;
+                                shot = false;
+                            }
+                        }
+                    }
+                    else
+                        lastSoldier = null;
+
+                    if (lastSoldier == null)
+                    {
+                        if (_meleeRows.Count > 0)
+                        {
+                            lastSoldier = getFirstNonMeleeSoldier((ArrayList)_meleeRows[_meleeRows.Count - 1]);
+                            if (lastSoldier != null)
+                            {
+                                if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
+                                {
+                                    lastSoldier = null;
+                                    melee = false;
+                                }
+                            }
+                        }
+                        else
+                            lastSoldier = null;
+                    }
+
                     if (lastSoldier != null)
                     {
-                        if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
+                        if (_side * lastSoldier._position.X - _side * lastSoldier._destination.X > _speed)
                         {
-                            lastSoldier = null;
-                            shot = false;
+                            if ((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed)
+                            {
+                                _position.X = lastSoldier._position.X + _side * (_pikeRows.Count - 1 + /*(swing ? _swingerRows.Count : 0) +*/ (shot ? _shotRows.Count : 0) + (melee ? _meleeRows.Count : 0)) * Soldier.WIDTH;
+                                resetupFormation();
+                            }
                         }
                     }
                 }
-                else
-                    lastSoldier = null;
+                else if (_state == STATE_MELEE && _meleeRows.Count > 0)
+                {
+                    if (_shotRows.Count > 0)
+                    {
+                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_shotRows[_shotRows.Count - 1]);
+                        if (lastSoldier != null)
+                        {
+                            if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
+                            {
+                                lastSoldier = null;
+                                shot = false;
+                            }
+                        }
+                    }
+                    else
+                        lastSoldier = null;
 
-                if (lastSoldier == null)
+                    if (lastSoldier == null)
+                    {
+                        if (_pikeRows.Count > 0)
+                        {
+                            lastSoldier = getFirstNonMeleeSoldier((ArrayList)_pikeRows[_pikeRows.Count - 1]);
+                            if (lastSoldier != null)
+                            {
+                                if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
+                                {
+                                    lastSoldier = null;
+                                    pike = false;
+                                }
+                            }
+                        }
+                        else
+                            lastSoldier = null;
+                    }
+
+                    if (lastSoldier != null)
+                    {
+                        if (_side * lastSoldier._position.X - _side * lastSoldier._destination.X > _speed)
+                        {
+                            if ((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed)
+                            {
+                                _position.X = lastSoldier._position.X + _side * ((pike ? _pikeRows.Count : 0) + /*(swing?_swingerRows.Count:0) +*/ (shot ? _shotRows.Count : 0) + _meleeRows.Count - 1) * Soldier.WIDTH;
+                                resetupFormation();
+                            }
+                        }
+                    }
+
+                }
+                else if (_state == STATE_SHOT && _shotRows.Count != 0)
                 {
                     if (_meleeRows.Count > 0)
                     {
@@ -1328,105 +1415,6 @@ namespace PikeAndShot
                                 melee = false;
                             }
                         }
-                    }
-                    else
-                        lastSoldier = null;
-                }
-
-                if (lastSoldier != null)
-                {
-                    if (_side * lastSoldier._position.X - _side * lastSoldier._destination.X > _speed)
-                    {
-                        if ((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed)
-                        {
-                            _position.X =  lastSoldier._position.X + _side * (_pikeRows.Count - 1 + /*(swing ? _swingerRows.Count : 0) +*/ (shot ? _shotRows.Count : 0) + (melee ? _meleeRows.Count : 0)) * Soldier.WIDTH;
-                            resetupFormation();
-                        }
-                    }
-                }
-            }
-            else if (_state == STATE_MELEE && _meleeRows.Count > 0)
-            {
-                if (_shotRows.Count > 0)
-                {
-                    lastSoldier = getFirstNonMeleeSoldier((ArrayList)_shotRows[_shotRows.Count - 1]);
-                    if (lastSoldier != null)
-                    {
-                        if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
-                        {
-                            lastSoldier = null;
-                            shot = false;
-                        }
-                    }
-                }
-                else
-                    lastSoldier = null;
-
-                if (lastSoldier == null)
-                {
-                    if (_pikeRows.Count > 0)
-                    {
-                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_pikeRows[_pikeRows.Count - 1]);
-                        if (lastSoldier != null)
-                        {
-                            if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
-                            {
-                                lastSoldier = null;
-                                pike = false;
-                            }
-                        }
-                    }
-                    else
-                        lastSoldier = null;
-                }
-
-                if (lastSoldier != null)
-                {
-                    if (_side * lastSoldier._position.X - _side * lastSoldier._destination.X > _speed)
-                    {
-                        if ((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed)
-                        {
-                            _position.X = lastSoldier._position.X + _side * ((pike?_pikeRows.Count:0) + /*(swing?_swingerRows.Count:0) +*/ (shot?_shotRows.Count:0) + _meleeRows.Count - 1) * Soldier.WIDTH;
-                            resetupFormation();
-                        }
-                    }
-                }
-                
-            }
-            else if (_state == STATE_SHOT && _shotRows.Count != 0)
-            {
-                if (_meleeRows.Count > 0)
-                {
-                    lastSoldier = getFirstNonMeleeSoldier((ArrayList)_meleeRows[_meleeRows.Count - 1]);
-                    if (lastSoldier != null)
-                    {
-                        if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
-                        {
-                            lastSoldier = null;
-                            melee = false;
-                        }
-                    }
-                    else
-                    {
-                        lastSoldier = null;
-                    }
-                }
-                else
-                    lastSoldier = null;
-
-                if (lastSoldier == null)
-                {
-                    if (_pikeRows.Count > 0)
-                    {
-                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_pikeRows[_pikeRows.Count - 1]);
-                        if (lastSoldier != null)
-                        {
-                            if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
-                            {
-                                lastSoldier = null;
-                                pike = false;
-                            }
-                        }
                         else
                         {
                             lastSoldier = null;
@@ -1434,60 +1422,81 @@ namespace PikeAndShot
                     }
                     else
                         lastSoldier = null;
-                }
 
-                if (lastSoldier == null)
-                {
-                    if (_shotRows.Count > 1)
+                    if (lastSoldier == null)
                     {
-                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_shotRows[_shotRows.Count - 1]);
-                        if (lastSoldier != null)
+                        if (_pikeRows.Count > 0)
                         {
-                            if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
+                            lastSoldier = getFirstNonMeleeSoldier((ArrayList)_pikeRows[_pikeRows.Count - 1]);
+                            if (lastSoldier != null)
+                            {
+                                if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
+                                {
+                                    lastSoldier = null;
+                                    pike = false;
+                                }
+                            }
+                            else
                             {
                                 lastSoldier = null;
-                                shot = false;
                             }
                         }
                         else
-                        {
                             lastSoldier = null;
+                    }
+
+                    if (lastSoldier == null)
+                    {
+                        if (_shotRows.Count > 1)
+                        {
+                            lastSoldier = getFirstNonMeleeSoldier((ArrayList)_shotRows[_shotRows.Count - 1]);
+                            if (lastSoldier != null)
+                            {
+                                if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
+                                {
+                                    lastSoldier = null;
+                                    shot = false;
+                                }
+                            }
+                            else
+                            {
+                                lastSoldier = null;
+                            }
+                        }
+                        else
+                            lastSoldier = null;
+                    }
+
+                    if (lastSoldier != null)
+                    {
+                        if (_side * lastSoldier._position.X - _side * lastSoldier._destination.X > _speed)
+                        {
+                            if ((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed)
+                            {
+                                _position.X = lastSoldier._position.X + _side * ((pike ? _pikeRows.Count : 0) + /*(swing?_swingerRows.Count:0) +*/ (melee ? _meleeRows.Count : 0) + _shotRows.Count - 1) * Soldier.WIDTH;
+                                resetupFormation();
+                            }
                         }
                     }
-                    else
-                        lastSoldier = null;
                 }
 
-                if (lastSoldier != null)
+                foreach (Soldier s in _soldiers)
                 {
-                    if (_side * lastSoldier._position.X - _side * lastSoldier._destination.X > _speed)
-                    {
-                        if ((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed)
-                        {
-                            _position.X = lastSoldier._position.X + _side * ((pike ? _pikeRows.Count : 0) + /*(swing?_swingerRows.Count:0) +*/ (melee?_meleeRows.Count:0) + _shotRows.Count - 1) * Soldier.WIDTH;
-                            resetupFormation();
-                        }
-                    }
+                    s.alterDestination(true, -amount);
                 }
-                
-            }
-            
-            foreach (Soldier s in _soldiers)
-            {
-                s.alterDestination(true, -amount);
-            }
 
-            if (_supportRows.Count != 0)
-            {
-                foreach (ArrayList row in _supportRows)
+                if (_supportRows.Count != 0)
                 {
-                    float chargeY = (float)(Soldier.HEIGHT * (row.Count - 1)) / -2f;
-                    foreach (Soldier s in row)
+                    foreach (ArrayList row in _supportRows)
                     {
-                        if (s is CrossbowmanPavise)
+                        float chargeY = (float)(Soldier.HEIGHT * (row.Count - 1)) / -2f;
+                        foreach (Soldier s in row)
                         {
-                            ((CrossbowmanPavise)s).setChargePosition(new Vector2(100f, chargeY));
-                            chargeY += Soldier.HEIGHT;
+                            if (s is CrossbowmanPavise)
+                            {
+                                ((CrossbowmanPavise)s).setChargePosition(new Vector2(100f, chargeY));
+                                chargeY += Soldier.HEIGHT;
+                            }
                         }
                     }
                 }
@@ -1501,93 +1510,18 @@ namespace PikeAndShot
             float amount;
             float speed = _speed - (float)getSlowedSoldiers();
 
-            if (diagonal)
-                amount = speed * (float)milliseconds * 0.708f;
-            else
-                amount = speed * (float)milliseconds;
-
-            _position.X += amount;
-            
-            if (_state == STATE_SHOT && _shotRows.Count != 0)
+            if (getCenter().X + this.getWidth() * Soldier.WIDTH / 2 < _screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH)
             {
-                firstSoldier = getFirstNonMeleeSoldier((ArrayList)_shotRows[0]);
-                if (_meleeRows.Count > 0)
-                {
-                    lastSoldier = getFirstNonMeleeSoldier((ArrayList)_meleeRows[_meleeRows.Count - 1]);
-                    if (lastSoldier != null)
-                    {
-                        if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
-                        {
-                            lastSoldier = null;
-                        }
-                    }
-                }
+                if (diagonal)
+                    amount = speed * (float)milliseconds * 0.708f;
                 else
-                    lastSoldier = null;
+                    amount = speed * (float)milliseconds;
 
-                if (lastSoldier == null)
-                {
-                    if (_pikeRows.Count > 0)
-                    {
-                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_pikeRows[_pikeRows.Count - 1]);
-                        if (lastSoldier != null)
-                        {
-                            if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
-                            {
-                                lastSoldier = null;
-                            }
-                        }
-                    }
-                    else
-                        lastSoldier = null;
-                }
+                _position.X += amount;
 
-                if (lastSoldier == null)
+                if (_state == STATE_SHOT && _shotRows.Count != 0)
                 {
-                    if (_shotRows.Count > 1)
-                    {
-                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_shotRows[_shotRows.Count - 1]);
-                        if (lastSoldier != null)
-                        {
-                            if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
-                            {
-                                lastSoldier = null;
-                            }
-                        }
-                    }
-                    else
-                        lastSoldier = null;
-                }
-
-                if (firstSoldier != null && lastSoldier != null)
-                {
-                    if ((_side * firstSoldier._destination.X - _side * firstSoldier._position.X) > _speed)
-                    {
-                        _position.X = firstSoldier._position.X;
-                        resetupFormation();
-                    }
-                }
-            }
-            else if (_state == STATE_PIKE && _pikeRows.Count != 0)
-            {
-                firstSoldier = getFirstNonMeleeSoldier((ArrayList)_pikeRows[0]);
-
-                if (_shotRows.Count > 0)
-                {
-                    lastSoldier = getFirstNonMeleeSoldier((ArrayList)_shotRows[_shotRows.Count - 1]);
-                    if (lastSoldier != null)
-                    {
-                        if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
-                        {
-                            lastSoldier = null;
-                        }
-                    }
-                }
-                else
-                    lastSoldier = null;
-
-                if (lastSoldier == null)
-                {
+                    firstSoldier = getFirstNonMeleeSoldier((ArrayList)_shotRows[0]);
                     if (_meleeRows.Count > 0)
                     {
                         lastSoldier = getFirstNonMeleeSoldier((ArrayList)_meleeRows[_meleeRows.Count - 1]);
@@ -1601,39 +1535,57 @@ namespace PikeAndShot
                     }
                     else
                         lastSoldier = null;
-                }
 
-                if (firstSoldier != null && lastSoldier != null)
-                {
-                    if ((_side * firstSoldier._destination.X - _side * firstSoldier._position.X) > _speed)
+                    if (lastSoldier == null)
                     {
-                        _position.X = firstSoldier._position.X;
-                        resetupFormation();
-                    }
-                }
-            }
-            else if (_state == STATE_MELEE && _meleeRows.Count != 0)
-            {
-                firstSoldier = getFirstNonMeleeSoldier((ArrayList)_meleeRows[0]);
-                if (_shotRows.Count > 0)
-                {
-                    lastSoldier = getFirstNonMeleeSoldier((ArrayList)_shotRows[_shotRows.Count - 1]);
-                    if (lastSoldier != null)
-                    {
-                        if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
+                        if (_pikeRows.Count > 0)
                         {
+                            lastSoldier = getFirstNonMeleeSoldier((ArrayList)_pikeRows[_pikeRows.Count - 1]);
+                            if (lastSoldier != null)
+                            {
+                                if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
+                                {
+                                    lastSoldier = null;
+                                }
+                            }
+                        }
+                        else
                             lastSoldier = null;
+                    }
+
+                    if (lastSoldier == null)
+                    {
+                        if (_shotRows.Count > 1)
+                        {
+                            lastSoldier = getFirstNonMeleeSoldier((ArrayList)_shotRows[_shotRows.Count - 1]);
+                            if (lastSoldier != null)
+                            {
+                                if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
+                                {
+                                    lastSoldier = null;
+                                }
+                            }
+                        }
+                        else
+                            lastSoldier = null;
+                    }
+
+                    if (firstSoldier != null && lastSoldier != null)
+                    {
+                        if ((_side * firstSoldier._destination.X - _side * firstSoldier._position.X) > _speed)
+                        {
+                            _position.X = firstSoldier._position.X;
+                            resetupFormation();
                         }
                     }
                 }
-                else
-                    lastSoldier = null;
-
-                if (lastSoldier == null)
+                else if (_state == STATE_PIKE && _pikeRows.Count != 0)
                 {
-                    if (_pikeRows.Count > 0)
+                    firstSoldier = getFirstNonMeleeSoldier((ArrayList)_pikeRows[0]);
+
+                    if (_shotRows.Count > 0)
                     {
-                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_pikeRows[_pikeRows.Count - 1]);
+                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_shotRows[_shotRows.Count - 1]);
                         if (lastSoldier != null)
                         {
                             if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
@@ -1644,34 +1596,94 @@ namespace PikeAndShot
                     }
                     else
                         lastSoldier = null;
-                }
 
-                if (firstSoldier != null && lastSoldier != null)
-                {
-                    if ((_side * firstSoldier._destination.X - _side * firstSoldier._position.X) > _speed)
+                    if (lastSoldier == null)
                     {
-                        _position.X = firstSoldier._position.X;
-                        resetupFormation();
+                        if (_meleeRows.Count > 0)
+                        {
+                            lastSoldier = getFirstNonMeleeSoldier((ArrayList)_meleeRows[_meleeRows.Count - 1]);
+                            if (lastSoldier != null)
+                            {
+                                if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
+                                {
+                                    lastSoldier = null;
+                                }
+                            }
+                        }
+                        else
+                            lastSoldier = null;
+                    }
+
+                    if (firstSoldier != null && lastSoldier != null)
+                    {
+                        if ((_side * firstSoldier._destination.X - _side * firstSoldier._position.X) > _speed)
+                        {
+                            _position.X = firstSoldier._position.X;
+                            resetupFormation();
+                        }
                     }
                 }
-            }
-
-            foreach (Soldier s in _soldiers)
-            {
-                s.alterDestination(true, amount);
-            }
-
-            if (_supportRows.Count != 0)
-            {
-                foreach (ArrayList row in _supportRows)
+                else if (_state == STATE_MELEE && _meleeRows.Count != 0)
                 {
-                    float chargeY = (float)(Soldier.HEIGHT * (row.Count - 1)) / -2f;
-                    foreach (Soldier s in row)
+                    firstSoldier = getFirstNonMeleeSoldier((ArrayList)_meleeRows[0]);
+                    if (_shotRows.Count > 0)
                     {
-                        if (s is CrossbowmanPavise)
+                        lastSoldier = getFirstNonMeleeSoldier((ArrayList)_shotRows[_shotRows.Count - 1]);
+                        if (lastSoldier != null)
                         {
-                            ((CrossbowmanPavise)s).setChargePosition(new Vector2(100f, chargeY));
-                            chargeY += Soldier.HEIGHT;
+                            if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
+                            {
+                                lastSoldier = null;
+                            }
+                        }
+                    }
+                    else
+                        lastSoldier = null;
+
+                    if (lastSoldier == null)
+                    {
+                        if (_pikeRows.Count > 0)
+                        {
+                            lastSoldier = getFirstNonMeleeSoldier((ArrayList)_pikeRows[_pikeRows.Count - 1]);
+                            if (lastSoldier != null)
+                            {
+                                if (!((_side * lastSoldier._destination.X - _side * lastSoldier._position.X) > _speed || (_side * lastSoldier._destination.X - _side * lastSoldier._position.X) < -_speed))
+                                {
+                                    lastSoldier = null;
+                                }
+                            }
+                        }
+                        else
+                            lastSoldier = null;
+                    }
+
+                    if (firstSoldier != null && lastSoldier != null)
+                    {
+                        if ((_side * firstSoldier._destination.X - _side * firstSoldier._position.X) > _speed)
+                        {
+                            _position.X = firstSoldier._position.X;
+                            resetupFormation();
+                        }
+                    }
+                }
+
+                foreach (Soldier s in _soldiers)
+                {
+                    s.alterDestination(true, amount);
+                }
+
+                if (_supportRows.Count != 0)
+                {
+                    foreach (ArrayList row in _supportRows)
+                    {
+                        float chargeY = (float)(Soldier.HEIGHT * (row.Count - 1)) / -2f;
+                        foreach (Soldier s in row)
+                        {
+                            if (s is CrossbowmanPavise)
+                            {
+                                ((CrossbowmanPavise)s).setChargePosition(new Vector2(100f, chargeY));
+                                chargeY += Soldier.HEIGHT;
+                            }
                         }
                     }
                 }
@@ -1976,8 +1988,9 @@ namespace PikeAndShot
 
     public class ColmillosFormation : Formation
     {
-        public const int STATE_INTRO = 100;
-        public const int STATE_HOLD = 101;
+        public const int STATE_INTRO = 300;
+        public const int STATE_HOLD = 301;
+        public const int STATE_CHARGE = 302;
         
         const float WOLF_PERIOD = 650f;
         private const float WOLVES_TIME = 4000f;
@@ -1995,6 +2008,7 @@ namespace PikeAndShot
         float patternTimer = 0;
         float wolfSpacing;
         int wolfCount;
+        int launches = 0;
         public int numberOfWolves = 20;
 
         Colmillos colmillos;
@@ -2194,6 +2208,7 @@ namespace PikeAndShot
                 removeSoldier(wolf);
                 _screen.addLooseSoldier(wolf);
                 wolf.alterDestination(true, -PikeAndShotGame.SCREENWIDTH);
+                wolf._destination.Y = wolf.getPosition().Y;
 
                 if (wolf.getState() == Wolf.STATE_TURNING)
                     wolf.setState(Soldier.STATE_READY);
@@ -2203,6 +2218,24 @@ namespace PikeAndShot
 
                 wolf._runningFeet.setAnimationSpeed(wolf._footSpeed / 0.11f);
                 reduceWolfNumber();
+
+                launches++;
+                if (launches > 3)
+                {
+                    launches = 0;
+                    colmillos.howl();
+                    foreach (Soldier s in _soldiers)
+                    {
+                        if (s is Wolf)
+                        {
+                            if (PikeAndShotGame.random.Next(2) == 0)
+                                ((Wolf)s).attack();
+                            else
+                                ((Wolf)s).howl();
+                        }
+                    }
+                    _state = STATE_CHARGE;
+                }
             }
         }
 
