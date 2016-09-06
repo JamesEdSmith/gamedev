@@ -378,7 +378,7 @@ namespace PikeAndShot
                 _stateToHave = -1;
             }
 
-            if (_reacting && _state != STATE_DEAD && _state != STATE_DYING
+            if (_reacting && !(this is Colmillos) && _state != STATE_DEAD && _state != STATE_DYING
                 && _state != STATE_MELEE_LOSS && _state != STATE_MELEE_WIN
                 && (_state != Cavalry.STATE_SLOWDOWN || !(this is Cavalry)) && (_state != Cavalry.STATE_TURNING || !(this is Cavalry)))
             {
@@ -388,7 +388,7 @@ namespace PikeAndShot
                 return;
             }
             // check for REACTIONS
-            else if ((_state == STATE_READY || _state == STATE_CHARGING || _state == STATE_CHARGED) /*&& !guarding*/)
+            else if ((_state == STATE_READY || _state == STATE_CHARGING || _state == STATE_CHARGED) || (this is Colmillos && _state == Colmillos.STATE_COVER) /*&& !guarding*/)
             {
                 if (checkReactions(timeSpan))
                 {
@@ -1064,13 +1064,18 @@ namespace PikeAndShot
             {
                 if (((PikeTip)collider).getSoldierState() == Pikeman.STATE_LOWERED)
                 {
-                    if (!(this is Targeteer))
+                    if (!(this is Targeteer) && !(this is Wolf))
                     {
                         hit();
                         _killer = collider;
                         ((PikeTip)collider).getPikeman().recoil();
                     }
-                    else if(this is Targeteer)
+                    else if (this is Colmillos)
+                    {
+                        if(_state != Colmillos.STATE_ATTACK)
+                            this.attack();
+                    }
+                    else if (this is Targeteer)
                     {
                         if (((Targeteer)this)._hasShield)
                         {
@@ -2016,8 +2021,6 @@ namespace PikeAndShot
                 _stateTimer = _chargeTime;
                 chargePosition = new Vector2(100f, -13f);
                 _meleeDestination = myFormation.getCenter() + chargePosition;
-                if (_meleeDestination.X > _screen.getMapOffset().X + 1000)
-                    Console.WriteLine("WTF");
                 postRetrieveState = STATE_CHARGING;
                 postPlaceState = STATE_CHARGING;
                 preRetrieveStateTimer = _attackTime;
@@ -2061,7 +2064,6 @@ namespace PikeAndShot
 
         private void uncover()
         {
-            Console.WriteLine("UNCOVER");
             covering = false;
             _stateTimer = COVER_TIME;
             uncovering = true;
@@ -2069,7 +2071,6 @@ namespace PikeAndShot
 
         private void cover()
         {
-            Console.WriteLine("COVER");
             covering = true;
             if(_state == STATE_CHARGING)
                 _stateTimer = COVER_TIME;
@@ -2171,7 +2172,6 @@ namespace PikeAndShot
             if (_state != debug || _state == STATE_RETRIEVING)
             {
                 debug = _state;
-                Console.WriteLine(_stateTimer + " o " + debug + " o " + _body.getCurrFrame());
             }
 
             if (!_stateChanged)
@@ -2227,8 +2227,6 @@ namespace PikeAndShot
                             chargePosition = new Vector2(100f, chargePosition.Y);
                             chargePosition += new Vector2(8, 0);
                             _meleeDestination = myFormation.getCenter() + chargePosition;
-                            if (_meleeDestination.X > _screen.getMapOffset().X + 1000)
-                                Console.WriteLine("WTF");
                         }
                         _stateChanged = true;
                     }
@@ -2308,8 +2306,6 @@ namespace PikeAndShot
                 _screen.addShot(myPavise);
                 chargePosition -= new Vector2(8, 0);
                 _meleeDestination = myFormation.getCenter() + chargePosition;
-                if (_meleeDestination.X > _screen.getMapOffset().X + 1000)
-                    Console.WriteLine("WTF");
             }
             else
                 _screen.addShot(new Pavise(new Vector2(this._position.X + 4f + _randDestOffset.X, this._position.Y + 12f + _randDestOffset.Y), this._screen, _side, 24f));
@@ -2518,8 +2514,6 @@ namespace PikeAndShot
         {
             _shotMade = true;
             _meleeDestination = _position;
-            if (_meleeDestination.X > _screen.getMapOffset().X + 1000)
-                Console.WriteLine("WTF");
             _screen.addScreenObject(_weaponSwing);
             slashSound.Play();
         }
@@ -3151,6 +3145,7 @@ namespace PikeAndShot
         public const int STATE_RISE = 201;
         public const int STATE_EATEN = 202;
         public const int STATE_HOWL = 203;
+        public const int STATE_RUN = 204;
         
         Sprite _attack;
         Sprite _noShieldAttack;
@@ -3159,9 +3154,12 @@ namespace PikeAndShot
         Sprite _noArmourIdle;
         Sprite _rise;
         Sprite _howl;
+        Sprite _noShieldHowl;
+        Sprite _noArmourHowl;
 
         public float _riseTime = 1000f;
         public float _howlTime = 1000f;
+        public float _runTime = 300;
         public float _eatenTime = 5000f;
         public static float helmetTime = 2000f;
 
@@ -3193,6 +3191,8 @@ namespace PikeAndShot
             _armourFall = new Sprite(PikeAndShotGame.COLMILLOS_FALLNOSHIELD, new Rectangle(76, 42, 16, 18), 110, 86);
             _rise = new Sprite(PikeAndShotGame.COLMILLOS_RISE, new Rectangle(40, 2, 16, 28), 72, 40);
             _howl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL, new Rectangle(12, 10, 16, 28), 50, 54);
+            _noShieldHowl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL_NOSHIELD, new Rectangle(20, 12, 16, 28), 56, 44);
+            _noArmourHowl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL_NOARMOUR, new Rectangle(16, 22, 16, 28), 52, 58);
             _body = _idle;
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
             hitSound = chargeSound;
@@ -3202,16 +3202,27 @@ namespace PikeAndShot
 
         protected override bool checkReactions(TimeSpan timeSpan)
         {
+            if (_screen.findShot(this, 30f))
+            {
+                if (!_reacting && _state == STATE_READY)
+                {
+                    cover();
+                }
+            }
+            else if (_reacting)
+            {
+                coverDone();
+            }
             return false;
         }
 
         public override bool attack()
         {
-            if (_state == STATE_READY)
+            if (_state != STATE_DYING && _state != STATE_DEAD && _state != STATE_RISE && _state != STATE_EATEN)
             {
                 _state = STATE_ATTACK;
                 _stateTimer = _attackTime;
-
+                ((ColmillosFormation)myFormation).attacked = true;
                 return true;
             }
 
@@ -3231,6 +3242,7 @@ namespace PikeAndShot
                 _idle = _noshieldIdle;
                 _attackTime = 1500f;
                 _attack = _noShieldAttack;
+                _howl = _noShieldHowl;
                 _hasShield = false;
                 _reacting = false;
                 _meleeDestination = _position;
@@ -3246,6 +3258,7 @@ namespace PikeAndShot
                 _shieldFall = _armourFall;
                 _attackTime = 2000f;
                 _attack = _noArmourAttack;
+                _howl = _noArmourHowl;
                 hasArmour = false;
                 _reacting = false;
                 _meleeDestination = _position;
@@ -3340,6 +3353,15 @@ namespace PikeAndShot
                         _stateChanged = true;
                     }
                 }
+                else if (_state == STATE_RUN)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                    if (_stateTimer <= 0)
+                    {
+                        _stateTimer = 0f;
+                        _stateChanged = true;
+                    }
+                }
             }
         }
 
@@ -3379,6 +3401,15 @@ namespace PikeAndShot
                 _howl.setFrame(frameNumber);
                 _body = _howl;
             }
+            else if (_state == STATE_RUN)
+            {
+                int maxFrames = 4;
+                float frameTime = _runTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                _attack.setFrame(frameNumber);
+                _body = _attack;
+            }
             else if (_state == STATE_READY)
             {
                 _body = _idle;
@@ -3387,8 +3418,20 @@ namespace PikeAndShot
 
         public void howl()
         {
-            _state = STATE_HOWL;
-            _stateTimer = _howlTime;
+            if (_state != STATE_DYING && _state != STATE_DEAD && _state != STATE_RISE && _state != STATE_EATEN)
+            {
+                _state = STATE_HOWL;
+                _stateTimer = _howlTime;
+            }
+        }
+
+        internal void run()
+        {
+            if (_state != STATE_DYING && _state != STATE_DEAD && _state != STATE_RISE && _state != STATE_EATEN)
+            {
+                _state = STATE_RUN;
+                _stateTimer = _runTime;
+            }
         }
     }
 
@@ -3417,6 +3460,7 @@ namespace PikeAndShot
         public ColmillosFormation bossFormation;
 
         public bool flee;
+        private bool playAttackSound;
 
         public Wolf(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
@@ -3424,7 +3468,7 @@ namespace PikeAndShot
             _type = Soldier.TYPE_MELEE;
             _class = Soldier.CLASS_GOBLIN_WOLF;
             _idleTime = 3000f;
-            _attackTime = 500f;
+            _attackTime = 1000f;
             _turnTime = 300f;
             _idleAnimTime = 1000f;
             _deathTime = 800f;
@@ -3482,12 +3526,8 @@ namespace PikeAndShot
                 {
                     if (_position.X < (_screen.getMapOffset().X - 200) || _position.X > (_screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH + 200))
                     {
-                        _screen.unlooseSoldiers.Add(this);
-                        bossFormation.addSoldier(this);
+                        _state = STATE_DEAD;
                         setSpeed(0.24f);
-                        bossFormation.increaseNumberOfWolves();
-                        _position.X = _screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH + 199;
-                        turn();
                     }
                 }
             }
@@ -3510,10 +3550,10 @@ namespace PikeAndShot
             if (_state == STATE_READY)
             {
                 _state = STATE_ATTACK;
-                _stateTimer = _attackTime;
+                _stateTimer = _attackTime + PikeAndShotGame.getRandPlusMinus(200);
                 //_state = STATE_HOWLING;
                 //_stateTimer = _howlTime;
-                chargeSound.Play();
+                playAttackSound = true;
                 
                 return true;
             }
@@ -3609,6 +3649,12 @@ namespace PikeAndShot
                 if (_state == STATE_ATTACK)
                 {
                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
+
+                    if (_stateTime < (_attackTime / 2f) && playAttackSound)
+                    {
+                        chargeSound.Play();
+                        playAttackSound = false;
+                    }
 
                     if (_stateTimer <= 0)
                     {

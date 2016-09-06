@@ -206,6 +206,8 @@ Content\helmet.xnb
 Content\los_colmillos_rise.xnb
 Content\wolf_howl.xnb
 Content\los_colmillos_howl.xnb
+Content\los_colmillos_howl_noshield.xnb
+Content\los_colmillos_howl_noarmour.xnb
 Content\cgwg-xna.xnb
 Content\Bloom.xnb
 Content\BloomExtract.xnb

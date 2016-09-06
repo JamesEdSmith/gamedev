@@ -285,7 +285,7 @@ namespace PikeAndShot
                     else
                         _screenNonColliders.Add(so);
                 }
-                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING)
+                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && so.getState() != Colmillos.STATE_EATEN && so.getState() != Colmillos.STATE_RISE)
                     _screenColliders.Add(so);
                 else
                     _screenNonColliders.Add(so);
