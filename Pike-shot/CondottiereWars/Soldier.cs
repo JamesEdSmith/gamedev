@@ -3170,8 +3170,7 @@ namespace PikeAndShot
         {
             _type = Soldier.TYPE_MELEE;
             _class = Soldier.CLASS_GOBLIN_COLMILLOS;
-            _attackTime = 2100f;
-            _attackTime = 1500f;
+            _attackTime = 1800f;
             _deathTime = 2000f;
 
             _feet = new Sprite(PikeAndShotGame.BROWN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
@@ -3182,7 +3181,7 @@ namespace PikeAndShot
             _route = new Sprite(PikeAndShotGame.BERZERKER2_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
             _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
             _noshieldIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42);
-            _attack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK, new Rectangle(12, 14, 16, 28), 78, 50);
+            _attack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK, new Rectangle(12, 14, 16, 28), 78, 52);
             _noShieldAttack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK2, new Rectangle(22, 12, 16, 28), 98, 50);
             _noArmourAttack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK3, new Rectangle(14, 22, 16, 28), 114, 60);
             _noArmourIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOARMOUR, new Rectangle(20, 4, 16, 28), 54, 42);
@@ -3220,9 +3219,19 @@ namespace PikeAndShot
         {
             if (_state != STATE_DYING && _state != STATE_DEAD && _state != STATE_RISE && _state != STATE_EATEN)
             {
-                _state = STATE_ATTACK;
-                _stateTimer = _attackTime;
-                ((ColmillosFormation)myFormation).attacked = true;
+                //if (_side == BattleScreen.SIDE_ENEMY)
+                //{
+                    _state = STATE_ATTACK;
+                    _stateTimer = _attackTime;
+                    if (myFormation is ColmillosFormation)
+                        ((ColmillosFormation)myFormation).attacked = true;
+                //}
+                //else
+                //{
+                    //_state = STATE_HOWL;
+                  //  _stateTimer = _howlTime;
+                //}
+
                 return true;
             }
 
@@ -3273,7 +3282,7 @@ namespace PikeAndShot
         {
             _drawingPosition = _position + _randDestOffset - _screen.getMapOffset();
 
-            if (_state == STATE_ATTACK)
+            if (_state == STATE_ATTACK && (_attack.getCurrFrame() == 20 || _attack.getCurrFrame() == 21))
             {
                 addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
             }
@@ -3302,24 +3311,6 @@ namespace PikeAndShot
                     if (_stateTimer <= 0)
                     {
                         _stateTimer = 0;
-                        if (_hasShield)
-                        {
-                            _position.X += 14;
-                            myFormation._position.X += 14f;
-                            alterDestination(true, 14);
-                        }
-                        else if (hasArmour)
-                        {
-                            _position.X += 30;
-                            myFormation._position.X += 30f;
-                            alterDestination(true, 30);
-                        }
-                        else
-                        {
-                            _position.X += 64;
-                            myFormation._position.X += 64f;
-                            alterDestination(true, 64);
-                        }
                         _state = STATE_READY;
                     }
                 }

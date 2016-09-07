@@ -1790,7 +1790,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_attack.xnb</Output>
-      <Time>2016-07-28T09:46:27.2401615-04:00</Time>
+      <Time>2016-09-07T03:13:03.418798-04:00</Time>
     </Item>
     <Item>
       <Source>los_colmillos_attack2.png</Source>
@@ -1799,7 +1799,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_attack2.xnb</Output>
-      <Time>2016-08-04T18:03:13.483696-04:00</Time>
+      <Time>2016-09-07T03:57:28.571236-04:00</Time>
     </Item>
     <Item>
       <Source>los_colmillos_fall2.png</Source>
@@ -1817,7 +1817,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_attack3.xnb</Output>
-      <Time>2016-08-11T00:05:20.9688103-04:00</Time>
+      <Time>2016-09-07T04:21:38.4541646-04:00</Time>
     </Item>
     <Item>
       <Source>los_colmillos_death.png</Source>
@@ -2254,7 +2254,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Users\James\Documents\gamedev\pike-shot\ContentPipelineExtension1\bin\x86\Release\ContentPipelineExtension1.dll</Key>
-        <Value>2016-09-06T00:48:48.5715984-04:00</Value>
+        <Value>2016-09-07T03:55:06.6331176-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
