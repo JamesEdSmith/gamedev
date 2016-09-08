@@ -242,6 +242,16 @@ namespace PikeAndShot
         public static Texture2D WOLF_KILL;
         public static Texture2D WOLF_HOWL;
 
+        public static Texture2D WOLF_IDLEg;
+        public static Texture2D WOLF_RUNg;
+        public static Texture2D WOLF_SPOOKEDg;
+        public static Texture2D WOLF_TURNg;
+        public static Texture2D WOLF_BITEg;
+        public static Texture2D WOLF_MELEEg;
+        public static Texture2D WOLF_DEFENDg;
+        public static Texture2D WOLF_KILLg;
+        public static Texture2D WOLF_HOWLg;
+
         public static Texture2D COLMILLOS_IDLE;
         public static Texture2D COLMILLOS_IDLENOSHIELD;
         public static Texture2D COLMILLOS_IDLENOARMOUR;
@@ -564,6 +574,16 @@ namespace PikeAndShot
             WOLF_KILL = Content.Load<Texture2D>(@"wolf_kill");
             WOLF_HOWL = Content.Load<Texture2D>(@"wolf_howl");
 
+            WOLF_IDLEg = getGreyscaleClone(WOLF_IDLE);
+            WOLF_RUNg = getGreyscaleClone(WOLF_RUN);
+            WOLF_SPOOKEDg = getGreyscaleClone(WOLF_SPOOKED);
+            WOLF_TURNg = getGreyscaleClone(WOLF_TURN);
+            WOLF_BITEg = getGreyscaleClone(WOLF_BITE);
+            WOLF_MELEEg = getGreyscaleClone(WOLF_MELEE);
+            WOLF_DEFENDg = getGreyscaleClone(WOLF_DEFEND);
+            WOLF_KILLg = getGreyscaleClone(WOLF_KILL);
+            WOLF_HOWLg = getGreyscaleClone(WOLF_HOWL);
+
             COLMILLOS_IDLE = Content.Load<Texture2D>(@"los_colmillos_idle0");
             COLMILLOS_IDLENOSHIELD = Content.Load<Texture2D>(@"los_colmillos_idle1");
             COLMILLOS_IDLENOARMOUR = Content.Load<Texture2D>(@"los_colmillos_idle2");
@@ -796,6 +816,25 @@ namespace PikeAndShot
         internal static Texture2D getDotTexture()
         {
             return DOT;
+        }
+
+        internal Texture2D getGreyscaleClone(Texture2D texture)
+        {
+            Texture2D greyTexture = new Texture2D(GraphicsDevice, texture.Width, texture.Height);
+            Color[] pixels = new Color[texture.Width * texture.Height];
+            texture.GetData<Color>(0, texture.Bounds, pixels, 0, pixels.Length);
+
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                Color c = pixels[i];
+                int r = c.R;
+                int g = c.G;
+                int b = c.B;
+                int avg = (r + g + b) / 3;
+                pixels[i] = Color.FromNonPremultiplied(avg, avg, avg, c.A);
+            }
+            greyTexture.SetData<Color>(pixels);
+            return greyTexture;
         }
 
         // helper function to randomly make a number positive or negative

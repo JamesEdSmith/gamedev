@@ -3459,7 +3459,7 @@ namespace PikeAndShot
             _type = Soldier.TYPE_MELEE;
             _class = Soldier.CLASS_GOBLIN_WOLF;
             _idleTime = 3000f;
-            _attackTime = 1000f;
+            _attackTime = 800f;
             _turnTime = 300f;
             _idleAnimTime = 1000f;
             _deathTime = 800f;
@@ -3469,18 +3469,33 @@ namespace PikeAndShot
 
             bool flee = false;
 
-            _idleFeet = new Sprite(PikeAndShotGame.WOLF_IDLE, new Rectangle(16, 18, 14, 14), 48, 38, true);
-            //_idleFeet = new Sprite(PikeAndShotGame.TEST, new Rectangle(0, 0, 512, 512), 1276, 368, true);
-            _death = new Sprite(PikeAndShotGame.WOLF_SPOOKED, new Rectangle(18, 16, 14, 14), 48, 38, true);
-            _turnFeet = new Sprite(PikeAndShotGame.WOLF_TURN, new Rectangle(26, 10, 14, 14), 54, 24, true);
-            _attackFeet = new Sprite(PikeAndShotGame.WOLF_BITE, new Rectangle(20, 8, 14, 14), 54, 26, true);
-            _melee1 = new Sprite(PikeAndShotGame.WOLF_MELEE, new Rectangle(16, 10, 14, 14), 64, 24, true);
-            _defend1 = new Sprite(PikeAndShotGame.WOLF_DEFEND, new Rectangle(16, 12, 14, 14), 64, 26, true);
-            _killFeet = new Sprite(PikeAndShotGame.WOLF_KILL, new Rectangle(14, 12, 14, 14), 68, 26, true);
-            _howlFeet = new Sprite(PikeAndShotGame.WOLF_HOWL, new Rectangle(18, 24, 14, 14), 52, 40, true);
-            _howlFeet.setMaxFrames(_howlFeet.getMaxFrames() - 1);
-            _feet = _runningFeet = new Sprite(PikeAndShotGame.WOLF_RUN, new Rectangle(16, 10, 14, 14), 44, 26, true);
 
+            if (PikeAndShotGame.random.Next(2) == 0)
+            {
+                _idleFeet = new Sprite(PikeAndShotGame.WOLF_IDLE, new Rectangle(16, 18, 14, 14), 48, 38, true);
+                _death = new Sprite(PikeAndShotGame.WOLF_SPOOKED, new Rectangle(18, 16, 14, 14), 48, 38, true);
+                _turnFeet = new Sprite(PikeAndShotGame.WOLF_TURN, new Rectangle(26, 10, 14, 14), 54, 24, true);
+                _attackFeet = new Sprite(PikeAndShotGame.WOLF_BITE, new Rectangle(20, 8, 14, 14), 54, 26, true);
+                _melee1 = new Sprite(PikeAndShotGame.WOLF_MELEE, new Rectangle(16, 10, 14, 14), 64, 24, true);
+                _defend1 = new Sprite(PikeAndShotGame.WOLF_DEFEND, new Rectangle(16, 12, 14, 14), 64, 26, true);
+                _killFeet = new Sprite(PikeAndShotGame.WOLF_KILL, new Rectangle(14, 12, 14, 14), 68, 26, true);
+                _howlFeet = new Sprite(PikeAndShotGame.WOLF_HOWL, new Rectangle(18, 24, 14, 14), 52, 40, true);
+                _feet = _runningFeet = new Sprite(PikeAndShotGame.WOLF_RUN, new Rectangle(16, 10, 14, 14), 44, 26, true);
+            }
+            else
+            {
+                _idleFeet = new Sprite(PikeAndShotGame.WOLF_IDLEg, new Rectangle(16, 18, 14, 14), 48, 38, true);
+                _death = new Sprite(PikeAndShotGame.WOLF_SPOOKEDg, new Rectangle(18, 16, 14, 14), 48, 38, true);
+                _turnFeet = new Sprite(PikeAndShotGame.WOLF_TURNg, new Rectangle(26, 10, 14, 14), 54, 24, true);
+                _attackFeet = new Sprite(PikeAndShotGame.WOLF_BITEg, new Rectangle(20, 8, 14, 14), 54, 26, true);
+                _melee1 = new Sprite(PikeAndShotGame.WOLF_MELEEg, new Rectangle(16, 10, 14, 14), 64, 24, true);
+                _defend1 = new Sprite(PikeAndShotGame.WOLF_DEFENDg, new Rectangle(16, 12, 14, 14), 64, 26, true);
+                _killFeet = new Sprite(PikeAndShotGame.WOLF_KILLg, new Rectangle(14, 12, 14, 14), 68, 26, true);
+                _howlFeet = new Sprite(PikeAndShotGame.WOLF_HOWLg, new Rectangle(18, 24, 14, 14), 52, 40, true);
+                _feet = _runningFeet = new Sprite(PikeAndShotGame.WOLF_RUNg, new Rectangle(16, 10, 14, 14), 44, 26, true);
+            }
+
+            _howlFeet.setMaxFrames(_howlFeet.getMaxFrames() - 1);
             _body = _idle;
             _footSpeed = 6.5f;
             _speed = 0.22f;
