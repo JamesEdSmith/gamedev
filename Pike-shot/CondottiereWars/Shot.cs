@@ -667,8 +667,12 @@ namespace PikeAndShot
                     pikeman.guardTarget == this._pikeman)
                 {
                     pikeman.recoil();
+                    if (_pikeman is Colmillos)
+                    {
+                        _pikeman._destination.X = collider.getCenter().X + (collider.getSide() == BattleScreen.SIDE_ENEMY ? 1 : -1) * collider.getWidth() * 0.5f + Soldier.WIDTH * 0.35f;
+                    }
                     ((Targeteer)_pikeman).setReactionDest(collider.getCenter().X + (collider.getSide() == BattleScreen.SIDE_ENEMY ? 1 : -1) * collider.getWidth() * 0.5f + Soldier.WIDTH * 0.35f);
-                    ((Targeteer)_pikeman).resetDefendTimer();
+                    ((Targeteer)_pikeman).resetDefendTimer();        
                 }
             }
         }

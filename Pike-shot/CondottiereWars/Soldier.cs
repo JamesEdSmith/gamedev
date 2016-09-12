@@ -378,7 +378,7 @@ namespace PikeAndShot
                 _stateToHave = -1;
             }
 
-            if (_reacting && !(this is Colmillos) && _state != STATE_DEAD && _state != STATE_DYING
+            if (_reacting && /*!(this is Colmillos) &&*/ _state != STATE_DEAD && _state != STATE_DYING
                 && _state != STATE_MELEE_LOSS && _state != STATE_MELEE_WIN
                 && (_state != Cavalry.STATE_SLOWDOWN || !(this is Cavalry)) && (_state != Cavalry.STATE_TURNING || !(this is Cavalry)))
             {
@@ -1070,17 +1070,21 @@ namespace PikeAndShot
                         _killer = collider;
                         ((PikeTip)collider).getPikeman().recoil();
                     }
-                    else if (this is Colmillos)
+                    /*else if (this is Colmillos)
                     {
-                        if(_state != Colmillos.STATE_ATTACK)
+                        if (_state != Colmillos.STATE_ATTACK)
                             this.attack();
-                    }
+                        ((PikeTip)collider).getPikeman().recoil();
+                        ((Colmillos)this).myFormation._position.X = collider.getCenter().X + collider.getWidth() / 2 + 100f;
+                    }*/
                     else if (this is Targeteer)
                     {
                         if (((Targeteer)this)._hasShield)
                         {
                             ((Targeteer)this).shield();
                             this.setReactionDest(collider.getCenter().X + 50f);//((collider.getSide() == BattleScreen.SIDE_ENEMY? 1 : -1 ) * collider.getWidth() * 0.5f + Soldier.WIDTH * 0.35f
+                            if(this is Colmillos)
+                                ((Colmillos)this).myFormation._position.X = collider.getCenter().X + collider.getWidth() / 2 + 100f;
                         }
                         else
                         {
@@ -3199,7 +3203,26 @@ namespace PikeAndShot
             hasArmour = true;
         }
 
-        protected override bool checkReactions(TimeSpan timeSpan)
+        protected override void shieldDone()
+        {
+            if (!_screen.findPikeTip(this, 0.30f))
+            {
+                _stateToHave = STATE_READY;
+                _reacting = false;
+                _stateChanged = true;
+                _stateTimer = 0f;
+                _defendTimer = 0f;
+                _screen.removeScreenObject(_shieldBlock);
+                DEBUGFOUNDPIKE = true;
+            }
+            else
+            {
+                //shield();
+                _defendTimer = _attackTime;
+            }
+        }
+
+        /*protected override bool checkReactions(TimeSpan timeSpan)
         {
             if (_screen.findShot(this, 30f))
             {
@@ -3213,7 +3236,7 @@ namespace PikeAndShot
                 coverDone();
             }
             return false;
-        }
+        }*/
 
         public override bool attack()
         {
@@ -3360,7 +3383,7 @@ namespace PikeAndShot
         {
             base.updateAnimation(timeSpan);
 
-            if (_state == STATE_ATTACK)
+            if (_state == STATE_ATTACK || _state == STATE_DEFEND)
             {
                 int maxFrames = _attack.getMaxFrames();
                 float frameTime = _attackTime / (float)maxFrames;
@@ -3474,7 +3497,7 @@ namespace PikeAndShot
             {
                 _idleFeet = new Sprite(PikeAndShotGame.WOLF_IDLE, new Rectangle(16, 18, 14, 14), 48, 38, true);
                 _death = new Sprite(PikeAndShotGame.WOLF_SPOOKED, new Rectangle(18, 16, 14, 14), 48, 38, true);
-                _turnFeet = new Sprite(PikeAndShotGame.WOLF_TURN, new Rectangle(26, 10, 14, 14), 54, 24, true);
+                _turnFeet = new Sprite(PikeAndShotGame.WOLF_TURN, new Rectangle(26, 10, 14, 14), 54, 26, true);
                 _attackFeet = new Sprite(PikeAndShotGame.WOLF_BITE, new Rectangle(20, 8, 14, 14), 54, 26, true);
                 _melee1 = new Sprite(PikeAndShotGame.WOLF_MELEE, new Rectangle(16, 10, 14, 14), 64, 24, true);
                 _defend1 = new Sprite(PikeAndShotGame.WOLF_DEFEND, new Rectangle(16, 12, 14, 14), 64, 26, true);
@@ -3486,7 +3509,7 @@ namespace PikeAndShot
             {
                 _idleFeet = new Sprite(PikeAndShotGame.WOLF_IDLEg, new Rectangle(16, 18, 14, 14), 48, 38, true);
                 _death = new Sprite(PikeAndShotGame.WOLF_SPOOKEDg, new Rectangle(18, 16, 14, 14), 48, 38, true);
-                _turnFeet = new Sprite(PikeAndShotGame.WOLF_TURNg, new Rectangle(26, 10, 14, 14), 54, 24, true);
+                _turnFeet = new Sprite(PikeAndShotGame.WOLF_TURNg, new Rectangle(26, 10, 14, 14), 54, 26, true);
                 _attackFeet = new Sprite(PikeAndShotGame.WOLF_BITEg, new Rectangle(20, 8, 14, 14), 54, 26, true);
                 _melee1 = new Sprite(PikeAndShotGame.WOLF_MELEEg, new Rectangle(16, 10, 14, 14), 64, 24, true);
                 _defend1 = new Sprite(PikeAndShotGame.WOLF_DEFENDg, new Rectangle(16, 12, 14, 14), 64, 26, true);
@@ -3908,7 +3931,7 @@ namespace PikeAndShot
         protected float _shieldBreakTime;
         protected float _coverTime;
         protected float _shieldRecoilTime;
-        protected ShieldBlock _shieldBlock;
+        public ShieldBlock _shieldBlock;
         protected Sprite _shieldBreak;
         protected Sprite _noshieldIdle;
         protected Sprite _shieldFall;
@@ -3968,7 +3991,7 @@ namespace PikeAndShot
                     {
                         shield();
                     }
-                    _defendTimer = _meleeTime * 2f / 3f;
+                    _defendTimer = (this is Colmillos) ? _attackTime : _meleeTime * 2f / 3f;
                     _delta = _meleeDestination - _position;
                     _dest = _meleeDestination;
                     //_travel = (float)timeSpan.TotalMilliseconds * _speed;
@@ -4135,16 +4158,16 @@ namespace PikeAndShot
         {
             if (!_hasShield)
                 return;
-            else if (_state != STATE_DEFEND)
+            else if (_state != STATE_DEFEND && _state != Colmillos.STATE_ATTACK)
             {
                 if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
                     _engager.setState(_engager.preAttackState);
 
-                _defendTimer = _meleeTime * 2f / 3f;
+                _defendTimer = (this is Colmillos) ? _attackTime : _meleeTime * 2f / 3f;
                 preAttackState = _state != STATE_MELEE_WIN && _state != STATE_MELEE_LOSS && _state != STATE_DEFEND ? _state : STATE_READY;
                 _reacting = true;
-                _state = STATE_DEFEND;
-                _stateTimer = _meleeTime * 2f / 3f;
+                _state = (this is Colmillos) ? Colmillos.STATE_ATTACK : STATE_DEFEND;
+                _stateTimer = (this is Colmillos) ? _attackTime : _meleeTime * 2f / 3f;
                 _feet.setFrame(0);
                 _screen.addScreenObject(_shieldBlock);
             }
@@ -4436,7 +4459,7 @@ namespace PikeAndShot
             }
         }
 
-        private void shieldDone()
+        protected virtual void shieldDone()
         {
             if (!_screen.findPikeTip(this, 0.30f))
             {
@@ -4451,13 +4474,13 @@ namespace PikeAndShot
             else
             {
                 //shield();
-                _defendTimer = _meleeTime * 2f / 3f;
+                _defendTimer = (this is Colmillos) ? _attackTime : _meleeTime * 2f / 3f;
             }
         }
 
         public void resetDefendTimer()
         {
-            _defendTimer = _meleeTime * 2f / 3f;
+            _defendTimer = (this is Colmillos) ? _attackTime : _meleeTime * 2f / 3f;
         }
 
         internal void shieldBlock()

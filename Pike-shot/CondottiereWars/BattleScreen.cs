@@ -631,7 +631,7 @@ namespace PikeAndShot
             {
                 if(pt is PikeTip)
                 {
-                    if(((PikeTip)pt).getSoldierState() != Pikeman.STATE_RECOILING || soldier.getState() == Targeteer.STATE_DEFEND)
+                    if(((PikeTip)pt).getSoldierState() != Pikeman.STATE_RECOILING || soldier.getState() == Targeteer.STATE_DEFEND || soldier.getState() == Colmillos.STATE_ATTACK)
                     {
                         // figure out the center of the pike tip and the center of the man
                         float ptX = pt.getPosition().X + pt.getWidth() * 0.5f;

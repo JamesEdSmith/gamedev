@@ -68,24 +68,24 @@ namespace PikeAndShot
             _formation = new Formation(this, 200, 200, 20, SIDE_PLAYER);
             if (PikeAndShotGame.TEST_BOSS)
                 cFormation = new ColmillosFormation(this, 800, 500);
-            _formation.addSoldier(new Colmillos(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            //_formation.addSoldier(new Colmillos(this, 200, 200, BattleScreen.SIDE_PLAYER));
             //_formation.addSoldier(new Wolf(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Leader(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            //_formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Leader(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
             _coins = MAX_COINS/2;
             _doubleCoins = 0;
@@ -777,6 +777,20 @@ namespace PikeAndShot
                 if ((bool1 && bool2) && bool3 && ef.getState() != Soldier.STATE_DEAD && ef.getState() != Soldier.STATE_DYING && ef.getSide() == SIDE_ENEMY)
                 {
                     enemies.Add(ef);
+                }
+            }
+
+            if (cFormation != null)
+            {
+                foreach (Soldier ef in cFormation.getSoldiers())
+                {
+                    bool bool1 = ef.getCenter().X - _formation.getCenter().X <= Soldier.WIDTH * 10f;
+                    bool bool2 = ef.getCenter().X - _formation.getCenter().X > 0;
+                    bool bool3 = Math.Abs(ef.getCenter().Y - _formation.getCenter().Y) < (float)_formation.getWidth() * Soldier.HEIGHT * 0.5f /*+ (float)ef.getHeight() * 0.5f*/;
+                    if (ef.getSide() == BattleScreen.SIDE_ENEMY && (bool1 && bool2) && bool3)
+                    {
+                        enemies.Add(ef);
+                    }
                 }
             }
 

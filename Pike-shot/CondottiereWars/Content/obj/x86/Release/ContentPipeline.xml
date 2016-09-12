@@ -1628,7 +1628,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\loot.xnb</Output>
-      <Time>2014-10-05T17:55:47.8408203-04:00</Time>
+      <Time>2016-09-09T01:57:05.4305419-04:00</Time>
     </Item>
     <Item>
       <Source>coin_spinna.png</Source>
@@ -1700,7 +1700,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_turn.xnb</Output>
-      <Time>2016-03-20T17:26:48.8101283-04:00</Time>
+      <Time>2016-09-08T17:25:41.038495-04:00</Time>
     </Item>
     <Item>
       <Source>wolf_bite.png</Source>
