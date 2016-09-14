@@ -1995,18 +1995,6 @@ namespace PikeAndShot
         const float WOLF_PERIOD = 650f;
         private const float WOLVES_TIME = 4000f;
         private const float WOLVES_INTERVAL = 1000f;
-        Vector2 p;
-        Vector2 _position
-        {
-            get
-            {
-                return p;
-            }
-            set
-            {
-                p = value;
-            }
-        }
         
         float wolvesTimer;
         Vector2[] destinations;
