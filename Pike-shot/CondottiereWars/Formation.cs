@@ -1995,6 +1995,18 @@ namespace PikeAndShot
         const float WOLF_PERIOD = 650f;
         private const float WOLVES_TIME = 4000f;
         private const float WOLVES_INTERVAL = 1000f;
+        Vector2 p;
+        Vector2 _position
+        {
+            get
+            {
+                return p;
+            }
+            set
+            {
+                p = value;
+            }
+        }
         
         float wolvesTimer;
         Vector2[] destinations;
@@ -2003,7 +2015,6 @@ namespace PikeAndShot
         int curDest = 0;
         bool holdUp = true;
         float edgeDist = 150f;
-        Vector2 tempDest;
         float holdWaveTimer = 0;
         float patternTimer = 0;
         float wolfSpacing;
@@ -2030,7 +2041,6 @@ namespace PikeAndShot
             _travel = new Vector2(0, 0);
 
             wolfSpacing = (MathHelper.Pi * 2f) / (float)numberOfWolves;
-            tempDest = new Vector2();
         }
 
         public override void addSoldier(Soldier soldier)
@@ -2054,58 +2064,85 @@ namespace PikeAndShot
             {
                 if (colmillos.getState() != Colmillos.STATE_HOWL)
                 {
-                    if (!attacked && colmillos.getState() != Colmillos.STATE_RUN && colmillos.getState() != Colmillos.STATE_ATTACK)
+                    if (!attacked && colmillos.getState() != Colmillos.STATE_RUN && colmillos.getState() != Colmillos.STATE_ATTACK && colmillos.getState() != Colmillos.STATE_SHIELDBREAK)
                     {
                         colmillos.run();
                     }
 
-                    Vector2 target = _screen.getPlayerFormation().getCenter();
-                    Vector2 _path = target - _position;
-
-                    double angle = Math.Atan2(_path.Y, _path.X);
-                    double cos = Math.Cos(angle);
-                    double sin = Math.Sin(angle);
-
-                    _travel.X = (float)cos * (float)timeSpan.TotalMilliseconds * _speed;
-                    _travel.Y = (float)sin * (float)timeSpan.TotalMilliseconds * _speed;
-
-                    //fix the sign for the trig quadrant
-                    if (_delta.X < 0)
-                        _travel.X *= -1;
-                    if (_delta.Y < 0)
-                        _travel.Y *= -1;
-
-                    if (_delta.X > 0)
+                    Vector2 target;
+                    Vector2 _path;
+                    if (colmillos.getState() != Colmillos.STATE_ATTACKING && colmillos.getState() != Colmillos.STATE_SHIELDBREAK)
                     {
-                        if (_delta.X - _travel.X >= 0)
-                            _position.X += _travel.X;
+                        if (!attacked)
+                        {
+                            target = _screen.getPlayerFormation().getCenter();
+                            _path = target - _position;
+                        }
                         else
-                            _position.X = target.X;
-                    }
-                    else if (_delta.X < 0)
-                    {
-                        if (_delta.X + _travel.X <= 0)
-                            _position.X -= _travel.X;
-                        else
-                            _position.X = target.X;
+                        {
+                            target = new Vector2(_screen.getMapOffset().X + 800, PikeAndShotGame.SCREENHEIGHT / 2);
+                            _path = target - _position;
+                            if (_path.X <= 0)
+                            {
+                                colmillos.howl();
+                                foreach (Soldier s in _soldiers)
+                                {
+                                    if (s is Wolf)
+                                        ((Wolf)s).howl();
+                                }
+                                _state = STATE_HOLD;
+                            }
+                        }
+
+                        double angle = Math.Atan2(_path.Y, _path.X);
+                        double cos = Math.Cos(angle);
+                        double sin = Math.Sin(angle);
+
+                        _travel.X = (float)cos * (float)timeSpan.TotalMilliseconds * _speed;
+                        _travel.Y = (float)sin * (float)timeSpan.TotalMilliseconds * _speed;
+
+                        //fix the sign for the trig quadrant
+                        if (_delta.X < 0)
+                            _travel.X *= -1;
+                        if (_delta.Y < 0)
+                            _travel.Y *= -1;
+
+                        if (_delta.X > 0)
+                        {
+                            if (_delta.X - _travel.X >= 0)
+                                _position.X += _travel.X;
+                            else
+                                _position.X = target.X;
+                        }
+                        else if (_delta.X < 0)
+                        {
+                            if (_delta.X + _travel.X <= 0)
+                                _position.X -= _travel.X;
+                            else
+                                _position.X = target.X;
+                        }
+
+                        if (_delta.Y > 0)
+                        {
+                            if (_delta.Y - _travel.Y >= 0)
+                                _position.Y += _travel.Y;
+                            else
+                                _position.Y = target.Y;
+                        }
+                        else if (_delta.Y < 0)
+                        {
+                            if (_delta.Y + _travel.Y <= 0)
+                                _position.Y -= _travel.Y;
+                            else
+                                _position.Y = target.Y;
+                        }
                     }
 
-                    if (_delta.Y > 0)
+                    if (colmillos._reacting)
                     {
-                        if (_delta.Y - _travel.Y >= 0)
-                            _position.Y += _travel.Y;
-                        else
-                            _position.Y = target.Y;
+                        colmillos._meleeDestination = _position - new Vector2(100f, 0f);
                     }
-                    else if (_delta.Y < 0)
-                    {
-                        if (_delta.Y + _travel.Y <= 0)
-                            _position.Y -= _travel.Y;
-                        else
-                            _position.Y = target.Y;
-                    }
-
-                    if (colmillos.getState() != Colmillos.STATE_RISE && colmillos.getState() != Colmillos.STATE_DYING && colmillos.getState() != Colmillos.STATE_EATEN)
+                    else if (colmillos.getState() != Colmillos.STATE_RISE && colmillos.getState() != Colmillos.STATE_DYING && colmillos.getState() != Colmillos.STATE_EATEN)
                         colmillos._destination = _position - new Vector2(100f, 0f);
 
                     wolfSpacing = (MathHelper.Pi * 2f) / (float)numberOfWolves;
@@ -2114,6 +2151,7 @@ namespace PikeAndShot
                     int i = 1;
                     float xDist;
                     float yDist;
+
                     foreach (Soldier w in _soldiers)
                     {
                         if (w is Wolf)
@@ -2149,7 +2187,6 @@ namespace PikeAndShot
                             i++;
                         }
                     }
-                 
                 }
             }
             else if (_state == STATE_INTRO)
@@ -2165,132 +2202,134 @@ namespace PikeAndShot
             }
             else if (_state == STATE_HOLD)
             {
-                holdWaveTimer += (float)timeSpan.TotalSeconds * 2f;
-
-                if (holdWaveTimer > MathHelper.Pi * 2f)
-                    holdWaveTimer -= (MathHelper.Pi * 2f);
-
-                tempDest.X = (float)Math.Cos(this.holdWaveTimer) / 2f * (float)timeSpan.TotalMilliseconds * _speed;
-                tempDest.Y = (holdUp ? -1 : 1) * (float)timeSpan.TotalMilliseconds * _speed;
-
-                _delta = _position + tempDest - _position;
-                double angle = Math.Atan2(_delta.Y, _delta.X);
-                double cos = Math.Cos(angle);
-                double sin = Math.Sin(angle);
-
-                _travel.X = (float)cos * (float)timeSpan.TotalMilliseconds * _speed;
-                _travel.Y = (float)sin * (float)timeSpan.TotalMilliseconds * _speed;
-
-                //fix the sign for the trig quadrant
-                if (_delta.X < 0)
-                    _travel.X *= -1;
-                if (_delta.Y < 0)
-                    _travel.Y *= -1;
-
-                if (_delta.X > 0)
+                if (colmillos.getState() != Colmillos.STATE_HOWL)
                 {
-                    if (_delta.X - _travel.X >= 0)
-                        _position.X += _travel.X;
-                    else
-                        _position.X = destinations[curDest].X;
-                }
-                else if (_delta.X < 0)
-                {
-                    if (_delta.X + _travel.X <= 0)
-                        _position.X -= _travel.X;
-                    else
-                        _position.X = destinations[curDest].X;
-                }
+                    holdWaveTimer += (float)timeSpan.TotalSeconds * 2f;
 
-                if (_delta.Y > 0)
-                {
-                    if (_delta.Y - _travel.Y >= 0)
-                        _position.Y += _travel.Y;
-                    else
-                        _position.Y = destinations[curDest].Y;
-                }
-                else if (_delta.Y < 0)
-                {
-                    if (_delta.Y + _travel.Y <= 0)
-                        _position.Y -= _travel.Y;
-                    else
-                        _position.Y = destinations[curDest].Y;
-                }
+                    if (holdWaveTimer > MathHelper.Pi * 2f)
+                        holdWaveTimer -= (MathHelper.Pi * 2f);
 
-                if (holdUp)
-                {
-                    if (_position.Y < this.edgeDist)
+                    _delta.X = (float)Math.Cos(this.holdWaveTimer) / 2f * (float)timeSpan.TotalMilliseconds * _speed;
+                    _delta.Y = (holdUp ? -1 : 1) * (float)timeSpan.TotalMilliseconds * _speed;
+
+                    double angle = Math.Atan2(_delta.Y, _delta.X);
+                    double cos = Math.Cos(angle);
+                    double sin = Math.Sin(angle);
+
+                    _travel.X = (float)cos * (float)timeSpan.TotalMilliseconds * _speed;
+                    _travel.Y = (float)sin * (float)timeSpan.TotalMilliseconds * _speed;
+
+                    //fix the sign for the trig quadrant
+                    if (_delta.X < 0)
+                        _travel.X *= -1;
+                    if (_delta.Y < 0)
+                        _travel.Y *= -1;
+
+                    if (_delta.X > 0)
                     {
-                        holdUp = !holdUp;
-                    }
-                }
-                else
-                {
-                    if (_position.Y > PikeAndShotGame.SCREENHEIGHT - this.edgeDist)
-                    {
-                        holdUp = !holdUp;
-                    }
-                }
-
-                if (colmillos.getState() != Colmillos.STATE_RISE && colmillos.getState() != Colmillos.STATE_DYING && colmillos.getState() != Colmillos.STATE_EATEN)
-                    colmillos._destination = _position;
-
-                wolfSpacing = (MathHelper.Pi * 2f) / (float)numberOfWolves;
-                patternTimer += (float)timeSpan.TotalMilliseconds / WOLF_PERIOD;
-                float tempPatternTimer = patternTimer;
-                int i = 1;
-                float xDist;
-                float yDist;
-                foreach (Soldier w in _soldiers)
-                {
-                    if (w is Wolf)
-                    {
-                        if (i % 2 > 0)
-                        {
-                            xDist = 0.75f;
-                            yDist = 0.45f;
-                        }
+                        if (_delta.X - _travel.X >= 0)
+                            _position.X += _travel.X;
                         else
-                        {
-                            xDist = 0.50f;
-                            yDist = 0.30f;
-                        }
-                        if (w.getState() != Wolf.STATE_SPOOKED)
-                        {
-                            w._destination.X = colmillos._position.X + this.getWidth() * xDist * Soldier.WIDTH * (float)Math.Cos((double)tempPatternTimer);
-                            w._destination.Y = colmillos._position.Y + this.getWidth() * yDist * Soldier.WIDTH * (float)Math.Sin((double)tempPatternTimer);
-                        }
-                        tempPatternTimer += wolfSpacing;
-
-                        float a = (this.getWidth() * xDist * Soldier.WIDTH * (float)Math.Abs((float)Math.Cos((double)tempPatternTimer))) / (this.getWidth() * xDist * Soldier.WIDTH);
-
-                        if (i % 2 == 0)
-                            a = a * 2f / 3f;
-
-                        ((Wolf)w)._runningFeet.setAnimationSpeed((w._footSpeed * 2 - w._footSpeed * (a)) / 0.11f);
-
-                        if (((w._destination.X > w._position.X && !((Wolf)w)._turned) || (w._destination.X < w._position.X && ((Wolf)w)._turned)) && (w.getState() != Wolf.STATE_TURNING))
-                        {
-                            ((Wolf)w).turn();
-                        }
-                        i++;
+                            _position.X = destinations[curDest].X;
                     }
-                }
-                wolvesTimer += (float)timeSpan.TotalMilliseconds;
-                if (wolfCount > 0)
-                {
-                    if (wolvesTimer >= WOLVES_INTERVAL)
+                    else if (_delta.X < 0)
+                    {
+                        if (_delta.X + _travel.X <= 0)
+                            _position.X -= _travel.X;
+                        else
+                            _position.X = destinations[curDest].X;
+                    }
+
+                    if (_delta.Y > 0)
+                    {
+                        if (_delta.Y - _travel.Y >= 0)
+                            _position.Y += _travel.Y;
+                        else
+                            _position.Y = destinations[curDest].Y;
+                    }
+                    else if (_delta.Y < 0)
+                    {
+                        if (_delta.Y + _travel.Y <= 0)
+                            _position.Y -= _travel.Y;
+                        else
+                            _position.Y = destinations[curDest].Y;
+                    }
+
+                    if (holdUp)
+                    {
+                        if (_position.Y < this.edgeDist)
+                        {
+                            holdUp = !holdUp;
+                        }
+                    }
+                    else
+                    {
+                        if (_position.Y > PikeAndShotGame.SCREENHEIGHT - this.edgeDist)
+                        {
+                            holdUp = !holdUp;
+                        }
+                    }
+
+                    if (colmillos.getState() != Colmillos.STATE_RISE && colmillos.getState() != Colmillos.STATE_DYING && colmillos.getState() != Colmillos.STATE_EATEN)
+                        colmillos._destination = _position;
+
+                    wolfSpacing = (MathHelper.Pi * 2f) / (float)numberOfWolves;
+                    patternTimer += (float)timeSpan.TotalMilliseconds / WOLF_PERIOD;
+                    float tempPatternTimer = patternTimer;
+                    int i = 1;
+                    float xDist;
+                    float yDist;
+                    foreach (Soldier w in _soldiers)
+                    {
+                        if (w is Wolf)
+                        {
+                            if (i % 2 > 0)
+                            {
+                                xDist = 0.75f;
+                                yDist = 0.45f;
+                            }
+                            else
+                            {
+                                xDist = 0.50f;
+                                yDist = 0.30f;
+                            }
+                            if (w.getState() != Wolf.STATE_SPOOKED)
+                            {
+                                w._destination.X = colmillos._position.X + this.getWidth() * xDist * Soldier.WIDTH * (float)Math.Cos((double)tempPatternTimer);
+                                w._destination.Y = colmillos._position.Y + this.getWidth() * yDist * Soldier.WIDTH * (float)Math.Sin((double)tempPatternTimer);
+                            }
+                            tempPatternTimer += wolfSpacing;
+
+                            float a = (this.getWidth() * xDist * Soldier.WIDTH * (float)Math.Abs((float)Math.Cos((double)tempPatternTimer))) / (this.getWidth() * xDist * Soldier.WIDTH);
+
+                            if (i % 2 == 0)
+                                a = a * 2f / 3f;
+
+                            ((Wolf)w)._runningFeet.setAnimationSpeed((w._footSpeed * 2 - w._footSpeed * (a)) / 0.11f);
+
+                            if (((w._destination.X > w._position.X && !((Wolf)w)._turned) || (w._destination.X < w._position.X && ((Wolf)w)._turned)) && (w.getState() != Wolf.STATE_TURNING))
+                            {
+                                ((Wolf)w).turn();
+                            }
+                            i++;
+                        }
+                    }
+                    wolvesTimer += (float)timeSpan.TotalMilliseconds;
+                    if (wolfCount > 0)
+                    {
+                        if (wolvesTimer >= WOLVES_INTERVAL)
+                        {
+                            wolvesTimer = 0;
+                            wolfCount--;
+                            launchWolf();
+                        }
+                    }
+                    else if (wolvesTimer >= WOLVES_TIME)
                     {
                         wolvesTimer = 0;
-                        wolfCount--;
+                        wolfCount = 2;
                         launchWolf();
                     }
-                }
-                else if (wolvesTimer >= WOLVES_TIME)
-                {
-                    wolvesTimer = 0;
-                    wolfCount = 2;
-                    launchWolf();
                 }
             }
         }
@@ -2313,6 +2352,7 @@ namespace PikeAndShot
                 if (launches > 3)
                 {
                     launches = 0;
+                    attacked = false;
                     colmillos.howl();
                     foreach (Soldier s in _soldiers)
                     {
@@ -2352,6 +2392,17 @@ namespace PikeAndShot
         {
             numberOfWolves++;
             patternTimer += ((float)Math.PI * 2f) / (numberOfWolves-1);
+        }
+
+
+        internal void setAttacked()
+        {
+            attacked = true;
+            foreach (Soldier s in _soldiers)
+            {
+                if (s is Wolf)
+                    ((Wolf)s).fleeStart();
+            }
         }
     }
 

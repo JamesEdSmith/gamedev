@@ -21,7 +21,7 @@ namespace PikeAndShot
     public class PikeAndShotGame : Microsoft.Xna.Framework.Game
     {
         public const bool DEBUG = true;
-        public const bool TEST_BOSS = false;
+        public const bool TEST_BOSS = true;
 
         public const int SCREENWIDTH = 1024;
         public const int SCREENHEIGHT = 768;

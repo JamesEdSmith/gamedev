@@ -91,7 +91,7 @@ namespace PikeAndShot
         protected float _plusMinus;
         protected bool _stateChanged;   //keeps track of if the state has changed already this update, so we don't do checks too much
         protected bool _shotMade;
-        protected bool _reacting;
+        public bool _reacting;
         protected int _longMelee;
         protected ScreenObject _killer;
 
@@ -1079,12 +1079,14 @@ namespace PikeAndShot
                     }*/
                     else if (this is Targeteer)
                     {
-                        if (((Targeteer)this)._hasShield)
+                        if (((Targeteer)this)._hasShield || this is Colmillos)
                         {
                             ((Targeteer)this).shield();
                             this.setReactionDest(collider.getCenter().X + 50f);//((collider.getSide() == BattleScreen.SIDE_ENEMY? 1 : -1 ) * collider.getWidth() * 0.5f + Soldier.WIDTH * 0.35f
-                            if(this is Colmillos)
+                            if (this is Colmillos)
+                            {
                                 ((Colmillos)this).myFormation._position.X = collider.getCenter().X + collider.getWidth() / 2 + 100f;
+                            }
                         }
                         else
                         {
@@ -1168,7 +1170,7 @@ namespace PikeAndShot
                             collisionPush(collider);
                         }
                         //fighting
-                        else if (_side != collider.getSide() && (thisInFormation || colliderInFormation) && !(this is Leader || collider is Leader) && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && collider.getState() != STATE_MELEE_WIN && collider.getState() != STATE_MELEE_LOSS && (!(collider is Targeteer) || collider.getState() != Targeteer.STATE_SHIELDBREAK) && (!(collider is DismountedCavalry) || collider.getState() != DismountedCavalry.STATE_FALLING))
+                        else if (_side != collider.getSide() && (thisInFormation || colliderInFormation) && !(this is Leader || collider is Leader) && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && collider.getState() != STATE_MELEE_WIN && collider.getState() != STATE_MELEE_LOSS && (!(collider is Targeteer) || collider.getState() != Targeteer.STATE_SHIELDBREAK) && (!(collider is DismountedCavalry) || collider.getState() != DismountedCavalry.STATE_FALLING) && (!(collider is Wolf) || collider.getState() != Wolf.STATE_KILL) && (!(this is Wolf) || this._state != Wolf.STATE_KILL))
                         {
                             bool rescueFight = (_side == BattleScreen.SIDE_PLAYER && !thisInFormation) ||
                                                (collider.getSide() == BattleScreen.SIDE_PLAYER && !colliderInFormation);
@@ -3242,18 +3244,8 @@ namespace PikeAndShot
         {
             if (_state != STATE_DYING && _state != STATE_DEAD && _state != STATE_RISE && _state != STATE_EATEN)
             {
-                //if (_side == BattleScreen.SIDE_ENEMY)
-                //{
-                    _state = STATE_ATTACK;
-                    _stateTimer = _attackTime;
-                    if (myFormation is ColmillosFormation)
-                        ((ColmillosFormation)myFormation).attacked = true;
-                //}
-                //else
-                //{
-                    //_state = STATE_HOWL;
-                  //  _stateTimer = _howlTime;
-                //}
+                _state = STATE_ATTACK;
+                _stateTimer = _attackTime;
 
                 return true;
             }
@@ -3329,12 +3321,17 @@ namespace PikeAndShot
             {
                 if (_state == STATE_ATTACK)
                 {
-                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
-
+                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                    ((Colmillos)this).myFormation._position.X = _position.X + 100f;
                     if (_stateTimer <= 0)
                     {
                         _stateTimer = 0;
                         _state = STATE_READY;
+                        if (myFormation is ColmillosFormation)
+                        {
+                            ((ColmillosFormation)myFormation).setAttacked();
+                            _reacting = false;
+                        }
                     }
                 }
                 else if (_state == STATE_RISE)
@@ -3533,15 +3530,12 @@ namespace PikeAndShot
             _destination = _position;
             hitSound.Play();
 
-            if (bossFormation != null)
-            {
-                if (bossFormation.getSoldiers().Contains(this))
-                {
-                    bossFormation.removeSoldier(this);
-                    bossFormation.reduceWolfNumber();
-                    _screen.addLooseSoldier(this);
-                }
-            }
+            
+        }
+
+        protected override void engage(bool win, Vector2 position, Soldier engager, bool rescueFight)
+        {
+            base.engage(win, position, engager, rescueFight);
         }
 
         public override void update(TimeSpan timeSpan)
@@ -3605,10 +3599,25 @@ namespace PikeAndShot
             
         }
 
-        void fleeStart()
+        internal void fleeStart()
         {
-            _state = STATE_FLEE;
-            alterDestination(true, _screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH + 201 - _destination.X);
+            if (!_turned)
+            {
+                flee = true;
+                turn();
+            }
+            else
+            {
+                _state = STATE_FLEE;
+                alterDestination(true, _screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH + 201 - _destination.X);
+                _screen.addLooseSoldier(this);
+                if (bossFormation.getSoldiers().Contains(this))
+                {
+                    ((ColmillosFormation)myFormation).reduceWolfNumber();
+                    myFormation.removeSoldier(this);
+                    _screen.addLooseSoldier(this);
+                }
+            }
         }
 
         public void turnDone()
@@ -3708,15 +3717,7 @@ namespace PikeAndShot
                     if (_stateTimer <= 0)
                     {
                         _stateTimer = _idleTime;
-                        if (!_turned)
-                        {
-                            flee = true;
-                            turn();
-                        }
-                        else
-                        {
-                            fleeStart();
-                        }
+                        fleeStart();
                     }
                 }
                 else if (_state == STATE_READY)
@@ -3735,15 +3736,7 @@ namespace PikeAndShot
                     if (_stateTimer <= 0)
                     {
                         _stateTimer = _idleTime;
-                        if (!_turned)
-                        {
-                            flee = true;
-                            turn();
-                        }
-                        else
-                        {
-                            fleeStart();
-                        }
+                        fleeStart();
                     }
                 }
                 else if (_state == STATE_FLEE)
@@ -3983,7 +3976,7 @@ namespace PikeAndShot
 
         protected override bool checkReactions(TimeSpan timeSpan)
         {
-            if (_hasShield)
+            if (_hasShield || this is Colmillos)
             {
                 if (_screen.findPikeTip(this, 0.30f))
                 {
@@ -4142,7 +4135,8 @@ namespace PikeAndShot
                 }
                 else
                 {
-                    coverDone();
+                    if(_state == STATE_COVER)
+                        coverDone();
                 }
             }
             else
