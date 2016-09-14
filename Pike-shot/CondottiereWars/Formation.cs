@@ -2070,19 +2070,18 @@ namespace PikeAndShot
                     }
 
                     Vector2 target;
-                    Vector2 _path;
                     if (colmillos.getState() != Colmillos.STATE_ATTACKING && colmillos.getState() != Colmillos.STATE_SHIELDBREAK)
                     {
                         if (!attacked)
                         {
                             target = _screen.getPlayerFormation().getCenter();
-                            _path = target - _position;
+                            _delta = target - _position;
                         }
                         else
                         {
                             target = new Vector2(_screen.getMapOffset().X + 800, PikeAndShotGame.SCREENHEIGHT / 2);
-                            _path = target - _position;
-                            if (_path.X <= 0)
+                            _delta = target - _position;
+                            if (_delta.X <= 0)
                             {
                                 colmillos.howl();
                                 foreach (Soldier s in _soldiers)
@@ -2094,7 +2093,7 @@ namespace PikeAndShot
                             }
                         }
 
-                        double angle = Math.Atan2(_path.Y, _path.X);
+                        double angle = Math.Atan2(_delta.Y, _delta.X);
                         double cos = Math.Cos(angle);
                         double sin = Math.Sin(angle);
 
