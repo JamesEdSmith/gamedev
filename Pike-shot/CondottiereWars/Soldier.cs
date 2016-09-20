@@ -427,7 +427,7 @@ namespace PikeAndShot
                 && ((_state != Soldier.STATE_CHARGING || !initCharge )|| !(this is CrossbowmanPavise))
                 && ((_state != CrossbowmanPavise.STATE_PLACING) || !(this is CrossbowmanPavise))
                 && ((_state != CrossbowmanPavise.STATE_RETRIEVING) || !(this is CrossbowmanPavise))
-                && ((_state != Wolf.STATE_KILL) || !(this is Wolf)))
+                && ((_state != Wolf.STATE_KILL && _state != Wolf.STATE_HOWLING) || !(this is Wolf)))
             {                
                 _delta = _destination - _position;
                 _dest = _destination;
@@ -3203,6 +3203,7 @@ namespace PikeAndShot
             hitSound = chargeSound;
 
             hasArmour = true;
+            _speed = 0.4f;
         }
 
         protected override void shieldDone()
@@ -3307,6 +3308,11 @@ namespace PikeAndShot
             }
             else if (_state == STATE_EATEN)
             {
+                addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f));
+            }
+            else if (((ColmillosFormation)myFormation).attacked)
+            {
+                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY,true,100f));
                 addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f));
             }
             else
@@ -3433,6 +3439,7 @@ namespace PikeAndShot
             {
                 _state = STATE_HOWL;
                 _stateTimer = _howlTime;
+                _reacting = false;
             }
         }
 
@@ -3471,6 +3478,7 @@ namespace PikeAndShot
         public ColmillosFormation bossFormation;
 
         public bool flee;
+        public bool retreat;
         private bool playAttackSound;
 
         public Wolf(BattleScreen screen, float x, float y, int side)
@@ -3487,8 +3495,8 @@ namespace PikeAndShot
             _turned = false;
             _killTime = 1500f;
 
-            bool flee = false;
-
+            flee = false;
+            retreat = false;
 
             if (PikeAndShotGame.random.Next(2) == 0)
             {
@@ -3518,7 +3526,7 @@ namespace PikeAndShot
             _howlFeet.setMaxFrames(_howlFeet.getMaxFrames() - 1);
             _body = _idle;
             _footSpeed = 6.5f;
-            _speed = 0.22f;
+            _speed = 0.24f;
             _feet.setAnimationSpeed(_footSpeed/0.11f);
             
         }
@@ -3556,6 +3564,14 @@ namespace PikeAndShot
             }
         }
 
+        internal override void setSpeed(float p)
+        {
+//            if (p < 0.23f)
+  //              Console.WriteLine("ARG");
+            _speed = p;
+            _feet.setAnimationSpeed(_footSpeed / (_speed - 0.13f));
+        }
+
         protected override void winMelee()
         {
             base.winMelee();
@@ -3589,14 +3605,30 @@ namespace PikeAndShot
             _state = STATE_HOWLING;
             _stateTimer = _howlTime;
             chargeSound.Play();
+            _meleeDestination = _position;
         }
 
         public bool turn()
         {
-            _state = STATE_TURNING;
-            _stateTimer = _turnTime;
+            if (_state != STATE_HOWLING)
+            {
+                _state = STATE_TURNING;
+                _stateTimer = _turnTime;
+            }
             return true;
-            
+        }
+
+        internal void retreatStart()
+        {
+            if (!_turned)
+            {
+                retreat = true;
+                turn();
+            }
+            else
+            {
+                _state = STATE_FLEE;
+            }
         }
 
         internal void fleeStart()
@@ -3628,6 +3660,11 @@ namespace PikeAndShot
             {
                 flee = false;
                 fleeStart();
+            }
+            else if (retreat)
+            {
+                retreat = false;
+                retreatStart();
             }
             else
             {
@@ -3667,7 +3704,7 @@ namespace PikeAndShot
             }
             _drawingPosition = _position + _randDestOffset - _screen.getMapOffset() + new Vector2(turnOffset,0);
 
-            if(_state == STATE_FLEE || flee == true)
+            if (_state == STATE_FLEE || flee == true || retreat == true || _state == STATE_HOWLING)
                 addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), (_state != STATE_RETREAT && _state != STATE_ROUTED && !_turned) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || _state == STATE_KILL) ? _side : _side * -1, _drawingY, true, 100f));
             else if (_state != STATE_DEAD)
             {
@@ -4137,6 +4174,80 @@ namespace PikeAndShot
                 {
                     if(_state == STATE_COVER)
                         coverDone();
+                    if (_state == Colmillos.STATE_ATTACK)
+                    {
+                        _delta = _meleeDestination - _position;
+                        _dest = _meleeDestination;
+                        //_travel = (float)timeSpan.TotalMilliseconds * _speed;
+                        float absDeltaX = Math.Abs(_delta.X);
+                        float absDeltaY = Math.Abs(_delta.Y);
+                        _travel.X = (absDeltaX / (absDeltaX + absDeltaY)) * (float)timeSpan.TotalMilliseconds * _speed;
+                        _travel.Y = (absDeltaY / (absDeltaX + absDeltaY)) * (float)timeSpan.TotalMilliseconds * _speed;
+
+                        // check to see if walking
+                        if (_delta.Length() != 0)
+                        {
+                            if (!_feet.getPlaying())
+                            {
+                                _feet.play();
+                                _feet.nextFrame();
+                            }
+                            if (!_retreat.getPlaying())
+                            {
+                                _retreat.play();
+                                _retreat.nextFrame();
+                            }
+                        }
+                        else
+                        {
+                            _feet.stop();
+                            _feet.reset();
+                            _retreat.stop();
+                            _retreat.reset();
+                        }
+
+                        _feet.update(timeSpan);
+                        _retreat.update(timeSpan);
+
+                        if (_feet.getCurrFrame() % 2 > 0)
+                            _jostleOffset.Y = 1f;
+                        else
+                            _jostleOffset.Y = 0f;
+
+                        // as long as we are not at destination, keep trying to get there, but don't overshoot
+                        if (_delta.X > 0)
+                        {
+                            if (_delta.X - _travel.X >= 0)
+                                _position.X += _travel.X;
+                            else
+                                _position.X = _dest.X;
+                        }
+                        else if (_delta.X < 0)
+                        {
+                            if (_delta.X + _travel.X <= 0)
+                                _position.X -= _travel.X;
+                            else
+                                _position.X = _dest.X;
+                        }
+
+                        if (_delta.Y > 0)
+                        {
+                            if (_delta.Y - _travel.Y >= 0)
+                                _position.Y += _travel.Y;
+                            else
+                                _position.Y = _dest.Y;
+                        }
+                        else if (_delta.Y < 0)
+                        {
+                            if (_delta.Y + _travel.Y <= 0)
+                                _position.Y -= _travel.Y;
+                            else
+                                _position.Y = _dest.Y;
+                        }
+
+                        return false;
+                    }
+
                 }
             }
             else
@@ -4150,14 +4261,14 @@ namespace PikeAndShot
 
         public void shield()
         {
-            if (!_hasShield)
+            if (!_hasShield && !(this is Colmillos) )
                 return;
             else if (_state != STATE_DEFEND && _state != Colmillos.STATE_ATTACK)
             {
                 if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
                     _engager.setState(_engager.preAttackState);
 
-                _defendTimer = (this is Colmillos) ? _attackTime : _meleeTime * 2f / 3f;
+                _defendTimer = (this is Colmillos) ? 0 : _meleeTime * 2f / 3f;
                 preAttackState = _state != STATE_MELEE_WIN && _state != STATE_MELEE_LOSS && _state != STATE_DEFEND ? _state : STATE_READY;
                 _reacting = true;
                 _state = (this is Colmillos) ? Colmillos.STATE_ATTACK : STATE_DEFEND;
@@ -4422,6 +4533,11 @@ namespace PikeAndShot
                     {
                         _stateTimer = 0;
                         _state = STATE_READY;
+                        if (myFormation is ColmillosFormation)
+                        {
+                            ((ColmillosFormation)myFormation).setAttacked();
+                            _reacting = false;
+                        }
                     }
                 }
                 else if (_state == STATE_COVER || _state == STATE_CHARGED)

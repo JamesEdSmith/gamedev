@@ -617,7 +617,7 @@ namespace PikeAndShot
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
 
-            THEME_1 = Content.Load<Song>(@"theme");
+            THEME_1 = Content.Load<Song>(@"boss01");
             SHOT_0 = Content.Load<SoundEffect>(@"shot00");
             SHOT_1 = Content.Load<SoundEffect>(@"shot01");
             SHOT_2 = Content.Load<SoundEffect>(@"shot02");

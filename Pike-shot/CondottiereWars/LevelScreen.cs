@@ -151,7 +151,7 @@ namespace PikeAndShot
 
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 0.6f;
-            //MediaPlayer.Play(PikeAndShotGame.THEME_1);
+            MediaPlayer.Play(PikeAndShotGame.THEME_1);
             doppelType = true;
         }
 

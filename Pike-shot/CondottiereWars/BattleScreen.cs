@@ -280,12 +280,21 @@ namespace PikeAndShot
             {
                 if (so is Wolf)
                 {
-                    if (so.getState() != Wolf.STATE_SPOOKED && so.getState() != Wolf.STATE_FLEE && (so.getState() != Wolf.STATE_TURNING || !((Wolf)so).flee))
+                    if (so.getState() != Wolf.STATE_SPOOKED && so.getState() != Wolf.STATE_HOWLING && so.getState() != Wolf.STATE_FLEE && (so.getState() != Wolf.STATE_TURNING || !((Wolf)so).flee))
                         _screenColliders.Add(so);
                     else
                         _screenNonColliders.Add(so);
                 }
-                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && so.getState() != Colmillos.STATE_EATEN && so.getState() != Colmillos.STATE_RISE)
+                else if (so is Colmillos)
+                {
+                    if (((ColmillosFormation)((Colmillos)so).myFormation).attacked || so.getState() == Colmillos.STATE_EATEN || so.getState() == Colmillos.STATE_RISE)
+                    {
+                        _screenNonColliders.Add(so);
+                    }
+                    else
+                        _screenColliders.Add(so);
+                }
+                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING)
                     _screenColliders.Add(so);
                 else
                     _screenNonColliders.Add(so);
