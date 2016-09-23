@@ -56,12 +56,12 @@ namespace PikeAndShot
 
         protected double _elapsedTime;
         protected Vector2 _mapOffset;
-        protected bool _active;
+        public bool playerInPlay;
 
         public BattleScreen(PikeAndShotGame game)
         {
             _game = game;
-            _active = false;
+            playerInPlay = true;
 
             //shot and clean up arrays
             _shots = new ArrayList(40);
@@ -294,7 +294,7 @@ namespace PikeAndShot
                     else
                         _screenColliders.Add(so);
                 }
-                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING)
+                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay))
                     _screenColliders.Add(so);
                 else
                     _screenNonColliders.Add(so);

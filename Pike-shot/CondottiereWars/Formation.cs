@@ -1991,9 +1991,11 @@ namespace PikeAndShot
         public const int STATE_INTRO = 300;
         public const int STATE_HOLD = 301;
         public const int STATE_CHARGE = 302;
-        
+        public const int STATE_END = 303;
+
+        const float CHARGE_SPEED = 1.25f;
         const float WOLF_PERIOD = 650f;
-        private const float WOLVES_TIME = 4000f;
+        private const float WOLVES_TIME = 1000f;
         private const float WOLVES_INTERVAL = 1000f;
         
         float wolvesTimer;
@@ -2078,11 +2080,15 @@ namespace PikeAndShot
                                     if (s is Wolf)
                                     {
                                         ((Wolf)s).howl();
-                                        s.setSpeed(0.24f);
                                     }
                                 }
                                 _state = STATE_HOLD;
-                                _speed /= 3f;
+                                _speed /= CHARGE_SPEED;
+                                foreach (Soldier s in _soldiers)
+                                {
+                                    s.setSpeed(s.getSpeed() / CHARGE_SPEED);
+                                }
+
                                 int wolvesToAdd = 20 - numberOfWolves;
                                 for (int j = 0; j < wolvesToAdd; j++)
                                 {
@@ -2136,14 +2142,8 @@ namespace PikeAndShot
                         }
 
 
-                        if (colmillos._reacting)
-                        {
-                            colmillos._meleeDestination = _position - new Vector2(100f, 0f);
-                        }
-                        else if ((colmillos.getState() == Soldier.STATE_READY && attacked) || colmillos.getState() == Colmillos.STATE_HOWL)
+                        if (colmillos.getState() != Colmillos.STATE_RISE && colmillos.getState() != Colmillos.STATE_DYING && colmillos.getState() != Colmillos.STATE_EATEN)
                             colmillos._destination = _position;
-                        else if (colmillos.getState() != Colmillos.STATE_RISE && colmillos.getState() != Colmillos.STATE_DYING && colmillos.getState() != Colmillos.STATE_EATEN)
-                            colmillos._destination = _position - new Vector2(100f, 0f);
 
                         wolfSpacing = (MathHelper.Pi * 2f) / (float)numberOfWolves;
                         //patternTimer += (float)timeSpan.TotalMilliseconds / WOLF_PERIOD;
@@ -2166,7 +2166,7 @@ namespace PikeAndShot
                                     xDist = 0.50f;
                                     yDist = 0.30f;
                                 }
-                                if (w.getState() != Wolf.STATE_SPOOKED)
+                                if (w.getState() != Wolf.STATE_SPOOKED /*&& w.getState() != Wolf.STATE_DEFEND*/)
                                 {
                                     w._destination.X = _position.X + this.getWidth() * xDist * Soldier.WIDTH * (float)Math.Cos((double)tempPatternTimer);
                                     w._destination.Y = _position.Y + this.getWidth() * yDist * Soldier.WIDTH * (float)Math.Sin((double)tempPatternTimer);
@@ -2186,8 +2186,7 @@ namespace PikeAndShot
                                 }
                                 i++;
                             }
-                        }
-                        
+                        }                 
                     }
                 }
             }
@@ -2197,11 +2196,10 @@ namespace PikeAndShot
             }
             else if (_state == STATE_HOLD)
             {
-                attacked = false;
 
                 if (colmillos.getState() != Colmillos.STATE_HOWL)
                 {
-
+                    attacked = false;
                     holdWaveTimer += (float)timeSpan.TotalSeconds * 2f;
 
                     if (holdWaveTimer > MathHelper.Pi * 2f)
@@ -2358,11 +2356,14 @@ namespace PikeAndShot
                         if (s is Wolf)
                         {
                             ((Wolf)s).attack();
-                            s.setSpeed(0.31f);
                         }
                     }
                     _state = STATE_CHARGE;
-                    _speed *= 3f;
+                    _speed *= CHARGE_SPEED;
+                    foreach (Soldier s in _soldiers)
+                    {
+                        s.setSpeed(s.getSpeed() * CHARGE_SPEED);
+                    }
                 }
                 else
                 {
@@ -2404,6 +2405,13 @@ namespace PikeAndShot
                 if (s is Wolf)
                     ((Wolf)s).retreatStart();
             }
+        }
+
+        internal void setEnd()
+        {
+            _state = STATE_END;
+            _position = colmillos.getPosition();
+            _screen.playerInPlay = false;
         }
     }
 

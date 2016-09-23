@@ -1083,10 +1083,6 @@ namespace PikeAndShot
                         {
                             ((Targeteer)this).shield();
                             this.setReactionDest(collider.getCenter().X + 50f);//((collider.getSide() == BattleScreen.SIDE_ENEMY? 1 : -1 ) * collider.getWidth() * 0.5f + Soldier.WIDTH * 0.35f
-                            if (this is Colmillos)
-                            {
-                                ((Colmillos)this).myFormation._position.X = collider.getCenter().X + collider.getWidth() / 2 + 100f;
-                            }
                         }
                         else
                         {
@@ -3291,7 +3287,10 @@ namespace PikeAndShot
                 shieldBreakSound.Play();
             }
             else
+            {
                 hit();
+                ((ColmillosFormation)myFormation).setEnd();
+            }
         }
 
         public override void draw(SpriteBatch spritebatch)
@@ -3537,8 +3536,7 @@ namespace PikeAndShot
             _stateTimer = _deathTime;
             _destination = _position;
             hitSound.Play();
-
-            
+            //_screen.removeScreenObject(_shieldBlock);
         }
 
         protected override void engage(bool win, Vector2 position, Soldier engager, bool rescueFight)
@@ -3620,6 +3618,7 @@ namespace PikeAndShot
 
         internal void retreatStart()
         {
+            _reacting = false;
             if (!_turned)
             {
                 retreat = true;
@@ -3633,6 +3632,7 @@ namespace PikeAndShot
 
         internal void fleeStart()
         {
+            _reacting = false;
             if (!_turned)
             {
                 flee = true;
@@ -3655,7 +3655,7 @@ namespace PikeAndShot
         public void turnDone()
         {
             _turned = !_turned;
-
+            
             if (flee)
             {
                 flee = false;
@@ -3665,6 +3665,14 @@ namespace PikeAndShot
             {
                 retreat = false;
                 retreatStart();
+            }
+            else if (myFormation is ColmillosFormation)
+            {
+                if(((ColmillosFormation)myFormation).attacked)
+                    retreatStart();
+                else
+                    _state = STATE_READY;
+
             }
             else
             {
@@ -3864,7 +3872,7 @@ namespace PikeAndShot
                 _feet = _death;
             else if (_state == STATE_KILL)
                 _feet = _killFeet;
-            else if (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS)
+            else if (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS /*|| _state == STATE_DEFEND*/)
                 _feet = _body;
             else if (_state == STATE_HOWLING)
                 _feet = _howlFeet;
