@@ -369,7 +369,6 @@ namespace PikeAndShot
                     _speed = 0.15f;
                     guarding = false;
                 }
-                    
             }
 
             if (_stateToHave != -1)
@@ -378,7 +377,7 @@ namespace PikeAndShot
                 _stateToHave = -1;
             }
 
-            if (_reacting && /*!(this is Colmillos) &&*/ _state != STATE_DEAD && _state != STATE_DYING
+            if (_reacting && _state != STATE_DEAD && _state != STATE_DYING && _state != Targeteer.STATE_SHIELDBREAK
                 && _state != STATE_MELEE_LOSS && _state != STATE_MELEE_WIN
                 && (_state != Cavalry.STATE_SLOWDOWN || !(this is Cavalry)) && (_state != Cavalry.STATE_TURNING || !(this is Cavalry)))
             {
@@ -3553,7 +3552,7 @@ namespace PikeAndShot
             {
                 if (!bossFormation.getSoldiers().Contains(this))
                 {
-                    if (_position.X < (_screen.getMapOffset().X - 200) || _position.X > (_screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH + 200))
+                    if (_position.X < (_screen.getMapOffset().X - 50) || _position.X > (_screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH + 200))
                     {
                         _state = STATE_DEAD;
                         setSpeed(0.24f);
@@ -3665,14 +3664,6 @@ namespace PikeAndShot
             {
                 retreat = false;
                 retreatStart();
-            }
-            else if (myFormation is ColmillosFormation)
-            {
-                if(((ColmillosFormation)myFormation).attacked)
-                    retreatStart();
-                else
-                    _state = STATE_READY;
-
             }
             else
             {
@@ -4184,6 +4175,7 @@ namespace PikeAndShot
                         coverDone();
                     if (_state == Colmillos.STATE_ATTACK)
                     {
+                        _meleeDestination = _screen.getPlayerFormation().getCenter();
                         _delta = _meleeDestination - _position;
                         _dest = _meleeDestination;
                         //_travel = (float)timeSpan.TotalMilliseconds * _speed;

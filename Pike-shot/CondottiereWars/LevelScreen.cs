@@ -763,7 +763,7 @@ namespace PikeAndShot
                     bool bool1 = ef.getCenter().X - _formation.getCenter().X <= Soldier.WIDTH * 10f;
                     bool bool2 = ef.getCenter().X - _formation.getCenter().X > 0;
                     bool bool3 = Math.Abs(ef.getCenter().Y - _formation.getCenter().Y) < (float)_formation.getWidth() * Soldier.HEIGHT * 0.5f /*+ (float)ef.getHeight() * 0.5f*/;
-                    if (ef.getSide() == BattleScreen.SIDE_ENEMY && (bool1 && bool2) && bool3)
+                    if (ef.getSide() == BattleScreen.SIDE_ENEMY && !(ef is Wolf) && (bool1 && bool2) && bool3)
                     {
                         enemies.Add(ef);
                     }
@@ -775,7 +775,7 @@ namespace PikeAndShot
                 bool bool1 = ef.getCenter().X - _formation.getCenter().X <= Soldier.WIDTH * 10f;
                 bool bool2 = ef.getCenter().X - _formation.getCenter().X > 0;
                 bool bool3 = Math.Abs(ef.getCenter().Y - _formation.getCenter().Y) < (float)_formation.getWidth() * Soldier.HEIGHT * 0.5f + (float)ef.getHeight() * 0.5f;
-                if ((bool1 && bool2) && bool3 && ef.getState() != Soldier.STATE_DEAD && ef.getState() != Soldier.STATE_DYING && ef.getSide() == SIDE_ENEMY)
+                if ((bool1 && bool2) && bool3 && ef.getState() != Soldier.STATE_DEAD && ef.getState() != Soldier.STATE_DYING && ef.getSide() == SIDE_ENEMY && !(ef is Wolf))
                 {
                     enemies.Add(ef);
                 }
@@ -788,7 +788,7 @@ namespace PikeAndShot
                     bool bool1 = ef.getCenter().X - _formation.getCenter().X <= Soldier.WIDTH * 10f;
                     bool bool2 = ef.getCenter().X - _formation.getCenter().X > 0;
                     bool bool3 = Math.Abs(ef.getCenter().Y - _formation.getCenter().Y) < (float)_formation.getWidth() * Soldier.HEIGHT * 0.5f /*+ (float)ef.getHeight() * 0.5f*/;
-                    if (ef.getSide() == BattleScreen.SIDE_ENEMY && (bool1 && bool2) && bool3)
+                    if (ef.getSide() == BattleScreen.SIDE_ENEMY && (bool1 && bool2) && bool3 && !(ef is Wolf))
                     {
                         enemies.Add(ef);
                     }
