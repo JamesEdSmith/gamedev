@@ -150,8 +150,8 @@ namespace PikeAndShot
                 sfx.Volume = 0.25f;
 
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = 0.6f;
-            //MediaPlayer.Play(PikeAndShotGame.THEME_1);
+            MediaPlayer.Volume = 0.5f;
+            MediaPlayer.Play(PikeAndShotGame.THEME_1);
             doppelType = true;
         }
 
@@ -929,8 +929,8 @@ namespace PikeAndShot
             {
                 _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[PikeAndShotGame.random.Next(7)], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
             }
-            //MediaPlayer.Stop();
-            //MediaPlayer.Play(PikeAndShotGame.THEME_1);
+            MediaPlayer.Stop();
+            MediaPlayer.Play(PikeAndShotGame.THEME_1);
         }
 
         internal void makeShotSound()

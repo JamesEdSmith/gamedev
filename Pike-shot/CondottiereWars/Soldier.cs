@@ -3166,6 +3166,10 @@ namespace PikeAndShot
 
         bool hasArmour;
 
+        protected SoundEffectInstance hurtSound;
+        protected SoundEffectInstance yellSound;
+        protected SoundEffectInstance slash;
+
         public Colmillos(BattleScreen screen, float x, float y, int side)
             : base(screen, x, y, side)
         {
@@ -3199,6 +3203,10 @@ namespace PikeAndShot
 
             hasArmour = true;
             _speed = 0.4f;
+
+            hurtSound = PikeAndShotGame.COLMILLOS_HURT.CreateInstance();
+            yellSound = PikeAndShotGame.COLMILLOS_YELL.CreateInstance();
+            slash = PikeAndShotGame.SLASH.CreateInstance();
         }
 
         protected override void shieldDone()
@@ -3251,6 +3259,7 @@ namespace PikeAndShot
 
         public override void shieldBreak()
         {
+            hurtSound.Play();
             if (_hasShield)
             {
                 if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
@@ -3379,7 +3388,7 @@ namespace PikeAndShot
                 }
             }
         }
-
+        int prevFrame = 0;
         protected override void updateAnimation(TimeSpan timeSpan)
         {
             base.updateAnimation(timeSpan);
@@ -3390,8 +3399,25 @@ namespace PikeAndShot
                 float frameTime = _attackTime / (float)maxFrames;
                 int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
 
+                if (_hasShield)
+                {
+                    if ((prevFrame == 8 && frameNumber == 9) || (prevFrame == 17 && frameNumber == 18))
+                        slash.Play();
+                }
+                else if (hasArmour)
+                {
+                    if ((prevFrame == 8 && frameNumber == 9) || (prevFrame == 12 && frameNumber == 13) || (prevFrame == 5 && frameNumber == 6))
+                        slash.Play();
+                }
+                else
+                {
+                    if ((prevFrame == 6 && frameNumber == 7) || (prevFrame == 12 && frameNumber == 13) || (prevFrame == 21 && frameNumber == 22))
+                        slash.Play();
+                }
+
                 _attack.setFrame(frameNumber);
                 _body = _attack;
+                prevFrame = frameNumber;
             }
             else if (_state == STATE_RISE)
             {
@@ -3438,6 +3464,7 @@ namespace PikeAndShot
                 _state = STATE_HOWL;
                 _stateTimer = _howlTime;
                 _reacting = false;
+                yellSound.Play();
             }
         }
 
@@ -4247,7 +4274,10 @@ namespace PikeAndShot
 
                         return false;
                     }
-
+                    else if (_state == Colmillos.STATE_RUN)
+                    {
+                        _reacting = false;
+                    }
                 }
             }
             else

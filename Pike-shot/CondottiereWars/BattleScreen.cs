@@ -317,6 +317,13 @@ namespace PikeAndShot
                         soWidth = so.getWidth();
                         soHeight = so.getHeight() + 10;
                     }
+                    else if (so is Wolf)
+                    {
+                        soX = so.getPosition().X;
+                        soY = so.getPosition().Y - 5;
+                        soWidth = so.getWidth();
+                        soHeight = so.getHeight() + 5;
+                    }
                     else
                     {
                         soX = so.getPosition().X;
@@ -335,6 +342,13 @@ namespace PikeAndShot
                                 coY = co.getPosition().Y - 10;
                                 coWidth = co.getWidth();
                                 coHeight = co.getHeight() + 10;
+                            }
+                            else if (co is Wolf)
+                            {
+                                coX = co.getPosition().X;
+                                coY = co.getPosition().Y - 5;
+                                coWidth = co.getWidth();
+                                coHeight = co.getHeight() + 5;
                             }
                             else
                             {

@@ -2226,6 +2226,24 @@
       <Extra>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\boss01.wma</Extra>
       <Time>2016-09-18T09:40:20.0833116-04:00</Time>
     </Item>
+    <Item>
+      <Source>arg.wav</Source>
+      <Name>arg</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\arg.xnb</Output>
+      <Time>2016-09-24T00:51:55.1659062-04:00</Time>
+    </Item>
+    <Item>
+      <Source>boss.wav</Source>
+      <Name>boss</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\boss.xnb</Output>
+      <Time>2016-09-24T00:42:31.4906658-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

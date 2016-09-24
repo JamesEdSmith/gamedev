@@ -2057,7 +2057,7 @@ namespace PikeAndShot
             //boss behaviour code
             if (_state == STATE_CHARGE)
             {
-                if (colmillos.getState() != Colmillos.STATE_HOWL)
+                if (((Soldier)_soldiers[_soldiers.Count-1]).getState() != Wolf.STATE_ATTACK)
                 {
                     if (!attacked && colmillos.getState() != Colmillos.STATE_RUN && colmillos.getState() != Colmillos.STATE_ATTACK && colmillos.getState() != Colmillos.STATE_SHIELDBREAK && colmillos.getState() != Colmillos.STATE_DYING)
                     {
@@ -2336,7 +2336,7 @@ namespace PikeAndShot
                 {
                     launches = 0;
                     attacked = false;
-                    colmillos.howl();
+                    //colmillos.howl();
                     foreach (Soldier s in _soldiers)
                     {
                         if (s is Wolf && s.getState() != Wolf.STATE_FLEE && !((Wolf)s).flee)

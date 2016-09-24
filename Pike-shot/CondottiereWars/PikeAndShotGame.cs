@@ -317,6 +317,8 @@ namespace PikeAndShot
         public static SoundEffect POWER_UP;
         public static SoundEffect DOPPEL_UP;
         public static SoundEffect DOPPEL_DOWN;
+        public static SoundEffect COLMILLOS_HURT;
+        public static SoundEffect COLMILLOS_YELL;
 
         private ArrayList _gameScreens;
         private BattleScreen _currScreen;
@@ -651,6 +653,8 @@ namespace PikeAndShot
             POWER_UP = Content.Load<SoundEffect>(@"loaded");
             DOPPEL_DOWN = Content.Load<SoundEffect>(@"downbeat");
             DOPPEL_UP = Content.Load<SoundEffect>(@"loot_sound");
+            COLMILLOS_HURT = Content.Load<SoundEffect>(@"arg");
+            COLMILLOS_YELL = Content.Load<SoundEffect>(@"boss");
 
             _gameScreens = new ArrayList(3);
 
