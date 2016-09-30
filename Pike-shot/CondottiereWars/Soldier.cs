@@ -789,7 +789,7 @@ namespace PikeAndShot
         {
             _stateTimer = 0f;
             _state = preAttackState;
-            if (myFormation.retreated)
+            if (myFormation != null && myFormation.retreated)
                 route();
             _stateChanged = true;
         }
@@ -1052,7 +1052,7 @@ namespace PikeAndShot
                     else
                         hit();
                 }
-                else if (!(this is Leader) && (this._side == BattleScreen.SIDE_ENEMY || _screen.getPlayerFormation().getSoldiers().Contains(this)))
+                else if (!(this is Leader) && (this._side == BattleScreen.SIDE_ENEMY || _screen.getPlayerFormation() == this.myFormation))
                     hit();
 
                 ((Shot)collider).hit();
@@ -1094,14 +1094,29 @@ namespace PikeAndShot
             }
             else if ((collider is WeaponSwing && collider.getSide() != _side) && (_state != STATE_DEAD && _state != STATE_DYING && _state != STATE_ROUTE && _state != STATE_ROUTED))
             {
-                if (this is Targeteer)
+                if (((WeaponSwing)collider).getSoldier() is Colmillos)
+                {
+                    if (!((WeaponSwing)collider).hit)
+                    {
+                        if (this is Targeteer)
+                            ((Targeteer)this).shieldBreak();
+                        else
+                        {
+                            hit();
+                            _killer = collider;
+                        }
+                        ((WeaponSwing)collider).hit = true;
+                        _screen.removeScreenObject(collider);
+                    }
+
+                }
+                else if (this is Targeteer)
                     ((Targeteer)this).shieldBreak();
                 else
                 {
                     hit();
                     _killer = collider;
                 }
-
             }
             else if ((collider is LanceTip && collider.getSide() != _side) && (_state != STATE_DEAD && _state != STATE_DYING && _state != STATE_MELEE_WIN && _state != STATE_MELEE_LOSS && _state != STATE_ROUTE && _state != STATE_ROUTED))
             {
@@ -1118,8 +1133,8 @@ namespace PikeAndShot
                 bool thisInFormation = false;
                 if (_screen.getPlayerFormation() != null && _screen.getPlayerFormation().getSoldiers() != null)
                 {
-                    colliderInFormation = _screen.getPlayerFormation().getSoldiers().Contains(collider);
-                    thisInFormation = _screen.getPlayerFormation().getSoldiers().Contains(this);
+                    colliderInFormation = ((Soldier)collider).myFormation == _screen.getPlayerFormation();
+                    thisInFormation = myFormation == _screen.getPlayerFormation();
                 }
                 if (_state != STATE_DEAD && _state != STATE_DYING && _state != STATE_MELEE_WIN && _state != STATE_MELEE_LOSS && (!(this is Targeteer) || _state != Targeteer.STATE_SHIELDBREAK) && (!(this is DismountedCavalry) || _state != DismountedCavalry.STATE_FALLING))
                 {
@@ -1145,7 +1160,7 @@ namespace PikeAndShot
                         }
                     }
                     //push from collisions with other charging enemy soldiers
-                    else if (_screen.getLooseSoldiers().Contains(this) && _screen.getLooseSoldiers().Contains(collider)
+                    else if (myFormation == null && ((Soldier)collider).myFormation == null
                         && _side == BattleScreen.SIDE_ENEMY && collider.getSide() == BattleScreen.SIDE_ENEMY
                         && (collider.getState() != STATE_DYING && collider.getState() != STATE_DEAD))
                     {
@@ -1168,8 +1183,22 @@ namespace PikeAndShot
                         else if (_side != collider.getSide() && (thisInFormation || colliderInFormation) && !(this is Leader || collider is Leader) && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && collider.getState() != STATE_MELEE_WIN && collider.getState() != STATE_MELEE_LOSS && (!(collider is Targeteer) || collider.getState() != Targeteer.STATE_SHIELDBREAK) && (!(collider is DismountedCavalry) || collider.getState() != DismountedCavalry.STATE_FALLING) && (!(collider is Wolf) || collider.getState() != Wolf.STATE_KILL) && (!(this is Wolf) || this._state != Wolf.STATE_KILL))
                         {
                             bool rescueFight = (_side == BattleScreen.SIDE_PLAYER && !thisInFormation) ||
-                                               (collider.getSide() == BattleScreen.SIDE_PLAYER && !colliderInFormation);
-                            if (this is Dopple)
+                                                (collider.getSide() == BattleScreen.SIDE_PLAYER && !colliderInFormation);
+
+                            if (this is Colmillos)
+                            {
+                                if (_state != Colmillos.STATE_ATTACK)
+                                    attack();
+                                _destination = _position;
+                            }
+                            else if (collider is Colmillos)
+                            {
+                                if (collider.getState() != Colmillos.STATE_ATTACK)
+                                    ((Colmillos)collider).attack();
+
+                                ((Colmillos)collider)._destination = ((Colmillos)collider)._position;
+                            }
+                            else if (this is Dopple)
                             {
                                 if (_state != STATE_ATTACKING)
                                     attack();
@@ -1259,20 +1288,23 @@ namespace PikeAndShot
 
         public virtual void hit()
         {
-            if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
-                _engager.setState(_engager.preAttackState);
-
-            _state = STATE_DYING;
-            _stateTimer = _deathTime;
-            _destination = _position;
-            _screen.addLooseSoldier(this);
-            hitSound.Play();
-            playedFallSound = false;
-
-            //I want guys that are running in as replacements to count as a loss
-            if (((myFormation == _screen.getPlayerFormation() && this._type != TYPE_SWINGER) || (this._type != TYPE_SWINGER && _side == BattleScreen.SIDE_PLAYER)) && _screen is LevelScreen)
+            if (_state != STATE_DYING && _state != STATE_DEAD)
             {
-                ((LevelScreen)_screen).loseCoin(getType());
+                if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
+                    _engager.setState(_engager.preAttackState);
+
+                _state = STATE_DYING;
+                _stateTimer = _deathTime;
+                _destination = _position;
+                _screen.addLooseSoldier(this);
+                hitSound.Play();
+                playedFallSound = false;
+
+                //I want guys that are running in as replacements to count as a loss
+                if (((myFormation == _screen.getPlayerFormation() && this._type != TYPE_SWINGER) || (this._type != TYPE_SWINGER && _side == BattleScreen.SIDE_PLAYER)) && _screen is LevelScreen)
+                {
+                    ((LevelScreen)_screen).loseCoin(getType());
+                }
             }
         }
 
@@ -3147,6 +3179,8 @@ namespace PikeAndShot
         public const int STATE_EATEN = 202;
         public const int STATE_HOWL = 203;
         public const int STATE_RUN = 204;
+
+        private const int HEALTH = 2;
         
         Sprite _attack;
         Sprite _noShieldAttack;
@@ -3158,11 +3192,16 @@ namespace PikeAndShot
         Sprite _noShieldHowl;
         Sprite _noArmourHowl;
 
+        WeaponSwing _weaponSwing;
+
         public float _riseTime = 1000f;
         public float _howlTime = 1000f;
         public float _runTime = 300;
         public float _eatenTime = 5000f;
         public static float helmetTime = 2000f;
+        public float hurtTimer;
+
+        int health;
 
         bool hasArmour;
 
@@ -3177,36 +3216,59 @@ namespace PikeAndShot
             _class = Soldier.CLASS_GOBLIN_COLMILLOS;
             _attackTime = 1800f;
             _deathTime = 2000f;
+            hurtTimer = 0f;
+            health = HEALTH;
 
-            _feet = new Sprite(PikeAndShotGame.BROWN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
-            _idle = new Sprite(PikeAndShotGame.COLMILLOS_IDLE, new Rectangle(20, 4, 16, 28), 54, 42);
+            _feet = new Sprite(PikeAndShotGame.BROWN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true,true);
+            _feet.flashable = false;
+            _idle = new Sprite(PikeAndShotGame.COLMILLOS_IDLE, new Rectangle(20, 4, 16, 28), 54, 42,false,true);
+            _idle.flashable = false;
             _death = new Sprite(PikeAndShotGame.COLMILLOS_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
             _melee1 = new Sprite(PikeAndShotGame.BERZERKER2_MELEE1, new Rectangle(24, 30, 16, 28), 64, 68);
             _defend1 = new Sprite(PikeAndShotGame.BERZERKER2_DEFEND1, new Rectangle(20, 2, 16, 28), 52, 40);
             _route = new Sprite(PikeAndShotGame.BERZERKER2_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
             _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
-            _noshieldIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42);
-            _attack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK, new Rectangle(12, 14, 16, 28), 78, 52);
-            _noShieldAttack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK2, new Rectangle(22, 12, 16, 28), 98, 50);
-            _noArmourAttack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK3, new Rectangle(14, 22, 16, 28), 114, 60);
-            _noArmourIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOARMOUR, new Rectangle(20, 4, 16, 28), 54, 42);
-            _shieldBreak = new Sprite(PikeAndShotGame.COLMILLOS_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46);
-            _shieldFall = new Sprite(PikeAndShotGame.COLMILLOS_FALL, new Rectangle(76, 42, 16, 18), 110, 86);
-            _armourFall = new Sprite(PikeAndShotGame.COLMILLOS_FALLNOSHIELD, new Rectangle(76, 42, 16, 18), 110, 86);
-            _rise = new Sprite(PikeAndShotGame.COLMILLOS_RISE, new Rectangle(40, 2, 16, 28), 72, 40);
-            _howl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL, new Rectangle(12, 10, 16, 28), 50, 54);
-            _noShieldHowl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL_NOSHIELD, new Rectangle(20, 12, 16, 28), 56, 44);
-            _noArmourHowl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL_NOARMOUR, new Rectangle(16, 22, 16, 28), 52, 58);
+            _noshieldIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42,false,true);
+            _noshieldIdle.flashable = false;
+            _attack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK, new Rectangle(12, 14, 16, 28), 78, 52, false, true);
+            _attack.flashable = false;
+            _noShieldAttack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK2, new Rectangle(22, 12, 16, 28), 98, 50, false, true);
+            _noShieldAttack.flashable = false;
+            _noArmourAttack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK3, new Rectangle(14, 22, 16, 28), 114, 60, false, true);
+            _noArmourAttack.flashable = false;
+            _noArmourIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOARMOUR, new Rectangle(20, 4, 16, 28), 54, 42, false, true);
+            _noArmourIdle.flashable = false;
+            _shieldBreak = new Sprite(PikeAndShotGame.COLMILLOS_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46,false, true);
+            _shieldBreak.flashable = false;
+            _shieldFall = new Sprite(PikeAndShotGame.COLMILLOS_FALL, new Rectangle(76, 42, 16, 18), 110, 86,false,true);
+            _shieldFall.flashable = false;
+            _armourFall = new Sprite(PikeAndShotGame.COLMILLOS_FALLNOSHIELD, new Rectangle(76, 42, 16, 18), 110, 86,false,true);
+            _armourFall.flashable = false;
+            _rise = new Sprite(PikeAndShotGame.COLMILLOS_RISE, new Rectangle(40, 2, 16, 28), 72, 40,false, true);
+            _rise.flashable = false;
+            _howl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL, new Rectangle(12, 10, 16, 28), 50, 54,false,true);
+            _howl.flashable = false;
+            _noShieldHowl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL_NOSHIELD, new Rectangle(20, 12, 16, 28), 56, 44, false, true);
+            _noShieldHowl.flashable = false;
+            _noArmourHowl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL_NOARMOUR, new Rectangle(16, 22, 16, 28), 52, 58, false, true);
+            _noArmourHowl.flashable = false;
             _body = _idle;
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
             hitSound = chargeSound;
 
             hasArmour = true;
             _speed = 0.4f;
-
+            _weaponSwing = new WeaponSwing(_screen, this);
+            _screen.removeScreenObject(_weaponSwing);
             hurtSound = PikeAndShotGame.COLMILLOS_HURT.CreateInstance();
             yellSound = PikeAndShotGame.COLMILLOS_YELL.CreateInstance();
             slash = PikeAndShotGame.SLASH.CreateInstance();
+        }
+
+        public override void setSide(int side)
+        {
+            base.setSide(side);
+            _weaponSwing.setSide(side);
         }
 
         protected override void shieldDone()
@@ -3246,11 +3308,11 @@ namespace PikeAndShot
 
         public override bool attack()
         {
-            if (_state != STATE_DYING && _state != STATE_DEAD && _state != STATE_RISE && _state != STATE_EATEN)
+            if (_state != STATE_DYING && _state != STATE_DEAD && _state != STATE_RISE && _state != STATE_EATEN && _state != STATE_ATTACK)
             {
                 _state = STATE_ATTACK;
                 _stateTimer = _attackTime;
-
+                _weaponSwing.hit = false;
                 return true;
             }
 
@@ -3260,44 +3322,55 @@ namespace PikeAndShot
         public override void shieldBreak()
         {
             hurtSound.Play();
-            if (_hasShield)
+            _screen.removeScreenObject(_weaponSwing);
+            health--;
+            hurtTimer = 1000f;
+            if (health > 0 && myFormation != null)
             {
-                if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
-                    _engager.setState(_engager.preAttackState);
-
-                _state = STATE_SHIELDBREAK;
-                _stateTimer = _shieldBreakTime;
-                new ScreenAnimation(_screen, _side, new Vector2(_position.X, _position.Y), new Sprite(PikeAndShotGame.SOLDIER_BROKENSHIELD1, new Rectangle(24, 4, 16, 28), 60, 46), (_shieldBreakTime / 8f) * 11f);
-                _idle = _noshieldIdle;
-                _attackTime = 1500f;
-                _attack = _noShieldAttack;
-                _howl = _noShieldHowl;
-                _hasShield = false;
-                _reacting = false;
-                _meleeDestination = _position;
-                //_chargeTime = 2000f;
-                shieldBreakSound.Play();
-            }
-            else if (hasArmour)
-            {
-                _state = STATE_SHIELDBREAK;
-                _stateTimer = _shieldBreakTime;
-                new ScreenAnimation(_screen, _side, new Vector2(_position.X + (_side == BattleScreen.SIDE_PLAYER ? -8f : 8f), _position.Y), new Sprite(PikeAndShotGame.SOLDIER_BROKENARMOUR, new Rectangle(24, 4, 16, 28), 60, 46), (_shieldBreakTime / 8f) * 8f);
-                _idle = _noArmourIdle;
-                _shieldFall = _armourFall;
-                _attackTime = 2000f;
-                _attack = _noArmourAttack;
-                _howl = _noArmourHowl;
-                hasArmour = false;
-                _reacting = false;
-                _meleeDestination = _position;
-                //_chargeTime = 2000f;
-                shieldBreakSound.Play();
+                ((ColmillosFormation)myFormation).setAttacked();
             }
             else
             {
-                hit();
-                ((ColmillosFormation)myFormation).setEnd();
+                health = HEALTH;
+
+                if (_hasShield)
+                {
+                    if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
+                        _engager.setState(_engager.preAttackState);
+
+                    _state = STATE_SHIELDBREAK;
+                    _stateTimer = _shieldBreakTime;
+                    new ScreenAnimation(_screen, _side, new Vector2(_position.X, _position.Y), new Sprite(PikeAndShotGame.SOLDIER_BROKENSHIELD1, new Rectangle(24, 4, 16, 28), 60, 46), (_shieldBreakTime / 8f) * 11f);
+                    _idle = _noshieldIdle;
+                    _attackTime = 1500f;
+                    _attack = _noShieldAttack;
+                    _howl = _noShieldHowl;
+                    _hasShield = false;
+                    _reacting = false;
+                    _meleeDestination = _position;
+                    //_chargeTime = 2000f;
+                    shieldBreakSound.Play();
+                }
+                else if (hasArmour)
+                {
+                    _state = STATE_SHIELDBREAK;
+                    _stateTimer = _shieldBreakTime;
+                    new ScreenAnimation(_screen, _side, new Vector2(_position.X + (_side == BattleScreen.SIDE_PLAYER ? -8f : 8f), _position.Y), new Sprite(PikeAndShotGame.SOLDIER_BROKENARMOUR, new Rectangle(24, 4, 16, 28), 60, 46), (_shieldBreakTime / 8f) * 8f);
+                    _idle = _noArmourIdle;
+                    _shieldFall = _armourFall;
+                    _attackTime = 2000f;
+                    _attack = _noArmourAttack;
+                    _howl = _noArmourHowl;
+                    hasArmour = false;
+                    _reacting = false;
+                    _meleeDestination = _position;
+                    //_chargeTime = 2000f;
+                    shieldBreakSound.Play();
+                }
+                else
+                {
+                    ((ColmillosFormation)myFormation).setEnd();
+                }
             }
         }
 
@@ -3317,7 +3390,12 @@ namespace PikeAndShot
             {
                 addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f));
             }
-            else if (((ColmillosFormation)myFormation).attacked)
+            else if (hurtTimer > 0f)
+            {
+                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f, Color.Red));
+                addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f, Color.Red));
+            }
+            else if (_state == STATE_DYING || ((ColmillosFormation)myFormation).attacked)
             {
                 addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY,true,100f));
                 addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f));
@@ -3329,13 +3407,16 @@ namespace PikeAndShot
         protected override void updateState(TimeSpan timeSpan)
         {
             base.updateState(timeSpan);
+            _weaponSwing.update(_position);
 
             if (!_stateChanged)
             {
                 if (_state == STATE_ATTACK)
                 {
                      _stateTimer -= (float)timeSpan.TotalMilliseconds;
-                    ((Colmillos)this).myFormation._position.X = _position.X + 100f;
+                    if(_reacting)
+                        ((Colmillos)this).myFormation._position.X = _position.X + 100f;
+
                     if (_stateTimer <= 0)
                     {
                         _stateTimer = 0;
@@ -3345,6 +3426,7 @@ namespace PikeAndShot
                             ((ColmillosFormation)myFormation).setAttacked();
                             _reacting = false;
                         }
+                        _screen.removeScreenObject(_weaponSwing);
                     }
                 }
                 else if (_state == STATE_RISE)
@@ -3402,17 +3484,38 @@ namespace PikeAndShot
                 if (_hasShield)
                 {
                     if ((prevFrame == 8 && frameNumber == 9) || (prevFrame == 17 && frameNumber == 18))
+                    {
                         slash.Play();
+                        if (!_screen.getScreenObjects().Contains(_weaponSwing))
+                        {
+                            _screen.addScreenObject(_weaponSwing);
+                            _weaponSwing.hit = false;
+                        }
+                    }
                 }
                 else if (hasArmour)
                 {
                     if ((prevFrame == 8 && frameNumber == 9) || (prevFrame == 12 && frameNumber == 13) || (prevFrame == 5 && frameNumber == 6))
+                    {
                         slash.Play();
+                        if (!_screen.getScreenObjects().Contains(_weaponSwing))
+                        {
+                            _screen.addScreenObject(_weaponSwing);
+                            _weaponSwing.hit = false;
+                        }
+                    }
                 }
                 else
                 {
                     if ((prevFrame == 6 && frameNumber == 7) || (prevFrame == 12 && frameNumber == 13) || (prevFrame == 21 && frameNumber == 22))
+                    {
                         slash.Play();
+                        if (!_screen.getScreenObjects().Contains(_weaponSwing))
+                        {
+                            _screen.addScreenObject(_weaponSwing);
+                            _weaponSwing.hit = false;
+                        }
+                    }
                 }
 
                 _attack.setFrame(frameNumber);
@@ -3558,11 +3661,13 @@ namespace PikeAndShot
 
         public override void hit()
         {
+            if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
+                _engager.setState(_engager.preAttackState);
+
             _state = STATE_SPOOKED;
             _stateTimer = _deathTime;
             _destination = _position;
             hitSound.Play();
-            //_screen.removeScreenObject(_shieldBlock);
         }
 
         protected override void engage(bool win, Vector2 position, Soldier engager, bool rescueFight)
@@ -3671,8 +3776,8 @@ namespace PikeAndShot
                 _screen.addLooseSoldier(this);
                 if (bossFormation.getSoldiers().Contains(this))
                 {
-                    ((ColmillosFormation)myFormation).reduceWolfNumber();
-                    myFormation.removeSoldier(this);
+                    bossFormation.reduceWolfNumber();
+                    bossFormation.removeSoldier(this);
                     _screen.addLooseSoldier(this);
                 }
             }

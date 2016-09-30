@@ -2057,6 +2057,14 @@ namespace PikeAndShot
             //boss behaviour code
             if (_state == STATE_CHARGE)
             {
+                if (colmillos.hurtTimer > 0f)
+                {
+                    colmillos.hurtTimer -= (float)timeSpan.TotalMilliseconds;
+                    if (colmillos.hurtTimer <= 0f)
+                    {
+                        colmillos.hurtTimer = 0f;
+                    }
+                }
                 if (((Soldier)_soldiers[_soldiers.Count-1]).getState() != Wolf.STATE_ATTACK)
                 {
                     if (!attacked && colmillos.getState() != Colmillos.STATE_RUN && colmillos.getState() != Colmillos.STATE_ATTACK && colmillos.getState() != Colmillos.STATE_SHIELDBREAK && colmillos.getState() != Colmillos.STATE_DYING)
@@ -2178,6 +2186,14 @@ namespace PikeAndShot
             }
             else if (_state == STATE_HOLD)
             {
+                if (colmillos.hurtTimer > 0f)
+                {
+                    colmillos.hurtTimer -= (float)timeSpan.TotalMilliseconds;
+                    if (colmillos.hurtTimer <= 0f)
+                    {
+                        colmillos.hurtTimer = 0f;
+                    }
+                }
                 if (colmillos.getState() != Colmillos.STATE_HOWL && chargeRecoverTimer > CHARGE_TIME)
                 {
                     attacked = false;

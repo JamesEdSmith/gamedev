@@ -252,6 +252,11 @@ namespace PikeAndShot
             //_screenObjects.Add(so);
         }
 
+        public ArrayList getScreenObjects()
+        {
+            return _screenObjects;
+        }
+
         public Formation getPlayerFormation()
         {
             return _formation;
@@ -287,7 +292,7 @@ namespace PikeAndShot
                 }
                 else if (so is Colmillos)
                 {
-                    if (((ColmillosFormation)((Colmillos)so).myFormation).attacked || so.getState() == Colmillos.STATE_EATEN || so.getState() == Colmillos.STATE_RISE)
+                    if (so.getState() == Soldier.STATE_DYING || so.getState() == Colmillos.STATE_EATEN || so.getState() == Colmillos.STATE_RISE || ((ColmillosFormation)((Colmillos)so).myFormation).attacked)
                     {
                         _screenNonColliders.Add(so);
                     }
@@ -378,6 +383,8 @@ namespace PikeAndShot
 
                             if (collision)
                             {
+                                if (so is WeaponAttack || co is WeaponAttack)
+                                    Console.WriteLine("oh");
                                 so.collide(co, timeSpan);
                                 oneCollision = true;
                                 co.collide(so, timeSpan);
@@ -566,6 +573,8 @@ namespace PikeAndShot
             {
                 if(dj.flashAmount>0)
                     dj.sprite.draw(spriteBatch, dj.position, dj.side, dj.flashAmount);
+                else if (dj.color != Color.Black)
+                    dj.sprite.draw(spriteBatch, dj.position, dj.side, (float)gameTime.TotalGameTime.TotalMilliseconds, dj.flickerTime, dj.color);
                 else if (dj.flickerTime > 0)
                     dj.sprite.draw(spriteBatch, dj.position, dj.side, (float)gameTime.TotalGameTime.TotalMilliseconds, dj.flickerTime);
                 else
@@ -605,8 +614,11 @@ namespace PikeAndShot
 
         internal void addLooseSoldier(Soldier sold)
         {
-            if(!_looseSoldiers.Contains(sold))
+            if (!_looseSoldiers.Contains(sold))
+            {
                 _looseSoldiers.Add(sold);
+                sold.myFormation = null;
+            }
         }
 
         internal void addLooseSoldierNext(Soldier sold)
@@ -787,6 +799,7 @@ namespace PikeAndShot
         public float drawingY;
         public float flashAmount;
         public float flickerTime;
+        public Color color;
 
         public DrawJob(Sprite sprite, Vector2 position, int side, float drawingY)
         {
@@ -796,6 +809,7 @@ namespace PikeAndShot
             this.drawingY = drawingY;
             flashAmount = 0;
             flickerTime = 0;
+            color = Color.Black;
         }
 
         public DrawJob(Sprite sprite, Vector2 position, int side, float drawingY, float flashAmount) :
@@ -808,6 +822,12 @@ namespace PikeAndShot
             this(sprite, position, side, drawingY)
         {
             this.flickerTime = flickerTime;
+        }
+
+        public DrawJob(Sprite sprite, Vector2 position, int side, float drawingY, bool flickering, float flickerTime, Color color) :
+            this(sprite,position,side,drawingY,flickering,flickerTime)
+        {
+            this.color = color;
         }
     }
 }

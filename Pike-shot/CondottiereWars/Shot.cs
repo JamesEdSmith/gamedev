@@ -598,12 +598,14 @@ namespace PikeAndShot
         protected int _height;
         protected Vector2 _offset;
         protected Soldier _pikeman;
+        public bool hit;
 
         public WeaponAttack(BattleScreen screen, Soldier pikeman)
             : base(screen, pikeman.getSide())
         {
             _pikeman = pikeman;
             _screen.removeScreenObject(this);
+            hit = false;
         }
 
         protected void initiatePosition()
@@ -637,6 +639,11 @@ namespace PikeAndShot
         public int getSoldierState()
         {
             return _pikeman.getState();
+        }
+
+        public Soldier getSoldier()
+        {
+            return _pikeman;
         }
 
     }
