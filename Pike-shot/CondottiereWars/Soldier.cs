@@ -3680,7 +3680,7 @@ namespace PikeAndShot
             _type = Soldier.TYPE_MELEE;
             _class = Soldier.CLASS_GOBLIN_WOLF;
             _idleTime = 3000f;
-            _attackTime = 800f;
+            _attackTime = 700f;
             _turnTime = 300f;
             _idleAnimTime = 1000f;
             _deathTime = 800f;
@@ -3699,7 +3699,7 @@ namespace PikeAndShot
                 _attackFeet = new Sprite(PikeAndShotGame.WOLF_BITE, new Rectangle(20, 8, 14, 14), 54, 26, true);
                 _melee1 = new Sprite(PikeAndShotGame.WOLF_MELEE, new Rectangle(16, 10, 14, 14), 64, 24, true);
                 _defend1 = new Sprite(PikeAndShotGame.WOLF_DEFEND, new Rectangle(16, 12, 14, 14), 64, 26, true);
-                _killFeet = new Sprite(PikeAndShotGame.WOLF_KILL, new Rectangle(14, 12, 14, 14), 68, 26, true);
+                _killFeet = new Sprite(PikeAndShotGame.WOLF_KILL, new Rectangle(14, 12, 14, 14), 68, 28, true);
                 _howlFeet = new Sprite(PikeAndShotGame.WOLF_HOWL, new Rectangle(18, 24, 14, 14), 52, 40, true);
                 _feet = _runningFeet = new Sprite(PikeAndShotGame.WOLF_RUN, new Rectangle(16, 10, 14, 14), 44, 26, true);
             }
@@ -3711,7 +3711,7 @@ namespace PikeAndShot
                 _attackFeet = new Sprite(PikeAndShotGame.WOLF_BITEg, new Rectangle(20, 8, 14, 14), 54, 26, true);
                 _melee1 = new Sprite(PikeAndShotGame.WOLF_MELEEg, new Rectangle(16, 10, 14, 14), 64, 24, true);
                 _defend1 = new Sprite(PikeAndShotGame.WOLF_DEFENDg, new Rectangle(16, 12, 14, 14), 64, 26, true);
-                _killFeet = new Sprite(PikeAndShotGame.WOLF_KILLg, new Rectangle(14, 12, 14, 14), 68, 26, true);
+                _killFeet = new Sprite(PikeAndShotGame.WOLF_KILLg, new Rectangle(14, 12, 14, 14), 68, 28, true);
                 _howlFeet = new Sprite(PikeAndShotGame.WOLF_HOWLg, new Rectangle(18, 24, 14, 14), 52, 40, true);
                 _feet = _runningFeet = new Sprite(PikeAndShotGame.WOLF_RUNg, new Rectangle(16, 10, 14, 14), 44, 26, true);
             }
@@ -3789,7 +3789,7 @@ namespace PikeAndShot
             if (_state == STATE_READY)
             {
                 _state = STATE_ATTACK;
-                _stateTimer = _attackTime + PikeAndShotGame.getRandPlusMinus(200);
+                _stateTimer = _attackTime;
                 //_state = STATE_HOWLING;
                 //_stateTimer = _howlTime;
                 playAttackSound = true;
@@ -4127,7 +4127,7 @@ namespace PikeAndShot
 
         Sprite _getUp;
 
-        float getUpTime = 1000f;
+        float getUpTime = 500f;
 
         public SoundEffectInstance yellSound;
 
@@ -4138,9 +4138,9 @@ namespace PikeAndShot
             _idleFeet = new Sprite(PikeAndShotGame.WOLF_IDLE_COL, new Rectangle(16, 18, 14, 14), 48, 38, true);
             _turnFeet = new Sprite(PikeAndShotGame.WOLF_TURN_COL, new Rectangle(26, 10, 14, 14), 54, 26, true);
             _attackFeet = new Sprite(PikeAndShotGame.WOLF_ATTACK_COL, new Rectangle(20, 8, 14, 14), 54, 26, true);
-            _howlFeet = new Sprite(PikeAndShotGame.WOLF_HOWL_COL, new Rectangle(18, 24, 14, 14), 52, 40, true);
+            _howlFeet = new Sprite(PikeAndShotGame.WOLF_HOWL_COL, new Rectangle(20, 24, 14, 14), 54, 40, true);
             _runningFeet = new Sprite(PikeAndShotGame.WOLF_RUN_COL, new Rectangle(16, 10, 14, 14), 44, 26, true);
-
+            _howlFeet.setMaxFrames(_howlFeet.getMaxFrames() - 1);
             _footSpeed = 6.5f;
             _speed = 0.24f;
             _runningFeet.setAnimationSpeed(_footSpeed / 0.11f);
@@ -4150,7 +4150,7 @@ namespace PikeAndShot
             for (int i = 0 ; i < schedule.Length; i++)
                 schedule[0] = new WolfSchedule();
 
-            _howlTime = 3000f;
+            _howlTime = 1800f;
 
             schedule[0].state = STATE_SIT;
             schedule[0].time = SIT_TIME;
@@ -4212,6 +4212,11 @@ namespace PikeAndShot
         {
             _state = STATE_SIT;
             _getUp.setEffect(Sprite.EFFECT_FADEIN, SIT_TIME);
+        }
+
+        public override void draw(SpriteBatch spritebatch)
+        {
+            base.draw(spritebatch);
         }
 
         protected override void updateAnimation(TimeSpan timeSpan)

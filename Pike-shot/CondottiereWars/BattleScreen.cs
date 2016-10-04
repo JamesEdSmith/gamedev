@@ -292,7 +292,7 @@ namespace PikeAndShot
                 }
                 else if (so is Colmillos)
                 {
-                    if (so.getState() == Soldier.STATE_DYING || so.getState() == Colmillos.STATE_EATEN || so.getState() == Colmillos.STATE_RISE || ((ColmillosFormation)((Colmillos)so).myFormation).attacked)
+                    if (so.getState() == Soldier.STATE_DYING || so.getState() == Colmillos.STATE_EATEN || so.getState() == Colmillos.STATE_RISE || so.getState() == Targeteer.STATE_SHIELDBREAK || ((ColmillosFormation)((Colmillos)so).myFormation).attacked)
                     {
                         _screenNonColliders.Add(so);
                     }
