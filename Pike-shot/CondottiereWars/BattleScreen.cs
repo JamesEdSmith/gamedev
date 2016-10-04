@@ -577,6 +577,8 @@ namespace PikeAndShot
                     dj.sprite.draw(spriteBatch, dj.position, dj.side, (float)gameTime.TotalGameTime.TotalMilliseconds, dj.flickerTime, dj.color);
                 else if (dj.flickerTime > 0)
                     dj.sprite.draw(spriteBatch, dj.position, dj.side, (float)gameTime.TotalGameTime.TotalMilliseconds, dj.flickerTime);
+                else if (dj.sprite.hasEffect())
+                    dj.sprite.draw(spriteBatch, dj.position, dj.side, gameTime.ElapsedGameTime);
                 else
                     dj.sprite.draw(spriteBatch, dj.position, dj.side);
             }

@@ -11,6 +11,8 @@ namespace PikeAndShot
 {
     public class Sprite
     {
+        public const int EFFECT_FADEIN = 1;
+
         private Texture2D _sourceBitmap;
         public Texture2D _flashTexture;
         private Rectangle _boundingRect;
@@ -29,6 +31,10 @@ namespace PikeAndShot
         private int flashStartThreshold;
         private Color flashColor;
         public float dampening;
+
+        private int effect = 0;
+        private float effectTime = 0;
+        private float effectTimer = 0;
 
         public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop)
         {
@@ -198,26 +204,49 @@ namespace PikeAndShot
             }
         }
 
+        public void setEffect(int effect, float time)
+        {
+            this.effect = effect;
+            this.effectTime = time;
+            this.effectTimer = time;
+        }
+
         const float RGB_OFFSET = 1f;
+
         public void draw(SpriteBatch spritebatch, Vector2 _position, int side)
         {
+            draw(spritebatch, _position, side, PikeAndShotGame.DUMMY_TIMESPAN);
+        }
+
+        public void draw(SpriteBatch spritebatch, Vector2 _position, int side, TimeSpan timeSpan)
+        {
+            Color color = Color.White;
+            if (effect == EFFECT_FADEIN)
+            {
+                effectTimer -= (float)timeSpan.TotalMilliseconds;
+
+                float a = (float)((effectTime - effectTimer) / effectTime);
+                color *= a;
+
+                if (effectTimer <= 0)
+                {
+                    effect = 0;
+                }
+            }
+
             if (side == BattleScreen.SIDE_PLAYER)
             {
-                //spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y) - new Vector2(RGB_OFFSET, 0), _currRect, Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-                //spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y) + new Vector2(RGB_OFFSET, 0), _currRect, Color.Blue, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-                spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
             else
             {
-                //spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y) - new Vector2(RGB_OFFSET, 0), _currRect, Color.Red, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
-                //spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y) + new Vector2(RGB_OFFSET, 0), _currRect, Color.Blue, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
-                spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
             }
         }
 
         public void draw(SpriteBatch spritebatch, Vector2 _position, int side, float flashAmount)
         {
-            draw(spritebatch, _position, side);
+            draw(spritebatch, _position, side, PikeAndShotGame.DUMMY_TIMESPAN);
             Color color = Color.Black;
             color.A = (byte)(255f * flashAmount);
 
@@ -268,20 +297,17 @@ namespace PikeAndShot
 
         public void draw(SpriteBatch spritebatch, Vector2 _position, int side, float curTime, float flickerTime, Color color)
         {
-            draw(spritebatch, _position, side);
+            //TODO: fix this later so that effects can also flicker
+            draw(spritebatch, _position, side, PikeAndShotGame.DUMMY_TIMESPAN);
             float a = (float)((curTime % flickerTime) / flickerTime);
             color *= a;
 
             if (side == BattleScreen.SIDE_PLAYER)
             {
-                //spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y) - new Vector2(RGB_OFFSET, 0), _currRect, Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-                //spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y) + new Vector2(RGB_OFFSET, 0), _currRect, Color.Blue, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 spritebatch.Draw(_flashTexture, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
             else
             {
-                //spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y) - new Vector2(RGB_OFFSET, 0), _currRect, Color.Red, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
-                //spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y) + new Vector2(RGB_OFFSET, 0), _currRect, Color.Blue, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
                 spritebatch.Draw(_flashTexture, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
             }
         }
@@ -302,6 +328,14 @@ namespace PikeAndShot
                     _animationTime += _animationSpeed;
                 }
             }
+        }
+
+        internal bool hasEffect()
+        {
+            if (effect != 0)
+                return true;
+            else
+                return false;
         }
     }
 

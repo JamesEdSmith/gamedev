@@ -209,6 +209,56 @@ namespace PikeAndShot
         }
     }
 
+    public class ThrownFalchion : ScreenAnimation
+    {
+        Vector2 velocity;
+        Vector2 initialPosition;
+        bool dirt;
+        public ThrownFalchion(BattleScreen screen, int side, Vector2 position)
+            :base(screen,side, position, new Sprite(PikeAndShotGame.FALCHION_THROWN, new Rectangle(16,28,4,4), 36, 58), 500f)
+        {
+            velocity = new Vector2(-0.08f, -0.10f);
+            dirt = false;
+            _position.X += 4f;
+            _position.Y += 4f;
+            initialPosition = new Vector2(position.X, position.Y);
+        }
+
+        public override void update(TimeSpan timeSpan)
+        {
+            if (!dirt)
+            {
+                velocity += GRAVITY_VECTOR * 0.02f * (float)timeSpan.TotalSeconds;
+                _position += velocity * (float)timeSpan.TotalMilliseconds;
+            }
+
+            if (_position.Y > initialPosition.Y + 20f && !dirt)
+            {
+                _sprite = new Sprite(PikeAndShotGame.FALCHION_DIRT, new Rectangle(10, 14, 2, 2), 18, 26);
+                dirt = true;
+                _time = _duration*4f;
+            }
+
+            _time -= (float)timeSpan.TotalMilliseconds;
+            if (_time < 0)
+            {
+                if (!dirt)
+                    _time = _duration;
+                else
+                {
+                    _time = 0f;
+                    setDone();
+                }
+            }
+
+            int maxFrames = _sprite.getMaxFrames();
+            float frameTime = _duration / (float)maxFrames;
+            int frameNumber = maxFrames - (int)(_time / frameTime) - 1;
+
+            _sprite.setFrame(frameNumber);
+        }
+    }
+
     public class Coin : ScreenAnimation
     {
         static float COIN_TIME = 400f;
@@ -288,7 +338,7 @@ namespace PikeAndShot
             if (_sprite.flashable && !doneFlashing)
                 _sprite.draw(spritebatch, _position, _side, _time / _duration);
             else
-                _sprite.draw(spritebatch, _position, _side);
+                _sprite.draw(spritebatch, _position, _side, PikeAndShotGame.DUMMY_TIMESPAN);
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position, Color.White);
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(2,0), Color.White);
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(0,2), Color.White);

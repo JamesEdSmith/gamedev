@@ -404,7 +404,7 @@ namespace PikeAndShot
                 if(coinMeterTimer > 0)
                     _doppelMeter.draw(spriteBatch, COIN_METER_POSITION, SIDE_PLAYER, coinMeterTimer / COIN_METER_DROPTIME);
                 else
-                    _doppelMeter.draw(spriteBatch, COIN_METER_POSITION, SIDE_PLAYER);
+                    _doppelMeter.draw(spriteBatch, COIN_METER_POSITION, SIDE_PLAYER, PikeAndShotGame.DUMMY_TIMESPAN);
             }
             
 

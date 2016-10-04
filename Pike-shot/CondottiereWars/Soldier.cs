@@ -1078,7 +1078,7 @@ namespace PikeAndShot
                     }*/
                     else if (this is Targeteer)
                     {
-                        if (((Targeteer)this)._hasShield || this is Colmillos)
+                        if ( (!(this is Colmillos) && ((Targeteer)this)._hasShield) || (this is Colmillos && !((ColmillosFormation)((Colmillos)this).myFormation).attacked))
                         {
                             ((Targeteer)this).shield();
                             this.setReactionDest(collider.getCenter().X + 50f);//((collider.getSide() == BattleScreen.SIDE_ENEMY? 1 : -1 ) * collider.getWidth() * 0.5f + Soldier.WIDTH * 0.35f
@@ -2779,6 +2779,7 @@ namespace PikeAndShot
             {
                 _state = STATE_ATTACKING;
                 _stateTimer = _motionTime;
+                
             }
             return false;
         }
@@ -3179,8 +3180,9 @@ namespace PikeAndShot
         public const int STATE_EATEN = 202;
         public const int STATE_HOWL = 203;
         public const int STATE_RUN = 204;
+        public const int STATE_STAGGER = 205;
 
-        private const int HEALTH = 2;
+        private const int HEALTH = 1;
         
         Sprite _attack;
         Sprite _noShieldAttack;
@@ -3191,19 +3193,23 @@ namespace PikeAndShot
         Sprite _howl;
         Sprite _noShieldHowl;
         Sprite _noArmourHowl;
+        Sprite _stagger;
 
         WeaponSwing _weaponSwing;
 
         public float _riseTime = 1000f;
         public float _howlTime = 1000f;
         public float _runTime = 300;
-        public float _eatenTime = 5000f;
+        public float _eatenTime = 4500f;
+        public float _staggerTime = 1250f;
         public static float helmetTime = 2000f;
         public float hurtTimer;
 
         int health;
 
         bool hasArmour;
+
+        ColmillosWolf whiteWolf = null;
 
         protected SoundEffectInstance hurtSound;
         protected SoundEffectInstance yellSound;
@@ -3252,6 +3258,8 @@ namespace PikeAndShot
             _noShieldHowl.flashable = false;
             _noArmourHowl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL_NOARMOUR, new Rectangle(16, 22, 16, 28), 52, 58, false, true);
             _noArmourHowl.flashable = false;
+            _stagger = new Sprite(PikeAndShotGame.COLMILLOS_STAGGER, new Rectangle(10, 18, 16, 28), 46, 58, false, true);
+            _stagger.flashable = false;
             _body = _idle;
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
             hitSound = chargeSound;
@@ -3369,6 +3377,8 @@ namespace PikeAndShot
                 }
                 else
                 {
+                    _state = STATE_STAGGER;
+                    _stateTimer = _staggerTime;
                     ((ColmillosFormation)myFormation).setEnd();
                 }
             }
@@ -3382,20 +3392,22 @@ namespace PikeAndShot
             {
                 addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
             }
-            else if (_state == STATE_RISE)
+            else if (_state == STATE_RISE || _state == STATE_DYING)
             {
                 addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
             }
             else if (_state == STATE_EATEN)
             {
-                addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f));
+                if(_stateTimer >= _eatenTime/4f)
+                    addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f));
             }
             else if (hurtTimer > 0f)
             {
-                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f, Color.Red));
+                if(_state == STATE_READY || _state == STATE_STAGGER)
+                    addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f, Color.Red));
                 addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f, Color.Red));
             }
-            else if (_state == STATE_DYING || ((ColmillosFormation)myFormation).attacked)
+            else if (((ColmillosFormation)myFormation).attacked)
             {
                 addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY,true,100f));
                 addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f));
@@ -3442,7 +3454,12 @@ namespace PikeAndShot
                 else if (_state == STATE_EATEN)
                 {
                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
-                    if (_stateTimer <= 0)
+                    if (_stateTimer <= _eatenTime/4f && whiteWolf == null)
+                    {
+                        whiteWolf = new ColmillosWolf(_screen, new Vector2(_position.X + 10f, _position.Y), _side);
+                        _screen.addLooseSoldierNext(whiteWolf);
+                    }
+                    else if (_stateTimer <= 0)
                     {
                         _state = STATE_DEAD;
                         _stateTimer = 0f;
@@ -3466,6 +3483,17 @@ namespace PikeAndShot
                     {
                         _stateTimer = 0f;
                         _stateChanged = true;
+                    }
+                }
+                else if (_state == STATE_STAGGER)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                    if (_stateTimer <= 0)
+                    {
+                        _stateTimer = 0f;
+                        hit();
+                        _stateChanged = true;
+                        _screen.addAnimation(new ThrownFalchion(_screen,_side,_position));
                     }
                 }
             }
@@ -3558,6 +3586,42 @@ namespace PikeAndShot
             {
                 _body = _idle;
             }
+            else if (_state == STATE_STAGGER)
+            {
+                int maxFrames = 8;
+                float frameTime = _staggerTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                switch (frameNumber)
+                {
+                    case 0:
+                        frameNumber = 1;
+                        break;
+                    case 1:
+                        frameNumber = 2;
+                        break;
+                    case 2:
+                        frameNumber = 3;
+                        break;
+                    case 3:
+                        frameNumber = 4;
+                        break;
+                    case 4:
+                        frameNumber = 3;
+                        break;
+                    case 5:
+                        frameNumber = 2;
+                        break;
+                    case 6:
+                        frameNumber = 1;
+                        break;
+                    case 7:
+                        frameNumber = 0;
+                        break;
+                }
+                _stagger.setFrame(frameNumber);
+                _body = _stagger;
+            }
         }
 
         public void howl()
@@ -3599,8 +3663,8 @@ namespace PikeAndShot
         float _idleTime;
         float _turnTime;
         float _killTime;
-        float _howlTime;
-        float _idleAnimTime;
+        protected float _howlTime;
+        protected float _idleAnimTime;
         public bool _turned;
         float turnOffset;
         public ColmillosFormation bossFormation;
@@ -3608,6 +3672,7 @@ namespace PikeAndShot
         public bool flee;
         public bool retreat;
         private bool playAttackSound;
+        private bool playHowlSound;
 
         public Wolf(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
@@ -3708,6 +3773,12 @@ namespace PikeAndShot
             _stateTimer = _killTime;
         }
 
+        public void kill()
+        {
+            _state = STATE_KILL;
+            _stateTimer = _killTime;
+        }
+
         protected override bool checkReactions(TimeSpan timeSpan)
         {
             return false;
@@ -3729,12 +3800,12 @@ namespace PikeAndShot
             return false;
         }
 
-        public void howl()
+        public virtual void howl()
         {
             _state = STATE_HOWLING;
             _stateTimer = _howlTime;
-            chargeSound.Play();
             _meleeDestination = _position;
+            playHowlSound = true;
         }
 
         public bool turn()
@@ -3774,7 +3845,7 @@ namespace PikeAndShot
                 _state = STATE_FLEE;
                 alterDestination(true, _screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH + 201 - _destination.X);
                 _screen.addLooseSoldier(this);
-                if (bossFormation.getSoldiers().Contains(this))
+                if (bossFormation != null && bossFormation.getSoldiers().Contains(this))
                 {
                     bossFormation.reduceWolfNumber();
                     bossFormation.removeSoldier(this);
@@ -3835,11 +3906,11 @@ namespace PikeAndShot
             }
             _drawingPosition = _position + _randDestOffset - _screen.getMapOffset() + new Vector2(turnOffset,0);
 
-            if (_state == STATE_FLEE || flee == true || retreat == true || _state == STATE_HOWLING)
-                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), (_state != STATE_RETREAT && _state != STATE_ROUTED && !_turned) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || _state == STATE_KILL) ? _side : _side * -1, _drawingY, true, 100f));
+            if ((_state == STATE_FLEE || flee == true || retreat == true || _state == STATE_HOWLING) && !(this is ColmillosWolf))
+                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), (_state != STATE_RETREAT && _state != STATE_ROUTED && !_turned && !killOrientRight) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || (_state == STATE_KILL && !killOrientRight)) ? _side : _side * -1, _drawingY, true, 100f));
             else if (_state != STATE_DEAD)
             {
-                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), (_state != STATE_RETREAT && _state != STATE_ROUTED && !_turned) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || _state == STATE_KILL) ? _side : _side * -1, _drawingY));
+                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), (_state != STATE_RETREAT && _state != STATE_ROUTED && !_turned && !killOrientRight) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || (_state == STATE_KILL && !killOrientRight)) ? _side : _side * -1, _drawingY));
             }
 
             //addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
@@ -3924,8 +3995,33 @@ namespace PikeAndShot
                     {
                         _stateTimer = _idleTime;
                         _state = STATE_READY;
+                        if (bossFormation != null && bossFormation.getState() == ColmillosFormation.STATE_END)
+                        {
+                            _destination = bossFormation.colmillos.getPosition() + new Vector2(45f, PikeAndShotGame.getRandPlusMinus(PikeAndShotGame.random.Next(10)));
+                            _meleeDestination = _destination;
+                            if (_meleeDestination.X > _position.X)
+                            {
+                                killOrientRight = true;
+                                _destination = bossFormation.colmillos.getPosition() - new Vector2(15f, PikeAndShotGame.getRandPlusMinus(PikeAndShotGame.random.Next(10)));
+                                _meleeDestination = _destination;
+                            }
+                        }
                     }
                 }
+            }
+        }
+
+        bool killOrientRight = false;
+
+        public void attackColmillos()
+        {
+            _destination = bossFormation.colmillos.getPosition() + new Vector2(50f, PikeAndShotGame.getRandPlusMinus(PikeAndShotGame.random.Next(30)));
+            _meleeDestination = _destination;
+            if (_meleeDestination.X > _position.X)
+            {
+                killOrientRight = true;
+                _destination = bossFormation.colmillos.getPosition() - new Vector2(20f, PikeAndShotGame.getRandPlusMinus(PikeAndShotGame.random.Next(30)));
+                _meleeDestination = _destination;
             }
         }
 
@@ -3984,6 +4080,14 @@ namespace PikeAndShot
                 float frameTime = _howlTime / (float)maxFrames;
                 int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
 
+                if (frameNumber == 8 && playHowlSound)
+                {
+                    if(this is ColmillosWolf)
+                        ((ColmillosWolf)this).yellSound.Play();
+                    else 
+                        chargeSound.Play();
+                }
+
                 _howlFeet.setFrame(frameNumber);
             }
 
@@ -4003,6 +4107,162 @@ namespace PikeAndShot
                 _feet = _runningFeet;
             else
                 _feet = _idleFeet;
+        }
+    }
+
+    public struct WolfSchedule
+    {
+        public int state;
+        public float time;
+    }
+
+    public class ColmillosWolf : Wolf
+    {
+        public const float SIT_TIME = 4000f;
+        public const int STATE_SIT = 700;
+        public const int STATE_GETUP = 701;
+        WolfSchedule[] schedule;
+        int curSchedule = 0;
+        float scheduleTimer = 0;
+
+        Sprite _getUp;
+
+        float getUpTime = 1000f;
+
+        public SoundEffectInstance yellSound;
+
+        public ColmillosWolf(BattleScreen screen, Vector2 position, int side)
+            :base(screen, position.X, position.Y, side)
+        {
+            _getUp = new Sprite(PikeAndShotGame.WOLF_GETUP_COL, new Rectangle(24, 14, 14, 14), 52, 34, false);
+            _idleFeet = new Sprite(PikeAndShotGame.WOLF_IDLE_COL, new Rectangle(16, 18, 14, 14), 48, 38, true);
+            _turnFeet = new Sprite(PikeAndShotGame.WOLF_TURN_COL, new Rectangle(26, 10, 14, 14), 54, 26, true);
+            _attackFeet = new Sprite(PikeAndShotGame.WOLF_ATTACK_COL, new Rectangle(20, 8, 14, 14), 54, 26, true);
+            _howlFeet = new Sprite(PikeAndShotGame.WOLF_HOWL_COL, new Rectangle(18, 24, 14, 14), 52, 40, true);
+            _runningFeet = new Sprite(PikeAndShotGame.WOLF_RUN_COL, new Rectangle(16, 10, 14, 14), 44, 26, true);
+
+            _footSpeed = 6.5f;
+            _speed = 0.24f;
+            _runningFeet.setAnimationSpeed(_footSpeed / 0.11f);
+
+            schedule = new WolfSchedule[6];
+
+            for (int i = 0 ; i < schedule.Length; i++)
+                schedule[0] = new WolfSchedule();
+
+            _howlTime = 3000f;
+
+            schedule[0].state = STATE_SIT;
+            schedule[0].time = SIT_TIME;
+            schedule[1].state = STATE_GETUP;
+            schedule[1].time = 2500f;
+            schedule[2].state = STATE_ATTACK;
+            schedule[2].time = _attackTime + 200f;
+            schedule[3].state = STATE_ATTACK;
+            schedule[3].time = _attackTime + 1000f;
+            schedule[4].state = STATE_HOWLING;
+            schedule[4].time = _howlTime;
+            schedule[5].state = STATE_FLEE;
+            schedule[5].time = 1000f;
+
+            _state = STATE_SIT;
+
+            yellSound = PikeAndShotGame.COLMILLOS_YELL.CreateInstance();
+        }
+
+        public override void update(TimeSpan timeSpan)
+        {
+            base.update(timeSpan);
+            if (curSchedule < schedule.Length)
+            {
+                scheduleTimer -= (float)timeSpan.TotalMilliseconds;
+                if (scheduleTimer <= 0)
+                {
+                    switch (schedule[curSchedule].state)
+                    {
+                        case STATE_SIT:
+                            sit();
+                            break;
+                        case STATE_GETUP:
+                            getUp();
+                            break;
+                        case STATE_ATTACK:
+                            attack();
+                            break;
+                        case STATE_HOWLING:
+                            howl();
+                            break;
+                        case STATE_FLEE:
+                            fleeStart();
+                            break;
+                    }
+                    scheduleTimer = schedule[curSchedule].time;
+                    curSchedule++;
+                }
+            }
+        }
+
+        private void getUp()
+        {
+            _state = STATE_GETUP;
+            _stateTimer = getUpTime;
+        }
+
+        private void sit()
+        {
+            _state = STATE_SIT;
+            _getUp.setEffect(Sprite.EFFECT_FADEIN, SIT_TIME);
+        }
+
+        protected override void updateAnimation(TimeSpan timeSpan)
+        {
+            base.updateAnimation(timeSpan);
+
+            if (_state == STATE_READY && _delta.Length() == 0)
+            {
+                _idleFeet.setFrame(0);
+            }
+            else if (_state == STATE_SIT)
+            {
+                _getUp.setFrame(0);
+                _feet = _getUp;
+            }
+            else if (_state == STATE_GETUP)
+            {
+                int maxFrames = _getUp.getMaxFrames()-1;
+                float frameTime = getUpTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                _getUp.setFrame(frameNumber);
+                _feet = _getUp;
+            }
+        }
+
+        protected override void updateState(TimeSpan timeSpan)
+        {
+            base.updateState(timeSpan);
+
+            if (!_stateChanged)
+            {
+                if (_state == STATE_GETUP)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                    if (_stateTimer <= 0)
+                    {
+                        _stateTimer = 0;
+                        _state = STATE_READY;
+                    }
+                }
+                else if (_state == STATE_SIT)
+                {
+                    if (_stateTimer > 0)
+                    {
+                        _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                        if (_stateTimer <= 0)
+                            _stateTimer -= 0;
+                    }
+                }
+            }
         }
     }
 
@@ -4146,7 +4406,7 @@ namespace PikeAndShot
         {
             if (_hasShield || this is Colmillos)
             {
-                if (_screen.findPikeTip(this, 0.30f))
+                if (_screen.findPikeTip(this, 0.30f) && (!(this is Colmillos) || !((ColmillosFormation)((Colmillos)this).myFormation).attacked))
                 {
                     if (!_reacting)
                     {

@@ -23,6 +23,8 @@ namespace PikeAndShot
         public const bool DEBUG = true;
         public const bool TEST_BOSS = true;
 
+        public static TimeSpan DUMMY_TIMESPAN;
+
         public const int SCREENWIDTH = 1024;
         public const int SCREENHEIGHT = 768;
 
@@ -252,6 +254,13 @@ namespace PikeAndShot
         public static Texture2D WOLF_KILLg;
         public static Texture2D WOLF_HOWLg;
 
+        public static Texture2D WOLF_IDLE_COL;
+        public static Texture2D WOLF_TURN_COL;
+        public static Texture2D WOLF_ATTACK_COL;
+        public static Texture2D WOLF_HOWL_COL;
+        public static Texture2D WOLF_RUN_COL;
+        public static Texture2D WOLF_GETUP_COL;
+
         public static Texture2D COLMILLOS_IDLE;
         public static Texture2D COLMILLOS_IDLENOSHIELD;
         public static Texture2D COLMILLOS_IDLENOARMOUR;
@@ -267,6 +276,9 @@ namespace PikeAndShot
         public static Texture2D COLMILLOS_HOWL;
         public static Texture2D COLMILLOS_HOWL_NOSHIELD;
         public static Texture2D COLMILLOS_HOWL_NOARMOUR;
+        public static Texture2D COLMILLOS_STAGGER;
+        public static Texture2D FALCHION_THROWN;
+        public static Texture2D FALCHION_DIRT;
 
         public static Texture2D BROWN_FEET;
 
@@ -576,6 +588,13 @@ namespace PikeAndShot
             WOLF_KILL = Content.Load<Texture2D>(@"wolf_kill");
             WOLF_HOWL = Content.Load<Texture2D>(@"wolf_howl");
 
+            WOLF_IDLE_COL = Content.Load<Texture2D>(@"wolf_idle_col");
+            WOLF_TURN_COL = Content.Load<Texture2D>(@"wolf_turn_col");
+            WOLF_ATTACK_COL = Content.Load<Texture2D>(@"wolf_bite_col");
+            WOLF_HOWL_COL = Content.Load<Texture2D>(@"wolf_howl_col");
+            WOLF_RUN_COL = Content.Load<Texture2D>(@"wolf_run_col");
+            WOLF_GETUP_COL = Content.Load<Texture2D>(@"wolf_getup_col");
+
             WOLF_IDLEg = getGreyscaleClone(WOLF_IDLE);
             WOLF_RUNg = getGreyscaleClone(WOLF_RUN);
             WOLF_SPOOKEDg = getGreyscaleClone(WOLF_SPOOKED);
@@ -602,6 +621,9 @@ namespace PikeAndShot
             COLMILLOS_HOWL = Content.Load<Texture2D>(@"los_colmillos_howl");
             COLMILLOS_HOWL_NOSHIELD = Content.Load<Texture2D>(@"los_colmillos_howl_noshield");
             COLMILLOS_HOWL_NOARMOUR = Content.Load<Texture2D>(@"los_colmillos_howl_noarmour");
+            COLMILLOS_STAGGER = Content.Load<Texture2D>(@"los_colmillos_stagger");
+            FALCHION_THROWN = Content.Load<Texture2D>(@"falchion_thrown");
+            FALCHION_DIRT = Content.Load<Texture2D>(@"falchion_dirt");
 
             GOBLIN_FEET = Content.Load<Texture2D>(@"goblin_feet");
             BROWN_FEET = Content.Load<Texture2D>(@"brown_feet");

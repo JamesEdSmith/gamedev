@@ -208,6 +208,15 @@ Content\wolf_howl.xnb
 Content\los_colmillos_howl.xnb
 Content\los_colmillos_howl_noshield.xnb
 Content\los_colmillos_howl_noarmour.xnb
+Content\los_colmillos_stagger.xnb
+Content\falchion_dirt.xnb
+Content\falchion_thrown.xnb
+Content\wolf_bite_col.xnb
+Content\wolf_getup_col.xnb
+Content\wolf_howl_col.xnb
+Content\wolf_idle_col.xnb
+Content\wolf_run_col.xnb
+Content\wolf_turn_col.xnb
 Content\cgwg-xna.xnb
 Content\Bloom.xnb
 Content\BloomExtract.xnb
