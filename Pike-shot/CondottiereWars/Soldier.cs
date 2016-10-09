@@ -3182,7 +3182,7 @@ namespace PikeAndShot
         public const int STATE_RUN = 204;
         public const int STATE_STAGGER = 205;
 
-        private const int HEALTH = 1;
+        private const int HEALTH = 2;
         
         Sprite _attack;
         Sprite _noShieldAttack;
@@ -3298,22 +3298,6 @@ namespace PikeAndShot
             }
         }
 
-        /*protected override bool checkReactions(TimeSpan timeSpan)
-        {
-            if (_screen.findShot(this, 30f))
-            {
-                if (!_reacting && _state == STATE_READY)
-                {
-                    cover();
-                }
-            }
-            else if (_reacting)
-            {
-                coverDone();
-            }
-            return false;
-        }*/
-
         public override bool attack()
         {
             if (_state != STATE_DYING && _state != STATE_DEAD && _state != STATE_RISE && _state != STATE_EATEN && _state != STATE_ATTACK)
@@ -3403,7 +3387,7 @@ namespace PikeAndShot
             }
             else if (hurtTimer > 0f)
             {
-                if(_state == STATE_READY || _state == STATE_STAGGER)
+                if(_state == STATE_READY || _state == STATE_STAGGER || _state == STATE_RUN)
                     addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f, Color.Red));
                 addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f, Color.Red));
             }
@@ -3721,7 +3705,7 @@ namespace PikeAndShot
             _footSpeed = 6.5f;
             _speed = 0.24f;
             _feet.setAnimationSpeed(_footSpeed/0.11f);
-            
+            _stateTimer = PikeAndShotGame.random.Next((int)_idleTime);
         }
 
         public override void hit()
@@ -3906,7 +3890,7 @@ namespace PikeAndShot
             }
             _drawingPosition = _position + _randDestOffset - _screen.getMapOffset() + new Vector2(turnOffset,0);
 
-            if ((_state == STATE_FLEE || flee == true || retreat == true || _state == STATE_HOWLING) && !(this is ColmillosWolf))
+            if ((_state == STATE_FLEE || flee == true || retreat == true ) && !(this is ColmillosWolf))
                 addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), (_state != STATE_RETREAT && _state != STATE_ROUTED && !_turned && !killOrientRight) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || (_state == STATE_KILL && !killOrientRight)) ? _side : _side * -1, _drawingY, true, 100f));
             else if (_state != STATE_DEAD)
             {
@@ -4212,11 +4196,6 @@ namespace PikeAndShot
         {
             _state = STATE_SIT;
             _getUp.setEffect(Sprite.EFFECT_FADEIN, SIT_TIME);
-        }
-
-        public override void draw(SpriteBatch spritebatch)
-        {
-            base.draw(spritebatch);
         }
 
         protected override void updateAnimation(TimeSpan timeSpan)
