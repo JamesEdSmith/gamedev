@@ -1884,6 +1884,7 @@ namespace PikeAndShot
         private bool _pikesRaised; //Gotta have this flag otherwise enemy formations keep trying to raise all the time and mess up shots
         public Spawner spawner;
         public string name;
+        public int index;
 
         public EnemyFormation(string name, List<PatternAction> pattern, BattleScreen screen, float x, float y, int initialCapacity, int side)
             : base(screen, x, y, initialCapacity, side)
@@ -1895,6 +1896,19 @@ namespace PikeAndShot
                 _currentDuration = ((PatternAction)pattern[0]).duration;
 
             _pikesRaised = false;
+        }
+
+        public EnemyFormation(string name, List<PatternAction> pattern, BattleScreen screen, float x, float y, int initialCapacity, int side, int index)
+            : base(screen, x, y, initialCapacity, side)
+        {
+            this.name = name;
+            _pattern = pattern;
+            _currentAction = 0;
+            if (pattern != null && pattern.Count > 0)
+                _currentDuration = ((PatternAction)pattern[0]).duration;
+
+            _pikesRaised = false;
+            this.index = index;
         }
 
         public override void update(TimeSpan timeSpan)

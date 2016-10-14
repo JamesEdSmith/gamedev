@@ -59,7 +59,7 @@ namespace PikeAndShot
 
             for (int f = 0; f < _levelData.formations.Count; f++)
             {
-                _newEnemyFormation = new EnemyFormation(_levelData.formationNames[f], _levelData.formationActions[f], this, (_levelData.formationPositions[f]).X, (_levelData.formationPositions[f]).Y, 5, _levelData.formationSides[f]);
+                _newEnemyFormation = new EnemyFormation(_levelData.formationNames[f], _levelData.formationActions[f], this, (_levelData.formationPositions[f]).X, (_levelData.formationPositions[f]).Y, 5, _levelData.formationSides[f], f);
 
                 for (int i = 0; i < _levelData.formations[f].Count; i++)
                 {
@@ -368,20 +368,21 @@ namespace PikeAndShot
         {
             _boxMoving = false;
             ArrayList formationsUpdate = new ArrayList(30);
-            foreach (EnemyFormation enf in _enemyFormations)
+            foreach (EnemyFormation enf in _grabbedFormations)
             {
                 formationsUpdate.Add(enf);
             }
-
+            int i = 0;
             foreach (EnemyFormation ef in formationsUpdate)
             {
-                _listener.updateLevelFromScreen(formationsUpdate.IndexOf(ef), ef.getPosition().X, ef.getPosition().Y);
+                _listener.updateLevelFromScreen(ef.index, ef.getPosition().X, ef.getPosition().Y);
             }
         }
 
         private void grabFormations()
         {
             bool collision = true;
+            _grabbedFormations.Clear();
             foreach (EnemyFormation ef in _enemyFormations)
             {
                 collision = true;

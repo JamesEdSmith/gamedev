@@ -670,8 +670,7 @@ namespace PikeAndShot
             _levels[currLevel].formationTimes[formation] = _levels[currLevel].formationTimes[formation] + (x -_levels[currLevel].formationPositions[formation].X);
             _levels[currLevel].formationPositions[formation] = new Vector2(x, y);
             
-            currFormation = formation;
-            if (currFormation != -1)
+            if (currFormation == formation)
             {
                 xTextBox.Text = _levels[currLevel].formationPositions[currFormation].X.ToString();
                 yTextBox.Text = _levels[currLevel].formationPositions[currFormation].Y.ToString();
