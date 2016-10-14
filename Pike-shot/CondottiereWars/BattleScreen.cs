@@ -38,7 +38,6 @@ namespace PikeAndShot
         protected ArrayList _screenObjects;
         protected ArrayList _screenObjectsToAdd;
         protected ArrayList _screenColliders;
-        protected ArrayList _screenNonColliders;
         protected ArrayList _screenAnimations;
         protected ArrayList _screenAnimationsToAdd;
         public ArrayList _enemyFormations;
@@ -74,7 +73,6 @@ namespace PikeAndShot
             _screenObjects = new ArrayList(40);
             _screenObjectsToAdd = new ArrayList(40);
             _screenColliders = new ArrayList(40);
-            _screenNonColliders = new ArrayList(20);
             _screenAnimations = new ArrayList(40);
             _screenAnimationsToAdd = new ArrayList(40);
             _enemyFormationsToAdd = new ArrayList(3);
@@ -278,7 +276,6 @@ namespace PikeAndShot
             bool oneCollision = false;
 
             _screenColliders.Clear();
-            _screenNonColliders.Clear();
 
             // pour all of the screen objects into the list of objects to check for collisions against to start with
             foreach (ScreenObject so in _screenObjects)
@@ -287,22 +284,14 @@ namespace PikeAndShot
                 {
                     if (so.getState() != Wolf.STATE_SPOOKED && so.getState() != Wolf.STATE_HOWLING && so.getState() != Wolf.STATE_FLEE && (so.getState() != Wolf.STATE_TURNING || !((Wolf)so).flee))
                         _screenColliders.Add(so);
-                    else
-                        _screenNonColliders.Add(so);
                 }
                 else if (so is Colmillos)
                 {
-                    if (so.getState() == Soldier.STATE_DYING || so.getState() == Colmillos.STATE_EATEN || so.getState() == Colmillos.STATE_RISE || so.getState() == Targeteer.STATE_SHIELDBREAK || ((ColmillosFormation)((Colmillos)so).myFormation).attacked)
-                    {
-                        _screenNonColliders.Add(so);
-                    }
-                    else
+                    if (!(so.getState() == Soldier.STATE_DYING || so.getState() == Colmillos.STATE_EATEN || so.getState() == Colmillos.STATE_RISE || so.getState() == Targeteer.STATE_SHIELDBREAK || ((ColmillosFormation)((Colmillos)so).myFormation).attacked))
                         _screenColliders.Add(so);
                 }
-                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay))
+                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay) && !(this is Terrain))
                     _screenColliders.Add(so);
-                else
-                    _screenNonColliders.Add(so);
             }
             
             // Now for every object see if it hit any of the colliders
@@ -311,89 +300,100 @@ namespace PikeAndShot
             {
                 if (so is WeaponSwing)
                     x++;
-                if (!_screenNonColliders.Contains(so))
+
+                if (so is Wolf)
                 {
-                    // get the values here so we aren't calling functions like crazy
-                    // pavise HACK
-                    if (so is Pavise)
+                    if (!(so.getState() != Wolf.STATE_SPOOKED && so.getState() != Wolf.STATE_HOWLING && so.getState() != Wolf.STATE_FLEE && (so.getState() != Wolf.STATE_TURNING || !((Wolf)so).flee)))
+                        continue;
+                }
+                else if (so is Colmillos)
+                {
+                    if (so.getState() == Soldier.STATE_DYING || so.getState() == Colmillos.STATE_EATEN || so.getState() == Colmillos.STATE_RISE || so.getState() == Targeteer.STATE_SHIELDBREAK || ((ColmillosFormation)((Colmillos)so).myFormation).attacked)
+                        continue;
+                }
+                else if (!(so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay) && !(this is Terrain)))
+                    continue;
+                
+                // get the values here so we aren't calling functions like crazy
+                // pavise HACK
+                if (so is Pavise)
+                {
+                    soX = so.getPosition().X;
+                    soY = so.getPosition().Y - 10;
+                    soWidth = so.getWidth();
+                    soHeight = so.getHeight() + 10;
+                }
+                else if (so is Wolf)
+                {
+                    soX = so.getPosition().X;
+                    soY = so.getPosition().Y - 5;
+                    soWidth = so.getWidth();
+                    soHeight = so.getHeight() + 5;
+                }
+                else
+                {
+                    soX = so.getPosition().X;
+                    soY = so.getPosition().Y;
+                    soWidth = so.getWidth();
+                    soHeight = so.getHeight();
+                }
+                foreach (ScreenObject co in _screenColliders)
+                {
+                    if (so != co)
                     {
-                        soX = so.getPosition().X;
-                        soY = so.getPosition().Y - 10;
-                        soWidth = so.getWidth();
-                        soHeight = so.getHeight() + 10;
-                    }
-                    else if (so is Wolf)
-                    {
-                        soX = so.getPosition().X;
-                        soY = so.getPosition().Y - 5;
-                        soWidth = so.getWidth();
-                        soHeight = so.getHeight() + 5;
-                    }
-                    else
-                    {
-                        soX = so.getPosition().X;
-                        soY = so.getPosition().Y;
-                        soWidth = so.getWidth();
-                        soHeight = so.getHeight();
-                    }
-                    foreach (ScreenObject co in _screenColliders)
-                    {
-                        if (so != co)
+                        // pavise HACK
+                        if (co is Pavise || co is CrossbowmanPavise && so is Shot)
                         {
-                            // pavise HACK
-                            if (co is Pavise || co is CrossbowmanPavise && so is Shot)
-                            {
-                                coX = co.getPosition().X;
-                                coY = co.getPosition().Y - 10;
-                                coWidth = co.getWidth();
-                                coHeight = co.getHeight() + 10;
-                            }
-                            else if (co is Wolf)
-                            {
-                                coX = co.getPosition().X;
-                                coY = co.getPosition().Y - 5;
-                                coWidth = co.getWidth();
-                                coHeight = co.getHeight() + 5;
-                            }
-                            else
-                            {
-                                coX = co.getPosition().X;
-                                coY = co.getPosition().Y;
-                                coWidth = co.getWidth();
-                                coHeight = co.getHeight();
-                            }
+                            coX = co.getPosition().X;
+                            coY = co.getPosition().Y - 10;
+                            coWidth = co.getWidth();
+                            coHeight = co.getHeight() + 10;
+                        }
+                        else if (co is Wolf)
+                        {
+                            coX = co.getPosition().X;
+                            coY = co.getPosition().Y - 5;
+                            coWidth = co.getWidth();
+                            coHeight = co.getHeight() + 5;
+                        }
+                        else
+                        {
+                            coX = co.getPosition().X;
+                            coY = co.getPosition().Y;
+                            coWidth = co.getWidth();
+                            coHeight = co.getHeight();
+                        }
 
-                            if (so is CrossbowmanPavise && co is Shot)
-                            {
-                                soY = so.getPosition().Y - 10;
-                                soHeight = so.getHeight() + 10;
-                            }
+                        if (so is CrossbowmanPavise && co is Shot)
+                        {
+                            soY = so.getPosition().Y - 10;
+                            soHeight = so.getHeight() + 10;
+                        }
 
-                            collision = true;
+                        collision = true;
 
-                            // see if we didn't collide
-                            if (soX > coX + coWidth)
-                                collision = false;
-                            else if (soX + soWidth < coX)
-                                collision = false;
-                            else if (soY > coY + coHeight)
-                                collision = false;
-                            else if (soY + soHeight < coY)
-                                collision = false;
+                        // see if we didn't collide
+                        if (soX > coX + coWidth)
+                            collision = false;
+                        else if (soX + soWidth < coX)
+                            collision = false;
+                        else if (soY > coY + coHeight)
+                            collision = false;
+                        else if (soY + soHeight < coY)
+                            collision = false;
 
-                            if (collision)
-                            {
-                                if (so is WeaponAttack || co is WeaponAttack)
-                                    Console.WriteLine("oh");
-                                so.collide(co, timeSpan);
-                                oneCollision = true;
-                                co.collide(so, timeSpan);
-                            }
+                        if (collision)
+                        {
+                            if (so is WeaponAttack || co is WeaponAttack)
+                                Console.WriteLine("oh");
+                            so.collide(co, timeSpan);
+                            oneCollision = true;
+                            co.collide(so, timeSpan);
                         }
                     }
-                    if (!oneCollision)
-                        _screenColliders.Remove(so);
                 }
+                if (!oneCollision)
+                    _screenColliders.Remove(so);
             }
         }
 

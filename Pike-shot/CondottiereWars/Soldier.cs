@@ -3387,7 +3387,7 @@ namespace PikeAndShot
             }
             else if (hurtTimer > 0f)
             {
-                if(_state == STATE_READY || _state == STATE_STAGGER || _state == STATE_RUN)
+                if(_state == STATE_READY || _state == STATE_STAGGER || _state == STATE_RUN || _state == STATE_COVER)
                     addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f, Color.Red));
                 addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY, true, 100f, Color.Red));
             }

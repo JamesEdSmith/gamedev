@@ -21,7 +21,7 @@ namespace PikeAndShot
     public class PikeAndShotGame : Microsoft.Xna.Framework.Game
     {
         public const bool DEBUG = true;
-        public const bool TEST_BOSS = true;
+        public const bool TEST_BOSS = false;
 
         public static TimeSpan DUMMY_TIMESPAN;
 

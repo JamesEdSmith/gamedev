@@ -247,6 +247,15 @@ Content\theme.xnb
 Content\boss01.xnb
 Content\arg.xnb
 Content\boss.xnb
+Content\los_colmillos_stagger.xnb
+Content\falchion_dirt.xnb
+Content\falchion_thrown.xnb
+Content\wolf_bite_col.xnb
+Content\wolf_getup_col.xnb
+Content\wolf_howl_col.xnb
+Content\wolf_idle_col.xnb
+Content\wolf_run_col.xnb
+Content\wolf_turn_col.xnb
 Content\theme.wma
 Content\boss01.wma
 Content\Benz1_level.xml

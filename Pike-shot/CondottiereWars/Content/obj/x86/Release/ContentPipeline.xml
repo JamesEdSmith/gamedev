@@ -1736,7 +1736,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_kill.xnb</Output>
-      <Time>2016-04-29T23:59:52.4346229-04:00</Time>
+      <Time>2016-10-04T09:32:27.763488-04:00</Time>
     </Item>
     <Item>
       <Source>los_colmillos_fall1.png</Source>
@@ -2243,6 +2243,87 @@
       <Options>None</Options>
       <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\boss.xnb</Output>
       <Time>2016-09-24T00:42:31.4906658-04:00</Time>
+    </Item>
+    <Item>
+      <Source>los_colmillos_stagger.png</Source>
+      <Name>los_colmillos_stagger</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\los_colmillos_stagger.xnb</Output>
+      <Time>2016-10-02T04:15:55.2964072-04:00</Time>
+    </Item>
+    <Item>
+      <Source>falchion_dirt.png</Source>
+      <Name>falchion_dirt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\falchion_dirt.xnb</Output>
+      <Time>2016-10-02T05:07:42.4381256-04:00</Time>
+    </Item>
+    <Item>
+      <Source>falchion_thrown.png</Source>
+      <Name>falchion_thrown</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\falchion_thrown.xnb</Output>
+      <Time>2016-10-02T05:07:42.4391256-04:00</Time>
+    </Item>
+    <Item>
+      <Source>wolf_bite_col.png</Source>
+      <Name>wolf_bite_col</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_bite_col.xnb</Output>
+      <Time>2016-10-04T00:28:41.772388-04:00</Time>
+    </Item>
+    <Item>
+      <Source>wolf_getup_col.png</Source>
+      <Name>wolf_getup_col</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_getup_col.xnb</Output>
+      <Time>2016-10-04T09:40:35.2553709-04:00</Time>
+    </Item>
+    <Item>
+      <Source>wolf_howl_col.png</Source>
+      <Name>wolf_howl_col</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_howl_col.xnb</Output>
+      <Time>2016-10-04T09:25:07.9723334-04:00</Time>
+    </Item>
+    <Item>
+      <Source>wolf_idle_col.png</Source>
+      <Name>wolf_idle_col</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_idle_col.xnb</Output>
+      <Time>2016-10-04T00:28:41.7773883-04:00</Time>
+    </Item>
+    <Item>
+      <Source>wolf_run_col.png</Source>
+      <Name>wolf_run_col</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_run_col.xnb</Output>
+      <Time>2016-10-04T00:28:41.7783884-04:00</Time>
+    </Item>
+    <Item>
+      <Source>wolf_turn_col.png</Source>
+      <Name>wolf_turn_col</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\James\Documents\gamedev\pike-shot\CondottiereWars\bin\x86\Release\Content\wolf_turn_col.xnb</Output>
+      <Time>2016-10-04T03:53:42.8859715-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
