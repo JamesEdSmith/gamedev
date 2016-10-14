@@ -3744,8 +3744,6 @@ namespace PikeAndShot
 
         internal override void setSpeed(float p)
         {
-//            if (p < 0.23f)
-  //              Console.WriteLine("ARG");
             _speed = p;
             _feet.setAnimationSpeed(_footSpeed / (_speed - 0.13f));
         }

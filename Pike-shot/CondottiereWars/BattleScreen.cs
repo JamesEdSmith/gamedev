@@ -384,8 +384,6 @@ namespace PikeAndShot
 
                         if (collision)
                         {
-                            if (so is WeaponAttack || co is WeaponAttack)
-                                Console.WriteLine("oh");
                             so.collide(co, timeSpan);
                             oneCollision = true;
                             co.collide(so, timeSpan);

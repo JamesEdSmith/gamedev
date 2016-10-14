@@ -447,8 +447,6 @@ namespace PikeAndShot
                 //spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "terrain: " + _terrain.Count, new Vector2(505, 5), Color.White);
                 spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "pike: " + _formation.numberOfPikes + "shot: " + _formation.numberOfShots, new Vector2(505, 5), Color.White);
             }
-            if ((float)gameTime.ElapsedGameTime.TotalMilliseconds > 100)
-                Console.WriteLine("my");
         }
 
         protected override void getInput(TimeSpan timeSpan)
