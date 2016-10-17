@@ -63,7 +63,6 @@ namespace PikeAndShot
 
         private void loadLevels()
         {
-
             //load soldier classes and fill the comboBox with them
             SoldierClass soldier = new SoldierClass("Merc Pikeman", 0);
             _soldierClass.Add(soldier);
@@ -131,6 +130,8 @@ namespace PikeAndShot
 
             TerrainClass terrain = new TerrainClass("tree0", 0);
             _terrainClass.Add(terrain);
+            terrain = new TerrainClass("hori road", 1);
+            _terrainClass.Add(terrain);
 
             foreach (TerrainClass sc in _terrainClass)
             {
@@ -162,8 +163,14 @@ namespace PikeAndShot
             {
                 formationListBox.Items.Add(s);
             }
+            refreshLevel();
+        }
+
+        private void refreshLevel()
+        {
             refreshFormationListBox();
             refreshPatternListBox();
+            refreshTerrainListBox();
         }
 
         private void formationListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -399,8 +406,7 @@ namespace PikeAndShot
             _levels.Add(newLevel);
 
             refreshLevelComboBox();
-            refreshFormationListBox();
-            refreshPatternListBox();
+            refreshLevel();
 
             sendUpdate();
         }
@@ -596,7 +602,7 @@ namespace PikeAndShot
                 patternListBox.SelectedIndex = currPatternAction;
             }
             else
-                currPatternAction = 0;
+                currPatternAction = -1;
         }
 
         private void refreshSoldierListBox()
@@ -652,6 +658,10 @@ namespace PikeAndShot
             testValue.formationSides = _levels[currLevel].formationSides;
             testValue.formationNames = _levels[currLevel].formationNames;
             testValue.formationActionNames = _levels[currLevel].formationActionNames;
+
+            testValue.terrains = _levels[currLevel].terrains;
+            testValue.terrainPositions = _levels[currLevel].terrainPositions;
+            testValue.terrainTimes = _levels[currLevel].terrainTimes;
 
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
@@ -828,8 +838,8 @@ namespace PikeAndShot
         {
             if (terrainListBox.SelectedIndex != -1)
             {
-                _levels[currLevel].terrainPositions.RemoveAt(soldierListBox.SelectedIndex);
-                _levels[currLevel].terrains.RemoveAt(soldierListBox.SelectedIndex);
+                _levels[currLevel].terrainPositions.RemoveAt(terrainListBox.SelectedIndex);
+                _levels[currLevel].terrains.RemoveAt(terrainListBox.SelectedIndex);
                 terrainListBox.Items.RemoveAt(terrainListBox.SelectedIndex);
             }
 
@@ -881,6 +891,15 @@ namespace PikeAndShot
                 terrainListBox.Items.Add(_terrainClass[terrainComboBox.SelectedIndex].id.ToString() + " " + _terrainClass[terrainComboBox.SelectedIndex].name);
             }
             sendUpdate();
+        }
+
+        void refreshTerrainListBox()
+        {
+            terrainListBox.Items.Clear();
+            foreach (int i in _levels[currLevel].terrains)
+            {
+                terrainListBox.Items.Add(_terrainClass[i].id.ToString() + " " + _terrainClass[i].name);
+            }
         }
 
         private void movePatternUp_Click(object sender, EventArgs e)

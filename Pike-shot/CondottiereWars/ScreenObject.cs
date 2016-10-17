@@ -219,7 +219,6 @@ namespace PikeAndShot
         {
             velocity = new Vector2(-0.08f, -0.10f);
             dirt = false;
-            _position.X += 4f;
             _position.Y += 4f;
             initialPosition = new Vector2(position.X, position.Y);
         }

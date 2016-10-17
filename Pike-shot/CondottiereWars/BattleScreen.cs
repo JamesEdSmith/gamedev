@@ -88,12 +88,23 @@ namespace PikeAndShot
             _drawDots = false;
             _terrain = new ArrayList(20);
 
-            for (int i = 0; i < 100; i++)
-            {
-                _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[PikeAndShotGame.random.Next(7)], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
-            }
+            spawnInitialTerrain();
 
             _drawJobs = new ArrayList(255);
+        }
+
+        protected void spawnInitialTerrain()
+        {
+            int next = 0;
+            for (int i = 0; i < 100; i++)
+            {
+                next = PikeAndShotGame.random.Next(7);
+
+                if (next == 2)
+                    _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[next], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT), 8000f, 1500f));
+                else
+                    _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[next], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
+            }
         }
 
         /// <summary>
@@ -182,7 +193,7 @@ namespace PikeAndShot
                     t.update(gameTime.ElapsedGameTime);
                 }
 
-                if (t.getPosition().X < (-2f * Soldier.WIDTH) + getMapOffset().X)
+                if (t.getPosition().X < (-2f * Soldier.WIDTH) + getMapOffset().X && !(this is LevelEditorScreen))
                     t.setState(Soldier.STATE_DEAD);
 
                 if (t.isDead())
@@ -214,7 +225,11 @@ namespace PikeAndShot
                 else if (obj is Terrain)
                 {
                     _terrain.Remove(obj);
-                    _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[PikeAndShotGame.random.Next(7)], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
+                    int terrainIndex = PikeAndShotGame.random.Next(7);
+                    if(terrainIndex == 2)
+                        _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT), 8000f, 1500f));
+                    else
+                        _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
                 }
 
                 if (obj is WeaponSwing)
@@ -248,6 +263,11 @@ namespace PikeAndShot
         {
             _screenObjectsToAdd.Add(so);
             //_screenObjects.Add(so);
+        }
+
+        public void addTerrain(Terrain t)
+        {
+            _terrain.Add(t);
         }
 
         public ArrayList getScreenObjects()
@@ -569,7 +589,7 @@ namespace PikeAndShot
 
             foreach (DrawJob dj in _drawJobs)
             {
-                if(dj.flashAmount>0)
+                if (dj.flashAmount > 0)
                     dj.sprite.draw(spriteBatch, dj.position, dj.side, dj.flashAmount);
                 else if (dj.color != Color.Black)
                     dj.sprite.draw(spriteBatch, dj.position, dj.side, (float)gameTime.TotalGameTime.TotalMilliseconds, dj.flickerTime, dj.color);

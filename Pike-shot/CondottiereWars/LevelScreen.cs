@@ -31,6 +31,7 @@ namespace PikeAndShot
         private double _fps = 0;
         private int _draws = 0;
         List<int> _usedFormations;
+        List<int> _usedTerrain;
         float nextSpawnPosition = NEXT_SPAWN_POINT;
         public ArrayList _spawners;
         public ArrayList _deadSpawners;
@@ -94,6 +95,7 @@ namespace PikeAndShot
             coinMeterPosition = new Vector2(COIN_METER_POSITION.X, COIN_METER_POSITION.Y);
             
             _usedFormations = new List<int>(_levelData != null ?_levelData.formations.Count:20);
+            _usedTerrain = new List<int>(_levelData != null ? _levelData.formations.Count : 20);
             _spawners = new ArrayList(2);
             _deadSpawners = new ArrayList(2);
 
@@ -659,6 +661,14 @@ namespace PikeAndShot
                     }
                 }
             }
+            for (int f = 0; f < _levelData.terrains.Count; f++)
+            {
+                if (_levelData.terrainTimes[f] <= (double)_mapOffset.X + PikeAndShotGame.SCREENWIDTH && !_usedTerrain.Exists(i => i == f))
+                {
+                    _usedTerrain.Add(f);
+                    Terrain.getNewTerrain(_levelData.terrains[f], this, _levelData.terrainPositions[f].X, _levelData.terrainPositions[f].Y);
+                }
+            }
         }
 
         private EnemyFormation getDependantFormation(string name)
@@ -875,6 +885,7 @@ namespace PikeAndShot
             _mapOffset.X = 0f;
             _mapOffset.Y = 0f;
             _usedFormations.Clear();
+            _usedTerrain.Clear();
             _looseSoldiers.Clear();
             _shots.Clear();
             _enemyFormations.Clear();
@@ -925,12 +936,9 @@ namespace PikeAndShot
 
             _terrain = new ArrayList(20);
 
-            for (int i = 0; i < 100; i++)
-            {
-                _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[PikeAndShotGame.random.Next(7)], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
-            }
-            MediaPlayer.Stop();
-            MediaPlayer.Play(PikeAndShotGame.THEME_1);
+            spawnInitialTerrain();
+            //MediaPlayer.Stop();
+            //MediaPlayer.Play(PikeAndShotGame.THEME_1);
         }
 
         internal void makeShotSound()

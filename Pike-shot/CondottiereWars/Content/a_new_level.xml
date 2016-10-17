@@ -2374,7 +2374,7 @@
     </formationActions>
     <terrains />
     <terrainPositions />
-    <terrainTimes />
+    <terrainTimes>300</terrainTimes>
     <formationNames>
       <Item>New Formation</Item>
       <Item>New Formation_copy1_copy2</Item>

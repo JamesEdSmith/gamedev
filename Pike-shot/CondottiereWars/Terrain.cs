@@ -13,25 +13,49 @@ namespace PikeAndShot
         public const int STATE_SHOWN = 1;
         public const int STATE_ANIMATING = 2;
 
+        public const int CLASS_TREE0 = 0;
+        public const int CLASS_HORIROAD = 1;
+
         private Sprite _sprite;
         private float _restTime;
         private float _animationTime;
 
         public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, float restTime, float animationTime)
+            : this(screen, sprite, side, x, y)
+        {
+            _sprite = new Sprite(sprite, new Rectangle(0, 0, 0, 0), 40, 40, true);
+            _restTime = restTime;
+            _animationTime = animationTime;
+            
+        }
+
+        public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, float drawingY)
+            : this(screen, sprite, side, x, y)
+        {
+            _drawingY = _position.Y + drawingY;
+        }
+
+        public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y)
             : base(screen, side)
         {
             _position = new Vector2(x, y);
             _state = STATE_SHOWN;
-            _sprite = new Sprite(sprite, new Rectangle(0, 0, 0, 0), 40, 40, true);
-            _restTime = restTime;
-            _animationTime = animationTime;
+            _sprite = new Sprite(sprite, new Rectangle(0, 0, 0, 0), sprite.Width, sprite.Height, false);
             _stateTimer = _restTime;
-            _drawingY = _position.Y + 40f;
+            _drawingY = _position.Y + sprite.Height;
         }
 
-        public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y)
-            : this (screen, sprite, side, x, y, 8000f, 1500f)
+        public static void getNewTerrain(int terrainClass, BattleScreen screen, float x, float y)
         {
+            switch (terrainClass)
+            {
+                case Terrain.CLASS_TREE0:
+                    screen.addTerrain(new Terrain(screen, PikeAndShotGame.TREE0, BattleScreen.SIDE_PLAYER, x, y));
+                    break;
+                case Terrain.CLASS_HORIROAD:
+                    screen.addTerrain(new Terrain(screen, PikeAndShotGame.ROAD_HORIZONTAL, BattleScreen.SIDE_PLAYER, x, y, 0));
+                    break;
+            }
         }
 
         public bool isDead()

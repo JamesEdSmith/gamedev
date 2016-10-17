@@ -94,6 +94,11 @@ namespace PikeAndShot
             _loop = loop;
         }
 
+        public Texture2D getSourceBitmap()
+        {
+            return _sourceBitmap;
+        }
+
         public void play()
         {
             _playing = true;

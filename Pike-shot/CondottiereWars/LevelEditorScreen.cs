@@ -56,6 +56,7 @@ namespace PikeAndShot
             }
 
             _enemyFormations.Clear();
+            _terrain.Clear();
 
             for (int f = 0; f < _levelData.formations.Count; f++)
             {
@@ -102,6 +103,11 @@ namespace PikeAndShot
                     }
                 }
                 _enemyFormations.Add(_newEnemyFormation);
+            }
+
+            for (int f = 0; f < _levelData.terrains.Count; f++)
+            {
+                Terrain.getNewTerrain(_levelData.terrains[f], this, _levelData.terrainPositions[f].X, _levelData.terrainPositions[f].Y);
             }
 
             if (selectedFormation != -1 && _enemyFormations.Count > selectedFormation)

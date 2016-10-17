@@ -652,7 +652,7 @@ namespace PikeAndShot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(789, 746);
+            this.ClientSize = new System.Drawing.Size(789, 761);
             this.Controls.Add(this.pasteLevel);
             this.Controls.Add(this.copyLevel);
             this.Controls.Add(this.shiftFormationsButton);
