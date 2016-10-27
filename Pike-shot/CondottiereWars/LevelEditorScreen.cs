@@ -11,11 +11,20 @@ using System.Windows.Forms;
 
 namespace PikeAndShot
 {
+    public interface LevelEditorGrabbable
+    {
+        bool selected{get; set;}
+        int index{get; set;}
+        void setPosition(float x, float y);
+        void setPosition(Vector2 pos);
+        Vector2 getPosition();
+    }
+
     class LevelEditorScreen : BattleScreen, FormListener
     {
         private Level _levelData;
         private EnemyFormation _newEnemyFormation;
-        private EnemyFormation _grabbedFormation;
+        private LevelEditorGrabbable _grabbedThing;
         private Sprite _pointerSprite;
         private Vector2 _pointerPos;
         protected MouseState mouseState;
@@ -24,7 +33,8 @@ namespace PikeAndShot
         protected Vector2 _oldMousePosition;
         protected Vector2 _startingMousePosition;
         protected Vector2 _endingMousePosition;
-        private ArrayList _grabbedFormations;
+        private ArrayList _grabbedThings;
+        private ArrayList _grabbedTerrains;
         private bool _boxSelecting;
         private bool _boxMoving;
 
@@ -36,12 +46,13 @@ namespace PikeAndShot
             : base(game)
         {
             _levelData = form.getCurrLevel(); 
-            _pointerSprite = new Sprite(PikeAndShotGame.SWORD_POINTER, new Rectangle(0, 0, 18,18),18, 18);
+            _pointerSprite = new Sprite(PikeAndShotGame.SWORD_POINTER, new Rectangle(0, 0, 18, 18), 18, 18);
             prevMouseState = Mouse.GetState();
-            _grabbedFormation = null;
-            _grabbedFormations = new ArrayList(30);
+            _grabbedThing = null;
+            _grabbedThings = new ArrayList(30);
+            _grabbedTerrains = new ArrayList(30);
             _listener = form;
-            _oldMousePosition = new Vector2(0f, 0);
+            _oldMousePosition = new Vector2(0f, 0f);
             _boxSelecting = false;
             _boxMoving = false;
         }
@@ -53,6 +64,11 @@ namespace PikeAndShot
             foreach (EnemyFormation f in _enemyFormations)
             {
                 _deadFormations.Add(f);
+            }
+
+            foreach (Terrain t in _terrain)
+            {
+                _deadThings.Add(t);
             }
 
             _enemyFormations.Clear();
@@ -107,7 +123,7 @@ namespace PikeAndShot
 
             for (int f = 0; f < _levelData.terrains.Count; f++)
             {
-                Terrain.getNewTerrain(_levelData.terrains[f], this, _levelData.terrainPositions[f].X, _levelData.terrainPositions[f].Y);
+                Terrain.getNewTerrain(_levelData.terrains[f], this, _levelData.terrainPositions[f].X, _levelData.terrainPositions[f].Y, f);
             }
 
             if (selectedFormation != -1 && _enemyFormations.Count > selectedFormation)
@@ -119,24 +135,30 @@ namespace PikeAndShot
         public override void update(GameTime gameTime)
         {
             base.update(gameTime);
-            if (_grabbedFormation != null)
+            if (_grabbedThing != null)
             {
-                _grabbedFormation.setPosition((float)_pointerPos.X + _mapOffset.X, (float)_pointerPos.Y + _mapOffset.Y);
-                _grabbedFormation.resetupFormation();
-                _grabbedFormation.reformFormation();
-                _grabbedFormation.selected = true;
+                _grabbedThing.setPosition((float)_pointerPos.X + _mapOffset.X, (float)_pointerPos.Y + _mapOffset.Y);
+                _grabbedThing.selected = true;
+                if (_grabbedThing is EnemyFormation)
+                {
+                    ((EnemyFormation)_grabbedThing).resetupFormation();
+                    ((EnemyFormation)_grabbedThing).reformFormation();
+                }
             }
             if (_boxMoving)
             {
                 Vector2 mousePosition = new Vector2(_pointerPos.X, _pointerPos.Y) + _mapOffset;
                 _startingMousePosition += mousePosition - _oldMousePosition;
                 _endingMousePosition += mousePosition - _oldMousePosition;
-                foreach (EnemyFormation ef in _grabbedFormations)
+                foreach (LevelEditorGrabbable ef in _grabbedThings)
                 {
                     ef.setPosition(ef.getPosition() + (mousePosition - _oldMousePosition));
-                    ef.resetupFormation();
-                    ef.reformFormation();
-                    ef.selected = true;
+                    if (ef is EnemyFormation)
+                    {
+                        ((EnemyFormation)ef).resetupFormation();
+                        ((EnemyFormation)ef).reformFormation();
+                        ef.selected = true;
+                    }
                 }
                 _oldMousePosition = mousePosition;
             }
@@ -145,10 +167,11 @@ namespace PikeAndShot
         public override void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.draw(gameTime, spriteBatch);
-            if (_grabbedFormation != null)
+            if (_grabbedThing != null)
             {
-                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Grab: " + _grabbedFormation.getPosition().X + " " + _grabbedFormation.getPosition().Y, new Vector2(5, 5), Color.White);
-                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Solider: " + ((Soldier)_grabbedFormation.getSoldiers()[0]).getPosition().X + " " + ((Soldier)_grabbedFormation.getSoldiers()[0]).getPosition().Y, new Vector2(5, 20), Color.White);
+                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Grab: " + _grabbedThing.getPosition().X + " " + _grabbedThing.getPosition().Y, new Vector2(5, 5), Color.White);
+                if(_grabbedThing is EnemyFormation)
+                    spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Solider: " + ((Soldier)((EnemyFormation)_grabbedThing).getSoldiers()[0]).getPosition().X + " " + ((Soldier)((EnemyFormation)_grabbedThing).getSoldiers()[0]).getPosition().Y, new Vector2(5, 20), Color.White);
             }
             else
             {
@@ -238,13 +261,13 @@ namespace PikeAndShot
                 {
                     if (_boxSelecting)
                         moveFormations();
-                    else if (!grabFormation())
+                    else if (!grabThing())
                         startSelectorBox();
                 }
                 else if (mouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && prevMouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
                 {
                     //When we aren't grabbing a formation we are grabbing the map
-                    if (getGrabbedFormation() == null)
+                    if (getGrabbedThing() == null)
                     {
                         if (_boxSelecting && !_boxMoving)
                         {
@@ -255,14 +278,18 @@ namespace PikeAndShot
                 else if (mouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released && prevMouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
                 {
                     //release the formation you are holding 
-                    if (_grabbedFormation != null)
+                    if (_grabbedThing != null)
                     {
-                        _listener.updateLevelFromScreen(_enemyFormations.IndexOf(_grabbedFormation), _grabbedFormation.getPosition().X, _grabbedFormation.getPosition().Y);
-                        _grabbedFormation = null;
+                        if(_grabbedThing is EnemyFormation)
+                            _listener.updateLevelFromScreen(_grabbedThing.index, _grabbedThing.getPosition().X, _grabbedThing.getPosition().Y);
+                        else
+                            _listener.updateLevelFromScreenTerrain(_grabbedThing.index, _grabbedThing.getPosition().X, _grabbedThing.getPosition().Y);
+
+                        _grabbedThing = null;
                     }
                     else if (_boxSelecting && !_boxMoving)
                     {
-                        grabFormations();
+                        grabThings();
                     }
                     if (_boxMoving)
                     {
@@ -275,10 +302,13 @@ namespace PikeAndShot
                     {
                         copyFormations();
                     }
-                    else if (_grabbedFormation != null)
+                    else if (_grabbedThing != null)
                     {
-                        _listener.copyFormation(_enemyFormations.IndexOf(_grabbedFormation));
-                        _grabbedFormation = null;
+                        if(_grabbedThing is EnemyFormation)
+                            _listener.copyFormation(_grabbedThing.index);
+                        else
+                            _listener.copyTerrain(_grabbedThing.index);
+                        _grabbedThing = null;
                     }
                 }
                 else if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.E) && previousKeyboardState.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.E))
@@ -287,10 +317,13 @@ namespace PikeAndShot
                     {
                         deleteFormations();
                     }
-                    else if (_grabbedFormation != null)
+                    else if (_grabbedThing != null)
                     {
-                        _listener.deleteFormation(_enemyFormations.IndexOf(_grabbedFormation));
-                        _grabbedFormation = null;
+                        if(_grabbedThing is EnemyFormation)
+                            _listener.deleteFormation(_grabbedThing.index);
+                        else
+                            _listener.deleteTerrain(_grabbedThing.index);
+                        _grabbedThing = null;
                     }
                 }
                 else if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Left))
@@ -323,24 +356,32 @@ namespace PikeAndShot
 
         private void copyFormations()
         {
-            ArrayList formationIndices = new ArrayList(_grabbedFormations.Count);
-            foreach (EnemyFormation formy in _grabbedFormations)
-            {
-                formationIndices.Add(_enemyFormations.IndexOf(formy));
+            ArrayList formationIndices = new ArrayList(_grabbedThings.Count);
+            ArrayList terrainIndices = new ArrayList(_grabbedThings.Count);
+            foreach (EnemyFormation formy in _grabbedThings)
+            { 
+                if(formy is EnemyFormation)
+                    formationIndices.Add(formy.index);
+                else
+                    terrainIndices.Add(formy.index);
             }
-            _listener.copyFormations(formationIndices);
-            _grabbedFormations.Clear();
-            foreach (int i in formationIndices)
+            _listener.copyFormations(formationIndices, terrainIndices);
+            
+            _grabbedThings.Clear();
+            /*foreach (int i in formationIndices)
             {
-                _grabbedFormations.Add(_enemyFormations[i]);
-            }
+                _grabbedThings.Add(_enemyFormations[i]);
+            }*/
         }
 
         private void deleteFormations()
         {
-            foreach (EnemyFormation formy in _grabbedFormations)
+            foreach (LevelEditorGrabbable formy in _grabbedThings)
             {
-                _listener.deleteFormation(_enemyFormations.IndexOf(formy));
+                if(formy is EnemyFormation)
+                    _listener.deleteFormation(formy.index);
+                else
+                    _listener.deleteTerrain(formy.index);
             }
         }
 
@@ -365,7 +406,7 @@ namespace PikeAndShot
             else
             {
                 _boxSelecting = false;
-                _grabbedFormations.Clear();
+                _grabbedThings.Clear();
             }
 
         }
@@ -374,21 +415,23 @@ namespace PikeAndShot
         {
             _boxMoving = false;
             ArrayList formationsUpdate = new ArrayList(30);
-            foreach (EnemyFormation enf in _grabbedFormations)
+            foreach (LevelEditorGrabbable enf in _grabbedThings)
             {
                 formationsUpdate.Add(enf);
             }
-            int i = 0;
-            foreach (EnemyFormation ef in formationsUpdate)
+            foreach (LevelEditorGrabbable ef in formationsUpdate)
             {
-                _listener.updateLevelFromScreen(ef.index, ef.getPosition().X, ef.getPosition().Y);
+                if(ef is EnemyFormation)
+                    _listener.updateLevelFromScreen(ef.index, ef.getPosition().X, ef.getPosition().Y);
+                else
+                    _listener.updateLevelFromScreenTerrain(ef.index, ef.getPosition().X, ef.getPosition().Y);
             }
         }
 
-        private void grabFormations()
+        private void grabThings()
         {
             bool collision = true;
-            _grabbedFormations.Clear();
+            _grabbedThings.Clear();
             foreach (EnemyFormation ef in _enemyFormations)
             {
                 collision = true;
@@ -403,9 +446,27 @@ namespace PikeAndShot
 
                 if (collision)
                 {
-                    _grabbedFormations.Add(ef);
+                    _grabbedThings.Add(ef);
                 }
             }
+            foreach (Terrain t in _terrain)
+            {
+                collision = true;
+                if (_pointerPos.X < t.getPosition().X - getMapOffset().X)
+                    collision = false;
+                else if (_pointerPos.X > t.getPosition().X - getMapOffset().X + t.getWidth())
+                    collision = false;
+                else if (_pointerPos.Y < t.getPosition().Y - getMapOffset().Y)
+                    collision = false;
+                else if (_pointerPos.Y > t.getPosition().Y - getMapOffset().Y + t.getHeight())
+                    collision = false;
+
+                if (collision)
+                {
+                    _grabbedThing = t;
+                }
+            }
+
         }
 
         private void startSelectorBox()
@@ -414,12 +475,12 @@ namespace PikeAndShot
             _boxSelecting = true;
         }
 
-        public EnemyFormation getGrabbedFormation()
+        public LevelEditorGrabbable getGrabbedThing()
         {
-            return _grabbedFormation;
+            return _grabbedThing;
         }
 
-        protected bool grabFormation()
+        protected bool grabThing()
         {
             bool collision = true;
             foreach (EnemyFormation ef in _enemyFormations)
@@ -436,21 +497,43 @@ namespace PikeAndShot
 
                 if (collision)
                 {
-                    _grabbedFormation = ef;
-                    _grabbedFormation.selected = true;
+                    _grabbedThing = ef;
+                    _grabbedThing.selected = true;
                     return true;
                 }
             }
+            foreach (Terrain t in _terrain)
+            {
+                collision = true;
+                if (_pointerPos.X < t.getPosition().X - getMapOffset().X)
+                    collision = false;
+                else if (_pointerPos.X > t.getPosition().X - getMapOffset().X + t.getWidth())
+                    collision = false;
+                else if (_pointerPos.Y < t.getPosition().Y - getMapOffset().Y)
+                    collision = false;
+                else if (_pointerPos.Y > t.getPosition().Y - getMapOffset().Y + t.getHeight())
+                    collision = false;
+
+                if (collision)
+                {
+                    _grabbedThing = t;
+                    _grabbedThing.selected = true;
+                    return true;
+                }
+            }
+
             return false;
         }
-
     }
 
     public interface LevelEditorScreenListner
     {
         void updateLevelFromScreen(int formation, float x, float y);
+        void updateLevelFromScreenTerrain(int terrain, float x, float y);
         void copyFormation(int formation);
-        void copyFormations(ArrayList formations);
+        void copyTerrain(int index);
+        void copyFormations(ArrayList formations, ArrayList terrains);
         void deleteFormation(int formation);
+        void deleteTerrain(int ter);
     }
 }

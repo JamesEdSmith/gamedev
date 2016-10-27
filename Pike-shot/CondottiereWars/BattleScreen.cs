@@ -99,11 +99,18 @@ namespace PikeAndShot
             for (int i = 0; i < 100; i++)
             {
                 next = PikeAndShotGame.random.Next(7);
-
+                Terrain terrain;
                 if (next == 2)
-                    _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[next], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT), 8000f, 1500f));
+                {
+                    terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[next], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT), 8000f, 1500f);
+                    _terrain.Add(terrain);
+                }
                 else
-                    _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[next], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
+                {
+                    terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[next], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT));
+                    _terrain.Add(terrain);
+                }
+                terrain.generated = true;
             }
         }
 
@@ -225,11 +232,23 @@ namespace PikeAndShot
                 else if (obj is Terrain)
                 {
                     _terrain.Remove(obj);
-                    int terrainIndex = PikeAndShotGame.random.Next(7);
-                    if(terrainIndex == 2)
-                        _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT), 8000f, 1500f));
-                    else
-                        _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
+                    if (((Terrain)obj).generated)
+                    {
+                        int terrainIndex = PikeAndShotGame.random.Next(7);
+                        Terrain terrain;
+                        if (terrainIndex == 2)
+                        {
+                            terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT), 8000f, 1500f);
+                            _terrain.Add(terrain);
+                        }
+                        else
+                        {
+                            terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT));
+                            _terrain.Add(terrain);
+                        }
+                        terrain.generated = true;
+
+                    }
                 }
 
                 if (obj is WeaponSwing)

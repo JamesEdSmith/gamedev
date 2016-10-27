@@ -666,7 +666,7 @@ namespace PikeAndShot
                 if (_levelData.terrainTimes[f] <= (double)_mapOffset.X + PikeAndShotGame.SCREENWIDTH && !_usedTerrain.Exists(i => i == f))
                 {
                     _usedTerrain.Add(f);
-                    Terrain.getNewTerrain(_levelData.terrains[f], this, _levelData.terrainPositions[f].X, _levelData.terrainPositions[f].Y);
+                    Terrain.getNewTerrain(_levelData.terrains[f], this, _levelData.terrainPositions[f].X, _levelData.terrainPositions[f].Y, f);
                 }
             }
         }

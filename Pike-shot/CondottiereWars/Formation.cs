@@ -44,7 +44,7 @@ namespace PikeAndShot
         private bool _addedSoldier;
         private bool DEBUGdangerClose;
 
-        public bool selected;
+        public bool selected { get; set; }
         public int numberOfPikes;
         public int numberOfShots;
         public bool retreated;
@@ -1876,7 +1876,7 @@ namespace PikeAndShot
 
     }
 
-    public class EnemyFormation : Formation
+    public class EnemyFormation : Formation, LevelEditorGrabbable
     {
         public List<PatternAction> _pattern;
         private int _currentAction;
@@ -1884,7 +1884,7 @@ namespace PikeAndShot
         private bool _pikesRaised; //Gotta have this flag otherwise enemy formations keep trying to raise all the time and mess up shots
         public Spawner spawner;
         public string name;
-        public int index;
+        public int index { get; set; }
 
         public EnemyFormation(string name, List<PatternAction> pattern, BattleScreen screen, float x, float y, int initialCapacity, int side)
             : base(screen, x, y, initialCapacity, side)

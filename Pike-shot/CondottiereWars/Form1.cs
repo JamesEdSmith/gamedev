@@ -16,7 +16,7 @@ using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
 namespace PikeAndShot
 {
 
-    public partial class LevelConstructorForm : Form
+    public partial class LevelConstructorForm : Form, LevelEditorScreenListner
     {        
         private List<PikeAndShot.Level> _levels;
         private List<SoldierClass> _soldierClass;
@@ -59,6 +59,12 @@ namespace PikeAndShot
         {
             foreach(FormListener fl in _formListeners)
                 fl.updateLevel(_levels[currLevel], currFormation);
+        }
+
+        private void sendUpdateTerrain()
+        {
+            foreach (FormListener fl in _formListeners)
+                fl.updateLevel(_levels[currLevel], -1);
         }
 
         private void loadLevels()
@@ -672,6 +678,22 @@ namespace PikeAndShot
             }
         }
 
+        void LevelEditorScreenListner.updateLevelFromScreenTerrain(int formation, float x, float y)
+        {
+            if (formation == -1)
+                return;
+
+            _levels[currLevel].terrainTimes[formation] = _levels[currLevel].terrainTimes[formation] + (x - _levels[currLevel].terrainPositions[formation].X);
+            _levels[currLevel].terrainPositions[formation] = new Vector2(x, y);
+
+            if (currTerrain == formation)
+            {
+                txTextBox.Text = _levels[currLevel].terrainPositions[currTerrain].X.ToString();
+                tyTextBox.Text = _levels[currLevel].terrainPositions[currTerrain].Y.ToString();
+                tSpawnTextBox.Text = _levels[currLevel].terrainTimes[currTerrain].ToString();
+            }
+        }
+
         void LevelEditorScreenListner.updateLevelFromScreen(int formation, float x, float y)
         {
             if (formation == -1)
@@ -706,6 +728,16 @@ namespace PikeAndShot
                     patternListBox.Items.Add(pa);
                 }
             }
+        }
+
+        void LevelEditorScreenListner.copyTerrain(int ter)
+        {
+            _levels[currLevel].terrains.Add(_levels[currLevel].terrains[ter]);
+            _levels[currLevel].terrainPositions.Add(_levels[currLevel].terrainPositions[ter]);
+            _levels[currLevel].terrainTimes.Add(_levels[currLevel].terrainTimes[ter]);
+
+            refreshTerrainListBox();
+            sendUpdate();
         }
 
         void LevelEditorScreenListner.copyFormation(int formation)
@@ -748,7 +780,7 @@ namespace PikeAndShot
             sendUpdate();
         }
 
-        void LevelEditorScreenListner.copyFormations(ArrayList formations)
+        void LevelEditorScreenListner.copyFormations(ArrayList formations, ArrayList terrains)
         {
             foreach (int formation in formations)
             {
@@ -783,8 +815,16 @@ namespace PikeAndShot
 
                 _levels[currLevel].formationActions.Add(patternActions);
             }
-
             refreshFormationListBox();
+
+            foreach (int ter in terrains)
+            {
+                _levels[currLevel].terrains.Add(_levels[currLevel].terrains[ter]);
+                _levels[currLevel].terrainPositions.Add(_levels[currLevel].terrainPositions[ter]);
+                _levels[currLevel].terrainTimes.Add(_levels[currLevel].terrainTimes[ter]);
+            }
+            refreshTerrainListBox();
+
             sendUpdate();
         }
 
@@ -805,6 +845,17 @@ namespace PikeAndShot
             sendUpdate();
         }
 
+        void LevelEditorScreenListner.deleteTerrain(int ter)
+        {
+            _levels[currLevel].terrainPositions.RemoveAt(ter);
+            _levels[currLevel].terrainTimes.RemoveAt(ter);
+            _levels[currLevel].terrains.RemoveAt(ter);
+            currTerrain = -1;
+
+            terrainListBox.Items.RemoveAt(ter);
+            sendUpdate();
+        }
+
         private void txTextBox_TextChanged(object sender, EventArgs e)
         {
             if (currTerrain != -1)
@@ -819,7 +870,7 @@ namespace PikeAndShot
                 }
             }
 
-            sendUpdate();
+            sendUpdateTerrain();
         }
 
         private void terrainListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -853,7 +904,7 @@ namespace PikeAndShot
             {
                 try
                 {
-                    _levels[currLevel].terrainPositions[currTerrain] = new Vector2(_levels[currLevel].terrainPositions[currTerrain].X, System.Convert.ToSingle(txTextBox.Text));
+                    _levels[currLevel].terrainPositions[currTerrain] = new Vector2(_levels[currLevel].terrainPositions[currTerrain].X, System.Convert.ToSingle(tyTextBox.Text));
                 }
                 catch
                 {
@@ -861,7 +912,7 @@ namespace PikeAndShot
                 }
             }
 
-            sendUpdate();
+            sendUpdateTerrain();
         }
 
         private void tSpawnTextBox_TextChanged(object sender, EventArgs e)
