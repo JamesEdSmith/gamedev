@@ -200,7 +200,7 @@ namespace PikeAndShot
                     t.update(gameTime.ElapsedGameTime);
                 }
 
-                if (t.getPosition().X < (-2f * Soldier.WIDTH) + getMapOffset().X && !(this is LevelEditorScreen))
+                if (t.getPosition().X < -t.getWidth() + getMapOffset().X && !(this is LevelEditorScreen))
                     t.setState(Soldier.STATE_DEAD);
 
                 if (t.isDead())

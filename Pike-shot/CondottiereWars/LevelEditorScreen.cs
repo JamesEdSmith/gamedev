@@ -358,7 +358,7 @@ namespace PikeAndShot
         {
             ArrayList formationIndices = new ArrayList(_grabbedThings.Count);
             ArrayList terrainIndices = new ArrayList(_grabbedThings.Count);
-            foreach (EnemyFormation formy in _grabbedThings)
+            foreach (LevelEditorGrabbable formy in _grabbedThings)
             { 
                 if(formy is EnemyFormation)
                     formationIndices.Add(formy.index);
@@ -368,10 +368,6 @@ namespace PikeAndShot
             _listener.copyFormations(formationIndices, terrainIndices);
             
             _grabbedThings.Clear();
-            /*foreach (int i in formationIndices)
-            {
-                _grabbedThings.Add(_enemyFormations[i]);
-            }*/
         }
 
         private void deleteFormations()
@@ -452,18 +448,18 @@ namespace PikeAndShot
             foreach (Terrain t in _terrain)
             {
                 collision = true;
-                if (_pointerPos.X < t.getPosition().X - getMapOffset().X)
+                if (_endingMousePosition.X < t.getPosition().X)
                     collision = false;
-                else if (_pointerPos.X > t.getPosition().X - getMapOffset().X + t.getWidth())
+                else if (_startingMousePosition.X > t.getPosition().X + t.getWidth())
                     collision = false;
-                else if (_pointerPos.Y < t.getPosition().Y - getMapOffset().Y)
+                else if (_endingMousePosition.Y < t.getPosition().Y)
                     collision = false;
-                else if (_pointerPos.Y > t.getPosition().Y - getMapOffset().Y + t.getHeight())
+                else if (_startingMousePosition.Y > t.getPosition().Y + t.getHeight())
                     collision = false;
 
                 if (collision)
                 {
-                    _grabbedThing = t;
+                    _grabbedThings.Add(t);
                 }
             }
 

@@ -15,6 +15,7 @@ namespace PikeAndShot
 
         public const int CLASS_TREE0 = 0;
         public const int CLASS_HORIROAD = 1;
+        public const int CLASS_TURNROAD = 2;
 
         private Sprite _sprite;
         private float _restTime;
@@ -60,6 +61,10 @@ namespace PikeAndShot
                     break;
                 case Terrain.CLASS_HORIROAD:
                     newTerrain = new Terrain(screen, PikeAndShotGame.ROAD_HORIZONTAL, BattleScreen.SIDE_PLAYER, x, y, 0);
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_TURNROAD:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.ROAD_TURN, BattleScreen.SIDE_PLAYER, x, y, 0);
                     screen.addTerrain(newTerrain);
                     break;
             }

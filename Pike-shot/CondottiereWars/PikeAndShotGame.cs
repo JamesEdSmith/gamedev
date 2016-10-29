@@ -285,6 +285,7 @@ namespace PikeAndShot
         public static List<Texture2D> ROAD_TERRAIN;
         public static Texture2D TREE0;
         public static Texture2D ROAD_HORIZONTAL;
+        public static Texture2D ROAD_TURN;
 
         public static Texture2D COIN;
         public static Texture2D COIN_METER;
@@ -409,7 +410,8 @@ namespace PikeAndShot
                 ROAD_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"roadTerrain" + i)));
 
             TREE0 = getDimmerClone(Content.Load<Texture2D>(@"roadTerrain11"));
-            ROAD_HORIZONTAL = getDimmerClone(Content.Load<Texture2D>(@"roadHorizontal"));
+            ROAD_HORIZONTAL = getDimmerClone(Content.Load<Texture2D>(@"roadHorizontal"), 0.5f);
+            ROAD_TURN = getDimmerClone(Content.Load<Texture2D>(@"roadTurn"), 0.5f);
 
             PUCELLE_IDLE = Content.Load<Texture2D>(@"pucelle_ready2");
             PUCELLE_MOTION = Content.Load<Texture2D>(@"pucelle_motion");
@@ -870,6 +872,11 @@ namespace PikeAndShot
 
         internal Texture2D getDimmerClone(Texture2D texture)
         {
+            return getDimmerClone(texture, 0.75f);
+        }
+
+        internal Texture2D getDimmerClone(Texture2D texture, float factor)
+        {
             Texture2D greyTexture = new Texture2D(GraphicsDevice, texture.Width, texture.Height);
             Color[] pixels = new Color[texture.Width * texture.Height];
             texture.GetData<Color>(0, texture.Bounds, pixels, 0, pixels.Length);
@@ -880,7 +887,7 @@ namespace PikeAndShot
                 int r = c.R;
                 int g = c.G;
                 int b = c.B;
-                pixels[i] = Color.FromNonPremultiplied(r * 3 / 4, g * 3 / 4, b * 3 / 4, c.A);
+                pixels[i] = Color.FromNonPremultiplied((int)(r * factor), (int)(g * factor), (int)(b * factor), c.A);
             }
             greyTexture.SetData<Color>(pixels);
             return greyTexture;

@@ -138,6 +138,8 @@ namespace PikeAndShot
             _terrainClass.Add(terrain);
             terrain = new TerrainClass("hori road", 1);
             _terrainClass.Add(terrain);
+            terrain = new TerrainClass("turn road", 2);
+            _terrainClass.Add(terrain);
 
             foreach (TerrainClass sc in _terrainClass)
             {
@@ -692,6 +694,8 @@ namespace PikeAndShot
                 tyTextBox.Text = _levels[currLevel].terrainPositions[currTerrain].Y.ToString();
                 tSpawnTextBox.Text = _levels[currLevel].terrainTimes[currTerrain].ToString();
             }
+            else
+                sendUpdateTerrain();
         }
 
         void LevelEditorScreenListner.updateLevelFromScreen(int formation, float x, float y)
