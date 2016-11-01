@@ -286,6 +286,8 @@ namespace PikeAndShot
         public static Texture2D TREE0;
         public static Texture2D ROAD_HORIZONTAL;
         public static Texture2D ROAD_TURN;
+        public static Texture2D ROAD_MILE_MARKER;
+        public static Texture2D ROAD_TURN_MARKER;
 
         public static Texture2D COIN;
         public static Texture2D COIN_METER;
@@ -412,6 +414,8 @@ namespace PikeAndShot
             TREE0 = getDimmerClone(Content.Load<Texture2D>(@"roadTerrain11"));
             ROAD_HORIZONTAL = getDimmerClone(Content.Load<Texture2D>(@"roadHorizontal"), 0.5f);
             ROAD_TURN = getDimmerClone(Content.Load<Texture2D>(@"roadTurn"), 0.5f);
+            ROAD_MILE_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadMileMarker"), 0.5f);
+            ROAD_TURN_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadTurnMarker"), 0.5f);
 
             PUCELLE_IDLE = Content.Load<Texture2D>(@"pucelle_ready2");
             PUCELLE_MOTION = Content.Load<Texture2D>(@"pucelle_motion");

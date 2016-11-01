@@ -33,8 +33,7 @@ namespace PikeAndShot
         protected Vector2 _oldMousePosition;
         protected Vector2 _startingMousePosition;
         protected Vector2 _endingMousePosition;
-        private ArrayList _grabbedThings;
-        private ArrayList _grabbedTerrains;
+        private ArrayList _grabbedThings;        
         private bool _boxSelecting;
         private bool _boxMoving;
 
@@ -50,7 +49,6 @@ namespace PikeAndShot
             prevMouseState = Mouse.GetState();
             _grabbedThing = null;
             _grabbedThings = new ArrayList(30);
-            _grabbedTerrains = new ArrayList(30);
             _listener = form;
             _oldMousePosition = new Vector2(0f, 0f);
             _boxSelecting = false;
@@ -304,10 +302,19 @@ namespace PikeAndShot
                     }
                     else if (_grabbedThing != null)
                     {
-                        if(_grabbedThing is EnemyFormation)
+                        Vector2 position = _grabbedThing.getPosition();
+                        int index = _grabbedThing.index;
+                        if (_grabbedThing is EnemyFormation)
+                        {
                             _listener.copyFormation(_grabbedThing.index);
+                            _listener.updateLevelFromScreen(index, position.X, position.Y);
+                        }
                         else
+                        {
                             _listener.copyTerrain(_grabbedThing.index);
+                            _listener.updateLevelFromScreenTerrain(index, position.X, position.Y);
+                        }
+
                         _grabbedThing = null;
                     }
                 }
@@ -358,14 +365,38 @@ namespace PikeAndShot
         {
             ArrayList formationIndices = new ArrayList(_grabbedThings.Count);
             ArrayList terrainIndices = new ArrayList(_grabbedThings.Count);
+            ArrayList formationPositions = new ArrayList(_grabbedThings.Count);
+            ArrayList terrainPositions = new ArrayList(_grabbedThings.Count);
             foreach (LevelEditorGrabbable formy in _grabbedThings)
-            { 
-                if(formy is EnemyFormation)
+            {
+                if (formy is EnemyFormation)
+                {
+                    formationPositions.Add(formy.getPosition());
                     formationIndices.Add(formy.index);
+                }
                 else
+                {
+                    terrainPositions.Add(formy.getPosition());
                     terrainIndices.Add(formy.index);
+                }
             }
             _listener.copyFormations(formationIndices, terrainIndices);
+
+            int i = 0;
+            Vector2 position;
+            foreach (int index in formationIndices)
+            {
+                position = (Vector2)formationPositions[i];
+                _listener.updateLevelFromScreen(index, position.X, position.Y);
+                i++;
+            }
+            i = 0;
+            foreach (int index in terrainIndices)
+            {
+                position = (Vector2)terrainPositions[i];
+                _listener.updateLevelFromScreenTerrain(index, position.X, position.Y);
+                i++;
+            }
             
             _grabbedThings.Clear();
         }
