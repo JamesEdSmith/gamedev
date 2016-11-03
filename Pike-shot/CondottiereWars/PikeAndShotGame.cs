@@ -395,7 +395,7 @@ namespace PikeAndShot
             _bloomTargetHeight = SCREENHEIGHT / 2;
 
             _bloomTarget = new RenderTarget2D(GraphicsDevice, _bloomTargetWidth, _bloomTargetHeight, false, SurfaceFormat.Color, DepthFormat.None);
-
+            
             effect = Content.Load<Effect>(@"cgwg-xna_new");
             effect.Parameters["TexelSize"].SetValue(new Vector2(1f / (float)SCREENWIDTH, 1f / (float)SCREENHEIGHT));
             effect.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
@@ -803,7 +803,7 @@ namespace PikeAndShot
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, effect);
                     spriteBatch.Draw(ShaderRenderTarget, Vector2.Zero, Color.White);
                     spriteBatch.End();
-
+                    
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget3);
 
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, effect2);
@@ -932,8 +932,9 @@ namespace PikeAndShot
                 float newWidth = (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height * 4f / 3f;
                 int drawWidth = (int)(viewport.Width * newWidth / oldWidth);
 
-                int drawX = (SCREENWIDTH - drawWidth) / 2;
-                drawRectangle = new Rectangle(drawX, 0, drawWidth, SCREENHEIGHT);
+                int drawX = (viewport.Width - drawWidth) / 2;
+                int drawY = (viewport.Height - SCREENHEIGHT) / 2;
+                drawRectangle = new Rectangle(drawX, drawY, drawWidth, SCREENHEIGHT);
             }
             else if (graphics.IsFullScreen && (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height / (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width > 0.76f)
             {
@@ -941,8 +942,9 @@ namespace PikeAndShot
                 float newHeight = (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width * 3f / 4f;
                 int drawHeight = (int)(viewport.Height * newHeight / oldHeight);
 
-                int drawY = (SCREENHEIGHT - drawHeight) / 2;
-                drawRectangle = new Rectangle(0, drawY, SCREENWIDTH, drawHeight);
+                int drawX = (viewport.Width - SCREENWIDTH) / 2;
+                int drawY = (viewport.Height - drawHeight) / 2;
+                drawRectangle = new Rectangle(drawX, drawY, SCREENWIDTH, drawHeight);
             }
             else
             {

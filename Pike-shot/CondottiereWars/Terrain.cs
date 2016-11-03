@@ -70,11 +70,11 @@ namespace PikeAndShot
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_TURNROADMARKER:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.ROAD_TURN_MARKER, BattleScreen.SIDE_PLAYER, x, y, 0);
+                    newTerrain = new Terrain(screen, PikeAndShotGame.ROAD_TURN_MARKER, BattleScreen.SIDE_PLAYER, x, y);
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_MILEROADMARKER:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.ROAD_MILE_MARKER, BattleScreen.SIDE_PLAYER, x, y, 0);
+                    newTerrain = new Terrain(screen, PikeAndShotGame.ROAD_MILE_MARKER, BattleScreen.SIDE_PLAYER, x, y);
                     screen.addTerrain(newTerrain);
                     break;
             }
