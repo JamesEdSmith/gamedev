@@ -144,6 +144,8 @@ namespace PikeAndShot
             _terrainClass.Add(terrain);
             terrain = new TerrainClass("road turn marker", 4);
             _terrainClass.Add(terrain);
+            terrain = new TerrainClass("hori road 2", 5);
+            _terrainClass.Add(terrain);
 
             foreach (TerrainClass sc in _terrainClass)
             {

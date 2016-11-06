@@ -285,6 +285,7 @@ namespace PikeAndShot
         public static List<Texture2D> ROAD_TERRAIN;
         public static Texture2D TREE0;
         public static Texture2D ROAD_HORIZONTAL;
+        public static Texture2D ROAD_HORIZONTAL_2;
         public static Texture2D ROAD_TURN;
         public static Texture2D ROAD_MILE_MARKER;
         public static Texture2D ROAD_TURN_MARKER;
@@ -395,9 +396,9 @@ namespace PikeAndShot
             _bloomTargetHeight = SCREENHEIGHT / 2;
 
             _bloomTarget = new RenderTarget2D(GraphicsDevice, _bloomTargetWidth, _bloomTargetHeight, false, SurfaceFormat.Color, DepthFormat.None);
-            
+
             effect = Content.Load<Effect>(@"cgwg-xna_new");
-            effect.Parameters["TexelSize"].SetValue(new Vector2(1f / (float)SCREENWIDTH, 1f / (float)SCREENHEIGHT));
+            effect.Parameters["TexelSize"].SetValue(new Vector2(1f / (float)SCREENWIDTH/1f, 1f / (float)SCREENHEIGHT/1f));
             effect.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
 
             _bloomFx = Content.Load<Effect>("Bloom");
@@ -416,6 +417,7 @@ namespace PikeAndShot
             ROAD_TURN = getDimmerClone(Content.Load<Texture2D>(@"roadTurn"), 0.5f);
             ROAD_MILE_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadMileMarker"), 0.5f);
             ROAD_TURN_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadTurnMarker"), 0.5f);
+            ROAD_HORIZONTAL_2 = getDimmerClone(Content.Load<Texture2D>(@"road_h2"), 0.5f);
 
             PUCELLE_IDLE = Content.Load<Texture2D>(@"pucelle_ready2");
             PUCELLE_MOTION = Content.Load<Texture2D>(@"pucelle_motion");
