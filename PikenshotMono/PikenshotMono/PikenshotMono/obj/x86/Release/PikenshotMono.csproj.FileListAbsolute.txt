@@ -274,9 +274,6 @@ C:\Users\James\Desktop\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86
 C:\Users\James\Desktop\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Release\PikenshotMono.exe
 C:\Users\James\Desktop\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Release\PikenshotMono.pdb
 C:\Users\James\Desktop\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\newshader.xnb
-C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\PikenshotMono.exe.config
-C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Release\PikenshotMono.exe
-C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Release\PikenshotMono.pdb
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\Slinger_test_level.xml
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\Bloom.xnb
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\BloomExtract.xnb
@@ -285,6 +282,7 @@ C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\W
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\Benz1_level.xml
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\GoblinRaid_level.xml
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\HorseAttack_level.xml
+C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\newshader.xnb
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\new_level.xml
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\spawner_level.xml
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\test_pike_level.xml
@@ -531,9 +529,6 @@ C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\W
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\wolf_run.xnb
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\wolf_spooked.xnb
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\wolf_turn.xnb
-C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\newshader.xnb
-C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\PikenshotMono.exe
-C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\PikenshotMono.pdb
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\MonoGame.Framework.Content.Pipeline.dll
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\MonoGame.Framework.dll
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\MonoGame.Framework.Net.dll
@@ -550,4 +545,9 @@ C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\W
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\ATI.TextureConverter.dll
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Lidgren.Network.dll
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\SharpDX.Direct3D9.dll
+C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Pike `n Shot.exe.config
+C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Pike `n Shot.exe
+C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Pike `n Shot.pdb
+C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Release\Pike `n Shot.exe
+C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Release\Pike `n Shot.pdb
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Release\PikenshotMono.csprojResolveAssemblyReference.cache
