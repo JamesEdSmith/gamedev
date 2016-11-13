@@ -19,6 +19,11 @@ namespace PikeAndShot
         public const int CLASS_MILEROADMARKER = 3;
         public const int CLASS_TURNROADMARKER = 4;
         public const int CLASS_HORIROAD2 = 5;
+        public const int CLASS_TREE1 = 6;
+        public const int CLASS_TREE2 = 7;
+        public const int CLASS_BUSH0 = 8;
+        public const int CLASS_BUSH1 = 9;
+        public const int CLASS_BUSH2 = 10;
 
         private Sprite _sprite;
         private float _restTime;
@@ -62,6 +67,14 @@ namespace PikeAndShot
                     newTerrain = new Terrain(screen, PikeAndShotGame.TREE0, BattleScreen.SIDE_PLAYER, x, y);
                     screen.addTerrain(newTerrain);
                     break;
+                case Terrain.CLASS_TREE1:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.TREE1, BattleScreen.SIDE_PLAYER, x, y);
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_TREE2:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.TREE2, BattleScreen.SIDE_PLAYER, x, y);
+                    screen.addTerrain(newTerrain);
+                    break;
                 case Terrain.CLASS_HORIROAD:
                     newTerrain = new Terrain(screen, PikeAndShotGame.ROAD_HORIZONTAL, BattleScreen.SIDE_PLAYER, x, y, 0);
                     screen.addTerrain(newTerrain);
@@ -82,6 +95,19 @@ namespace PikeAndShot
                     newTerrain = new Terrain(screen, PikeAndShotGame.ROAD_MILE_MARKER, BattleScreen.SIDE_PLAYER, x, y);
                     screen.addTerrain(newTerrain);
                     break;
+                case Terrain.CLASS_BUSH0:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.BUSH0, BattleScreen.SIDE_PLAYER, x, y);
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_BUSH1:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.BUSH1, BattleScreen.SIDE_PLAYER, x, y);
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_BUSH2:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.BUSH2, BattleScreen.SIDE_PLAYER, x, y);
+                    screen.addTerrain(newTerrain);
+                    break;
+
             }
             if (newTerrain != null)
                 newTerrain.index = index;

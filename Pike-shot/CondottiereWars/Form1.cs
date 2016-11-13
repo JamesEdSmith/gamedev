@@ -134,7 +134,7 @@ namespace PikeAndShot
                 actionComboBox3.Items.Add(sc.id.ToString() + " " + sc.name);
             }
 
-            TerrainClass terrain = new TerrainClass("tree0", 0);
+            TerrainClass terrain = new TerrainClass("tree 0", 0);
             _terrainClass.Add(terrain);
             terrain = new TerrainClass("hori road", 1);
             _terrainClass.Add(terrain);
@@ -145,6 +145,16 @@ namespace PikeAndShot
             terrain = new TerrainClass("road turn marker", 4);
             _terrainClass.Add(terrain);
             terrain = new TerrainClass("hori road 2", 5);
+            _terrainClass.Add(terrain);
+            terrain = new TerrainClass("tree 1", 6);
+            _terrainClass.Add(terrain);
+            terrain = new TerrainClass("tree 2", 7);
+            _terrainClass.Add(terrain);
+            terrain = new TerrainClass("bush 1", 8);
+            _terrainClass.Add(terrain);
+            terrain = new TerrainClass("bush 2", 9);
+            _terrainClass.Add(terrain);
+            terrain = new TerrainClass("bush 3", 10);
             _terrainClass.Add(terrain);
 
             foreach (TerrainClass sc in _terrainClass)
