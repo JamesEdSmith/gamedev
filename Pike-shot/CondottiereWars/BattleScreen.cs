@@ -88,8 +88,6 @@ namespace PikeAndShot
             _drawDots = false;
             _terrain = new ArrayList(20);
 
-            spawnInitialTerrain();
-
             _drawJobs = new ArrayList(255);
         }
 

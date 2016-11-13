@@ -17,7 +17,7 @@
 #define vec3 float3
 #define vec4 float4
 #define fract frac
-#define distortion 0.1
+#define distortion 0.0
 
 float2 Viewport;
 Texture2D baseTexture : register(t0);
@@ -68,8 +68,8 @@ float bloomAmount=1.0/12.0;
 vec2 warp=vec2(1.0/320.0,1.0/240.0); 
 
 // Amount of shadow mask.
-float maskDark=1.0;
-float maskLight=3.0;
+float maskDark=0.75;
+float maskLight=2.75;
 
 //------------------------------------------------------------------------
 
@@ -98,6 +98,7 @@ vec3 ToLinear(vec3 c){return vec3(ToLinear1(c.r),ToLinear1(c.g),ToLinear1(c.b));
 // Nearest emulated sample given floating point position and texel offset.
 // Also zero's off screen.
 vec3 Fetch(vec2 pos,vec2 off){
+  res = (Viewport.x, Viewport.y);
   pos=floor(pos*res+off)/res;
   if(max(abs(pos.x-0.5),abs(pos.y-0.5))>0.5)return vec3(0.0,0.0,0.0);
   float3 emu = baseTexture.Sample(ColorMapSampler,pos.xy).xyz;
@@ -105,7 +106,7 @@ vec3 Fetch(vec2 pos,vec2 off){
   return Test(emu2.rgb);}
 
 // Distance in emulated pixels to nearest texel.
-vec2 Dist(vec2 pos){pos=pos*res;return -((pos-floor(pos))-vec2(0.5,0.5));}
+vec2 Dist(vec2 pos){pos=pos*res;return vec2(0.0,0.0);}
     
 // 1D Gaussian.
 float Gaus(float pos,float scale){return exp2(scale*pos*pos);}

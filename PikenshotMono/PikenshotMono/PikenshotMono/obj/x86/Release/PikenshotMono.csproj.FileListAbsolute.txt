@@ -551,3 +551,4 @@ C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\W
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Release\Pike `n Shot.exe
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Release\Pike `n Shot.pdb
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Release\PikenshotMono.csprojResolveAssemblyReference.cache
+C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\newshader2.xnb

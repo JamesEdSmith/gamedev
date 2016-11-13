@@ -4,6 +4,8 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/James/Documents/gamedev/shaders/newshader.fx</File>
+    <File>C:/Users/James/Documents/gamedev/shaders/newshader2.fx</File>
     <File>C:/Users/James/Desktop/shaders/newshader.fx</File>
     <File>C:/Users/James/Desktop/shaders/Bloom.fx</File>
     <File>C:/Users/James/Desktop/shaders/BloomExtract.fx</File>

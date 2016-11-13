@@ -328,7 +328,7 @@ namespace PikeAndShot
                 float _ScreenHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
 
                 //make it full screen... (borderless if you want to is an option as well)
-                this.Window.Position = new Point(0, 0);
+                this.Window.Position = new Point((int)(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - (float)SCREENWIDTH)/2, (int)(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - (float)SCREENHEIGHT) / 2);
                 this.Window.IsBorderless = true;
                 graphics.PreferredBackBufferWidth = (int)_ScreenWidth;
                 graphics.PreferredBackBufferHeight = (int)_ScreenHeight;
@@ -374,6 +374,9 @@ namespace PikeAndShot
 
             effect = Content.Load<Effect>(@"newshader");
             effect.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
+
+            effect2 = Content.Load<Effect>(@"newshader2");
+            effect2.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
 
             //TERRAIN_DRY_GRASS = Content.Load<Texture2D>(@"dry_grass");
             ROAD_TERRAIN = new List<Texture2D>(11);
@@ -729,7 +732,7 @@ namespace PikeAndShot
                     spriteBatch.End();
 
                     GraphicsDevice.SetRenderTarget(null);
-                    GraphicsDevice.Clear(screenColor);
+                    GraphicsDevice.Clear(screenColorShader);
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null);
                     spriteBatch.Draw(ShaderRenderTarget, drawRectangle, drawSourceRectangle, Color.White);
                     spriteBatch.End();
@@ -752,7 +755,7 @@ namespace PikeAndShot
 
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget2);
                     GraphicsDevice.Clear(screenColorShader);
-                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, effect);
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, effect2);
                     spriteBatch.Draw(ShaderRenderTarget, Vector2.Zero, Color.White);
                     spriteBatch.End();
 
