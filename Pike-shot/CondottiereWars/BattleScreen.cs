@@ -327,7 +327,7 @@ namespace PikeAndShot
                     if (!(so.getState() == Soldier.STATE_DYING || so.getState() == Colmillos.STATE_EATEN || so.getState() == Colmillos.STATE_RISE || so.getState() == Targeteer.STATE_SHIELDBREAK || ((ColmillosFormation)((Colmillos)so).myFormation).attacked))
                         _screenColliders.Add(so);
                 }
-                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay) && !(this is Terrain))
+                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay) && !(so is Terrain && !((Terrain)so).collidable))
                     _screenColliders.Add(so);
             }
             
@@ -348,7 +348,7 @@ namespace PikeAndShot
                     if (so.getState() == Soldier.STATE_DYING || so.getState() == Colmillos.STATE_EATEN || so.getState() == Colmillos.STATE_RISE || so.getState() == Targeteer.STATE_SHIELDBREAK || ((ColmillosFormation)((Colmillos)so).myFormation).attacked)
                         continue;
                 }
-                else if (!(so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay) && !(this is Terrain)))
+                else if (!(so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay) && !(so is Terrain && !((Terrain)so).collidable)))
                     continue;
                 
                 // get the values here so we aren't calling functions like crazy
@@ -366,6 +366,13 @@ namespace PikeAndShot
                     soY = so.getPosition().Y - 5;
                     soWidth = so.getWidth();
                     soHeight = so.getHeight() + 5;
+                }
+                else if (so is Terrain)
+                {
+                    soX = ((Terrain)so).collisionBox.X;
+                    soY = ((Terrain)so).collisionBox.Y;
+                    soWidth = ((Terrain)so).collisionBox.Width;
+                    soHeight = ((Terrain)so).collisionBox.Height;
                 }
                 else
                 {
@@ -392,6 +399,13 @@ namespace PikeAndShot
                             coY = co.getPosition().Y - 5;
                             coWidth = co.getWidth();
                             coHeight = co.getHeight() + 5;
+                        }
+                        else if (co is Terrain)
+                        {
+                            coX = ((Terrain)co).collisionBox.X;
+                            coY = ((Terrain)co).collisionBox.Y;
+                            coWidth = ((Terrain)co).collisionBox.Width;
+                            coHeight = ((Terrain)co).collisionBox.Height;
                         }
                         else
                         {

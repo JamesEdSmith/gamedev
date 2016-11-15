@@ -31,6 +31,9 @@ namespace PikeAndShot
         public bool selected { get; set; }
         public int index { get; set; }
         public bool generated;
+        public Rectangle collisionBox;
+        public bool collidable = false;
+        public Vector2 collisionCenter;
 
         public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, float restTime, float animationTime)
             : this(screen, sprite, side, x, y)
@@ -58,6 +61,16 @@ namespace PikeAndShot
             generated = false;
         }
 
+        public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, Rectangle collisionBox)
+            : this(screen, sprite, side, x, y)
+        {
+            this.collisionBox = collisionBox;
+            collisionCenter = new Vector2(collisionBox.X + collisionBox.Width / 2, collisionBox.Y + collisionBox.Height / 2);
+            collidable = true;
+        }
+
+
+
         public static void getNewTerrain(int terrainClass, BattleScreen screen, float x, float y, int index)
         {
             Terrain newTerrain = null;
@@ -68,7 +81,7 @@ namespace PikeAndShot
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_TREE1:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.TREE1, BattleScreen.SIDE_PLAYER, x, y);
+                    newTerrain = new Terrain(screen, PikeAndShotGame.TREE1, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x, (int)y + PikeAndShotGame.TREE1.Height / 2, PikeAndShotGame.TREE1.Width, PikeAndShotGame.TREE1.Height/2));
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_TREE2:

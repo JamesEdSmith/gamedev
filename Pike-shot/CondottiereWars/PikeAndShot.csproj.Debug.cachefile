@@ -225,6 +225,11 @@ Content\roadTurn.xnb
 Content\roadMileMarker.xnb
 Content\roadTurnMarker.xnb
 Content\road_h2.xnb
+Content\tree01.xnb
+Content\tree02.xnb
+Content\bush00.xnb
+Content\bush01.xnb
+Content\bush03.xnb
 Content\cgwg-xna.xnb
 Content\Bloom.xnb
 Content\BloomExtract.xnb
@@ -264,11 +269,6 @@ Content\arg.xnb
 Content\boss.xnb
 Content\theme.xnb
 Content\boss01.xnb
-Content\tree01.xnb
-Content\tree02.xnb
-Content\bush00.xnb
-Content\bush01.xnb
-Content\bush03.xnb
 Content\theme.wma
 Content\boss01.wma
 Content\Benz1_level.xml

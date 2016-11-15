@@ -1031,12 +1031,80 @@ namespace PikeAndShot
             return _idle.getBoundingRect().Height;
         }
 
+        const float fuzziness = 3.0f;
+
         public override void collide(ScreenObject collider, TimeSpan timeSpan)
         {
+            float shimmy = (float)timeSpan.TotalMilliseconds * _speed ;
+
             if (collider == _killer || _state == STATE_DEAD || _state == STATE_DYING)
                 return;
-
-            if (collider is Shot && collider.getSide() != _side && !(collider is Pavise) && collider.getState() != STATE_DEAD && collider.getState() != Shot.STATE_GROUND)
+            if (collider is Terrain)
+            {
+                Terrain terrain = (Terrain)collider;
+                if (this.getCenter().X < terrain.collisionCenter.X)
+                {
+                    if (this.getCenter().Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - this.getCenter().Y > terrain.collisionCenter.X - this.getCenter().X)
+                    {
+                        _position.X -= shimmy;
+                        float i = _position.X + getWidth();
+                        if (_position.X + getWidth() > terrain.collisionBox.X + fuzziness)
+                            _position.Y = terrain.collisionBox.Y - getHeight() + fuzziness;                        
+                    }
+                    else if (this.getCenter().Y > terrain.collisionCenter.Y && this.getCenter().Y - terrain.collisionCenter.Y > terrain.collisionCenter.X - this.getCenter().X)
+                    {
+                        _position.X -= shimmy;
+                        if (_position.X + getWidth() > terrain.collisionBox.X + fuzziness)
+                            _position.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + fuzziness;
+                    }
+                    else
+                    {
+                        if (this.getCenter().Y < terrain.collisionCenter.Y)
+                        {
+                            _position.Y -= shimmy;
+                            if (_position.Y + getHeight() >= terrain.collisionBox.Y)
+                                _position.X = terrain.collisionBox.X - getWidth() - fuzziness;
+                        }
+                        else
+                        {
+                            _position.Y += shimmy;
+                            if (_position.Y <= terrain.collisionBox.Y + terrain.collisionBox.Height)
+                                _position.X = terrain.collisionBox.X - getWidth() - fuzziness;
+                        }
+                    }
+                }
+                else
+                {
+                    if (this.getCenter().Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - this.getCenter().Y > this.getCenter().X - terrain.collisionCenter.X)
+                    {
+                        _position.X += shimmy;
+                        if (_position.X + fuzziness< terrain.collisionBox.X + terrain.collisionBox.Width)
+                            _position.Y = terrain.collisionBox.Y - getHeight() - fuzziness;
+                    }
+                    else if (this.getCenter().Y > terrain.collisionCenter.Y && this.getCenter().Y - terrain.collisionCenter.Y > this.getCenter().X - terrain.collisionCenter.X)
+                    {
+                        _position.X += shimmy;
+                        if (_position.X + fuzziness < terrain.collisionBox.X + terrain.collisionBox.Width)
+                            _position.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + fuzziness;
+                    }
+                    else
+                    {
+                        if (this.getCenter().Y < terrain.collisionCenter.Y)
+                        {
+                            _position.Y -= shimmy;
+                            if (_position.Y + getHeight() >= terrain.collisionBox.Y )
+                                _position.X = terrain.collisionBox.X + terrain.collisionBox.Width + fuzziness;
+                        }
+                        else
+                        {
+                            _position.Y += shimmy;
+                            if (_position.Y <= terrain.collisionBox.Y + terrain.collisionBox.Height)
+                                _position.X = terrain.collisionBox.X + terrain.collisionBox.Width + fuzziness;
+                        }
+                    }
+                }
+            }
+            else if (collider is Shot && collider.getSide() != _side && !(collider is Pavise) && collider.getState() != STATE_DEAD && collider.getState() != Shot.STATE_GROUND)
             {
                 if (this is Targeteer)
                 {
@@ -1069,13 +1137,6 @@ namespace PikeAndShot
                         _killer = collider;
                         ((PikeTip)collider).getPikeman().recoil();
                     }
-                    /*else if (this is Colmillos)
-                    {
-                        if (_state != Colmillos.STATE_ATTACK)
-                            this.attack();
-                        ((PikeTip)collider).getPikeman().recoil();
-                        ((Colmillos)this).myFormation._position.X = collider.getCenter().X + collider.getWidth() / 2 + 100f;
-                    }*/
                     else if (this is Targeteer)
                     {
                         if ( (!(this is Colmillos) && ((Targeteer)this)._hasShield) || (this is Colmillos && !((ColmillosFormation)((Colmillos)this).myFormation).attacked))
@@ -1147,7 +1208,6 @@ namespace PikeAndShot
                         ((CrossbowmanPavise)this).paviseRetrieve();
                         if (this._position.Y < collider._position.Y)
                         {
-
                             this._position -= changeVector;
                             ((CrossbowmanPavise)this)._meleeDestination -= changeVector;
                             ((CrossbowmanPavise)this).chargePosition -= changeVector;
