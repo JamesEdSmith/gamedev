@@ -129,6 +129,8 @@ namespace PikeAndShot
         protected bool playedFallSound;
         protected bool playedMeleeSound;
 
+        public Terrain terrainCollider;
+
         public Soldier(BattleScreen screen, int side, float x, float y): base(screen, side)
         {
             _position = new Vector2(x, y);
@@ -355,6 +357,71 @@ namespace PikeAndShot
                 
         }
 
+        Vector2 getDestCenter(Vector2 dest)
+        {
+            return new Vector2(dest.X + getWidth() / 2, dest.Y + getHeight() / 2);
+        }
+
+        Vector2 getCollidedDest(Vector2 dest)
+        {
+            float shimmy = 10f;
+            Terrain terrain = terrainCollider;
+            if (this.getDestCenter(dest).X < terrain.collisionCenter.X)
+            {
+                if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - this.getDestCenter(dest).Y > terrain.collisionCenter.X - this.getDestCenter(dest).X)
+                {
+                    dest.X = terrain.collisionBox.X - getWidth() - shimmy;
+                    dest.Y = terrain.collisionBox.Y - getHeight();
+                }
+                else if (this.getDestCenter(dest).Y > terrain.collisionCenter.Y && this.getDestCenter(dest).Y - terrain.collisionCenter.Y > terrain.collisionCenter.X - this.getDestCenter(dest).X)
+                {
+                    dest.X = terrain.collisionBox.X - getWidth() -shimmy;
+                    dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height;
+                }
+                else
+                {
+                    if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y)
+                    {
+                        dest.Y = terrain.collisionBox.Y - getHeight() -shimmy;
+                        dest.X = terrain.collisionBox.X - getWidth() - shimmy;
+                    }
+                    else
+                    {
+                        dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + shimmy;
+                        dest.X = terrain.collisionBox.X - getWidth() -shimmy;
+                    }
+                }
+            }
+            else
+            {
+                if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - this.getDestCenter(dest).Y > this.getDestCenter(dest).X - terrain.collisionCenter.X)
+                {
+                    dest.X = terrain.collisionBox.X + terrain.collisionBox.Width + shimmy;
+                    dest.Y = terrain.collisionBox.Y - getHeight() - shimmy;
+                }
+                else if (this.getDestCenter(dest).Y > terrain.collisionCenter.Y && this.getDestCenter(dest).Y - terrain.collisionCenter.Y > this.getDestCenter(dest).X - terrain.collisionCenter.X)
+                {
+                    dest.X = terrain.collisionBox.X + terrain.collisionBox.Width + shimmy;
+                    dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + shimmy;
+                }
+                else
+                {
+                    if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y)
+                    {
+                        dest.Y = terrain.collisionBox.Y - getHeight() -shimmy;
+                        dest.X = terrain.collisionBox.X + terrain.collisionBox.Width + shimmy;
+                    }
+                    else
+                    {
+                        dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + shimmy;
+                        dest.X = terrain.collisionBox.X + terrain.collisionBox.Width + shimmy;
+                    }
+                }
+            }
+            terrainCollider = null;
+            return dest;
+        }
+
         public virtual void update(TimeSpan timeSpan)
         {
             _stateChanged = false;
@@ -427,12 +494,27 @@ namespace PikeAndShot
                 && ((_state != CrossbowmanPavise.STATE_PLACING) || !(this is CrossbowmanPavise))
                 && ((_state != CrossbowmanPavise.STATE_RETRIEVING) || !(this is CrossbowmanPavise))
                 && ((_state != Wolf.STATE_KILL && _state != Wolf.STATE_HOWLING) || !(this is Wolf)))
-            {                
-                _delta = _destination - _position;
-                _dest = _destination;
+            {
+                if (terrainCollider != null)
+                {
+                    Vector2 tempDest = getCollidedDest(_destination);
+                    _delta = tempDest - _position;
+                    _dest = tempDest;
+                }
+                else
+                {
+                    _delta = _destination - _position;
+                    _dest = _destination;
+                }
             }
             else
             {
+                if (terrainCollider != null)
+                {
+                    Vector2 tempDest = getCollidedDest(_meleeDestination);
+                    _delta = tempDest - _position;
+                    _dest = tempDest;
+                }
                 _delta = _meleeDestination - _position;
                 _dest = _meleeDestination;
 
@@ -1031,8 +1113,6 @@ namespace PikeAndShot
             return _idle.getBoundingRect().Height;
         }
 
-        const float fuzziness = 3.0f;
-
         public override void collide(ScreenObject collider, TimeSpan timeSpan)
         {
             float shimmy = (float)timeSpan.TotalMilliseconds * _speed ;
@@ -1041,68 +1121,7 @@ namespace PikeAndShot
                 return;
             if (collider is Terrain)
             {
-                Terrain terrain = (Terrain)collider;
-                if (this.getCenter().X < terrain.collisionCenter.X)
-                {
-                    if (this.getCenter().Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - this.getCenter().Y > terrain.collisionCenter.X - this.getCenter().X)
-                    {
-                        _position.X -= shimmy;
-                        float i = _position.X + getWidth();
-                        if (_position.X + getWidth() > terrain.collisionBox.X + fuzziness)
-                            _position.Y = terrain.collisionBox.Y - getHeight() + fuzziness;                        
-                    }
-                    else if (this.getCenter().Y > terrain.collisionCenter.Y && this.getCenter().Y - terrain.collisionCenter.Y > terrain.collisionCenter.X - this.getCenter().X)
-                    {
-                        _position.X -= shimmy;
-                        if (_position.X + getWidth() > terrain.collisionBox.X + fuzziness)
-                            _position.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + fuzziness;
-                    }
-                    else
-                    {
-                        if (this.getCenter().Y < terrain.collisionCenter.Y)
-                        {
-                            _position.Y -= shimmy;
-                            if (_position.Y + getHeight() >= terrain.collisionBox.Y)
-                                _position.X = terrain.collisionBox.X - getWidth() - fuzziness;
-                        }
-                        else
-                        {
-                            _position.Y += shimmy;
-                            if (_position.Y <= terrain.collisionBox.Y + terrain.collisionBox.Height)
-                                _position.X = terrain.collisionBox.X - getWidth() - fuzziness;
-                        }
-                    }
-                }
-                else
-                {
-                    if (this.getCenter().Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - this.getCenter().Y > this.getCenter().X - terrain.collisionCenter.X)
-                    {
-                        _position.X += shimmy;
-                        if (_position.X + fuzziness< terrain.collisionBox.X + terrain.collisionBox.Width)
-                            _position.Y = terrain.collisionBox.Y - getHeight() - fuzziness;
-                    }
-                    else if (this.getCenter().Y > terrain.collisionCenter.Y && this.getCenter().Y - terrain.collisionCenter.Y > this.getCenter().X - terrain.collisionCenter.X)
-                    {
-                        _position.X += shimmy;
-                        if (_position.X + fuzziness < terrain.collisionBox.X + terrain.collisionBox.Width)
-                            _position.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + fuzziness;
-                    }
-                    else
-                    {
-                        if (this.getCenter().Y < terrain.collisionCenter.Y)
-                        {
-                            _position.Y -= shimmy;
-                            if (_position.Y + getHeight() >= terrain.collisionBox.Y )
-                                _position.X = terrain.collisionBox.X + terrain.collisionBox.Width + fuzziness;
-                        }
-                        else
-                        {
-                            _position.Y += shimmy;
-                            if (_position.Y <= terrain.collisionBox.Y + terrain.collisionBox.Height)
-                                _position.X = terrain.collisionBox.X + terrain.collisionBox.Width + fuzziness;
-                        }
-                    }
-                }
+                terrainCollider = (Terrain)collider;
             }
             else if (collider is Shot && collider.getSide() != _side && !(collider is Pavise) && collider.getState() != STATE_DEAD && collider.getState() != Shot.STATE_GROUND)
             {
@@ -1200,7 +1219,7 @@ namespace PikeAndShot
                 if (_state != STATE_DEAD && _state != STATE_DYING && _state != STATE_MELEE_WIN && _state != STATE_MELEE_LOSS && (!(this is Targeteer) || _state != Targeteer.STATE_SHIELDBREAK) && (!(this is DismountedCavalry) || _state != DismountedCavalry.STATE_FALLING))
                 {
                     if (this is CrossbowmanPavise && collider is CrossbowmanPavise
-                        && (this._state == STATE_CHARGING || this._state == STATE_RELOADING || this._state == STATE_ATTACKING|| this._state == CrossbowmanPavise.STATE_PLACING || this._state == CrossbowmanPavise.STATE_RETRIEVING)
+                        && (this._state == STATE_CHARGING || this._state == STATE_RELOADING || this._state == STATE_ATTACKING || this._state == CrossbowmanPavise.STATE_PLACING || this._state == CrossbowmanPavise.STATE_RETRIEVING)
                         && (collider.getState() == STATE_CHARGING || collider.getState() == STATE_RELOADING || collider.getState() == STATE_ATTACKING || collider.getState() == CrossbowmanPavise.STATE_PLACING || collider.getState() == CrossbowmanPavise.STATE_RETRIEVING))
                     {
                         Vector2 changeVector = new Vector2(0f, (float)timeSpan.TotalMilliseconds * _speed);
@@ -1313,7 +1332,7 @@ namespace PikeAndShot
                         }
                     }
                 }
-            }   
+            }
         }
 
         private void collisionPush(ScreenObject collider)
