@@ -81,7 +81,7 @@ namespace PikeAndShot
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_TREE1:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.TREE1, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x, (int)y + PikeAndShotGame.TREE1.Height / 2, PikeAndShotGame.TREE1.Width, PikeAndShotGame.TREE1.Height/2));
+                    newTerrain = new Terrain(screen, PikeAndShotGame.TREE1, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 20, (int)y + PikeAndShotGame.TREE1.Height / 2, PikeAndShotGame.TREE1.Width - 40, PikeAndShotGame.TREE1.Height/3));
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_TREE2:

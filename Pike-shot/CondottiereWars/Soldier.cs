@@ -375,20 +375,20 @@ namespace PikeAndShot
                 }
                 else if (this.getDestCenter(dest).Y > terrain.collisionCenter.Y && this.getDestCenter(dest).Y - terrain.collisionCenter.Y > terrain.collisionCenter.X - this.getDestCenter(dest).X)
                 {
-                    dest.X = terrain.collisionBox.X - getWidth() -shimmy;
+                    dest.X = terrain.collisionBox.X - getWidth() - shimmy;
                     dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height;
                 }
                 else
                 {
                     if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y)
                     {
-                        dest.Y = terrain.collisionBox.Y - getHeight() -shimmy;
+                        dest.Y = terrain.collisionBox.Y - getHeight() - shimmy;
                         dest.X = terrain.collisionBox.X - getWidth() - shimmy;
                     }
                     else
                     {
                         dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + shimmy;
-                        dest.X = terrain.collisionBox.X - getWidth() -shimmy;
+                        dest.X = terrain.collisionBox.X - getWidth() - shimmy;
                     }
                 }
             }

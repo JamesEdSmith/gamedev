@@ -117,6 +117,15 @@ namespace PikeAndShot
             ground();
         }
 
+         public override void collide(ScreenObject collider, TimeSpan timeSpan)
+        {
+            base.collide(collider, timeSpan);
+
+            if (collider is Terrain && _state == STATE_FLYING)
+                hit();
+        }
+
+
         public override Vector2 getCenter()
         {
             return new Vector2(_position.X + 2f, _position.Y + 1f);
