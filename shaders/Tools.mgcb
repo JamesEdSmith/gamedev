@@ -49,3 +49,15 @@
 /processorParam:DebugMode=Auto
 /build:newshader2.fx
 
+#begin theme.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:theme.ogg
+
+#begin theme.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:theme.mp3
+

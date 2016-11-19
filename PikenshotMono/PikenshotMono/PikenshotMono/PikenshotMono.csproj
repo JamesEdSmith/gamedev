@@ -111,6 +111,9 @@
     <None Include="Content\test_pike_level.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\theme.wma">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="CppNet.dll" />
     <Content Include="ffmpeg.exe" />
     <Content Include="ffprobe.exe" />

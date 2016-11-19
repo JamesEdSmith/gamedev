@@ -334,7 +334,7 @@ namespace PikeAndShot
                 graphics.PreferredBackBufferHeight = (int)_ScreenHeight;
                 graphics.IsFullScreen = true;
                 graphics.ApplyChanges();
-                useShaders = false;
+                useShaders = true;
             }
             else
                 useShaders = false;
@@ -609,7 +609,7 @@ namespace PikeAndShot
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
 
-            //THEME_1 = Content.Load<Song>(@"theme");
+            THEME_1 = Content.Load<Song>(@"theme");
             SHOT_0 = Content.Load<SoundEffect>(@"shot00");
             SHOT_1 = Content.Load<SoundEffect>(@"shot01");
             SHOT_2 = Content.Load<SoundEffect>(@"shot02");

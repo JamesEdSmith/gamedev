@@ -518,7 +518,6 @@ C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\W
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\soldier_shieldbreak.xnb
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\SpriteFont1.xnb
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\sword_pointer.xnb
-C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\theme.xnb
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\thud.xnb
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\wolf_bite.xnb
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\wolf_defend.xnb
@@ -550,5 +549,7 @@ C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\W
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Pike `n Shot.pdb
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Release\Pike `n Shot.exe
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Release\Pike `n Shot.pdb
-C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Release\PikenshotMono.csprojResolveAssemblyReference.cache
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\newshader2.xnb
+C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\theme.xnb
+C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Release\Content\theme.wma
+C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Release\PikenshotMono.csprojResolveAssemblyReference.cache
