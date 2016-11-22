@@ -113,7 +113,9 @@ namespace PikeAndShot
                         case Soldier.CLASS_GOBLIN_WOLF:
                             _newEnemyFormation.addSoldier(new Wolf(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
                             break;
-
+                        case Soldier.CLASS_NPC_FLEER:
+                            _newEnemyFormation.addSoldier(new NPCFleer(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_NEUTRAL));
+                            break;
                     }
                 }
                 _enemyFormations.Add(_newEnemyFormation);

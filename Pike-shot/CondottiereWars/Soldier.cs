@@ -47,6 +47,9 @@ namespace PikeAndShot
         // leader classes
         public const int CLASS_LEADER_PUCELLE = -1;
 
+        //npcs
+        public const int CLASS_NPC_FLEER = 20;
+
         // soldier status
         public const int STATE_READY = 0;
         public const int STATE_ATTACKING = 1;
@@ -235,6 +238,10 @@ namespace PikeAndShot
                 case Soldier.CLASS_GOBLIN_WOLF:
                     _newEnemyFormation.addSoldier(new Wolf(screen, x, y, BattleScreen.SIDE_ENEMY));
                     break;
+                case Soldier.CLASS_NPC_FLEER:
+                    _newEnemyFormation.addSoldier(new NPCFleer(screen, x, y, BattleScreen.SIDE_ENEMY));
+                    break;
+
             }
         }
 
@@ -1500,6 +1507,107 @@ namespace PikeAndShot
             else
                 return false;
         }
+    }
+
+    public class NPCFleer : Soldier
+    {
+        public const int STATE_FLEE = 900;
+
+        private Sprite _flee;
+
+        float _fleeTime;
+
+        public NPCFleer(BattleScreen screen, float x, float y, int side)
+            : base(screen, side, x, y)
+        {
+            _type = Soldier.TYPE_MELEE;
+            _class = Soldier.CLASS_NPC_FLEER;
+
+            int r = PikeAndShotGame.random.Next(6);
+            _flee = null;
+            _fleeTime = 2000f;
+
+            switch(r)
+            {
+                case 0:
+                    _idle = new Sprite(PikeAndShotGame.PEASANT1_IDLE, new Rectangle(10, 8, 16, 28), 42, 42);
+                    _flee = new Sprite(PikeAndShotGame.PEASANT1_FLEE, new Rectangle(10, 8, 16, 28), 36, 42);
+                    _feet = new Sprite(PikeAndShotGame.BLUE_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                    _state = STATE_FLEE;
+                    _stateTimer = _fleeTime;
+                    break;
+                case 1:
+                    _idle = new Sprite(PikeAndShotGame.PEASANT2_IDLE, new Rectangle(10, 8, 16, 28), 42, 42);
+                    _feet = new Sprite(PikeAndShotGame.BLUE_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                    break;
+                case 2:
+                    _idle = new Sprite(PikeAndShotGame.PEASANT3_IDLE, new Rectangle(10, 8, 16, 28), 42, 42);
+                    _feet = new Sprite(PikeAndShotGame.BLUE_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                    break;
+                case 3:
+                    _idle = new Sprite(PikeAndShotGame.PEASANT4_IDLE, new Rectangle(10, 8, 16, 28), 42, 42);
+                    _feet = new Sprite(PikeAndShotGame.BLUE_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                    break;
+                case 4:
+                    _idle = new Sprite(PikeAndShotGame.PEASANT5_IDLE, new Rectangle(10, 8, 16, 28), 42, 42);
+                    _flee = new Sprite(PikeAndShotGame.PEASANT5_FLEE, new Rectangle(10, 8, 16, 28), 38, 48);
+                    _feet = new Sprite(PikeAndShotGame.SOLDIER_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                    _state = STATE_FLEE;
+                    _stateTimer = _fleeTime;
+                    break;
+                case 5:
+                    _idle = new Sprite(PikeAndShotGame.PEASANT6_IDLE, new Rectangle(8, 12, 16, 28), 34, 48);
+                    _feet = new Sprite(PikeAndShotGame.SOLDIER_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                    break;
+            }
+            _speed = 0.1f;
+            _feet.setAnimationSpeed(_footSpeed / (_speed - 0.04f));
+        }
+
+        public override void  update(TimeSpan timeSpan)
+        {
+            _speed = 0.1f;
+            _feet.setAnimationSpeed(_footSpeed / (0.11f));
+            if(_screen is LevelScreen)
+                _destination = new Vector2 (_screen.getMapOffset().X - 200f, _position.Y);
+ 	        base.update(timeSpan);
+        }
+
+        protected override void  updateState(TimeSpan timeSpan)
+        {
+ 	        base.updateState(timeSpan);
+            if (!_stateChanged)
+            {
+                if (_state == STATE_FLEE)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+
+                    if (_stateTimer <= 0)
+                    {
+                        _stateTimer = _fleeTime;
+
+                        _state = STATE_FLEE;
+                    }
+                }
+            }
+        }
+
+        protected override void  updateAnimation(TimeSpan timeSpan)
+        {
+            base.updateAnimation(timeSpan);
+
+            if (_state == STATE_FLEE)
+            {
+                int maxFrames = _flee.getMaxFrames();
+                float frameTime = _fleeTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                _flee.setFrame(frameNumber);
+
+                _body = _flee;
+            }
+        }
+ 
     }
 
     public class Pikeman : Soldier

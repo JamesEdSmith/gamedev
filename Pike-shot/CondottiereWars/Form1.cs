@@ -94,6 +94,8 @@ namespace PikeAndShot
             _soldierClass.Add(soldier);
             soldier = new SoldierClass("Goblin Wolf", 14);
             _soldierClass.Add(soldier);
+            soldier = new SoldierClass("NPCFleer", 20);
+            _soldierClass.Add(soldier);
 
             foreach (SoldierClass sc in _soldierClass)
             {

@@ -69,15 +69,13 @@ namespace PikeAndShot
             collidable = true;
         }
 
-
-
         public static void getNewTerrain(int terrainClass, BattleScreen screen, float x, float y, int index)
         {
             Terrain newTerrain = null;
             switch (terrainClass)
             {
                 case Terrain.CLASS_TREE0:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.TREE0, BattleScreen.SIDE_PLAYER, x, y);
+                    newTerrain = new Terrain(screen, PikeAndShotGame.TREE0, BattleScreen.SIDE_PLAYER, x, y,new  Rectangle((int)(x + PikeAndShotGame.TREE0.Width / 4), (int)(y + PikeAndShotGame.TREE0.Height *2/3), (int)(PikeAndShotGame.TREE0.Width / 2), (int)(PikeAndShotGame.TREE0.Height/8)));
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_TREE1:
@@ -101,11 +99,11 @@ namespace PikeAndShot
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_TURNROADMARKER:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.ROAD_TURN_MARKER, BattleScreen.SIDE_PLAYER, x, y);
+                    newTerrain = new Terrain(screen, PikeAndShotGame.ROAD_TURN_MARKER, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)(x + PikeAndShotGame.ROAD_TURN_MARKER.Width / 4), (int)(y + PikeAndShotGame.ROAD_TURN_MARKER.Height / 2), (int)(PikeAndShotGame.ROAD_TURN_MARKER.Width / 2), (int)(PikeAndShotGame.ROAD_TURN_MARKER.Height/8)));
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_MILEROADMARKER:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.ROAD_MILE_MARKER, BattleScreen.SIDE_PLAYER, x, y);
+                    newTerrain = new Terrain(screen, PikeAndShotGame.ROAD_MILE_MARKER, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)(x + PikeAndShotGame.ROAD_MILE_MARKER.Width / 4), (int)(y + PikeAndShotGame.ROAD_MILE_MARKER.Height /2), (int)(PikeAndShotGame.ROAD_MILE_MARKER.Width / 2), (int)(PikeAndShotGame.ROAD_MILE_MARKER.Height / 8)));
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_BUSH0:

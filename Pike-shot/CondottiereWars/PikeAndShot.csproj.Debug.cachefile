@@ -269,6 +269,15 @@ Content\arg.xnb
 Content\boss.xnb
 Content\theme.xnb
 Content\boss01.xnb
+Content\blue_feet.xnb
+Content\npc_1_01_fleeing.xnb
+Content\npc_1_01_idle.xnb
+Content\npc_1_02_idle.xnb
+Content\npc_1_03_idle.xnb
+Content\npc_1_04_idle.xnb
+Content\npc_1_05_fleeing.xnb
+Content\npc_1_05_idle.xnb
+Content\npc_1_06_idle.xnb
 Content\theme.wma
 Content\boss01.wma
 Content\Benz1_level.xml

@@ -280,6 +280,17 @@ namespace PikeAndShot
         public static Texture2D FALCHION_THROWN;
         public static Texture2D FALCHION_DIRT;
 
+        public static Texture2D PEASANT1_IDLE;
+        public static Texture2D PEASANT2_IDLE;
+        public static Texture2D PEASANT3_IDLE;
+        public static Texture2D PEASANT4_IDLE;
+        public static Texture2D PEASANT5_IDLE;
+        public static Texture2D PEASANT6_IDLE;
+
+        public static Texture2D PEASANT1_FLEE;
+        public static Texture2D PEASANT5_FLEE;
+
+        public static Texture2D BLUE_FEET;
         public static Texture2D BROWN_FEET;
 
         public static List<Texture2D> ROAD_TERRAIN;
@@ -651,8 +662,19 @@ namespace PikeAndShot
             FALCHION_THROWN = Content.Load<Texture2D>(@"falchion_thrown");
             FALCHION_DIRT = Content.Load<Texture2D>(@"falchion_dirt");
 
+            PEASANT1_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_01_idle"));
+            PEASANT2_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_02_idle"));
+            PEASANT3_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_03_idle"));
+            PEASANT4_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_04_idle"));
+            PEASANT5_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_05_idle"));
+            PEASANT6_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_06_idle"));
+
+            PEASANT1_FLEE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_01_fleeing"));
+            PEASANT5_FLEE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_05_fleeing"));
+
             GOBLIN_FEET = Content.Load<Texture2D>(@"goblin_feet");
             BROWN_FEET = Content.Load<Texture2D>(@"brown_feet");
+            BLUE_FEET = Content.Load<Texture2D>(@"blue_feet");
             SLINGER_GROUND = Content.Load<Texture2D>(@"slinger_ground");
 
             COIN = Content.Load<Texture2D>(@"coin");
