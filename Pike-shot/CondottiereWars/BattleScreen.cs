@@ -145,13 +145,16 @@ namespace PikeAndShot
             }
             _screenAnimationsToAdd.Clear();
 
-            foreach (Formation f in _enemyFormations)
+            if (playerInPlay)
             {
-                f.update(gameTime.ElapsedGameTime);
-                if (f.getSide() == SIDE_ENEMY && (f.getPosition().X < (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X || f.getTotalRows() == 0))
+                foreach (Formation f in _enemyFormations)
                 {
-                    if(!f.hasSoldierOnScreen() && this is LevelScreen)
-                        _deadFormations.Add(f);
+                    f.update(gameTime.ElapsedGameTime);
+                    if (f.getSide() == SIDE_ENEMY && (f.getPosition().X < (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X || f.getTotalRows() == 0))
+                    {
+                        if (!f.hasSoldierOnScreen() && this is LevelScreen)
+                            _deadFormations.Add(f);
+                    }
                 }
             }
 
@@ -327,7 +330,7 @@ namespace PikeAndShot
                     if (!(so.getState() == Soldier.STATE_DYING || so.getState() == Colmillos.STATE_EATEN || so.getState() == Colmillos.STATE_RISE || so.getState() == Targeteer.STATE_SHIELDBREAK || ((ColmillosFormation)((Colmillos)so).myFormation).attacked))
                         _screenColliders.Add(so);
                 }
-                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay) && !(so is Terrain && !((Terrain)so).collidable))
+                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay || (so is Soldier && ((Soldier)so).myFormation != _formation)) && !(so is Terrain && !((Terrain)so).collidable))
                     _screenColliders.Add(so);
             }
             

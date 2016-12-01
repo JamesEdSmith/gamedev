@@ -804,14 +804,14 @@ namespace PikeAndShot
                         _stateTimer -= (float)timeSpan.TotalMilliseconds;
                         if (_stateTimer <= 0)
                         {
-                            if(_longMelee <= 0)
+                            if (_longMelee <= 0)
                                 winMelee();
                             else
                             {
                                 _stateTimer = _meleeTime;
                                 _longMelee--;
                             }
-                        }
+                        }  
                     }
                     else
                         winMelee();
@@ -1064,13 +1064,7 @@ namespace PikeAndShot
             }
             else if (_state == STATE_READY)
             {
-                if (inPlayerFormation || _side != BattleScreen.SIDE_PLAYER)
-                    _body = _idle;
-                else
-                {
-                    _defend1.setFrame(0);
-                    _body = _defend1;
-                }
+                _body = _idle;
             }
             else if (_state == STATE_RETREAT)
             {
@@ -1122,7 +1116,7 @@ namespace PikeAndShot
 
         public override void collide(ScreenObject collider, TimeSpan timeSpan)
         {
-            float shimmy = (float)timeSpan.TotalMilliseconds * _speed ;
+            float shimmy = (float)timeSpan.TotalMilliseconds * _speed;
 
             if (collider == _killer || _state == STATE_DEAD || _state == STATE_DYING)
                 return;
@@ -1157,7 +1151,7 @@ namespace PikeAndShot
             {
                 if (((PikeTip)collider).getSoldierState() == Pikeman.STATE_LOWERED)
                 {
-                    if (!(this is Targeteer) && !(this is Wolf))
+                    if (!(this is Targeteer) && !(this is Wolf) && _side != BattleScreen.SIDE_NEUTRAL)
                     {
                         hit();
                         _killer = collider;
@@ -1261,80 +1255,79 @@ namespace PikeAndShot
                     }
                     else
                     {
-                        if (collider.getSide() == BattleScreen.SIDE_NEUTRAL)
+                        if (!((collider.getSide() == BattleScreen.SIDE_NEUTRAL && _side == BattleScreen.SIDE_PLAYER) || (collider.getSide() == BattleScreen.SIDE_PLAYER && _side == BattleScreen.SIDE_NEUTRAL)))
                         {
-                            collisionPush(collider);
-                        }
-                        //fighting
-                        else if (_side != collider.getSide() && (thisInFormation || colliderInFormation) && !(this is Leader || collider is Leader) && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && collider.getState() != STATE_MELEE_WIN && collider.getState() != STATE_MELEE_LOSS && (!(collider is Targeteer) || collider.getState() != Targeteer.STATE_SHIELDBREAK) && (!(collider is DismountedCavalry) || collider.getState() != DismountedCavalry.STATE_FALLING) && (!(collider is Wolf) || collider.getState() != Wolf.STATE_KILL) && (!(this is Wolf) || this._state != Wolf.STATE_KILL))
-                        {
-                            bool rescueFight = (_side == BattleScreen.SIDE_PLAYER && !thisInFormation) ||
-                                                (collider.getSide() == BattleScreen.SIDE_PLAYER && !colliderInFormation);
+                            //fighting
+                            if (_side != collider.getSide() && !(this is Leader || collider is Leader) && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && collider.getState() != STATE_MELEE_WIN && collider.getState() != STATE_MELEE_LOSS && (!(collider is Targeteer) || collider.getState() != Targeteer.STATE_SHIELDBREAK) && (!(collider is DismountedCavalry) || collider.getState() != DismountedCavalry.STATE_FALLING) && (!(collider is Wolf) || collider.getState() != Wolf.STATE_KILL) && (!(this is Wolf) || this._state != Wolf.STATE_KILL))
+                            {
+                                bool rescueFight = (_side == BattleScreen.SIDE_PLAYER && !thisInFormation) ||
+                                                    (collider.getSide() == BattleScreen.SIDE_PLAYER && !colliderInFormation);
 
-                            if (this is Colmillos)
-                            {
-                                if (_state != Colmillos.STATE_ATTACK)
-                                    attack();
-                                _destination = _position;
-                            }
-                            else if (collider is Colmillos)
-                            {
-                                if (collider.getState() != Colmillos.STATE_ATTACK)
-                                    ((Colmillos)collider).attack();
+                                if (this is Colmillos)
+                                {
+                                    if (_state != Colmillos.STATE_ATTACK)
+                                        attack();
+                                    _destination = _position;
+                                }
+                                else if (collider is Colmillos)
+                                {
+                                    if (collider.getState() != Colmillos.STATE_ATTACK)
+                                        ((Colmillos)collider).attack();
 
-                                ((Colmillos)collider)._destination = ((Colmillos)collider)._position;
+                                    ((Colmillos)collider)._destination = ((Colmillos)collider)._position;
+                                }
+                                else if (this is Dopple)
+                                {
+                                    if (_state != STATE_ATTACKING)
+                                        attack();
+                                    ((Soldier)collider).engage(false, _position, this, rescueFight);
+                                }
+                                else if (collider is Dopple)
+                                {
+                                    if (collider.getState() != STATE_ATTACKING)
+                                        ((Dopple)collider).attack();
+                                    engage(false, collider.getPosition(), (Soldier)collider, rescueFight);
+                                }
+                                else if (_side == BattleScreen.SIDE_ENEMY || this is Wolf)
+                                {
+                                    engage(true, collider.getPosition(), (Soldier)collider, rescueFight);
+                                    ((Soldier)collider).engage(false, _position, this, rescueFight);
+                                }
+                                else
+                                {
+                                    engage(false, collider.getPosition(), (Soldier)collider, rescueFight);
+                                    ((Soldier)collider).engage(true, _position, this, rescueFight);
+                                }
                             }
-                            else if (this is Dopple)
+                            //rescue
+                            else if (_side == BattleScreen.SIDE_PLAYER && collider.getSide() == BattleScreen.SIDE_PLAYER && (thisInFormation != colliderInFormation))
                             {
-                                if (_state != STATE_ATTACKING)
-                                    attack();
-                                ((Soldier)collider).engage(false, _position, this, rescueFight);
-                            }
-                            else if (collider is Dopple)
-                            {
-                                if (collider.getState() != STATE_ATTACKING)
-                                    ((Dopple)collider).attack();
-                                engage(false, collider.getPosition(), (Soldier)collider, rescueFight);
-                            }
-                            else if (_side == BattleScreen.SIDE_ENEMY || this is Wolf)
-                            {
-                                engage(true, collider.getPosition(), (Soldier)collider, rescueFight);
-                                ((Soldier)collider).engage(false, _position, this, rescueFight);
-                            }
-                            else
-                            {
-                                engage(false, collider.getPosition(), (Soldier)collider, rescueFight);
-                                ((Soldier)collider).engage(true, _position, this, rescueFight);
-                            }
-                        }
-                        //rescue
-                        else if (_side == BattleScreen.SIDE_PLAYER && collider.getSide() == BattleScreen.SIDE_PLAYER && (thisInFormation != colliderInFormation))
-                        {
-                            if (thisInFormation &&
-                                collider.getState() != STATE_CHARGING && collider.getState() != STATE_DYING
-                                && collider.getState() != STATE_DEAD
-                                && collider.getState() != STATE_MELEE_LOSS && collider.getState() != STATE_MELEE_WIN
-                                && collider.getState() != STATE_ATTACKING && collider.getState() != STATE_RELOADING)
-                            {
-                                ((Soldier)collider)._state = STATE_READY;
-                                ((Soldier)collider)._reacting = false;
-                                if (((Soldier)collider).myFormation != null && ((Soldier)collider).myFormation != _screen.getPlayerFormation())
-                                    ((Soldier)collider).myFormation.removeSoldier(((Soldier)collider));
-                                _screen.getPlayerFormation().addSoldier((Soldier)collider);
-                                _screen.removeLooseSoldier((Soldier)collider);
-                            }
-                            else if (colliderInFormation &&
-                                this.getState() != STATE_CHARGING && this.getState() != STATE_DYING
-                                && this.getState() != STATE_DEAD
-                                && this.getState() != STATE_MELEE_LOSS && this.getState() != STATE_MELEE_WIN
-                                && this.getState() != STATE_ATTACKING && this.getState() != STATE_RELOADING)
-                            {
-                                _reacting = false;
-                                _state = STATE_READY;
-                                if (myFormation != null)
-                                    myFormation.removeSoldier(this);
-                                _screen.getPlayerFormation().addSoldier(this);
-                                _screen.removeLooseSoldier(this);
+                                if (thisInFormation &&
+                                    collider.getState() != STATE_CHARGING && collider.getState() != STATE_DYING
+                                    && collider.getState() != STATE_DEAD
+                                    && collider.getState() != STATE_MELEE_LOSS && collider.getState() != STATE_MELEE_WIN
+                                    && collider.getState() != STATE_ATTACKING && collider.getState() != STATE_RELOADING)
+                                {
+                                    ((Soldier)collider)._state = STATE_READY;
+                                    ((Soldier)collider)._reacting = false;
+                                    if (((Soldier)collider).myFormation != null && ((Soldier)collider).myFormation != _screen.getPlayerFormation())
+                                        ((Soldier)collider).myFormation.removeSoldier(((Soldier)collider));
+                                    _screen.getPlayerFormation().addSoldier((Soldier)collider);
+                                    _screen.removeLooseSoldier((Soldier)collider);
+                                }
+                                else if (colliderInFormation &&
+                                    this.getState() != STATE_CHARGING && this.getState() != STATE_DYING
+                                    && this.getState() != STATE_DEAD
+                                    && this.getState() != STATE_MELEE_LOSS && this.getState() != STATE_MELEE_WIN
+                                    && this.getState() != STATE_ATTACKING && this.getState() != STATE_RELOADING)
+                                {
+                                    _reacting = false;
+                                    _state = STATE_READY;
+                                    if (myFormation != null)
+                                        myFormation.removeSoldier(this);
+                                    _screen.getPlayerFormation().addSoldier(this);
+                                    _screen.removeLooseSoldier(this);
+                                }
                             }
                         }
                     }
@@ -1387,7 +1380,7 @@ namespace PikeAndShot
                 playedFallSound = false;
 
                 //I want guys that are running in as replacements to count as a loss
-                if (((myFormation == _screen.getPlayerFormation() && this._type != TYPE_SWINGER) || (this._type != TYPE_SWINGER && _side == BattleScreen.SIDE_PLAYER)) && _screen is LevelScreen)
+                if (((myFormation == _screen.getPlayerFormation() && this._type != TYPE_SWINGER) || ((this._type == TYPE_PIKE || this._type == TYPE_SHOT) && _side == BattleScreen.SIDE_PLAYER)) && _screen is LevelScreen)
                 {
                     ((LevelScreen)_screen).loseCoin(getType());
                 }
@@ -1432,7 +1425,9 @@ namespace PikeAndShot
             {
                 _longMelee = 0;
                 if (win)
+                {
                     _state = STATE_MELEE_WIN;
+                }
                 else
                     _state = STATE_MELEE_LOSS;
             }
@@ -1532,36 +1527,42 @@ namespace PikeAndShot
                 case 0:
                     _idle = new Sprite(PikeAndShotGame.PEASANT1_IDLE, new Rectangle(10, 8, 16, 28), 42, 42);
                     _flee = new Sprite(PikeAndShotGame.PEASANT1_FLEE, new Rectangle(10, 8, 16, 28), 36, 42);
-                    _feet = new Sprite(PikeAndShotGame.BLUE_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                    _feet = new Sprite(_screen._game.getDimmerClone(PikeAndShotGame.BLUE_FEET), new Rectangle(4, 2, 16, 12), 26, 16, true);
                     _state = STATE_FLEE;
+                    _fleeTime = 2500f;
                     _stateTimer = _fleeTime;
                     break;
                 case 1:
                     _idle = new Sprite(PikeAndShotGame.PEASANT2_IDLE, new Rectangle(10, 8, 16, 28), 42, 42);
-                    _feet = new Sprite(PikeAndShotGame.BLUE_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                    _feet = new Sprite(_screen._game.getDimmerClone(PikeAndShotGame.BLUE_FEET), new Rectangle(4, 2, 16, 12), 26, 16, true);
                     break;
                 case 2:
                     _idle = new Sprite(PikeAndShotGame.PEASANT3_IDLE, new Rectangle(10, 8, 16, 28), 42, 42);
-                    _feet = new Sprite(PikeAndShotGame.BLUE_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                    _feet = new Sprite(_screen._game.getDimmerClone(PikeAndShotGame.BLUE_FEET), new Rectangle(4, 2, 16, 12), 26, 16, true);
                     break;
                 case 3:
                     _idle = new Sprite(PikeAndShotGame.PEASANT4_IDLE, new Rectangle(10, 8, 16, 28), 42, 42);
-                    _feet = new Sprite(PikeAndShotGame.BLUE_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                    _feet = new Sprite(_screen._game.getDimmerClone(PikeAndShotGame.BLUE_FEET), new Rectangle(4, 2, 16, 12), 26, 16, true);
                     break;
                 case 4:
                     _idle = new Sprite(PikeAndShotGame.PEASANT5_IDLE, new Rectangle(10, 8, 16, 28), 42, 42);
                     _flee = new Sprite(PikeAndShotGame.PEASANT5_FLEE, new Rectangle(10, 8, 16, 28), 38, 48);
-                    _feet = new Sprite(PikeAndShotGame.SOLDIER_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                    _feet = new Sprite(_screen._game.getDimmerClone(PikeAndShotGame.SOLDIER_FEET), new Rectangle(4, 2, 16, 12), 26, 16, true);
                     _state = STATE_FLEE;
                     _stateTimer = _fleeTime;
                     break;
                 case 5:
                     _idle = new Sprite(PikeAndShotGame.PEASANT6_IDLE, new Rectangle(8, 12, 16, 28), 34, 48);
-                    _feet = new Sprite(PikeAndShotGame.SOLDIER_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                    _feet = new Sprite(_screen._game.getDimmerClone(PikeAndShotGame.GOBLIN_FEET), new Rectangle(4, 2, 16, 12), 26, 16, true);
                     break;
             }
             _speed = 0.1f;
             _feet.setAnimationSpeed(_footSpeed / (_speed - 0.04f));
+        }
+
+        public override void setSide(int side)
+        {
+            _side = side;
         }
 
         public override void  update(TimeSpan timeSpan)
@@ -3242,29 +3243,36 @@ namespace PikeAndShot
 
     public class Brigand : Soldier
     {
+        private bool variant;
+        private int chargeVariant;
+
         public Brigand(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
         {
             _type = Soldier.TYPE_MELEE;
             _class = Soldier.CLASS_GOBLIN_BRIGAND;
 
+            chargeVariant = PikeAndShotGame.random.Next(2);
+
             _feet = new Sprite(PikeAndShotGame.BROWN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
             if (PikeAndShotGame.random.Next(51) > 25)
             {
+                variant = true;
                 _idle = new Sprite(PikeAndShotGame.BRIGAND2_IDLE, new Rectangle(10, 2, 16, 28), 46, 42);
                 _death = new Sprite(PikeAndShotGame.BRIGAND2_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
                 _melee1 = new Sprite(PikeAndShotGame.BRIGAND2_MELEE1, new Rectangle(24, 30, 16, 28), 64, 68);
-                _defend1 = new Sprite(PikeAndShotGame.BRIGAND2_DEFEND1, new Rectangle(20, 2, 16, 28), 52, 40);
+                _defend1 = new Sprite(PikeAndShotGame.BRIGAND2_DEFEND1, new Rectangle(20, 4, 16, 28), 54, 40);
                 _route = new Sprite(PikeAndShotGame.BERZERKER2_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
                 _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
                 _charge = new Sprite(PikeAndShotGame.BRIGAND2_CHARGE, new Rectangle(20, 20, 16, 28), 60, 56);
             }
             else
             {
+                variant = false;
                 _idle = new Sprite(PikeAndShotGame.BRIGAND1_IDLE, new Rectangle(10, 2, 16, 28), 46, 42);
                 _death = new Sprite(PikeAndShotGame.BRIGAND1_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
                 _melee1 = new Sprite(PikeAndShotGame.BRIGAND1_MELEE1, new Rectangle(24, 30, 16, 28), 64, 68);
-                _defend1 = new Sprite(PikeAndShotGame.BRIGAND1_DEFEND1, new Rectangle(20, 2, 16, 28), 52, 40);
+                _defend1 = new Sprite(PikeAndShotGame.BRIGAND1_DEFEND1, new Rectangle(24, 4, 16, 28), 60, 40);
                 _route = new Sprite(PikeAndShotGame.BERZERKER_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
                 _routed = new Sprite(PikeAndShotGame.BERZERKER_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
                 _charge = new Sprite(PikeAndShotGame.BRIGAND1_CHARGE, new Rectangle(20, 20, 16, 28), 60, 56);
@@ -3280,6 +3288,29 @@ namespace PikeAndShot
         protected override bool checkReactions(TimeSpan timeSpan)
         {
             return false;
+        }
+
+        protected override void updateAnimation(TimeSpan timeSpan)
+        {
+            base.updateAnimation(timeSpan);
+
+            if (_state == STATE_CHARGING && initCharge)
+            {
+                int maxFrames = 4;
+                float frameTime = (_chargeTime/2f) / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime);
+
+                if (chargeVariant == 0)
+                {
+                    _melee1.setFrame(frameNumber);
+                    _body = _melee1;
+                }
+                else
+                {
+                    _defend1.setFrame(frameNumber);
+                    _body = _defend1;
+                }
+            }
         }
     }
 
@@ -4542,14 +4573,31 @@ namespace PikeAndShot
             _coverTime = 375f;
             _shieldRecoilTime = 150f;
 
-            _shieldBlock = new ShieldBlock(screen, this);
-            _shieldBreak = new Sprite(PikeAndShotGame.SOLDIER_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46);
-            _noshieldIdle = new Sprite(PikeAndShotGame.SOLDIER_IDLENOSHIELD, new Rectangle(10, 2, 16, 28), 46, 42);
-            _shieldFall = new Sprite(PikeAndShotGame.SOLDIER_FALL, new Rectangle(76, 42, 16, 18), 110, 86);
-            _melee2 = new Sprite(PikeAndShotGame.SOLDIER_MELEE2, new Rectangle(24, 30, 16, 28), 64, 68);
-            _defend2 = new Sprite(PikeAndShotGame.SOLDIER_DEFEND2, new Rectangle(20, 2, 16, 28), 52, 40);
-            _chargeNoShield = new Sprite(PikeAndShotGame.SOLDIER_CHARGENOSHIELD, new Rectangle(20, 20, 16, 28), 60, 56);
-            _hasShield = true;
+            if (PikeAndShotGame.random.Next(2) == 0)
+            {
+                _shieldBlock = new ShieldBlock(screen, this);
+                _shieldBreak = new Sprite(PikeAndShotGame.SOLDIER_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46);
+                _noshieldIdle = new Sprite(PikeAndShotGame.SOLDIER_IDLENOSHIELD, new Rectangle(10, 2, 16, 28), 46, 42);
+                _shieldFall = new Sprite(PikeAndShotGame.SOLDIER_FALL, new Rectangle(76, 42, 16, 18), 110, 86);
+                _melee2 = new Sprite(PikeAndShotGame.SOLDIER_MELEE2, new Rectangle(24, 30, 16, 28), 64, 68);
+                _defend2 = new Sprite(PikeAndShotGame.SOLDIER_DEFEND2, new Rectangle(20, 2, 16, 28), 52, 40);
+                _chargeNoShield = new Sprite(PikeAndShotGame.SOLDIER_CHARGENOSHIELD, new Rectangle(20, 20, 16, 28), 60, 56);
+                _feet = new Sprite(PikeAndShotGame.BLUE_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                _hasShield = true;
+            }
+            else
+            {
+                _shieldBlock = new ShieldBlock(screen, this);
+                _shieldBreak = new Sprite(PikeAndShotGame.SOLDIER_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46);
+                _idle = _noshieldIdle = new Sprite(PikeAndShotGame.SOLDIER2_IDLE, new Rectangle(12, 16, 16, 28), 64, 46);
+                _shieldFall = new Sprite(PikeAndShotGame.SOLDIER_FALL, new Rectangle(76, 42, 16, 18), 110, 86);
+                _melee2 = new Sprite(PikeAndShotGame.SOLDIER2_MELEE2, new Rectangle(16, 30, 16, 28), 78, 60);
+                _defend2 = new Sprite(PikeAndShotGame.SOLDIER2_DEFEND2, new Rectangle(12, 16, 16, 28), 64, 46);
+                _chargeNoShield = new Sprite(PikeAndShotGame.SOLDIER_CHARGENOSHIELD, new Rectangle(20, 20, 16, 28), 60, 56);
+                _feet = new Sprite(PikeAndShotGame.BLUE_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                _hasShield = false;
+                _body = _noshieldIdle;
+            }
 
             shieldBreakSound = PikeAndShotGame.SHIELD_BREAK.CreateInstance();
             shieldBreakSound.Volume = 0.5f;

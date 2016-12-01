@@ -256,44 +256,46 @@ namespace PikeAndShot
                 else if (mouseState.ScrollWheelValue < prevMouseState.ScrollWheelValue)
                     _currentZoom = Math.Min(_currentZoom + 1, _zoomLevels.Count() - 1);
                 PikeAndShotGame.ZOOM = _zoomLevels[_currentZoom];
-
-                if (mouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && prevMouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released)
+                if (mouseState.X > 0 && mouseState.X < PikeAndShotGame.SCREENWIDTH && mouseState.Y > 0 && mouseState.Y < PikeAndShotGame.SCREENHEIGHT)
                 {
-                    if (_boxSelecting)
-                        moveFormations();
-                    else if (!grabThing())
-                        startSelectorBox();
-                }
-                else if (mouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && prevMouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
-                {
-                    //When we aren't grabbing a formation we are grabbing the map
-                    if (getGrabbedThing() == null)
+                    if (mouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && prevMouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released)
                     {
-                        if (_boxSelecting && !_boxMoving)
+                        if (_boxSelecting)
+                            moveFormations();
+                        else if (!grabThing())
+                            startSelectorBox();
+                    }
+                    else if (mouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && prevMouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
+                    {
+                        //When we aren't grabbing a formation we are grabbing the map
+                        if (getGrabbedThing() == null)
                         {
-                            _endingMousePosition = new Vector2(_mapOffset.X + _pointerPos.X, _mapOffset.Y + _pointerPos.Y);
+                            if (_boxSelecting && !_boxMoving)
+                            {
+                                _endingMousePosition = new Vector2(_mapOffset.X + _pointerPos.X, _mapOffset.Y + _pointerPos.Y);
+                            }
                         }
                     }
-                }
-                else if (mouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released && prevMouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
-                {
-                    //release the formation you are holding 
-                    if (_grabbedThing != null)
+                    else if (mouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released && prevMouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
                     {
-                        if(_grabbedThing is EnemyFormation)
-                            _listener.updateLevelFromScreen(_grabbedThing.index, _grabbedThing.getPosition().X, _grabbedThing.getPosition().Y);
-                        else
-                            _listener.updateLevelFromScreenTerrain(_grabbedThing.index, _grabbedThing.getPosition().X, _grabbedThing.getPosition().Y);
+                        //release the formation you are holding 
+                        if (_grabbedThing != null)
+                        {
+                            if (_grabbedThing is EnemyFormation)
+                                _listener.updateLevelFromScreen(_grabbedThing.index, _grabbedThing.getPosition().X, _grabbedThing.getPosition().Y);
+                            else
+                                _listener.updateLevelFromScreenTerrain(_grabbedThing.index, _grabbedThing.getPosition().X, _grabbedThing.getPosition().Y);
 
-                        _grabbedThing = null;
-                    }
-                    else if (_boxSelecting && !_boxMoving)
-                    {
-                        grabThings();
-                    }
-                    if (_boxMoving)
-                    {
-                        dropFormations();
+                            _grabbedThing = null;
+                        }
+                        else if (_boxSelecting && !_boxMoving)
+                        {
+                            grabThings();
+                        }
+                        if (_boxMoving)
+                        {
+                            dropFormations();
+                        }
                     }
                 }
                 if (keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.C) && previousKeyboardState.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.C))
@@ -328,7 +330,7 @@ namespace PikeAndShot
                     }
                     else if (_grabbedThing != null)
                     {
-                        if(_grabbedThing is EnemyFormation)
+                        if (_grabbedThing is EnemyFormation)
                             _listener.deleteFormation(_grabbedThing.index);
                         else
                             _listener.deleteTerrain(_grabbedThing.index);

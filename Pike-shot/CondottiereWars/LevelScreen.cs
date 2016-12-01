@@ -65,28 +65,29 @@ namespace PikeAndShot
             : base(game)
         {
             _levelData = level;
+            playerInPlay = false;
 
-            _formation = new Formation(this, 200, 200, 20, SIDE_PLAYER);
+            _formation = new Formation(this, -300, PikeAndShotGame.SCREENHEIGHT/2 - Soldier.HEIGHT*5, 20, SIDE_PLAYER);
             if (PikeAndShotGame.TEST_BOSS)
                 cFormation = new ColmillosFormation(this, 800, 500);
             //_formation.addSoldier(new Colmillos(this, 200, 200, BattleScreen.SIDE_PLAYER));
             //_formation.addSoldier(new Wolf(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Leader(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Leader(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
 
             _coins = MAX_COINS/2;
             _doubleCoins = 0;
@@ -165,8 +166,13 @@ namespace PikeAndShot
         {
             base.update(gameTime);
 
-            /* formations and terrain are generated on the far right of the screen 
-            at their height when the player gets to their spawn trigger point*/
+            if (!playerInPlay && _mapOffset.X == 0)
+            {
+                _formation.marchRight(gameTime.ElapsedGameTime.TotalMilliseconds, false);
+                if (_formation.getPosition().X > 150)
+                    playerInPlay = true;
+            }
+
             if (!PikeAndShotGame.TEST_BOSS)
                 checkLevelData();
 
@@ -639,15 +645,12 @@ namespace PikeAndShot
                     string formationName = _levelData.formationNames[f];                                       
                     float x = _newEnemyFormation.getPosition().X;
                     float y = _newEnemyFormation.getPosition().Y;
-                    if (_newEnemyFormation.getSide() == SIDE_PLAYER)
-                        assignRescue(_newEnemyFormation, PikeAndShotGame.random.Next(100) < 50 ? Soldier.TYPE_PIKE : Soldier.TYPE_SHOT);
-                    else
+                    
+                    for (int i = 0; i < _levelData.formations[f].Count; i++)
                     {
-                        for (int i = 0; i < _levelData.formations[f].Count; i++)
-                        {
-                            Soldier.getNewSoldier((_levelData.formations[f])[i], this, _newEnemyFormation, x, y);                           
-                        }
+                        Soldier.getNewSoldier((_levelData.formations[f])[i], this, _newEnemyFormation, x, y);                           
                     }
+                    
                     if (formationName.StartsWith("spawner:"))
                     {
                         foreach (Soldier s in _newEnemyFormation.getSoldiers())

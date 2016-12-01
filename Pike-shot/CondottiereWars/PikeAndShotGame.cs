@@ -131,11 +131,14 @@ namespace PikeAndShot
 
         public static Texture2D SOLDIER_FEET;
         public static Texture2D SOLDIER_IDLE;
+        public static Texture2D SOLDIER2_IDLE;
         public static Texture2D SOLDIER_DEATH;
         public static Texture2D SOLDIER_MELEE1;
         public static Texture2D SOLDIER_DEFEND1;
         public static Texture2D SOLDIER_MELEE2;
+        public static Texture2D SOLDIER2_MELEE2;
         public static Texture2D SOLDIER_DEFEND2;
+        public static Texture2D SOLDIER2_DEFEND2;
         public static Texture2D SOLDIER_ROUTE;
         public static Texture2D SOLDIER_ROUTED;
         public static Texture2D SOLDIER_SHIELDBREAK;
@@ -448,11 +451,14 @@ namespace PikeAndShot
 
             SOLDIER_FEET = Content.Load<Texture2D>(@"soldier_feet");
             SOLDIER_IDLE = Content.Load<Texture2D>(@"soldier_idle");
+            SOLDIER2_IDLE = Content.Load<Texture2D>(@"soldier2_idle");
             SOLDIER_DEATH = Content.Load<Texture2D>(@"soldier_death");
             SOLDIER_MELEE1 = Content.Load<Texture2D>(@"soldier_melee1");
             SOLDIER_DEFEND1 = Content.Load<Texture2D>(@"soldier_defend1");
             SOLDIER_MELEE2 = Content.Load<Texture2D>(@"soldier_melee2");
             SOLDIER_DEFEND2 = Content.Load<Texture2D>(@"soldier_defend2");
+            SOLDIER2_MELEE2 = Content.Load<Texture2D>(@"soldier2_melee");
+            SOLDIER2_DEFEND2 = Content.Load<Texture2D>(@"soldier2_defend");
             SOLDIER_SHIELDBREAK = Content.Load<Texture2D>(@"soldier_shieldbreak");
             SOLDIER_FALL = Content.Load<Texture2D>(@"soldier_fall");
             SOLDIER_BROKENSHIELD1 = Content.Load<Texture2D>(@"brokenshield1");

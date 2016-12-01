@@ -302,6 +302,11 @@ namespace PikeAndShot
             _speed = avgSpeed - 0.04f;
         }
 
+        public Vector2 getSize()
+        {
+            return _size;
+        }
+
         private void assignDoppel(Soldier enemy)
         {
             Soldier guard = null;
