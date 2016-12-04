@@ -377,6 +377,7 @@ namespace PikeAndShot
 
             effect2 = Content.Load<Effect>(@"newshader2");
             effect2.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
+            effect2.Parameters["iResolution"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT) *1.5f);
 
             //TERRAIN_DRY_GRASS = Content.Load<Texture2D>(@"dry_grass");
             ROAD_TERRAIN = new List<Texture2D>(11);

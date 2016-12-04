@@ -17,13 +17,13 @@
 #define vec3 float3
 #define vec4 float4
 #define fract frac
-#define distortion 0.0
+#define distortion 0.1
 
 float2 Viewport;
 Texture2D baseTexture : register(t0);
 sampler ColorMapSampler : register(s0); 
 
-float2 iResolution = float2(1024,768)*0.75;
+float2 iResolution;
 
 // Emulated input resolution.
 #if 0
@@ -98,7 +98,7 @@ vec3 ToLinear(vec3 c){return vec3(ToLinear1(c.r),ToLinear1(c.g),ToLinear1(c.b));
 // Nearest emulated sample given floating point position and texel offset.
 // Also zero's off screen.
 vec3 Fetch(vec2 pos,vec2 off){
-  res = (Viewport.x, Viewport.y);
+  res = (iResolution.x, iResolution.y);
   pos=floor(pos*res+off)/res;
   if(max(abs(pos.x-0.5),abs(pos.y-0.5))>0.5)return vec3(0.0,0.0,0.0);
   float3 emu = baseTexture.Sample(ColorMapSampler,pos.xy).xyz;
