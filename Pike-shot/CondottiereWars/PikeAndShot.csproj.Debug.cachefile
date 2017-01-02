@@ -239,6 +239,9 @@ Content\npc_1_04_idle.xnb
 Content\npc_1_05_fleeing.xnb
 Content\npc_1_05_idle.xnb
 Content\npc_1_06_idle.xnb
+Content\soldier2_defend.xnb
+Content\soldier2_idle.xnb
+Content\soldier2_melee.xnb
 Content\cgwg-xna.xnb
 Content\Bloom.xnb
 Content\BloomExtract.xnb
@@ -278,9 +281,6 @@ Content\arg.xnb
 Content\boss.xnb
 Content\theme.xnb
 Content\boss01.xnb
-Content\soldier2_defend.xnb
-Content\soldier2_idle.xnb
-Content\soldier2_melee.xnb
 Content\theme.wma
 Content\boss01.wma
 Content\Benz1_level.xml

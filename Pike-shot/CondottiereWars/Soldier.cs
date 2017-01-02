@@ -177,8 +177,8 @@ namespace PikeAndShot
             _feet = new Sprite(PikeAndShotGame.SOLDIER_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
             _idle = new Sprite(PikeAndShotGame.SOLDIER_IDLE, new Rectangle(10, 2, 16, 28), 46, 42);
             _death = new Sprite(PikeAndShotGame.SOLDIER_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
-            _melee1 = new Sprite(PikeAndShotGame.SOLDIER_MELEE1, new Rectangle(24, 30, 16, 28), 64, 68);
-            _defend1 = new Sprite(PikeAndShotGame.SOLDIER_DEFEND1, new Rectangle(20, 2, 16, 28), 52, 40);
+            _melee1 = new Sprite(PikeAndShotGame.SOLDIER_MELEE1, new Rectangle(14, 10, 16, 28), 62, 46);
+            _defend1 = new Sprite(PikeAndShotGame.SOLDIER_DEFEND1, new Rectangle(16, 10, 16, 28), 54, 46);
             // just giving all soldiers the slinger routes for now
             _route = new Sprite(PikeAndShotGame.SOLDIER_ROUTE, new Rectangle(26, 16, 16, 28), 70, 52);
             _routed = new Sprite(PikeAndShotGame.SOLDIER_ROUTED, new Rectangle(16, 16, 16, 28), 50, 52, true);
