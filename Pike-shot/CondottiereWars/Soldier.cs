@@ -4595,6 +4595,7 @@ namespace PikeAndShot
                 _defend2 = new Sprite(PikeAndShotGame.SOLDIER2_DEFEND2, new Rectangle(12, 16, 16, 28), 64, 46);
                 _chargeNoShield = new Sprite(PikeAndShotGame.SOLDIER_CHARGENOSHIELD, new Rectangle(20, 20, 16, 28), 60, 56);
                 _feet = new Sprite(PikeAndShotGame.BLUE_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+                _death = new Sprite(PikeAndShotGame.SOLDIER2_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
                 _hasShield = false;
                 _body = _noshieldIdle;
             }
