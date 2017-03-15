@@ -3233,6 +3233,7 @@ namespace PikeAndShot
                 _charge = new Sprite(PikeAndShotGame.BERZERKER_CHARGE, new Rectangle(20, 20, 16, 28), 60, 56);
             }
 
+            _hasShield = true;
             _body = _idle;
 
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
