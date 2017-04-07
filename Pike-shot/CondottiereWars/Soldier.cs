@@ -304,7 +304,7 @@ namespace PikeAndShot
         {
             _drawingPosition = _position + _randDestOffset - _screen.getMapOffset();
 
-            if (_state != STATE_DYING && _state != STATE_DEAD)
+            if (_state != STATE_DYING && _state != STATE_DEAD && ((_state != STATE_MELEE_WIN && _state != STATE_MELEE_LOSS) || !(this is Arquebusier)))
             {
                 if (this is Targeteer)
                 {
@@ -1936,7 +1936,7 @@ namespace PikeAndShot
 
     public class Arquebusier : Soldier
     {
-        // Unique statuses
+        private bool variant;
 
         private Sprite _arquebusierReload;
         private Sprite _arquebusierShoot;
@@ -1949,15 +1949,34 @@ namespace PikeAndShot
             _attackTime = 150f;
             _reloadTime = 3000f;
 
-            _feet = new Sprite(PikeAndShotGame.ARQUEBUSIER_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true, true, 25);
-            _feet.flashable = false;
-            _idle = new Sprite(PikeAndShotGame.ARQUEBUSIER_IDLE, new Rectangle(6, 4, 16, 28), 44, 42);
-            _death = new Sprite(PikeAndShotGame.ARQUEBUSIER_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
-            _melee1 = new Sprite(PikeAndShotGame.ARQUEBUSIER_MELEE, new Rectangle(8, 12, 16, 28), 48, 48);
-            _route = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTE, new Rectangle(16, 16, 16, 28), 48, 52);
-            _routed = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTED, new Rectangle(16, 16, 16, 28), 52, 52, true);
-            _arquebusierReload = new Sprite(PikeAndShotGame.ARQUEBUSIER_RELOAD, new Rectangle(8, 4, 16, 28), 44, 42, false, true, 25);
-            _arquebusierShoot = new Sprite(PikeAndShotGame.ARQUEBUSIER_SHOOT, new Rectangle(6, 4, 16, 28), 44, 42);
+            if (PikeAndShotGame.random.Next(51) > 25)
+            {
+                variant = true;
+                _feet = new Sprite(PikeAndShotGame.BROWN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true, true, 25);
+                _feet.flashable = false;
+                _idle = new Sprite(PikeAndShotGame.ARQUEBUSIER_IDLE, new Rectangle(16, 16, 16, 28), 128, 64);
+                _death = new Sprite(PikeAndShotGame.ARQUEBUSIER_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
+                _melee1 = new Sprite(PikeAndShotGame.ARQUEBUSIER_MELEE, new Rectangle(24, 20, 16, 28), 72, 60);
+                _defend1 = new Sprite(PikeAndShotGame.ARQUEBUSIER_DEFEND, new Rectangle(24, 20, 16, 28), 72, 60);
+                _route = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTE, new Rectangle(16, 16, 16, 28), 48, 52);
+                _routed = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTED, new Rectangle(16, 16, 16, 28), 52, 52, true);
+                _arquebusierReload = new Sprite(PikeAndShotGame.ARQUEBUSIER_RELOAD, new Rectangle(16, 16, 16, 28), 128, 64, false, true, 25);
+                _arquebusierShoot = new Sprite(PikeAndShotGame.ARQUEBUSIER_SHOOT, new Rectangle(16, 16, 16, 28), 128, 64);
+            }
+            else
+            {
+                variant = false;
+                _feet = new Sprite(PikeAndShotGame.ARQUEBUSIER_FEET2, new Rectangle(4, 2, 16, 12), 26, 16, true, true, 25);
+                _feet.flashable = false;
+                _idle = new Sprite(PikeAndShotGame.ARQUEBUSIER_IDLE2, new Rectangle(14, 10, 16, 28), 96, 48);
+                _death = new Sprite(PikeAndShotGame.ARQUEBUSIER_DEATH2, new Rectangle(40, 2, 16, 28), 72, 40);
+                _melee1 = new Sprite(PikeAndShotGame.ARQUEBUSIER_MELEE2, new Rectangle(24, 20, 16, 28), 76, 60);
+                _defend1 = new Sprite(PikeAndShotGame.ARQUEBUSIER_DEFEND2, new Rectangle(24, 20, 16, 28), 76, 60);
+                _route = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTE, new Rectangle(30, 12, 16, 28), 48, 52);
+                _routed = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTED, new Rectangle(30, 12, 16, 28), 52, 52, true);
+                _arquebusierReload = new Sprite(PikeAndShotGame.ARQUEBUSIER_RELOAD2, new Rectangle(14, 10, 16, 28), 96, 48, false, true, 25);
+                _arquebusierShoot = new Sprite(PikeAndShotGame.ARQUEBUSIER_SHOOT2, new Rectangle(14, 10, 16, 28), 96, 48);
+            }
 
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
             shotHitSound = PikeAndShotGame.SHOT_HIT.CreateInstance();
@@ -1998,7 +2017,7 @@ namespace PikeAndShot
                 }
                 else if (_state == STATE_ATTACKING)
                 {
-                    if (_arquebusierShoot.getCurrFrame() == 2 && !_shotMade)
+                    if (_arquebusierShoot.getCurrFrame() >= _arquebusierShoot.getMaxFrames()/2 && !_shotMade)
                         shotDone();
                 }
             }
@@ -2009,43 +2028,22 @@ namespace PikeAndShot
             base.updateAnimation(timeSpan);
             if (_state == STATE_RELOADING)
             {
-                if (_stateTimer <= _reloadTime / 12f)
-                    _arquebusierReload.setFrame(1);
-                else if (_stateTimer <= 2f * _reloadTime / 12f)
-                    _arquebusierReload.setFrame(6);
-                else if (_stateTimer <= 3f * _reloadTime / 12f)
-                    _arquebusierReload.setFrame(7);
-                else if (_stateTimer <= 4f * _reloadTime / 12f)
-                    _arquebusierReload.setFrame(6);
-                else if (_stateTimer <= 5f * _reloadTime / 12f)
-                    _arquebusierReload.setFrame(7);
-                else if (_stateTimer <= 6f * _reloadTime / 12f)
-                    _arquebusierReload.setFrame(6);
-                else if (_stateTimer <= 7f * _reloadTime / 12f)
-                    _arquebusierReload.setFrame(5);
-                else if (_stateTimer <= 8f * _reloadTime / 12f)
-                    _arquebusierReload.setFrame(4);
-                else if (_stateTimer <= 9f * _reloadTime / 12f)
-                    _arquebusierReload.setFrame(3);
-                else if (_stateTimer <= 10f * _reloadTime / 12f)
-                    _arquebusierReload.setFrame(2);
-                else if (_stateTimer <= 11f * _reloadTime / 12f)
-                    _arquebusierReload.setFrame(1);
-                else
-                    _arquebusierReload.setFrame(0);
+                int maxFrames = _arquebusierReload.getMaxFrames();
+                float frameTime = _reloadTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                _arquebusierReload.setFrame(frameNumber);
 
                 _body = _arquebusierReload;
-
 
             }
             else if (_state == STATE_ATTACKING)
             {
-                if (_stateTimer < _attackTime / 3f)
-                    _arquebusierShoot.setFrame(1);
-                else if (_stateTimer < 2f * _attackTime / 3f)
-                    _arquebusierShoot.setFrame(2);
-                else
-                    _arquebusierShoot.setFrame(1);
+                int maxFrames = _arquebusierShoot.getMaxFrames();
+                float frameTime = _attackTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                _arquebusierShoot.setFrame(frameNumber);
 
                 _body = _arquebusierShoot;
             }
@@ -2064,9 +2062,15 @@ namespace PikeAndShot
         {
             _shotMade = true;
             if (_side == BattleScreen.SIDE_PLAYER)
+            {
                 _screen.addShot(new ArquebusierShot(new Vector2(this._position.X + 34 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _arquebusierShoot.getBoundingRect().Height - 10, shotHitSound));
+                new ArquebusierSmoke(_screen, _side, new Vector2(this._position.X + _randDestOffset.X, this._position.Y + _randDestOffset.Y));
+            }
             else
+            {
                 _screen.addShot(new ArquebusierShot(new Vector2(this._position.X - 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _arquebusierShoot.getBoundingRect().Height - 10, shotHitSound));
+                new ArquebusierSmoke(_screen, _side, new Vector2(this._position.X + _randDestOffset.X, this._position.Y + _randDestOffset.Y));
+            }
 
             ((LevelScreen)_screen).makeShotSound();
         }

@@ -134,7 +134,6 @@ namespace PikeAndShot
 
     public class ArquebusierShot : Shot
     {
-        private ScreenAnimation _smoke;
         private float metaphoricalHeight;
 
         public ArquebusierShot(Vector2 position, BattleScreen screen, int side, float height, SoundEffectInstance hitSound)
@@ -148,7 +147,6 @@ namespace PikeAndShot
             _ground = new Sprite(PikeAndShotGame.ARQUEBUSIER_GROUND, new Rectangle(16, 12, 2, 2), 30, 14);
 
             // create separate smoke animation that is not dependant on the shot itself
-            _smoke = new ArquebusierSmoke(screen, side, position);
             metaphoricalHeight = 0f;
         }
 

@@ -181,7 +181,7 @@ namespace PikeAndShot
     public class ArquebusierSmoke : ScreenAnimation
     {
         public ArquebusierSmoke(BattleScreen screen, int side, Vector2 position)
-            : base(screen, side, position, new Sprite(PikeAndShotGame.ARQUEBUSIER_SMOKE, new Rectangle(22, 14, 12, 4), 58, 25), 1000f)
+            : base(screen, side, position, new Sprite(PikeAndShotGame.ARQUEBUSIER_SMOKE, new Rectangle(16, 16, 16, 28), 128, 64), 1000f)
         {
 
         }
@@ -195,17 +195,12 @@ namespace PikeAndShot
                 setDone();
             }
 
-            // custom timing for the smoke where the first few frames are really quick
-            if (_time <= 6f * _duration / 20f)
-                _sprite.setFrame(4);
-            else if (_time <= 12f * _duration / 20f)
-                _sprite.setFrame(3);
-            else if (_time <= 18f * _duration / 20f)
-                _sprite.setFrame(2);
-            else if (_time <= 19f * _duration / 20f)
-                _sprite.setFrame(1);
-            else
-                _sprite.setFrame(0);
+            int maxFrames = _sprite.getMaxFrames();
+            float frameTime = _duration / (float)maxFrames;
+            int frameNumber = maxFrames - (int)(_time / frameTime) - 1;
+
+            _sprite.setFrame(frameNumber);
+
         }
     }
 
