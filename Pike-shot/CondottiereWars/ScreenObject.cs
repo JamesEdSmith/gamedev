@@ -204,6 +204,66 @@ namespace PikeAndShot
         }
     }
 
+    public class ThrownGun : ScreenAnimation
+    {
+        Vector2 velocity;
+        Vector2 initialPosition;
+        bool dirt;
+        int spriteDivision;
+
+        public ThrownGun(BattleScreen screen, int side, Vector2 position, Sprite sprite, int spriteDivision)
+            : base(screen, side, position, sprite, 1000f)
+        {
+            velocity = new Vector2(0.08f, -0.10f);
+            dirt = false;
+            _position.Y += 4f;
+            initialPosition = new Vector2(position.X, position.Y);
+            this.spriteDivision = spriteDivision;
+        }
+
+        public override void update(TimeSpan timeSpan)
+        {
+            if (!dirt)
+            {
+                velocity += GRAVITY_VECTOR * 0.02f * (float)timeSpan.TotalSeconds;
+                _position += velocity * (float)timeSpan.TotalMilliseconds;
+            }
+
+            _time -= (float)timeSpan.TotalMilliseconds;
+
+            if (_time < 0)
+            {
+                if (!dirt)
+                {
+                    dirt = true;
+                    _time = _duration = 800f;
+                }
+                else
+                {
+                    _time = 0f;
+                    setDone();
+                }
+            }
+
+            if (!dirt)
+            {
+                int maxFrames = spriteDivision;
+                float frameTime = _duration / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_time / frameTime) - 1;
+
+                _sprite.setFrame(frameNumber);
+            }
+            else
+            {
+                int maxFrames = _sprite.getMaxFrames() - spriteDivision;
+                float frameTime = _duration / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_time / frameTime) - 1;
+
+                _sprite.setFrame(frameNumber + spriteDivision);
+            }
+        }
+    }
+
     public class ThrownFalchion : ScreenAnimation
     {
         Vector2 velocity;

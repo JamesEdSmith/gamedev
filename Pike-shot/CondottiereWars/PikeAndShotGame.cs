@@ -63,8 +63,11 @@ namespace PikeAndShot
 
         public static Texture2D PUCELLE_IDLE;
         public static Texture2D PUCELLE_MOTION;
+        public static Texture2D PUCELLE_ROUTED;
+        public static Texture2D PUCELLE_DROP;
 
         public static Texture2D PIKEMAN_FEET;
+        public static Texture2D PIKEMAN_DROP;
         public static Texture2D PIKEMAN_IDLE;
         public static Texture2D PIKEMAN_LOWER_LOW;
         public static Texture2D PIKEMAN_LOWER_HIGH;
@@ -87,6 +90,7 @@ namespace PikeAndShot
         public static Texture2D PIKEMAN_MELEE;
         public static Texture2D PIKEMAN_ROUTE;
         public static Texture2D PIKEMAN_ROUTED;
+        public static Texture2D PIKEMAN2_ROUTED;
 
         public static Texture2D ARQUEBUSIER_FEET;
         public static Texture2D ARQUEBUSIER_IDLE;
@@ -98,6 +102,7 @@ namespace PikeAndShot
         public static Texture2D ARQUEBUSIER_SMOKE;
         public static Texture2D ARQUEBUSIER_ROUTE;
         public static Texture2D ARQUEBUSIER_ROUTED;
+        public static Texture2D ARQUEBUSIER2_ROUTED;
         public static Texture2D ARQUEBUSIER_SHOT1;
         public static Texture2D ARQUEBUSIER_SHOT2;
         public static Texture2D ARQUEBUSIER_SHOT3;
@@ -111,6 +116,8 @@ namespace PikeAndShot
         public static Texture2D ARQUEBUSIER_RELOAD2;
         public static Texture2D ARQUEBUSIER_SHOOT2;
         public static Texture2D ARQUEBUSIER_SMOKE2;
+        public static Texture2D ARQUEBUSIER_DROP;
+        public static Texture2D ARQUEBUSIER2_DROP;
 
         public static Texture2D CROSSBOWMAN_IDLE;
         public static Texture2D CROSSBOWMAN_DEATH;
@@ -459,6 +466,8 @@ namespace PikeAndShot
 
             PUCELLE_IDLE = Content.Load<Texture2D>(@"pucelle_ready2");
             PUCELLE_MOTION = Content.Load<Texture2D>(@"pucelle_motion");
+            PUCELLE_ROUTED = Content.Load<Texture2D>(@"pucelle_routed");
+            PUCELLE_DROP = Content.Load<Texture2D>(@"dropped_flag");
 
             SOLDIER_FEET = Content.Load<Texture2D>(@"soldier_feet");
             SOLDIER_IDLE = Content.Load<Texture2D>(@"soldier_idle");
@@ -507,6 +516,7 @@ namespace PikeAndShot
 
             PIKEMAN_FEET = Content.Load<Texture2D>(@"pikeman_feet");
             PIKEMAN_IDLE = Content.Load<Texture2D>(@"pikeman_idle");
+            PIKEMAN_DROP = Content.Load<Texture2D>(@"dropped_pike");
             PIKEMAN_LOWER_LOW = Content.Load<Texture2D>(@"pikeman_lower_low");
             PIKEMAN_LOWER_HIGH = Content.Load<Texture2D>(@"pikeman_lower_high");
             PIKEMAN_RECOIL = Content.Load<Texture2D>(@"pikeman_recoil");
@@ -527,7 +537,8 @@ namespace PikeAndShot
             PIKEMAN2_DEFEND = Content.Load<Texture2D>(@"pikeman2_defend1");
             PIKEMAN_MELEE = Content.Load<Texture2D>(@"pikeman_melee");
             PIKEMAN_ROUTE = Content.Load<Texture2D>(@"pikeman_route");
-            PIKEMAN_ROUTED = Content.Load<Texture2D>(@"pikeman_routed");
+            PIKEMAN_ROUTED = Content.Load<Texture2D>(@"pikeman1_over");
+            PIKEMAN2_ROUTED = Content.Load<Texture2D>(@"pikeman2_over");
 
             ARQUEBUSIER_FEET = Content.Load<Texture2D>(@"arquebusier_feet");
             ARQUEBUSIER_IDLE = Content.Load<Texture2D>(@"gonner_idle");
@@ -538,7 +549,7 @@ namespace PikeAndShot
             ARQUEBUSIER_MELEE = Content.Load<Texture2D>(@"gonner_melee");
             ARQUEBUSIER_DEFEND = Content.Load<Texture2D>(@"gonner_defend");
             ARQUEBUSIER_ROUTE = Content.Load<Texture2D>(@"arquebusier_route");
-            ARQUEBUSIER_ROUTED = Content.Load<Texture2D>(@"arquebusier_routed");
+            ARQUEBUSIER_ROUTED = Content.Load<Texture2D>(@"gonner_over");
             ARQUEBUSIER_SHOT1 = Content.Load<Texture2D>(@"shot1");
             ARQUEBUSIER_SHOT2 = Content.Load<Texture2D>(@"shot2");
             ARQUEBUSIER_SHOT3 = Content.Load<Texture2D>(@"shot3");
@@ -552,6 +563,9 @@ namespace PikeAndShot
             ARQUEBUSIER_RELOAD2 = Content.Load<Texture2D>(@"arque_reload");
             ARQUEBUSIER_SHOOT2 = Content.Load<Texture2D>(@"arque_shoot");
             ARQUEBUSIER_SMOKE2 = Content.Load<Texture2D>(@"arque_smoke");
+            ARQUEBUSIER2_ROUTED = Content.Load<Texture2D>(@"arque_over");
+            ARQUEBUSIER_DROP = Content.Load<Texture2D>(@"dropped_gonne");
+            ARQUEBUSIER2_DROP = Content.Load<Texture2D>(@"dropped_arque");
 
             CROSSBOWMAN_IDLE = Content.Load<Texture2D>(@"crossbowman_idle");
             CROSSBOWMAN_RELOAD = Content.Load<Texture2D>(@"crossbowman_reload");

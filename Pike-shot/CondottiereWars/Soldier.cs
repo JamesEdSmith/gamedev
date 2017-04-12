@@ -155,7 +155,7 @@ namespace PikeAndShot
             _oneAttackTime = _meleeTime/3f;
             _deathTime = 2000f;
             _routeTime = 500f;
-            _routedTime = 100f;
+            _routedTime = 500f;
             _plusMinus = 0f;
             _jostleOffset = Vector2.Zero;
             _guardPositionOffset = Vector2.Zero;
@@ -628,8 +628,8 @@ namespace PikeAndShot
                 if (_state != STATE_ROUTE && _state != STATE_ROUTED)
                 {
                     _reacting = true;
-                    _state = STATE_ROUTE;
-                    _stateTimer = _routeTime;
+                    _state = STATE_ROUTED;
+                    _stateTimer = _routedTime;
                     //_destination = _position;
                     _screen.addLooseSoldier(this);
                 }
@@ -857,7 +857,6 @@ namespace PikeAndShot
                     if (_stateTimer <= 0)
                     {
                         _stateTimer = _routedTime;
-                        _routed.nextFrame();
                     }
                 }
                 else if (_state == STATE_ONEATTACK)
@@ -1050,6 +1049,12 @@ namespace PikeAndShot
             }
             else if (_state == STATE_ROUTED)
             {
+                int maxFrames = _routed.getMaxFrames();
+                float frameTime = _routedTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                _routed.setFrame(frameNumber);
+
                 _body = _routed;
             }
             else if (_state == STATE_ONEATTACK)
@@ -1393,8 +1398,8 @@ namespace PikeAndShot
             {
                 if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
                     _engager.setState(_engager.preAttackState);
-                _state = STATE_ROUTE;
-                _stateTimer = _routeTime;
+                _state = STATE_ROUTED;
+                _stateTimer = _routedTime;
 
                 _destination.Y = PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT);
                 _destination.X = -1000f;
@@ -1646,6 +1651,7 @@ namespace PikeAndShot
                 _pikemanRecoil = new Sprite(PikeAndShotGame.PIKEMAN1_RECOIL, new Rectangle(28, 4, 16, 28), 108, 36);
                 _melee1 = new Sprite(PikeAndShotGame.PIKEMAN1_MELEE, new Rectangle(24, 30, 16, 28), 64, 68);
                 _defend1 = new Sprite(PikeAndShotGame.PIKEMAN1_DEFEND, new Rectangle(20, 2, 16, 28), 52, 40);
+                _routed = new Sprite(PikeAndShotGame.PIKEMAN_ROUTED, new Rectangle(24, 20, 16, 28), 64, 64);
             }
             else
             {
@@ -1656,10 +1662,10 @@ namespace PikeAndShot
                 _pikemanRecoil = new Sprite(PikeAndShotGame.PIKEMAN2_RECOIL, new Rectangle(28, 4, 16, 28), 108, 36);
                 _melee1 = new Sprite(PikeAndShotGame.PIKEMAN2_MELEE, new Rectangle(24, 30, 16, 28), 64, 68);
                 _defend1 = new Sprite(PikeAndShotGame.PIKEMAN2_DEFEND, new Rectangle(20, 2, 16, 28), 52, 40);
+                _routed = new Sprite(PikeAndShotGame.PIKEMAN2_ROUTED, new Rectangle(14, 10, 16, 28), 48, 48);
             }
             _feet = new Sprite(PikeAndShotGame.PIKEMAN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
             _route = new Sprite(PikeAndShotGame.PIKEMAN_ROUTE, new Rectangle(6, 78, 16, 28), 50, 116);
-            _routed = new Sprite(PikeAndShotGame.PIKEMAN_ROUTED, new Rectangle(6, 78, 16, 28), 48, 116, true);
 
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
             _loweredSprite = _pikemanLowerLow;
@@ -1671,6 +1677,12 @@ namespace PikeAndShot
         {
             _side = side;
             _pikeTip.setSide(side);
+        }
+
+        public override void route()
+        {
+            base.route();
+            new ScreenAnimation(_screen, _side, _position, new Sprite(PikeAndShotGame.PIKEMAN_DROP, new Rectangle(24, 88, 16, 24), 128, 128), 1000f);
         }
 
         public override void draw(SpriteBatch spritebatch)
@@ -1959,7 +1971,7 @@ namespace PikeAndShot
                 _melee1 = new Sprite(PikeAndShotGame.ARQUEBUSIER_MELEE, new Rectangle(24, 20, 16, 28), 72, 60);
                 _defend1 = new Sprite(PikeAndShotGame.ARQUEBUSIER_DEFEND, new Rectangle(24, 20, 16, 28), 72, 60);
                 _route = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTE, new Rectangle(16, 16, 16, 28), 48, 52);
-                _routed = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTED, new Rectangle(16, 16, 16, 28), 52, 52, true);
+                _routed = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTED, new Rectangle(14, 10, 16, 28), 48, 48);
                 _arquebusierReload = new Sprite(PikeAndShotGame.ARQUEBUSIER_RELOAD, new Rectangle(16, 16, 16, 28), 128, 64, false, true, 25);
                 _arquebusierShoot = new Sprite(PikeAndShotGame.ARQUEBUSIER_SHOOT, new Rectangle(16, 16, 16, 28), 128, 64);
             }
@@ -1973,7 +1985,8 @@ namespace PikeAndShot
                 _melee1 = new Sprite(PikeAndShotGame.ARQUEBUSIER_MELEE2, new Rectangle(24, 20, 16, 28), 76, 60);
                 _defend1 = new Sprite(PikeAndShotGame.ARQUEBUSIER_DEFEND2, new Rectangle(24, 20, 16, 28), 76, 60);
                 _route = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTE, new Rectangle(30, 12, 16, 28), 48, 52);
-                _routed = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTED, new Rectangle(30, 12, 16, 28), 52, 52, true);
+                _routed = new Sprite(PikeAndShotGame.ARQUEBUSIER2_ROUTED, new Rectangle(24, 24, 16, 28), 64, 64, true);
+                _routedTime = 2000f;
                 _arquebusierReload = new Sprite(PikeAndShotGame.ARQUEBUSIER_RELOAD2, new Rectangle(14, 10, 16, 28), 96, 48, false, true, 25);
                 _arquebusierShoot = new Sprite(PikeAndShotGame.ARQUEBUSIER_SHOOT2, new Rectangle(14, 10, 16, 28), 96, 48);
             }
@@ -1981,6 +1994,15 @@ namespace PikeAndShot
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
             shotHitSound = PikeAndShotGame.SHOT_HIT.CreateInstance();
             shotHitSound.Volume = 0.25f;
+        }
+
+        public override void route()
+        {
+            base.route();
+            if(variant)
+                new ThrownGun(_screen, _side, _position, new Sprite(PikeAndShotGame.ARQUEBUSIER_DROP, new Rectangle(0, 0, 40, 40), 40, 40), 1);
+            else
+                new ThrownGun(_screen, _side, _position, new Sprite(PikeAndShotGame.ARQUEBUSIER2_DROP, new Rectangle(0, 0, 36, 36), 36, 36), 5);
         }
 
         public override bool attack()
@@ -2930,6 +2952,7 @@ namespace PikeAndShot
 
             _idle = new Sprite(PikeAndShotGame.PUCELLE_IDLE, new Rectangle(6, 68, 16, 28), 54, 106);
             _motion = new Sprite(PikeAndShotGame.PUCELLE_MOTION, new Rectangle(6, 68, 16, 28), 90, 110);
+            _routed = new Sprite(PikeAndShotGame.PUCELLE_ROUTED, new Rectangle(4, 2, 16, 28), 26, 34);
 
             _feet = new Sprite(PikeAndShotGame.PIKEMAN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
 
@@ -2974,6 +2997,12 @@ namespace PikeAndShot
                 
             }
             return false;
+        }
+
+        public override void route()
+        {
+            base.route();
+            new ScreenAnimation(_screen, _side, _position, new Sprite(PikeAndShotGame.PUCELLE_DROP, new Rectangle(22, 90, 16, 24), 164, 128), 1000f);
         }
 
         protected override void updateState(TimeSpan timeSpan)
