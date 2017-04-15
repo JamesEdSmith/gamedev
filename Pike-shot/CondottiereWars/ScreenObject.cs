@@ -408,7 +408,7 @@ namespace PikeAndShot
 
     public class Loot : ScreenAnimation
     {
-        static float FLASH_TIME = 1500f;
+        static float FLASH_TIME = 3000f;
         SoundEffectInstance lootSound;
 
         public Loot(BattleScreen screen, Vector2 position)
@@ -439,10 +439,11 @@ namespace PikeAndShot
         public override void draw(SpriteBatch spritebatch)
         {
             Vector2 mapOffset = _screen.getMapOffset();
+            Vector2 _drawingPosition = _position - _screen.getMapOffset();
             if (_sprite.flashable && !_done)
-                _sprite.draw(spritebatch, _position - mapOffset, _side, _time / _duration);
+                _screen.addDrawjob(new DrawJob(_sprite, _position - _screen.getMapOffset(), _side, _drawingY, _time / _duration));
             else
-                _sprite.draw(spritebatch, _position - mapOffset, _side);
+                _screen.addDrawjob(new DrawJob(_sprite, _position - _screen.getMapOffset(), _side, _drawingY));
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position, Color.White);
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(2,0), Color.White);
             //spritebatch.Draw(BattleScreen.getDotTexture(), _position + new Vector2(0,2), Color.White);

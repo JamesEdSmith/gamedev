@@ -122,6 +122,7 @@ namespace PikeAndShot
 
         public Soldier _engager;
         public Formation myFormation;
+        public bool givesRescueReward;
 
         public bool DEBUGFOUNDPIKE;
         public float breakRange = 0;
@@ -173,6 +174,7 @@ namespace PikeAndShot
             guardTargetDist = 0f;
             _engager = null;
             _chargeTime = 800f;//400f;
+            givesRescueReward = false;
 
             _feet = new Sprite(PikeAndShotGame.SOLDIER_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
             _idle = new Sprite(PikeAndShotGame.SOLDIER_IDLE, new Rectangle(10, 2, 16, 28), 46, 42);
@@ -1222,7 +1224,7 @@ namespace PikeAndShot
                     colliderInFormation = ((Soldier)collider).myFormation == _screen.getPlayerFormation();
                     thisInFormation = myFormation == _screen.getPlayerFormation();
                 }
-                if (_state != STATE_DEAD && _state != STATE_DYING && _state != STATE_MELEE_WIN && _state != STATE_MELEE_LOSS && (!(this is Targeteer) || _state != Targeteer.STATE_SHIELDBREAK) && (!(this is DismountedCavalry) || _state != DismountedCavalry.STATE_FALLING))
+                if (_state != STATE_DEAD && _state != STATE_DYING && _state != STATE_MELEE_WIN && _state != STATE_MELEE_LOSS && _state != STATE_ROUTED && (!(this is Targeteer) || _state != Targeteer.STATE_SHIELDBREAK) && (!(this is DismountedCavalry) || _state != DismountedCavalry.STATE_FALLING))
                 {
                     if (this is CrossbowmanPavise && collider is CrossbowmanPavise
                         && (this._state == STATE_CHARGING || this._state == STATE_RELOADING || this._state == STATE_ATTACKING || this._state == CrossbowmanPavise.STATE_PLACING || this._state == CrossbowmanPavise.STATE_RETRIEVING)
@@ -1263,7 +1265,7 @@ namespace PikeAndShot
                         if (!((collider.getSide() == BattleScreen.SIDE_NEUTRAL && _side == BattleScreen.SIDE_PLAYER) || (collider.getSide() == BattleScreen.SIDE_PLAYER && _side == BattleScreen.SIDE_NEUTRAL)))
                         {
                             //fighting
-                            if (_side != collider.getSide() && !(this is Leader || collider is Leader) && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && collider.getState() != STATE_MELEE_WIN && collider.getState() != STATE_MELEE_LOSS && (!(collider is Targeteer) || collider.getState() != Targeteer.STATE_SHIELDBREAK) && (!(collider is DismountedCavalry) || collider.getState() != DismountedCavalry.STATE_FALLING) && (!(collider is Wolf) || collider.getState() != Wolf.STATE_KILL) && (!(this is Wolf) || this._state != Wolf.STATE_KILL))
+                            if (_side != collider.getSide() && !(this is Leader || collider is Leader) && collider.getState() != STATE_DEAD && collider.getState() != STATE_DYING && collider.getState() != STATE_MELEE_WIN && collider.getState() != STATE_MELEE_LOSS && collider.getState() != STATE_ROUTED && (!(collider is Targeteer) || collider.getState() != Targeteer.STATE_SHIELDBREAK) && (!(collider is DismountedCavalry) || collider.getState() != DismountedCavalry.STATE_FALLING) && (!(collider is Wolf) || collider.getState() != Wolf.STATE_KILL) && (!(this is Wolf) || this._state != Wolf.STATE_KILL))
                             {
                                 bool rescueFight = (_side == BattleScreen.SIDE_PLAYER && !thisInFormation) ||
                                                     (collider.getSide() == BattleScreen.SIDE_PLAYER && !colliderInFormation);
@@ -1311,7 +1313,8 @@ namespace PikeAndShot
                                     collider.getState() != STATE_CHARGING && collider.getState() != STATE_DYING
                                     && collider.getState() != STATE_DEAD
                                     && collider.getState() != STATE_MELEE_LOSS && collider.getState() != STATE_MELEE_WIN
-                                    && collider.getState() != STATE_ATTACKING && collider.getState() != STATE_RELOADING)
+                                    && collider.getState() != STATE_ATTACKING && collider.getState() != STATE_RELOADING
+                                    && collider.getState() != STATE_ROUTED)
                                 {
                                     ((Soldier)collider)._state = STATE_READY;
                                     ((Soldier)collider)._reacting = false;
@@ -1324,7 +1327,8 @@ namespace PikeAndShot
                                     this.getState() != STATE_CHARGING && this.getState() != STATE_DYING
                                     && this.getState() != STATE_DEAD
                                     && this.getState() != STATE_MELEE_LOSS && this.getState() != STATE_MELEE_WIN
-                                    && this.getState() != STATE_ATTACKING && this.getState() != STATE_RELOADING)
+                                    && this.getState() != STATE_ATTACKING && this.getState() != STATE_RELOADING
+                                    && this.getState() != STATE_ROUTED)
                                 {
                                     _reacting = false;
                                     _state = STATE_READY;
@@ -1375,7 +1379,17 @@ namespace PikeAndShot
             if (_state != STATE_DYING && _state != STATE_DEAD)
             {
                 if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
-                    _engager.setState(_engager.preAttackState);
+                {
+                    if (_engager.givesRescueReward)
+                    {
+                        ((LevelScreen)_screen).collectCoin(this);
+                        _engager.myFormation.retreat();
+                    }
+                    else
+                    {
+                        _engager.setState(_engager.preAttackState);
+                    }
+                }
 
                 _state = STATE_DYING;
                 _stateTimer = _deathTime;
@@ -3104,13 +3118,6 @@ namespace PikeAndShot
 
         }
 
-        public override void hit()
-        {
-            base.hit();
-            if (getSide() == BattleScreen.SIDE_ENEMY)
-                ((LevelScreen)_screen).collectCoin(this);
-        }
-
         protected override bool checkReactions(TimeSpan timeSpan)
         {
             return false;
@@ -4606,6 +4613,7 @@ namespace PikeAndShot
             _shieldBreakTime = 1500f;
             _coverTime = 375f;
             _shieldRecoilTime = 150f;
+            givesRescueReward = true;
 
             if (PikeAndShotGame.random.Next(2) == 0)
             {
@@ -4977,8 +4985,6 @@ namespace PikeAndShot
         {
             base.hit();
             _screen.removeScreenObject(_shieldBlock);
-            if (getSide() == BattleScreen.SIDE_ENEMY)
-                ((LevelScreen)_screen).collectCoin(this);
         }
 
         protected override void updateAnimation(TimeSpan timeSpan)
