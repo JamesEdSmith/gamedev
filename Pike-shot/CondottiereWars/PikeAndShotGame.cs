@@ -159,6 +159,7 @@ namespace PikeAndShot
         public static Texture2D SOLDIER2_DEFEND2;
         public static Texture2D SOLDIER_ROUTE;
         public static Texture2D SOLDIER_ROUTED;
+        public static Texture2D SOLDIER2_ROUTED;
         public static Texture2D SOLDIER_SHIELDBREAK;
         public static Texture2D SOLDIER_IDLENOSHIELD;
         public static Texture2D SOLDIER_BROKENSHIELD1;
@@ -487,7 +488,8 @@ namespace PikeAndShot
             SOLDIER_BROKENARMOUR = Content.Load<Texture2D>(@"brokenarmour");
             SOLDIER_IDLENOSHIELD = Content.Load<Texture2D>(@"soldier_idlenoshield");
             SOLDIER_ROUTE = Content.Load<Texture2D>(@"soldier_route");
-            SOLDIER_ROUTED = Content.Load<Texture2D>(@"soldier_routed");
+            SOLDIER_ROUTED = Content.Load<Texture2D>(@"soldier1_routed");
+            SOLDIER2_ROUTED = Content.Load<Texture2D>(@"soldier2_routed");
             SOLDIER_CHARGENOSHIELD = Content.Load<Texture2D>(@"soldier_chargenoshield");
             SOLDIER_CHARGE = Content.Load<Texture2D>(@"soldier_charge");
 
