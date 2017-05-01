@@ -1382,7 +1382,7 @@ namespace PikeAndShot
                 {
                     if (_engager.givesRescueReward)
                     {
-                        ((LevelScreen)_screen).collectCoin(this);
+                        ((LevelScreen)_screen).collectCoin(_engager);
                         _engager.myFormation.retreat();
                     }
                     else

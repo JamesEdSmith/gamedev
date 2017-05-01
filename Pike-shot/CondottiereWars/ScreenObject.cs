@@ -412,10 +412,13 @@ namespace PikeAndShot
         SoundEffectInstance lootSound;
 
         public Loot(BattleScreen screen, Vector2 position)
-            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.LOOT, new Rectangle(0, 0, 26, 26), 26, 22, false, true, 128, new Color(Color.Yellow.R, Color.Yellow.G, 100), 2), FLASH_TIME)
+            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.LOOT, new Rectangle(0, 0, 26, 26), 26, 22, false,true), FLASH_TIME)
         {
             int rando = PikeAndShotGame.random.Next(_sprite.getMaxFrames());
             _sprite.setFrame(rando);
+            _sprite.flashable = false;
+            _sprite.flashColor = Color.Yellow;
+            _sprite.setEffect(Sprite.EFFECT_FLASH_YELLOW, FLASH_TIME/5f);
             _done = false;
             lootSound = PikeAndShotGame.LOOT_SOUND.CreateInstance();
             lootSound.Volume = 0.25f;

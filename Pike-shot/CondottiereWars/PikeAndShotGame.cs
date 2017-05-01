@@ -802,7 +802,7 @@ namespace PikeAndShot
             _form.addFormListener((LevelScreen)_currScreen);
 
             //TODO: set this as variable
-            SoundEffect.MasterVolume = 0.05f;
+            SoundEffect.MasterVolume = 0.5f;
         }
 
         /// <summary>

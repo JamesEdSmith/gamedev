@@ -12,6 +12,7 @@ namespace PikeAndShot
     public class Sprite
     {
         public const int EFFECT_FADEIN = 1;
+        public const int EFFECT_FLASH_YELLOW = 2;
 
         private Texture2D _sourceBitmap;
         public Texture2D _flashTexture;
@@ -29,7 +30,7 @@ namespace PikeAndShot
         private float _animationTime;
         public bool flashable;
         private int flashStartThreshold;
-        private Color flashColor;
+        public Color flashColor;
         public float dampening;
 
         private int effect = 0;
@@ -225,9 +226,10 @@ namespace PikeAndShot
 
         public void draw(SpriteBatch spritebatch, Vector2 _position, int side, TimeSpan timeSpan)
         {
-            Color color = Color.White;
+            
             if (effect == EFFECT_FADEIN)
             {
+                Color color = Color.White;
                 effectTimer -= (float)timeSpan.TotalMilliseconds;
 
                 float a = (float)((effectTime - effectTimer) / effectTime);
@@ -237,16 +239,67 @@ namespace PikeAndShot
                 {
                     effect = 0;
                 }
-            }
 
-            if (side == BattleScreen.SIDE_PLAYER)
+                if (side == BattleScreen.SIDE_PLAYER)
+                {
+                    spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                }
+                else
+                {
+                    spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                }
+            }
+            else if (effect == EFFECT_FLASH_YELLOW)
             {
-                spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                Color color = new Color(Color.Yellow.R, Color.Yellow.G, 255);
+                effectTimer -= (float)timeSpan.TotalMilliseconds;
+
+                float a = Math.Abs(((effectTime / 2) - effectTimer) / (effectTime / 2));
+                if (a < 0.5)
+                    a = 0;
+                else
+                {
+                    a -= 0.5f;
+                    a = a / 0.5f;
+                }
+
+                color *= a;
+
+                if (effectTimer <= 0)
+                {
+                    effectTimer = effectTime;
+                }
+
+                if (side == BattleScreen.SIDE_PLAYER)
+                {
+                    spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                }
+                else
+                {
+                    spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                }
+
+                if (side == BattleScreen.SIDE_PLAYER)
+                {
+                    spritebatch.Draw(_flashTexture, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                }
+                else
+                {
+                    spritebatch.Draw(_flashTexture, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                }
             }
             else
             {
-                spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                if (side == BattleScreen.SIDE_PLAYER)
+                {
+                    spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                }
+                else
+                {
+                    spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                }
             }
+
         }
 
         public void draw(SpriteBatch spritebatch, Vector2 _position, int side, float flashAmount)
