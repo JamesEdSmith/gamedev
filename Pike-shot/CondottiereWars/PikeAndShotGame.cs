@@ -255,7 +255,17 @@ namespace PikeAndShot
         public static Texture2D BRIGAND2_DEFEND1;
         public static Texture2D BRIGAND2_CHARGE;
 
+        public static Texture2D HAULER_FEET;
         public static Texture2D HAULER_HAUL;
+        public static Texture2D HAULER_IDLE;
+        public static Texture2D HAULER_DEATH;
+        public static Texture2D HAULER_THROW;
+
+        public static Texture2D BAGGER_DEATH;
+        public static Texture2D BAGGER_HAUL;
+        public static Texture2D BAGGER_IDLE;
+        public static Texture2D BAGGER_THROW;
+
         public static Texture2D WOLF_IDLE;
         public static Texture2D WOLF_RUN;
         public static Texture2D WOLF_SPOOKED;
@@ -658,6 +668,14 @@ namespace PikeAndShot
             BRIGAND2_CHARGE = Content.Load<Texture2D>(@"brigand_charge");
 
             HAULER_HAUL = Content.Load<Texture2D>(@"hauler_haul");
+            HAULER_FEET = Content.Load<Texture2D>(@"grey_feet");
+            HAULER_IDLE = Content.Load<Texture2D>(@"hauler_idle");
+            HAULER_DEATH = Content.Load<Texture2D>(@"hauler_death");
+            HAULER_THROW = Content.Load<Texture2D>(@"chest_throw");
+            BAGGER_DEATH = Content.Load<Texture2D>(@"bagger_death");
+            BAGGER_HAUL = Content.Load<Texture2D>(@"bagger_haul");
+            BAGGER_IDLE = Content.Load<Texture2D>(@"bagger_idle");
+            BAGGER_THROW = Content.Load<Texture2D>(@"bag_throw");
 
             WOLF_IDLE = Content.Load<Texture2D>(@"wolf_idle");
             WOLF_RUN = Content.Load<Texture2D>(@"wolf_run");

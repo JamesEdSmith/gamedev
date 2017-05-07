@@ -210,22 +210,32 @@ namespace PikeAndShot
         Vector2 initialPosition;
         bool dirt;
         int spriteDivision;
+        float dirtTime;
+        bool loot;
 
-        public ThrownGun(BattleScreen screen, int side, Vector2 position, Sprite sprite, int spriteDivision)
+        public ThrownGun(BattleScreen screen, int side, Vector2 position, Sprite sprite, int spriteDivision, float dirtTime)
             : base(screen, side, position, sprite, 1000f)
         {
-            velocity = new Vector2(0.08f, -0.10f);
+            velocity = new Vector2(0.08f*_side, -0.19f);
             dirt = false;
             _position.Y += 4f;
             initialPosition = new Vector2(position.X, position.Y);
             this.spriteDivision = spriteDivision;
+            this.dirtTime = dirtTime;
+            loot = false;
+        }
+
+        public ThrownGun(BattleScreen screen, int side, Vector2 position, Sprite sprite, int spriteDivision, float dirtTime, bool loot)
+            : this (screen, side, position, sprite, spriteDivision, dirtTime)
+        {
+            this.loot = loot;
         }
 
         public override void update(TimeSpan timeSpan)
         {
             if (!dirt)
             {
-                velocity += GRAVITY_VECTOR * 0.02f * (float)timeSpan.TotalSeconds;
+                velocity += GRAVITY_VECTOR * 0.04f * (float)timeSpan.TotalSeconds;
                 _position += velocity * (float)timeSpan.TotalMilliseconds;
             }
 
@@ -236,12 +246,20 @@ namespace PikeAndShot
                 if (!dirt)
                 {
                     dirt = true;
-                    _time = _duration = 800f;
+                    _time = _duration = dirtTime;
                 }
                 else
                 {
                     _time = 0f;
                     setDone();
+                }
+            }
+            else if (_time < dirtTime / 2 && dirt)
+            {
+                if (loot)
+                {
+                    ((LevelScreen)_screen).collectCoin(_position);
+                    loot = false;
                 }
             }
 

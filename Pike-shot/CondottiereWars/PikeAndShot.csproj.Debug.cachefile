@@ -308,6 +308,14 @@ Content\dropped_gonne.xnb
 Content\dropped_pike.xnb
 Content\soldier1_routed.xnb
 Content\soldier2_routed.xnb
+Content\grey_feet.xnb
+Content\hauler_idle.xnb
+Content\bagger_death.xnb
+Content\bagger_idle.xnb
+Content\bag_throw.xnb
+Content\chest_throw.xnb
+Content\hauler_death.xnb
+Content\bagger_haul.xnb
 Content\theme.wma
 Content\boss01.wma
 Content\Benz1_level.xml

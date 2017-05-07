@@ -243,6 +243,9 @@ namespace PikeAndShot
                 case Soldier.CLASS_NPC_FLEER:
                     _newEnemyFormation.addSoldier(new NPCFleer(screen, x, y, BattleScreen.SIDE_ENEMY));
                     break;
+                case Soldier.CLASS_GOBLIN_HAULER:
+                    _newEnemyFormation.addSoldier(new Hauler(screen, x, y, BattleScreen.SIDE_ENEMY));
+                    break;
 
             }
         }
@@ -323,6 +326,12 @@ namespace PikeAndShot
                     if (!(_state == STATE_CHARGING || _state == STATE_ATTACKING || _state == STATE_RELOADING) && _destination.X - _position.X < -Soldier.WIDTH)
                         addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _side * -1, _drawingY));
                     else
+                        addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                }
+                else if (this is Hauler)
+                {
+                    Hauler hauler = (Hauler)this;
+                    if (_state != Hauler.STATE_HAULING || !hauler.variant)
                         addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
                 }
                 else
@@ -2014,9 +2023,9 @@ namespace PikeAndShot
         {
             base.route();
             if(variant)
-                new ThrownGun(_screen, _side, _position, new Sprite(PikeAndShotGame.ARQUEBUSIER_DROP, new Rectangle(0, 0, 40, 40), 40, 40), 1);
+                new ThrownGun(_screen, _side, _position, new Sprite(PikeAndShotGame.ARQUEBUSIER_DROP, new Rectangle(0, 0, 40, 40), 40, 40), 1, 800f);
             else
-                new ThrownGun(_screen, _side, _position, new Sprite(PikeAndShotGame.ARQUEBUSIER2_DROP, new Rectangle(0, 0, 36, 36), 36, 36), 5);
+                new ThrownGun(_screen, _side, _position, new Sprite(PikeAndShotGame.ARQUEBUSIER2_DROP, new Rectangle(0, 0, 36, 36), 36, 36), 5, 800f);
         }
 
         public override bool attack()
@@ -3358,26 +3367,61 @@ namespace PikeAndShot
     public class Hauler : Soldier
     {
         public const int STATE_HAULING = 100;
+        public bool variant;
+        private bool _holding;
+        private Sprite _noHaulIdle;
 
         public Hauler(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
         {
             _type = Soldier.TYPE_MELEE;
-            _class = Soldier.CLASS_GOBLIN_BRIGAND;
+            _class = Soldier.CLASS_GOBLIN_HAULER;
 
-            _feet = new Sprite(PikeAndShotGame.BROWN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
+            _feet = new Sprite(PikeAndShotGame.HAULER_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
 
-            _idle = new Sprite(PikeAndShotGame.HAULER_HAUL, new Rectangle(6, 6, 16, 28), 40, 42);
-            _death = new Sprite(PikeAndShotGame.BRIGAND2_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
-            _melee1 = new Sprite(PikeAndShotGame.BRIGAND2_MELEE1, new Rectangle(24, 30, 16, 28), 64, 68);
-            _defend1 = new Sprite(PikeAndShotGame.BRIGAND2_DEFEND1, new Rectangle(20, 2, 16, 28), 52, 40);
-            _route = new Sprite(PikeAndShotGame.BERZERKER2_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
-            _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
-            _charge = new Sprite(PikeAndShotGame.BRIGAND2_CHARGE, new Rectangle(20, 20, 16, 28), 60, 56);
+            _holding = false;
+
+            if (PikeAndShotGame.random.Next(51) > 25)
+            {
+                variant = true;
+
+                _idle = new Sprite(PikeAndShotGame.BAGGER_HAUL, new Rectangle(22, 10, 16, 28), 64, 56);
+                _death = new Sprite(PikeAndShotGame.BAGGER_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
+                _melee1 = new Sprite(PikeAndShotGame.BRIGAND2_MELEE1, new Rectangle(24, 30, 16, 28), 64, 68);
+                _defend1 = new Sprite(PikeAndShotGame.BRIGAND2_DEFEND1, new Rectangle(20, 2, 16, 28), 52, 40);
+                _route = new Sprite(PikeAndShotGame.BERZERKER2_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
+                _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
+                _charge = new Sprite(PikeAndShotGame.BRIGAND2_CHARGE, new Rectangle(20, 20, 16, 28), 60, 56);
+                _noHaulIdle = new Sprite(PikeAndShotGame.BAGGER_IDLE, new Rectangle(10, 4, 16, 28), 36, 36);
+                _attackTime = 1250f;
+            }
+            else
+            {
+                variant = false;
+
+                _idle = new Sprite(PikeAndShotGame.HAULER_HAUL, new Rectangle(20, 16, 16, 28), 56, 56);
+                _death = new Sprite(PikeAndShotGame.HAULER_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
+                _melee1 = new Sprite(PikeAndShotGame.BRIGAND2_MELEE1, new Rectangle(24, 30, 16, 28), 64, 68);
+                _defend1 = new Sprite(PikeAndShotGame.BRIGAND2_DEFEND1, new Rectangle(20, 2, 16, 28), 52, 40);
+                _route = new Sprite(PikeAndShotGame.BERZERKER2_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
+                _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
+                _charge = new Sprite(PikeAndShotGame.BRIGAND2_CHARGE, new Rectangle(20, 20, 16, 28), 60, 56);
+                _noHaulIdle = new Sprite(PikeAndShotGame.HAULER_IDLE, new Rectangle(10, 4, 16, 28), 36, 36);
+                _attackTime = 800f;
+            }
 
             _body = _idle;
 
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
+        }
+
+        public override void hit()
+        {
+            base.hit();
+            if(variant)
+                new ThrownGun(_screen, _side, _position, new Sprite(PikeAndShotGame.BAGGER_THROW, new Rectangle(22, 18, 24, 24), 48, 48), 7, 1500f, true);
+            else
+                new ThrownGun(_screen, _side, _position, new Sprite(PikeAndShotGame.HAULER_THROW, new Rectangle(22, 12, 24, 24), 48, 48), 6, 1500f, true);
         }
 
         protected override bool checkReactions(TimeSpan timeSpan)
@@ -3391,6 +3435,7 @@ namespace PikeAndShot
             {
                 _state = STATE_HAULING;
                 _stateTimer = _attackTime;
+                _holding = true;
                 return true;
             }
 
@@ -3428,6 +3473,18 @@ namespace PikeAndShot
                 _idle.setFrame(frameNumber);
 
                 _body = _idle;
+            }
+            else if (_state == STATE_READY)
+            {
+                if (_holding)
+                {
+                    _idle.setFrame(_idle.getMaxFrames() - 1);
+                    _body = _idle;
+                }
+                else
+                {
+                    _body = _noHaulIdle;
+                }
             }
         }
     }

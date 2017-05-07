@@ -336,8 +336,13 @@ namespace PikeAndShot
 
         public void collectCoin(Soldier soldier)
         {
-            Loot loot = new Loot(this, soldier.getPosition());
-            LootTwinkle twinkle = new LootTwinkle(this, soldier.getPosition(), 500f, COIN_METER_POSITION + new Vector2(_coinMeter.getBoundingRect().Width/2, 0f));
+            collectCoin(soldier.getPosition());
+        }
+
+        public void collectCoin(Vector2 pos)
+        {
+            Loot loot = new Loot(this, pos);
+            LootTwinkle twinkle = new LootTwinkle(this, pos, 500f, COIN_METER_POSITION + new Vector2(_coinMeter.getBoundingRect().Width / 2, 0f));
             loot.addListener(twinkle);
             twinkle.addListener(this);
         }
