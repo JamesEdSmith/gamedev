@@ -158,6 +158,18 @@ namespace PikeAndShot
             _terrainClass.Add(terrain);
             terrain = new TerrainClass("bush 3", 10);
             _terrainClass.Add(terrain);
+            terrain = new TerrainClass("wagon", 11);
+            _terrainClass.Add(terrain);
+            terrain = new TerrainClass("ox brown", 12);
+            _terrainClass.Add(terrain);
+            terrain = new TerrainClass("ox grey", 13);
+            _terrainClass.Add(terrain);
+            terrain = new TerrainClass("ox dead", 14);
+            _terrainClass.Add(terrain);
+            terrain = new TerrainClass("peasant wounded", 15);
+            _terrainClass.Add(terrain);
+            terrain = new TerrainClass("peasant dead", 16);
+            _terrainClass.Add(terrain);
 
             foreach (TerrainClass sc in _terrainClass)
             {
@@ -367,19 +379,15 @@ namespace PikeAndShot
         {
             formationListBox.Items.Clear();
 
-            if (_levels[currLevel].formations.Count > 0)
-            {
-                currFormation = _levels[currLevel].formations.Count - 1;
-
-                foreach (string s in _levels[currLevel].formationNames)
-                    formationListBox.Items.Add(s);
-
-                formationListBox.SelectedIndex = currFormation;
-            }
-            else
+            if (currFormation >= _levels[currLevel].formations.Count)
             {
                 currFormation = 0;
             }
+
+            foreach (string s in _levels[currLevel].formationNames)
+                formationListBox.Items.Add(s);
+
+            formationListBox.SelectedIndex = currFormation;
 
             if (_levels[currLevel].formations != null && _levels[currLevel].formationSides.Count > currFormation)
                 formationSideComboBox.SelectedIndex = _levels[currLevel].formationSides[currFormation] + 1;
@@ -723,33 +731,34 @@ namespace PikeAndShot
 
             _levels[currLevel].formationTimes[formation] = _levels[currLevel].formationTimes[formation] + (x -_levels[currLevel].formationPositions[formation].X);
             _levels[currLevel].formationPositions[formation] = new Vector2(x, y);
-            
-            if (currFormation == formation)
+
+            currFormation = formation;
+            formationListBox.SelectedIndex = formation;
+
+            xTextBox.Text = _levels[currLevel].formationPositions[currFormation].X.ToString();
+            yTextBox.Text = _levels[currLevel].formationPositions[currFormation].Y.ToString();
+            spawnTextBox.Text = _levels[currLevel].formationTimes[currFormation].ToString();
+            formationTextBox.Text = _levels[currLevel].formationNames[currFormation];
+
+            // populate the soldier list for this formation
+            soldierListBox.Items.Clear();
+            Predicate<SoldierClass> predicate;
+            foreach (int s in _levels[currLevel].formations[currFormation])
             {
-                xTextBox.Text = _levels[currLevel].formationPositions[currFormation].X.ToString();
-                yTextBox.Text = _levels[currLevel].formationPositions[currFormation].Y.ToString();
-                spawnTextBox.Text = _levels[currLevel].formationTimes[currFormation].ToString();
-                formationTextBox.Text = _levels[currLevel].formationNames[currFormation];
-
-                // populate the soldier list for this formation
-                soldierListBox.Items.Clear();
-                Predicate<SoldierClass> predicate;
-                foreach (int s in _levels[currLevel].formations[currFormation])
+                predicate = delegate(SoldierClass arg)
                 {
-                    predicate = delegate(SoldierClass arg)
-                    {
-                        return arg.id == s;
-                    };
-                    soldierListBox.Items.Add(_soldierClass.Find(predicate).id.ToString() + " " + _soldierClass.Find(predicate).name);
-                }
-
-                //populate the patternaction list for this formation
-                patternListBox.Items.Clear();
-                foreach (string pa in _levels[currLevel].formationActionNames[currFormation])
-                {
-                    patternListBox.Items.Add(pa);
-                }
+                    return arg.id == s;
+                };
+                soldierListBox.Items.Add(_soldierClass.Find(predicate).id.ToString() + " " + _soldierClass.Find(predicate).name);
             }
+
+            //populate the patternaction list for this formation
+            patternListBox.Items.Clear();
+            foreach (string pa in _levels[currLevel].formationActionNames[currFormation])
+            {
+                patternListBox.Items.Add(pa);
+            }
+            
         }
 
         void LevelEditorScreenListner.copyTerrain(int ter)
@@ -1039,6 +1048,10 @@ namespace PikeAndShot
                 _levels[currLevel].formations.RemoveAt(currFormation);
                 _levels[currLevel].formations.Insert(formationListBox.SelectedIndex - 1, formation);
 
+                int side = _levels[currLevel].formationSides[currFormation];
+                _levels[currLevel].formationSides.RemoveAt(currFormation);
+                _levels[currLevel].formationSides.Insert(formationListBox.SelectedIndex - 1, side);
+
                 currFormation--;
                 refreshFormationListBox();
                 sendUpdate();
@@ -1072,6 +1085,10 @@ namespace PikeAndShot
                 List<int> formation = _levels[currLevel].formations[currFormation];
                 _levels[currLevel].formations.RemoveAt(currFormation);
                 _levels[currLevel].formations.Insert(formationListBox.SelectedIndex + 1, formation);
+
+                int side = _levels[currLevel].formationSides[currFormation];
+                _levels[currLevel].formationSides.RemoveAt(currFormation);
+                _levels[currLevel].formationSides.Insert(formationListBox.SelectedIndex + 1, side);
 
                 currFormation++;
                 refreshFormationListBox();
@@ -1212,6 +1229,12 @@ namespace PikeAndShot
                 refreshPatternListBox();
                 refreshSoldierListBox();
             }
+        }
+
+        private void startPositionTextBox_TextChanged(object sender, EventArgs e)
+        {
+            _levels[currLevel].startingPosition = System.Convert.ToSingle(startPositionTextBox.Text);
+            sendUpdate();
         }
     }
 

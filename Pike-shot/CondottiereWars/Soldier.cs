@@ -183,7 +183,7 @@ namespace PikeAndShot
             _defend1 = new Sprite(PikeAndShotGame.SOLDIER_DEFEND1, new Rectangle(16, 10, 16, 28), 54, 46);
             // just giving all soldiers the slinger routes for now
             _route = new Sprite(PikeAndShotGame.SOLDIER_ROUTE, new Rectangle(26, 16, 16, 28), 70, 52);
-            _routed = new Sprite(PikeAndShotGame.SOLDIER_ROUTED, new Rectangle(16, 16, 16, 28), 50, 52, true);
+            _routed = new Sprite(PikeAndShotGame.SOLDIER_ROUTED, new Rectangle(18, 16, 16, 28), 50, 52, true);
             _retreat = new Sprite(PikeAndShotGame.SLINGER_RETREAT, new Rectangle(6, 2, 16, 28), 46, 40, true);
             _charge = new Sprite(PikeAndShotGame.SOLDIER_CHARGE, new Rectangle(20, 20, 16, 28), 60, 56);
 
@@ -1148,6 +1148,9 @@ namespace PikeAndShot
                         ((Targeteer)this).shieldBreak();
                     else
                         ((Targeteer)this).shieldBlock();
+
+                    ((Shot)collider).hit();
+                    _killer = collider;
                 }
                 else if (this is CrossbowmanPavise)
                 {
@@ -1155,13 +1158,17 @@ namespace PikeAndShot
                         ((CrossbowmanPavise)this).shieldBlock();
                     else
                         hit();
+
+                    ((Shot)collider).hit();
+                    _killer = collider;
                 }
                 else if (!(this is Leader) && (this._side == BattleScreen.SIDE_ENEMY || _screen.getPlayerFormation() == this.myFormation))
+                {
                     hit();
-
-                ((Shot)collider).hit();
-
-                _killer = collider;
+                    ((Shot)collider).hit();
+                    _killer = collider;
+                }
+                
             }
             else if ((collider is PikeTip && collider.getSide() != _side) && (_state != STATE_DEAD && _state != STATE_DYING && _state != STATE_ROUTE && _state != STATE_ROUTED))
             {
@@ -1535,10 +1542,13 @@ namespace PikeAndShot
     public class NPCFleer : Soldier
     {
         public const int STATE_FLEE = 900;
+        public const int MAX_FLEERS = 6;
 
         private Sprite _flee;
 
         float _fleeTime;
+
+        static List<int> variants;
 
         public NPCFleer(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
@@ -1546,11 +1556,22 @@ namespace PikeAndShot
             _type = Soldier.TYPE_MELEE;
             _class = Soldier.CLASS_NPC_FLEER;
 
-            int r = PikeAndShotGame.random.Next(6);
+            if (variants == null)
+            {
+                variants = new List<int>();
+            }
+
+            if (variants.Count < 1)
+            {
+                for (int i = 0; i < MAX_FLEERS; i++)
+                    variants.Add(i);
+            }
+
+            int r = PikeAndShotGame.random.Next(variants.Count);
             _flee = null;
             _fleeTime = 2000f;
 
-            switch(r)
+            switch(variants[r])
             {
                 case 0:
                     _idle = new Sprite(PikeAndShotGame.PEASANT1_IDLE, new Rectangle(10, 8, 16, 28), 42, 42);
@@ -1584,6 +1605,7 @@ namespace PikeAndShot
                     _feet = new Sprite(_screen._game.getDimmerClone(PikeAndShotGame.GOBLIN_FEET), new Rectangle(4, 2, 16, 12), 26, 16, true);
                     break;
             }
+            variants.RemoveAt(r);
             _speed = 0.1f;
             _feet.setAnimationSpeed(_footSpeed / (_speed - 0.04f));
         }
@@ -3393,7 +3415,7 @@ namespace PikeAndShot
                 _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
                 _charge = new Sprite(PikeAndShotGame.BRIGAND2_CHARGE, new Rectangle(20, 20, 16, 28), 60, 56);
                 _noHaulIdle = new Sprite(PikeAndShotGame.BAGGER_IDLE, new Rectangle(10, 4, 16, 28), 36, 36);
-                _attackTime = 1250f;
+                _attackTime = 1400f;
             }
             else
             {

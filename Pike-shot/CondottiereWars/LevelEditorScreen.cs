@@ -132,6 +132,7 @@ namespace PikeAndShot
             if (selectedFormation != -1 && _enemyFormations.Count > selectedFormation)
             {
                 ((EnemyFormation)_enemyFormations[selectedFormation]).selected = true;
+                _mapOffset.X = ((EnemyFormation)_enemyFormations[selectedFormation]).getPosition().X - PikeAndShotGame.SCREENWIDTH / 2;
             }
         }
 
@@ -466,41 +467,46 @@ namespace PikeAndShot
         {
             bool collision = true;
             _grabbedThings.Clear();
-            foreach (EnemyFormation ef in _enemyFormations)
+            if (!keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.T))
             {
-                collision = true;
-                if (_endingMousePosition.X < ef.getPosition().X)
-                    collision = false;
-                else if (_startingMousePosition.X > ef.getPosition().X + ef.getTotalRows() * Soldier.WIDTH)
-                    collision = false;
-                else if (_endingMousePosition.Y < ef.getPosition().Y)
-                    collision = false;
-                else if (_startingMousePosition.Y > ef.getPosition().Y + ef.getTotalRows() * Soldier.HEIGHT)
-                    collision = false;
-
-                if (collision)
+                foreach (EnemyFormation ef in _enemyFormations)
                 {
-                    _grabbedThings.Add(ef);
+                    collision = true;
+                    if (_endingMousePosition.X < ef.getPosition().X)
+                        collision = false;
+                    else if (_startingMousePosition.X > ef.getPosition().X + ef.getTotalRows() * Soldier.WIDTH)
+                        collision = false;
+                    else if (_endingMousePosition.Y < ef.getPosition().Y)
+                        collision = false;
+                    else if (_startingMousePosition.Y > ef.getPosition().Y + ef.getTotalRows() * Soldier.HEIGHT)
+                        collision = false;
+
+                    if (collision)
+                    {
+                        _grabbedThings.Add(ef);
+                    }
                 }
             }
-            foreach (Terrain t in _terrain)
+            else
             {
-                collision = true;
-                if (_endingMousePosition.X < t.getPosition().X)
-                    collision = false;
-                else if (_startingMousePosition.X > t.getPosition().X + t.getWidth())
-                    collision = false;
-                else if (_endingMousePosition.Y < t.getPosition().Y)
-                    collision = false;
-                else if (_startingMousePosition.Y > t.getPosition().Y + t.getHeight())
-                    collision = false;
-
-                if (collision)
+                foreach (Terrain t in _terrain)
                 {
-                    _grabbedThings.Add(t);
+                    collision = true;
+                    if (_endingMousePosition.X < t.getPosition().X)
+                        collision = false;
+                    else if (_startingMousePosition.X > t.getPosition().X + t.getWidth())
+                        collision = false;
+                    else if (_endingMousePosition.Y < t.getPosition().Y)
+                        collision = false;
+                    else if (_startingMousePosition.Y > t.getPosition().Y + t.getHeight())
+                        collision = false;
+
+                    if (collision)
+                    {
+                        _grabbedThings.Add(t);
+                    }
                 }
             }
-
         }
 
         private void startSelectorBox()
@@ -517,42 +523,48 @@ namespace PikeAndShot
         protected bool grabThing()
         {
             bool collision = true;
-            foreach (EnemyFormation ef in _enemyFormations)
+            if (!keyboardState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.T))
             {
-                collision = true;
-                if (_pointerPos.X < ef.getScreenPosition().X)
-                    collision = false;
-                else if (_pointerPos.X > ef.getScreenPosition().X + ef.getTotalRows() * Soldier.WIDTH)
-                    collision = false;
-                else if (_pointerPos.Y < ef.getScreenPosition().Y)
-                    collision = false;
-                else if (_pointerPos.Y > ef.getScreenPosition().Y + ef.getTotalRows() * Soldier.HEIGHT)
-                    collision = false;
-
-                if (collision)
+                foreach (EnemyFormation ef in _enemyFormations)
                 {
-                    _grabbedThing = ef;
-                    _grabbedThing.selected = true;
-                    return true;
+                    collision = true;
+                    if (_pointerPos.X < ef.getScreenPosition().X)
+                        collision = false;
+                    else if (_pointerPos.X > ef.getScreenPosition().X + ef.getTotalRows() * Soldier.WIDTH)
+                        collision = false;
+                    else if (_pointerPos.Y < ef.getScreenPosition().Y)
+                        collision = false;
+                    else if (_pointerPos.Y > ef.getScreenPosition().Y + ef.getTotalRows() * Soldier.HEIGHT)
+                        collision = false;
+
+                    if (collision)
+                    {
+                        _grabbedThing = ef;
+                        _grabbedThing.selected = true;
+                        return true;
+                    }
                 }
             }
-            foreach (Terrain t in _terrain)
+            else
             {
-                collision = true;
-                if (_pointerPos.X < t.getPosition().X - getMapOffset().X)
-                    collision = false;
-                else if (_pointerPos.X > t.getPosition().X - getMapOffset().X + t.getWidth())
-                    collision = false;
-                else if (_pointerPos.Y < t.getPosition().Y - getMapOffset().Y)
-                    collision = false;
-                else if (_pointerPos.Y > t.getPosition().Y - getMapOffset().Y + t.getHeight())
-                    collision = false;
-
-                if (collision)
+                foreach (Terrain t in _terrain)
                 {
-                    _grabbedThing = t;
-                    _grabbedThing.selected = true;
-                    return true;
+                    collision = true;
+                    if (_pointerPos.X < t.getPosition().X - getMapOffset().X)
+                        collision = false;
+                    else if (_pointerPos.X > t.getPosition().X - getMapOffset().X + t.getWidth())
+                        collision = false;
+                    else if (_pointerPos.Y < t.getPosition().Y - getMapOffset().Y)
+                        collision = false;
+                    else if (_pointerPos.Y > t.getPosition().Y - getMapOffset().Y + t.getHeight())
+                        collision = false;
+
+                    if (collision)
+                    {
+                        _grabbedThing = t;
+                        _grabbedThing.selected = true;
+                        return true;
+                    }
                 }
             }
 

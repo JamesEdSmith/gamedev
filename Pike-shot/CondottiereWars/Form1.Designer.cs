@@ -100,6 +100,8 @@ namespace PikeAndShot
             this.shiftFormationsButton = new System.Windows.Forms.Button();
             this.copyLevel = new System.Windows.Forms.Button();
             this.pasteLevel = new System.Windows.Forms.Button();
+            this.startPositionTextBox = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // levelComboBox
@@ -648,11 +650,30 @@ namespace PikeAndShot
             this.pasteLevel.UseVisualStyleBackColor = true;
             this.pasteLevel.Click += new System.EventHandler(this.pasteLevel_Click);
             // 
+            // startPositionTextBox
+            // 
+            this.startPositionTextBox.Location = new System.Drawing.Point(379, 72);
+            this.startPositionTextBox.Name = "startPositionTextBox";
+            this.startPositionTextBox.Size = new System.Drawing.Size(120, 20);
+            this.startPositionTextBox.TabIndex = 61;
+            this.startPositionTextBox.TextChanged += new System.EventHandler(this.startPositionTextBox_TextChanged);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(505, 75);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(60, 13);
+            this.label16.TabIndex = 62;
+            this.label16.Text = "Start Offset";
+            // 
             // LevelConstructorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(789, 761);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.startPositionTextBox);
             this.Controls.Add(this.pasteLevel);
             this.Controls.Add(this.copyLevel);
             this.Controls.Add(this.shiftFormationsButton);
@@ -782,6 +803,8 @@ namespace PikeAndShot
         private Button shiftFormationsButton;
         private Button copyLevel;
         private Button pasteLevel;
+        private TextBox startPositionTextBox;
+        private Label label16;
     }
 }
 

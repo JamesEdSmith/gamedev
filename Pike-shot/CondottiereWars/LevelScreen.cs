@@ -156,6 +156,7 @@ namespace PikeAndShot
 
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 0.5f;
+
             //MediaPlayer.Play(PikeAndShotGame.THEME_1);
 
             spawnInitialTerrain();
@@ -901,9 +902,6 @@ namespace PikeAndShot
             _looseSoldiers.Clear();
             _shots.Clear();
             _enemyFormations.Clear();
-            _formation.setPosition(200f, (float)PikeAndShotGame.SCREENHEIGHT * 0.5f);
-            _formation.resetupFormation();
-            _formation.reformFormation();
             _screenObjects.Clear();
             _screenObjectsToAdd.Clear();
             _screenColliders.Clear();
@@ -918,37 +916,40 @@ namespace PikeAndShot
             {
                 _coinSprites.Add(new Coin(this, BASE_COIN_START_POSITION, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i * 4f)));
             }
-            
-            _formation = new Formation(this, 200, 200, 20, SIDE_PLAYER);
+
+            _mapOffset.X = _levelData.startingPosition;
+
+            _formation = new Formation(this, _levelData.startingPosition + 200, 200, 20, SIDE_PLAYER);
             //_formation.addSoldier(new Colmillos(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
 
-            _formation.addSoldier(new Leader(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Leader(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
 
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
 
             foreach (Soldier s in _formation.getSoldiers())
             {
                 _screenObjects.Add(s);
-                s._position = new Vector2(200f, (float)PikeAndShotGame.SCREENHEIGHT * 0.5f);
+                s._position = new Vector2(_levelData.startingPosition + 200f, (float)PikeAndShotGame.SCREENHEIGHT * 0.5f);
             }
 
             _terrain = new ArrayList(20);
 
             spawnInitialTerrain();
+
             //MediaPlayer.Stop();
             //MediaPlayer.Play(PikeAndShotGame.THEME_1);
         }

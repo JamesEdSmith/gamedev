@@ -337,7 +337,12 @@ namespace PikeAndShot
         public static Texture2D BUSH0;
         public static Texture2D BUSH1;
         public static Texture2D BUSH2;
-
+        public static Texture2D WAGON;
+        public static Texture2D OX_GREY;
+        public static Texture2D OX_BROWN;
+        public static Texture2D OX_DEAD;
+        public static Texture2D WOUNDED_PEASANT;
+        public static Texture2D DEAD_PEASANT;
 
         public static Texture2D COIN;
         public static Texture2D COIN_METER;
@@ -345,6 +350,7 @@ namespace PikeAndShot
         public static Texture2D DOPPEL_METER;
         public static Texture2D LOOT;
         public static Texture2D COIN_SPINNA;
+        public static Texture2D SPARKLE;
 
         //Utility Graphics
         public static Texture2D DOT;
@@ -468,6 +474,12 @@ namespace PikeAndShot
             BUSH0 = getDimmerClone(Content.Load<Texture2D>(@"bush00"));
             BUSH1 = getDimmerClone(Content.Load<Texture2D>(@"bush01"));
             BUSH2 = getDimmerClone(Content.Load<Texture2D>(@"bush03"));
+            WAGON = getDimmerClone(Content.Load<Texture2D>(@"wagon"));
+            OX_BROWN = getDimmerClone(Content.Load<Texture2D>(@"ox_brown"));
+            OX_GREY = getDimmerClone(Content.Load<Texture2D>(@"ox_grey"));
+            OX_DEAD = getDimmerClone(Content.Load<Texture2D>(@"ox_dead"));
+            WOUNDED_PEASANT = getDimmerClone(Content.Load<Texture2D>(@"wounded_dude"));
+            DEAD_PEASANT = getDimmerClone(Content.Load<Texture2D>(@"bodies"));
 
             ROAD_HORIZONTAL = getDimmerClone(Content.Load<Texture2D>(@"roadHorizontal"), 0.5f);
             ROAD_TURN = getDimmerClone(Content.Load<Texture2D>(@"roadTurn"), 0.5f);
@@ -750,6 +762,7 @@ namespace PikeAndShot
             //TEST = Content.Load<Texture2D>(@"sfea");
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
+            SPARKLE = Content.Load<Texture2D>(@"sparkle");
 
             THEME_1 = Content.Load<Song>(@"boss01");
             SHOT_0 = Content.Load<SoundEffect>(@"shot00");
@@ -820,7 +833,7 @@ namespace PikeAndShot
             _form.addFormListener((LevelScreen)_currScreen);
 
             //TODO: set this as variable
-            SoundEffect.MasterVolume = 0.5f;
+            SoundEffect.MasterVolume = 0.2f;
         }
 
         /// <summary>

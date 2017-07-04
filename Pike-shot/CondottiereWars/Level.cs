@@ -23,6 +23,8 @@ namespace PikeAndShot
 
         public List<int> formationSides;
 
+        public float startingPosition = 0;
+
         public Level()
         {
             formations = new List<List<int>>(10);

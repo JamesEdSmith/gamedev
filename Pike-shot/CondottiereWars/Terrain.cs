@@ -24,6 +24,12 @@ namespace PikeAndShot
         public const int CLASS_BUSH0 = 8;
         public const int CLASS_BUSH1 = 9;
         public const int CLASS_BUSH2 = 10;
+        public const int CLASS_WAGON = 11;
+        public const int CLASS_OX_BROWN = 12;
+        public const int CLASS_OX_GREY = 13;
+        public const int CLASS_OX_DEAD = 14;
+        public const int CLASS_WOUNDED_PEASANT = 15;
+        public const int CLASS_DEAD_PEASANT = 16;
 
         private Sprite _sprite;
         private float _restTime;
@@ -34,6 +40,8 @@ namespace PikeAndShot
         public Rectangle collisionBox;
         public bool collidable = false;
         public Vector2 collisionCenter;
+
+        static Dictionary<Texture2D, List<int>> variantDict;
 
         public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, float restTime, float animationTime)
             : this(screen, sprite, side, x, y)
@@ -67,6 +75,48 @@ namespace PikeAndShot
             this.collisionBox = collisionBox;
             collisionCenter = new Vector2(collisionBox.X + collisionBox.Width / 2, collisionBox.Y + collisionBox.Height / 2);
             collidable = true;
+        }
+
+        public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, Rectangle collisionBox, Vector2 spriteDimensions)
+            : this(screen, sprite, side, x, y, collisionBox)
+        {
+            _sprite = new Sprite(sprite, new Rectangle(0, 0, 0, 0), (int)spriteDimensions.X, (int)spriteDimensions.Y, false);
+
+            if (variantDict == null)
+            {
+                variantDict = new Dictionary<Texture2D, List<int>>();
+            }
+
+            if (!variantDict.ContainsKey(sprite))
+            {
+                List<int> variantList = new List<int>();
+                for(int i = 0; i < _sprite.getMaxFrames(); i++)
+                {
+                    variantList.Add(i);
+                }
+                variantDict.Add(sprite, variantList);
+            }
+
+            if (variantDict[sprite].Count < 1)
+            {
+                for (int i = 0; i < _sprite.getMaxFrames(); i++)
+                {
+                    variantDict[sprite].Add(i);
+                }
+            }
+
+            int variant = PikeAndShotGame.random.Next(variantDict[sprite].Count);
+            _sprite.setFrame(variantDict[sprite][variant]);
+            variantDict[sprite].RemoveAt(variant);
+
+            _drawingY = _position.Y + spriteDimensions.Y;
+        }
+
+        public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, Rectangle collisionBox, Vector2 spriteDimensions, float restTime, float animationTime)
+            : this(screen, sprite, side, x, y, collisionBox, spriteDimensions)
+        {
+            _restTime = restTime;
+            _animationTime = animationTime;
         }
 
         public static void getNewTerrain(int terrainClass, BattleScreen screen, float x, float y, int index)
@@ -118,7 +168,30 @@ namespace PikeAndShot
                     newTerrain = new Terrain(screen, PikeAndShotGame.BUSH2, BattleScreen.SIDE_PLAYER, x, y);
                     screen.addTerrain(newTerrain);
                     break;
-
+                case Terrain.CLASS_WAGON:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.WAGON, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 12, (int)y + 4, 60, 34), new Vector2(84, 42));
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_OX_BROWN:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.OX_BROWN, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 12, (int)y + 6, 70, 22), new Vector2(90, 40), 6000, 3000); 
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_OX_GREY:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.OX_GREY, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 12, (int)y + 6, 70, 22), new Vector2(90, 40), 6000, 3000);
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_OX_DEAD:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.OX_DEAD, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 14, (int)y + 22, 32, 14), new Vector2(64, 48));
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_WOUNDED_PEASANT:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.WOUNDED_PEASANT, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 10, (int)y + 6, 14, 28), new Vector2(32, 46));
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_DEAD_PEASANT:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.DEAD_PEASANT, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 30, (int)y + 20, 2, 2), new Vector2(56, 40));
+                    screen.addTerrain(newTerrain);
+                    break;
             }
             if (newTerrain != null)
                 newTerrain.index = index;
@@ -193,7 +266,7 @@ namespace PikeAndShot
 
         internal bool isAnimated()
         {
-            return _sprite.getMaxFrames() > 1;
+            return _animationTime > 0f;
         }
     }
 

@@ -148,7 +148,8 @@ namespace PikeAndShot
                     _sprite.setFrame(_maxFrames - i);
                     i = _maxFrames;
                 }
-            }            
+            }
+            _drawingY = _position.Y + _sprite.getBoundingRect().Height;
         }
 
         public virtual void setDone()
@@ -176,6 +177,21 @@ namespace PikeAndShot
         {
             return _done;
         }
+    }
+
+    public class Sparkle : ScreenAnimation
+    {
+        public Sparkle(BattleScreen screen, Vector2 position)
+            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.SPARKLE, new Rectangle(12, 12, 1, 1), 26, 26), 500f)
+        {
+        }
+
+        public override void update(TimeSpan timeSpan)
+        {
+            base.update(timeSpan);
+            _drawingY = _position.Y + PikeAndShotGame.SCREENHEIGHT;
+        }
+
     }
 
     public class ArquebusierSmoke : ScreenAnimation
@@ -428,6 +444,7 @@ namespace PikeAndShot
     {
         static float FLASH_TIME = 3000f;
         SoundEffectInstance lootSound;
+        int didSparkle = 2;
 
         public Loot(BattleScreen screen, Vector2 position)
             : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.LOOT, new Rectangle(0, 0, 26, 26), 26, 22, false,true), FLASH_TIME)
@@ -453,6 +470,13 @@ namespace PikeAndShot
                     _time = 0;
                     setDone();
                     lootSound.Play();
+                }
+                else if ((_time <= FLASH_TIME/3f && didSparkle > 0) || (_time <= FLASH_TIME * 2 / 3f && didSparkle > 1))
+                {
+                    didSparkle--;
+                    Vector2 size = _sprite.getSize();
+                    Vector2 offset = new Vector2(size.X/4f, size.Y / 2f);
+                    Sparkle sparkle = new Sparkle(_screen, _position + offset + new Vector2(PikeAndShotGame.random.Next((int)size.X)/2f, PikeAndShotGame.random.Next((int)size.Y) / 2f));
                 }
             }
         }
