@@ -75,6 +75,7 @@ namespace PikeAndShot
             this.collisionBox = collisionBox;
             collisionCenter = new Vector2(collisionBox.X + collisionBox.Width / 2, collisionBox.Y + collisionBox.Height / 2);
             collidable = true;
+            _drawingY = _position.Y + collisionBox.Height;
         }
 
         public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, Rectangle collisionBox, Vector2 spriteDimensions)
@@ -169,19 +170,19 @@ namespace PikeAndShot
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_WAGON:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.WAGON, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 12, (int)y + 4, 60, 34), new Vector2(84, 42));
+                    newTerrain = new Terrain(screen, PikeAndShotGame.WAGON, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 12, (int)y + 4, 60, 25), new Vector2(84, 42));
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_OX_BROWN:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.OX_BROWN, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 12, (int)y + 6, 70, 22), new Vector2(90, 40), 6000, 3000); 
+                    newTerrain = new Terrain(screen, PikeAndShotGame.OX_BROWN, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 12, (int)y + 6, 70, 20), new Vector2(90, 40), 6000, 3000); 
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_OX_GREY:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.OX_GREY, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 12, (int)y + 6, 70, 22), new Vector2(90, 40), 6000, 3000);
+                    newTerrain = new Terrain(screen, PikeAndShotGame.OX_GREY, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 12, (int)y + 6, 70, 20), new Vector2(90, 40), 6000, 3000);
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_OX_DEAD:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.OX_DEAD, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 14, (int)y + 22, 32, 14), new Vector2(64, 48));
+                    newTerrain = new Terrain(screen, PikeAndShotGame.OX_DEAD, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 14, (int)y + 22, 32, 10), new Vector2(64, 48));
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_WOUNDED_PEASANT:
@@ -189,7 +190,7 @@ namespace PikeAndShot
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_DEAD_PEASANT:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.DEAD_PEASANT, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 30, (int)y + 20, 2, 2), new Vector2(56, 40));
+                    newTerrain = new Terrain(screen, PikeAndShotGame.DEAD_PEASANT, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 18, (int)y + 10, 30, 6), new Vector2(56, 40));
                     screen.addTerrain(newTerrain);
                     break;
             }

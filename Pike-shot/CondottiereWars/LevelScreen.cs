@@ -159,7 +159,7 @@ namespace PikeAndShot
 
             //MediaPlayer.Play(PikeAndShotGame.THEME_1);
 
-            spawnInitialTerrain();
+            spawnInitialTerrain(_levelData.startingPosition);
             doppelType = true;
         }
 
@@ -646,7 +646,7 @@ namespace PikeAndShot
         {
             for(int f = 0; f < _levelData.formations.Count; f++)
             {
-                if (_levelData.formationTimes[f] <= (double)_mapOffset.X + PikeAndShotGame.SCREENWIDTH && !_usedFormations.Exists(i => i == f))
+                if (_levelData.formationTimes[f] <= (double)_mapOffset.X + PikeAndShotGame.SCREENWIDTH && !_usedFormations.Exists(i => i == f) && _levelData.formationTimes[f] >= _levelData.startingPosition && _levelData.formationPositions[f].X > _levelData.startingPosition + PikeAndShotGame.SCREENWIDTH)
                 {
                     _usedFormations.Add(f);
                     _newEnemyFormation = new EnemyFormation(_levelData.formationNames[f], _levelData.formationActions[f], this, (_levelData.formationPositions[f]).X, (_levelData.formationPositions[f]).Y, 10, _levelData.formationSides[f]);
@@ -948,7 +948,7 @@ namespace PikeAndShot
 
             _terrain = new ArrayList(20);
 
-            spawnInitialTerrain();
+            spawnInitialTerrain(_levelData.startingPosition);
 
             //MediaPlayer.Stop();
             //MediaPlayer.Play(PikeAndShotGame.THEME_1);

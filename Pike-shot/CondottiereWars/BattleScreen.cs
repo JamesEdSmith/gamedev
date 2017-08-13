@@ -91,7 +91,7 @@ namespace PikeAndShot
             _drawJobs = new ArrayList(255);
         }
 
-        protected void spawnInitialTerrain()
+        protected void spawnInitialTerrain(float startingX)
         {
             int next = 0;
             for (int i = 0; i < 100; i++)
@@ -100,12 +100,12 @@ namespace PikeAndShot
                 Terrain terrain;
                 if (next == 2)
                 {
-                    terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[next], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT), 8000f, 1500f);
+                    terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[next], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH) + startingX, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT), 8000f, 1500f);
                     _terrain.Add(terrain);
                 }
                 else
                 {
-                    terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[next], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT));
+                    terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[next], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH) + startingX, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT));
                     _terrain.Add(terrain);
                 }
                 terrain.generated = true;

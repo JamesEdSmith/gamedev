@@ -328,12 +328,6 @@ namespace PikeAndShot
                     else
                         addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
                 }
-                else if (this is Hauler)
-                {
-                    Hauler hauler = (Hauler)this;
-                    if (_state != Hauler.STATE_HAULING || !hauler.variant)
-                        addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
-                }
                 else
                     addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
             }
@@ -3435,6 +3429,23 @@ namespace PikeAndShot
             _body = _idle;
 
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
+        }
+
+        public override void draw(SpriteBatch spritebatch)
+        {
+            _drawingPosition = _position + _randDestOffset - _screen.getMapOffset();
+
+            int flipValue = 1;
+
+            if (_delta.X > 0)
+                flipValue = -1;
+            
+            Hauler hauler = (Hauler)this;
+            if (_state != Hauler.STATE_HAULING || !hauler.variant)
+                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side * flipValue : _side * -1, _drawingY));
+
+            addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side * flipValue : _side * -1, _drawingY));
+                
         }
 
         public override void hit()

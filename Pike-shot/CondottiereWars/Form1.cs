@@ -1233,7 +1233,14 @@ namespace PikeAndShot
 
         private void startPositionTextBox_TextChanged(object sender, EventArgs e)
         {
-            _levels[currLevel].startingPosition = System.Convert.ToSingle(startPositionTextBox.Text);
+            try
+            {
+                _levels[currLevel].startingPosition = System.Convert.ToSingle(startPositionTextBox.Text);
+            }
+            catch (FormatException fe)
+            {
+                _levels[currLevel].startingPosition = 0;
+            }
             sendUpdate();
         }
     }
