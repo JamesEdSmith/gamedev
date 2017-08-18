@@ -279,6 +279,11 @@ Content\hauler_death.xnb
 Content\bagger_haul.xnb
 Content\sparkle.xnb
 Content\wagon.xnb
+Content\ox_brown.xnb
+Content\ox_dead.xnb
+Content\ox_grey.xnb
+Content\bodies.xnb
+Content\wounded_dude.xnb
 Content\cgwg-xna.xnb
 Content\Bloom.xnb
 Content\BloomExtract.xnb
@@ -318,11 +323,6 @@ Content\arg.xnb
 Content\boss.xnb
 Content\theme.xnb
 Content\boss01.xnb
-Content\ox_brown.xnb
-Content\ox_dead.xnb
-Content\ox_grey.xnb
-Content\bodies.xnb
-Content\wounded_dude.xnb
 Content\theme.wma
 Content\boss01.wma
 Content\Benz1_level.xml
