@@ -248,12 +248,14 @@ namespace PikeAndShot
         public static Texture2D BRIGAND1_MELEE1;
         public static Texture2D BRIGAND1_DEFEND1;
         public static Texture2D BRIGAND1_CHARGE;
+        public static Texture2D BRIGAND1_SPAWN;
 
         public static Texture2D BRIGAND2_IDLE;
         public static Texture2D BRIGAND2_DEATH;
         public static Texture2D BRIGAND2_MELEE1;
         public static Texture2D BRIGAND2_DEFEND1;
         public static Texture2D BRIGAND2_CHARGE;
+        public static Texture2D BRIGAND2_SPAWN;
 
         public static Texture2D HAULER_FEET;
         public static Texture2D HAULER_HAUL;
@@ -672,12 +674,14 @@ namespace PikeAndShot
             BRIGAND1_MELEE1 = Content.Load<Texture2D>(@"berserker_melee2");
             BRIGAND1_DEFEND1 = Content.Load<Texture2D>(@"berserker_defend2");
             BRIGAND1_CHARGE = Content.Load<Texture2D>(@"berserker_charge");
+            BRIGAND1_SPAWN = Content.Load<Texture2D>(@"brigand_eating");
 
             BRIGAND2_IDLE = Content.Load<Texture2D>(@"brigand_idle");
             BRIGAND2_DEATH = Content.Load<Texture2D>(@"brigand_death");
             BRIGAND2_MELEE1 = Content.Load<Texture2D>(@"brigand_melee2");
             BRIGAND2_DEFEND1 = Content.Load<Texture2D>(@"brigand_defend2");
             BRIGAND2_CHARGE = Content.Load<Texture2D>(@"brigand_charge");
+            BRIGAND2_SPAWN = Content.Load<Texture2D>(@"brigand_stealing");
 
             HAULER_HAUL = Content.Load<Texture2D>(@"hauler_haul");
             HAULER_FEET = Content.Load<Texture2D>(@"grey_feet");

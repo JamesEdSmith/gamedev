@@ -75,7 +75,7 @@ namespace PikeAndShot
             this.collisionBox = collisionBox;
             collisionCenter = new Vector2(collisionBox.X + collisionBox.Width / 2, collisionBox.Y + collisionBox.Height / 2);
             collidable = true;
-            _drawingY = _position.Y + collisionBox.Height;
+            _drawingY = _position.Y + sprite.Height;
         }
 
         public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, Rectangle collisionBox, Vector2 spriteDimensions)
@@ -134,7 +134,7 @@ namespace PikeAndShot
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_TREE2:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.TREE2, BattleScreen.SIDE_PLAYER, x, y);
+                    newTerrain = new Terrain(screen, PikeAndShotGame.TREE2, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 20, (int)y + PikeAndShotGame.TREE2.Height / 2, PikeAndShotGame.TREE2.Width - 40, PikeAndShotGame.TREE2.Height / 3));
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_HORIROAD:

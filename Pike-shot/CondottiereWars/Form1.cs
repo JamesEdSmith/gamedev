@@ -127,6 +127,8 @@ namespace PikeAndShot
             _actionClass.Add(action);
             action = new ActionClass("Reload", 11);
             _actionClass.Add(action);
+            action = new ActionClass("Spawn", 12);
+            _actionClass.Add(action);
 
             foreach (ActionClass sc in _actionClass)
             {

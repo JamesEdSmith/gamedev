@@ -61,6 +61,7 @@ namespace PikeAndShot
         public const int STATE_RETREAT = 7;
         public const int STATE_CHECKING_EXIT = 8;
         public const int STATE_CHARGED = 9;
+        public const int STATE_SPAWN = 10;
 
         public const int WIDTH = 28;
         public const int HEIGHT = 30;
@@ -91,6 +92,7 @@ namespace PikeAndShot
         protected float _routedTime;
         protected float _oneAttackTime;
         protected float _chargeTime;
+        protected float _spawnTime;
         protected float _plusMinus;
         protected bool _stateChanged;   //keeps track of if the state has changed already this update, so we don't do checks too much
         protected bool _shotMade;
@@ -111,6 +113,7 @@ namespace PikeAndShot
         protected Sprite _routed;
         protected Sprite _retreat;
         protected Sprite _charge;
+        protected Sprite _spawn;
 
         public bool initCharge;
         public bool inPlayerFormation;
@@ -169,6 +172,7 @@ namespace PikeAndShot
             _class = Soldier.CLASS_MERC_SOLDIER;
             _attackTime = 600f;
             _reloadTime = 1000f;
+            _spawnTime = 3000f;
             guardTarget = null;
             guardTargetRange = 0f;
             guardTargetDist = 0f;
@@ -181,11 +185,13 @@ namespace PikeAndShot
             _death = new Sprite(PikeAndShotGame.SOLDIER_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
             _melee1 = new Sprite(PikeAndShotGame.SOLDIER_MELEE1, new Rectangle(14, 10, 16, 28), 62, 46);
             _defend1 = new Sprite(PikeAndShotGame.SOLDIER_DEFEND1, new Rectangle(16, 10, 16, 28), 54, 46);
-            // just giving all soldiers the slinger routes for now
+            
             _route = new Sprite(PikeAndShotGame.SOLDIER_ROUTE, new Rectangle(26, 16, 16, 28), 70, 52);
             _routed = new Sprite(PikeAndShotGame.SOLDIER_ROUTED, new Rectangle(18, 16, 16, 28), 50, 52, true);
             _retreat = new Sprite(PikeAndShotGame.SLINGER_RETREAT, new Rectangle(6, 2, 16, 28), 46, 40, true);
             _charge = new Sprite(PikeAndShotGame.SOLDIER_CHARGE, new Rectangle(20, 20, 16, 28), 60, 56);
+            _spawn = new Sprite(PikeAndShotGame.BRIGAND1_SPAWN, new Rectangle(68, 24, 16, 28), 120, 68);
+            //_spawn = new Sprite(PikeAndShotGame.BRIGAND2_SPAWN, new Rectangle(26, 20, 16, 28), 72, 72);
 
             _body = _idle;
 
@@ -309,7 +315,7 @@ namespace PikeAndShot
         {
             _drawingPosition = _position + _randDestOffset - _screen.getMapOffset();
 
-            if (_state != STATE_DYING && _state != STATE_DEAD && ((_state != STATE_MELEE_WIN && _state != STATE_MELEE_LOSS) || !(this is Arquebusier)))
+            if (_state != STATE_DYING && _state != STATE_DEAD && _state != STATE_SPAWN && ((_state != STATE_MELEE_WIN && _state != STATE_MELEE_LOSS) || !(this is Arquebusier)))
             {
                 if (this is Targeteer)
                 {
@@ -340,13 +346,14 @@ namespace PikeAndShot
                     addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
             }
             else
-                addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED && _state != STATE_SPAWN ? _side : _side * -1, _drawingY));
 
             //spritebatch.Draw(PikeAndShotGame.getDotTexture(), _drawingPosition, Color.White);
         }
 
         protected void addDrawjob(DrawJob drawJob)
         {
+
             _screen.addDrawjob(drawJob);
             Sprite sprite = drawJob.sprite;
             if (sprite.flashable)
@@ -875,6 +882,16 @@ namespace PikeAndShot
                         paviseToHit.knockOver();
                     }
                 }
+                else if (_state == STATE_SPAWN)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                    if (_stateTimer <= 0)
+                    {
+                        _stateTimer = 0;
+                        _state = STATE_READY;
+                        _stateChanged = true;
+                    }
+                }
             }
         }
 
@@ -1081,6 +1098,16 @@ namespace PikeAndShot
                 _retreat.update(timeSpan);
                 _body = _retreat;
             }
+            else if (_state == STATE_SPAWN)
+            {
+                int maxFrames = _spawn.getMaxFrames();
+                float frameTime = _spawnTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                _spawn.setFrame(frameNumber);
+
+                _body = _spawn;
+            }
         }
 
         protected virtual void attackDone()
@@ -1102,6 +1129,15 @@ namespace PikeAndShot
                 chargeSound.Play();
             }
             return false;
+        }
+
+        public void spawn()
+        {
+            if (_state == STATE_READY)
+            {
+                _state = STATE_SPAWN;
+                _stateTimer = _spawnTime;
+            }
         }
 
         public virtual bool attackHigh()
@@ -3331,6 +3367,7 @@ namespace PikeAndShot
                 _route = new Sprite(PikeAndShotGame.BERZERKER2_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
                 _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
                 _charge = new Sprite(PikeAndShotGame.BRIGAND2_CHARGE, new Rectangle(20, 20, 16, 28), 60, 56);
+                _spawn = new Sprite(PikeAndShotGame.BRIGAND2_SPAWN, new Rectangle(26, 20, 16, 28), 72, 72);
             }
             else
             {
@@ -3342,6 +3379,8 @@ namespace PikeAndShot
                 _route = new Sprite(PikeAndShotGame.BERZERKER_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
                 _routed = new Sprite(PikeAndShotGame.BERZERKER_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
                 _charge = new Sprite(PikeAndShotGame.BRIGAND1_CHARGE, new Rectangle(20, 20, 16, 28), 60, 56);
+                _spawn = new Sprite(PikeAndShotGame.BRIGAND1_SPAWN, new Rectangle(68, 24, 16, 28), 120, 68);
+                _spawnTime = 4000f;
             }
 
             _body = _idle;
@@ -3363,7 +3402,7 @@ namespace PikeAndShot
             if (_state == STATE_CHARGING && initCharge)
             {
                 int maxFrames = 4;
-                float frameTime = (_chargeTime/2f) / (float)maxFrames;
+                float frameTime = (_chargeTime / 2f) / (float)maxFrames;
                 int frameNumber = maxFrames - (int)(_stateTimer / frameTime);
 
                 if (chargeVariant == 0)

@@ -826,6 +826,15 @@ namespace PikeAndShot
             }
         }
 
+        public void spawn()
+        {
+            foreach (Soldier soldier in _soldiers)
+            {
+                if (soldier.getState() != Soldier.STATE_MELEE_WIN && soldier.getState() != Soldier.STATE_MELEE_LOSS && soldier.getState() != Soldier.STATE_RELOADING && soldier.getState() != Soldier.STATE_DYING)
+                    soldier.spawn();
+            }
+        }
+
         public void shotAttack()
         {
             bool didAttack = false;
@@ -1974,6 +1983,9 @@ namespace PikeAndShot
                             break;
                         case PatternAction.ACTION_RELOAD:
                             this.reload();
+                            break;
+                        case PatternAction.ACTION_SPAWN:
+                            this.spawn();
                             break;
                         default:
                             //reformFormation();
