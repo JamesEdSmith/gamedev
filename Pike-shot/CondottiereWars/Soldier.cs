@@ -3425,6 +3425,7 @@ namespace PikeAndShot
         public bool variant;
         private bool _holding;
         private Sprite _noHaulIdle;
+        private Sprite _baggerIdle;
 
         public Hauler(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
@@ -3448,6 +3449,7 @@ namespace PikeAndShot
                 _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
                 _charge = new Sprite(PikeAndShotGame.BRIGAND2_CHARGE, new Rectangle(20, 20, 16, 28), 60, 56);
                 _noHaulIdle = new Sprite(PikeAndShotGame.BAGGER_IDLE, new Rectangle(10, 4, 16, 28), 36, 36);
+                _baggerIdle = new Sprite(PikeAndShotGame.BAGGER_BAG, new Rectangle(10, 4, 16, 28), 36, 36);
                 _attackTime = 1400f;
             }
             else
@@ -3550,8 +3552,15 @@ namespace PikeAndShot
             {
                 if (_holding)
                 {
-                    _idle.setFrame(_idle.getMaxFrames() - 1);
-                    _body = _idle;
+                    if (variant)
+                    {
+                        _body = _baggerIdle;
+                    }
+                    else
+                    {
+                        _idle.setFrame(_idle.getMaxFrames() - 1);
+                        _body = _idle;
+                    }
                 }
                 else
                 {

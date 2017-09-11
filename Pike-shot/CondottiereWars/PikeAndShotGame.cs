@@ -267,6 +267,7 @@ namespace PikeAndShot
         public static Texture2D BAGGER_HAUL;
         public static Texture2D BAGGER_IDLE;
         public static Texture2D BAGGER_THROW;
+        public static Texture2D BAGGER_BAG;
 
         public static Texture2D WOLF_IDLE;
         public static Texture2D WOLF_RUN;
@@ -692,6 +693,7 @@ namespace PikeAndShot
             BAGGER_HAUL = Content.Load<Texture2D>(@"bagger_haul");
             BAGGER_IDLE = Content.Load<Texture2D>(@"bagger_idle");
             BAGGER_THROW = Content.Load<Texture2D>(@"bag_throw");
+            BAGGER_BAG = Content.Load<Texture2D>(@"bagger_bag_idle");
 
             WOLF_IDLE = Content.Load<Texture2D>(@"wolf_idle");
             WOLF_RUN = Content.Load<Texture2D>(@"wolf_run");
