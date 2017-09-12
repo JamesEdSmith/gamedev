@@ -102,6 +102,9 @@ namespace PikeAndShot
             this.pasteLevel = new System.Windows.Forms.Button();
             this.startPositionTextBox = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.shiftBeginTextBox = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // levelComboBox
@@ -615,14 +618,14 @@ namespace PikeAndShot
             // 
             // shiftFormationsTextBox
             // 
-            this.shiftFormationsTextBox.Location = new System.Drawing.Point(12, 69);
+            this.shiftFormationsTextBox.Location = new System.Drawing.Point(485, 63);
             this.shiftFormationsTextBox.Name = "shiftFormationsTextBox";
             this.shiftFormationsTextBox.Size = new System.Drawing.Size(100, 20);
             this.shiftFormationsTextBox.TabIndex = 57;
             // 
             // shiftFormationsButton
             // 
-            this.shiftFormationsButton.Location = new System.Drawing.Point(118, 69);
+            this.shiftFormationsButton.Location = new System.Drawing.Point(591, 61);
             this.shiftFormationsButton.Name = "shiftFormationsButton";
             this.shiftFormationsButton.Size = new System.Drawing.Size(75, 23);
             this.shiftFormationsButton.TabIndex = 58;
@@ -632,7 +635,7 @@ namespace PikeAndShot
             // 
             // copyLevel
             // 
-            this.copyLevel.Location = new System.Drawing.Point(200, 69);
+            this.copyLevel.Location = new System.Drawing.Point(15, 61);
             this.copyLevel.Name = "copyLevel";
             this.copyLevel.Size = new System.Drawing.Size(75, 23);
             this.copyLevel.TabIndex = 59;
@@ -642,7 +645,7 @@ namespace PikeAndShot
             // 
             // pasteLevel
             // 
-            this.pasteLevel.Location = new System.Drawing.Point(282, 69);
+            this.pasteLevel.Location = new System.Drawing.Point(96, 61);
             this.pasteLevel.Name = "pasteLevel";
             this.pasteLevel.Size = new System.Drawing.Size(75, 23);
             this.pasteLevel.TabIndex = 60;
@@ -652,7 +655,7 @@ namespace PikeAndShot
             // 
             // startPositionTextBox
             // 
-            this.startPositionTextBox.Location = new System.Drawing.Point(379, 72);
+            this.startPositionTextBox.Location = new System.Drawing.Point(177, 63);
             this.startPositionTextBox.Name = "startPositionTextBox";
             this.startPositionTextBox.Size = new System.Drawing.Size(120, 20);
             this.startPositionTextBox.TabIndex = 61;
@@ -661,17 +664,45 @@ namespace PikeAndShot
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(505, 75);
+            this.label16.Location = new System.Drawing.Point(209, 86);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(60, 13);
             this.label16.TabIndex = 62;
             this.label16.Text = "Start Offset";
+            // 
+            // shiftBeginTextBox
+            // 
+            this.shiftBeginTextBox.Location = new System.Drawing.Point(379, 63);
+            this.shiftBeginTextBox.Name = "shiftBeginTextBox";
+            this.shiftBeginTextBox.Size = new System.Drawing.Size(100, 20);
+            this.shiftBeginTextBox.TabIndex = 63;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(390, 86);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(78, 13);
+            this.label17.TabIndex = 64;
+            this.label17.Text = "Shift Beginning";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(498, 86);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(67, 13);
+            this.label18.TabIndex = 65;
+            this.label18.Text = "Shift Amount";
             // 
             // LevelConstructorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(789, 761);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.shiftBeginTextBox);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.startPositionTextBox);
             this.Controls.Add(this.pasteLevel);
@@ -805,6 +836,9 @@ namespace PikeAndShot
         private Button pasteLevel;
         private TextBox startPositionTextBox;
         private Label label16;
+        private TextBox shiftBeginTextBox;
+        private Label label17;
+        private Label label18;
     }
 }
 

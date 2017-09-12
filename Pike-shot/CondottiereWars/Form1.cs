@@ -722,8 +722,6 @@ namespace PikeAndShot
                 tyTextBox.Text = _levels[currLevel].terrainPositions[currTerrain].Y.ToString();
                 tSpawnTextBox.Text = _levels[currLevel].terrainTimes[currTerrain].ToString();
             }
-            else
-                sendUpdateTerrain();
         }
 
         void LevelEditorScreenListner.updateLevelFromScreen(int formation, float x, float y)
@@ -870,6 +868,7 @@ namespace PikeAndShot
             _levels[currLevel].formations.RemoveAt(formation);
             _levels[currLevel].formationTimes.RemoveAt(formation);
             _levels[currLevel].formationNames.RemoveAt(formation);
+            _levels[currLevel].formationSides.RemoveAt(formation);
 
             currFormation = -1;
             currPatternAction = -1;
@@ -1155,6 +1154,7 @@ namespace PikeAndShot
         private void shiftFormationsButton_Click(object sender, EventArgs e)
         {
             float amount;
+            float begin;
 
             try
             {
@@ -1165,10 +1165,22 @@ namespace PikeAndShot
                 amount = 0f;
             }
 
+            try
+            {
+                begin = System.Convert.ToSingle(shiftBeginTextBox.Text);
+            }
+            catch
+            {
+                begin = 0f;
+            }
+
             for (int i = 0 ; i < _levels[currLevel].formationPositions.Count; i++)
             {
-                _levels[currLevel].formationPositions[i] = _levels[currLevel].formationPositions[i] + new Vector2(amount, 0);
-                _levels[currLevel].formationTimes[i] += amount;
+                if (_levels[currLevel].formationPositions[i].X > begin)
+                {
+                    _levels[currLevel].formationPositions[i] = _levels[currLevel].formationPositions[i] + new Vector2(amount, 0);
+                    _levels[currLevel].formationTimes[i] += amount;
+                }
             }
             sendUpdate();
             refreshFormationListBox();
@@ -1245,6 +1257,7 @@ namespace PikeAndShot
             }
             sendUpdate();
         }
+
     }
 
     public class SoldierClass
