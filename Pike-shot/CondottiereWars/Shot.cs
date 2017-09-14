@@ -526,6 +526,7 @@ namespace PikeAndShot
 
         public override void update(TimeSpan timeSpan)
         {
+            _drawingY = _position.Y + _height;
             if (_state == STATE_FLYING)
             {
                 if (_side == BattleScreen.SIDE_PLAYER)

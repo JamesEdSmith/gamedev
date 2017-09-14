@@ -126,7 +126,7 @@ namespace PikeAndShot
             switch (terrainClass)
             {
                 case Terrain.CLASS_TREE0:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.TREE0, BattleScreen.SIDE_PLAYER, x, y,new  Rectangle((int)(x + PikeAndShotGame.TREE0.Width / 4), (int)(y + PikeAndShotGame.TREE0.Height *2/3), (int)(PikeAndShotGame.TREE0.Width / 2), (int)(PikeAndShotGame.TREE0.Height/8)));
+                    newTerrain = new Terrain(screen, PikeAndShotGame.TREE0, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)(x + PikeAndShotGame.TREE0.Width / 4), (int)(y + PikeAndShotGame.TREE0.Height *2/3), (int)(PikeAndShotGame.TREE0.Width / 2), (int)(PikeAndShotGame.TREE0.Height/8)));
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_TREE1:
@@ -158,15 +158,15 @@ namespace PikeAndShot
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_BUSH0:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.BUSH0, BattleScreen.SIDE_PLAYER, x, y);
+                    newTerrain = new Terrain(screen, PikeAndShotGame.BUSH0, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 8, (int)y + PikeAndShotGame.BUSH0.Height / 6, (int)((float)PikeAndShotGame.BUSH0.Width * 0.6f), PikeAndShotGame.BUSH0.Height* 2 / 3));
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_BUSH1:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.BUSH1, BattleScreen.SIDE_PLAYER, x, y);
+                    newTerrain = new Terrain(screen, PikeAndShotGame.BUSH1, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 8, (int)y + PikeAndShotGame.BUSH1.Height / 6, (int)((float)PikeAndShotGame.BUSH1.Width * 0.6f), PikeAndShotGame.BUSH1.Height * 2 / 3));
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_BUSH2:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.BUSH2, BattleScreen.SIDE_PLAYER, x, y);
+                    newTerrain = new Terrain(screen, PikeAndShotGame.BUSH2, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 8, (int)y + PikeAndShotGame.BUSH2.Height / 6, (int)((float)PikeAndShotGame.BUSH2.Width * 0.6f), PikeAndShotGame.BUSH2.Height * 2 / 3));
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_WAGON:
