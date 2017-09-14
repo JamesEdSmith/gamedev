@@ -286,7 +286,10 @@ namespace PikeAndShot
                         if (_grabbedThing != null)
                         {
                             if (_grabbedThing is EnemyFormation)
+                            {
                                 _listener.updateLevelFromScreen(_grabbedThing.index, _grabbedThing.getPosition().X, _grabbedThing.getPosition().Y);
+                                _listener.selectFormation(_grabbedThing.index);
+                            }
                             else
                                 _listener.updateLevelFromScreenTerrain(_grabbedThing.index, _grabbedThing.getPosition().X, _grabbedThing.getPosition().Y);
 
@@ -316,6 +319,7 @@ namespace PikeAndShot
                         {
                             _listener.copyFormation(_grabbedThing.index);
                             _listener.updateLevelFromScreen(index, position.X, position.Y);
+                            _listener.selectFormation(index);
                         }
                         else
                         {
@@ -392,12 +396,15 @@ namespace PikeAndShot
 
             int i = 0;
             Vector2 position;
+            int saveIndex = 0;
             foreach (int index in formationIndices)
             {
                 position = (Vector2)formationPositions[i];
                 _listener.updateLevelFromScreen(index, position.X, position.Y);
                 i++;
+                saveIndex = index;
             }
+            _listener.selectFormation(saveIndex);
             i = 0;
             foreach (int index in terrainIndices)
             {
@@ -454,13 +461,19 @@ namespace PikeAndShot
             {
                 formationsUpdate.Add(enf);
             }
+            int index = -1;
             foreach (LevelEditorGrabbable ef in formationsUpdate)
             {
-                if(ef is EnemyFormation)
+                if (ef is EnemyFormation)
+                {
                     _listener.updateLevelFromScreen(ef.index, ef.getPosition().X, ef.getPosition().Y);
+                    index = ef.index;
+                }
                 else
                     _listener.updateLevelFromScreenTerrain(ef.index, ef.getPosition().X, ef.getPosition().Y);
             }
+            if (index != -1)
+                _listener.selectFormation(index);
         }
 
         private void grabThings()
@@ -581,5 +594,6 @@ namespace PikeAndShot
         void copyFormations(ArrayList formations, ArrayList terrains);
         void deleteFormation(int formation);
         void deleteTerrain(int ter);
+        void selectFormation(int formation);
     }
 }

@@ -731,7 +731,9 @@ namespace PikeAndShot
 
             _levels[currLevel].formationTimes[formation] = _levels[currLevel].formationTimes[formation] + (x -_levels[currLevel].formationPositions[formation].X);
             _levels[currLevel].formationPositions[formation] = new Vector2(x, y);
-
+        }
+        void LevelEditorScreenListner.selectFormation(int formation)
+        {
             currFormation = formation;
             formationListBox.SelectedIndex = formation;
 

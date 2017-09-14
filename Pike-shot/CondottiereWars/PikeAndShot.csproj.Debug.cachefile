@@ -286,6 +286,7 @@ Content\bodies.xnb
 Content\wounded_dude.xnb
 Content\brigand_eating.xnb
 Content\brigand_stealing.xnb
+Content\bagger_bag_idle.xnb
 Content\cgwg-xna.xnb
 Content\Bloom.xnb
 Content\BloomExtract.xnb
@@ -325,7 +326,6 @@ Content\arg.xnb
 Content\boss.xnb
 Content\theme.xnb
 Content\boss01.xnb
-Content\bagger_bag_idle.xnb
 Content\theme.wma
 Content\boss01.wma
 Content\Benz1_level.xml
