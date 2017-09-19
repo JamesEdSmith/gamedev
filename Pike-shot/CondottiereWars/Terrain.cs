@@ -30,8 +30,9 @@ namespace PikeAndShot
         public const int CLASS_OX_DEAD = 14;
         public const int CLASS_WOUNDED_PEASANT = 15;
         public const int CLASS_DEAD_PEASANT = 16;
+        public const int CLASS_100_CIRCLE = 17;
 
-        private Sprite _sprite;
+        protected Sprite _sprite;
         private float _restTime;
         private float _animationTime;
         public bool selected { get; set; }
@@ -193,7 +194,12 @@ namespace PikeAndShot
                     newTerrain = new Terrain(screen, PikeAndShotGame.DEAD_PEASANT, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 18, (int)y + 10, 30, 6), new Vector2(56, 40));
                     screen.addTerrain(newTerrain);
                     break;
+                case Terrain.CLASS_100_CIRCLE:
+                    newTerrain = new CollisionCircle(screen, PikeAndShotGame.getDotTexture(), BattleScreen.SIDE_PLAYER, x, y, 50);
+                    screen.addTerrain(newTerrain);
+                    break;
             }
+
             if (newTerrain != null)
                 newTerrain.index = index;
         }
@@ -254,7 +260,7 @@ namespace PikeAndShot
             }
         }
 
-        public void draw(SpriteBatch spritebatch)
+        virtual public void draw(SpriteBatch spritebatch)
         {
             _screen.addDrawjob(new DrawJob(_sprite, _position - _screen.getMapOffset(), _side, _drawingY));
 
@@ -268,6 +274,41 @@ namespace PikeAndShot
         internal bool isAnimated()
         {
             return _animationTime > 0f;
+        }
+    }
+
+    class CollisionCircle : Terrain
+    {
+        public float radius;
+
+        public CollisionCircle(BattleScreen screen, Texture2D sprite, int side, float x, float y, float radius): base(screen, sprite, side, x, y)
+        {
+            this.radius = radius;
+            collidable = true;
+        }
+
+        public override void draw(SpriteBatch spritebatch)
+        {
+            if (_screen.getDrawDots())
+            {
+                spritebatch.Draw(PikeAndShotGame.getDotTexture(), new Rectangle((int)(_position.X - _screen.getMapOffset().X), (int)(_position.Y + radius - _screen.getMapOffset().Y), (int)(radius * 2), PikeAndShotGame.getDotTexture().Height), Color.White);
+                spritebatch.Draw(PikeAndShotGame.getDotTexture(), new Rectangle((int)(_position.X + radius - _screen.getMapOffset().X), (int)(_position.Y - _screen.getMapOffset().Y), PikeAndShotGame.getDotTexture().Width, (int)(radius * 2)), Color.White);
+            }
+        }
+        
+        public override int getWidth()
+        {
+            return (int)radius * 2;
+        }
+
+        public override int getHeight()
+        {
+            return (int)radius * 2;
+        }
+
+        public override Vector2 getCenter()
+        {
+            return new Vector2(_position.X + radius, _position.Y + radius);
         }
     }
 

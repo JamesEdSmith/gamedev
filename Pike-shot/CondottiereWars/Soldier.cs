@@ -385,55 +385,76 @@ namespace PikeAndShot
         {
             float shimmy = 10f;
             Terrain terrain = terrainCollider;
-            if (this.getDestCenter(dest).X < terrain.collisionCenter.X)
+            if (terrain is CollisionCircle)
             {
-                if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - this.getDestCenter(dest).Y > terrain.collisionCenter.X - this.getDestCenter(dest).X)
-                {
-                    dest.X = terrain.collisionBox.X - getWidth() - shimmy;
-                    dest.Y = terrain.collisionBox.Y - getHeight();
-                }
-                else if (this.getDestCenter(dest).Y > terrain.collisionCenter.Y && this.getDestCenter(dest).Y - terrain.collisionCenter.Y > terrain.collisionCenter.X - this.getDestCenter(dest).X)
-                {
-                    dest.X = terrain.collisionBox.X - getWidth() - shimmy;
-                    dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height;
-                }
-                else
-                {
-                    if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y)
-                    {
-                        dest.Y = terrain.collisionBox.Y - getHeight() - shimmy;
-                        dest.X = terrain.collisionBox.X - getWidth() - shimmy;
-                    }
-                    else
-                    {
-                        dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + shimmy;
-                        dest.X = terrain.collisionBox.X - getWidth() - shimmy;
-                    }
-                }
+                shimmy = 20f;
+                Vector2 delta = terrain.getCenter() - getCenter();
+
+                double angle = Math.Atan2(delta.Y, delta.X);
+                double cos = Math.Cos(angle);
+                double sin = Math.Sin(angle);
+
+                dest.X = (float)cos * (((CollisionCircle)terrain).radius + shimmy);
+                dest.Y = (float)sin * (((CollisionCircle)terrain).radius + shimmy);
+
+                //fix the sign for the trig quadrant
+                //if (delta.X < 0 && delta.Y < 0)
+                //    dest *= -1;
+
+                dest = terrain.getCenter() - dest;
             }
             else
             {
-                if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - this.getDestCenter(dest).Y > this.getDestCenter(dest).X - terrain.collisionCenter.X)
+                if (this.getDestCenter(dest).X < terrain.collisionCenter.X)
                 {
-                    dest.X = terrain.collisionBox.X + terrain.collisionBox.Width + shimmy;
-                    dest.Y = terrain.collisionBox.Y - getHeight() - shimmy;
-                }
-                else if (this.getDestCenter(dest).Y > terrain.collisionCenter.Y && this.getDestCenter(dest).Y - terrain.collisionCenter.Y > this.getDestCenter(dest).X - terrain.collisionCenter.X)
-                {
-                    dest.X = terrain.collisionBox.X + terrain.collisionBox.Width + shimmy;
-                    dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + shimmy;
-                }
-                else
-                {
-                    if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y)
+                    if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - this.getDestCenter(dest).Y > terrain.collisionCenter.X - this.getDestCenter(dest).X)
                     {
-                        dest.Y = terrain.collisionBox.Y - getHeight() -shimmy;
-                        dest.X = terrain.collisionBox.X + terrain.collisionBox.Width + shimmy;
+                        dest.X = terrain.collisionBox.X - getWidth() - shimmy;
+                        dest.Y = terrain.collisionBox.Y - getHeight();
+                    }
+                    else if (this.getDestCenter(dest).Y > terrain.collisionCenter.Y && this.getDestCenter(dest).Y - terrain.collisionCenter.Y > terrain.collisionCenter.X - this.getDestCenter(dest).X)
+                    {
+                        dest.X = terrain.collisionBox.X - getWidth() - shimmy;
+                        dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height;
                     }
                     else
                     {
-                        dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + shimmy;
+                        if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y)
+                        {
+                            dest.Y = terrain.collisionBox.Y - getHeight() - shimmy;
+                            dest.X = terrain.collisionBox.X - getWidth() - shimmy;
+                        }
+                        else
+                        {
+                            dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + shimmy;
+                            dest.X = terrain.collisionBox.X - getWidth() - shimmy;
+                        }
+                    }
+                }
+                else
+                {
+                    if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - this.getDestCenter(dest).Y > this.getDestCenter(dest).X - terrain.collisionCenter.X)
+                    {
                         dest.X = terrain.collisionBox.X + terrain.collisionBox.Width + shimmy;
+                        dest.Y = terrain.collisionBox.Y - getHeight() - shimmy;
+                    }
+                    else if (this.getDestCenter(dest).Y > terrain.collisionCenter.Y && this.getDestCenter(dest).Y - terrain.collisionCenter.Y > this.getDestCenter(dest).X - terrain.collisionCenter.X)
+                    {
+                        dest.X = terrain.collisionBox.X + terrain.collisionBox.Width + shimmy;
+                        dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + shimmy;
+                    }
+                    else
+                    {
+                        if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y)
+                        {
+                            dest.Y = terrain.collisionBox.Y - getHeight() - shimmy;
+                            dest.X = terrain.collisionBox.X + terrain.collisionBox.Width + shimmy;
+                        }
+                        else
+                        {
+                            dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + shimmy;
+                            dest.X = terrain.collisionBox.X + terrain.collisionBox.Width + shimmy;
+                        }
                     }
                 }
             }

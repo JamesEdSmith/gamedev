@@ -522,6 +522,11 @@ namespace PikeAndShot
             }
         }
 
+        public override void checkCollisions(TimeSpan timeSpan)
+        {
+            
+        }
+
         private void startSelectorBox()
         {
             _startingMousePosition = new Vector2(_mapOffset.X + _pointerPos.X, _mapOffset.Y + _pointerPos.Y);
@@ -562,21 +567,24 @@ namespace PikeAndShot
             {
                 foreach (Terrain t in _terrain)
                 {
-                    collision = true;
-                    if (_pointerPos.X < t.getPosition().X - getMapOffset().X)
-                        collision = false;
-                    else if (_pointerPos.X > t.getPosition().X - getMapOffset().X + t.getWidth())
-                        collision = false;
-                    else if (_pointerPos.Y < t.getPosition().Y - getMapOffset().Y)
-                        collision = false;
-                    else if (_pointerPos.Y > t.getPosition().Y - getMapOffset().Y + t.getHeight())
-                        collision = false;
-
-                    if (collision)
+                    if (t is CollisionCircle)
                     {
-                        _grabbedThing = t;
-                        _grabbedThing.selected = true;
-                        return true;
+                        collision = true;
+                        if (_pointerPos.X < t.getPosition().X - getMapOffset().X)
+                            collision = false;
+                        else if (_pointerPos.X > t.getPosition().X - getMapOffset().X + t.getWidth())
+                            collision = false;
+                        else if (_pointerPos.Y < t.getPosition().Y - getMapOffset().Y)
+                            collision = false;
+                        else if (_pointerPos.Y > t.getPosition().Y - getMapOffset().Y + t.getHeight())
+                            collision = false;
+
+                        if (collision)
+                        {
+                            _grabbedThing = t;
+                            _grabbedThing.selected = true;
+                            return true;
+                        }
                     }
                 }
             }

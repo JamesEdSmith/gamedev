@@ -305,7 +305,7 @@ namespace PikeAndShot
             return _mapOffset;
         }
 
-        protected void checkCollisions(TimeSpan timeSpan)
+        public virtual void checkCollisions(TimeSpan timeSpan)
         {
             int x = 0;
 
@@ -370,6 +370,13 @@ namespace PikeAndShot
                     soWidth = so.getWidth();
                     soHeight = so.getHeight() + 5;
                 }
+                else if (so is CollisionCircle)
+                {
+                    soX = so.getPosition().X;
+                    soY = so.getPosition().Y;
+                    soWidth = ((CollisionCircle)so).radius * 2;
+                    soHeight = ((CollisionCircle)so).radius * 2;
+                }
                 else if (so is Terrain)
                 {
                     soX = ((Terrain)so).collisionBox.X;
@@ -403,6 +410,13 @@ namespace PikeAndShot
                             coWidth = co.getWidth();
                             coHeight = co.getHeight() + 5;
                         }
+                        else if (co is CollisionCircle)
+                        {
+                            coX = co.getPosition().X;
+                            coY = co.getPosition().Y;
+                            coWidth = ((CollisionCircle)co).radius * 2;
+                            coHeight = ((CollisionCircle)co).radius * 2;
+                        }
                         else if (co is Terrain)
                         {
                             coX = ((Terrain)co).collisionBox.X;
@@ -424,17 +438,51 @@ namespace PikeAndShot
                             soHeight = so.getHeight() + 10;
                         }
 
-                        collision = true;
 
-                        // see if we didn't collide
-                        if (soX > coX + coWidth)
-                            collision = false;
-                        else if (soX + soWidth < coX)
-                            collision = false;
-                        else if (soY > coY + coHeight)
-                            collision = false;
-                        else if (soY + soHeight < coY)
-                            collision = false;
+                        if (so is CollisionCircle && !(co is CollisionCircle))
+                        {
+                            float coMidX = coX + coWidth / 2f;
+                            float coMidY = coY + coHeight / 2f;
+                            float soMidX = soX + ((CollisionCircle)so).radius;
+                            float soMidY = soY + ((CollisionCircle)so).radius;
+
+                            float diffX = soMidX - coMidX;
+                            float diffY = soMidY - coMidY;
+
+                            if (Math.Sqrt(Math.Pow(diffX, 2) + Math.Pow(diffY, 2)) < ((CollisionCircle)so).radius)
+                                collision = true;
+                            else
+                                collision = false;
+                        }
+                        else if (co is CollisionCircle && !(so is CollisionCircle))
+                        {
+                            float coMidX = soX + soWidth / 2f;
+                            float coMidY = soY + soHeight / 2f;
+                            float soMidX = coX + ((CollisionCircle)co).radius;
+                            float soMidY = coY + ((CollisionCircle)co).radius;
+
+                            float diffX = soMidX - coMidX;
+                            float diffY = soMidY - coMidY;
+
+                            if (Math.Sqrt(Math.Pow(diffX, 2) + Math.Pow(diffY, 2)) < ((CollisionCircle)co).radius)
+                                collision = true;
+                            else
+                                collision = false;
+                        }
+                        else
+                        {
+                            collision = true;
+
+                            // see if we didn't collide
+                            if (soX > coX + coWidth)
+                                collision = false;
+                            else if (soX + soWidth < coX)
+                                collision = false;
+                            else if (soY > coY + coHeight)
+                                collision = false;
+                            else if (soY + soHeight < coY)
+                                collision = false;
+                        }
 
                         if (collision)
                         {
