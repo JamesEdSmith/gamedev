@@ -637,7 +637,7 @@ namespace PikeAndShot
             previousGamePadState = gamePadState;
         }
 
-        void FormListener.updateLevel(Level level, int Formation)
+        void FormListener.updateLevel(Level level, int formation, int terrain)
         {
             _levelData = level;
         }

@@ -32,6 +32,8 @@ namespace PikeAndShot
         public const int SCREEN_FORMATIONMAKER = 1;
         public const int SCREEN_LEVELEDITOR = 2;
 
+        public const float ROAD_FADE = 0.4f;
+
         GraphicsDeviceManager graphics;
         public static Viewport viewport;
         SpriteBatch spriteBatch;
@@ -484,11 +486,11 @@ namespace PikeAndShot
             WOUNDED_PEASANT = getDimmerClone(Content.Load<Texture2D>(@"wounded_dude"));
             DEAD_PEASANT = getDimmerClone(Content.Load<Texture2D>(@"bodies"));
 
-            ROAD_HORIZONTAL = getDimmerClone(Content.Load<Texture2D>(@"roadHorizontal"), 0.5f);
-            ROAD_TURN = getDimmerClone(Content.Load<Texture2D>(@"roadTurn"), 0.5f);
-            ROAD_MILE_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadMileMarker"), 0.5f);
-            ROAD_TURN_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadTurnMarker"), 0.5f);
-            ROAD_HORIZONTAL_2 = getDimmerClone(Content.Load<Texture2D>(@"road_h2"), 0.5f);
+            ROAD_HORIZONTAL = getDimmerClone(Content.Load<Texture2D>(@"roadHorizontal"), ROAD_FADE);
+            ROAD_TURN = getDimmerClone(Content.Load<Texture2D>(@"roadTurn"), ROAD_FADE);
+            ROAD_MILE_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadMileMarker"));
+            ROAD_TURN_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadTurnMarker"));
+            ROAD_HORIZONTAL_2 = getDimmerClone(Content.Load<Texture2D>(@"road_h2"), ROAD_FADE);
 
             PUCELLE_IDLE = Content.Load<Texture2D>(@"pucelle_ready2");
             PUCELLE_MOTION = Content.Load<Texture2D>(@"pucelle_motion");
@@ -997,7 +999,7 @@ namespace PikeAndShot
 
         internal Texture2D getDimmerClone(Texture2D texture)
         {
-            return getDimmerClone(texture, 0.75f);
+            return getDimmerClone(texture, 0.60f);
         }
 
         internal Texture2D getDimmerClone(Texture2D texture, float factor)

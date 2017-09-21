@@ -48,10 +48,12 @@ namespace PikeAndShot
         public int numberOfPikes;
         public int numberOfShots;
         public bool retreated;
+        public bool hasAppeared;
 
         public Formation(BattleScreen screen, float x, float y, int initialCapacity, int side)
         {
             _screen = screen;
+            hasAppeared = false;
             _position = new Vector2(x, y);
             _size = Vector2.Zero;
             _soldiers = new ArrayList(initialCapacity);
@@ -107,6 +109,9 @@ namespace PikeAndShot
         {
             if (this.getSoldiers().Count <= 0)
                 return;
+
+            if (!hasAppeared && _position.X < _screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH - Soldier.WIDTH * 4)
+                hasAppeared = true;
 
             _soldierDied = false;
             _allShotsMade = true;
@@ -1848,6 +1853,8 @@ namespace PikeAndShot
         {
             if (_soldiers.Count <= 0)
                 return false;
+            else if (!hasAppeared)
+                return true;
 
             foreach (Soldier s in _soldiers)
             {

@@ -58,13 +58,13 @@ namespace PikeAndShot
         private void sendUpdate()
         {
             foreach(FormListener fl in _formListeners)
-                fl.updateLevel(_levels[currLevel], currFormation);
+                fl.updateLevel(_levels[currLevel], currFormation, -1);
         }
 
         private void sendUpdateTerrain()
         {
             foreach (FormListener fl in _formListeners)
-                fl.updateLevel(_levels[currLevel], -1);
+                fl.updateLevel(_levels[currLevel], -1, currTerrain);
         }
 
         private void loadLevels()
@@ -765,6 +765,17 @@ namespace PikeAndShot
             
         }
 
+        void LevelEditorScreenListner.selectTerrain(int terrain)
+        {
+            currTerrain = terrain;
+            terrainListBox.SelectedIndex = terrain;
+
+            txTextBox.Text = _levels[currLevel].terrainPositions[terrain].X.ToString();
+            tyTextBox.Text = _levels[currLevel].terrainPositions[terrain].Y.ToString();
+            tSpawnTextBox.Text = _levels[currLevel].terrainTimes[terrain].ToString();
+            
+        }
+
         void LevelEditorScreenListner.copyTerrain(int ter)
         {
             _levels[currLevel].terrains.Add(_levels[currLevel].terrains[ter]);
@@ -965,7 +976,7 @@ namespace PikeAndShot
                 }
             }
 
-            sendUpdate();
+            sendUpdateTerrain();
         }
 
         private void addTerrainButton_Click(object sender, EventArgs e)
@@ -1317,6 +1328,6 @@ namespace PikeAndShot
 
     public interface FormListener
     {
-        void updateLevel(Level level, int selectedFormation);
+        void updateLevel(Level level, int selectedFormation, int selectedTerrain);
     }
 }

@@ -55,7 +55,7 @@ namespace PikeAndShot
             _boxMoving = false;
         }
 
-        void FormListener.updateLevel(Level level, int selectedFormation)
+        void FormListener.updateLevel(Level level, int selectedFormation, int selectedTerrain)
         {
             _levelData = level;
 
@@ -63,7 +63,6 @@ namespace PikeAndShot
             {
                 _deadFormations.Add(f);
             }
-
             foreach (Terrain t in _terrain)
             {
                 _deadThings.Add(t);
@@ -71,6 +70,7 @@ namespace PikeAndShot
 
             _enemyFormations.Clear();
             _terrain.Clear();
+           
 
             for (int f = 0; f < _levelData.formations.Count; f++)
             {
@@ -133,6 +133,10 @@ namespace PikeAndShot
             {
                 ((EnemyFormation)_enemyFormations[selectedFormation]).selected = true;
                 _mapOffset.X = ((EnemyFormation)_enemyFormations[selectedFormation]).getPosition().X - PikeAndShotGame.SCREENWIDTH / 2;
+            }
+            else if (selectedTerrain != -1 && _terrain.Count > selectedTerrain)
+            {
+                _mapOffset.X = ((Terrain)_terrain[selectedTerrain]).getPosition().X - PikeAndShotGame.SCREENWIDTH / 2;
             }
         }
 
@@ -291,7 +295,10 @@ namespace PikeAndShot
                                 _listener.selectFormation(_grabbedThing.index);
                             }
                             else
+                            {
                                 _listener.updateLevelFromScreenTerrain(_grabbedThing.index, _grabbedThing.getPosition().X, _grabbedThing.getPosition().Y);
+                                _listener.selectTerrain(_grabbedThing.index);
+                            }
 
                             _grabbedThing = null;
                         }
@@ -319,12 +326,13 @@ namespace PikeAndShot
                         {
                             _listener.copyFormation(_grabbedThing.index);
                             _listener.updateLevelFromScreen(index, position.X, position.Y);
-                            _listener.selectFormation(index);
+                            _listener.selectFormation(_grabbedThing.index);
                         }
                         else
                         {
                             _listener.copyTerrain(_grabbedThing.index);
                             _listener.updateLevelFromScreenTerrain(index, position.X, position.Y);
+                            _listener.selectTerrain(_grabbedThing.index);
                         }
 
                         _grabbedThing = null;
@@ -567,24 +575,21 @@ namespace PikeAndShot
             {
                 foreach (Terrain t in _terrain)
                 {
-                    if (t is CollisionCircle)
-                    {
-                        collision = true;
-                        if (_pointerPos.X < t.getPosition().X - getMapOffset().X)
-                            collision = false;
-                        else if (_pointerPos.X > t.getPosition().X - getMapOffset().X + t.getWidth())
-                            collision = false;
-                        else if (_pointerPos.Y < t.getPosition().Y - getMapOffset().Y)
-                            collision = false;
-                        else if (_pointerPos.Y > t.getPosition().Y - getMapOffset().Y + t.getHeight())
-                            collision = false;
+                    collision = true;
+                    if (_pointerPos.X < t.getPosition().X - getMapOffset().X)
+                        collision = false;
+                    else if (_pointerPos.X > t.getPosition().X - getMapOffset().X + t.getWidth())
+                        collision = false;
+                    else if (_pointerPos.Y < t.getPosition().Y - getMapOffset().Y)
+                        collision = false;
+                    else if (_pointerPos.Y > t.getPosition().Y - getMapOffset().Y + t.getHeight())
+                        collision = false;
 
-                        if (collision)
-                        {
-                            _grabbedThing = t;
-                            _grabbedThing.selected = true;
-                            return true;
-                        }
+                    if (collision)
+                    {
+                        _grabbedThing = t;
+                        _grabbedThing.selected = true;
+                        return true;
                     }
                 }
             }
@@ -603,5 +608,6 @@ namespace PikeAndShot
         void deleteFormation(int formation);
         void deleteTerrain(int ter);
         void selectFormation(int formation);
+        void selectTerrain(int terrain);
     }
 }

@@ -150,7 +150,14 @@ namespace PikeAndShot
                 foreach (Formation f in _enemyFormations)
                 {
                     f.update(gameTime.ElapsedGameTime);
-                    if (f.getSide() == SIDE_ENEMY && (f.getPosition().X < (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X || f.getTotalRows() == 0))
+                    bool bool0 = f.getPosition().X < (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X;
+                    bool bool1 = f.getPosition().X > (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X + PikeAndShotGame.SCREENWIDTH;
+                    bool bool2 = !f.hasAppeared;
+                    bool bool3 = f.getTotalRows() == 0;
+                    if ( 
+                        (f.getPosition().X < (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X
+                        || (f.getPosition().X > (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X + PikeAndShotGame.SCREENWIDTH && f.hasAppeared)
+                        || f.getTotalRows() == 0))
                     {
                         if (!f.hasSoldierOnScreen() && this is LevelScreen)
                             _deadFormations.Add(f);

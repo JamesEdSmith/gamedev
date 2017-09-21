@@ -397,10 +397,6 @@ namespace PikeAndShot
                 dest.X = (float)cos * (((CollisionCircle)terrain).radius + shimmy);
                 dest.Y = (float)sin * (((CollisionCircle)terrain).radius + shimmy);
 
-                //fix the sign for the trig quadrant
-                //if (delta.X < 0 && delta.Y < 0)
-                //    dest *= -1;
-
                 dest = terrain.getCenter() - dest;
             }
             else
