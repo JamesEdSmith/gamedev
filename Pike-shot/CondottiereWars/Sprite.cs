@@ -95,6 +95,24 @@ namespace PikeAndShot
             _loop = loop;
         }
 
+        public void createFlashTexture()
+        {
+            int debug;
+            if (_sourceBitmap == PikeAndShotGame.TOTEMPOLE)
+                debug = 0;
+            //create flash texture
+            Color[] pixelData = new Color[_sourceBitmap.Width * _sourceBitmap.Height];
+            _sourceBitmap.GetData<Color>(pixelData);
+
+            for (int i = 0; i < pixelData.Length; i++)
+            {
+                if (pixelData[i].A != 0)
+                    pixelData[i] = Color.White;
+            }
+            _flashTexture = new Texture2D(_sourceBitmap.GraphicsDevice, _sourceBitmap.Width, _sourceBitmap.Height);
+            _flashTexture.SetData<Color>(pixelData);
+        }
+
         public Texture2D getSourceBitmap()
         {
             return _sourceBitmap;

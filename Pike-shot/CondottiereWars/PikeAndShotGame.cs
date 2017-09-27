@@ -348,6 +348,7 @@ namespace PikeAndShot
         public static Texture2D OX_DEAD;
         public static Texture2D WOUNDED_PEASANT;
         public static Texture2D DEAD_PEASANT;
+        public static Texture2D TOTEMPOLE;
 
         public static Texture2D COIN;
         public static Texture2D COIN_METER;
@@ -485,6 +486,7 @@ namespace PikeAndShot
             OX_DEAD = getDimmerClone(Content.Load<Texture2D>(@"ox_dead"));
             WOUNDED_PEASANT = getDimmerClone(Content.Load<Texture2D>(@"wounded_dude"));
             DEAD_PEASANT = getDimmerClone(Content.Load<Texture2D>(@"bodies"));
+            TOTEMPOLE = getDimmerClone(Content.Load<Texture2D>(@"totempole"));
 
             ROAD_HORIZONTAL = getDimmerClone(Content.Load<Texture2D>(@"roadHorizontal"), ROAD_FADE);
             ROAD_TURN = getDimmerClone(Content.Load<Texture2D>(@"roadTurn"), ROAD_FADE);

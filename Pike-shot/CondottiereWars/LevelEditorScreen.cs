@@ -136,6 +136,7 @@ namespace PikeAndShot
             }
             else if (selectedTerrain != -1 && _terrain.Count > selectedTerrain)
             {
+                ((Terrain)_terrain[selectedTerrain]).selected = true;
                 _mapOffset.X = ((Terrain)_terrain[selectedTerrain]).getPosition().X - PikeAndShotGame.SCREENWIDTH / 2;
             }
         }
@@ -189,6 +190,13 @@ namespace PikeAndShot
 
             spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "mapOffset: " + _mapOffset.X + ", " + _mapOffset.Y, new Vector2(5, 35), Color.White);
             spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "zoom: " + _currentZoom, new Vector2(5, 50), Color.White);
+
+            foreach(Terrain terrain in _terrain)
+            {
+                if(terrain.selected)
+                    terrain.getSprite().draw(spriteBatch, terrain.getPosition() - _mapOffset, terrain.getSide(), (float)gameTime.TotalGameTime.TotalMilliseconds, 1000f, Color.Fuchsia); 
+            }
+            
 
             int lineThickness = (int)(2.0f / PikeAndShotGame.ZOOM);
 
