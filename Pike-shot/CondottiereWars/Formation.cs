@@ -785,8 +785,8 @@ namespace PikeAndShot
             {
                 foreach (Soldier s in (ArrayList)_meleeRows[0])
                 {
-                    if (s.getState() != Soldier.STATE_MELEE_LOSS && s.getState() != Soldier.STATE_MELEE_WIN && s is Colmillos)
-                        ((Colmillos)s).shieldBreak();
+                    if (s.getState() != Soldier.STATE_MELEE_LOSS && s.getState() != Soldier.STATE_MELEE_WIN && s is Wolf)
+                        ((Wolf)s).howl();
                 }
             }
 
@@ -1007,7 +1007,10 @@ namespace PikeAndShot
             if (_screen.getPlayerFormation() == this)
                 soldier.inPlayerFormation = true;
             soldier.initCharge = false;
-            soldier.setSpeed(0.15f);
+            if(soldier is Wolf)
+                soldier.setSpeed(0.20f);
+            else
+                soldier.setSpeed(0.15f);
 
             // determine speed
             avgSpeed = 0;

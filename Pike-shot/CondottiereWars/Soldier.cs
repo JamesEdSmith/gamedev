@@ -4118,7 +4118,7 @@ namespace PikeAndShot
             _body = _idle;
             _footSpeed = 6.5f;
             _speed = 0.24f;
-            _feet.setAnimationSpeed(_footSpeed/0.11f);
+            _feet.setAnimationSpeed(_footSpeed / (_speed - 0.13f));
             _stateTimer = PikeAndShotGame.random.Next((int)_idleTime);
         }
 
