@@ -67,6 +67,14 @@ namespace PikeAndShot
             terrains = content.terrains;
             terrainPositions = content.terrainPositions;
             terrainTimes = content.terrainTimes;
+            if (terrainTimes != null && terrainPositions != null)
+            {
+                for (int i = 0; i < terrainTimes.Count; i++)
+                {
+                    if (terrainPositions.Count > i)
+                        terrainTimes[i] = terrainPositions[i].X - 100;
+                }
+            }
         }
     }
 
