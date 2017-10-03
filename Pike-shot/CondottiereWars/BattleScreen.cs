@@ -688,6 +688,7 @@ namespace PikeAndShot
                     dj.sprite.draw(spriteBatch, dj.position, dj.side, gameTime.ElapsedGameTime);
                 else
                     dj.sprite.draw(spriteBatch, dj.position, dj.side);
+
             }
             _drawJobs.Clear();
         }

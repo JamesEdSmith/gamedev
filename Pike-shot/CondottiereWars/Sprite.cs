@@ -16,6 +16,7 @@ namespace PikeAndShot
 
         private Texture2D _sourceBitmap;
         public Texture2D _flashTexture;
+        public Texture2D _blackTexture;
         private Rectangle _boundingRect;
         private Rectangle _flippedRect;
         private Rectangle _currRect;
@@ -52,6 +53,18 @@ namespace PikeAndShot
             _loop = loop;
             _playing = false;
             _animationSpeed = _animationTime = 1000;
+
+            //create flash texture
+            Color[] pixelData = new Color[bitmap.Width * bitmap.Height];
+            bitmap.GetData<Color>(pixelData);
+
+            for (int i = 0; i < pixelData.Length; i++)
+            {
+                if (pixelData[i].A != 0)
+                    pixelData[i] = Color.Black;
+            }
+            _blackTexture = new Texture2D(bitmap.GraphicsDevice, bitmap.Width, bitmap.Height);
+            _blackTexture.SetData<Color>(pixelData);
         }
 
         public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreshold, Color color, float dampening):
@@ -310,10 +323,18 @@ namespace PikeAndShot
             {
                 if (side == BattleScreen.SIDE_PLAYER)
                 {
+                    /*spritebatch.Draw(_blackTexture, _position - new Vector2(1, -1) - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    spritebatch.Draw(_blackTexture, _position - new Vector2(-1, 1) - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    spritebatch.Draw(_blackTexture, _position - new Vector2(-1, -1) - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    spritebatch.Draw(_blackTexture, _position - new Vector2(1, 1) - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);*/
                     spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 }
                 else
                 {
+                    /*spritebatch.Draw(_blackTexture, _position - new Vector2(-1, 1) - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                    spritebatch.Draw(_blackTexture, _position - new Vector2(-1, -1) - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                    spritebatch.Draw(_blackTexture, _position - new Vector2(1, 1) - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                    spritebatch.Draw(_blackTexture, _position - new Vector2(1, -1) - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);*/
                     spritebatch.Draw(_sourceBitmap, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
                 }
             }
