@@ -54,7 +54,7 @@ namespace PikeAndShot
             _playing = false;
             _animationSpeed = _animationTime = 1000;
 
-            //create flash texture
+            /*
             Color[] pixelData = new Color[bitmap.Width * bitmap.Height];
             bitmap.GetData<Color>(pixelData);
 
@@ -64,7 +64,7 @@ namespace PikeAndShot
                     pixelData[i] = Color.Black;
             }
             _blackTexture = new Texture2D(bitmap.GraphicsDevice, bitmap.Width, bitmap.Height);
-            _blackTexture.SetData<Color>(pixelData);
+            _blackTexture.SetData<Color>(pixelData);*/
         }
 
         public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreshold, Color color, float dampening):
@@ -76,16 +76,7 @@ namespace PikeAndShot
             this.dampening = dampening;
 
             //create flash texture
-            Color[] pixelData = new Color[bitmap.Width * bitmap.Height];
-            bitmap.GetData<Color>(pixelData);
-
-            for (int i = 0; i < pixelData.Length; i++)
-            {
-                if (pixelData[i].A != 0)
-                    pixelData[i] = Color.White;
-            }
-            _flashTexture = new Texture2D(bitmap.GraphicsDevice, bitmap.Width, bitmap.Height);
-            _flashTexture.SetData<Color>(pixelData);
+            createFlashTexture();
         }
 
         public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable) :
@@ -110,9 +101,6 @@ namespace PikeAndShot
 
         public void createFlashTexture()
         {
-            int debug;
-            if (_sourceBitmap == PikeAndShotGame.TOTEMPOLE)
-                debug = 0;
             //create flash texture
             Color[] pixelData = new Color[_sourceBitmap.Width * _sourceBitmap.Height];
             _sourceBitmap.GetData<Color>(pixelData);

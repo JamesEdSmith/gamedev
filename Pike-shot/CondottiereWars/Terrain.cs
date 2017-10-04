@@ -210,6 +210,9 @@ namespace PikeAndShot
 
             if (newTerrain != null)
                 newTerrain.index = index;
+
+            if (!newTerrain.collidable)
+                screen.cancelScreenObject(newTerrain);
         }
 
         public void setPosition(float x, float y)

@@ -30,6 +30,7 @@ namespace PikeAndShot
             _screen = screen;
             _side = side;
             _screen.addScreenObject(this);
+
             _guardPositionOffset = Vector2.Zero;
         }
 

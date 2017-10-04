@@ -109,6 +109,7 @@ namespace PikeAndShot
                     _terrain.Add(terrain);
                 }
                 terrain.generated = true;
+                cancelScreenObject(terrain);
             }
         }
 
@@ -255,7 +256,7 @@ namespace PikeAndShot
                             _terrain.Add(terrain);
                         }
                         terrain.generated = true;
-
+                        cancelScreenObject(terrain);
                     }
                 }
 
@@ -289,7 +290,11 @@ namespace PikeAndShot
         public void addScreenObject(ScreenObject so)
         {
             _screenObjectsToAdd.Add(so);
-            //_screenObjects.Add(so);
+        }
+
+        public void cancelScreenObject(ScreenObject so)
+        {
+            _screenObjectsToAdd.Remove(so);
         }
 
         public void addTerrain(Terrain t)
@@ -339,6 +344,7 @@ namespace PikeAndShot
                 }
                 else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay || (so is Soldier && ((Soldier)so).myFormation != _formation)) && !(so is Terrain && !((Terrain)so).collidable))
                     _screenColliders.Add(so);
+                
             }
             
             // Now for every object see if it hit any of the colliders
@@ -516,7 +522,7 @@ namespace PikeAndShot
             // pour all of the screen objects into the list of objects to check for collisions against to start with
             foreach (ScreenObject sObj in _screenObjects)
             {
-                if (!(sObj is Soldier) && so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING)
+                if ((sObj is Soldier) && so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING)
                     _screenColliders.Add(sObj);
             }
             
