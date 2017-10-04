@@ -57,6 +57,8 @@ namespace PikeAndShot
         protected Vector2 _mapOffset;
         public bool playerInPlay;
 
+        private Dictionary<Texture2D, Texture2D> flashTextures;
+
         public BattleScreen(PikeAndShotGame game)
         {
             _game = game;
@@ -89,6 +91,7 @@ namespace PikeAndShot
             _terrain = new ArrayList(20);
 
             _drawJobs = new ArrayList(255);
+            flashTextures = new Dictionary<Texture2D, Texture2D>();
         }
 
         protected void spawnInitialTerrain(float startingX)
@@ -583,8 +586,32 @@ namespace PikeAndShot
                         }
                     }
                 }
+            }   
+        }
+
+        public Texture2D getFlashTexture(Texture2D bitmap)
+        {
+            if (flashTextures.ContainsKey(bitmap))
+            {
+                return flashTextures[bitmap];
             }
-            
+            else
+            {
+                //create flash texture
+                Color[] pixelData = new Color[bitmap.Width * bitmap.Height];
+                bitmap.GetData<Color>(pixelData);
+
+                for (int i = 0; i < pixelData.Length; i++)
+                {
+                    if (pixelData[i].A != 0)
+                        pixelData[i] = Color.White;
+                }
+                Texture2D flashTexture = new Texture2D(bitmap.GraphicsDevice, bitmap.Width, bitmap.Height);
+                flashTexture.SetData<Color>(pixelData);
+                flashTextures.Add(bitmap, flashTexture);
+
+                return flashTexture;
+            }
         }
 
         public void removeScreenObject(ScreenObject so)

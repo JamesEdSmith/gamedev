@@ -360,7 +360,7 @@ namespace PikeAndShot
         bool playCoinSound;
 
         public Coin(BattleScreen screen, Vector2 position, Vector2 finalPosition)
-            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN, new Rectangle(0, 0, 24, 14), 24, 14, false, true, 128), COIN_TIME)
+            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.COIN, new Rectangle(0, 0, 24, 14), 24, 14, false, true, 128, screen), COIN_TIME)
         {
             int rando = PikeAndShotGame.random.Next(3);
             if (rando == 1)
@@ -448,7 +448,7 @@ namespace PikeAndShot
         int didSparkle = 2;
 
         public Loot(BattleScreen screen, Vector2 position)
-            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.LOOT, new Rectangle(0, 0, 26, 26), 26, 22, false,true), FLASH_TIME)
+            : base(screen, BattleScreen.SIDE_PLAYER, position, new Sprite(PikeAndShotGame.LOOT, new Rectangle(0, 0, 26, 26), 26, 22, false,true, screen), FLASH_TIME)
         {
             int rando = PikeAndShotGame.random.Next(_sprite.getMaxFrames());
             _sprite.setFrame(rando);

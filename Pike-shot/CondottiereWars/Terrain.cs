@@ -70,7 +70,7 @@ namespace PikeAndShot
             _drawingY = _position.Y + sprite.Height;
             generated = false;
 
-            _sprite.createFlashTexture();
+            _sprite.createFlashTexture(screen);
         }
 
         public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, Rectangle collisionBox)
@@ -115,7 +115,7 @@ namespace PikeAndShot
             variantDict[sprite].RemoveAt(variant);
 
             _drawingY = _position.Y + spriteDimensions.Y;
-            _sprite.createFlashTexture();
+            _sprite.createFlashTexture(screen);
         }
 
         public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, Rectangle collisionBox, Vector2 spriteDimensions, float restTime, float animationTime)

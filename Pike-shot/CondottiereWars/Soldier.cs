@@ -2056,7 +2056,7 @@ namespace PikeAndShot
             if (PikeAndShotGame.random.Next(51) > 25)
             {
                 variant = true;
-                _feet = new Sprite(PikeAndShotGame.BROWN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true, true, 25);
+                _feet = new Sprite(PikeAndShotGame.BROWN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true, true, 25, screen);
                 _feet.flashable = false;
                 _idle = new Sprite(PikeAndShotGame.ARQUEBUSIER_IDLE, new Rectangle(16, 16, 16, 28), 128, 64);
                 _death = new Sprite(PikeAndShotGame.ARQUEBUSIER_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
@@ -2064,13 +2064,13 @@ namespace PikeAndShot
                 _defend1 = new Sprite(PikeAndShotGame.ARQUEBUSIER_DEFEND, new Rectangle(24, 20, 16, 28), 72, 60);
                 _route = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTE, new Rectangle(16, 16, 16, 28), 48, 52);
                 _routed = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTED, new Rectangle(14, 10, 16, 28), 48, 48);
-                _arquebusierReload = new Sprite(PikeAndShotGame.ARQUEBUSIER_RELOAD, new Rectangle(16, 16, 16, 28), 128, 64, false, true, 25);
+                _arquebusierReload = new Sprite(PikeAndShotGame.ARQUEBUSIER_RELOAD, new Rectangle(16, 16, 16, 28), 128, 64, false, true, 25, screen);
                 _arquebusierShoot = new Sprite(PikeAndShotGame.ARQUEBUSIER_SHOOT, new Rectangle(16, 16, 16, 28), 128, 64);
             }
             else
             {
                 variant = false;
-                _feet = new Sprite(PikeAndShotGame.ARQUEBUSIER_FEET2, new Rectangle(4, 2, 16, 12), 26, 16, true, true, 25);
+                _feet = new Sprite(PikeAndShotGame.ARQUEBUSIER_FEET2, new Rectangle(4, 2, 16, 12), 26, 16, true, true, 25, screen);
                 _feet.flashable = false;
                 _idle = new Sprite(PikeAndShotGame.ARQUEBUSIER_IDLE2, new Rectangle(14, 10, 16, 28), 96, 48);
                 _death = new Sprite(PikeAndShotGame.ARQUEBUSIER_DEATH2, new Rectangle(40, 2, 16, 28), 72, 40);
@@ -2079,7 +2079,7 @@ namespace PikeAndShot
                 _route = new Sprite(PikeAndShotGame.ARQUEBUSIER_ROUTE, new Rectangle(30, 12, 16, 28), 48, 52);
                 _routed = new Sprite(PikeAndShotGame.ARQUEBUSIER2_ROUTED, new Rectangle(24, 24, 16, 28), 64, 64, true);
                 _routedTime = 2000f;
-                _arquebusierReload = new Sprite(PikeAndShotGame.ARQUEBUSIER_RELOAD2, new Rectangle(14, 10, 16, 28), 96, 48, false, true, 25);
+                _arquebusierReload = new Sprite(PikeAndShotGame.ARQUEBUSIER_RELOAD2, new Rectangle(14, 10, 16, 28), 96, 48, false, true, 25, screen);
                 _arquebusierShoot = new Sprite(PikeAndShotGame.ARQUEBUSIER_SHOOT2, new Rectangle(14, 10, 16, 28), 96, 48);
             }
 
@@ -3639,40 +3639,40 @@ namespace PikeAndShot
             hurtTimer = 0f;
             health = HEALTH;
 
-            _feet = new Sprite(PikeAndShotGame.BROWN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true,true);
+            _feet = new Sprite(PikeAndShotGame.BROWN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true, true, screen);
             _feet.flashable = false;
-            _idle = new Sprite(PikeAndShotGame.COLMILLOS_IDLE, new Rectangle(20, 4, 16, 28), 54, 42,false,true);
+            _idle = new Sprite(PikeAndShotGame.COLMILLOS_IDLE, new Rectangle(20, 4, 16, 28), 54, 42, false, true, screen);
             _idle.flashable = false;
             _death = new Sprite(PikeAndShotGame.COLMILLOS_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
             _melee1 = new Sprite(PikeAndShotGame.BERZERKER2_MELEE1, new Rectangle(24, 30, 16, 28), 64, 68);
             _defend1 = new Sprite(PikeAndShotGame.BERZERKER2_DEFEND1, new Rectangle(20, 2, 16, 28), 52, 40);
             _route = new Sprite(PikeAndShotGame.BERZERKER2_ROUTE, new Rectangle(12, 10, 16, 28), 40, 46);
             _routed = new Sprite(PikeAndShotGame.BERZERKER2_ROUTED, new Rectangle(12, 10, 16, 28), 40, 46, true);
-            _noshieldIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42,false,true);
+            _noshieldIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOSHIELD, new Rectangle(20, 4, 16, 28), 54, 42, false, true, screen);
             _noshieldIdle.flashable = false;
-            _attack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK, new Rectangle(12, 14, 16, 28), 78, 52, false, true);
+            _attack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK, new Rectangle(12, 14, 16, 28), 78, 52, false, true, screen);
             _attack.flashable = false;
-            _noShieldAttack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK2, new Rectangle(22, 12, 16, 28), 98, 50, false, true);
+            _noShieldAttack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK2, new Rectangle(22, 12, 16, 28), 98, 50, false, true, screen);
             _noShieldAttack.flashable = false;
-            _noArmourAttack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK3, new Rectangle(14, 22, 16, 28), 114, 60, false, true);
+            _noArmourAttack = new Sprite(PikeAndShotGame.COLMILLOS_ATTACK3, new Rectangle(14, 22, 16, 28), 114, 60, false, true, screen);
             _noArmourAttack.flashable = false;
-            _noArmourIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOARMOUR, new Rectangle(20, 4, 16, 28), 54, 42, false, true);
+            _noArmourIdle = new Sprite(PikeAndShotGame.COLMILLOS_IDLENOARMOUR, new Rectangle(20, 4, 16, 28), 54, 42, false, true, screen);
             _noArmourIdle.flashable = false;
-            _shieldBreak = new Sprite(PikeAndShotGame.COLMILLOS_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46,false, true);
+            _shieldBreak = new Sprite(PikeAndShotGame.COLMILLOS_SHIELDBREAK, new Rectangle(24, 4, 16, 28), 60, 46,false, true, screen);
             _shieldBreak.flashable = false;
-            _shieldFall = new Sprite(PikeAndShotGame.COLMILLOS_FALL, new Rectangle(76, 42, 16, 18), 110, 86,false,true);
+            _shieldFall = new Sprite(PikeAndShotGame.COLMILLOS_FALL, new Rectangle(76, 42, 16, 18), 110, 86,false,true, screen);
             _shieldFall.flashable = false;
-            _armourFall = new Sprite(PikeAndShotGame.COLMILLOS_FALLNOSHIELD, new Rectangle(76, 42, 16, 18), 110, 86,false,true);
+            _armourFall = new Sprite(PikeAndShotGame.COLMILLOS_FALLNOSHIELD, new Rectangle(76, 42, 16, 18), 110, 86,false,true, screen);
             _armourFall.flashable = false;
-            _rise = new Sprite(PikeAndShotGame.COLMILLOS_RISE, new Rectangle(40, 2, 16, 28), 72, 40,false, true);
+            _rise = new Sprite(PikeAndShotGame.COLMILLOS_RISE, new Rectangle(40, 2, 16, 28), 72, 40,false, true, screen);
             _rise.flashable = false;
-            _howl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL, new Rectangle(12, 10, 16, 28), 50, 54,false,true);
+            _howl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL, new Rectangle(12, 10, 16, 28), 50, 54,false,true, screen);
             _howl.flashable = false;
-            _noShieldHowl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL_NOSHIELD, new Rectangle(20, 12, 16, 28), 56, 44, false, true);
+            _noShieldHowl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL_NOSHIELD, new Rectangle(20, 12, 16, 28), 56, 44, false, true, screen);
             _noShieldHowl.flashable = false;
-            _noArmourHowl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL_NOARMOUR, new Rectangle(16, 22, 16, 28), 52, 58, false, true);
+            _noArmourHowl = new Sprite(PikeAndShotGame.COLMILLOS_HOWL_NOARMOUR, new Rectangle(16, 22, 16, 28), 52, 58, false, true, screen);
             _noArmourHowl.flashable = false;
-            _stagger = new Sprite(PikeAndShotGame.COLMILLOS_STAGGER, new Rectangle(10, 18, 16, 28), 46, 58, false, true);
+            _stagger = new Sprite(PikeAndShotGame.COLMILLOS_STAGGER, new Rectangle(10, 18, 16, 28), 46, 58, false, true, screen);
             _stagger.flashable = false;
             _body = _idle;
             _feet.setAnimationSpeed(_footSpeed / 0.11f);

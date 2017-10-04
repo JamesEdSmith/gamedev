@@ -106,10 +106,10 @@ namespace PikeAndShot
             {
                 _coinSprites.Add(new Coin(this, BASE_COIN_START_POSITION, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i * 4f)));
             }
-            _coinMeter = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 94), 36, 94, false, true, 128, new Color(Color.Yellow.R, Color.Yellow.G, 100), 2);
-            _coinMeterHurt = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 94), 36, 94, false, true, 128, Color.Red,2);
-            _doppelMeter = new Sprite(PikeAndShotGame.DOPPEL_METER, new Rectangle(0, 0, 36, 100), 36, 100, false, true, 80, Color.White, 0.5f);
-            _doppelMeterHurt = new Sprite(PikeAndShotGame.DOPPEL_METER, new Rectangle(0, 0, 36, 100), 36, 100, false, true, 80, Color.Red, 2f);
+            _coinMeter = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 94), 36, 94, false, true, 128, new Color(Color.Yellow.R, Color.Yellow.G, 100), 2, this);
+            _coinMeterHurt = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 94), 36, 94, false, true, 128, Color.Red,2, this);
+            _doppelMeter = new Sprite(PikeAndShotGame.DOPPEL_METER, new Rectangle(0, 0, 36, 100), 36, 100, false, true, 80, Color.White, 0.5f, this);
+            _doppelMeterHurt = new Sprite(PikeAndShotGame.DOPPEL_METER, new Rectangle(0, 0, 36, 100), 36, 100, false, true, 80, Color.Red, 2f, this);
             _coinMeterTimer = 0f;
             lootSpills = new LootSpill[4];
             for (int i = 0; i < 4; i++)

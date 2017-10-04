@@ -67,7 +67,7 @@ namespace PikeAndShot
             _blackTexture.SetData<Color>(pixelData);*/
         }
 
-        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreshold, Color color, float dampening):
+        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreshold, Color color, float dampening, BattleScreen screen):
             this(bitmap, boundingRect, frameWidth, frameHeight, loop)
         {
             this.flashable = true;
@@ -76,16 +76,16 @@ namespace PikeAndShot
             this.dampening = dampening;
 
             //create flash texture
-            createFlashTexture();
+            _flashTexture = screen.getFlashTexture(bitmap);
         }
 
-        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable) :
-            this(bitmap, boundingRect, frameWidth, frameHeight, loop, flashable, 25, Color.White, 2)
+        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, BattleScreen screen) :
+            this(bitmap, boundingRect, frameWidth, frameHeight, loop, flashable, 25, Color.White, 2, screen)
         {
         }
 
-        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreashold) :
-            this(bitmap, boundingRect, frameWidth, frameHeight, loop, flashable, flashStartThreashold, Color.White, 2)
+        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreashold, BattleScreen screen) :
+            this(bitmap, boundingRect, frameWidth, frameHeight, loop, flashable, flashStartThreashold, Color.White, 2, screen)
         {
         }
 
@@ -97,21 +97,6 @@ namespace PikeAndShot
         public void setLoop (bool loop)
         {
             _loop = loop;
-        }
-
-        public void createFlashTexture()
-        {
-            //create flash texture
-            Color[] pixelData = new Color[_sourceBitmap.Width * _sourceBitmap.Height];
-            _sourceBitmap.GetData<Color>(pixelData);
-
-            for (int i = 0; i < pixelData.Length; i++)
-            {
-                if (pixelData[i].A != 0)
-                    pixelData[i] = Color.White;
-            }
-            _flashTexture = new Texture2D(_sourceBitmap.GraphicsDevice, _sourceBitmap.Width, _sourceBitmap.Height);
-            _flashTexture.SetData<Color>(pixelData);
         }
 
         public Texture2D getSourceBitmap()
@@ -421,6 +406,11 @@ namespace PikeAndShot
                 return true;
             else
                 return false;
+        }
+
+        internal void createFlashTexture(BattleScreen screen)
+        {
+            _flashTexture = screen.getFlashTexture(_sourceBitmap);
         }
     }
 
