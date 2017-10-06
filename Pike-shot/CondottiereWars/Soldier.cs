@@ -385,10 +385,12 @@ namespace PikeAndShot
         {
             float shimmy = 10f;
             Terrain terrain = terrainCollider;
+            Vector2 destCenter = this.getDestCenter(dest);
             if (terrain is CollisionCircle)
             {
-                shimmy = 20f;
-                Vector2 delta = terrain.getCenter() - getCenter();
+
+                shimmy = 50f;
+                Vector2 delta = terrain.getCenter() - this.getCenter();
 
                 double angle = Math.Atan2(delta.Y, delta.X);
                 double cos = Math.Cos(angle);
@@ -401,21 +403,21 @@ namespace PikeAndShot
             }
             else
             {
-                if (this.getDestCenter(dest).X < terrain.collisionCenter.X)
+                if (destCenter.X < terrain.collisionCenter.X)
                 {
-                    if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - this.getDestCenter(dest).Y > terrain.collisionCenter.X - this.getDestCenter(dest).X)
+                    if (destCenter.Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - destCenter.Y > terrain.collisionCenter.X - destCenter.X)
                     {
                         dest.X = terrain.collisionBox.X - getWidth() - shimmy;
                         dest.Y = terrain.collisionBox.Y - getHeight();
                     }
-                    else if (this.getDestCenter(dest).Y > terrain.collisionCenter.Y && this.getDestCenter(dest).Y - terrain.collisionCenter.Y > terrain.collisionCenter.X - this.getDestCenter(dest).X)
+                    else if (destCenter.Y > terrain.collisionCenter.Y && destCenter.Y - terrain.collisionCenter.Y > terrain.collisionCenter.X - destCenter.X)
                     {
                         dest.X = terrain.collisionBox.X - getWidth() - shimmy;
                         dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height;
                     }
                     else
                     {
-                        if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y)
+                        if (destCenter.Y < terrain.collisionCenter.Y)
                         {
                             dest.Y = terrain.collisionBox.Y - getHeight() - shimmy;
                             dest.X = terrain.collisionBox.X - getWidth() - shimmy;
@@ -429,19 +431,19 @@ namespace PikeAndShot
                 }
                 else
                 {
-                    if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - this.getDestCenter(dest).Y > this.getDestCenter(dest).X - terrain.collisionCenter.X)
+                    if (destCenter.Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - destCenter.Y > destCenter.X - terrain.collisionCenter.X)
                     {
                         dest.X = terrain.collisionBox.X + terrain.collisionBox.Width + shimmy;
                         dest.Y = terrain.collisionBox.Y - getHeight() - shimmy;
                     }
-                    else if (this.getDestCenter(dest).Y > terrain.collisionCenter.Y && this.getDestCenter(dest).Y - terrain.collisionCenter.Y > this.getDestCenter(dest).X - terrain.collisionCenter.X)
+                    else if (destCenter.Y > terrain.collisionCenter.Y && destCenter.Y - terrain.collisionCenter.Y > destCenter.X - terrain.collisionCenter.X)
                     {
                         dest.X = terrain.collisionBox.X + terrain.collisionBox.Width + shimmy;
                         dest.Y = terrain.collisionBox.Y + terrain.collisionBox.Height + shimmy;
                     }
                     else
                     {
-                        if (this.getDestCenter(dest).Y < terrain.collisionCenter.Y)
+                        if (destCenter.Y < terrain.collisionCenter.Y)
                         {
                             dest.Y = terrain.collisionBox.Y - getHeight() - shimmy;
                             dest.X = terrain.collisionBox.X + terrain.collisionBox.Width + shimmy;
