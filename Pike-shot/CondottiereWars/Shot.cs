@@ -493,7 +493,10 @@ namespace PikeAndShot
         {
             _damage = 1;
             _animationTime = 250f;
-            _sprite = new Sprite(PikeAndShotGame.SKIRMISHER_JAVELIN, new Rectangle(32, 6, 8, 4), 48, 14);
+            _sprite = new Sprite(PikeAndShotGame.SKIRMISHER_JAVELIN, new Rectangle(32, 6, 8, 4), 48, 14, false, true,screen);
+            _sprite.flashable = false;
+            _sprite.flashColor = Color.Yellow;
+            _sprite.setEffect(Sprite.EFFECT_FLASH_RED, 1500f / 8f);
             _ground = new Sprite(PikeAndShotGame.SKIRMISHER_GROUND, new Rectangle(34, 16, 8, 4), 48, 20);
             _groundTime = 300f;
         }
@@ -510,7 +513,10 @@ namespace PikeAndShot
             _speed = 0.27f;
             _damage = 1;
             _animationTime = 250f;
-            _sprite = new Sprite(PikeAndShotGame.SLINGER_ROCK, new Rectangle(14, 4, 4, 4), 22, 12);
+            _sprite = new Sprite(PikeAndShotGame.SLINGER_ROCK, new Rectangle(14, 4, 4, 4), 22, 12, false, true,screen);
+            _sprite.flashable = false;
+            _sprite.flashColor = Color.Yellow;
+            _sprite.setEffect(Sprite.EFFECT_FLASH_RED, 1500f / 8f);
             _ground = new Sprite(PikeAndShotGame.SLINGER_GROUND, new Rectangle(12, 4, 4, 4), 28, 12);
             _groundTime = 300f;
             _lifeTime = 1500f;
