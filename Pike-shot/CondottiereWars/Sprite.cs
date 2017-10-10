@@ -286,7 +286,10 @@ namespace PikeAndShot
 
                 if (side == BattleScreen.SIDE_PLAYER)
                 {
-                    spritebatch.Draw(_flashTexture, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    spritebatch.Draw(_flashTexture, _position - new Vector2(1, 1) - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    spritebatch.Draw(_flashTexture, _position - new Vector2(-1, -1) - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    spritebatch.Draw(_flashTexture, _position - new Vector2(1, -1) - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    spritebatch.Draw(_flashTexture, _position - new Vector2(-1, 1) - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 }
                 else
                 {
