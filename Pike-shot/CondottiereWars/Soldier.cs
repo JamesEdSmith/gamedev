@@ -322,6 +322,11 @@ namespace PikeAndShot
                     if( _state != Targeteer.STATE_SHIELDBREAK)
                         addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
                 }
+                else if (this is Pikeman)
+                {
+                    if (_state != Pikeman.STATE_TUG)
+                        addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                }
                 else if (this is DismountedCavalry )
                 {
                     if(_state != DismountedCavalry.STATE_FALLING)
@@ -467,7 +472,7 @@ namespace PikeAndShot
 
             if (guarding)
             {
-                guarding = guardTarget != null && _state != STATE_DYING && _state != STATE_DEAD;
+                guarding = guardTarget != null && _state != STATE_DYING && _state != STATE_DEAD && (this is Pikeman && _state != Pikeman.STATE_TUG);
                 if (guardTarget != null && guardTarget._position.X - _screen.getMapOffset().X < 0 - WIDTH)
                 {
                     guardTarget = null;
@@ -531,7 +536,8 @@ namespace PikeAndShot
                 && ((_state != Soldier.STATE_CHARGING || !initCharge )|| !(this is CrossbowmanPavise))
                 && ((_state != CrossbowmanPavise.STATE_PLACING) || !(this is CrossbowmanPavise))
                 && ((_state != CrossbowmanPavise.STATE_RETRIEVING) || !(this is CrossbowmanPavise))
-                && ((_state != Wolf.STATE_KILL && _state != Wolf.STATE_HOWLING) || !(this is Wolf)))
+                && ((_state != Wolf.STATE_KILL && _state != Wolf.STATE_HOWLING && _state != Wolf.STATE_TUG) || !(this is Wolf))
+                && ((_state != Pikeman.STATE_TUG) || !(this is Pikeman)))
             {
                 if (terrainCollider != null)
                 {
@@ -1243,6 +1249,11 @@ namespace PikeAndShot
                             ((PikeTip)collider).getPikeman().recoil();
                         }
                     }
+                    else if (this is Wolf && _state != Wolf.STATE_TUG && _state != Wolf.STATE_SPOOKED)
+                    {
+                        ((PikeTip)collider).getPikeman().tug();
+                        ((Wolf)this).tug(((PikeTip)collider).getPikeman());
+                    }
                 }
             }
             else if ((collider is WeaponSwing && collider.getSide() != _side) && (_state != STATE_DEAD && _state != STATE_DYING && _state != STATE_ROUTE && _state != STATE_ROUTED))
@@ -1526,7 +1537,7 @@ namespace PikeAndShot
                 _meleeDestination.X += 0.60f * Soldier.WIDTH;
         }
 
-        internal void alterDestination(bool changeX, float amount)
+        public virtual void alterDestination(bool changeX, float amount)
         {
             if (_state != STATE_DYING && _state != STATE_DEAD)
             {
@@ -1716,15 +1727,20 @@ namespace PikeAndShot
         public const int STATE_LOWERED = 101;
         public const int STATE_RECOILING = 102;
         public const int STATE_LOWER45 = 103;
+        public const int STATE_TUG = 104;
 
         private Sprite _pikemanLowerLow;
         private Sprite _pikemanLowerHigh;
         private Sprite _pikemanRecoil;
+        private Sprite _tug;
 
         // lowered Sprite is a little more dynamic so we can assign different stlyes to it
         private Sprite _loweredSprite;
 
         private PikeTip _pikeTip;
+        public float tugTime = 2000f;
+
+        public bool variant;
 
         public Pikeman(BattleScreen screen, float x, float y, int side): base(screen, side, x, y)
         {
@@ -1738,6 +1754,7 @@ namespace PikeAndShot
 
             if (PikeAndShotGame.random.Next(51) > 25)
             {
+                variant = false;
                 _idle = new Sprite(PikeAndShotGame.PIKEMAN1_IDLE, new Rectangle(6, 68, 16, 28), 26, 106);
                 _death = new Sprite(PikeAndShotGame.PIKEMAN1_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
                 _pikemanLowerLow = new Sprite(PikeAndShotGame.PIKEMAN1_LOWER_LOW, new Rectangle(32, 67, 16, 28), 124, 106);
@@ -1746,9 +1763,12 @@ namespace PikeAndShot
                 _melee1 = new Sprite(PikeAndShotGame.PIKEMAN1_MELEE, new Rectangle(24, 30, 16, 28), 64, 68);
                 _defend1 = new Sprite(PikeAndShotGame.PIKEMAN1_DEFEND, new Rectangle(20, 2, 16, 28), 52, 40);
                 _routed = new Sprite(PikeAndShotGame.PIKEMAN_ROUTED, new Rectangle(24, 20, 16, 28), 64, 64);
+                _tug = new Sprite(PikeAndShotGame.PIKEMAN_TUG, new Rectangle(38, 12, 16, 28), 164, 50);
+                tugTime = 2350f;
             }
             else
             {
+                variant = true;
                 _idle = new Sprite(PikeAndShotGame.PIKEMAN2_IDLE, new Rectangle(6, 68, 16, 28), 26, 106);
                 _death = new Sprite(PikeAndShotGame.PIKEMAN2_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
                 _pikemanLowerLow = new Sprite(PikeAndShotGame.PIKEMAN2_LOWER_LOW, new Rectangle(32, 67, 16, 28), 124, 106);
@@ -1757,6 +1777,8 @@ namespace PikeAndShot
                 _melee1 = new Sprite(PikeAndShotGame.PIKEMAN2_MELEE, new Rectangle(24, 30, 16, 28), 64, 68);
                 _defend1 = new Sprite(PikeAndShotGame.PIKEMAN2_DEFEND, new Rectangle(20, 2, 16, 28), 52, 40);
                 _routed = new Sprite(PikeAndShotGame.PIKEMAN2_ROUTED, new Rectangle(14, 10, 16, 28), 48, 48);
+                _tug = new Sprite(PikeAndShotGame.PIKEMAN2_TUG, new Rectangle(38, 12, 16, 28), 164, 50);
+                tugTime = 1200f;
             }
             _feet = new Sprite(PikeAndShotGame.PIKEMAN_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
             _route = new Sprite(PikeAndShotGame.PIKEMAN_ROUTE, new Rectangle(6, 78, 16, 28), 50, 116);
@@ -1789,11 +1811,8 @@ namespace PikeAndShot
         public override void setState(int state)
         {
             base.setState(state);
-            if (_screen.getPlayerFormation().getState() == Formation.STATE_PIKE)
-            {
-                _stateTimer = _attackTime / 2f;
-                _state = STATE_ATTACKING;
-            }
+            _stateTimer = 0;
+            myFormation.reiteratePikeCommand(this);
         }
 
         public override bool attack()
@@ -1807,7 +1826,7 @@ namespace PikeAndShot
                 _stateTimer = _attackTime - _stateTimer;
             }
 
-            if(_state != STATE_LOWERED)
+            if(_state != STATE_LOWERED && _state != STATE_TUG)
                 _state = STATE_ATTACKING;
 
             return true;
@@ -1959,6 +1978,15 @@ namespace PikeAndShot
                         }
                     }
                 }
+                else if (_state == STATE_TUG)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+
+                    if (_stateTimer <= 0)
+                    {
+                        _stateTimer = tugTime;
+                    }
+                }
             }
 
             if (_state != STATE_LOWERED && _state != STATE_RECOILING)
@@ -2027,6 +2055,16 @@ namespace PikeAndShot
                     _body = _loweredSprite;
                 }
             }
+            else if (_state == STATE_TUG)
+            {
+                int maxFrames = _tug.getMaxFrames();
+                float frameTime = tugTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                _tug.setFrame(frameNumber);
+
+                _body = _tug;
+            }
         }
 
         internal void recoil()
@@ -2036,6 +2074,26 @@ namespace PikeAndShot
             if (_screen is LevelScreen)
                 ((LevelScreen)_screen).makePikeSound();
             //_stateChanged = true;
+        }
+
+        public void tug()
+        {
+            _state = STATE_TUG;
+            _stateTimer = tugTime;
+            _meleeDestination = _position;
+        }
+
+        public void untug()
+        {
+            _state = STATE_LOWERED;
+            _stateTimer = 0f;
+            if (myFormation != null)
+            {
+                if(myFormation.retreated)
+                    route();
+                else
+                    myFormation.reiteratePikeCommand(this);
+            }
         }
     }
 
@@ -4053,6 +4111,7 @@ namespace PikeAndShot
         public const int STATE_SPOOKED = 803;
         public const int STATE_FLEE = 804;
         public const int STATE_HOWLING = 805;
+        public const int STATE_TUG = 806;
         
         protected Sprite _idleFeet;
         public Sprite _runningFeet;
@@ -4060,9 +4119,14 @@ namespace PikeAndShot
         protected Sprite _turnFeet;
         protected Sprite _killFeet;
         protected Sprite _howlFeet;
+        protected Sprite _tug;
+        protected Sprite _tug1;
+        protected Sprite _tug2;
+
         float _idleTime;
         float _turnTime;
         float _killTime;
+        float _tugTime;
         protected float _howlTime;
         protected float _idleAnimTime;
         public bool _turned;
@@ -4073,6 +4137,8 @@ namespace PikeAndShot
         public bool retreat;
         private bool playAttackSound;
         private bool playHowlSound;
+
+        private Pikeman pikeman;
 
         public Wolf(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
@@ -4102,6 +4168,8 @@ namespace PikeAndShot
                 _killFeet = new Sprite(PikeAndShotGame.WOLF_KILL, new Rectangle(14, 12, 14, 14), 68, 28, true);
                 _howlFeet = new Sprite(PikeAndShotGame.WOLF_HOWL, new Rectangle(18, 24, 14, 14), 52, 40, true);
                 _feet = _runningFeet = new Sprite(PikeAndShotGame.WOLF_RUN, new Rectangle(16, 10, 14, 14), 44, 26, true);
+                _tug = _tug1 = new Sprite(PikeAndShotGame.WOLF_TUG, new Rectangle(124, 34, 14, 14), 164, 50);
+                _tug2 = new Sprite(PikeAndShotGame.WOLF2_TUG, new Rectangle(124, 34, 14, 14), 164, 50);
             }
             else
             {
@@ -4114,6 +4182,8 @@ namespace PikeAndShot
                 _killFeet = new Sprite(PikeAndShotGame.WOLF_KILLg, new Rectangle(14, 12, 14, 14), 68, 28, true);
                 _howlFeet = new Sprite(PikeAndShotGame.WOLF_HOWLg, new Rectangle(18, 24, 14, 14), 52, 40, true);
                 _feet = _runningFeet = new Sprite(PikeAndShotGame.WOLF_RUNg, new Rectangle(16, 10, 14, 14), 44, 26, true);
+                _tug = _tug1 = new Sprite(PikeAndShotGame.WOLF_TUGg, new Rectangle(124, 34, 14, 14), 164, 50);
+                _tug2 = new Sprite(PikeAndShotGame.WOLF2_TUGg, new Rectangle(124, 34, 14, 14), 164, 50);
             }
 
             _howlFeet.setMaxFrames(_howlFeet.getMaxFrames() - 1);
@@ -4127,7 +4197,13 @@ namespace PikeAndShot
         public override void hit()
         {
             if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
+            {
                 _engager.setState(_engager.preAttackState);
+                _engager._stateTimer = 0f;
+            }
+
+            if (_state == STATE_TUG && pikeman.getState() == Pikeman.STATE_TUG)
+                pikeman.untug();
 
             _state = STATE_SPOOKED;
             _stateTimer = _deathTime;
@@ -4137,6 +4213,9 @@ namespace PikeAndShot
 
         protected override void engage(bool win, Vector2 position, Soldier engager, bool rescueFight)
         {
+            if (_state == STATE_TUG && pikeman.getState() == Pikeman.STATE_TUG)
+                pikeman.untug();
+
             base.engage(win, position, engager, rescueFight);
         }
 
@@ -4156,6 +4235,12 @@ namespace PikeAndShot
                     }
                 }
             }
+            if (_state == STATE_TUG && pikeman.getState() != Pikeman.STATE_TUG)
+            {
+                pikeman = null;
+                fleeStart();
+            }
+
         }
 
         internal override void setSpeed(float p)
@@ -4196,6 +4281,17 @@ namespace PikeAndShot
             }
 
             return false;
+        }
+
+        public override void alterDestination(bool changeX, float amount)
+        {
+            if (_state != STATE_DYING && _state != STATE_DEAD && _state != STATE_SPOOKED && _state != STATE_TURNING && _state != STATE_FLEE)
+            {
+                if (changeX)
+                    _destination.X += amount;
+                else
+                    _destination.Y += amount;
+            }
         }
 
         public virtual void howl()
@@ -4240,8 +4336,9 @@ namespace PikeAndShot
             }
             else
             {
+                _state = STATE_READY;
+                alterDestination(true, _screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH + 999999 - _destination.X);
                 _state = STATE_FLEE;
-                alterDestination(true, _screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH + 201 - _destination.X);
                 _screen.addLooseSoldier(this);
                 if (bossFormation != null && bossFormation.getSoldiers().Contains(this))
                 {
@@ -4308,7 +4405,7 @@ namespace PikeAndShot
                 addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), (_state != STATE_RETREAT && _state != STATE_ROUTED && !_turned && !killOrientRight) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || (_state == STATE_KILL && !killOrientRight)) ? _side : _side * -1, _drawingY, true, 100f));
             else if (_state != STATE_DEAD)
             {
-                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), (_state != STATE_RETREAT && _state != STATE_ROUTED && !_turned && !killOrientRight) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || (_state == STATE_KILL && !killOrientRight)) ? _side : _side * -1, _drawingY));
+                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), (_state != STATE_RETREAT && _state != STATE_ROUTED && _state != STATE_TUG && !_turned && !killOrientRight) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || (_state == STATE_KILL && !killOrientRight)) ? _side : _side * -1, _drawingY));
             }
 
             //addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
@@ -4385,6 +4482,15 @@ namespace PikeAndShot
                         _stateTimer = _idleTime;
                     }
                 }
+                else if (_state == STATE_TUG)
+                {
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+
+                    if (_stateTimer <= 0)
+                    {
+                        _stateTimer = _tugTime;
+                    }
+                }
                 else if (_state == STATE_HOWLING)
                 {
                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
@@ -4451,6 +4557,14 @@ namespace PikeAndShot
 
                 _killFeet.setFrame(frameNumber);
             }
+            else if (_state == STATE_TUG)
+            {
+                int maxFrames = _tug.getMaxFrames();
+                float frameTime = _tugTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_stateTimer / frameTime) - 1;
+
+                _tug.setFrame(frameNumber);
+            }
             else if (_state == STATE_READY && _delta.Length() == 0)
             {
                 if (_stateTimer <= _idleAnimTime)
@@ -4491,6 +4605,8 @@ namespace PikeAndShot
 
             if (_state == STATE_ATTACK)
                 _feet = _attackFeet;
+            else if (_state == STATE_TUG)
+                _feet = _tug;
             else if (_state == STATE_TURNING)
                 _feet = _turnFeet;
             else if (_state == STATE_DYING || _state == STATE_SPOOKED)
@@ -4505,6 +4621,24 @@ namespace PikeAndShot
                 _feet = _runningFeet;
             else
                 _feet = _idleFeet;
+        }
+
+        internal void tug(Pikeman pikeman)
+        {
+            if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
+            {
+                _engager.setState(_engager.preAttackState);
+                
+            }
+
+            this.pikeman = pikeman;
+            _state = STATE_TUG;
+            _stateTimer = _tugTime = pikeman.tugTime;
+            _meleeDestination = pikeman.getPosition() + new Vector2(84, -2);
+            if (pikeman.variant)
+                _tug = _tug2;
+            else
+                _tug = _tug1;
         }
     }
 

@@ -93,6 +93,12 @@ namespace PikeAndShot
         public static Texture2D PIKEMAN_ROUTE;
         public static Texture2D PIKEMAN_ROUTED;
         public static Texture2D PIKEMAN2_ROUTED;
+        public static Texture2D PIKEMAN_TUG;
+        public static Texture2D PIKEMAN2_TUG;
+        public static Texture2D WOLF2_TUG;
+        public static Texture2D WOLF_TUG;
+        public static Texture2D WOLF2_TUGg;
+        public static Texture2D WOLF_TUGg;
 
         public static Texture2D ARQUEBUSIER_FEET;
         public static Texture2D ARQUEBUSIER_IDLE;
@@ -570,6 +576,12 @@ namespace PikeAndShot
             PIKEMAN_ROUTE = Content.Load<Texture2D>(@"pikeman_route");
             PIKEMAN_ROUTED = Content.Load<Texture2D>(@"pikeman1_over");
             PIKEMAN2_ROUTED = Content.Load<Texture2D>(@"pikeman2_over");
+            PIKEMAN_TUG = Content.Load<Texture2D>(@"tug_pikeman");
+            PIKEMAN2_TUG = Content.Load<Texture2D>(@"tug_pikeman2");
+            WOLF_TUG = Content.Load<Texture2D>(@"tug_wolf");
+            WOLF2_TUG = Content.Load<Texture2D>(@"tug_wolf2");
+            WOLF_TUGg = getGreyscaleClone(WOLF_TUG);
+            WOLF2_TUGg = getGreyscaleClone(WOLF2_TUG);
 
             ARQUEBUSIER_FEET = Content.Load<Texture2D>(@"arquebusier_feet");
             ARQUEBUSIER_IDLE = Content.Load<Texture2D>(@"gonner_idle");

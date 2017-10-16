@@ -21,7 +21,7 @@ namespace PikeAndShot
         public float _drawingY;
         protected int _state;
         protected int _side;
-        protected float _stateTimer;
+        public float _stateTimer;
         protected float _stateTime;
         public Vector2 _guardPositionOffset;
 
@@ -87,6 +87,7 @@ namespace PikeAndShot
         public virtual void setState(int state)
         {
             _state = state;
+            _stateTimer = 0;
         }
     }
 

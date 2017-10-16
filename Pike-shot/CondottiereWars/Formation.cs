@@ -1045,11 +1045,9 @@ namespace PikeAndShot
             Pikeman pikeman = (Pikeman)firstRow[0];
             if (pikeman.getState() == Pikeman.STATE_ATTACKING || pikeman.getState() == Pikeman.STATE_LOWERED ||
                 pikeman.getState() == Pikeman.STATE_RECOILING || (pikeman.getState() == Pikeman.STATE_READY && _state == STATE_PIKE))
-                pikeAttack();
-            else if (pikeman.getState() == Pikeman.STATE_RAISING)
-                pikeRaise();
-            else if (pikeman.getState() == Pikeman.STATE_LOWER45)
-                soldier.lower45();
+                soldier.attack();
+            else 
+                soldier.raise();
         }
 
         private float getSlowedSoldiers()
