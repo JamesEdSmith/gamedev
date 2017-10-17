@@ -301,6 +301,8 @@ namespace PikeAndShot
         {
             this.radius = radius;
             collidable = true;
+            collisionCenter = _position + new Vector2(radius);
+            collisionBox = new Rectangle((int)_position.X, (int)_position.Y, (int)radius * 2, (int)radius * 2);
         }
 
         public override void draw(SpriteBatch spritebatch)

@@ -136,7 +136,7 @@ namespace PikeAndShot
         protected bool playedFallSound;
         protected bool playedMeleeSound;
 
-        public Terrain terrainCollider;
+        public ArrayList terrainColliders;
 
         public Soldier(BattleScreen screen, int side, float x, float y): base(screen, side)
         {
@@ -179,6 +179,7 @@ namespace PikeAndShot
             _engager = null;
             _chargeTime = 800f;//400f;
             givesRescueReward = false;
+            terrainColliders = new ArrayList(4);
 
             _feet = new Sprite(PikeAndShotGame.SOLDIER_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
             _idle = new Sprite(PikeAndShotGame.SOLDIER_IDLE, new Rectangle(10, 2, 16, 28), 46, 42);
@@ -389,25 +390,29 @@ namespace PikeAndShot
         Vector2 getCollidedDest(Vector2 dest)
         {
             float shimmy = 10f;
-            Terrain terrain = terrainCollider;
-            Vector2 destCenter = this.getDestCenter(dest);
-            if (terrain is CollisionCircle)
+            int i = 0;
+            Vector2[] dests = new Vector2[terrainColliders.Count]; 
+
+            foreach (Terrain terrain in terrainColliders)
             {
+                Vector2 destCenter = this.getDestCenter(dest);
+                /*if (terrain is CollisionCircle)
+                {
 
-                shimmy = 50f;
-                Vector2 delta = terrain.getCenter() - this.getCenter();
+                    shimmy = 50f;
+                    Vector2 delta = terrain.getCenter() - this.getCenter();
 
-                double angle = Math.Atan2(delta.Y, delta.X);
-                double cos = Math.Cos(angle);
-                double sin = Math.Sin(angle);
+                    double angle = Math.Atan2(delta.Y, delta.X);
+                    double cos = Math.Cos(angle);
+                    double sin = Math.Sin(angle);
 
-                dest.X = (float)cos * (((CollisionCircle)terrain).radius + shimmy);
-                dest.Y = (float)sin * (((CollisionCircle)terrain).radius + shimmy);
+                    dest.X = (float)cos * (((CollisionCircle)terrain).radius + shimmy);
+                    dest.Y = (float)sin * (((CollisionCircle)terrain).radius + shimmy);
 
-                dest = terrain.getCenter() - dest;
-            }
-            else
-            {
+                    dest = terrain.getCenter() - dest;
+                }
+                else
+                {*/
                 if (destCenter.X < terrain.collisionCenter.X)
                 {
                     if (destCenter.Y < terrain.collisionCenter.Y && terrain.collisionCenter.Y - destCenter.Y > terrain.collisionCenter.X - destCenter.X)
@@ -460,8 +465,22 @@ namespace PikeAndShot
                         }
                     }
                 }
+                //}
+                dests[i] = dest;
+                i++;
             }
-            terrainCollider = null;
+            
+            dest = Vector2.Zero;
+            
+            foreach (Vector2 vect in dests)
+            {
+                dest += vect;
+            }
+
+            dest /= dests.Length;
+
+            terrainColliders.Clear();
+
             return dest;
         }
 
@@ -539,7 +558,7 @@ namespace PikeAndShot
                 && ((_state != Wolf.STATE_KILL && _state != Wolf.STATE_HOWLING && _state != Wolf.STATE_TUG) || !(this is Wolf))
                 && ((_state != Pikeman.STATE_TUG) || !(this is Pikeman)))
             {
-                if (terrainCollider != null)
+                if (terrainColliders.Count > 0)
                 {
                     Vector2 tempDest = getCollidedDest(_destination);
                     _delta = tempDest - _position;
@@ -553,7 +572,7 @@ namespace PikeAndShot
             }
             else
             {
-                if (terrainCollider != null)
+                if (terrainColliders.Count > 0)
                 {
                     Vector2 tempDest = getCollidedDest(_meleeDestination);
                     _delta = tempDest - _position;
@@ -561,9 +580,7 @@ namespace PikeAndShot
                 }
                 _delta = _meleeDestination - _position;
                 _dest = _meleeDestination;
-
             }
-
             if (_side == BattleScreen.SIDE_PLAYER && myFormation == _screen.getPlayerFormation())
             {
                 _travel.X = (float)timeSpan.TotalMilliseconds * _speed;
@@ -1193,7 +1210,7 @@ namespace PikeAndShot
                 return;
             if (collider is Terrain)
             {
-                terrainCollider = (Terrain)collider;
+                terrainColliders.Add((Terrain)collider);
             }
             else if (collider is Shot && collider.getSide() != _side && !(collider is Pavise) && collider.getState() != STATE_DEAD && collider.getState() != Shot.STATE_GROUND)
             {
@@ -1826,8 +1843,10 @@ namespace PikeAndShot
                 _stateTimer = _attackTime - _stateTimer;
             }
 
-            if(_state != STATE_LOWERED && _state != STATE_TUG)
+            if (_state != STATE_LOWERED && _state != STATE_TUG)
                 _state = STATE_ATTACKING;
+            else
+                preAttackState = STATE_ATTACKING;
 
             return true;
         }
@@ -1896,7 +1915,7 @@ namespace PikeAndShot
 
         public void raise()
         {
-            
+
             if (_state == STATE_LOWERED)
             {
                 _stateTimer = _attackTime + PikeAndShotGame.getRandPlusMinus(50);
@@ -1914,6 +1933,8 @@ namespace PikeAndShot
                 _stateTimer = _attackTime - _stateTimer;
                 _state = STATE_RAISING;
             }
+            else
+                preAttackState = STATE_RAISING;
             
             guardTarget = null;
             _speed = 0.15f;

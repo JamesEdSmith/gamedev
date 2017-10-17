@@ -324,6 +324,11 @@ namespace PikeAndShot
         {
             int x = 0;
 
+            if (this is LevelScreen)
+            {
+                ((LevelScreen)this)._formation.collisions = 0;
+            }
+
             float soX, soY, soWidth, soHeight;
             float coX, coY, coWidth, coHeight;
             
@@ -407,6 +412,7 @@ namespace PikeAndShot
                     soWidth = so.getWidth();
                     soHeight = so.getHeight();
                 }
+
                 foreach (ScreenObject co in _screenColliders)
                 {
                     if (so != co)
@@ -505,9 +511,15 @@ namespace PikeAndShot
                             so.collide(co, timeSpan);
                             oneCollision = true;
                             co.collide(so, timeSpan);
+                            if (this is LevelScreen && so is Soldier)
+                            {
+                                if(((Soldier)so).inPlayerFormation && co is Terrain)
+                                    ((LevelScreen)this)._formation.collisions++;
+                            }
                         }
                     }
                 }
+
                 if (!oneCollision)
                     _screenColliders.Remove(so);
             }
