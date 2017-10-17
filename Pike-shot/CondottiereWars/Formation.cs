@@ -983,7 +983,7 @@ namespace PikeAndShot
                 }
                 spritebatch.Draw(PikeAndShotGame.getDotTexture(), _position - _screen.getMapOffset(), Color.White);
                 spritebatch.Draw(PikeAndShotGame.getDotTexture(), new Vector2(_position.X - _screen.getMapOffset().X + (getTotalRows() * Soldier.WIDTH), _position.Y - _screen.getMapOffset().Y + getTotalRows() * Soldier.HEIGHT), Color.White);
-                spritebatch.Draw(PikeAndShotGame.getDotTexture(), this.getCenter() - _screen.getMapOffset(), Color.White);
+                spritebatch.Draw(PikeAndShotGame.BERZERKER_IDLE, this.getCenter() - _screen.getMapOffset(), Color.White);
             }
         }
 
@@ -1260,7 +1260,7 @@ namespace PikeAndShot
 
         public void marchUp(double milliseconds, bool diagonal)
         {
-            if (!checkFormationCollided())
+            if (!checkFormationCollided() || !mostSoldiersBelow())
             {
                 float amount;
 
@@ -1298,9 +1298,33 @@ namespace PikeAndShot
             }
         }
 
+        private bool mostSoldiersBelow()
+        {
+            Vector2 pos = Vector2.Zero;
+            foreach (Soldier soldier in _soldiers)
+            {
+                pos += soldier.getPosition();
+            }
+            pos /= _soldiers.Count;
+
+            return pos.Y < getCenter().Y;
+        }
+
+        private bool mostSoldiersRight()
+        {
+            Vector2 pos = Vector2.Zero;
+            foreach (Soldier soldier in _soldiers)
+            {
+                pos += soldier.getPosition();
+            }
+            pos /= _soldiers.Count;
+
+            return pos.X > getCenter().X;
+        }
+
         public void marchDown(double milliseconds, bool diagonal)
         {
-            if (!checkFormationCollided())
+            if (!checkFormationCollided() || mostSoldiersBelow())
             {
                 float amount;
 
@@ -1339,7 +1363,7 @@ namespace PikeAndShot
 
         public void marchLeft(double milliseconds, bool diagonal)
         {
-            if (!checkFormationCollided())
+            if (!checkFormationCollided() || !mostSoldiersRight())
             {
                 Soldier lastSoldier;
                 bool shot = true;
@@ -1556,7 +1580,7 @@ namespace PikeAndShot
 
         public void marchRight(double milliseconds, bool diagonal)
         {
-            if (!checkFormationCollided())
+            if (!checkFormationCollided() || mostSoldiersRight())
             {
                 Soldier firstSoldier;
                 Soldier lastSoldier;
