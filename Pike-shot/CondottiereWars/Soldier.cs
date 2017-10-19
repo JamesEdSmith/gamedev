@@ -801,7 +801,7 @@ namespace PikeAndShot
                     else
                     {
                         _stateTimer -= (float)timeSpan.TotalMilliseconds;
-                        if (initCharge)
+                        if (initCharge && !(this is Wolf))
                         {
                             setSpeed(0.11f + (0.03f * (1f - (_stateTimer / (_chargeTime/2f)))));
                         }
@@ -3580,7 +3580,7 @@ namespace PikeAndShot
                 flipValue = -1;
             
             Hauler hauler = (Hauler)this;
-            if (_state != Hauler.STATE_HAULING || !hauler.variant)
+            if ((_state != Hauler.STATE_HAULING || !hauler.variant) && _state != Hauler.STATE_DEAD && _state != Hauler.STATE_DYING)
                 addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side * flipValue : _side * -1, _drawingY));
 
             addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side * flipValue : _side * -1, _drawingY));
@@ -4126,7 +4126,7 @@ namespace PikeAndShot
 
     public class Wolf : Soldier
     {
-        public const int STATE_ATTACK = 800;
+        public const int STATE_BARK = 800;
         public const int STATE_TURNING = 801;
         public const int STATE_KILL = 802;
         public const int STATE_SPOOKED = 803;
@@ -4288,25 +4288,19 @@ namespace PikeAndShot
             return false;
         }
 
-        public override bool attack()
+        public virtual void bark()
         {
             if (_state == STATE_READY)
             {
-                _state = STATE_ATTACK;
+                _state = STATE_BARK;
                 _stateTimer = _attackTime;
-                //_state = STATE_HOWLING;
-                //_stateTimer = _howlTime;
                 playAttackSound = true;
-                
-                return true;
             }
-
-            return false;
         }
 
         public override void alterDestination(bool changeX, float amount)
         {
-            if (_state != STATE_DYING && _state != STATE_DEAD && _state != STATE_SPOOKED && _state != STATE_TURNING && _state != STATE_FLEE)
+            if (_state != STATE_DYING && _state != STATE_DEAD && _state != STATE_SPOOKED && _state != STATE_FLEE)
             {
                 if (changeX)
                     _destination.X += amount;
@@ -4439,7 +4433,7 @@ namespace PikeAndShot
 
             if (!_stateChanged)
             {
-                if (_state == STATE_ATTACK)
+                if (_state == STATE_BARK)
                 {
                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
 
@@ -4554,7 +4548,7 @@ namespace PikeAndShot
         {
             base.updateAnimation(timeSpan);
 
-            if (_state == STATE_ATTACK)
+            if (_state == STATE_BARK)
             {
                 int maxFrames = _attackFeet.getMaxFrames();
                 float frameTime = _attackTime / (float)maxFrames;
@@ -4624,7 +4618,7 @@ namespace PikeAndShot
                 _howlFeet.setFrame(frameNumber);
             }
 
-            if (_state == STATE_ATTACK)
+            if (_state == STATE_BARK)
                 _feet = _attackFeet;
             else if (_state == STATE_TUG)
                 _feet = _tug;
@@ -4709,9 +4703,9 @@ namespace PikeAndShot
             schedule[0].time = SIT_TIME;
             schedule[1].state = STATE_GETUP;
             schedule[1].time = 2500f;
-            schedule[2].state = STATE_ATTACK;
+            schedule[2].state = STATE_BARK;
             schedule[2].time = _attackTime + 200f;
-            schedule[3].state = STATE_ATTACK;
+            schedule[3].state = STATE_BARK;
             schedule[3].time = _attackTime + 1000f;
             schedule[4].state = STATE_HOWLING;
             schedule[4].time = _howlTime;
@@ -4739,7 +4733,7 @@ namespace PikeAndShot
                         case STATE_GETUP:
                             getUp();
                             break;
-                        case STATE_ATTACK:
+                        case STATE_BARK:
                             attack();
                             break;
                         case STATE_HOWLING:

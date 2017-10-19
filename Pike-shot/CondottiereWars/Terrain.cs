@@ -118,6 +118,43 @@ namespace PikeAndShot
             _sprite.createFlashTexture(screen);
         }
 
+        public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, Vector2 spriteDimensions)
+            : this(screen, sprite, side, x, y)
+        {
+            _sprite = new Sprite(sprite, new Rectangle(0, 0, 0, 0), (int)spriteDimensions.X, (int)spriteDimensions.Y, false);
+
+            if (variantDict == null)
+            {
+                variantDict = new Dictionary<Texture2D, List<int>>();
+            }
+
+            if (!variantDict.ContainsKey(sprite))
+            {
+                List<int> variantList = new List<int>();
+                for (int i = 0; i < _sprite.getMaxFrames(); i++)
+                {
+                    variantList.Add(i);
+                }
+                variantDict.Add(sprite, variantList);
+            }
+
+            if (variantDict[sprite].Count < 1)
+            {
+                for (int i = 0; i < _sprite.getMaxFrames(); i++)
+                {
+                    variantDict[sprite].Add(i);
+                }
+            }
+
+            int variant = PikeAndShotGame.random.Next(variantDict[sprite].Count);
+            _sprite.setFrame(variantDict[sprite][variant]);
+            variantDict[sprite].RemoveAt(variant);
+
+            _drawingY = _position.Y + 24f;
+            _sprite.createFlashTexture(screen);
+        }
+
+
         public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, Rectangle collisionBox, Vector2 spriteDimensions, float restTime, float animationTime)
             : this(screen, sprite, side, x, y, collisionBox, spriteDimensions)
         {
@@ -195,7 +232,7 @@ namespace PikeAndShot
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_DEAD_PEASANT:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.DEAD_PEASANT, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 18, (int)y + 10, 30, 6), new Vector2(56, 40));
+                    newTerrain = new Terrain(screen, PikeAndShotGame.DEAD_PEASANT, BattleScreen.SIDE_PLAYER, x, y, new Vector2(56, 40));
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_100_CIRCLE:

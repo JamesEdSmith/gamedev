@@ -124,6 +124,7 @@ namespace PikeAndShot
         public void setAnimationSpeed(float speed)
         {
             _animationSpeed = speed;
+
         }
 
         public void reset()
@@ -443,6 +444,8 @@ namespace PikeAndShot
                 {
                     this.nextFrame();
                     _animationTime += _animationSpeed;
+                    if (_animationTime > 3000f)
+                        Console.WriteLine("fuck");
                 }
             }
         }

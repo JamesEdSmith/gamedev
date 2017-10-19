@@ -2171,7 +2171,7 @@ namespace PikeAndShot
                         colmillos.hurtTimer = 0f;
                     }
                 }
-                if (((Soldier)_soldiers[_soldiers.Count-1]).getState() != Wolf.STATE_ATTACK)
+                if (((Soldier)_soldiers[_soldiers.Count-1]).getState() != Wolf.STATE_BARK)
                 {
                     if (!attacked && colmillos.getState() != Colmillos.STATE_RUN && colmillos.getState() != Colmillos.STATE_ATTACK && colmillos.getState() != Colmillos.STATE_SHIELDBREAK && colmillos.getState() != Colmillos.STATE_DYING)
                     {
@@ -2604,7 +2604,7 @@ namespace PikeAndShot
                     {
                         if (s is Wolf && s.getState() != Wolf.STATE_FLEE && !((Wolf)s).flee)
                         {
-                            ((Wolf)s).attack();
+                            ((Wolf)s).bark();
                             s.setSpeed(0.2f);
                         }
                     }
