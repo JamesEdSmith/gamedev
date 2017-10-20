@@ -1779,7 +1779,7 @@ namespace PikeAndShot
 
             Soldier soldier = (Soldier)soldierList[i];
 
-            while (soldier.getState() == Soldier.STATE_MELEE_WIN || soldier.getState() == Soldier.STATE_MELEE_LOSS)
+            while (soldier.getState() == Soldier.STATE_MELEE_WIN || soldier.getState() == Soldier.STATE_MELEE_LOSS || soldier.getState() == Pikeman.STATE_TUG || soldier.getState() == Soldier.STATE_DYING)
             {
                 soldier = (Soldier)soldierList[i];
                 i++;
@@ -1787,7 +1787,7 @@ namespace PikeAndShot
                     break;
             }
 
-            if (soldier.getState() == Soldier.STATE_MELEE_WIN || soldier.getState() == Soldier.STATE_MELEE_LOSS)
+            if (soldier.getState() == Soldier.STATE_MELEE_WIN || soldier.getState() == Soldier.STATE_MELEE_LOSS || soldier.getState() == Pikeman.STATE_TUG || soldier.getState() == Soldier.STATE_DYING)
                 soldier = null;
 
             return soldier;

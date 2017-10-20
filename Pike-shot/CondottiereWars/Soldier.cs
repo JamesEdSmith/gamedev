@@ -69,7 +69,7 @@ namespace PikeAndShot
         public const int MELEE_REPETITIONS = 3;
 
         public Vector2 _destination;
-        public Vector2 _randDestOffset;
+        public Vector2 randDestOffset;
         public Vector2 _drawingPosition;
         public Vector2 _dest;
         public Vector2 _meleeDestination;
@@ -145,7 +145,7 @@ namespace PikeAndShot
             _dest = new Vector2(0,0);
             _meleeDestination = new Vector2(0, 0);
             _drawingPosition = Vector2.Zero;
-            _randDestOffset = new Vector2(PikeAndShotGame.getRandPlusMinus(3), 0);
+            randDestOffset = new Vector2(PikeAndShotGame.getRandPlusMinus(3), 0);
             _lastAction = PatternAction.ACTION_IDLE;
             _delta = Vector2.Zero;
             _travel = Vector2.Zero;
@@ -259,8 +259,8 @@ namespace PikeAndShot
 
         public void changeRandOffset()
         {
-            _randDestOffset.X = PikeAndShotGame.getRandPlusMinus(4);
-            _randDestOffset.Y = PikeAndShotGame.getRandPlusMinus(4);
+            randDestOffset.X = PikeAndShotGame.getRandPlusMinus(4);
+            randDestOffset.Y = PikeAndShotGame.getRandPlusMinus(4);
         }
 
         public void setAction(int newAction)
@@ -305,7 +305,7 @@ namespace PikeAndShot
 
         public void selectedDraw(SpriteBatch spritebatch)
         {
-            _drawingPosition = _position + _randDestOffset - _screen.getMapOffset();
+            _drawingPosition = _position + randDestOffset - _screen.getMapOffset();
             _charge.setFrame(3);
             _feet.setFrame(1);
             _screen.addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
@@ -314,7 +314,7 @@ namespace PikeAndShot
 
         public virtual void draw(SpriteBatch spritebatch)
         {
-            _drawingPosition = _position + _randDestOffset - _screen.getMapOffset();
+            _drawingPosition = _position + randDestOffset - _screen.getMapOffset();
 
             if (_state != STATE_DYING && _state != STATE_DEAD && _state != STATE_SPAWN && ((_state != STATE_MELEE_WIN && _state != STATE_MELEE_LOSS) || !(this is Arquebusier)))
             {
@@ -1266,9 +1266,9 @@ namespace PikeAndShot
                             ((PikeTip)collider).getPikeman().recoil();
                         }
                     }
-                    else if (this is Wolf && _state != Wolf.STATE_TUG && _state != Wolf.STATE_SPOOKED)
+                    else if (this is Wolf && _state != Wolf.STATE_TUG && _state != Wolf.STATE_SPOOKED && _state != STATE_DYING && _state != STATE_DEAD && _state != Wolf.STATE_FLEE && _state != Wolf.STATE_TURNING)
                     {
-                        ((PikeTip)collider).getPikeman().tug();
+                        ((PikeTip)collider).getPikeman().tug(((Wolf)this));
                         ((Wolf)this).tug(((PikeTip)collider).getPikeman());
                     }
                 }
@@ -1342,7 +1342,8 @@ namespace PikeAndShot
                     //push from collisions with other charging enemy soldiers
                     else if (myFormation == null && ((Soldier)collider).myFormation == null
                         && _side == BattleScreen.SIDE_ENEMY && collider.getSide() == BattleScreen.SIDE_ENEMY
-                        && (collider.getState() != STATE_DYING && collider.getState() != STATE_DEAD))
+                        && (collider.getState() != STATE_DYING && collider.getState() != STATE_DEAD && collider.getState() != STATE_MELEE_WIN && collider.getState() != STATE_MELEE_LOSS
+                        && collider.getState() != Wolf.STATE_TUG))
                     {
                         if (this._position.Y < collider._position.Y)
                         {
@@ -1609,7 +1610,7 @@ namespace PikeAndShot
 
         internal bool isReady()
         {
-            if (_state != STATE_MELEE_LOSS && _state != STATE_MELEE_WIN && _state != STATE_DYING && _state != STATE_DEAD)
+            if (_state != STATE_MELEE_LOSS && _state != STATE_MELEE_WIN && _state != STATE_DYING && _state != STATE_DEAD && _state != Pikeman.STATE_TUG)
                 return true;
             else
                 return false;
@@ -1758,6 +1759,7 @@ namespace PikeAndShot
         public float tugTime = 2000f;
 
         public bool variant;
+        public Wolf wolf;
 
         public Pikeman(BattleScreen screen, float x, float y, int side): base(screen, side, x, y)
         {
@@ -2007,6 +2009,8 @@ namespace PikeAndShot
                     {
                         _stateTimer = tugTime;
                     }
+                    if (wolf == null || wolf.getState() != Wolf.STATE_TUG)
+                        untug();
                 }
             }
 
@@ -2097,23 +2101,28 @@ namespace PikeAndShot
             //_stateChanged = true;
         }
 
-        public void tug()
+        internal void tug(Wolf wolf)
         {
             _state = STATE_TUG;
             _stateTimer = tugTime;
             _meleeDestination = _position;
+            this.wolf = wolf;
         }
 
         public void untug()
         {
-            _state = STATE_LOWERED;
-            _stateTimer = 0f;
-            if (myFormation != null)
+            if (_state == STATE_TUG)
             {
-                if(myFormation.retreated)
-                    route();
-                else
-                    myFormation.reiteratePikeCommand(this);
+                wolf = null;
+                _state = STATE_LOWERED;
+                _stateTimer = 0f;
+                if (myFormation != null)
+                {
+                    if (myFormation.retreated)
+                        route();
+                    else
+                        myFormation.reiteratePikeCommand(this);
+                }
             }
         }
     }
@@ -2258,13 +2267,13 @@ namespace PikeAndShot
             _shotMade = true;
             if (_side == BattleScreen.SIDE_PLAYER)
             {
-                _screen.addShot(new ArquebusierShot(new Vector2(this._position.X + 34 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _arquebusierShoot.getBoundingRect().Height - 10, shotHitSound));
-                new ArquebusierSmoke(_screen, _side, new Vector2(this._position.X + _randDestOffset.X, this._position.Y + _randDestOffset.Y));
+                _screen.addShot(new ArquebusierShot(new Vector2(this._position.X + 34 + randDestOffset.X, this._position.Y + 10 + randDestOffset.Y), this._screen, _side, _arquebusierShoot.getBoundingRect().Height - 10, shotHitSound));
+                new ArquebusierSmoke(_screen, _side, new Vector2(this._position.X + randDestOffset.X, this._position.Y + randDestOffset.Y));
             }
             else
             {
-                _screen.addShot(new ArquebusierShot(new Vector2(this._position.X - 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _arquebusierShoot.getBoundingRect().Height - 10, shotHitSound));
-                new ArquebusierSmoke(_screen, _side, new Vector2(this._position.X + _randDestOffset.X, this._position.Y + _randDestOffset.Y));
+                _screen.addShot(new ArquebusierShot(new Vector2(this._position.X - 18 + randDestOffset.X, this._position.Y + 10 + randDestOffset.Y), this._screen, _side, _arquebusierShoot.getBoundingRect().Height - 10, shotHitSound));
+                new ArquebusierSmoke(_screen, _side, new Vector2(this._position.X + randDestOffset.X, this._position.Y + randDestOffset.Y));
             }
 
             ((LevelScreen)_screen).makeShotSound();
@@ -2376,9 +2385,9 @@ namespace PikeAndShot
         {
             _shotMade = true;
             if (_side == BattleScreen.SIDE_PLAYER)
-                _screen.addShot(new CrossbowShot(new Vector2(this._position.X + 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10));
+                _screen.addShot(new CrossbowShot(new Vector2(this._position.X + 18 + randDestOffset.X, this._position.Y + 10 + randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10));
             else
-                _screen.addShot(new CrossbowShot(new Vector2(this._position.X - 14 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10));
+                _screen.addShot(new CrossbowShot(new Vector2(this._position.X - 14 + randDestOffset.X, this._position.Y + 10 + randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10));
         }
 
         public override float getOneAttackTime()
@@ -2522,12 +2531,12 @@ namespace PikeAndShot
             if (_side == BattleScreen.SIDE_PLAYER)
             {
                 if(bestTarget != null)
-                    _screen.addShot(new AimedBolt(new Vector2(this._position.X + 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10, bestTarget.getCenter(), bestTarget));
+                    _screen.addShot(new AimedBolt(new Vector2(this._position.X + 18 + randDestOffset.X, this._position.Y + 10 + randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10, bestTarget.getCenter(), bestTarget));
                 else
-                    _screen.addShot(new AimedBolt(new Vector2(this._position.X + 18 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10, this.getCenter() + new Vector2(100f, 0), bestTarget));
+                    _screen.addShot(new AimedBolt(new Vector2(this._position.X + 18 + randDestOffset.X, this._position.Y + 10 + randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10, this.getCenter() + new Vector2(100f, 0), bestTarget));
             }
             else
-                _screen.addShot(new CrossbowShot(new Vector2(this._position.X - 14 + _randDestOffset.X, this._position.Y + 10 + _randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10));
+                _screen.addShot(new CrossbowShot(new Vector2(this._position.X - 14 + randDestOffset.X, this._position.Y + 10 + randDestOffset.Y), this._screen, _side, _crossbowmanShoot.getBoundingRect().Height - 10));
         }
 
         protected override void attackDone()
@@ -2722,13 +2731,13 @@ namespace PikeAndShot
             _idle = new Sprite(PikeAndShotGame.CROSSBOWMAN_IDLE, new Rectangle(6, 4, 16, 28), 44, 42);
             if (_side == BattleScreen.SIDE_PLAYER)
             {
-                myPavise = new Pavise(new Vector2(this._position.X + 16f + _randDestOffset.X, this._position.Y + 12f + _randDestOffset.Y), this._screen, _side, 24f);
+                myPavise = new Pavise(new Vector2(this._position.X + 16f + randDestOffset.X, this._position.Y + 12f + randDestOffset.Y), this._screen, _side, 24f);
                 _screen.addShot(myPavise);
                 chargePosition -= new Vector2(8, 0);
                 _meleeDestination = myFormation.getCenter() + chargePosition;
             }
             else
-                _screen.addShot(new Pavise(new Vector2(this._position.X + 4f + _randDestOffset.X, this._position.Y + 12f + _randDestOffset.Y), this._screen, _side, 24f));
+                _screen.addShot(new Pavise(new Vector2(this._position.X + 4f + randDestOffset.X, this._position.Y + 12f + randDestOffset.Y), this._screen, _side, 24f));
         }
 
         public void paviseRetrieve()
@@ -3376,16 +3385,16 @@ namespace PikeAndShot
             if (_side == BattleScreen.SIDE_PLAYER)
             {
                 if(variant)
-                    _screen.addShot(new SkirmisherJavelin(new Vector2(this._position.X + 32 + _randDestOffset.X, this._position.Y + 4 + _randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
+                    _screen.addShot(new SkirmisherJavelin(new Vector2(this._position.X + 32 + randDestOffset.X, this._position.Y + 4 + randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
                 else
-                    _screen.addShot(new SlingerRock(new Vector2(this._position.X + 28 + _randDestOffset.X, this._position.Y + _randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
+                    _screen.addShot(new SlingerRock(new Vector2(this._position.X + 28 + randDestOffset.X, this._position.Y + randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
             }
             else
             {
                 if (variant)
-                    _screen.addShot(new SkirmisherJavelin(new Vector2(this._position.X - 18 + _randDestOffset.X, this._position.Y + 4 + _randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
+                    _screen.addShot(new SkirmisherJavelin(new Vector2(this._position.X - 18 + randDestOffset.X, this._position.Y + 4 + randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
                 else
-                    _screen.addShot(new SlingerRock(new Vector2(this._position.X - 12 + _randDestOffset.X, this._position.Y + _randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
+                    _screen.addShot(new SlingerRock(new Vector2(this._position.X - 12 + randDestOffset.X, this._position.Y + randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
             }
         }
     }
@@ -3572,7 +3581,7 @@ namespace PikeAndShot
 
         public override void draw(SpriteBatch spritebatch)
         {
-            _drawingPosition = _position + _randDestOffset - _screen.getMapOffset();
+            _drawingPosition = _position + randDestOffset - _screen.getMapOffset();
 
             int flipValue = 1;
 
@@ -3865,7 +3874,7 @@ namespace PikeAndShot
 
         public override void draw(SpriteBatch spritebatch)
         {
-            _drawingPosition = _position + _randDestOffset - _screen.getMapOffset();
+            _drawingPosition = _position + randDestOffset - _screen.getMapOffset();
 
             if (_state == STATE_ATTACK && (_attack.getCurrFrame() == 20 || _attack.getCurrFrame() == 21))
             {
@@ -4164,6 +4173,7 @@ namespace PikeAndShot
         public Wolf(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
         {
+            randDestOffset = Vector2.Zero;
             _type = Soldier.TYPE_MELEE;
             _class = Soldier.CLASS_GOBLIN_WOLF;
             _idleTime = 3000f;
@@ -4414,7 +4424,7 @@ namespace PikeAndShot
                     turnOffset = 12 * ((_turnTime - _stateTimer) / _turnTime);
                 }
             }
-            _drawingPosition = _position + _randDestOffset - _screen.getMapOffset() + new Vector2(turnOffset,0);
+            _drawingPosition = _position + randDestOffset - _screen.getMapOffset() + new Vector2(turnOffset,0);
 
             if ((_state == STATE_FLEE || flee == true || retreat == true ) && !(this is ColmillosWolf))
                 addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), (_state != STATE_RETREAT && _state != STATE_ROUTED && !_turned && !killOrientRight) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || (_state == STATE_KILL && !killOrientRight)) ? _side : _side * -1, _drawingY, true, 100f));
@@ -4649,7 +4659,7 @@ namespace PikeAndShot
             this.pikeman = pikeman;
             _state = STATE_TUG;
             _stateTimer = _tugTime = pikeman.tugTime;
-            _meleeDestination = pikeman.getPosition() + new Vector2(84, -2);
+            _meleeDestination = pikeman.getPosition() + pikeman.randDestOffset + new Vector2(86, -2);
             if (pikeman.variant)
                 _tug = _tug2;
             else
@@ -5693,7 +5703,7 @@ namespace PikeAndShot
 
         public override void draw(SpriteBatch spritebatch)
         {
-            _drawingPosition = _position + _randDestOffset - _screen.getMapOffset();
+            _drawingPosition = _position + randDestOffset - _screen.getMapOffset();
             bool facing = _side == BattleScreen.SIDE_PLAYER ? _turned : !_turned;
 
             int frame = _feet.getCurrFrame();
