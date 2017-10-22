@@ -4225,6 +4225,16 @@ namespace PikeAndShot
             _stateTimer = PikeAndShotGame.random.Next((int)_idleTime);
         }
 
+        public override int getWidth()
+        {
+            return _idleFeet.getBoundingRect().Width;
+        }
+
+        public override int getHeight()
+        {
+            return _idleFeet.getBoundingRect().Height;
+        }
+
         public override void hit()
         {
             if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
@@ -4427,12 +4437,41 @@ namespace PikeAndShot
             _drawingPosition = _position + randDestOffset - _screen.getMapOffset() + new Vector2(turnOffset,0);
 
             if ((_state == STATE_FLEE || flee == true || retreat == true ) && !(this is ColmillosWolf))
-                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), (_state != STATE_RETREAT && _state != STATE_ROUTED && !_turned && !killOrientRight) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || (_state == STATE_KILL && !killOrientRight)) ? _side : _side * -1, _drawingY, true, 100f));
+                addDrawjob(new DrawJob(_feet, _drawingPosition, (_state != STATE_RETREAT && _state != STATE_ROUTED && !_turned && !killOrientRight) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || (_state == STATE_KILL && !killOrientRight)) ? _side : _side * -1, _drawingY, true, 100f));
             else if (_state != STATE_DEAD)
             {
-                addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), (_state != STATE_RETREAT && _state != STATE_ROUTED && _state != STATE_TUG && !_turned && !killOrientRight) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || (_state == STATE_KILL && !killOrientRight)) ? _side : _side * -1, _drawingY));
+                addDrawjob(new DrawJob(_feet, _drawingPosition, (_state != STATE_RETREAT && _state != STATE_ROUTED && _state != STATE_TUG && !_turned && !killOrientRight) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || (_state == STATE_KILL && !killOrientRight)) ? _side : _side * -1, _drawingY));
             }
 
+
+            spritebatch.Draw(PikeAndShotGame.getDotTexture(),
+                    new Rectangle(
+                        (int)((_position.X) - _screen.getMapOffset().X),
+                        (int)((_position.Y) - _screen.getMapOffset().Y),
+                        (int)(getWidth()),
+                        2),
+                    Color.White);
+            spritebatch.Draw(PikeAndShotGame.getDotTexture(),
+                new Rectangle(
+                    (int)(_position.X - _screen.getMapOffset().X),
+                    (int)(_position.Y - _screen.getMapOffset().Y),
+                    (int)(2),
+                    getHeight()),
+                Color.White);
+            spritebatch.Draw(PikeAndShotGame.getDotTexture(),
+                new Rectangle(
+                    (int)(_position.X - _screen.getMapOffset().X),
+                    (int)(_position.Y + getHeight() - _screen.getMapOffset().Y),
+                    getWidth(),
+                    2),
+                Color.White);
+            spritebatch.Draw(PikeAndShotGame.getDotTexture(),
+                new Rectangle(
+                    (int)(_position.X + getWidth() - _screen.getMapOffset().X),
+                    (int)(_position.Y - _screen.getMapOffset().Y),
+                    2,
+                    (int)(getHeight())),
+                Color.White);
             //addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
             //spritebatch.Draw(PikeAndShotGame.getDotTexture(), _drawingPosition, Color.White);
         }
@@ -4659,7 +4698,7 @@ namespace PikeAndShot
             this.pikeman = pikeman;
             _state = STATE_TUG;
             _stateTimer = _tugTime = pikeman.tugTime;
-            _meleeDestination = pikeman.getPosition() + pikeman.randDestOffset + new Vector2(86, -2);
+            _meleeDestination = pikeman.getPosition() + pikeman.randDestOffset + new Vector2(86, 22);
             if (pikeman.variant)
                 _tug = _tug2;
             else

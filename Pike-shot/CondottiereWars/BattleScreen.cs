@@ -382,14 +382,14 @@ namespace PikeAndShot
                     soX = so.getPosition().X;
                     soY = so.getPosition().Y - 10;
                     soWidth = so.getWidth();
-                    soHeight = so.getHeight() + 10;
+                    soHeight = so.getHeight() + 20;
                 }
                 else if (so is Wolf)
                 {
                     soX = so.getPosition().X;
-                    soY = so.getPosition().Y - 5;
+                    soY = so.getPosition().Y - 7;
                     soWidth = so.getWidth();
-                    soHeight = so.getHeight() + 5;
+                    soHeight = so.getHeight() + 14;
                 }
                 else if (so is CollisionCircle)
                 {
