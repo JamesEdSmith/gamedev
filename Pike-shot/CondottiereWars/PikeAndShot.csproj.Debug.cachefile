@@ -287,6 +287,11 @@ Content\wounded_dude.xnb
 Content\brigand_eating.xnb
 Content\brigand_stealing.xnb
 Content\bagger_bag_idle.xnb
+Content\totempole.xnb
+Content\tug_pikeman.xnb
+Content\tug_pikeman2.xnb
+Content\tug_wolf.xnb
+Content\tug_wolf2.xnb
 Content\cgwg-xna.xnb
 Content\Bloom.xnb
 Content\BloomExtract.xnb
@@ -326,11 +331,6 @@ Content\arg.xnb
 Content\boss.xnb
 Content\theme.xnb
 Content\boss01.xnb
-Content\totempole.xnb
-Content\tug_pikeman.xnb
-Content\tug_pikeman2.xnb
-Content\tug_wolf.xnb
-Content\tug_wolf2.xnb
 Content\theme.wma
 Content\boss01.wma
 Content\Benz1_level.xml
