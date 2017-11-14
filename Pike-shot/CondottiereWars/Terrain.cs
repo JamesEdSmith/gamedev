@@ -32,6 +32,9 @@ namespace PikeAndShot
         public const int CLASS_DEAD_PEASANT = 16;
         public const int CLASS_100_CIRCLE = 17;
         public const int CLASS_TOTEMPOLE = 18;
+        public const int CLASS_RIVER = 19;
+        public const int CLASS_RIVER_BED_0 = 20;
+        public const int CLASS_RIVER_BED_1 = 21;
 
         protected Sprite _sprite;
         private float _restTime;
@@ -50,8 +53,17 @@ namespace PikeAndShot
         {
             _sprite = new Sprite(sprite, new Rectangle(0, 0, 0, 0), 40, 40, true);
             _restTime = restTime;
+            _animationTime = animationTime;            
+        }
+
+        public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, Vector2 spriteDimensions, float restTime, float animationTime, float drawingY)
+            : this(screen, sprite, side, x, y)
+        {
+            _sprite = new Sprite(sprite, new Rectangle(0, 0, 0, 0), (int)spriteDimensions.X, (int)spriteDimensions.Y, true);
+            _restTime = restTime;
             _animationTime = animationTime;
-            
+            _drawingY = drawingY;
+            _sprite.createFlashTexture(screen);
         }
 
         public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, float drawingY)
@@ -241,6 +253,18 @@ namespace PikeAndShot
                     break;
                 case Terrain.CLASS_TOTEMPOLE:
                     newTerrain = new Terrain(screen, PikeAndShotGame.TOTEMPOLE, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 12, (int)y + 84, 14, 34), new Vector2(40, 122));
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_RIVER:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.RIVER, BattleScreen.SIDE_PLAYER, x, y, new Vector2(32, 32), 0, 2000f, 0f);
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_RIVER_BED_0:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.RIVER_BED_0, BattleScreen.SIDE_PLAYER, x, y, 0);
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_RIVER_BED_1:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.RIVER_BED_1, BattleScreen.SIDE_PLAYER, x, y, 0);
                     screen.addTerrain(newTerrain);
                     break;
             }
