@@ -256,7 +256,7 @@ namespace PikeAndShot
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_RIVER:
-                    newTerrain = new Terrain(screen, PikeAndShotGame.RIVER, BattleScreen.SIDE_PLAYER, x, y, new Vector2(32, 32), 0, 2000f, 0f);
+                    newTerrain = new Terrain(screen, PikeAndShotGame.RIVER, BattleScreen.SIDE_PLAYER, x, y, new Vector2(48, 32), 0, 2000f, 0f);
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_RIVER_BED_0:

@@ -434,13 +434,17 @@ namespace PikeAndShot
 
         private void deleteFormations()
         {
+            List<int> delete = new List<int>();
             foreach (LevelEditorGrabbable formy in _grabbedThings)
             {
-                if(formy is EnemyFormation)
-                    _listener.deleteFormation(formy.index);
-                else
-                    _listener.deleteTerrain(formy.index);
+                delete.Add(formy.index);
             }
+            if(_grabbedThings[0] is EnemyFormation)
+                _listener.deleteFormation(delete);
+            else
+                _listener.deleteTerrain(delete);
+
+            _grabbedThings.Clear();
         }
 
         private void moveFormations()
@@ -614,7 +618,9 @@ namespace PikeAndShot
         void copyTerrain(int index);
         void copyFormations(ArrayList formations, ArrayList terrains);
         void deleteFormation(int formation);
+        void deleteFormation(List<int> formations);
         void deleteTerrain(int ter);
+        void deleteTerrain(List<int> ters);
         void selectFormation(int formation);
         void selectTerrain(int terrain);
     }

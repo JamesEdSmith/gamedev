@@ -105,6 +105,15 @@ namespace PikeAndShot
             this.shiftBeginTextBox = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.multiplyButton = new System.Windows.Forms.Button();
+            this.multiplyXTextBox = new System.Windows.Forms.TextBox();
+            this.multiplyYTextBox = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.multiplyWTextBox = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.multiplyHTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // levelComboBox
@@ -695,11 +704,94 @@ namespace PikeAndShot
             this.label18.TabIndex = 65;
             this.label18.Text = "Shift Amount";
             // 
+            // multiplyButton
+            // 
+            this.multiplyButton.Location = new System.Drawing.Point(216, 649);
+            this.multiplyButton.Name = "multiplyButton";
+            this.multiplyButton.Size = new System.Drawing.Size(75, 23);
+            this.multiplyButton.TabIndex = 66;
+            this.multiplyButton.Text = "multiply";
+            this.multiplyButton.UseVisualStyleBackColor = true;
+            this.multiplyButton.Click += new System.EventHandler(this.multiplyButton_Click);
+            // 
+            // multiplyXTextBox
+            // 
+            this.multiplyXTextBox.Location = new System.Drawing.Point(216, 679);
+            this.multiplyXTextBox.Name = "multiplyXTextBox";
+            this.multiplyXTextBox.Size = new System.Drawing.Size(100, 20);
+            this.multiplyXTextBox.TabIndex = 67;
+            // 
+            // multiplyYTextBox
+            // 
+            this.multiplyYTextBox.Location = new System.Drawing.Point(216, 706);
+            this.multiplyYTextBox.Name = "multiplyYTextBox";
+            this.multiplyYTextBox.Size = new System.Drawing.Size(100, 20);
+            this.multiplyYTextBox.TabIndex = 68;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(196, 682);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(14, 13);
+            this.label19.TabIndex = 69;
+            this.label19.Text = "X";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(196, 709);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(14, 13);
+            this.label20.TabIndex = 70;
+            this.label20.Text = "Y";
+            // 
+            // multiplyWTextBox
+            // 
+            this.multiplyWTextBox.Location = new System.Drawing.Point(360, 679);
+            this.multiplyWTextBox.Name = "multiplyWTextBox";
+            this.multiplyWTextBox.Size = new System.Drawing.Size(100, 20);
+            this.multiplyWTextBox.TabIndex = 71;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(340, 682);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(18, 13);
+            this.label21.TabIndex = 72;
+            this.label21.Text = "W";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(340, 709);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(15, 13);
+            this.label22.TabIndex = 73;
+            this.label22.Text = "H";
+            // 
+            // multiplyHTextBox
+            // 
+            this.multiplyHTextBox.Location = new System.Drawing.Point(360, 706);
+            this.multiplyHTextBox.Name = "multiplyHTextBox";
+            this.multiplyHTextBox.Size = new System.Drawing.Size(100, 20);
+            this.multiplyHTextBox.TabIndex = 74;
+            // 
             // LevelConstructorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(789, 761);
+            this.Controls.Add(this.multiplyHTextBox);
+            this.Controls.Add(this.label22);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.multiplyWTextBox);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.multiplyYTextBox);
+            this.Controls.Add(this.multiplyXTextBox);
+            this.Controls.Add(this.multiplyButton);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.shiftBeginTextBox);
@@ -839,6 +931,15 @@ namespace PikeAndShot
         private TextBox shiftBeginTextBox;
         private Label label17;
         private Label label18;
+        private Button multiplyButton;
+        private TextBox multiplyXTextBox;
+        private TextBox multiplyYTextBox;
+        private Label label19;
+        private Label label20;
+        private TextBox multiplyWTextBox;
+        private Label label21;
+        private Label label22;
+        private TextBox multiplyHTextBox;
     }
 }
 

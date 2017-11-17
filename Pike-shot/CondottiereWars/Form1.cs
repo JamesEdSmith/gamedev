@@ -272,7 +272,7 @@ namespace PikeAndShot
                 }
                 catch
                 {
-                    _levels[currLevel].formationPositions[currFormation] = new Vector2(0f, _levels[currLevel].formationPositions[currFormation].Y);
+                    _levels[currLevel].formationPositions[currFormation] = new Vector2(_levels[currLevel].formationPositions[currFormation].X, _levels[currLevel].formationPositions[currFormation].Y);
                 }
             }
 
@@ -289,7 +289,7 @@ namespace PikeAndShot
                 }
                 catch
                 {
-                    _levels[currLevel].formationPositions[currFormation] = new Vector2(_levels[currLevel].formationPositions[currFormation].X, 0f);
+                    _levels[currLevel].formationPositions[currFormation] = new Vector2(_levels[currLevel].formationPositions[currFormation].X, _levels[currLevel].formationPositions[currFormation].Y);
                 }
             }
             sendUpdate();
@@ -900,15 +900,60 @@ namespace PikeAndShot
             sendUpdate();
         }
 
+        void LevelEditorScreenListner.deleteFormation(List<int> formations)
+        {
+            foreach (int formation in formations)
+            {
+                _levels[currLevel].formationPositions[formation] = new Vector2(-9999, -9999);
+                _levels[currLevel].formationTimes[formation] = -9999;
+                _levels[currLevel].formationSides[formation] = -9999;
+                _levels[currLevel].formationActionNames[formation] = null;
+                _levels[currLevel].formationActions[formation] = null;
+                _levels[currLevel].formations[formation] = null;
+                _levels[currLevel].formationNames[formation] = null;
+            }
+            _levels[currLevel].formationPositions.RemoveAll(x => x.X == -9999);
+            _levels[currLevel].formationTimes.RemoveAll(x => x == -9999);
+            _levels[currLevel].formationSides.RemoveAll(x => x == -9999);
+            _levels[currLevel].formationActionNames.RemoveAll(x => x == null);
+            _levels[currLevel].formationActions.RemoveAll(x => x == null);
+            _levels[currLevel].formations.RemoveAll(x => x == null);
+            _levels[currLevel].formationNames.RemoveAll(x => x == null);
+
+            refreshFormationListBox();
+
+            currFormation = 0;
+            formationListBox.SelectedIndex = 0;
+            sendUpdate();
+        }
+
         void LevelEditorScreenListner.deleteTerrain(int ter)
         {
             _levels[currLevel].terrainPositions.RemoveAt(ter);
             _levels[currLevel].terrainTimes.RemoveAt(ter);
             _levels[currLevel].terrains.RemoveAt(ter);
-            currTerrain = -1;
-
             terrainListBox.Items.RemoveAt(ter);
-            sendUpdate();
+            currTerrain = ter - 1;
+            terrainListBox.SelectedIndex = currTerrain;
+            sendUpdateTerrain();
+        }
+
+        void LevelEditorScreenListner.deleteTerrain(List<int> ters)
+        {
+            foreach (int ter in ters)
+            {
+                _levels[currLevel].terrainPositions[ter] = new Vector2(-9999, -9999);
+                _levels[currLevel].terrainTimes[ter] = -9999;
+                _levels[currLevel].terrains[ter] = -9999;
+            }
+            _levels[currLevel].terrainPositions.RemoveAll(x => x.X == -9999);
+            _levels[currLevel].terrainTimes.RemoveAll(x => x == -9999);
+            _levels[currLevel].terrains.RemoveAll(x => x == -9999);
+            refreshTerrainListBox();
+
+            currTerrain = 0;
+            terrainListBox.SelectedIndex = 0;
+            sendUpdateTerrain();
         }
 
         private void txTextBox_TextChanged(object sender, EventArgs e)
@@ -946,11 +991,12 @@ namespace PikeAndShot
             {
                 _levels[currLevel].terrainPositions.RemoveAt(terrainListBox.SelectedIndex);
                 _levels[currLevel].terrains.RemoveAt(terrainListBox.SelectedIndex);
-                terrainListBox.Items.RemoveAt(terrainListBox.SelectedIndex);
+                _levels[currLevel].terrainTimes.RemoveAt(terrainListBox.SelectedIndex);
+                currTerrain = terrainListBox.SelectedIndex - 1;
+                refreshTerrainListBox();
+                sendUpdateTerrain();
+                terrainListBox.SelectedIndex = currTerrain;
             }
-
-            currTerrain = -1;
-            sendUpdate();
         }
 
         private void tyTextBox_TextChanged(object sender, EventArgs e)
@@ -996,7 +1042,7 @@ namespace PikeAndShot
                 _levels[currLevel].terrainPositions.Add(Vector2.Zero);
                 terrainListBox.Items.Add(_terrainClass[terrainComboBox.SelectedIndex].id.ToString() + " " + _terrainClass[terrainComboBox.SelectedIndex].name);
             }
-            sendUpdate();
+            sendUpdateTerrain();
         }
 
         void refreshTerrainListBox()
@@ -1281,6 +1327,43 @@ namespace PikeAndShot
             sendUpdate();
         }
 
+        private void multiplyButton_Click(object sender, EventArgs e)
+        {
+            int x,y,w,h;
+            if (currTerrain != -1)
+            {
+                try
+                {
+                    x = System.Convert.ToInt32(multiplyXTextBox.Text);
+                    y = System.Convert.ToInt32(multiplyYTextBox.Text);
+                    w = System.Convert.ToInt32(multiplyWTextBox.Text);
+                    h = System.Convert.ToInt32(multiplyHTextBox.Text);
+                }
+                catch
+                {
+                    x = 0;
+                    y = 0;
+                    w = 0;
+                    h = 0;
+                }
+
+                for (int j = 0; j <= y; j++)
+                {
+                    for (int i = 0; i <= x; i++)
+                    {
+                        if (i > 0 || j > 0)
+                        {
+                            _levels[currLevel].terrains.Add(_levels[currLevel].terrains[currTerrain]);
+                            _levels[currLevel].terrainTimes.Add(_levels[currLevel].terrainTimes[currTerrain] + w*i);
+                            _levels[currLevel].terrainPositions.Add(new Vector2(_levels[currLevel].terrainPositions[currTerrain].X + w * i, _levels[currLevel].terrainPositions[currTerrain].Y + h * j));
+                            terrainListBox.Items.Add(terrainListBox.Items[currTerrain]);
+                        }
+                    }
+                }
+            }
+
+            sendUpdateTerrain();
+        }
     }
 
     public class SoldierClass
