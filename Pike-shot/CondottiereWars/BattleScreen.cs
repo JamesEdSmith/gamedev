@@ -183,7 +183,8 @@ namespace PikeAndShot
             }
             _deadFormations.Clear();
             
-            checkCollisions(gameTime.ElapsedGameTime);
+            if(this is LevelScreen)
+                checkCollisions(gameTime.ElapsedGameTime);
 
             foreach (Soldier sold in _looseSoldiers)
             {
