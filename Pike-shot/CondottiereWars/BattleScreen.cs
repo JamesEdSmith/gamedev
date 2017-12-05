@@ -26,6 +26,13 @@ namespace PikeAndShot
         public const float SCROLLPOINT = 0.33f;
         public const float BATTLEHEIGHTEXTEND = 384f;
 
+        enum TerrainSituationResult
+        {
+            CLEAR,
+            OBSTRUCTED,
+            WATER
+        };
+
         private bool _drawDots;
 
         protected ArrayList _shots;
@@ -82,7 +89,7 @@ namespace PikeAndShot
             _enemyFormations = new ArrayList(25);
             _looseSoldiers = new ArrayList(40);
             unlooseSoldiers = new ArrayList(5);
-            
+
             previousKeyboardState = Keyboard.GetState();
             _elapsedTime = 0.0;
 
@@ -134,7 +141,7 @@ namespace PikeAndShot
                     _deadThings.Add(shot);
             }
 
-            if(_formation != null)
+            if (_formation != null)
                 _formation.update(gameTime.ElapsedGameTime);
 
             foreach (ScreenObject screeny in _screenObjectsToAdd)
@@ -158,7 +165,7 @@ namespace PikeAndShot
                     bool bool1 = f.getPosition().X > (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X + PikeAndShotGame.SCREENWIDTH;
                     bool bool2 = !f.hasAppeared;
                     bool bool3 = f.getTotalRows() == 0;
-                    if ( 
+                    if (
                         (f.getPosition().X < (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X
                         || (f.getPosition().X > (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X + PikeAndShotGame.SCREENWIDTH && f.hasAppeared)
                         || f.getTotalRows() == 0))
@@ -173,7 +180,7 @@ namespace PikeAndShot
                 _enemyFormations.Add(f);
 
             _enemyFormationsToAdd.Clear();
-            
+
             //checking for empty or off screen formations
             foreach (Formation f in _deadFormations)
             {
@@ -182,8 +189,8 @@ namespace PikeAndShot
                     _deadThings.Add(sold);
             }
             _deadFormations.Clear();
-            
-            if(this is LevelScreen)
+
+            if (this is LevelScreen)
                 checkCollisions(gameTime.ElapsedGameTime);
 
             foreach (Soldier sold in _looseSoldiers)
@@ -247,20 +254,47 @@ namespace PikeAndShot
                     _terrain.Remove(obj);
                     if (((Terrain)obj).generated)
                     {
-                        int terrainIndex = PikeAndShotGame.random.Next(7);
+                        int terrainIndex;
                         Terrain terrain;
-                        if (terrainIndex == 2)
+                        int y = PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT);
+                        switch (checkTerrainSituation(PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y))
                         {
-                            terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT), 8000f, 1500f);
-                            _terrain.Add(terrain);
+                            case TerrainSituationResult.CLEAR:
+                                terrainIndex = PikeAndShotGame.random.Next(7);
+                                if (terrainIndex == 2)
+                                {
+                                    terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, 8000f, 1500f);
+                                    _terrain.Add(terrain);
+                                }
+                                else
+                                {
+                                    terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y);
+                                    _terrain.Add(terrain);
+                                }
+                                terrain.generated = true;
+                                cancelScreenObject(terrain);
+                                break;
+                            case TerrainSituationResult.WATER:
+                                terrainIndex = PikeAndShotGame.random.Next(3);
+                                if (terrainIndex == 0)
+                                {
+                                    terrain = new Terrain(this, PikeAndShotGame.WATER_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, new Vector2(28, 24), 0f, 2000f, 18);
+                                }
+                                else if (terrainIndex == 1)
+                                {
+                                    terrain = new Terrain(this, PikeAndShotGame.WATER_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, new Vector2(36, 26), 0f, 2000f, 20);
+                                }
+                                else
+                                {
+                                    terrain = new Terrain(this, PikeAndShotGame.WATER_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, new Vector2(24, 20), 0f, 2000f, 15);
+                                }
+                                _terrain.Add(terrain);
+                                terrain.generated = true;
+                                cancelScreenObject(terrain);
+                                break;
+                            case TerrainSituationResult.OBSTRUCTED:
+                                break;
                         }
-                        else
-                        {
-                            terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT));
-                            _terrain.Add(terrain);
-                        }
-                        terrain.generated = true;
-                        cancelScreenObject(terrain);
                     }
                 }
 
@@ -289,6 +323,38 @@ namespace PikeAndShot
             }
 
             _deadThings.Clear();
+        }
+
+        private TerrainSituationResult checkTerrainSituation(float x, int y)
+        {
+            foreach (Terrain terrain in _terrain)
+            {
+                if (!(Math.Abs(terrain.getPosition().X - x) > 50 || Math.Abs(terrain.getPosition().Y - y) > 50))
+                {
+                    return TerrainSituationResult.OBSTRUCTED;
+                }
+            }
+
+            bool hasLeft = false;
+            bool hasRight = false;
+            foreach (Terrain terrain in _terrain)
+            {
+                if ((terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0L || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1L) 
+                    && (terrain.getPosition().X < x &&  Math.Abs(terrain.getCenter().Y - y) < 100 ) )
+                {
+                    hasLeft = true;
+                }
+                if ((terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0 || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1)
+                    && (terrain.getPosition().X > x && Math.Abs(terrain.getCenter().Y - y) < 100))
+                {
+                    hasRight = true;
+                }
+
+                if (hasLeft && hasRight)
+                    return TerrainSituationResult.WATER;
+            }
+
+            return TerrainSituationResult.CLEAR;
         }
 
         public void addScreenObject(ScreenObject so)
@@ -332,7 +398,7 @@ namespace PikeAndShot
 
             float soX, soY, soWidth, soHeight;
             float coX, coY, coWidth, coHeight;
-            
+
             bool collision = true;
             bool oneCollision = false;
 
@@ -353,9 +419,9 @@ namespace PikeAndShot
                 }
                 else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay || (so is Soldier && ((Soldier)so).myFormation != _formation)) && !(so is Terrain && !((Terrain)so).collidable))
                     _screenColliders.Add(so);
-                
+
             }
-            
+
             // Now for every object see if it hit any of the colliders
             // screenobjects that didn't hit anything can be removed from the list of coliders so they aren't checked repeatedly for no reason
             foreach (ScreenObject so in _screenObjects)
@@ -375,7 +441,7 @@ namespace PikeAndShot
                 }
                 else if (!(so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay) && !(so is Terrain && !((Terrain)so).collidable)))
                     continue;
-                
+
                 // get the values here so we aren't calling functions like crazy
                 // pavise HACK
                 if (so is Pavise)
@@ -514,7 +580,7 @@ namespace PikeAndShot
                             co.collide(so, timeSpan);
                             if (this is LevelScreen && so is Soldier)
                             {
-                                if(((Soldier)so).inPlayerFormation && co is Terrain)
+                                if (((Soldier)so).inPlayerFormation && co is Terrain)
                                     ((LevelScreen)this)._formation.collisions++;
                             }
                         }
@@ -541,7 +607,7 @@ namespace PikeAndShot
                 if ((sObj is Soldier) && so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING)
                     _screenColliders.Add(sObj);
             }
-            
+
             if (so.getState() != ScreenObject.STATE_DEAD || so.getState() != ScreenObject.STATE_DYING)
             {
                 // get the values here so we aren't calling functions like crazy
@@ -599,7 +665,7 @@ namespace PikeAndShot
                         }
                     }
                 }
-            }   
+            }
         }
 
         public Texture2D getFlashTexture(Texture2D bitmap)
@@ -641,7 +707,7 @@ namespace PikeAndShot
         protected virtual void getInput(TimeSpan timeSpan)
         {
             // check for screen change
-            
+
             if (keyboardState.IsKeyDown(Keys.D1) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
             {
                 _game.setScreen(PikeAndShotGame.SCREEN_LEVELPLAY);
@@ -694,7 +760,7 @@ namespace PikeAndShot
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public virtual void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if(_formation != null)
+            if (_formation != null)
                 _formation.draw(spriteBatch);
 
             foreach (Formation f in _enemyFormations)
@@ -815,14 +881,14 @@ namespace PikeAndShot
 
         internal bool findPikeTip(Soldier soldier, float range)
         {
-            if(soldier.DEBUGFOUNDPIKE)
+            if (soldier.DEBUGFOUNDPIKE)
                 soldier.DEBUGFOUNDPIKE = false;
 
             foreach (ScreenObject pt in _screenObjects)
             {
-                if(pt is PikeTip)
+                if (pt is PikeTip)
                 {
-                    if(((PikeTip)pt).getSoldierState() != Pikeman.STATE_RECOILING || soldier.getState() == Targeteer.STATE_DEFEND || soldier.getState() == Colmillos.STATE_ATTACK)
+                    if (((PikeTip)pt).getSoldierState() != Pikeman.STATE_RECOILING || soldier.getState() == Targeteer.STATE_DEFEND || soldier.getState() == Colmillos.STATE_ATTACK)
                     {
                         // figure out the center of the pike tip and the center of the man
                         float ptX = pt.getPosition().X + pt.getWidth() * 0.5f;
@@ -949,7 +1015,7 @@ namespace PikeAndShot
 
     public class DrawJob
     {
-        public Sprite  sprite;
+        public Sprite sprite;
         public Vector2 position;
         public int side;
         public float drawingY;
@@ -981,7 +1047,7 @@ namespace PikeAndShot
         }
 
         public DrawJob(Sprite sprite, Vector2 position, int side, float drawingY, bool flickering, float flickerTime, Color color) :
-            this(sprite,position,side,drawingY,flickering,flickerTime)
+            this(sprite, position, side, drawingY, flickering, flickerTime)
         {
             this.color = color;
         }

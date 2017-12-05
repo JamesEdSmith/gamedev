@@ -292,6 +292,16 @@ Content\tug_pikeman.xnb
 Content\tug_pikeman2.xnb
 Content\tug_wolf.xnb
 Content\tug_wolf2.xnb
+Content\river.xnb
+Content\river_bed00.xnb
+Content\river_bed01.xnb
+Content\left_river_bed00.xnb
+Content\left_river_bed01.xnb
+Content\splash.xnb
+Content\splashing.xnb
+Content\watery_rock.xnb
+Content\watery_rock2.xnb
+Content\watery_rock3.xnb
 Content\cgwg-xna.xnb
 Content\Bloom.xnb
 Content\BloomExtract.xnb
@@ -300,6 +310,7 @@ Content\shot00.xnb
 Content\shot01.xnb
 Content\shot02.xnb
 Content\down.xnb
+Content\water_drop.xnb
 Content\drop.xnb
 Content\hit.xnb
 Content\huck.xnb
@@ -331,9 +342,6 @@ Content\arg.xnb
 Content\boss.xnb
 Content\theme.xnb
 Content\boss01.xnb
-Content\river.xnb
-Content\river_bed00.xnb
-Content\river_bed01.xnb
 Content\theme.wma
 Content\boss01.wma
 Content\Benz1_level.xml

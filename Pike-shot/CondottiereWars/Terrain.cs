@@ -35,8 +35,10 @@ namespace PikeAndShot
         public const int CLASS_RIVER = 19;
         public const int CLASS_RIVER_BED_0 = 20;
         public const int CLASS_RIVER_BED_1 = 21;
+        public const int CLASS_RIVER_BED_0L = 22;
+        public const int CLASS_RIVER_BED_1L = 23;
 
-        protected Sprite _sprite;
+        public Sprite _sprite;
         private float _restTime;
         private float _animationTime;
         public bool selected { get; set; }
@@ -53,7 +55,7 @@ namespace PikeAndShot
         {
             _sprite = new Sprite(sprite, new Rectangle(0, 0, 0, 0), 40, 40, true);
             _restTime = restTime;
-            _animationTime = animationTime;            
+            _animationTime = animationTime;
         }
 
         public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, Vector2 spriteDimensions, float restTime, float animationTime, float drawingY)
@@ -267,6 +269,14 @@ namespace PikeAndShot
                     newTerrain = new Terrain(screen, PikeAndShotGame.RIVER_BED_1, BattleScreen.SIDE_PLAYER, x, y, 0);
                     screen.addTerrain(newTerrain);
                     break;
+                case Terrain.CLASS_RIVER_BED_0L:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.RIVER_BED_0L, BattleScreen.SIDE_PLAYER, x, y, 0);
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_RIVER_BED_1L:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.RIVER_BED_1L, BattleScreen.SIDE_PLAYER, x, y, 0);
+                    screen.addTerrain(newTerrain);
+                    break;
             }
 
             if (newTerrain != null)
@@ -279,6 +289,11 @@ namespace PikeAndShot
         public void setPosition(float x, float y)
         {
             _position = new Vector2(x, y);
+        }
+
+        public override Vector2 getCenter()
+        {
+            return new Vector2(_sprite._currRect.Width / 2, _sprite._currRect.Height / 2) + _position;
         }
 
         public void setPosition(Vector2 pos)

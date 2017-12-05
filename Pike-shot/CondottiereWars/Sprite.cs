@@ -20,7 +20,7 @@ namespace PikeAndShot
         public Texture2D _blackTexture;
         private Rectangle _boundingRect;
         private Rectangle _flippedRect;
-        private Rectangle _currRect;
+        public Rectangle _currRect;
         private Vector2 _size;
         private int _cols;
         private int _rows;

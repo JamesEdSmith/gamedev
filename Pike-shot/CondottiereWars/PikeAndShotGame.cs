@@ -358,6 +358,13 @@ namespace PikeAndShot
         public static Texture2D RIVER;
         public static Texture2D RIVER_BED_0;
         public static Texture2D RIVER_BED_1;
+        public static Texture2D RIVER_BED_0L;
+        public static Texture2D RIVER_BED_1L;
+        public static List<Texture2D> WATER_TERRAIN;
+
+        public static Texture2D DROP_SPLASH;
+        public static Texture2D DROP;
+        public static Texture2D SPLASHING;
 
         public static Texture2D COIN;
         public static Texture2D COIN_METER;
@@ -499,6 +506,15 @@ namespace PikeAndShot
             RIVER = getDimmerClone(Content.Load<Texture2D>(@"river"));
             RIVER_BED_0 = getDimmerClone(Content.Load<Texture2D>(@"river_bed00"));
             RIVER_BED_1 = getDimmerClone(Content.Load<Texture2D>(@"river_bed01"));
+            RIVER_BED_0L = getDimmerClone(Content.Load<Texture2D>(@"left_river_bed00"));
+            RIVER_BED_1L = getDimmerClone(Content.Load<Texture2D>(@"left_river_bed01"));
+            WATER_TERRAIN = new List<Texture2D>(3);
+            WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock")));
+            WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock2")));
+            WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock3")));
+            DROP_SPLASH = Content.Load<Texture2D>(@"splash");
+            DROP = Content.Load<Texture2D>(@"water_drop");
+            SPLASHING = Content.Load<Texture2D>(@"splashing");
 
             ROAD_HORIZONTAL = getDimmerClone(Content.Load<Texture2D>(@"roadHorizontal"), ROAD_FADE);
             ROAD_TURN = getDimmerClone(Content.Load<Texture2D>(@"roadTurn"), ROAD_FADE);
