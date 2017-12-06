@@ -335,24 +335,23 @@ namespace PikeAndShot
                 }
             }
 
-            bool hasLeft = false;
-            bool hasRight = false;
+            bool leftToMyLeft = false;
+            bool rightToMyLeft = false;
             foreach (Terrain terrain in _terrain)
             {
-                if ((terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0L || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1L) 
-                    && (terrain.getPosition().X < x &&  Math.Abs(terrain.getCenter().Y - y) < 100 ) )
+                if (terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0L || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1L)
                 {
-                    hasLeft = true;
+                    if(terrain.getPosition().X < x &&  Math.Abs(terrain.getPosition().Y - y) < 60 )
+                        leftToMyLeft = true;
                 }
-                if ((terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0 || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1)
-                    && (terrain.getPosition().X > x && Math.Abs(terrain.getCenter().Y - y) < 100))
+                if (terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0 || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1)
                 {
-                    hasRight = true;
-                }
-
-                if (hasLeft && hasRight)
-                    return TerrainSituationResult.WATER;
+                    if (terrain.getPosition().X < x && Math.Abs(terrain.getPosition().Y - y) < 60)
+                        rightToMyLeft = true;
+                }                
             }
+            if (leftToMyLeft && !rightToMyLeft)
+                return TerrainSituationResult.WATER;
 
             return TerrainSituationResult.CLEAR;
         }

@@ -64,7 +64,7 @@ namespace PikeAndShot
             _sprite = new Sprite(sprite, new Rectangle(0, 0, 0, 0), (int)spriteDimensions.X, (int)spriteDimensions.Y, true);
             _restTime = restTime;
             _animationTime = animationTime;
-            _drawingY = drawingY;
+            _drawingY = drawingY + y;
             _sprite.createFlashTexture(screen);
         }
 
