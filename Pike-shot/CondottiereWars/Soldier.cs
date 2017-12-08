@@ -99,6 +99,8 @@ namespace PikeAndShot
         public bool _reacting;
         protected int _longMelee;
         protected ScreenObject _killer;
+        private float dropTimer = 0;
+        private const int dropTime = 500;
 
         public int preAttackState;
         
@@ -581,34 +583,38 @@ namespace PikeAndShot
                 _delta = _meleeDestination - _position;
                 _dest = _meleeDestination;
             }
-            if (_side == BattleScreen.SIDE_PLAYER && myFormation == _screen.getPlayerFormation())
-            {
-                _travel.X = (float)timeSpan.TotalMilliseconds * _speed;
-                _travel.Y = (float)timeSpan.TotalMilliseconds * _speed;
-            }
-            else
-            {
-                //float absDeltaX = Math.Abs(_delta.X);
-                //float absDeltaY = Math.Abs(_delta.Y);
-                double angle = Math.Atan2(_delta.Y, _delta.X);
-                //_travel.X = (absDeltaX / (absDeltaX + absDeltaY)) * (float)timeSpan.TotalMilliseconds * _speed;
-                //_travel.Y = (absDeltaY / (absDeltaX + absDeltaY)) * (float)timeSpan.TotalMilliseconds * _speed;
-                double cos = Math.Cos(angle);
-                double sin = Math.Sin(angle);
-                _travel.X = (float)cos * (float)timeSpan.TotalMilliseconds * _speed;
-                _travel.Y = (float)sin * (float)timeSpan.TotalMilliseconds * _speed;
-                
-                //fix the sign for the trig quadrant
-                if (_delta.X < 0)
-                    _travel.X *= -1;
-                if (_delta.Y < 0)
-                    _travel.Y *= -1;
 
-            }
+            double angle = Math.Atan2(_delta.Y, _delta.X);
+            double cos = Math.Cos(angle);
+            double sin = Math.Sin(angle);
+            _travel.X = (float)cos * (float)timeSpan.TotalMilliseconds * _speed;
+            _travel.Y = (float)sin * (float)timeSpan.TotalMilliseconds * _speed;
+                
+            //fix the sign for the trig quadrant
+            if (_delta.X < 0)
+                _travel.X *= -1;
+            if (_delta.Y < 0)
+                _travel.Y *= -1;
 
             // check to see if walking
             if (_delta.Length() != 0)
             {
+                //water drops for when walking in water
+                dropTimer -= (float)timeSpan.TotalMilliseconds;
+                if (dropTimer < 0)
+                {
+                    dropTimer = dropTime;
+                    float speed;
+                    if (myFormation != null)
+                        speed = myFormation.getSpeed();
+                    else
+                        speed = _speed;
+
+                    new Drop(_screen, _side, _position + new Vector2(WIDTH / 2f, HEIGHT), _travel.X / (float)timeSpan.TotalMilliseconds * (_delta.X > 0 ? 1 : -1) * (_delta.X == 0 ? 0 : 1) * speed * (myFormation == _screen.getPlayerFormation() ? 2.5f : 7));
+                    new Drop(_screen, _side, _position + new Vector2(WIDTH / 2f, HEIGHT), _travel.X / (float)timeSpan.TotalMilliseconds * (_delta.X > 0 ? 1 : -1) * (_delta.X == 0 ? 0 : 1) * speed * (myFormation == _screen.getPlayerFormation() ? 2.5f : 7));
+                    new Drop(_screen, _side, _position + new Vector2(WIDTH / 2f, HEIGHT), _travel.X / (float)timeSpan.TotalMilliseconds * (_delta.X > 0 ? 1 : -1) * (_delta.X == 0 ? 0 : 1) * speed * (myFormation == _screen.getPlayerFormation() ? 2.5f : 7));
+                }
+
                 if (!_feet.getPlaying())
                 {
                     _feet.playRandomStart();
@@ -622,6 +628,7 @@ namespace PikeAndShot
             }
             else
             {
+                dropTimer = 0;
                 _feet.stop();
                 _feet.reset();
                 _retreat.stop();

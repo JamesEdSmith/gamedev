@@ -349,6 +349,74 @@ namespace PikeAndShot
         }
     }
 
+    public class Drop : ScreenAnimation
+    {
+        Vector2 velocity;
+        Vector2 initialPosition;
+        bool dirt;
+        float topSet;
+        public Drop(BattleScreen screen, int side, Vector2 position, float delta)
+            : base(screen, side, position, new Sprite(PikeAndShotGame.DROP, new Rectangle(4, 4, 2, 2), 10, 10), 500f)
+        {
+            if(delta > 0)
+                velocity = new Vector2(delta + (float)PikeAndShotGame.random.NextDouble() * 0.09f, -0.10f - (float)PikeAndShotGame.random.NextDouble() * 0.005f);
+            else if (delta <0)
+                velocity = new Vector2(delta - (float)PikeAndShotGame.random.NextDouble() * 0.09f, -0.10f - (float)PikeAndShotGame.random.NextDouble() * 0.005f);
+            else
+                velocity = new Vector2(0, -0.10f - (float)PikeAndShotGame.random.NextDouble() * 0.005f);
+
+            dirt = false;
+            topSet = -1;
+            initialPosition = new Vector2(position.X, position.Y);
+        }
+
+        public override void update(TimeSpan timeSpan)
+        {
+            if (!dirt)
+            {
+                velocity += GRAVITY_VECTOR * 0.02f * (float)timeSpan.TotalSeconds;
+                _position += velocity * (float)timeSpan.TotalMilliseconds;
+            }
+
+            if (_position.Y > initialPosition.Y && !dirt)
+            {
+                _sprite = new Sprite(PikeAndShotGame.DROP_SPLASH, new Rectangle(10, 10, 2, 2), 22, 20);
+                dirt = true;
+                _time = _duration;
+            }
+            else if (velocity.Y > 0 && topSet == -1)
+            {
+                topSet = (initialPosition.Y - _position.Y) / 4f;
+            }
+            else
+            {
+                if (initialPosition.Y - _position.Y > topSet * 3f)
+                    _sprite.setFrame(0);
+                else if (initialPosition.Y - _position.Y > topSet * 2f)
+                    _sprite.setFrame(1);
+                else if (initialPosition.Y - _position.Y > topSet)
+                    _sprite.setFrame(2);
+                else
+                    _sprite.setFrame(3);
+            }
+
+            if (dirt)
+            {
+                _time -= (float)timeSpan.TotalMilliseconds;
+                if (_time < 0)
+                {
+                    _time = 0f;
+                    setDone();        
+                }
+                int maxFrames = _sprite.getMaxFrames();
+                float frameTime = _duration / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(_time / frameTime) - 1;
+
+                _sprite.setFrame(frameNumber);
+            }
+        }
+    }
+
     public class Coin : ScreenAnimation
     {
         static float COIN_TIME = 400f;
