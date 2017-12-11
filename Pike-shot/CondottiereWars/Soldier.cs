@@ -116,6 +116,7 @@ namespace PikeAndShot
         protected Sprite _retreat;
         protected Sprite _charge;
         protected Sprite _spawn;
+        protected Sprite _wading;
 
         public bool initCharge;
         public bool inPlayerFormation;
@@ -183,6 +184,8 @@ namespace PikeAndShot
             givesRescueReward = false;
             terrainColliders = new ArrayList(4);
 
+            _wading = new Sprite(PikeAndShotGame.WADING, new Rectangle(10, 6, 16, 12), 36, 26, true);
+            _wading.setAnimationSpeed(150f);
             _feet = new Sprite(PikeAndShotGame.SOLDIER_FEET, new Rectangle(4, 2, 16, 12), 26, 16, true);
             _idle = new Sprite(PikeAndShotGame.SOLDIER_IDLE, new Rectangle(10, 2, 16, 28), 46, 42);
             _death = new Sprite(PikeAndShotGame.SOLDIER_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
@@ -322,28 +325,52 @@ namespace PikeAndShot
             {
                 if (this is Targeteer)
                 {
-                    if( _state != Targeteer.STATE_SHIELDBREAK)
+                    if (_state != Targeteer.STATE_SHIELDBREAK)
+                    {
                         addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                        if(_wading.getPlaying())
+                            addDrawjob(new DrawJob(_wading, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                    }
                 }
                 else if (this is Pikeman)
                 {
                     if (_state != Pikeman.STATE_TUG)
+                    {
                         addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                        if (_wading.getPlaying())
+                            addDrawjob(new DrawJob(_wading, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                    }
                 }
                 else if (this is DismountedCavalry )
                 {
-                    if(_state != DismountedCavalry.STATE_FALLING)
+                    if (_state != DismountedCavalry.STATE_FALLING)
+                    {
                         addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                        if (_wading.getPlaying())
+                            addDrawjob(new DrawJob(_wading, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                    }
                 }
                 else if (this is Dopple)
                 {
                     if (!(_state == STATE_CHARGING || _state == STATE_ATTACKING || _state == STATE_RELOADING) && _destination.X - _position.X < -Soldier.WIDTH)
+                    {
                         addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _side * -1, _drawingY));
+                        if (_wading.getPlaying())
+                            addDrawjob(new DrawJob(_wading, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _side * -1, _drawingY));
+                    }
                     else
+                    {
                         addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                        if (_wading.getPlaying())
+                            addDrawjob(new DrawJob(_wading, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                    }
                 }
                 else
+                {
                     addDrawjob(new DrawJob(_feet, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                    if (_wading.getPlaying())
+                        addDrawjob(new DrawJob(_wading, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                }
             }
 
             if (this is Dopple)
@@ -596,23 +623,49 @@ namespace PikeAndShot
             if (_delta.Y < 0)
                 _travel.Y *= -1;
 
+
+            bool inWater = _screen.checkWaterSituation(_position.X, _position.Y) == BattleScreen.TerrainSituationResult.WATER;
+            if (inWater)
+            {
+                if (!_wading.getPlaying())
+                {
+                    _wading.playRandomStart();
+                }
+            }
+            else
+            {
+                _wading.stop();
+            }
+
             // check to see if walking
             if (_delta.Length() != 0)
             {
-                //water drops for when walking in water
-                dropTimer -= (float)timeSpan.TotalMilliseconds;
-                if (dropTimer < 0)
+                if (inWater)
                 {
-                    dropTimer = dropTime;
-                    float speed;
-                    if (myFormation != null)
-                        speed = myFormation.getSpeed();
-                    else
-                        speed = _speed;
+                    //water drops for when walking in water
+                    dropTimer -= (float)timeSpan.TotalMilliseconds;
+                    if (dropTimer < 0)
+                    {
+                        dropTimer = dropTime;
+                        float speed;
+                        //float dropDelta = _travel.X / (float)timeSpan.TotalMilliseconds * (_delta.X > 0 ? 1 : -1) * (_delta.X == 0 ? 0 : 1) * speed * (myFormation == _screen.getPlayerFormation() ? 2.5f : 7);
+                        if (myFormation == _screen.getPlayerFormation())
+                        {
+                            speed = myFormation.getSpeed();
+                        }
+                        else
+                        {
+                            speed = _speed;
+                        }
+                        Vector2 dropDelta = new Vector2((float)cos * speed, (float)sin * speed);
 
-                    new Drop(_screen, _side, _position + new Vector2(WIDTH / 2f, HEIGHT), _travel.X / (float)timeSpan.TotalMilliseconds * (_delta.X > 0 ? 1 : -1) * (_delta.X == 0 ? 0 : 1) * speed * (myFormation == _screen.getPlayerFormation() ? 2.5f : 7));
-                    new Drop(_screen, _side, _position + new Vector2(WIDTH / 2f, HEIGHT), _travel.X / (float)timeSpan.TotalMilliseconds * (_delta.X > 0 ? 1 : -1) * (_delta.X == 0 ? 0 : 1) * speed * (myFormation == _screen.getPlayerFormation() ? 2.5f : 7));
-                    new Drop(_screen, _side, _position + new Vector2(WIDTH / 2f, HEIGHT), _travel.X / (float)timeSpan.TotalMilliseconds * (_delta.X > 0 ? 1 : -1) * (_delta.X == 0 ? 0 : 1) * speed * (myFormation == _screen.getPlayerFormation() ? 2.5f : 7));
+                        new Drop(_screen, _side, _position + new Vector2(WIDTH / 2f, HEIGHT), dropDelta, (float)angle);
+                        new Drop(_screen, _side, _position + new Vector2(WIDTH / 2f, HEIGHT), dropDelta, (float)angle);
+                        new Drop(_screen, _side, _position + new Vector2(WIDTH / 2f, HEIGHT), dropDelta, (float)angle);
+                        new Drop(_screen, _side, _position + new Vector2(WIDTH / 2f, HEIGHT), dropDelta, (float)angle);
+                        new Drop(_screen, _side, _position + new Vector2(WIDTH / 2f, HEIGHT), dropDelta, (float)angle);
+                        new Drop(_screen, _side, _position + new Vector2(WIDTH / 2f, HEIGHT), dropDelta, (float)angle);
+                    }
                 }
 
                 if (!_feet.getPlaying())
@@ -635,6 +688,7 @@ namespace PikeAndShot
                 _retreat.reset();
             }
 
+            _wading.update(timeSpan);
             _feet.update(timeSpan);
             _retreat.update(timeSpan);
 
@@ -841,7 +895,11 @@ namespace PikeAndShot
                 else if (_state == STATE_DYING)
                 {
                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
-                    
+                    if (!splashed && _death.getCurrFrame() == 2 && _screen.checkWaterSituation(_position.X, _position.Y) == BattleScreen.TerrainSituationResult.WATER)
+                    {
+                        new ScreenAnimation(_screen, -1 * _side, _side == BattleScreen.SIDE_PLAYER ? new Vector2(_position.X - 40f, _position.Y + getHeight() + 1f) : new Vector2(_position.X + 40f, _position.Y + getHeight() + 1f), new Sprite(PikeAndShotGame.SPLASHING, new Rectangle(14, 8, 4, 4), 48, 24), 1250f);
+                        splashed = true;
+                    }
                     if (_stateTimer <= 0)
                     {
                         if (this is Colmillos)
@@ -1498,6 +1556,7 @@ namespace PikeAndShot
                 _screen.addLooseSoldier(this);
                 hitSound.Play();
                 playedFallSound = false;
+                splashed = false;
 
                 //I want guys that are running in as replacements to count as a loss
                 if (((myFormation == _screen.getPlayerFormation() && this._type != TYPE_SWINGER) || ((this._type == TYPE_PIKE || this._type == TYPE_SHOT) && _side == BattleScreen.SIDE_PLAYER)) && _screen is LevelScreen)
@@ -1574,6 +1633,7 @@ namespace PikeAndShot
         }
 
         Pavise paviseToHit;
+        private bool splashed;
 
         internal void oneAttack(Pavise pavise)
         {

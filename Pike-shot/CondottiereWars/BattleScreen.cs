@@ -26,7 +26,7 @@ namespace PikeAndShot
         public const float SCROLLPOINT = 0.33f;
         public const float BATTLEHEIGHTEXTEND = 384f;
 
-        enum TerrainSituationResult
+        public enum TerrainSituationResult
         {
             CLEAR,
             OBSTRUCTED,
@@ -49,6 +49,7 @@ namespace PikeAndShot
         protected ArrayList _screenAnimationsToAdd;
         public ArrayList _enemyFormations;
         protected ArrayList _terrain;
+        protected ArrayList _waterTerrain;
         protected ArrayList _drawJobs;
         protected ArrayList _enemyFormationsToAdd;
 
@@ -96,6 +97,7 @@ namespace PikeAndShot
             _mapOffset = new Vector2(0f, 0f);
             _drawDots = false;
             _terrain = new ArrayList(20);
+            _waterTerrain = new ArrayList(20);
 
             _drawJobs = new ArrayList(255);
             flashTextures = new Dictionary<Texture2D, Texture2D>();
@@ -296,6 +298,10 @@ namespace PikeAndShot
                                 break;
                         }
                     }
+                    else if (((Terrain)obj).getWater())
+                    {
+                        _waterTerrain.Remove(obj);
+                    }
                 }
 
                 if (obj is WeaponSwing)
@@ -329,7 +335,7 @@ namespace PikeAndShot
         {
             foreach (Terrain terrain in _terrain)
             {
-                if (!(Math.Abs(terrain.getPosition().X - x) > 50 || Math.Abs(terrain.getPosition().Y - y) > 50))
+                if (!(Math.Abs(terrain.getPosition().X - x) > 60 || Math.Abs(terrain.getPosition().Y - y) > 60))
                 {
                     return TerrainSituationResult.OBSTRUCTED;
                 }
@@ -337,7 +343,7 @@ namespace PikeAndShot
 
             bool leftToMyLeft = false;
             bool rightToMyLeft = false;
-            foreach (Terrain terrain in _terrain)
+            foreach (Terrain terrain in _waterTerrain)
             {
                 if (terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0L || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1L)
                 {
@@ -356,6 +362,35 @@ namespace PikeAndShot
             return TerrainSituationResult.CLEAR;
         }
 
+        public TerrainSituationResult checkWaterSituation(float x, float y)
+        {
+            bool leftToMyLeft = false;
+            bool rightToMyLeft = false;
+            bool leftToMyRight = false;
+            bool rightToMyRight = false;
+            foreach (Terrain terrain in _waterTerrain)
+            {
+                if (terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0L || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1L)
+                {
+                    if (terrain.getPosition().X + terrain.getSprite().getSourceBitmap().Width < x && Math.Abs(terrain.getPosition().Y - y) < 60)
+                        leftToMyLeft = true;
+                    else if (terrain.getPosition().X > x && Math.Abs(terrain.getPosition().Y - y) < 60)
+                        leftToMyRight = true;
+                }
+                if (terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0 || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1)
+                {
+                    if (terrain.getPosition().X + terrain.getSprite().getSourceBitmap().Width < x && Math.Abs(terrain.getPosition().Y - y) < 60)
+                        rightToMyLeft = true;
+                    else if (terrain.getPosition().X > x && Math.Abs(terrain.getPosition().Y - y) < 60)
+                        rightToMyRight = true;
+                }                
+            }
+            if (leftToMyLeft && !rightToMyLeft || rightToMyRight && !leftToMyRight)
+                return TerrainSituationResult.WATER;
+
+            return TerrainSituationResult.CLEAR;
+        }
+
         public void addScreenObject(ScreenObject so)
         {
             _screenObjectsToAdd.Add(so);
@@ -369,6 +404,8 @@ namespace PikeAndShot
         public void addTerrain(Terrain t)
         {
             _terrain.Add(t);
+            if (t.getWater())
+                _waterTerrain.Add(t);
         }
 
         public ArrayList getScreenObjects()

@@ -49,6 +49,7 @@ namespace PikeAndShot
         public Vector2 collisionCenter;
 
         static Dictionary<Texture2D, List<int>> variantDict;
+        private bool water;
 
         public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, float restTime, float animationTime)
             : this(screen, sprite, side, x, y)
@@ -263,18 +264,22 @@ namespace PikeAndShot
                     break;
                 case Terrain.CLASS_RIVER_BED_0:
                     newTerrain = new Terrain(screen, PikeAndShotGame.RIVER_BED_0, BattleScreen.SIDE_PLAYER, x, y, 0);
+                    newTerrain.setWater(true);
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_RIVER_BED_1:
                     newTerrain = new Terrain(screen, PikeAndShotGame.RIVER_BED_1, BattleScreen.SIDE_PLAYER, x, y, 0);
+                    newTerrain.setWater(true);
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_RIVER_BED_0L:
                     newTerrain = new Terrain(screen, PikeAndShotGame.RIVER_BED_0L, BattleScreen.SIDE_PLAYER, x, y, 0);
+                    newTerrain.setWater(true);
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_RIVER_BED_1L:
                     newTerrain = new Terrain(screen, PikeAndShotGame.RIVER_BED_1L, BattleScreen.SIDE_PLAYER, x, y, 0);
+                    newTerrain.setWater(true);
                     screen.addTerrain(newTerrain);
                     break;
             }
@@ -284,6 +289,16 @@ namespace PikeAndShot
 
             if (!newTerrain.collidable)
                 screen.cancelScreenObject(newTerrain);
+        }
+
+        private void setWater(bool p)
+        {
+            this.water = p;
+        }
+
+        public bool getWater()
+        {
+            return water;
         }
 
         public void setPosition(float x, float y)

@@ -355,19 +355,24 @@ namespace PikeAndShot
         Vector2 initialPosition;
         bool dirt;
         float topSet;
-        public Drop(BattleScreen screen, int side, Vector2 position, float delta)
+        public Drop(BattleScreen screen, int side, Vector2 position, Vector2 delta, float angle)
             : base(screen, side, position, new Sprite(PikeAndShotGame.DROP, new Rectangle(4, 4, 2, 2), 10, 10), 500f)
         {
-            if(delta > 0)
-                velocity = new Vector2(delta + (float)PikeAndShotGame.random.NextDouble() * 0.09f, -0.10f - (float)PikeAndShotGame.random.NextDouble() * 0.005f);
-            else if (delta <0)
-                velocity = new Vector2(delta - (float)PikeAndShotGame.random.NextDouble() * 0.09f, -0.10f - (float)PikeAndShotGame.random.NextDouble() * 0.005f);
-            else
-                velocity = new Vector2(0, -0.10f - (float)PikeAndShotGame.random.NextDouble() * 0.005f);
 
+            delta.X += (PikeAndShotGame.random.Next(2) == 0 ? 0.1f : -0.1f) * (float)PikeAndShotGame.random.NextDouble() * (float)Math.Cos(angle);
+            if (Math.Abs(delta.X) < 0.01)
+            {
+                delta.X += (float)PikeAndShotGame.random.NextDouble() / 10 * (float)(PikeAndShotGame.random.Next(2) == 0 ? 1 : -1);
+            }
+            delta.Y += (float)PikeAndShotGame.random.NextDouble() * 0.1f * (float)Math.Sin(angle);
+            if (Math.Abs(delta.Y) < 0.01)
+            {
+                delta.Y += (float)PikeAndShotGame.random.NextDouble() / 10 * (float)(PikeAndShotGame.random.Next(2) == 0 ? 1 : -1);
+            }
+            velocity = new Vector2(0, -0.05f - (float)PikeAndShotGame.random.NextDouble() * 0.01f) + delta;
             dirt = false;
             topSet = -1;
-            initialPosition = new Vector2(position.X, position.Y);
+            initialPosition = new Vector2(position.X, position.Y + 75 * (float)Math.Sin(angle));
         }
 
         public override void update(TimeSpan timeSpan)
@@ -378,11 +383,18 @@ namespace PikeAndShot
                 _position += velocity * (float)timeSpan.TotalMilliseconds;
             }
 
-            if (_position.Y > initialPosition.Y && !dirt)
+            if (_position.Y > initialPosition.Y && !dirt && topSet != -1)
             {
-                _sprite = new Sprite(PikeAndShotGame.DROP_SPLASH, new Rectangle(10, 10, 2, 2), 22, 20);
-                dirt = true;
-                _time = _duration;
+                if (_screen.checkWaterSituation(_position.X, _position.Y) == BattleScreen.TerrainSituationResult.WATER)
+                {
+                    _sprite = new Sprite(PikeAndShotGame.DROP_SPLASH, new Rectangle(10, 10, 2, 2), 22, 20);
+                    dirt = true;
+                    _time = _duration;
+                }
+                else
+                {
+                    setDone();
+                }
             }
             else if (velocity.Y > 0 && topSet == -1)
             {

@@ -365,6 +365,7 @@ namespace PikeAndShot
         public static Texture2D DROP_SPLASH;
         public static Texture2D DROP;
         public static Texture2D SPLASHING;
+        public static Texture2D WADING;
 
         public static Texture2D COIN;
         public static Texture2D COIN_METER;
@@ -515,6 +516,7 @@ namespace PikeAndShot
             DROP_SPLASH = Content.Load<Texture2D>(@"splash");
             DROP = Content.Load<Texture2D>(@"water_drop");
             SPLASHING = Content.Load<Texture2D>(@"splashing");
+            WADING = Content.Load<Texture2D>(@"wading");
 
             ROAD_HORIZONTAL = getDimmerClone(Content.Load<Texture2D>(@"roadHorizontal"), ROAD_FADE);
             ROAD_TURN = getDimmerClone(Content.Load<Texture2D>(@"roadTurn"), ROAD_FADE);
