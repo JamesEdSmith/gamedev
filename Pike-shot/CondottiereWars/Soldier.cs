@@ -381,7 +381,17 @@ namespace PikeAndShot
                     addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
             }
             else
+            {
                 addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED && _state != STATE_SPAWN ? _side : _side * -1, _drawingY));
+                if (_wading.getPlaying())
+                {
+                    if(_state != STATE_DYING || _death.getCurrFrame() != _death.getMaxFrames()-1)
+                        addDrawjob(new DrawJob(_wading, _drawingPosition + new Vector2(0, _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+                    else
+                        addDrawjob(new DrawJob(_wading, _drawingPosition + new Vector2(getWidth(), _idle.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
+
+                }
+            }
 
             //spritebatch.Draw(PikeAndShotGame.getDotTexture(), _drawingPosition, Color.White);
         }
@@ -895,7 +905,7 @@ namespace PikeAndShot
                 else if (_state == STATE_DYING)
                 {
                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
-                    if (!splashed && _death.getCurrFrame() == 2 && _screen.checkWaterSituation(_position.X, _position.Y) == BattleScreen.TerrainSituationResult.WATER)
+                    if (!splashed && _death.getCurrFrame() == 3 && _screen.checkWaterSituation(_position.X, _position.Y) == BattleScreen.TerrainSituationResult.WATER)
                     {
                         new ScreenAnimation(_screen, -1 * _side, _side == BattleScreen.SIDE_PLAYER ? new Vector2(_position.X - 40f, _position.Y + getHeight() + 1f) : new Vector2(_position.X + 40f, _position.Y + getHeight() + 1f), new Sprite(PikeAndShotGame.SPLASHING, new Rectangle(14, 8, 4, 4), 48, 24), 1250f);
                         splashed = true;
@@ -4509,6 +4519,9 @@ namespace PikeAndShot
             {
                 addDrawjob(new DrawJob(_feet, _drawingPosition, (_state != STATE_RETREAT && _state != STATE_ROUTED && _state != STATE_TUG && !_turned && !killOrientRight) || (_state == STATE_MELEE_WIN || _state == STATE_MELEE_LOSS || (_state == STATE_KILL && !killOrientRight)) ? _side : _side * -1, _drawingY));
             }
+
+            if (_wading.getPlaying())
+                addDrawjob(new DrawJob(_wading, _drawingPosition + new Vector2(0, _idleFeet.getBoundingRect().Height - 4), _state != STATE_RETREAT && _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
 
             if (_screen.getDrawDots())
             {

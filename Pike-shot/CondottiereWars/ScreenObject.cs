@@ -359,15 +359,15 @@ namespace PikeAndShot
             : base(screen, side, position, new Sprite(PikeAndShotGame.DROP, new Rectangle(4, 4, 2, 2), 10, 10), 500f)
         {
 
-            delta.X += (PikeAndShotGame.random.Next(2) == 0 ? 0.1f : -0.1f) * (float)PikeAndShotGame.random.NextDouble() * (float)Math.Cos(angle);
+            delta.X += (PikeAndShotGame.random.Next(2) == 0 ? 0.1f : -0.1f) * (float)PikeAndShotGame.random.NextDouble()/1.75f * (float)Math.Cos(angle);
             if (Math.Abs(delta.X) < 0.01)
             {
-                delta.X += (float)PikeAndShotGame.random.NextDouble() / 10 * (float)(PikeAndShotGame.random.Next(2) == 0 ? 1 : -1);
+                delta.X += (float)PikeAndShotGame.random.NextDouble() / 20 * (float)(PikeAndShotGame.random.Next(2) == 0 ? 1 : -1);
             }
-            delta.Y += (float)PikeAndShotGame.random.NextDouble() * 0.1f * (float)Math.Sin(angle);
+            delta.Y += (float)PikeAndShotGame.random.NextDouble() * 0.04f * (float)Math.Sin(angle);
             if (Math.Abs(delta.Y) < 0.01)
             {
-                delta.Y += (float)PikeAndShotGame.random.NextDouble() / 10 * (float)(PikeAndShotGame.random.Next(2) == 0 ? 1 : -1);
+                delta.Y += (float)PikeAndShotGame.random.NextDouble() / 20 * (float)(PikeAndShotGame.random.Next(2) == 0 ? 1 : -1);
             }
             velocity = new Vector2(0, -0.05f - (float)PikeAndShotGame.random.NextDouble() * 0.01f) + delta;
             dirt = false;
