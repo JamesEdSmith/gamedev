@@ -385,7 +385,7 @@ namespace PikeAndShot
 
             if (_position.Y > initialPosition.Y && !dirt && topSet != -1)
             {
-                if (_screen.checkWaterSituation(_position.X, _position.Y) == BattleScreen.TerrainSituationResult.WATER)
+                if (_screen.checkWaterSituation(_position.X, _position.Y + _sprite.getSourceBitmap().Height/2f) == BattleScreen.TerrainSituationResult.WATER)
                 {
                     _sprite = new Sprite(PikeAndShotGame.DROP_SPLASH, new Rectangle(10, 10, 2, 2), 22, 20);
                     dirt = true;

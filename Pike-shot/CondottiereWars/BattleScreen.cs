@@ -373,16 +373,16 @@ namespace PikeAndShot
             {
                 if (terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0L || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1L)
                 {
-                    if (terrain.getPosition().X + terrain.getSprite().getSourceBitmap().Width < x && Math.Abs(terrain.getPosition().Y - y) < WATER_CHECK_HEIGHT)
+                    if (terrain.getPosition().X + terrain.getSprite().getSourceBitmap().Width < x && Math.Abs(terrain.getCenter().Y - y) < WATER_CHECK_HEIGHT)
                         leftToMyLeft = true;
-                    else if (terrain.getPosition().X > x && Math.Abs(terrain.getPosition().Y - y) < WATER_CHECK_HEIGHT)
+                    else if (terrain.getPosition().X + terrain.getSprite().getSourceBitmap().Width > x && Math.Abs(terrain.getCenter().Y - y) < WATER_CHECK_HEIGHT)
                         leftToMyRight = true;
                 }
                 if (terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0 || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1)
                 {
-                    if (terrain.getPosition().X + terrain.getSprite().getSourceBitmap().Width < x && Math.Abs(terrain.getPosition().Y - y) < WATER_CHECK_HEIGHT)
+                    if (terrain.getPosition().X < x && Math.Abs(terrain.getCenter().Y - y) < WATER_CHECK_HEIGHT)
                         rightToMyLeft = true;
-                    else if (terrain.getPosition().X > x && Math.Abs(terrain.getPosition().Y - y) < WATER_CHECK_HEIGHT)
+                    else if (terrain.getCenter().X > x && Math.Abs(terrain.getCenter().Y - y) < WATER_CHECK_HEIGHT)
                         rightToMyRight = true;
                 }                
             }

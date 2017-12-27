@@ -634,7 +634,7 @@ namespace PikeAndShot
                 _travel.Y *= -1;
 
 
-            bool inWater = _screen.checkWaterSituation(_position.X, _position.Y) == BattleScreen.TerrainSituationResult.WATER;
+            bool inWater = _screen.checkWaterSituation(_position.X, getCenter().Y) == BattleScreen.TerrainSituationResult.WATER;
             if (inWater)
             {
                 if (!_wading.getPlaying())
