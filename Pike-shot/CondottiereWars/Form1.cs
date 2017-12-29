@@ -186,6 +186,12 @@ namespace PikeAndShot
             _terrainClass.Add(terrain);
             terrain = new TerrainClass("river bed 1 right", 23);
             _terrainClass.Add(terrain);
+            terrain = new TerrainClass("bottles", 24);
+            _terrainClass.Add(terrain);
+            terrain = new TerrainClass("ruin_building", 25);
+            _terrainClass.Add(terrain);
+            terrain = new TerrainClass("ruin_cross", 26);
+            _terrainClass.Add(terrain);
 
             foreach (TerrainClass sc in _terrainClass)
             {

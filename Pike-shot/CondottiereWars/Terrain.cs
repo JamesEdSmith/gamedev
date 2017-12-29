@@ -37,6 +37,10 @@ namespace PikeAndShot
         public const int CLASS_RIVER_BED_1 = 21;
         public const int CLASS_RIVER_BED_0L = 22;
         public const int CLASS_RIVER_BED_1L = 23;
+        public const int CLASS_BOTTLES = 24;
+        public const int CLASS_RUIN_BUILDING = 25;
+        public const int CLASS_RUIN_CROSS = 26;
+
 
         public Sprite _sprite;
         private float _restTime;
@@ -280,6 +284,18 @@ namespace PikeAndShot
                 case Terrain.CLASS_RIVER_BED_1L:
                     newTerrain = new Terrain(screen, PikeAndShotGame.RIVER_BED_1L, BattleScreen.SIDE_PLAYER, x, y, 0);
                     newTerrain.setWater(true);
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_BOTTLES:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.BOTTLES, BattleScreen.SIDE_PLAYER, x, y, 23);
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_RUIN_BUILDING:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.RUIN_BUILDING, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 12, (int)y + 12, 120, 54));
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_RUIN_CROSS:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.RUIN_CROSS, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 4, (int)y + 40, 68, 28));
                     screen.addTerrain(newTerrain);
                     break;
             }

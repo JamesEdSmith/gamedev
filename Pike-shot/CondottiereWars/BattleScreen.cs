@@ -27,6 +27,8 @@ namespace PikeAndShot
         public const float SCROLLPOINT = 0.33f;
         public const float BATTLEHEIGHTEXTEND = 384f;
 
+        public const int DESIRED_GENERATED_TERRAIN = 30;
+
         public enum TerrainSituationResult
         {
             CLEAR,
@@ -257,47 +259,7 @@ namespace PikeAndShot
                     _terrain.Remove(obj);
                     if (((Terrain)obj).generated)
                     {
-                        int terrainIndex;
-                        Terrain terrain;
-                        int y = PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT);
-                        switch (checkTerrainSituation(PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y))
-                        {
-                            case TerrainSituationResult.CLEAR:
-                                terrainIndex = PikeAndShotGame.random.Next(7);
-                                if (terrainIndex == 2)
-                                {
-                                    terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, 8000f, 1500f);
-                                    _terrain.Add(terrain);
-                                }
-                                else
-                                {
-                                    terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y);
-                                    _terrain.Add(terrain);
-                                }
-                                terrain.generated = true;
-                                cancelScreenObject(terrain);
-                                break;
-                            case TerrainSituationResult.WATER:
-                                terrainIndex = PikeAndShotGame.random.Next(3);
-                                if (terrainIndex == 0)
-                                {
-                                    terrain = new Terrain(this, PikeAndShotGame.WATER_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, new Vector2(28, 24), 0f, 2000f, 18);
-                                }
-                                else if (terrainIndex == 1)
-                                {
-                                    terrain = new Terrain(this, PikeAndShotGame.WATER_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, new Vector2(36, 26), 0f, 2000f, 20);
-                                }
-                                else
-                                {
-                                    terrain = new Terrain(this, PikeAndShotGame.WATER_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, new Vector2(24, 20), 0f, 2000f, 15);
-                                }
-                                _terrain.Add(terrain);
-                                terrain.generated = true;
-                                cancelScreenObject(terrain);
-                                break;
-                            case TerrainSituationResult.OBSTRUCTED:
-                                break;
-                        }
+                        generateTerrain();
                     }
                     else if (((Terrain)obj).getWater())
                     {
@@ -311,6 +273,10 @@ namespace PikeAndShot
                 _screenObjects.Remove(obj);
             }
             _deadThings.Clear();
+
+            if(getGeneratedTerrainCount() < DESIRED_GENERATED_TERRAIN)
+                generateTerrain();
+                
 
             // screen animations
 
@@ -330,6 +296,62 @@ namespace PikeAndShot
             }
 
             _deadThings.Clear();
+        }
+
+        private int getGeneratedTerrainCount()
+        {
+            int result = 0;
+            foreach (Terrain terrain in _terrain)
+            {
+                if (terrain.generated)
+                    result++;
+            }
+            return result;
+        }
+
+        private void generateTerrain()
+        {
+            int terrainIndex;
+            Terrain terrain;
+            int y = PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT);
+            switch (checkTerrainSituation(PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y))
+            {
+                case TerrainSituationResult.CLEAR:
+                    terrainIndex = PikeAndShotGame.random.Next(7);
+                    if (terrainIndex == 2)
+                    {
+                        terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, 8000f, 1500f);
+                        _terrain.Add(terrain);
+                    }
+                    else
+                    {
+                        terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y);
+                        _terrain.Add(terrain);
+                    }
+                    terrain.generated = true;
+                    cancelScreenObject(terrain);
+                    break;
+                case TerrainSituationResult.WATER:
+                    terrainIndex = PikeAndShotGame.random.Next(3);
+                    if (terrainIndex == 0)
+                    {
+                        terrain = new Terrain(this, PikeAndShotGame.WATER_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, new Vector2(28, 24), 0f, 2000f, 18);
+                    }
+                    else if (terrainIndex == 1)
+                    {
+                        terrain = new Terrain(this, PikeAndShotGame.WATER_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, new Vector2(36, 26), 0f, 2000f, 20);
+                    }
+                    else
+                    {
+                        terrain = new Terrain(this, PikeAndShotGame.WATER_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, new Vector2(24, 20), 0f, 2000f, 15);
+                    }
+                    _terrain.Add(terrain);
+                    terrain.generated = true;
+                    cancelScreenObject(terrain);
+                    break;
+                case TerrainSituationResult.OBSTRUCTED:
+                    break;
+            }
         }
 
         private TerrainSituationResult checkTerrainSituation(float x, int y)
