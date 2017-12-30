@@ -899,6 +899,8 @@ namespace PikeAndShot
             _mapOffset.Y = 0f;
             _usedFormations.Clear();
             _usedTerrain.Clear();
+            _terrain.Clear();
+            _waterTerrain.Clear();
             _looseSoldiers.Clear();
             _shots.Clear();
             _enemyFormations.Clear();

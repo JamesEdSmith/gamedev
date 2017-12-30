@@ -93,6 +93,9 @@ namespace PikeAndShot
         {
             _state = STATE_GROUND;
             _stateTimer = _groundTime;
+            if (_screen.checkWaterSituation(_position.X, _position.Y) == BattleScreen.TerrainSituationResult.WATER)
+                new ScreenAnimation(_screen, 1 * _side, new Vector2(_position.X, _position.Y + getHeight()), new Sprite(PikeAndShotGame.SPLASHING, new Rectangle(14, 8, 4, 4), 48, 24), 1250f);
+            
             if(hitSound != null)
                 hitSound.Play();
         }
