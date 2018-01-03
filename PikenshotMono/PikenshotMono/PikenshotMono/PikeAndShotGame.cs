@@ -25,6 +25,8 @@ namespace PikeAndShot
         public const int SCREEN_FORMATIONMAKER = 1;
         public const int SCREEN_LEVELEDITOR = 2;
 
+        public const float ROAD_FADE = 0.4f;
+
         GraphicsDeviceManager graphics;
         public static Viewport viewport;
         SpriteBatch spriteBatch;
@@ -48,8 +50,11 @@ namespace PikeAndShot
 
         public static Texture2D PUCELLE_IDLE;
         public static Texture2D PUCELLE_MOTION;
+        public static Texture2D PUCELLE_ROUTED;
+        public static Texture2D PUCELLE_DROP;
 
         public static Texture2D PIKEMAN_FEET;
+        public static Texture2D PIKEMAN_DROP;
         public static Texture2D PIKEMAN_IDLE;
         public static Texture2D PIKEMAN_LOWER_LOW;
         public static Texture2D PIKEMAN_LOWER_HIGH;
@@ -72,20 +77,40 @@ namespace PikeAndShot
         public static Texture2D PIKEMAN_MELEE;
         public static Texture2D PIKEMAN_ROUTE;
         public static Texture2D PIKEMAN_ROUTED;
+        public static Texture2D PIKEMAN2_ROUTED;
+        public static Texture2D PIKEMAN_TUG;
+        public static Texture2D PIKEMAN2_TUG;
+        public static Texture2D WOLF2_TUG;
+        public static Texture2D WOLF_TUG;
+        public static Texture2D WOLF2_TUGg;
+        public static Texture2D WOLF_TUGg;
 
         public static Texture2D ARQUEBUSIER_FEET;
         public static Texture2D ARQUEBUSIER_IDLE;
         public static Texture2D ARQUEBUSIER_DEATH;
         public static Texture2D ARQUEBUSIER_MELEE;
+        public static Texture2D ARQUEBUSIER_DEFEND;
         public static Texture2D ARQUEBUSIER_RELOAD;
         public static Texture2D ARQUEBUSIER_SHOOT;
         public static Texture2D ARQUEBUSIER_SMOKE;
         public static Texture2D ARQUEBUSIER_ROUTE;
         public static Texture2D ARQUEBUSIER_ROUTED;
+        public static Texture2D ARQUEBUSIER2_ROUTED;
         public static Texture2D ARQUEBUSIER_SHOT1;
         public static Texture2D ARQUEBUSIER_SHOT2;
         public static Texture2D ARQUEBUSIER_SHOT3;
         public static Texture2D ARQUEBUSIER_GROUND;
+
+        public static Texture2D ARQUEBUSIER_FEET2;
+        public static Texture2D ARQUEBUSIER_IDLE2;
+        public static Texture2D ARQUEBUSIER_DEATH2;
+        public static Texture2D ARQUEBUSIER_MELEE2;
+        public static Texture2D ARQUEBUSIER_DEFEND2;
+        public static Texture2D ARQUEBUSIER_RELOAD2;
+        public static Texture2D ARQUEBUSIER_SHOOT2;
+        public static Texture2D ARQUEBUSIER_SMOKE2;
+        public static Texture2D ARQUEBUSIER_DROP;
+        public static Texture2D ARQUEBUSIER2_DROP;
 
         public static Texture2D CROSSBOWMAN_IDLE;
         public static Texture2D CROSSBOWMAN_DEATH;
@@ -103,7 +128,7 @@ namespace PikeAndShot
         public static Texture2D CROSSBOWMAN_PAVISE;
         public static Texture2D CROSSBOWMAN_PAVISE_PLACE;
         public static Texture2D CROSSBOWMAN_SHIELDBREAK;
-        
+
         public static Texture2D PLACED_PAVISE;
         public static Texture2D PAVISE_FALL;
 
@@ -116,13 +141,18 @@ namespace PikeAndShot
 
         public static Texture2D SOLDIER_FEET;
         public static Texture2D SOLDIER_IDLE;
+        public static Texture2D SOLDIER2_IDLE;
         public static Texture2D SOLDIER_DEATH;
+        public static Texture2D SOLDIER2_DEATH;
         public static Texture2D SOLDIER_MELEE1;
         public static Texture2D SOLDIER_DEFEND1;
         public static Texture2D SOLDIER_MELEE2;
+        public static Texture2D SOLDIER2_MELEE2;
         public static Texture2D SOLDIER_DEFEND2;
+        public static Texture2D SOLDIER2_DEFEND2;
         public static Texture2D SOLDIER_ROUTE;
         public static Texture2D SOLDIER_ROUTED;
+        public static Texture2D SOLDIER2_ROUTED;
         public static Texture2D SOLDIER_SHIELDBREAK;
         public static Texture2D SOLDIER_IDLENOSHIELD;
         public static Texture2D SOLDIER_BROKENSHIELD1;
@@ -211,14 +241,27 @@ namespace PikeAndShot
         public static Texture2D BRIGAND1_MELEE1;
         public static Texture2D BRIGAND1_DEFEND1;
         public static Texture2D BRIGAND1_CHARGE;
+        public static Texture2D BRIGAND1_SPAWN;
 
         public static Texture2D BRIGAND2_IDLE;
         public static Texture2D BRIGAND2_DEATH;
         public static Texture2D BRIGAND2_MELEE1;
         public static Texture2D BRIGAND2_DEFEND1;
         public static Texture2D BRIGAND2_CHARGE;
+        public static Texture2D BRIGAND2_SPAWN;
 
+        public static Texture2D HAULER_FEET;
         public static Texture2D HAULER_HAUL;
+        public static Texture2D HAULER_IDLE;
+        public static Texture2D HAULER_DEATH;
+        public static Texture2D HAULER_THROW;
+
+        public static Texture2D BAGGER_DEATH;
+        public static Texture2D BAGGER_HAUL;
+        public static Texture2D BAGGER_IDLE;
+        public static Texture2D BAGGER_THROW;
+        public static Texture2D BAGGER_BAG;
+
         public static Texture2D WOLF_IDLE;
         public static Texture2D WOLF_RUN;
         public static Texture2D WOLF_SPOOKED;
@@ -239,6 +282,13 @@ namespace PikeAndShot
         public static Texture2D WOLF_KILLg;
         public static Texture2D WOLF_HOWLg;
 
+        public static Texture2D WOLF_IDLE_COL;
+        public static Texture2D WOLF_TURN_COL;
+        public static Texture2D WOLF_ATTACK_COL;
+        public static Texture2D WOLF_HOWL_COL;
+        public static Texture2D WOLF_RUN_COL;
+        public static Texture2D WOLF_GETUP_COL;
+
         public static Texture2D COLMILLOS_IDLE;
         public static Texture2D COLMILLOS_IDLENOSHIELD;
         public static Texture2D COLMILLOS_IDLENOARMOUR;
@@ -254,10 +304,60 @@ namespace PikeAndShot
         public static Texture2D COLMILLOS_HOWL;
         public static Texture2D COLMILLOS_HOWL_NOSHIELD;
         public static Texture2D COLMILLOS_HOWL_NOARMOUR;
+        public static Texture2D COLMILLOS_STAGGER;
+        public static Texture2D FALCHION_THROWN;
+        public static Texture2D FALCHION_DIRT;
 
+        public static Texture2D PEASANT1_IDLE;
+        public static Texture2D PEASANT2_IDLE;
+        public static Texture2D PEASANT3_IDLE;
+        public static Texture2D PEASANT4_IDLE;
+        public static Texture2D PEASANT5_IDLE;
+        public static Texture2D PEASANT6_IDLE;
+
+        public static Texture2D PEASANT1_FLEE;
+        public static Texture2D PEASANT5_FLEE;
+
+        public static Texture2D BLUE_FEET;
         public static Texture2D BROWN_FEET;
 
         public static List<Texture2D> ROAD_TERRAIN;
+        public static Texture2D TREE0;
+        public static Texture2D TREE1;
+        public static Texture2D TREE2;
+        public static Texture2D ROAD_HORIZONTAL;
+        public static Texture2D ROAD_HORIZONTAL_2;
+        public static Texture2D ROAD_TURN;
+        public static Texture2D ROAD_MILE_MARKER;
+        public static Texture2D ROAD_TURN_MARKER;
+        public static Texture2D BUSH0;
+        public static Texture2D BUSH1;
+        public static Texture2D BUSH2;
+        public static Texture2D WAGON;
+        public static Texture2D OX_GREY;
+        public static Texture2D OX_BROWN;
+        public static Texture2D OX_DEAD;
+        public static Texture2D WOUNDED_PEASANT;
+        public static Texture2D DEAD_PEASANT;
+        public static Texture2D TOTEMPOLE;
+        public static Texture2D RIVER;
+        public static Texture2D RIVER_BED_0;
+        public static Texture2D RIVER_BED_1;
+        public static Texture2D RIVER_BED_0L;
+        public static Texture2D RIVER_BED_1L;
+        public static List<Texture2D> WATER_TERRAIN;
+        public static Texture2D BOTTLES;
+        public static Texture2D RUIN_BUILDING;
+        public static Texture2D RUIN_CROSS;
+        public static Texture2D FANG_ROCK;
+        public static Texture2D FANG_ROCKS;
+        public static Texture2D BARRICADES;
+        public static Texture2D TRUNKS;
+
+        public static Texture2D DROP_SPLASH;
+        public static Texture2D DROP;
+        public static Texture2D SPLASHING;
+        public static Texture2D WADING;
 
         public static Texture2D COIN;
         public static Texture2D COIN_METER;
@@ -265,6 +365,7 @@ namespace PikeAndShot
         public static Texture2D DOPPEL_METER;
         public static Texture2D LOOT;
         public static Texture2D COIN_SPINNA;
+        public static Texture2D SPARKLE;
 
         //Utility Graphics
         public static Texture2D DOT;
@@ -304,6 +405,8 @@ namespace PikeAndShot
         public static SoundEffect POWER_UP;
         public static SoundEffect DOPPEL_UP;
         public static SoundEffect DOPPEL_DOWN;
+        public static SoundEffect COLMILLOS_HURT;
+        public static SoundEffect COLMILLOS_YELL;
 
         private ArrayList _gameScreens;
         private BattleScreen _currScreen;
@@ -371,30 +474,78 @@ namespace PikeAndShot
 
             ShaderRenderTarget = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
             ShaderRenderTarget2 = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
-
             effect = Content.Load<Effect>(@"newshader");
+
             effect.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
 
             effect2 = Content.Load<Effect>(@"newshader2");
             effect2.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
-            effect2.Parameters["iResolution"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT) *1.5f);
+            effect2.Parameters["iResolution"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT) * 1.5f);
 
             //TERRAIN_DRY_GRASS = Content.Load<Texture2D>(@"dry_grass");
-            ROAD_TERRAIN = new List<Texture2D>(11);
+            //ROAD_TERRAIN = new List<Texture2D>(11);
 
-            for(int i = 0; i < 11; i++)
-                ROAD_TERRAIN.Add(Content.Load<Texture2D>(@"roadTerrain" + i));
+            //for (int i = 0; i < 11; i++)
+            //    ROAD_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"roadTerrain" + i)));
+
+            //TREE0 = getDimmerClone(Content.Load<Texture2D>(@"roadTerrain11"));
+            //TREE1 = getDimmerClone(Content.Load<Texture2D>(@"tree01"));
+            //TREE2 = getDimmerClone(Content.Load<Texture2D>(@"tree02"));
+
+            //BUSH0 = getDimmerClone(Content.Load<Texture2D>(@"bush00"));
+            //BUSH1 = getDimmerClone(Content.Load<Texture2D>(@"bush01"));
+            //BUSH2 = getDimmerClone(Content.Load<Texture2D>(@"bush03"));
+            //WAGON = getDimmerClone(Content.Load<Texture2D>(@"wagon"));
+            //OX_BROWN = getDimmerClone(Content.Load<Texture2D>(@"ox_brown"));
+            //OX_GREY = getDimmerClone(Content.Load<Texture2D>(@"ox_grey"));
+            //OX_DEAD = getDimmerClone(Content.Load<Texture2D>(@"ox_dead"));
+            //WOUNDED_PEASANT = getDimmerClone(Content.Load<Texture2D>(@"wounded_dude"));
+            //DEAD_PEASANT = getDimmerClone(Content.Load<Texture2D>(@"bodies"));
+            //TOTEMPOLE = getDimmerClone(Content.Load<Texture2D>(@"totempole"));
+            //RIVER = getDimmerClone(Content.Load<Texture2D>(@"river"));
+            //RIVER_BED_0 = getDimmerClone(Content.Load<Texture2D>(@"river_bed00"));
+            //RIVER_BED_1 = getDimmerClone(Content.Load<Texture2D>(@"river_bed01"));
+            //RIVER_BED_0L = getDimmerClone(Content.Load<Texture2D>(@"left_river_bed00"));
+            //RIVER_BED_1L = getDimmerClone(Content.Load<Texture2D>(@"left_river_bed01"));
+            //WATER_TERRAIN = new List<Texture2D>(3);
+            //WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock")));
+            //WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock2")));
+            //WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock3")));
+            //BOTTLES = getDimmerClone(Content.Load<Texture2D>(@"bottles"));
+            //RUIN_BUILDING = getDimmerClone(Content.Load<Texture2D>(@"ruin_building"));
+            //RUIN_CROSS = getDimmerClone(Content.Load<Texture2D>(@"ruin_cross"));
+            //FANG_ROCK = getDimmerClone(Content.Load<Texture2D>(@"fang_rock"));
+            //FANG_ROCKS = getDimmerClone(Content.Load<Texture2D>(@"fang_rocks"));
+            //BARRICADES = getDimmerClone(Content.Load<Texture2D>(@"barricades"));
+            //TRUNKS = getDimmerClone(Content.Load<Texture2D>(@"trunks"));
+
+            DROP_SPLASH = Content.Load<Texture2D>(@"splash");
+            DROP = Content.Load<Texture2D>(@"water_drop");
+            SPLASHING = Content.Load<Texture2D>(@"splashing");
+            WADING = Content.Load<Texture2D>(@"wading");
+
+            //ROAD_HORIZONTAL = getDimmerClone(Content.Load<Texture2D>(@"roadHorizontal"), ROAD_FADE);
+            //ROAD_TURN = getDimmerClone(Content.Load<Texture2D>(@"roadTurn"), ROAD_FADE);
+            //ROAD_MILE_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadMileMarker"));
+            //ROAD_TURN_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadTurnMarker"));
+            //ROAD_HORIZONTAL_2 = getDimmerClone(Content.Load<Texture2D>(@"road_h2"), ROAD_FADE);
 
             PUCELLE_IDLE = Content.Load<Texture2D>(@"pucelle_ready2");
             PUCELLE_MOTION = Content.Load<Texture2D>(@"pucelle_motion");
+            PUCELLE_ROUTED = Content.Load<Texture2D>(@"pucelle_routed");
+            PUCELLE_DROP = Content.Load<Texture2D>(@"dropped_flag");
 
             SOLDIER_FEET = Content.Load<Texture2D>(@"soldier_feet");
             SOLDIER_IDLE = Content.Load<Texture2D>(@"soldier_idle");
+            SOLDIER2_IDLE = Content.Load<Texture2D>(@"soldier2_idle");
             SOLDIER_DEATH = Content.Load<Texture2D>(@"soldier_death");
+            SOLDIER2_DEATH = Content.Load<Texture2D>(@"soldier2_death");
             SOLDIER_MELEE1 = Content.Load<Texture2D>(@"soldier_melee1");
             SOLDIER_DEFEND1 = Content.Load<Texture2D>(@"soldier_defend1");
             SOLDIER_MELEE2 = Content.Load<Texture2D>(@"soldier_melee2");
             SOLDIER_DEFEND2 = Content.Load<Texture2D>(@"soldier_defend2");
+            SOLDIER2_MELEE2 = Content.Load<Texture2D>(@"soldier2_melee");
+            SOLDIER2_DEFEND2 = Content.Load<Texture2D>(@"soldier2_defend");
             SOLDIER_SHIELDBREAK = Content.Load<Texture2D>(@"soldier_shieldbreak");
             SOLDIER_FALL = Content.Load<Texture2D>(@"soldier_fall");
             SOLDIER_BROKENSHIELD1 = Content.Load<Texture2D>(@"brokenshield1");
@@ -402,7 +553,8 @@ namespace PikeAndShot
             SOLDIER_BROKENARMOUR = Content.Load<Texture2D>(@"brokenarmour");
             SOLDIER_IDLENOSHIELD = Content.Load<Texture2D>(@"soldier_idlenoshield");
             SOLDIER_ROUTE = Content.Load<Texture2D>(@"soldier_route");
-            SOLDIER_ROUTED = Content.Load<Texture2D>(@"soldier_routed");
+            SOLDIER_ROUTED = Content.Load<Texture2D>(@"soldier1_routed");
+            SOLDIER2_ROUTED = Content.Load<Texture2D>(@"soldier2_routed");
             SOLDIER_CHARGENOSHIELD = Content.Load<Texture2D>(@"soldier_chargenoshield");
             SOLDIER_CHARGE = Content.Load<Texture2D>(@"soldier_charge");
 
@@ -431,6 +583,7 @@ namespace PikeAndShot
 
             PIKEMAN_FEET = Content.Load<Texture2D>(@"pikeman_feet");
             PIKEMAN_IDLE = Content.Load<Texture2D>(@"pikeman_idle");
+            PIKEMAN_DROP = Content.Load<Texture2D>(@"dropped_pike");
             PIKEMAN_LOWER_LOW = Content.Load<Texture2D>(@"pikeman_lower_low");
             PIKEMAN_LOWER_HIGH = Content.Load<Texture2D>(@"pikeman_lower_high");
             PIKEMAN_RECOIL = Content.Load<Texture2D>(@"pikeman_recoil");
@@ -451,21 +604,41 @@ namespace PikeAndShot
             PIKEMAN2_DEFEND = Content.Load<Texture2D>(@"pikeman2_defend1");
             PIKEMAN_MELEE = Content.Load<Texture2D>(@"pikeman_melee");
             PIKEMAN_ROUTE = Content.Load<Texture2D>(@"pikeman_route");
-            PIKEMAN_ROUTED = Content.Load<Texture2D>(@"pikeman_routed");
+            PIKEMAN_ROUTED = Content.Load<Texture2D>(@"pikeman1_over");
+            PIKEMAN2_ROUTED = Content.Load<Texture2D>(@"pikeman2_over");
+            PIKEMAN_TUG = Content.Load<Texture2D>(@"tug_pikeman");
+            PIKEMAN2_TUG = Content.Load<Texture2D>(@"tug_pikeman2");
+            WOLF_TUG = Content.Load<Texture2D>(@"tug_wolf");
+            WOLF2_TUG = Content.Load<Texture2D>(@"tug_wolf2");
+            //WOLF_TUGg = getGreyscaleClone(WOLF_TUG);
+            //WOLF2_TUGg = getGreyscaleClone(WOLF2_TUG);
 
             ARQUEBUSIER_FEET = Content.Load<Texture2D>(@"arquebusier_feet");
-            ARQUEBUSIER_IDLE = Content.Load<Texture2D>(@"arquebusier_idle");
-            ARQUEBUSIER_RELOAD = Content.Load<Texture2D>(@"arquebusier_reload");
-            ARQUEBUSIER_SHOOT = Content.Load<Texture2D>(@"arquebusier_shoot");
-            ARQUEBUSIER_SMOKE = Content.Load<Texture2D>(@"arquebusier_smoke");
-            ARQUEBUSIER_DEATH = Content.Load<Texture2D>(@"arquebusier_death");
-            ARQUEBUSIER_MELEE = Content.Load<Texture2D>(@"arquebusier_melee");
+            ARQUEBUSIER_IDLE = Content.Load<Texture2D>(@"gonner_idle");
+            ARQUEBUSIER_RELOAD = Content.Load<Texture2D>(@"gonner_reload");
+            ARQUEBUSIER_SHOOT = Content.Load<Texture2D>(@"gonner_shoot");
+            ARQUEBUSIER_SMOKE = Content.Load<Texture2D>(@"gonner_smoke");
+            ARQUEBUSIER_DEATH = Content.Load<Texture2D>(@"gonner_death");
+            ARQUEBUSIER_MELEE = Content.Load<Texture2D>(@"gonner_melee");
+            ARQUEBUSIER_DEFEND = Content.Load<Texture2D>(@"gonner_defend");
             ARQUEBUSIER_ROUTE = Content.Load<Texture2D>(@"arquebusier_route");
-            ARQUEBUSIER_ROUTED = Content.Load<Texture2D>(@"arquebusier_routed");
+            ARQUEBUSIER_ROUTED = Content.Load<Texture2D>(@"gonner_over");
             ARQUEBUSIER_SHOT1 = Content.Load<Texture2D>(@"shot1");
             ARQUEBUSIER_SHOT2 = Content.Load<Texture2D>(@"shot2");
             ARQUEBUSIER_SHOT3 = Content.Load<Texture2D>(@"shot3");
             ARQUEBUSIER_GROUND = Content.Load<Texture2D>(@"arquebusier_ground");
+
+            ARQUEBUSIER_FEET2 = Content.Load<Texture2D>(@"brown_lady_feet");
+            ARQUEBUSIER_IDLE2 = Content.Load<Texture2D>(@"arque_idle");
+            ARQUEBUSIER_DEATH2 = Content.Load<Texture2D>(@"arque_death");
+            ARQUEBUSIER_MELEE2 = Content.Load<Texture2D>(@"arque_melee");
+            ARQUEBUSIER_DEFEND2 = Content.Load<Texture2D>(@"arque_defend");
+            ARQUEBUSIER_RELOAD2 = Content.Load<Texture2D>(@"arque_reload");
+            ARQUEBUSIER_SHOOT2 = Content.Load<Texture2D>(@"arque_shoot");
+            ARQUEBUSIER_SMOKE2 = Content.Load<Texture2D>(@"arque_smoke");
+            ARQUEBUSIER2_ROUTED = Content.Load<Texture2D>(@"arque_over");
+            ARQUEBUSIER_DROP = Content.Load<Texture2D>(@"dropped_gonne");
+            ARQUEBUSIER2_DROP = Content.Load<Texture2D>(@"dropped_arque");
 
             CROSSBOWMAN_IDLE = Content.Load<Texture2D>(@"crossbowman_idle");
             CROSSBOWMAN_RELOAD = Content.Load<Texture2D>(@"crossbowman_reload");
@@ -483,7 +656,7 @@ namespace PikeAndShot
             CROSSBOWMAN_PAVISE = Content.Load<Texture2D>(@"crossbowman_pavise_idle");
             CROSSBOWMAN_PAVISE_PLACE = Content.Load<Texture2D>(@"crossbowman_pavise_place");
             CROSSBOWMAN_SHIELDBREAK = Content.Load<Texture2D>(@"crossbowman_shieldbreak");
-            
+
             PLACED_PAVISE = Content.Load<Texture2D>(@"placed_pavise");
             PAVISE_FALL = Content.Load<Texture2D>(@"pavise_fall");
 
@@ -548,14 +721,25 @@ namespace PikeAndShot
             BRIGAND1_MELEE1 = Content.Load<Texture2D>(@"berserker_melee2");
             BRIGAND1_DEFEND1 = Content.Load<Texture2D>(@"berserker_defend2");
             BRIGAND1_CHARGE = Content.Load<Texture2D>(@"berserker_charge");
+            BRIGAND1_SPAWN = Content.Load<Texture2D>(@"brigand_eating");
 
             BRIGAND2_IDLE = Content.Load<Texture2D>(@"brigand_idle");
             BRIGAND2_DEATH = Content.Load<Texture2D>(@"brigand_death");
             BRIGAND2_MELEE1 = Content.Load<Texture2D>(@"brigand_melee2");
             BRIGAND2_DEFEND1 = Content.Load<Texture2D>(@"brigand_defend2");
             BRIGAND2_CHARGE = Content.Load<Texture2D>(@"brigand_charge");
+            BRIGAND2_SPAWN = Content.Load<Texture2D>(@"brigand_stealing");
 
             HAULER_HAUL = Content.Load<Texture2D>(@"hauler_haul");
+            HAULER_FEET = Content.Load<Texture2D>(@"grey_feet");
+            HAULER_IDLE = Content.Load<Texture2D>(@"hauler_idle");
+            HAULER_DEATH = Content.Load<Texture2D>(@"hauler_death");
+            HAULER_THROW = Content.Load<Texture2D>(@"chest_throw");
+            BAGGER_DEATH = Content.Load<Texture2D>(@"bagger_death");
+            BAGGER_HAUL = Content.Load<Texture2D>(@"bagger_haul");
+            BAGGER_IDLE = Content.Load<Texture2D>(@"bagger_idle");
+            BAGGER_THROW = Content.Load<Texture2D>(@"bag_throw");
+            BAGGER_BAG = Content.Load<Texture2D>(@"bagger_bag_idle");
 
             WOLF_IDLE = Content.Load<Texture2D>(@"wolf_idle");
             WOLF_RUN = Content.Load<Texture2D>(@"wolf_run");
@@ -567,15 +751,22 @@ namespace PikeAndShot
             WOLF_KILL = Content.Load<Texture2D>(@"wolf_kill");
             WOLF_HOWL = Content.Load<Texture2D>(@"wolf_howl");
 
-            WOLF_IDLEg = getGreyscaleClone(WOLF_IDLE);
-            WOLF_RUNg = getGreyscaleClone(WOLF_RUN);
-            WOLF_SPOOKEDg = getGreyscaleClone(WOLF_SPOOKED);
-            WOLF_TURNg = getGreyscaleClone(WOLF_TURN);
-            WOLF_BITEg = getGreyscaleClone(WOLF_BITE);
-            WOLF_MELEEg = getGreyscaleClone(WOLF_MELEE);
-            WOLF_DEFENDg = getGreyscaleClone(WOLF_DEFEND);
-            WOLF_KILLg = getGreyscaleClone(WOLF_KILL);
-            WOLF_HOWLg = getGreyscaleClone(WOLF_HOWL);
+            WOLF_IDLE_COL = Content.Load<Texture2D>(@"wolf_idle_col");
+            WOLF_TURN_COL = Content.Load<Texture2D>(@"wolf_turn_col");
+            WOLF_ATTACK_COL = Content.Load<Texture2D>(@"wolf_bite_col");
+            WOLF_HOWL_COL = Content.Load<Texture2D>(@"wolf_howl_col");
+            WOLF_RUN_COL = Content.Load<Texture2D>(@"wolf_run_col");
+            WOLF_GETUP_COL = Content.Load<Texture2D>(@"wolf_getup_col");
+
+            //WOLF_IDLEg = getGreyscaleClone(WOLF_IDLE);
+            //WOLF_RUNg = getGreyscaleClone(WOLF_RUN);
+            //WOLF_SPOOKEDg = getGreyscaleClone(WOLF_SPOOKED);
+            //WOLF_TURNg = getGreyscaleClone(WOLF_TURN);
+            //WOLF_BITEg = getGreyscaleClone(WOLF_BITE);
+            //WOLF_MELEEg = getGreyscaleClone(WOLF_MELEE);
+            //WOLF_DEFENDg = getGreyscaleClone(WOLF_DEFEND);
+            //WOLF_KILLg = getGreyscaleClone(WOLF_KILL);
+            //WOLF_HOWLg = getGreyscaleClone(WOLF_HOWL);
 
             COLMILLOS_IDLE = Content.Load<Texture2D>(@"los_colmillos_idle0");
             COLMILLOS_IDLENOSHIELD = Content.Load<Texture2D>(@"los_colmillos_idle1");
@@ -593,9 +784,23 @@ namespace PikeAndShot
             COLMILLOS_HOWL = Content.Load<Texture2D>(@"los_colmillos_howl");
             COLMILLOS_HOWL_NOSHIELD = Content.Load<Texture2D>(@"los_colmillos_howl_noshield");
             COLMILLOS_HOWL_NOARMOUR = Content.Load<Texture2D>(@"los_colmillos_howl_noarmour");
+            COLMILLOS_STAGGER = Content.Load<Texture2D>(@"los_colmillos_stagger");
+            FALCHION_THROWN = Content.Load<Texture2D>(@"falchion_thrown");
+            FALCHION_DIRT = Content.Load<Texture2D>(@"falchion_dirt");
+
+            //PEASANT1_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_01_idle"));
+            //PEASANT2_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_02_idle"));
+            //PEASANT3_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_03_idle"));
+            //PEASANT4_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_04_idle"));
+            //PEASANT5_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_05_idle"));
+            //PEASANT6_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_06_idle"));
+
+            //PEASANT1_FLEE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_01_fleeing"));
+            //PEASANT5_FLEE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_05_fleeing"));
 
             GOBLIN_FEET = Content.Load<Texture2D>(@"goblin_feet");
             BROWN_FEET = Content.Load<Texture2D>(@"brown_feet");
+            BLUE_FEET = Content.Load<Texture2D>(@"blue_feet");
             SLINGER_GROUND = Content.Load<Texture2D>(@"slinger_ground");
 
             COIN = Content.Load<Texture2D>(@"coin");
@@ -609,8 +814,9 @@ namespace PikeAndShot
             //TEST = Content.Load<Texture2D>(@"sfea");
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
+            SPARKLE = Content.Load<Texture2D>(@"sparkle");
 
-            THEME_1 = Content.Load<Song>(@"theme");
+            THEME_1 = Content.Load<Song>(@"boss01");
             SHOT_0 = Content.Load<SoundEffect>(@"shot00");
             SHOT_1 = Content.Load<SoundEffect>(@"shot01");
             SHOT_2 = Content.Load<SoundEffect>(@"shot02");
@@ -644,6 +850,8 @@ namespace PikeAndShot
             POWER_UP = Content.Load<SoundEffect>(@"loaded");
             DOPPEL_DOWN = Content.Load<SoundEffect>(@"downbeat");
             DOPPEL_UP = Content.Load<SoundEffect>(@"loot_sound");
+            COLMILLOS_HURT = Content.Load<SoundEffect>(@"arg");
+            COLMILLOS_YELL = Content.Load<SoundEffect>(@"boss");
 
             _gameScreens = new ArrayList(3);
 
@@ -798,6 +1006,29 @@ namespace PikeAndShot
                 int b = c.B;
                 int avg = (r + g + b) / 3;
                 pixels[i] = Color.FromNonPremultiplied(avg, avg, avg, c.A);
+            }
+            greyTexture.SetData<Color>(pixels);
+            return greyTexture;
+        }
+
+        internal Texture2D getDimmerClone(Texture2D texture)
+        {
+            return getDimmerClone(texture, 0.60f);
+        }
+
+        internal Texture2D getDimmerClone(Texture2D texture, float factor)
+        {
+            Texture2D greyTexture = new Texture2D(GraphicsDevice, texture.Width, texture.Height);
+            Color[] pixels = new Color[texture.Width * texture.Height];
+            texture.GetData<Color>(0, texture.Bounds, pixels, 0, pixels.Length);
+
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                Color c = pixels[i];
+                int r = c.R;
+                int g = c.G;
+                int b = c.B;
+                pixels[i] = Color.FromNonPremultiplied((int)(r * factor), (int)(g * factor), (int)(b * factor), c.A);
             }
             greyTexture.SetData<Color>(pixels);
             return greyTexture;
