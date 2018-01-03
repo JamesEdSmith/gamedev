@@ -1,7 +1,14 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Net;
 using System.Collections;
 
 namespace PikeAndShot
@@ -14,9 +21,19 @@ namespace PikeAndShot
         public const int SIDE_PLAYER = 1;
         public const int SIDE_NEUTRAL = 0;
         public const int SIDE_ENEMY = -1;
+        public const float WATER_CHECK_HEIGHT = 40;
 
         public const float SCROLLPOINT = 0.33f;
         public const float BATTLEHEIGHTEXTEND = 384f;
+
+        public const int DESIRED_GENERATED_TERRAIN = 30;
+
+        public enum TerrainSituationResult
+        {
+            CLEAR,
+            OBSTRUCTED,
+            WATER
+        };
 
         private bool _drawDots;
 
@@ -30,11 +47,11 @@ namespace PikeAndShot
         protected ArrayList _screenObjects;
         protected ArrayList _screenObjectsToAdd;
         protected ArrayList _screenColliders;
-        protected ArrayList _screenNonColliders;
         protected ArrayList _screenAnimations;
         protected ArrayList _screenAnimationsToAdd;
         public ArrayList _enemyFormations;
         protected ArrayList _terrain;
+        protected ArrayList _waterTerrain;
         protected ArrayList _drawJobs;
         protected ArrayList _enemyFormationsToAdd;
 
@@ -48,12 +65,14 @@ namespace PikeAndShot
 
         protected double _elapsedTime;
         protected Vector2 _mapOffset;
-        protected bool _active;
+        public bool playerInPlay;
+
+        private Dictionary<Texture2D, Texture2D> flashTextures;
 
         public BattleScreen(PikeAndShotGame game)
         {
             _game = game;
-            _active = false;
+            playerInPlay = true;
 
             //shot and clean up arrays
             _shots = new ArrayList(40);
@@ -66,7 +85,6 @@ namespace PikeAndShot
             _screenObjects = new ArrayList(40);
             _screenObjectsToAdd = new ArrayList(40);
             _screenColliders = new ArrayList(40);
-            _screenNonColliders = new ArrayList(20);
             _screenAnimations = new ArrayList(40);
             _screenAnimationsToAdd = new ArrayList(40);
             _enemyFormationsToAdd = new ArrayList(3);
@@ -74,20 +92,39 @@ namespace PikeAndShot
             _enemyFormations = new ArrayList(25);
             _looseSoldiers = new ArrayList(40);
             unlooseSoldiers = new ArrayList(5);
-            
+
             previousKeyboardState = Keyboard.GetState();
             _elapsedTime = 0.0;
 
             _mapOffset = new Vector2(0f, 0f);
             _drawDots = false;
             _terrain = new ArrayList(20);
-
-            for (int i = 0; i < 100; i++)
-            {
-                _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[PikeAndShotGame.random.Next(7)], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
-            }
+            _waterTerrain = new ArrayList(20);
 
             _drawJobs = new ArrayList(255);
+            flashTextures = new Dictionary<Texture2D, Texture2D>();
+        }
+
+        protected void spawnInitialTerrain(float startingX)
+        {
+            int next = 0;
+            for (int i = 0; i < 100; i++)
+            {
+                next = PikeAndShotGame.random.Next(7);
+                Terrain terrain;
+                if (next == 2)
+                {
+                    terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[next], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH) + startingX, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT), 8000f, 1500f);
+                    _terrain.Add(terrain);
+                }
+                else
+                {
+                    terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[next], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH) + startingX, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT));
+                    _terrain.Add(terrain);
+                }
+                terrain.generated = true;
+                cancelScreenObject(terrain);
+            }
         }
 
         /// <summary>
@@ -108,7 +145,7 @@ namespace PikeAndShot
                     _deadThings.Add(shot);
             }
 
-            if(_formation != null)
+            if (_formation != null)
                 _formation.update(gameTime.ElapsedGameTime);
 
             foreach (ScreenObject screeny in _screenObjectsToAdd)
@@ -123,13 +160,23 @@ namespace PikeAndShot
             }
             _screenAnimationsToAdd.Clear();
 
-            foreach (Formation f in _enemyFormations)
+            if (playerInPlay)
             {
-                f.update(gameTime.ElapsedGameTime);
-                if (f.getSide() == SIDE_ENEMY && (f.getPosition().X < (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X || f.getTotalRows() == 0))
+                foreach (Formation f in _enemyFormations)
                 {
-                    if(!f.hasSoldierOnScreen() && this is LevelScreen)
-                        _deadFormations.Add(f);
+                    f.update(gameTime.ElapsedGameTime);
+                    bool bool0 = f.getPosition().X < (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X;
+                    bool bool1 = f.getPosition().X > (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X + PikeAndShotGame.SCREENWIDTH;
+                    bool bool2 = !f.hasAppeared;
+                    bool bool3 = f.getTotalRows() == 0;
+                    if (
+                        (f.getPosition().X < (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X
+                        || (f.getPosition().X > (-1 * f.getTotalRows() * Soldier.WIDTH) + _mapOffset.X + PikeAndShotGame.SCREENWIDTH && f.hasAppeared)
+                        || f.getTotalRows() == 0))
+                    {
+                        if (!f.hasSoldierOnScreen() && this is LevelScreen)
+                            _deadFormations.Add(f);
+                    }
                 }
             }
 
@@ -137,7 +184,7 @@ namespace PikeAndShot
                 _enemyFormations.Add(f);
 
             _enemyFormationsToAdd.Clear();
-            
+
             //checking for empty or off screen formations
             foreach (Formation f in _deadFormations)
             {
@@ -146,8 +193,9 @@ namespace PikeAndShot
                     _deadThings.Add(sold);
             }
             _deadFormations.Clear();
-            
-            checkCollisions(gameTime.ElapsedGameTime);
+
+            if (this is LevelScreen)
+                checkCollisions(gameTime.ElapsedGameTime);
 
             foreach (Soldier sold in _looseSoldiers)
             {
@@ -176,7 +224,7 @@ namespace PikeAndShot
                     t.update(gameTime.ElapsedGameTime);
                 }
 
-                if (t.getPosition().X < (-2f * Soldier.WIDTH) + getMapOffset().X)
+                if (t.getPosition().X < -t.getWidth() + getMapOffset().X)
                     t.setState(Soldier.STATE_DEAD);
 
                 if (t.isDead())
@@ -208,7 +256,14 @@ namespace PikeAndShot
                 else if (obj is Terrain)
                 {
                     _terrain.Remove(obj);
-                    _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[PikeAndShotGame.random.Next(7)], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
+                    if (((Terrain)obj).generated)
+                    {
+                        generateTerrain();
+                    }
+                    else if (((Terrain)obj).getWater())
+                    {
+                        _waterTerrain.Remove(obj);
+                    }
                 }
 
                 if (obj is WeaponSwing)
@@ -217,6 +272,10 @@ namespace PikeAndShot
                 _screenObjects.Remove(obj);
             }
             _deadThings.Clear();
+
+            if(getGeneratedTerrainCount() < DESIRED_GENERATED_TERRAIN)
+                generateTerrain();
+                
 
             // screen animations
 
@@ -238,10 +297,142 @@ namespace PikeAndShot
             _deadThings.Clear();
         }
 
+        private int getGeneratedTerrainCount()
+        {
+            int result = 0;
+            foreach (Terrain terrain in _terrain)
+            {
+                if (terrain.generated)
+                    result++;
+            }
+            return result;
+        }
+
+        private void generateTerrain()
+        {
+            int terrainIndex;
+            Terrain terrain;
+            int y = PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT);
+            switch (checkTerrainSituation(PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y))
+            {
+                case TerrainSituationResult.CLEAR:
+                    terrainIndex = PikeAndShotGame.random.Next(7);
+                    if (terrainIndex == 2)
+                    {
+                        terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, 8000f, 1500f);
+                        _terrain.Add(terrain);
+                    }
+                    else
+                    {
+                        terrain = new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y);
+                        _terrain.Add(terrain);
+                    }
+                    terrain.generated = true;
+                    cancelScreenObject(terrain);
+                    break;
+                case TerrainSituationResult.WATER:
+                    terrainIndex = PikeAndShotGame.random.Next(3);
+                    if (terrainIndex == 0)
+                    {
+                        terrain = new Terrain(this, PikeAndShotGame.WATER_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, new Vector2(28, 24), 0f, 2000f, 18);
+                    }
+                    else if (terrainIndex == 1)
+                    {
+                        terrain = new Terrain(this, PikeAndShotGame.WATER_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, new Vector2(36, 26), 0f, 2000f, 20);
+                    }
+                    else
+                    {
+                        terrain = new Terrain(this, PikeAndShotGame.WATER_TERRAIN[terrainIndex], SIDE_PLAYER, PikeAndShotGame.SCREENWIDTH + getMapOffset().X, y, new Vector2(24, 20), 0f, 2000f, 15);
+                    }
+                    _terrain.Add(terrain);
+                    terrain.generated = true;
+                    cancelScreenObject(terrain);
+                    break;
+                case TerrainSituationResult.OBSTRUCTED:
+                    break;
+            }
+        }
+
+        private TerrainSituationResult checkTerrainSituation(float x, int y)
+        {
+            foreach (Terrain terrain in _terrain)
+            {
+                if (!(Math.Abs(terrain.getPosition().X - x) > 60 || Math.Abs(terrain.getPosition().Y - y) > 60))
+                {
+                    return TerrainSituationResult.OBSTRUCTED;
+                }
+            }
+
+            bool leftToMyLeft = false;
+            bool rightToMyLeft = false;
+            foreach (Terrain terrain in _waterTerrain)
+            {
+                if (terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0L || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1L)
+                {
+                    if(terrain.getPosition().X < x &&  Math.Abs(terrain.getPosition().Y - y) < 60 )
+                        leftToMyLeft = true;
+                }
+                if (terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0 || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1)
+                {
+                    if (terrain.getPosition().X < x && Math.Abs(terrain.getPosition().Y - y) < 60)
+                        rightToMyLeft = true;
+                }                
+            }
+            if (leftToMyLeft && !rightToMyLeft)
+                return TerrainSituationResult.WATER;
+
+            return TerrainSituationResult.CLEAR;
+        }
+
+        public TerrainSituationResult checkWaterSituation(float x, float y)
+        {
+            bool leftToMyLeft = false;
+            bool rightToMyLeft = false;
+            bool leftToMyRight = false;
+            bool rightToMyRight = false;
+            foreach (Terrain terrain in _waterTerrain)
+            {
+                if (terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0L || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1L)
+                {
+                    if (terrain.getPosition().X + terrain.getSprite().getSourceBitmap().Width < x && Math.Abs(terrain.getCenter().Y - y) < WATER_CHECK_HEIGHT)
+                        leftToMyLeft = true;
+                    else if (terrain.getPosition().X + terrain.getSprite().getSourceBitmap().Width > x && Math.Abs(terrain.getCenter().Y - y) < WATER_CHECK_HEIGHT)
+                        leftToMyRight = true;
+                }
+                if (terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_0 || terrain._sprite.getSourceBitmap() == PikeAndShotGame.RIVER_BED_1)
+                {
+                    if (terrain.getPosition().X < x && Math.Abs(terrain.getCenter().Y - y) < WATER_CHECK_HEIGHT)
+                        rightToMyLeft = true;
+                    else if (terrain.getCenter().X > x && Math.Abs(terrain.getCenter().Y - y) < WATER_CHECK_HEIGHT)
+                        rightToMyRight = true;
+                }                
+            }
+            if (leftToMyLeft && !rightToMyLeft || rightToMyRight && !leftToMyRight)
+                return TerrainSituationResult.WATER;
+
+            return TerrainSituationResult.CLEAR;
+        }
+
         public void addScreenObject(ScreenObject so)
         {
             _screenObjectsToAdd.Add(so);
-            //_screenObjects.Add(so);
+        }
+
+        public void cancelScreenObject(ScreenObject so)
+        {
+            _screenObjectsToAdd.Remove(so);
+        }
+
+        public void addTerrain(Terrain t)
+        {
+            _terrain.Add(t);
+            if (t.getWater())
+                _waterTerrain.Add(t);
+        }
+
+        public ArrayList getScreenObjects()
+        {
+            return _screenObjects;
         }
 
         public Formation getPlayerFormation()
@@ -254,85 +445,179 @@ namespace PikeAndShot
             return _mapOffset;
         }
 
-        protected void checkCollisions(TimeSpan timeSpan)
+        public virtual void checkCollisions(TimeSpan timeSpan)
         {
             int x = 0;
 
+            if (this is LevelScreen)
+            {
+                ((LevelScreen)this)._formation.collisions = 0;
+            }
+
             float soX, soY, soWidth, soHeight;
             float coX, coY, coWidth, coHeight;
-            
+
             bool collision = true;
             bool oneCollision = false;
 
             _screenColliders.Clear();
-            _screenNonColliders.Clear();
 
             // pour all of the screen objects into the list of objects to check for collisions against to start with
             foreach (ScreenObject so in _screenObjects)
             {
                 if (so is Wolf)
                 {
-                    if (so.getState() != Wolf.STATE_SPOOKED && so.getState() != Wolf.STATE_FLEE && (so.getState() != Wolf.STATE_TURNING || !((Wolf)so).flee))
+                    if (so.getState() != Wolf.STATE_SPOOKED && so.getState() != Wolf.STATE_HOWLING && so.getState() != Wolf.STATE_FLEE && (so.getState() != Wolf.STATE_TURNING || !((Wolf)so).flee))
                         _screenColliders.Add(so);
-                    else
-                        _screenNonColliders.Add(so);
                 }
-                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && so.getState() != Colmillos.STATE_EATEN && so.getState() != Colmillos.STATE_RISE)
+                else if (so is Colmillos)
+                {
+                    if (!(so.getState() == Soldier.STATE_DYING || so.getState() == Colmillos.STATE_EATEN || so.getState() == Colmillos.STATE_RISE || so.getState() == Targeteer.STATE_SHIELDBREAK || ((ColmillosFormation)((Colmillos)so).myFormation).attacked))
+                        _screenColliders.Add(so);
+                }
+                else if (so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay || (so is Soldier && ((Soldier)so).myFormation != _formation)) && !(so is Terrain && !((Terrain)so).collidable))
                     _screenColliders.Add(so);
-                else
-                    _screenNonColliders.Add(so);
+
             }
-            
+
             // Now for every object see if it hit any of the colliders
             // screenobjects that didn't hit anything can be removed from the list of coliders so they aren't checked repeatedly for no reason
             foreach (ScreenObject so in _screenObjects)
             {
                 if (so is WeaponSwing)
                     x++;
-                if (!_screenNonColliders.Contains(so))
+
+                if (so is Wolf)
                 {
-                    // get the values here so we aren't calling functions like crazy
-                    // pavise HACK
-                    if (so is Pavise)
+                    if (!(so.getState() != Wolf.STATE_SPOOKED && so.getState() != Wolf.STATE_HOWLING && so.getState() != Wolf.STATE_FLEE && (so.getState() != Wolf.STATE_TURNING || !((Wolf)so).flee)))
+                        continue;
+                }
+                else if (so is Colmillos)
+                {
+                    if (so.getState() == Soldier.STATE_DYING || so.getState() == Colmillos.STATE_EATEN || so.getState() == Colmillos.STATE_RISE || so.getState() == Targeteer.STATE_SHIELDBREAK || ((ColmillosFormation)((Colmillos)so).myFormation).attacked)
+                        continue;
+                }
+                else if (!(so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING && (so.getSide() == SIDE_ENEMY || playerInPlay) && !(so is Terrain && !((Terrain)so).collidable)))
+                    continue;
+
+                // get the values here so we aren't calling functions like crazy
+                // pavise HACK
+                if (so is Pavise)
+                {
+                    soX = so.getPosition().X;
+                    soY = so.getPosition().Y - 10;
+                    soWidth = so.getWidth();
+                    soHeight = so.getHeight() + 20;
+                }
+                else if (so is Wolf)
+                {
+                    soX = so.getPosition().X;
+                    soY = so.getPosition().Y - 7;
+                    soWidth = so.getWidth();
+                    soHeight = so.getHeight() + 14;
+                }
+                else if (so is CollisionCircle)
+                {
+                    soX = so.getPosition().X;
+                    soY = so.getPosition().Y;
+                    soWidth = ((CollisionCircle)so).radius * 2;
+                    soHeight = ((CollisionCircle)so).radius * 2;
+                }
+                else if (so is Terrain)
+                {
+                    soX = ((Terrain)so).collisionBox.X;
+                    soY = ((Terrain)so).collisionBox.Y;
+                    soWidth = ((Terrain)so).collisionBox.Width;
+                    soHeight = ((Terrain)so).collisionBox.Height;
+                }
+                else
+                {
+                    soX = so.getPosition().X;
+                    soY = so.getPosition().Y;
+                    soWidth = so.getWidth();
+                    soHeight = so.getHeight();
+                }
+
+                foreach (ScreenObject co in _screenColliders)
+                {
+                    if (so != co)
                     {
-                        soX = so.getPosition().X;
-                        soY = so.getPosition().Y - 10;
-                        soWidth = so.getWidth();
-                        soHeight = so.getHeight() + 10;
-                    }
-                    else
-                    {
-                        soX = so.getPosition().X;
-                        soY = so.getPosition().Y;
-                        soWidth = so.getWidth();
-                        soHeight = so.getHeight();
-                    }
-                    foreach (ScreenObject co in _screenColliders)
-                    {
-                        if (so != co)
+                        // pavise HACK
+                        if (co is Pavise || co is CrossbowmanPavise && so is Shot)
                         {
-                            // pavise HACK
-                            if (co is Pavise || co is CrossbowmanPavise && so is Shot)
-                            {
-                                coX = co.getPosition().X;
-                                coY = co.getPosition().Y - 10;
-                                coWidth = co.getWidth();
-                                coHeight = co.getHeight() + 10;
-                            }
+                            coX = co.getPosition().X;
+                            coY = co.getPosition().Y - 10;
+                            coWidth = co.getWidth();
+                            coHeight = co.getHeight() + 10;
+                        }
+                        else if (co is Wolf)
+                        {
+                            coX = co.getPosition().X;
+                            coY = co.getPosition().Y - 5;
+                            coWidth = co.getWidth();
+                            coHeight = co.getHeight() + 5;
+                        }
+                        else if (co is CollisionCircle)
+                        {
+                            coX = co.getPosition().X;
+                            coY = co.getPosition().Y;
+                            coWidth = ((CollisionCircle)co).radius * 2;
+                            coHeight = ((CollisionCircle)co).radius * 2;
+                        }
+                        else if (co is Terrain)
+                        {
+                            coX = ((Terrain)co).collisionBox.X;
+                            coY = ((Terrain)co).collisionBox.Y;
+                            coWidth = ((Terrain)co).collisionBox.Width;
+                            coHeight = ((Terrain)co).collisionBox.Height;
+                        }
+                        else
+                        {
+                            coX = co.getPosition().X;
+                            coY = co.getPosition().Y;
+                            coWidth = co.getWidth();
+                            coHeight = co.getHeight();
+                        }
+
+                        if (so is CrossbowmanPavise && co is Shot)
+                        {
+                            soY = so.getPosition().Y - 10;
+                            soHeight = so.getHeight() + 10;
+                        }
+
+
+                        if (so is CollisionCircle && !(co is CollisionCircle))
+                        {
+                            float coMidX = coX + coWidth / 2f;
+                            float coMidY = coY + coHeight / 2f;
+                            float soMidX = soX + ((CollisionCircle)so).radius;
+                            float soMidY = soY + ((CollisionCircle)so).radius;
+
+                            float diffX = soMidX - coMidX;
+                            float diffY = soMidY - coMidY;
+
+                            if (Math.Sqrt(Math.Pow(diffX, 2) + Math.Pow(diffY, 2)) < ((CollisionCircle)so).radius)
+                                collision = true;
                             else
-                            {
-                                coX = co.getPosition().X;
-                                coY = co.getPosition().Y;
-                                coWidth = co.getWidth();
-                                coHeight = co.getHeight();
-                            }
+                                collision = false;
+                        }
+                        else if (co is CollisionCircle && !(so is CollisionCircle))
+                        {
+                            float coMidX = soX + soWidth / 2f;
+                            float coMidY = soY + soHeight / 2f;
+                            float soMidX = coX + ((CollisionCircle)co).radius;
+                            float soMidY = coY + ((CollisionCircle)co).radius;
 
-                            if (so is CrossbowmanPavise && co is Shot)
-                            {
-                                soY = so.getPosition().Y - 10;
-                                soHeight = so.getHeight() + 10;
-                            }
+                            float diffX = soMidX - coMidX;
+                            float diffY = soMidY - coMidY;
 
+                            if (Math.Sqrt(Math.Pow(diffX, 2) + Math.Pow(diffY, 2)) < ((CollisionCircle)co).radius)
+                                collision = true;
+                            else
+                                collision = false;
+                        }
+                        else
+                        {
                             collision = true;
 
                             // see if we didn't collide
@@ -344,18 +629,24 @@ namespace PikeAndShot
                                 collision = false;
                             else if (soY + soHeight < coY)
                                 collision = false;
+                        }
 
-                            if (collision)
+                        if (collision)
+                        {
+                            so.collide(co, timeSpan);
+                            oneCollision = true;
+                            co.collide(so, timeSpan);
+                            if (this is LevelScreen && so is Soldier)
                             {
-                                so.collide(co, timeSpan);
-                                oneCollision = true;
-                                co.collide(so, timeSpan);
+                                if (((Soldier)so).inPlayerFormation && co is Terrain)
+                                    ((LevelScreen)this)._formation.collisions++;
                             }
                         }
                     }
-                    if (!oneCollision)
-                        _screenColliders.Remove(so);
                 }
+
+                if (!oneCollision)
+                    _screenColliders.Remove(so);
             }
         }
 
@@ -371,10 +662,10 @@ namespace PikeAndShot
             // pour all of the screen objects into the list of objects to check for collisions against to start with
             foreach (ScreenObject sObj in _screenObjects)
             {
-                if (!(sObj is Soldier) && so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING)
+                if ((sObj is Soldier) && so.getState() != ScreenObject.STATE_DEAD && so.getState() != ScreenObject.STATE_DYING)
                     _screenColliders.Add(sObj);
             }
-            
+
             if (so.getState() != ScreenObject.STATE_DEAD || so.getState() != ScreenObject.STATE_DYING)
             {
                 // get the values here so we aren't calling functions like crazy
@@ -433,7 +724,31 @@ namespace PikeAndShot
                     }
                 }
             }
-            
+        }
+
+        public Texture2D getFlashTexture(Texture2D bitmap)
+        {
+            if (flashTextures.ContainsKey(bitmap))
+            {
+                return flashTextures[bitmap];
+            }
+            else
+            {
+                //create flash texture
+                Color[] pixelData = new Color[bitmap.Width * bitmap.Height];
+                bitmap.GetData<Color>(pixelData);
+
+                for (int i = 0; i < pixelData.Length; i++)
+                {
+                    if (pixelData[i].A != 0)
+                        pixelData[i] = Color.White;
+                }
+                Texture2D flashTexture = new Texture2D(bitmap.GraphicsDevice, bitmap.Width, bitmap.Height);
+                flashTexture.SetData<Color>(pixelData);
+                flashTextures.Add(bitmap, flashTexture);
+
+                return flashTexture;
+            }
         }
 
         public void removeScreenObject(ScreenObject so)
@@ -450,7 +765,7 @@ namespace PikeAndShot
         protected virtual void getInput(TimeSpan timeSpan)
         {
             // check for screen change
-            
+
             if (keyboardState.IsKeyDown(Keys.D1) && previousKeyboardState.IsKeyDown(Keys.LeftControl))
             {
                 _game.setScreen(PikeAndShotGame.SCREEN_LEVELPLAY);
@@ -503,7 +818,7 @@ namespace PikeAndShot
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public virtual void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if(_formation != null)
+            if (_formation != null)
                 _formation.draw(spriteBatch);
 
             foreach (Formation f in _enemyFormations)
@@ -533,12 +848,17 @@ namespace PikeAndShot
 
             foreach (DrawJob dj in _drawJobs)
             {
-                if(dj.flashAmount>0)
+                if (dj.flashAmount > 0)
                     dj.sprite.draw(spriteBatch, dj.position, dj.side, dj.flashAmount);
+                else if (dj.color != Color.Black)
+                    dj.sprite.draw(spriteBatch, dj.position, dj.side, (float)gameTime.TotalGameTime.TotalMilliseconds, dj.flickerTime, dj.color);
                 else if (dj.flickerTime > 0)
                     dj.sprite.draw(spriteBatch, dj.position, dj.side, (float)gameTime.TotalGameTime.TotalMilliseconds, dj.flickerTime);
+                else if (dj.sprite.hasEffect())
+                    dj.sprite.draw(spriteBatch, dj.position, dj.side, gameTime.ElapsedGameTime);
                 else
                     dj.sprite.draw(spriteBatch, dj.position, dj.side);
+
             }
             _drawJobs.Clear();
         }
@@ -574,8 +894,11 @@ namespace PikeAndShot
 
         internal void addLooseSoldier(Soldier sold)
         {
-            if(!_looseSoldiers.Contains(sold))
+            if (!_looseSoldiers.Contains(sold))
+            {
                 _looseSoldiers.Add(sold);
+                sold.myFormation = null;
+            }
         }
 
         internal void addLooseSoldierNext(Soldier sold)
@@ -616,14 +939,14 @@ namespace PikeAndShot
 
         internal bool findPikeTip(Soldier soldier, float range)
         {
-            if(soldier.DEBUGFOUNDPIKE)
+            if (soldier.DEBUGFOUNDPIKE)
                 soldier.DEBUGFOUNDPIKE = false;
 
             foreach (ScreenObject pt in _screenObjects)
             {
-                if(pt is PikeTip)
+                if (pt is PikeTip)
                 {
-                    if(((PikeTip)pt).getSoldierState() != Pikeman.STATE_RECOILING || soldier.getState() == Targeteer.STATE_DEFEND || soldier.getState() == Colmillos.STATE_ATTACK)
+                    if (((PikeTip)pt).getSoldierState() != Pikeman.STATE_RECOILING || soldier.getState() == Targeteer.STATE_DEFEND || soldier.getState() == Colmillos.STATE_ATTACK)
                     {
                         // figure out the center of the pike tip and the center of the man
                         float ptX = pt.getPosition().X + pt.getWidth() * 0.5f;
@@ -750,12 +1073,13 @@ namespace PikeAndShot
 
     public class DrawJob
     {
-        public Sprite  sprite;
+        public Sprite sprite;
         public Vector2 position;
         public int side;
         public float drawingY;
         public float flashAmount;
         public float flickerTime;
+        public Color color;
 
         public DrawJob(Sprite sprite, Vector2 position, int side, float drawingY)
         {
@@ -765,6 +1089,7 @@ namespace PikeAndShot
             this.drawingY = drawingY;
             flashAmount = 0;
             flickerTime = 0;
+            color = Color.Black;
         }
 
         public DrawJob(Sprite sprite, Vector2 position, int side, float drawingY, float flashAmount) :
@@ -777,6 +1102,12 @@ namespace PikeAndShot
             this(sprite, position, side, drawingY)
         {
             this.flickerTime = flickerTime;
+        }
+
+        public DrawJob(Sprite sprite, Vector2 position, int side, float drawingY, bool flickering, float flickerTime, Color color) :
+            this(sprite, position, side, drawingY, flickering, flickerTime)
+        {
+            this.color = color;
         }
     }
 }

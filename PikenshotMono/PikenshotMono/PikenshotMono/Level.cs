@@ -23,6 +23,8 @@ namespace PikeAndShot
 
         public List<int> formationSides;
 
+        public float startingPosition = 0;
+
         public Level()
         {
             formations = new List<List<int>>(10);
@@ -65,6 +67,14 @@ namespace PikeAndShot
             terrains = content.terrains;
             terrainPositions = content.terrainPositions;
             terrainTimes = content.terrainTimes;
+            if (terrainTimes != null && terrainPositions != null)
+            {
+                for (int i = 0; i < terrainTimes.Count; i++)
+                {
+                    if (terrainPositions.Count > i)
+                        terrainTimes[i] = terrainPositions[i].X - 100;
+                }
+            }
         }
     }
 
@@ -82,6 +92,7 @@ namespace PikeAndShot
         public const int ACTION_CAVALRY_TURN = 9;
         public const int ACTION_CHARGE = 10;
         public const int ACTION_RELOAD = 11;
+        public const int ACTION_SPAWN = 12;
 
         public List<int> actions;  //actions is a list again (a list of ints within a list of Pattern actions) 
                                    //because you could have an overlap of many actions, like marching left and 

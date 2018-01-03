@@ -15,6 +15,7 @@ namespace PikeAndShot
 {
     public class PikeAndShotGame : Microsoft.Xna.Framework.Game
     {
+        public static TimeSpan DUMMY_TIMESPAN;
         public const bool DEBUG = false;
         public static bool TEST_BOSS = false;
 
@@ -483,52 +484,52 @@ namespace PikeAndShot
             effect2.Parameters["iResolution"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT) * 1.5f);
 
             //TERRAIN_DRY_GRASS = Content.Load<Texture2D>(@"dry_grass");
-            //ROAD_TERRAIN = new List<Texture2D>(11);
+            ROAD_TERRAIN = new List<Texture2D>(11);
 
-            //for (int i = 0; i < 11; i++)
-            //    ROAD_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"roadTerrain" + i)));
+            for (int i = 0; i < 11; i++)
+                ROAD_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"roadTerrain" + i)));
 
-            //TREE0 = getDimmerClone(Content.Load<Texture2D>(@"roadTerrain11"));
-            //TREE1 = getDimmerClone(Content.Load<Texture2D>(@"tree01"));
-            //TREE2 = getDimmerClone(Content.Load<Texture2D>(@"tree02"));
+            TREE0 = getDimmerClone(Content.Load<Texture2D>(@"roadTerrain11"));
+            TREE1 = getDimmerClone(Content.Load<Texture2D>(@"tree01"));
+            TREE2 = getDimmerClone(Content.Load<Texture2D>(@"tree02"));
 
-            //BUSH0 = getDimmerClone(Content.Load<Texture2D>(@"bush00"));
-            //BUSH1 = getDimmerClone(Content.Load<Texture2D>(@"bush01"));
-            //BUSH2 = getDimmerClone(Content.Load<Texture2D>(@"bush03"));
-            //WAGON = getDimmerClone(Content.Load<Texture2D>(@"wagon"));
-            //OX_BROWN = getDimmerClone(Content.Load<Texture2D>(@"ox_brown"));
-            //OX_GREY = getDimmerClone(Content.Load<Texture2D>(@"ox_grey"));
-            //OX_DEAD = getDimmerClone(Content.Load<Texture2D>(@"ox_dead"));
-            //WOUNDED_PEASANT = getDimmerClone(Content.Load<Texture2D>(@"wounded_dude"));
-            //DEAD_PEASANT = getDimmerClone(Content.Load<Texture2D>(@"bodies"));
-            //TOTEMPOLE = getDimmerClone(Content.Load<Texture2D>(@"totempole"));
-            //RIVER = getDimmerClone(Content.Load<Texture2D>(@"river"));
-            //RIVER_BED_0 = getDimmerClone(Content.Load<Texture2D>(@"river_bed00"));
-            //RIVER_BED_1 = getDimmerClone(Content.Load<Texture2D>(@"river_bed01"));
-            //RIVER_BED_0L = getDimmerClone(Content.Load<Texture2D>(@"left_river_bed00"));
-            //RIVER_BED_1L = getDimmerClone(Content.Load<Texture2D>(@"left_river_bed01"));
-            //WATER_TERRAIN = new List<Texture2D>(3);
-            //WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock")));
-            //WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock2")));
-            //WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock3")));
-            //BOTTLES = getDimmerClone(Content.Load<Texture2D>(@"bottles"));
-            //RUIN_BUILDING = getDimmerClone(Content.Load<Texture2D>(@"ruin_building"));
-            //RUIN_CROSS = getDimmerClone(Content.Load<Texture2D>(@"ruin_cross"));
-            //FANG_ROCK = getDimmerClone(Content.Load<Texture2D>(@"fang_rock"));
-            //FANG_ROCKS = getDimmerClone(Content.Load<Texture2D>(@"fang_rocks"));
-            //BARRICADES = getDimmerClone(Content.Load<Texture2D>(@"barricades"));
-            //TRUNKS = getDimmerClone(Content.Load<Texture2D>(@"trunks"));
+            BUSH0 = getDimmerClone(Content.Load<Texture2D>(@"bush00"));
+            BUSH1 = getDimmerClone(Content.Load<Texture2D>(@"bush01"));
+            BUSH2 = getDimmerClone(Content.Load<Texture2D>(@"bush03"));
+            WAGON = getDimmerClone(Content.Load<Texture2D>(@"wagon"));
+            OX_BROWN = getDimmerClone(Content.Load<Texture2D>(@"ox_brown"));
+            OX_GREY = getDimmerClone(Content.Load<Texture2D>(@"ox_grey"));
+            OX_DEAD = getDimmerClone(Content.Load<Texture2D>(@"ox_dead"));
+            WOUNDED_PEASANT = getDimmerClone(Content.Load<Texture2D>(@"wounded_dude"));
+            DEAD_PEASANT = getDimmerClone(Content.Load<Texture2D>(@"bodies"));
+            TOTEMPOLE = getDimmerClone(Content.Load<Texture2D>(@"totempole"));
+            RIVER = getDimmerClone(Content.Load<Texture2D>(@"river"));
+            RIVER_BED_0 = getDimmerClone(Content.Load<Texture2D>(@"river_bed00"));
+            RIVER_BED_1 = getDimmerClone(Content.Load<Texture2D>(@"river_bed01"));
+            RIVER_BED_0L = getDimmerClone(Content.Load<Texture2D>(@"left_river_bed00"));
+            RIVER_BED_1L = getDimmerClone(Content.Load<Texture2D>(@"left_river_bed01"));
+            WATER_TERRAIN = new List<Texture2D>(3);
+            WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock")));
+            WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock2")));
+            WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock3")));
+            BOTTLES = getDimmerClone(Content.Load<Texture2D>(@"bottles"));
+            RUIN_BUILDING = getDimmerClone(Content.Load<Texture2D>(@"ruin_building"));
+            RUIN_CROSS = getDimmerClone(Content.Load<Texture2D>(@"ruin_cross"));
+            FANG_ROCK = getDimmerClone(Content.Load<Texture2D>(@"fang_rock"));
+            FANG_ROCKS = getDimmerClone(Content.Load<Texture2D>(@"fang_rocks"));
+            BARRICADES = getDimmerClone(Content.Load<Texture2D>(@"barricades"));
+            TRUNKS = getDimmerClone(Content.Load<Texture2D>(@"trunks"));
 
             DROP_SPLASH = Content.Load<Texture2D>(@"splash");
             DROP = Content.Load<Texture2D>(@"water_drop");
             SPLASHING = Content.Load<Texture2D>(@"splashing");
             WADING = Content.Load<Texture2D>(@"wading");
 
-            //ROAD_HORIZONTAL = getDimmerClone(Content.Load<Texture2D>(@"roadHorizontal"), ROAD_FADE);
-            //ROAD_TURN = getDimmerClone(Content.Load<Texture2D>(@"roadTurn"), ROAD_FADE);
-            //ROAD_MILE_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadMileMarker"));
-            //ROAD_TURN_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadTurnMarker"));
-            //ROAD_HORIZONTAL_2 = getDimmerClone(Content.Load<Texture2D>(@"road_h2"), ROAD_FADE);
+            ROAD_HORIZONTAL = getDimmerClone(Content.Load<Texture2D>(@"roadHorizontal"), ROAD_FADE);
+            ROAD_TURN = getDimmerClone(Content.Load<Texture2D>(@"roadTurn"), ROAD_FADE);
+            ROAD_MILE_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadMileMarker"));
+            ROAD_TURN_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadTurnMarker"));
+            ROAD_HORIZONTAL_2 = getDimmerClone(Content.Load<Texture2D>(@"road_h2"), ROAD_FADE);
 
             PUCELLE_IDLE = Content.Load<Texture2D>(@"pucelle_ready2");
             PUCELLE_MOTION = Content.Load<Texture2D>(@"pucelle_motion");
@@ -610,8 +611,8 @@ namespace PikeAndShot
             PIKEMAN2_TUG = Content.Load<Texture2D>(@"tug_pikeman2");
             WOLF_TUG = Content.Load<Texture2D>(@"tug_wolf");
             WOLF2_TUG = Content.Load<Texture2D>(@"tug_wolf2");
-            //WOLF_TUGg = getGreyscaleClone(WOLF_TUG);
-            //WOLF2_TUGg = getGreyscaleClone(WOLF2_TUG);
+            WOLF_TUGg = getGreyscaleClone(WOLF_TUG);
+            WOLF2_TUGg = getGreyscaleClone(WOLF2_TUG);
 
             ARQUEBUSIER_FEET = Content.Load<Texture2D>(@"arquebusier_feet");
             ARQUEBUSIER_IDLE = Content.Load<Texture2D>(@"gonner_idle");
@@ -758,15 +759,15 @@ namespace PikeAndShot
             WOLF_RUN_COL = Content.Load<Texture2D>(@"wolf_run_col");
             WOLF_GETUP_COL = Content.Load<Texture2D>(@"wolf_getup_col");
 
-            //WOLF_IDLEg = getGreyscaleClone(WOLF_IDLE);
-            //WOLF_RUNg = getGreyscaleClone(WOLF_RUN);
-            //WOLF_SPOOKEDg = getGreyscaleClone(WOLF_SPOOKED);
-            //WOLF_TURNg = getGreyscaleClone(WOLF_TURN);
-            //WOLF_BITEg = getGreyscaleClone(WOLF_BITE);
-            //WOLF_MELEEg = getGreyscaleClone(WOLF_MELEE);
-            //WOLF_DEFENDg = getGreyscaleClone(WOLF_DEFEND);
-            //WOLF_KILLg = getGreyscaleClone(WOLF_KILL);
-            //WOLF_HOWLg = getGreyscaleClone(WOLF_HOWL);
+            WOLF_IDLEg = getGreyscaleClone(WOLF_IDLE);
+            WOLF_RUNg = getGreyscaleClone(WOLF_RUN);
+            WOLF_SPOOKEDg = getGreyscaleClone(WOLF_SPOOKED);
+            WOLF_TURNg = getGreyscaleClone(WOLF_TURN);
+            WOLF_BITEg = getGreyscaleClone(WOLF_BITE);
+            WOLF_MELEEg = getGreyscaleClone(WOLF_MELEE);
+            WOLF_DEFENDg = getGreyscaleClone(WOLF_DEFEND);
+            WOLF_KILLg = getGreyscaleClone(WOLF_KILL);
+            WOLF_HOWLg = getGreyscaleClone(WOLF_HOWL);
 
             COLMILLOS_IDLE = Content.Load<Texture2D>(@"los_colmillos_idle0");
             COLMILLOS_IDLENOSHIELD = Content.Load<Texture2D>(@"los_colmillos_idle1");
@@ -788,15 +789,15 @@ namespace PikeAndShot
             FALCHION_THROWN = Content.Load<Texture2D>(@"falchion_thrown");
             FALCHION_DIRT = Content.Load<Texture2D>(@"falchion_dirt");
 
-            //PEASANT1_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_01_idle"));
-            //PEASANT2_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_02_idle"));
-            //PEASANT3_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_03_idle"));
-            //PEASANT4_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_04_idle"));
-            //PEASANT5_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_05_idle"));
-            //PEASANT6_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_06_idle"));
+            PEASANT1_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_01_idle"));
+            PEASANT2_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_02_idle"));
+            PEASANT3_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_03_idle"));
+            PEASANT4_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_04_idle"));
+            PEASANT5_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_05_idle"));
+            PEASANT6_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_06_idle"));
 
-            //PEASANT1_FLEE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_01_fleeing"));
-            //PEASANT5_FLEE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_05_fleeing"));
+            PEASANT1_FLEE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_01_fleeing"));
+            PEASANT5_FLEE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_05_fleeing"));
 
             GOBLIN_FEET = Content.Load<Texture2D>(@"goblin_feet");
             BROWN_FEET = Content.Load<Texture2D>(@"brown_feet");
@@ -1121,5 +1122,14 @@ namespace PikeAndShot
                 drawRectangle = new Rectangle(0, 0, SCREENWIDTH, SCREENHEIGHT);
             }
         }
+    }
+
+    public interface LevelEditorGrabbable
+    {
+        bool selected { get; set; }
+        int index { get; set; }
+        void setPosition(float x, float y);
+        void setPosition(Vector2 pos);
+        Vector2 getPosition();
     }
 }

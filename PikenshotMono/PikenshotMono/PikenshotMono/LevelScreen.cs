@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Net;
 using System.Collections;
 
 namespace PikeAndShot
@@ -26,6 +30,7 @@ namespace PikeAndShot
         private double _fps = 0;
         private int _draws = 0;
         List<int> _usedFormations;
+        List<int> _usedTerrain;
         float nextSpawnPosition = NEXT_SPAWN_POINT;
         public ArrayList _spawners;
         public ArrayList _deadSpawners;
@@ -55,32 +60,35 @@ namespace PikeAndShot
         ArrayList meleeSounds;
         int meleeSoundsPlayed;
 
+        
+
         public LevelScreen(PikeAndShotGame game, Level level)
             : base(game)
         {
             _levelData = level;
+            playerInPlay = false;
 
-            _formation = new Formation(this, 200, 200, 20, SIDE_PLAYER);
+            _formation = new Formation(this, -300, PikeAndShotGame.SCREENHEIGHT/2 - Soldier.HEIGHT*5, 20, SIDE_PLAYER);
             if (PikeAndShotGame.TEST_BOSS)
                 cFormation = new ColmillosFormation(this, 800, 500);
             //_formation.addSoldier(new Colmillos(this, 200, 200, BattleScreen.SIDE_PLAYER));
             //_formation.addSoldier(new Wolf(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Leader(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Leader(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _formation._position.X, _formation._position.Y, BattleScreen.SIDE_PLAYER));
 
             _coins = MAX_COINS/2;
             _doubleCoins = 0;
@@ -89,6 +97,7 @@ namespace PikeAndShot
             coinMeterPosition = new Vector2(COIN_METER_POSITION.X, COIN_METER_POSITION.Y);
             
             _usedFormations = new List<int>(_levelData != null ?_levelData.formations.Count:20);
+            _usedTerrain = new List<int>(_levelData != null ? _levelData.formations.Count : 20);
             _spawners = new ArrayList(2);
             _deadSpawners = new ArrayList(2);
 
@@ -96,10 +105,10 @@ namespace PikeAndShot
             {
                 _coinSprites.Add(new Coin(this, BASE_COIN_START_POSITION, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i * 4f)));
             }
-            _coinMeter = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 94), 36, 94, false, true, 128, new Color(Color.Yellow.R, Color.Yellow.G, 100), 2);
-            _coinMeterHurt = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 94), 36, 94, false, true, 128, Color.Red,2);
-            _doppelMeter = new Sprite(PikeAndShotGame.DOPPEL_METER, new Rectangle(0, 0, 36, 100), 36, 100, false, true, 80, Color.White, 0.5f);
-            _doppelMeterHurt = new Sprite(PikeAndShotGame.DOPPEL_METER, new Rectangle(0, 0, 36, 100), 36, 100, false, true, 80, Color.Red, 2f);
+            _coinMeter = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 94), 36, 94, false, true, 128, new Color(Color.Yellow.R, Color.Yellow.G, 100), 2, this);
+            _coinMeterHurt = new Sprite(PikeAndShotGame.COIN_METER, new Rectangle(0, 0, 36, 94), 36, 94, false, true, 128, Color.Red,2, this);
+            _doppelMeter = new Sprite(PikeAndShotGame.DOPPEL_METER, new Rectangle(0, 0, 36, 100), 36, 100, false, true, 80, Color.White, 0.5f, this);
+            _doppelMeterHurt = new Sprite(PikeAndShotGame.DOPPEL_METER, new Rectangle(0, 0, 36, 100), 36, 100, false, true, 80, Color.Red, 2f, this);
             _coinMeterTimer = 0f;
             lootSpills = new LootSpill[4];
             for (int i = 0; i < 4; i++)
@@ -145,8 +154,11 @@ namespace PikeAndShot
                 sfx.Volume = 0.25f;
 
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = 0.6f;
-            MediaPlayer.Play(PikeAndShotGame.THEME_1);
+            MediaPlayer.Volume = 0.5f;
+
+            //MediaPlayer.Play(PikeAndShotGame.THEME_1);
+
+            spawnInitialTerrain(_levelData.startingPosition);
             doppelType = true;
         }
 
@@ -156,8 +168,13 @@ namespace PikeAndShot
         {
             base.update(gameTime);
 
-            /* formations and terrain are generated on the far right of the screen 
-            at their height when the player gets to their spawn trigger point*/
+            if (!playerInPlay && _mapOffset.X == 0)
+            {
+                _formation.marchRight(gameTime.ElapsedGameTime.TotalMilliseconds, false);
+                if (_formation.getPosition().X > 150)
+                    playerInPlay = true;
+            }
+
             if (!PikeAndShotGame.TEST_BOSS)
                 checkLevelData();
 
@@ -319,8 +336,13 @@ namespace PikeAndShot
 
         public void collectCoin(Soldier soldier)
         {
-            Loot loot = new Loot(this, soldier.getPosition());
-            LootTwinkle twinkle = new LootTwinkle(this, soldier.getPosition(), 500f, COIN_METER_POSITION + new Vector2(_coinMeter.getBoundingRect().Width/2, 0f));
+            collectCoin(soldier.getPosition());
+        }
+
+        public void collectCoin(Vector2 pos)
+        {
+            Loot loot = new Loot(this, pos);
+            LootTwinkle twinkle = new LootTwinkle(this, pos, 500f, COIN_METER_POSITION + new Vector2(_coinMeter.getBoundingRect().Width / 2, 0f));
             loot.addListener(twinkle);
             twinkle.addListener(this);
         }
@@ -399,7 +421,7 @@ namespace PikeAndShot
                 if(coinMeterTimer > 0)
                     _doppelMeter.draw(spriteBatch, COIN_METER_POSITION, SIDE_PLAYER, coinMeterTimer / COIN_METER_DROPTIME);
                 else
-                    _doppelMeter.draw(spriteBatch, COIN_METER_POSITION, SIDE_PLAYER);
+                    _doppelMeter.draw(spriteBatch, COIN_METER_POSITION, SIDE_PLAYER, PikeAndShotGame.DUMMY_TIMESPAN);
             }
             
 
@@ -452,87 +474,88 @@ namespace PikeAndShot
             // Allows the game to exit
             if (keyboardState.IsKeyDown(Keys.Escape) || GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 _game.Exit();
+            if (playerInPlay)
+            {
+                if (keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft) || gamePadState.ThumbSticks.Left.X < 0)
+                {
+                    if ((keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp) || gamePadState.ThumbSticks.Left.Y < 0) || (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y > 0))
+                        _formation.marchLeft(timeSpan.TotalMilliseconds, true);
+                    else
+                        _formation.marchLeft(timeSpan.TotalMilliseconds, false);
+                }
+                if (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight) || gamePadState.ThumbSticks.Left.X > 0)
+                {
+                    if ((keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp) || gamePadState.ThumbSticks.Left.Y < 0) || (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y > 0))
+                    {
+                        _formation.marchRight(timeSpan.TotalMilliseconds, true);
+                        if (_formation.getCenter().X >= PikeAndShotGame.SCREENWIDTH * BattleScreen.SCROLLPOINT + _mapOffset.X && cFormation == null)
+                            _mapOffset.X += _formation.getSpeed() * (float)timeSpan.TotalMilliseconds * 0.708f * 0.75f;
+                    }
+                    else
+                    {
+                        _formation.marchRight(timeSpan.TotalMilliseconds, false);
+                        if (_formation.getCenter().X >= PikeAndShotGame.SCREENWIDTH * BattleScreen.SCROLLPOINT + _mapOffset.X && cFormation == null)
+                            _mapOffset.X += _formation.getSpeed() * (float)timeSpan.TotalMilliseconds * 0.75f;
+                    }
 
-            if (keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft) || gamePadState.ThumbSticks.Left.X < 0)
-            {
-                if ((keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp) || gamePadState.ThumbSticks.Left.Y < 0) || (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y > 0))
-                    _formation.marchLeft(timeSpan.TotalMilliseconds, true);
+                }
                 else
-                    _formation.marchLeft(timeSpan.TotalMilliseconds, false);
-            }
-            if (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight) || gamePadState.ThumbSticks.Left.X > 0)
-            {
-                if ((keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp) || gamePadState.ThumbSticks.Left.Y < 0) || (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y > 0))
                 {
-                    _formation.marchRight(timeSpan.TotalMilliseconds, true);
                     if (_formation.getCenter().X >= PikeAndShotGame.SCREENWIDTH * BattleScreen.SCROLLPOINT + _mapOffset.X && cFormation == null)
-                        _mapOffset.X += _formation.getSpeed() * (float)timeSpan.TotalMilliseconds * 0.708f *0.75f;
+                        _mapOffset.X += getScrollAdjustSpeed() * (float)timeSpan.TotalMilliseconds;
                 }
-                else
+                if (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y < 0)
                 {
-                    _formation.marchRight(timeSpan.TotalMilliseconds, false);
-                    if (_formation.getCenter().X >= PikeAndShotGame.SCREENWIDTH * BattleScreen.SCROLLPOINT + _mapOffset.X && cFormation == null)
-                        _mapOffset.X += _formation.getSpeed() * (float)timeSpan.TotalMilliseconds * 0.75f;
+                    if ((keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft) || gamePadState.ThumbSticks.Left.X < 0) || (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight) || gamePadState.ThumbSticks.Left.X > 0))
+                    {
+                        _formation.marchDown(timeSpan.TotalMilliseconds, true);
+                        //if (_mapOffset.Y < BattleScreen.BATTLEHEIGHTEXTEND && _formation.getCenter().Y - _mapOffset.Y >= PikeAndShotGame.SCREENHEIGHT * 0.5f)
+                        // _mapOffset.Y += _formation.getSpeed() * (float)timeSpan.TotalMilliseconds * 0.708f;
+                    }
+                    else
+                    {
+                        _formation.marchDown(timeSpan.TotalMilliseconds, false);
+                        // if (_mapOffset.Y < BattleScreen.BATTLEHEIGHTEXTEND && _formation.getCenter().Y - _mapOffset.Y >= PikeAndShotGame.SCREENHEIGHT * 0.5f)
+                        //   _mapOffset.Y += _formation.getSpeed() * (float)timeSpan.TotalMilliseconds;
+                    }
                 }
-
-            }
-            else
-            {
-                if (_formation.getCenter().X >= PikeAndShotGame.SCREENWIDTH * BattleScreen.SCROLLPOINT + _mapOffset.X && cFormation == null)
-                    _mapOffset.X += getScrollAdjustSpeed() * (float)timeSpan.TotalMilliseconds;
-            }
-            if (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y < 0)
-            {
-                if ((keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft) || gamePadState.ThumbSticks.Left.X < 0) || (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight) || gamePadState.ThumbSticks.Left.X > 0))
+                if (keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp) || gamePadState.ThumbSticks.Left.Y > 0)
                 {
-                    _formation.marchDown(timeSpan.TotalMilliseconds, true);
-                    //if (_mapOffset.Y < BattleScreen.BATTLEHEIGHTEXTEND && _formation.getCenter().Y - _mapOffset.Y >= PikeAndShotGame.SCREENHEIGHT * 0.5f)
-                       // _mapOffset.Y += _formation.getSpeed() * (float)timeSpan.TotalMilliseconds * 0.708f;
-                }
-                else
-                {
-                    _formation.marchDown(timeSpan.TotalMilliseconds, false);
-                   // if (_mapOffset.Y < BattleScreen.BATTLEHEIGHTEXTEND && _formation.getCenter().Y - _mapOffset.Y >= PikeAndShotGame.SCREENHEIGHT * 0.5f)
-                     //   _mapOffset.Y += _formation.getSpeed() * (float)timeSpan.TotalMilliseconds;
-                }
-            }
-            if (keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp) || gamePadState.ThumbSticks.Left.Y > 0)
-            {
-                if ((keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft) || gamePadState.ThumbSticks.Left.X < 0) || (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight) || gamePadState.ThumbSticks.Left.X > 0))
-                {
-                    _formation.marchUp(timeSpan.TotalMilliseconds, true);
-                    //if (_mapOffset.Y > -1 * BattleScreen.BATTLEHEIGHTEXTEND && _formation.getCenter().Y - _mapOffset.Y <= PikeAndShotGame.SCREENHEIGHT * 0.5f)
+                    if ((keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft) || gamePadState.ThumbSticks.Left.X < 0) || (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight) || gamePadState.ThumbSticks.Left.X > 0))
+                    {
+                        _formation.marchUp(timeSpan.TotalMilliseconds, true);
+                        //if (_mapOffset.Y > -1 * BattleScreen.BATTLEHEIGHTEXTEND && _formation.getCenter().Y - _mapOffset.Y <= PikeAndShotGame.SCREENHEIGHT * 0.5f)
                         //_mapOffset.Y -= _formation.getSpeed() * (float)timeSpan.TotalMilliseconds * 0.708f;
-                }
-                else
-                {
-                    _formation.marchUp(timeSpan.TotalMilliseconds, false);
-                    //if (_mapOffset.Y > -1 * BattleScreen.BATTLEHEIGHTEXTEND && _formation.getCenter().Y - _mapOffset.Y <= PikeAndShotGame.SCREENHEIGHT * 0.5f)
+                    }
+                    else
+                    {
+                        _formation.marchUp(timeSpan.TotalMilliseconds, false);
+                        //if (_mapOffset.Y > -1 * BattleScreen.BATTLEHEIGHTEXTEND && _formation.getCenter().Y - _mapOffset.Y <= PikeAndShotGame.SCREENHEIGHT * 0.5f)
                         //_mapOffset.Y -= _formation.getSpeed() * (float)timeSpan.TotalMilliseconds;
+                    }
+                }
+                if ((keyboardState.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyUp(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.A) && previousGamePadState.IsButtonUp(Buttons.A)))
+                {
+                    _formation.pikeAttack();
+                }
+                else if ((previousKeyboardState.IsKeyDown(Keys.Z) && keyboardState.IsKeyUp(Keys.Z)) || (previousGamePadState.IsButtonDown(Buttons.A) && gamePadState.IsButtonUp(Buttons.A)))
+                {
+                    _formation.pikeRaise();
+                }
+                if ((keyboardState.IsKeyDown(Keys.Z) && keyboardState.IsKeyDown(Keys.X) && (previousKeyboardState.IsKeyUp(Keys.Z) || previousKeyboardState.IsKeyUp(Keys.X))) || (gamePadState.IsButtonDown(Buttons.A) && gamePadState.IsButtonDown(Buttons.X) && (previousGamePadState.IsButtonUp(Buttons.A) || previousGamePadState.IsButtonUp(Buttons.X))))
+                {
+                    _formation.meleeCharge();
+                    //_formation.swingAttack();
+                }
+                if ((keyboardState.IsKeyDown(Keys.X) && !keyboardState.IsKeyDown(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.X) && !gamePadState.IsButtonDown(Buttons.A)))
+                {
+                    _formation.shotAttack();
+                }
+                if (keyboardState.IsKeyUp(Keys.X) && gamePadState.IsButtonUp(Buttons.X))
+                {
+                    _formation.needTriggerUp = false;
                 }
             }
-            if ((keyboardState.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyUp(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.A) && previousGamePadState.IsButtonUp(Buttons.A)))
-            {
-                _formation.pikeAttack();
-            }
-            else if ((previousKeyboardState.IsKeyDown(Keys.Z) && keyboardState.IsKeyUp(Keys.Z)) || (previousGamePadState.IsButtonDown(Buttons.A) && gamePadState.IsButtonUp(Buttons.A)))
-            {
-                _formation.pikeRaise();
-            }
-            if ((keyboardState.IsKeyDown(Keys.Z) && keyboardState.IsKeyDown(Keys.X) && (previousKeyboardState.IsKeyUp(Keys.Z) || previousKeyboardState.IsKeyUp(Keys.X))) || (gamePadState.IsButtonDown(Buttons.A) && gamePadState.IsButtonDown(Buttons.X) && (previousGamePadState.IsButtonUp(Buttons.A) || previousGamePadState.IsButtonUp(Buttons.X))))
-            {
-                _formation.meleeCharge();
-                //_formation.swingAttack();
-            }
-            if ((keyboardState.IsKeyDown(Keys.X) && !keyboardState.IsKeyDown(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.X) && !gamePadState.IsButtonDown(Buttons.A)))
-            {
-                _formation.shotAttack();
-            }
-            if (keyboardState.IsKeyUp(Keys.X) && gamePadState.IsButtonUp(Buttons.X))
-            {
-                _formation.needTriggerUp = false;
-            }
-
             if (PikeAndShotGame.DEBUG)
             {
                 if (keyboardState.IsKeyDown(Keys.Q) && previousKeyboardState.IsKeyUp(Keys.Q))
@@ -613,31 +636,28 @@ namespace PikeAndShot
             previousGamePadState = gamePadState;
         }
 
-        //void FormListener.updateLevel(Level level, int Formation)
-        //{
-        //    _levelData = level;
-        //}
+        void updateLevel(Level level, int formation, int terrain)
+        {
+            _levelData = level;
+        }
 
         protected void checkLevelData()
         {
             for(int f = 0; f < _levelData.formations.Count; f++)
             {
-                if (_levelData.formationTimes[f] <= (double)_mapOffset.X + PikeAndShotGame.SCREENWIDTH && !_usedFormations.Exists(i => i == f))
+                if (_levelData.formationTimes[f] <= (double)_mapOffset.X + PikeAndShotGame.SCREENWIDTH && !_usedFormations.Exists(i => i == f) && _levelData.formationTimes[f] >= _levelData.startingPosition && _levelData.formationPositions[f].X > _levelData.startingPosition + PikeAndShotGame.SCREENWIDTH)
                 {
                     _usedFormations.Add(f);
                     _newEnemyFormation = new EnemyFormation(_levelData.formationNames[f], _levelData.formationActions[f], this, (_levelData.formationPositions[f]).X, (_levelData.formationPositions[f]).Y, 10, _levelData.formationSides[f]);
                     string formationName = _levelData.formationNames[f];                                       
                     float x = _newEnemyFormation.getPosition().X;
                     float y = _newEnemyFormation.getPosition().Y;
-                    if (_newEnemyFormation.getSide() == SIDE_PLAYER)
-                        assignRescue(_newEnemyFormation, PikeAndShotGame.random.Next(100) < 50 ? Soldier.TYPE_PIKE : Soldier.TYPE_SHOT);
-                    else
+                    
+                    for (int i = 0; i < _levelData.formations[f].Count; i++)
                     {
-                        for (int i = 0; i < _levelData.formations[f].Count; i++)
-                        {
-                            Soldier.getNewSoldier((_levelData.formations[f])[i], this, _newEnemyFormation, x, y);                           
-                        }
+                        Soldier.getNewSoldier((_levelData.formations[f])[i], this, _newEnemyFormation, x, y);                           
                     }
+                    
                     if (formationName.StartsWith("spawner:"))
                     {
                         foreach (Soldier s in _newEnemyFormation.getSoldiers())
@@ -651,6 +671,14 @@ namespace PikeAndShot
                     {
                         _enemyFormations.Add(_newEnemyFormation);
                     }
+                }
+            }
+            for (int f = 0; f < _levelData.terrains.Count; f++)
+            {
+                if (_levelData.terrainTimes[f] <= (double)_mapOffset.X + PikeAndShotGame.SCREENWIDTH && !_usedTerrain.Exists(i => i == f))
+                {
+                    _usedTerrain.Add(f);
+                    Terrain.getNewTerrain(_levelData.terrains[f], this, _levelData.terrainPositions[f].X, _levelData.terrainPositions[f].Y, f);
                 }
             }
         }
@@ -757,7 +785,7 @@ namespace PikeAndShot
                     bool bool1 = ef.getCenter().X - _formation.getCenter().X <= Soldier.WIDTH * 10f;
                     bool bool2 = ef.getCenter().X - _formation.getCenter().X > 0;
                     bool bool3 = Math.Abs(ef.getCenter().Y - _formation.getCenter().Y) < (float)_formation.getWidth() * Soldier.HEIGHT * 0.5f /*+ (float)ef.getHeight() * 0.5f*/;
-                    if (ef.getSide() == BattleScreen.SIDE_ENEMY && (bool1 && bool2) && bool3)
+                    if (ef.getSide() == BattleScreen.SIDE_ENEMY && !(ef is Wolf) && (bool1 && bool2) && bool3)
                     {
                         enemies.Add(ef);
                     }
@@ -769,7 +797,7 @@ namespace PikeAndShot
                 bool bool1 = ef.getCenter().X - _formation.getCenter().X <= Soldier.WIDTH * 10f;
                 bool bool2 = ef.getCenter().X - _formation.getCenter().X > 0;
                 bool bool3 = Math.Abs(ef.getCenter().Y - _formation.getCenter().Y) < (float)_formation.getWidth() * Soldier.HEIGHT * 0.5f + (float)ef.getHeight() * 0.5f;
-                if ((bool1 && bool2) && bool3 && ef.getState() != Soldier.STATE_DEAD && ef.getState() != Soldier.STATE_DYING && ef.getSide() == SIDE_ENEMY)
+                if ((bool1 && bool2) && bool3 && ef.getState() != Soldier.STATE_DEAD && ef.getState() != Soldier.STATE_DYING && ef.getSide() == SIDE_ENEMY && !(ef is Wolf))
                 {
                     enemies.Add(ef);
                 }
@@ -782,7 +810,7 @@ namespace PikeAndShot
                     bool bool1 = ef.getCenter().X - _formation.getCenter().X <= Soldier.WIDTH * 10f;
                     bool bool2 = ef.getCenter().X - _formation.getCenter().X > 0;
                     bool bool3 = Math.Abs(ef.getCenter().Y - _formation.getCenter().Y) < (float)_formation.getWidth() * Soldier.HEIGHT * 0.5f /*+ (float)ef.getHeight() * 0.5f*/;
-                    if (ef.getSide() == BattleScreen.SIDE_ENEMY && (bool1 && bool2) && bool3)
+                    if (ef.getSide() == BattleScreen.SIDE_ENEMY && (bool1 && bool2) && bool3 && !(ef is Wolf))
                     {
                         enemies.Add(ef);
                     }
@@ -869,12 +897,12 @@ namespace PikeAndShot
             _mapOffset.X = 0f;
             _mapOffset.Y = 0f;
             _usedFormations.Clear();
+            _usedTerrain.Clear();
+            _terrain.Clear();
+            _waterTerrain.Clear();
             _looseSoldiers.Clear();
             _shots.Clear();
             _enemyFormations.Clear();
-            _formation.setPosition(200f, (float)PikeAndShotGame.SCREENHEIGHT * 0.5f);
-            _formation.resetupFormation();
-            _formation.reformFormation();
             _screenObjects.Clear();
             _screenObjectsToAdd.Clear();
             _screenColliders.Clear();
@@ -889,42 +917,42 @@ namespace PikeAndShot
             {
                 _coinSprites.Add(new Coin(this, BASE_COIN_START_POSITION, new Vector2(BASE_COIN_POSITION.X, BASE_COIN_POSITION.Y - i * 4f)));
             }
-            
-            _formation = new Formation(this, 200, 200, 20, SIDE_PLAYER);
+
+            _mapOffset.X = _levelData.startingPosition;
+
+            _formation = new Formation(this, _levelData.startingPosition + 200, 200, 20, SIDE_PLAYER);
             //_formation.addSoldier(new Colmillos(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Pikeman(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Pikeman(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
 
-            _formation.addSoldier(new Leader(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Leader(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
 
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
-            _formation.addSoldier(new Arquebusier(this, 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
+            _formation.addSoldier(new Arquebusier(this, _levelData.startingPosition + 200, 200, BattleScreen.SIDE_PLAYER));
 
             foreach (Soldier s in _formation.getSoldiers())
             {
                 _screenObjects.Add(s);
-                s._position = new Vector2(200f, (float)PikeAndShotGame.SCREENHEIGHT * 0.5f);
+                s._position = new Vector2(_levelData.startingPosition + 200f, (float)PikeAndShotGame.SCREENHEIGHT * 0.5f);
             }
 
             _terrain = new ArrayList(20);
 
-            for (int i = 0; i < 100; i++)
-            {
-                _terrain.Add(new Terrain(this, PikeAndShotGame.ROAD_TERRAIN[PikeAndShotGame.random.Next(7)], SIDE_PLAYER, PikeAndShotGame.random.Next(PikeAndShotGame.SCREENWIDTH), PikeAndShotGame.random.Next(PikeAndShotGame.SCREENHEIGHT)));
-            }
-            MediaPlayer.Stop();
-            MediaPlayer.Play(PikeAndShotGame.THEME_1);
+            spawnInitialTerrain(_levelData.startingPosition);
+
+            //MediaPlayer.Stop();
+            //MediaPlayer.Play(PikeAndShotGame.THEME_1);
         }
 
         internal void makeShotSound()

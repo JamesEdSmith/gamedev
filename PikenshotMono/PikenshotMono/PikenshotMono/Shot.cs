@@ -93,6 +93,9 @@ namespace PikeAndShot
         {
             _state = STATE_GROUND;
             _stateTimer = _groundTime;
+            if (_screen.checkWaterSituation(_position.X, _position.Y) == BattleScreen.TerrainSituationResult.WATER)
+                new ScreenAnimation(_screen, 1 * _side, new Vector2(_position.X, _position.Y + getHeight()), new Sprite(PikeAndShotGame.SPLASHING, new Rectangle(14, 8, 4, 4), 48, 24), 1250f);
+            
             if(hitSound != null)
                 hitSound.Play();
         }
@@ -117,6 +120,15 @@ namespace PikeAndShot
             ground();
         }
 
+         public override void collide(ScreenObject collider, TimeSpan timeSpan)
+        {
+            base.collide(collider, timeSpan);
+
+            if (collider is Terrain && _state == STATE_FLYING)
+                hit();
+        }
+
+
         public override Vector2 getCenter()
         {
             return new Vector2(_position.X + 2f, _position.Y + 1f);
@@ -125,7 +137,6 @@ namespace PikeAndShot
 
     public class ArquebusierShot : Shot
     {
-        private ScreenAnimation _smoke;
         private float metaphoricalHeight;
 
         public ArquebusierShot(Vector2 position, BattleScreen screen, int side, float height, SoundEffectInstance hitSound)
@@ -139,7 +150,6 @@ namespace PikeAndShot
             _ground = new Sprite(PikeAndShotGame.ARQUEBUSIER_GROUND, new Rectangle(16, 12, 2, 2), 30, 14);
 
             // create separate smoke animation that is not dependant on the shot itself
-            _smoke = new ArquebusierSmoke(screen, side, position);
             metaphoricalHeight = 0f;
         }
 
@@ -486,7 +496,10 @@ namespace PikeAndShot
         {
             _damage = 1;
             _animationTime = 250f;
-            _sprite = new Sprite(PikeAndShotGame.SKIRMISHER_JAVELIN, new Rectangle(32, 6, 8, 4), 48, 14);
+            _sprite = new Sprite(PikeAndShotGame.SKIRMISHER_JAVELIN, new Rectangle(32, 6, 8, 4), 48, 14, false, true,screen);
+            _sprite.flashable = false;
+            _sprite.flashColor = Color.Yellow;
+            _sprite.setEffect(Sprite.EFFECT_FLASH_RED, 1500f / 8f);
             _ground = new Sprite(PikeAndShotGame.SKIRMISHER_GROUND, new Rectangle(34, 16, 8, 4), 48, 20);
             _groundTime = 300f;
         }
@@ -503,7 +516,10 @@ namespace PikeAndShot
             _speed = 0.27f;
             _damage = 1;
             _animationTime = 250f;
-            _sprite = new Sprite(PikeAndShotGame.SLINGER_ROCK, new Rectangle(14, 4, 4, 4), 22, 12);
+            _sprite = new Sprite(PikeAndShotGame.SLINGER_ROCK, new Rectangle(14, 4, 4, 4), 22, 12, false, true,screen);
+            _sprite.flashable = false;
+            _sprite.flashColor = Color.Yellow;
+            _sprite.setEffect(Sprite.EFFECT_FLASH_RED, 1500f / 8f);
             _ground = new Sprite(PikeAndShotGame.SLINGER_GROUND, new Rectangle(12, 4, 4, 4), 28, 12);
             _groundTime = 300f;
             _lifeTime = 1500f;
@@ -519,6 +535,7 @@ namespace PikeAndShot
 
         public override void update(TimeSpan timeSpan)
         {
+            _drawingY = _position.Y + _height;
             if (_state == STATE_FLYING)
             {
                 if (_side == BattleScreen.SIDE_PLAYER)
@@ -598,12 +615,14 @@ namespace PikeAndShot
         protected int _height;
         protected Vector2 _offset;
         protected Soldier _pikeman;
+        public bool hit;
 
         public WeaponAttack(BattleScreen screen, Soldier pikeman)
             : base(screen, pikeman.getSide())
         {
             _pikeman = pikeman;
             _screen.removeScreenObject(this);
+            hit = false;
         }
 
         protected void initiatePosition()
@@ -637,6 +656,11 @@ namespace PikeAndShot
         public int getSoldierState()
         {
             return _pikeman.getState();
+        }
+
+        public Soldier getSoldier()
+        {
+            return _pikeman;
         }
 
     }
