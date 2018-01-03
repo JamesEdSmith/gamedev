@@ -40,7 +40,10 @@ namespace PikeAndShot
         public const int CLASS_BOTTLES = 24;
         public const int CLASS_RUIN_BUILDING = 25;
         public const int CLASS_RUIN_CROSS = 26;
-
+        public const int CLASS_FANG_ROCK = 27;
+        public const int CLASS_FANG_ROCKS = 28;
+        public const int CLASS_BARRICADE = 29;
+        public const int CLASS_TRUNK = 30;
 
         public Sprite _sprite;
         private float _restTime;
@@ -296,6 +299,22 @@ namespace PikeAndShot
                     break;
                 case Terrain.CLASS_RUIN_CROSS:
                     newTerrain = new Terrain(screen, PikeAndShotGame.RUIN_CROSS, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 4, (int)y + 40, 68, 28));
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_FANG_ROCK:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.FANG_ROCK, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 2, (int)y + 45, 48, 30));
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_FANG_ROCKS:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.FANG_ROCKS, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 2, (int)y + 14, 28, 18), new Vector2(32, 48));
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_BARRICADE:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.BARRICADES, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 2, (int)y + 6, 62, 38), new Vector2(72, 64));
+                    screen.addTerrain(newTerrain);
+                    break;
+                case Terrain.CLASS_TRUNK:
+                    newTerrain = new Terrain(screen, PikeAndShotGame.TRUNKS, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 8, (int)y + 4, 22, 22), new Vector2(32, 36));
                     screen.addTerrain(newTerrain);
                     break;
             }

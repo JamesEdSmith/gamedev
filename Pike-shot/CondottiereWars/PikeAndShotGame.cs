@@ -364,6 +364,10 @@ namespace PikeAndShot
         public static Texture2D BOTTLES;
         public static Texture2D RUIN_BUILDING;
         public static Texture2D RUIN_CROSS;
+        public static Texture2D FANG_ROCK;
+        public static Texture2D FANG_ROCKS;
+        public static Texture2D BARRICADES;
+        public static Texture2D TRUNKS;
 
         public static Texture2D DROP_SPLASH;
         public static Texture2D DROP;
@@ -519,6 +523,10 @@ namespace PikeAndShot
             BOTTLES = getDimmerClone(Content.Load<Texture2D>(@"bottles"));
             RUIN_BUILDING = getDimmerClone(Content.Load<Texture2D>(@"ruin_building"));
             RUIN_CROSS = getDimmerClone(Content.Load<Texture2D>(@"ruin_cross"));
+            FANG_ROCK = getDimmerClone(Content.Load<Texture2D>(@"fang_rock"));
+            FANG_ROCKS = getDimmerClone(Content.Load<Texture2D>(@"fang_rocks"));
+            BARRICADES = getDimmerClone(Content.Load<Texture2D>(@"barricades"));
+            TRUNKS = getDimmerClone(Content.Load<Texture2D>(@"trunks"));
 
             DROP_SPLASH = Content.Load<Texture2D>(@"splash");
             DROP = Content.Load<Texture2D>(@"water_drop");

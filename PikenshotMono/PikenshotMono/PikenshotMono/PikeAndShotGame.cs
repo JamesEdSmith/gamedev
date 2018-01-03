@@ -872,8 +872,8 @@ namespace PikeAndShot
                 int drawWidth = (int)(viewport.Width * newWidth / oldWidth);
 
                 int drawX = (viewport.Width - drawWidth) / 2;
-                int drawY = (viewport.Height - SCREENHEIGHT) / 2;
-                drawRectangle = new Rectangle(drawX, drawY, drawWidth, SCREENHEIGHT);
+                int drawY = 0;
+                drawRectangle = new Rectangle(drawX, drawY, drawWidth, viewport.Height);
             }
             else if ((float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height / (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width > 0.76f)
             {
@@ -881,9 +881,9 @@ namespace PikeAndShot
                 float newHeight = (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width * 3f / 4f;
                 int drawHeight = (int)(viewport.Height * newHeight / oldHeight);
 
-                int drawX = (viewport.Width - SCREENWIDTH) / 2;
+                int drawX = 0;
                 int drawY = (viewport.Height - drawHeight) / 2;
-                drawRectangle = new Rectangle(drawX, drawY, SCREENWIDTH, drawHeight);
+                drawRectangle = new Rectangle(drawX, drawY, viewport.Width, drawHeight);
             }
             else
             {
