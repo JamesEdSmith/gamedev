@@ -350,6 +350,10 @@ Content\arg.xnb
 Content\boss.xnb
 Content\theme.xnb
 Content\boss01.xnb
+Content\cannon.xnb
+Content\cannon_idle.xnb
+Content\cannonball.xnb
+Content\cannon_wave.xnb
 Content\theme.wma
 Content\boss01.wma
 Content\Benz1_level.xml

@@ -2422,7 +2422,67 @@ namespace PikeAndShot
             }
             else if (_state == STATE_INTRO)
             {
-                _state = STATE_HOLD;
+                Vector2 target;
+
+                target = _screen.getMapOffset() + new Vector2(800f, 500f);
+                _delta = target - _position;
+               
+                if (Math.Abs(_delta.X) == 0)
+                {
+                    colmillos.howl();
+                    _state = STATE_HOLD;
+                    colmillos.setSpeed(0.15f);
+                    chargeRecoverTimer = 0;
+                }
+
+                double angle = Math.Atan2(_delta.Y, _delta.X);
+                double cos = Math.Cos(angle);
+                double sin = Math.Sin(angle);
+
+                _travel.X = (float)cos * (float)timeSpan.TotalMilliseconds * _speed;
+                _travel.Y = (float)sin * (float)timeSpan.TotalMilliseconds * _speed;
+
+                //fix the sign for the trig quadrant
+                if (_delta.X < 0)
+                    _travel.X *= -1;
+                if (_delta.Y < 0)
+                    _travel.Y *= -1;
+
+                if (_delta.X > 0)
+                {
+                    if (_delta.X - _travel.X >= 0)
+                        _position.X += _travel.X;
+                    else
+                        _position.X = target.X;
+                }
+                else if (_delta.X < 0)
+                {
+                    if (_delta.X + _travel.X <= 0)
+                        _position.X -= _travel.X;
+                    else
+                        _position.X = target.X;
+                }
+
+                if (_delta.Y > 0)
+                {
+                    if (_delta.Y - _travel.Y >= 0)
+                        _position.Y += _travel.Y;
+                    else
+                        _position.Y = target.Y;
+                }
+                else if (_delta.Y < 0)
+                {
+                    if (_delta.Y + _travel.Y <= 0)
+                        _position.Y -= _travel.Y;
+                    else
+                        _position.Y = target.Y;
+                }
+
+
+                if (colmillos.getState() != Colmillos.STATE_RISE && colmillos.getState() != Colmillos.STATE_DYING && colmillos.getState() != Colmillos.STATE_EATEN)
+                {
+                    colmillos._destination = _position;
+                }
             }
             else if (_state == STATE_HOLD)
             {

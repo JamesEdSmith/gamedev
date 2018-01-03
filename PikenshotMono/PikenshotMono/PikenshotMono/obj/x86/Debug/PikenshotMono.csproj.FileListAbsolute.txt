@@ -550,19 +550,6 @@ C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\W
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Debug\PikenshotMono.csprojResolveAssemblyReference.cache
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Debug\Pike `n Shot.exe
 C:\Users\James\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Debug\Pike `n Shot.pdb
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Pike `n Shot.exe.config
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Debug\Pike `n Shot.exe
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Debug\Pike `n Shot.pdb
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\Benz1_level.xml
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\GoblinRaid_level.xml
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\HorseAttack_level.xml
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\new_level.xml
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\Slinger_test_level.xml
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\spawner_level.xml
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\test_pike_level.xml
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\Bloom.xnb
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\BloomExtract.xnb
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\cgwg-xna.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\arg.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\arque_death.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\arque_defend.xnb
@@ -578,6 +565,7 @@ D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debu
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\bagger_idle.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\bag_throw.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\barricades.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\Benz1_level.xml
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\blue_feet.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\bodies.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\boss.xnb
@@ -589,6 +577,7 @@ D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debu
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\bush00.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\bush01.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\bush03.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\chest_throw.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\dropped_arque.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\dropped_flag.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\dropped_gonne.xnb
@@ -597,6 +586,7 @@ D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debu
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\falchion_thrown.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\fang_rock.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\fang_rocks.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\GoblinRaid_level.xml
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\gonner_death.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\gonner_defend.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\gonner_idle.xnb
@@ -608,12 +598,15 @@ D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debu
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\grey_feet.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\hauler_death.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\hauler_idle.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\HorseAttack_level.xml
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\left_river_bed00.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\left_river_bed01.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\los_colmillos_stagger.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\newshader.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\newshader2.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\new_level.xml
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\boss01.wma
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\Slinger_test_level.xml
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\npc_1_01_fleeing.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\npc_1_01_idle.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\npc_1_02_idle.xnb
@@ -648,11 +641,17 @@ D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debu
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\soldier2_melee.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\soldier2_routed.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\sparkle.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\spawner_level.xml
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\splash.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\splashing.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\test_pike_level.xml
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\theme.wma
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\wolf_turn_col.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\wounded_dude.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\cannon.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\cannonball.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\cannon_idle.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\cannon_wave.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\arquebusier_death.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\arquebusier_feet.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\arquebusier_ground.xnb
@@ -677,6 +676,8 @@ D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debu
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\beserker_route.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\beserker_routed.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\bezerker_death.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\Bloom.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\BloomExtract.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\brigand_charge.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\brigand_death.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\brigand_defend2.xnb
@@ -695,6 +696,7 @@ D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debu
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\cavalry_rightidle.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\cavalry_rightlower.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\cavalry_rightrecoil.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\cgwg-xna.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\cgwg-xna_new.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\clang2.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\clang3.xnb
@@ -915,6 +917,8 @@ D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debu
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\wolf_run_col.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\wolf_spooked.xnb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\wolf_turn.xnb
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\a_new_level.xml
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Pike `n Shot.exe.config
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Pike `n Shot.exe
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Pike `n Shot.pdb
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\MonoGame.Framework.Content.Pipeline.dll
@@ -933,5 +937,5 @@ D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debu
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\ATI.TextureConverter.dll
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Lidgren.Network.dll
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\SharpDX.Direct3D9.dll
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\chest_throw.xnb
-D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\Content\a_new_level.xml
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Debug\Pike `n Shot.exe
+D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Debug\Pike `n Shot.pdb

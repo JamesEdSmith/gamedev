@@ -70,7 +70,7 @@ namespace PikeAndShot
 
             _formation = new Formation(this, -300, PikeAndShotGame.SCREENHEIGHT/2 - Soldier.HEIGHT*5, 20, SIDE_PLAYER);
             if (PikeAndShotGame.TEST_BOSS)
-                cFormation = new ColmillosFormation(this, 800, 500);
+                cFormation = new ColmillosFormation(this, PikeAndShotGame.SCREENWIDTH + 300, 500);
             //_formation.addSoldier(new Colmillos(this, 200, 200, BattleScreen.SIDE_PLAYER));
             //_formation.addSoldier(new Wolf(this, 200, 200, BattleScreen.SIDE_PLAYER));
 
@@ -681,6 +681,11 @@ namespace PikeAndShot
                     Terrain.getNewTerrain(_levelData.terrains[f], this, _levelData.terrainPositions[f].X, _levelData.terrainPositions[f].Y, f);
                 }
             }
+
+            if (cFormation == null && _mapOffset.X >= 12900)
+            {
+                cFormation = new ColmillosFormation(this, _mapOffset.X + PikeAndShotGame.SCREENWIDTH + 300, 500);
+            }
         }
 
         private EnemyFormation getDependantFormation(string name)
@@ -893,6 +898,7 @@ namespace PikeAndShot
         internal void restart()
         {
             doppel = false;
+            cFormation = null;
             coinMeterPosition = COIN_METER_POSITION;
             _mapOffset.X = 0f;
             _mapOffset.Y = 0f;

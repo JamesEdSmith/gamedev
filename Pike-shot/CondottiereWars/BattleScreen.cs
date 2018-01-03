@@ -220,7 +220,7 @@ namespace PikeAndShot
 
             foreach (Terrain t in _terrain)
             {
-                if (t.isAnimated())
+                if (t.isAnimated() || t.destructable)
                 {
                     t.update(gameTime.ElapsedGameTime);
                 }

@@ -125,7 +125,10 @@ namespace PikeAndShot
             base.collide(collider, timeSpan);
 
             if (collider is Terrain && _state == STATE_FLYING)
-                hit();
+            {
+                if(!((Terrain)collider).destructable || _side == BattleScreen.SIDE_PLAYER)
+                    hit();
+            }
         }
 
 
@@ -134,6 +137,71 @@ namespace PikeAndShot
             return new Vector2(_position.X + 2f, _position.Y + 1f);
         }
     }
+
+    public class CannonBall : Shot
+    {
+        private float metaphoricalHeight;
+
+        public CannonBall(Vector2 position, BattleScreen screen, int side, float height, SoundEffectInstance hitSound)
+            : base(position, screen, side, height, hitSound)
+        {
+            _speed = 0.5f;
+            _damage = 1;
+            _animationTime = 75f;
+
+            _sprite = new Sprite(PikeAndShotGame.CANNON_BALL, new Rectangle(8, 8,8, 8), 16, 16);
+            _ground = new Sprite(PikeAndShotGame.ARQUEBUSIER_GROUND, new Rectangle(16, 12, 2, 2), 30, 14);
+
+            // create separate smoke animation that is not dependant on the shot itself
+            metaphoricalHeight = 0f;
+        }
+
+        public override void update(TimeSpan timeSpan)
+        {
+            if (_state == STATE_FLYING)
+            {
+                if (_side == BattleScreen.SIDE_PLAYER)
+                {
+                    _position.X += (float)timeSpan.TotalMilliseconds * _speed;
+                }
+                else
+                {
+                    _position.X -= (float)timeSpan.TotalMilliseconds * _speed;
+                }
+
+
+                // check to see if out of play
+                if ((_position.X + WIDTH < 0 + _screen.getMapOffset().X || _position.X > PikeAndShotGame.SCREENWIDTH + _screen.getMapOffset().X) || (_position.Y + HEIGHT < 0 + _screen.getMapOffset().Y || _position.Y > PikeAndShotGame.SCREENHEIGHT + _screen.getMapOffset().Y))
+                {
+                    _state = STATE_DEAD;
+                }
+
+                if (_stateTimer <= 0)
+                {
+                    _stateTimer = _animationTime;
+                    new CannonWave(_screen, _side, _position - new Vector2(0, 4));
+                }
+            }
+            else if (_state == STATE_GROUND)
+            {
+                if (_stateTimer <= 0)
+                {
+                    _state = STATE_DEAD;
+                }
+            }
+
+            _stateTimer -= (float)timeSpan.TotalMilliseconds;
+        }
+
+        public override void draw(SpriteBatch spritebatch)
+        {
+
+            _screen.addDrawjob(new DrawJob(_sprite, _position - _screen.getMapOffset(), _side, _drawingY));
+
+        }
+
+    }
+
 
     public class ArquebusierShot : Shot
     {

@@ -12,6 +12,7 @@ namespace PikeAndShot
     {
         public const int STATE_SHOWN = 1;
         public const int STATE_ANIMATING = 2;
+        public const int STATE_HIT = 3;
 
         public const int CLASS_TREE0 = 0;
         public const int CLASS_HORIROAD = 1;
@@ -54,9 +55,11 @@ namespace PikeAndShot
         public Rectangle collisionBox;
         public bool collidable = false;
         public Vector2 collisionCenter;
+        public bool destructable = false;
 
         static Dictionary<Texture2D, List<int>> variantDict;
         private bool water;
+        public int health;
 
         public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, float restTime, float animationTime)
             : this(screen, sprite, side, x, y)
@@ -107,7 +110,9 @@ namespace PikeAndShot
         public Terrain(BattleScreen screen, Texture2D sprite, int side, float x, float y, Rectangle collisionBox, Vector2 spriteDimensions)
             : this(screen, sprite, side, x, y, collisionBox)
         {
-            _sprite = new Sprite(sprite, new Rectangle(0, 0, 0, 0), (int)spriteDimensions.X, (int)spriteDimensions.Y, false);
+            _sprite = new Sprite(sprite, new Rectangle(0, 0, 0, 0), (int)spriteDimensions.X, (int)spriteDimensions.Y, false, true, screen);
+            _sprite.flashable = false;
+            _sprite.flashColor = Color.Yellow;
 
             if (variantDict == null)
             {
@@ -307,10 +312,14 @@ namespace PikeAndShot
                     break;
                 case Terrain.CLASS_FANG_ROCKS:
                     newTerrain = new Terrain(screen, PikeAndShotGame.FANG_ROCKS, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 2, (int)y + 14, 28, 18), new Vector2(32, 48));
+                    newTerrain.health = 3;
+                    newTerrain.destructable = true;
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_BARRICADE:
                     newTerrain = new Terrain(screen, PikeAndShotGame.BARRICADES, BattleScreen.SIDE_PLAYER, x, y, new Rectangle((int)x + 2, (int)y + 6, 62, 38), new Vector2(72, 64));
+                    newTerrain.destructable = true;
+                    newTerrain.health = 3;
                     screen.addTerrain(newTerrain);
                     break;
                 case Terrain.CLASS_TRUNK:
@@ -324,6 +333,25 @@ namespace PikeAndShot
 
             if (!newTerrain.collidable)
                 screen.cancelScreenObject(newTerrain);
+        }
+
+        public override void collide(ScreenObject collider, TimeSpan timeSpan)
+        {
+            if (destructable && collider is ArquebusierShot && ((ArquebusierShot)collider).getState() == ArquebusierShot.STATE_FLYING)
+            {
+                if (health > 0)
+                {
+                    health--;
+                    _state = STATE_HIT;
+                    _stateTimer = 1000f;
+                    _sprite.setEffect(Sprite.EFFECT_FLASH_RED, 1500f / 8f);
+                }
+                else
+                {
+                    _state = STATE_DEAD;
+                }
+
+            }
         }
 
         private void setWater(bool p)
@@ -393,6 +421,17 @@ namespace PikeAndShot
                         _stateTimer = _restTime;
                         _state = STATE_SHOWN;
                     }
+                    break;
+                case STATE_HIT:
+                    _stateTimer -= (float)timeSpan.TotalMilliseconds;
+                    if(_stateTimer <= 0)
+                    {
+                        _stateTimer = 0;
+                        _state = 0;
+                        _sprite.setEffect(0, 0);
+                    }
+                    break;
+                default:
                     break;
             }
         }

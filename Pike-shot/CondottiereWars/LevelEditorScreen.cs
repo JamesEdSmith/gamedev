@@ -117,7 +117,10 @@ namespace PikeAndShot
                             _newEnemyFormation.addSoldier(new NPCFleer(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_NEUTRAL));
                             break;
                         case Soldier.CLASS_GOBLIN_HAULER:
-                            _newEnemyFormation.addSoldier(new Hauler(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_NEUTRAL));
+                            _newEnemyFormation.addSoldier(new Hauler(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY));
+                            break;
+                        case Soldier.CLASS_GOBLIN_CANNON:
+                            _newEnemyFormation.addSoldier(new Slinger(this, _newEnemyFormation.getPosition().X, _newEnemyFormation.getPosition().Y, SIDE_ENEMY, true ));
                             break;
                     }
                 }

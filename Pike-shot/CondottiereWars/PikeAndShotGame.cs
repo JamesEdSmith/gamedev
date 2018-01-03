@@ -322,6 +322,10 @@ namespace PikeAndShot
         public static Texture2D COLMILLOS_STAGGER;
         public static Texture2D FALCHION_THROWN;
         public static Texture2D FALCHION_DIRT;
+        public static Texture2D CANNON;
+        public static Texture2D CANNON_IDLE;
+        public static Texture2D CANNON_BALL;
+        public static Texture2D CANNON_WAVE;
 
         public static Texture2D PEASANT1_IDLE;
         public static Texture2D PEASANT2_IDLE;
@@ -796,6 +800,10 @@ namespace PikeAndShot
             COLMILLOS_STAGGER = Content.Load<Texture2D>(@"los_colmillos_stagger");
             FALCHION_THROWN = Content.Load<Texture2D>(@"falchion_thrown");
             FALCHION_DIRT = Content.Load<Texture2D>(@"falchion_dirt");
+            CANNON = Content.Load<Texture2D>(@"cannon");
+            CANNON_IDLE = Content.Load<Texture2D>(@"cannon_idle");
+            CANNON_BALL = Content.Load<Texture2D>(@"cannonball");
+            CANNON_WAVE = Content.Load<Texture2D>(@"cannon_wave");
 
             PEASANT1_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_01_idle"));
             PEASANT2_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_02_idle"));

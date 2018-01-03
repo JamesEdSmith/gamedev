@@ -222,6 +222,32 @@ namespace PikeAndShot
         }
     }
 
+    public class CannonWave : ScreenAnimation
+    {
+        public CannonWave(BattleScreen screen, int side, Vector2 position)
+            : base(screen, side, position, new Sprite(PikeAndShotGame.CANNON_WAVE, new Rectangle(22, 22, 16, 28), 50, 52), 400f)
+        {
+
+        }
+
+        public override void update(TimeSpan timeSpan)
+        {
+            _time -= (float)timeSpan.TotalMilliseconds;
+
+            if (_time <= 0)
+            {
+                setDone();
+            }
+
+            int maxFrames = _sprite.getMaxFrames();
+            float frameTime = _duration / (float)maxFrames;
+            int frameNumber = maxFrames - (int)(_time / frameTime) - 1;
+
+            _sprite.setFrame(frameNumber);
+
+        }
+    }
+
     public class ThrownGun : ScreenAnimation
     {
         Vector2 velocity;
