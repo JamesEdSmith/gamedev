@@ -4108,7 +4108,7 @@ namespace PikeAndShot
                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
                     if (_stateTimer <= _eatenTime/4f && whiteWolf == null)
                     {
-                        whiteWolf = new ColmillosWolf(_screen, new Vector2(_position.X + 10f, _position.Y), _side);
+                        whiteWolf = new ColmillosWolf(_screen, new Vector2(_position.X + 10f, _position.Y + getHeight()/2), _side);
                         _screen.addLooseSoldierNext(whiteWolf);
                     }
                     else if (_stateTimer <= 0)
@@ -4752,12 +4752,12 @@ namespace PikeAndShot
 
         public void attackColmillos()
         {
-            _destination = bossFormation.colmillos.getPosition() + new Vector2(50f, PikeAndShotGame.getRandPlusMinus(PikeAndShotGame.random.Next(30)));
+            _destination = bossFormation.colmillos.getCenter() + new Vector2(20f, 10f + PikeAndShotGame.getRandPlusMinus(PikeAndShotGame.random.Next(15)));
             _meleeDestination = _destination;
             if (_meleeDestination.X > _position.X)
             {
                 killOrientRight = true;
-                _destination = bossFormation.colmillos.getPosition() - new Vector2(20f, PikeAndShotGame.getRandPlusMinus(PikeAndShotGame.random.Next(30)));
+                _destination = bossFormation.colmillos.getCenter() + new Vector2(-20f, 10f +  PikeAndShotGame.getRandPlusMinus(PikeAndShotGame.random.Next(15)));
                 _meleeDestination = _destination;
             }
         }
@@ -4951,7 +4951,7 @@ namespace PikeAndShot
                             getUp();
                             break;
                         case STATE_BARK:
-                            attack();
+                            bark();
                             break;
                         case STATE_HOWLING:
                             howl();

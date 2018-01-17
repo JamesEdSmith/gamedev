@@ -2366,8 +2366,8 @@ namespace PikeAndShot
                             }
                             if (w.getState() != Wolf.STATE_SPOOKED)
                             {
-                                w._destination.X = colmillos._position.X + this.getWidth() * xDist * Soldier.WIDTH * (float)Math.Cos((double)tempPatternTimer);
-                                w._destination.Y = colmillos._position.Y + this.getWidth() * yDist * Soldier.WIDTH * (float)Math.Sin((double)tempPatternTimer);
+                                w._destination.X = colmillos.getCenter().X + this.getWidth() * xDist * Soldier.WIDTH * (float)Math.Cos((double)tempPatternTimer);
+                                w._destination.Y = colmillos.getCenter().Y + this.getWidth() * yDist * Soldier.WIDTH * (float)Math.Sin((double)tempPatternTimer);
                             }
                             tempPatternTimer += wolfSpacing;
 
@@ -2438,6 +2438,7 @@ namespace PikeAndShot
                 {
                     colmillos.howl();
                     _state = STATE_HOLD;
+                    _screen.playerInPlay = true;
                     colmillos.setSpeed(0.15f);
                     chargeRecoverTimer = 0;
                 }

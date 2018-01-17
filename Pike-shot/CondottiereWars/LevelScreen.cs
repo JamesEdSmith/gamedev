@@ -686,6 +686,7 @@ namespace PikeAndShot
             if (cFormation == null && _mapOffset.X >= 12900)
             {
                 cFormation = new ColmillosFormation(this, _mapOffset.X + PikeAndShotGame.SCREENWIDTH + 300, 500);
+                playerInPlay = false;
             }
         }
 
