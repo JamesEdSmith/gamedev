@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/James/Desktop/PikenshotMono/PikenshotMono/PikenshotMono/Content/cgwg-xna.fx</SourceFile>
+  <SourceTime>2016-11-02T15:04:22.9144756-04:00</SourceTime>
+  <DestFile>C:/Users/James/Desktop/PikenshotMono/PikenshotMono/PikenshotMono/Content/bin/Windows/cgwg-xna.xnb</DestFile>
+  <DestTime>2016-11-02T15:42:02.1706976-04:00</DestTime>
+  <Importer>EffectImporter</Importer>
+  <ImporterTime>2016-03-30T02:36:08-04:00</ImporterTime>
+  <Processor>EffectProcessor</Processor>
+  <ProcessorTime>2016-03-30T02:36:08-04:00</ProcessorTime>
+  <Parameters>
+    <Key>DebugMode</Key>
+    <Value>Auto</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

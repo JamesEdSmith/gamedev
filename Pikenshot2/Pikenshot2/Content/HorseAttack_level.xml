@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="LevelPipeline.LevelContent">
+    <levelName>HorseAttack</levelName>
+    <formations>
+      <Item>6</Item>
+    </formations>
+    <formationPositions>1200 350</formationPositions>
+    <formationTimes>0</formationTimes>
+    <formationSides>-1</formationSides>
+    <formationActions>
+      <Item>
+        <Item>
+          <actions>0</actions>
+          <duration>749</duration>
+        </Item>
+        <Item>
+          <actions>1</actions>
+          <duration>2000</duration>
+        </Item>
+        <Item>
+          <actions>8</actions>
+          <duration>1</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>999</duration>
+        </Item>
+        <Item>
+          <actions>9</actions>
+          <duration>1</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>749</duration>
+        </Item>
+        <Item>
+          <actions>3</actions>
+          <duration>1000</duration>
+        </Item>
+        <Item>
+          <actions>8</actions>
+          <duration>1</duration>
+        </Item>
+        <Item>
+          <actions>0</actions>
+          <duration>999</duration>
+        </Item>
+        <Item>
+          <actions>9</actions>
+          <duration>1</duration>
+        </Item>
+      </Item>
+    </formationActions>
+    <terrains Null="true" />
+    <terrainPositions Null="true" />
+    <terrainTimes Null="true" />
+    <formationNames>
+      <Item>Knight</Item>
+    </formationNames>
+    <formationActionNames>
+      <Item>
+        <Item>Idle</Item>
+        <Item>Left</Item>
+        <Item>halt</Item>
+        <Item>wait for halt</Item>
+        <Item>turn</Item>
+        <Item>wait for turn</Item>
+        <Item>Right</Item>
+        <Item>halt</Item>
+        <Item>wait for halt</Item>
+        <Item>turn</Item>
+      </Item>
+    </formationActionNames>
+  </Asset>
+</XnaContent>
