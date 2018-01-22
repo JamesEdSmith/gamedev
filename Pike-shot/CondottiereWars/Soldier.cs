@@ -260,7 +260,7 @@ namespace PikeAndShot
                     _newEnemyFormation.addSoldier(new Hauler(screen, x, y, BattleScreen.SIDE_ENEMY));
                     break;
                 case Soldier.CLASS_GOBLIN_CANNON:
-                    _newEnemyFormation.addSoldier(new Slinger(screen, x, y, BattleScreen.SIDE_ENEMY, true));
+                    _newEnemyFormation.addSoldier(new Cannon(screen, x, y, BattleScreen.SIDE_ENEMY, true));
                     break;
 
             }
@@ -324,7 +324,7 @@ namespace PikeAndShot
         public virtual void draw(SpriteBatch spritebatch)
         {
             _drawingPosition = _position + randDestOffset - _screen.getMapOffset();
-            if (this is Slinger && ((Slinger)this).cannon)
+            if (this is Cannon)
             {
 
             }
@@ -387,7 +387,7 @@ namespace PikeAndShot
                 else
                     addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
             }
-            else if (this is Slinger && ((Slinger)this).cannon)
+            else if (this is Cannon)
             {
                 addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED && _state != STATE_SPAWN ? _side * -1 : _side * -1, _drawingY));
             }
@@ -3304,16 +3304,14 @@ namespace PikeAndShot
 
     public class Slinger : Soldier
     {
-        private Sprite _slingerReload;
-        private Sprite _slingerShoot;
-        private SoundEffectInstance slingSound;
-        private SoundEffectInstance rockHitSound;
+        protected Sprite _slingerReload;
+        protected Sprite _slingerShoot;
+        protected SoundEffectInstance slingSound;
+        protected SoundEffectInstance rockHitSound;
 
-        private bool variant;
-        private bool soundMade;
-        public bool cannon;
-        int health;
-        float flashTimer;
+        protected bool variant;
+        protected bool soundMade;
+        protected float flashTimer;
 
         public Slinger(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
@@ -3323,7 +3321,6 @@ namespace PikeAndShot
             _attackTime = 600f;
             _reloadTime = 1000f;
             soundMade = false;
-            cannon = false;
 
             if (PikeAndShotGame.random.Next(51) > 25)
             {
@@ -3360,27 +3357,6 @@ namespace PikeAndShot
             hitSound.Volume = 0.25f;
         }
 
-        public Slinger(BattleScreen screen, float x, float y, int side, bool cannon)
-            : this(screen, x, y, side)
-        {
-            this.cannon = true;
-            _idle = new Sprite(PikeAndShotGame.CANNON_IDLE, new Rectangle(44, 16, 90, 46), 138, 76, false, true, screen);
-            _idle.flashable = false;
-            _slingerReload = new Sprite(PikeAndShotGame.CANNON, new Rectangle(44, 16, 90, 46), 138, 76,false, true, screen);
-            _slingerReload.flashable = false;
-            _slingerShoot = new Sprite(PikeAndShotGame.SLINGER_SHOOT, new Rectangle(28, 12, 16, 28), 72, 50);
-            _death = new Sprite(PikeAndShotGame.SLINGER_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
-            _melee1 = new Sprite(PikeAndShotGame.SLINGER_MELEE, new Rectangle(24, 30, 16, 28), 64, 68);
-            _defend1 = new Sprite(PikeAndShotGame.SLINGER_DEFEND, new Rectangle(20, 2, 16, 28), 52, 40);
-            _retreat = new Sprite(PikeAndShotGame.SLINGER_RETREAT, new Rectangle(6, 2, 16, 28), 46, 40, true);
-            variant = false;
-            _class = Soldier.CLASS_GOBLIN_CANNON;
-            _attackTime = 600f;
-            _reloadTime = 7000f;
-            slingSound = slingSound = PikeAndShotGame.SHOT_4.CreateInstance();
-            health = 3;
-        }
-
         public override bool attack()
         {
             Vector2 formationPosition = _position - _destination;
@@ -3397,27 +3373,6 @@ namespace PikeAndShot
         public override void react(float p)
         {
 
-        }
-
-        public override void collide(ScreenObject collider, TimeSpan timeSpan)
-        {
-            if(!(collider is PikeTip) && !(collider is Soldier))
-                base.collide(collider, timeSpan);
-        }
-
-        public override void hit()
-        {
-            if (health < 1)
-            {
-                base.hit();
-            }
-            else
-            {
-                health--;
-                _slingerReload.setEffect(Sprite.EFFECT_FLASH_RED, 1500f / 8f);
-                _idle.setEffect(Sprite.EFFECT_FLASH_RED, 1500f / 8f);
-                flashTimer = 500f;
-            }
         }
 
         protected override bool checkReactions(TimeSpan timeSpan)
@@ -3453,21 +3408,6 @@ namespace PikeAndShot
                 if (_state == STATE_RELOADING)
                 {
                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
-
-                    if (cannon)
-                    {
-                        if (_slingerReload.getCurrFrame() == (60) && !soundMade)
-                        {
-                            soundMade = true;
-                            slingSound.Play();
-                            shotDone();
-                        }
-                        if (_slingerReload.getCurrFrame() == (62))
-                        {
-                            soundMade = false;
-                        }
-                    }
-
                     if (_stateTimer <= 0)
                     {
                         _stateTimer = 0f;
@@ -3542,11 +3482,7 @@ namespace PikeAndShot
         {
             _shotMade = true;
 
-            if (cannon)
-            {
-                _screen.addShot(new CannonBall(new Vector2(this._position.X + randDestOffset.X, this._position.Y + 16 + randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
-            }
-            else if (_side == BattleScreen.SIDE_PLAYER)
+            if (_side == BattleScreen.SIDE_PLAYER)
             {
                 if(variant)
                     _screen.addShot(new SkirmisherJavelin(new Vector2(this._position.X + 32 + randDestOffset.X, this._position.Y + 4 + randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
@@ -3559,6 +3495,103 @@ namespace PikeAndShot
                     _screen.addShot(new SkirmisherJavelin(new Vector2(this._position.X - 18 + randDestOffset.X, this._position.Y + 4 + randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
                 else
                     _screen.addShot(new SlingerRock(new Vector2(this._position.X - 12 + randDestOffset.X, this._position.Y + randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
+            }
+        }
+    }
+
+    public class Cannon : Slinger
+    {
+        private int health;
+
+        public Cannon(BattleScreen screen, float x, float y, int side, bool cannon)
+            : base(screen, x, y, side)
+        {
+            _idle = new Sprite(PikeAndShotGame.CANNON_IDLE, new Rectangle(44, 16, 90, 46), 138, 76, false, true, screen);
+            _idle.flashable = false;
+            _slingerReload = new Sprite(PikeAndShotGame.CANNON, new Rectangle(44, 16, 90, 46), 138, 76,false, true, screen);
+            _slingerReload.flashable = false;
+            _slingerShoot = new Sprite(PikeAndShotGame.SLINGER_SHOOT, new Rectangle(28, 12, 16, 28), 72, 50);
+            _death = new Sprite(PikeAndShotGame.SLINGER_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
+            _melee1 = new Sprite(PikeAndShotGame.SLINGER_MELEE, new Rectangle(24, 30, 16, 28), 64, 68);
+            _defend1 = new Sprite(PikeAndShotGame.SLINGER_DEFEND, new Rectangle(20, 2, 16, 28), 52, 40);
+            _retreat = new Sprite(PikeAndShotGame.SLINGER_RETREAT, new Rectangle(6, 2, 16, 28), 46, 40, true);
+            variant = false;
+            _class = Soldier.CLASS_GOBLIN_CANNON;
+            _attackTime = 600f;
+            _reloadTime = 7000f;
+            slingSound = slingSound = PikeAndShotGame.SHOT_4.CreateInstance();
+            health = 3;
+        }
+
+        public override void collide(ScreenObject collider, TimeSpan timeSpan)
+        {
+            if (!(collider is PikeTip) && !(collider is Soldier))
+                base.collide(collider, timeSpan);
+        }
+
+        public override void hit()
+        {
+            if (health < 1)
+            {
+                base.hit();
+            }
+            else
+            {
+                health--;
+                _slingerReload.setEffect(Sprite.EFFECT_FLASH_RED, 1500f / 8f);
+                _idle.setEffect(Sprite.EFFECT_FLASH_RED, 1500f / 8f);
+                flashTimer = 500f;
+            }
+        }
+
+        protected override void shotDone()
+        {
+            _shotMade = true;
+            _screen.addShot(new CannonBall(new Vector2(this._position.X + randDestOffset.X, this._position.Y + 16 + randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
+        }
+
+        protected override void updateState(TimeSpan timeSpan)
+        {
+            base.updateState(timeSpan);
+
+            if (flashTimer > 0)
+            {
+                flashTimer -= (float)timeSpan.TotalMilliseconds;
+                if (flashTimer <= 0)
+                {
+                    _slingerReload.setEffect(0, 1500f / 8f);
+                    _idle.setEffect(0, 1500f / 8f);
+                }
+            }
+
+            if (!_stateChanged)
+            {
+                if (_state == STATE_RELOADING)
+                {
+
+                    if (_slingerReload.getCurrFrame() == (60) && !soundMade)
+                    {
+                        soundMade = true;
+                        slingSound.Play();
+                        shotDone();
+                    }
+                    else if (_slingerReload.getCurrFrame() == (62))
+                    {
+                        soundMade = false;
+                    }
+                   
+                    if (_stateTimer <= 0)
+                    {
+                        _stateTimer = 0f;
+                        if (_side != BattleScreen.SIDE_PLAYER)
+                            _state = STATE_READY;
+                        else
+                        {
+                            _state = STATE_ATTACKING;
+                            _stateTimer = _attackTime;
+                        }
+                    }
+                }
             }
         }
     }
