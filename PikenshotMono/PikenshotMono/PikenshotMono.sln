@@ -1,20 +1,31 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PikenshotMono", "PikenshotMono\PikenshotMono.csproj", "{854F9ACA-FADC-4A37-BC84-0CC1A0C9F42F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{854F9ACA-FADC-4A37-BC84-0CC1A0C9F42F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{854F9ACA-FADC-4A37-BC84-0CC1A0C9F42F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{854F9ACA-FADC-4A37-BC84-0CC1A0C9F42F}.Debug|x86.ActiveCfg = Debug|x86
 		{854F9ACA-FADC-4A37-BC84-0CC1A0C9F42F}.Debug|x86.Build.0 = Debug|x86
+		{854F9ACA-FADC-4A37-BC84-0CC1A0C9F42F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{854F9ACA-FADC-4A37-BC84-0CC1A0C9F42F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{854F9ACA-FADC-4A37-BC84-0CC1A0C9F42F}.Release|x86.ActiveCfg = Release|x86
 		{854F9ACA-FADC-4A37-BC84-0CC1A0C9F42F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6E025B4-5FD9-4589-95CE-CD24BE94CD4A}
 	EndGlobalSection
 EndGlobal

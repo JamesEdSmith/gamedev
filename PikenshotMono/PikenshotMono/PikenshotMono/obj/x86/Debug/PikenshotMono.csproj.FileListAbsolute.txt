@@ -939,3 +939,5 @@ D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debu
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\bin\Windows\x86\Debug\SharpDX.Direct3D9.dll
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Debug\Pike `n Shot.exe
 D:\backup\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Debug\Pike `n Shot.pdb
+C:\Users\jasmith\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Debug\PikenshotMono.csprojResolveAssemblyReference.cache
+C:\Users\jasmith\Documents\gamedev\PikenshotMono\PikenshotMono\PikenshotMono\obj\x86\Debug\PikenshotMono.csproj.CoreCompileInputs.cache
