@@ -1113,6 +1113,14 @@ namespace PikeAndShot
                     int drawX = (Window.ClientBounds.Width - (int)newWidth) / 2;
                     int drawY = 0;
                     drawRectangle = new Rectangle(drawX, drawY+25, (int)newWidth, Window.ClientBounds.Height -50);
+                } else
+                if ((float)this.Window.ClientBounds.Height / (float)this.Window.ClientBounds.Width > 0.76f)
+                {
+                    float newWidth = (float)(Window.ClientBounds.Width - 50) * 3f / 4f;
+
+                    int drawX = 0;
+                    int drawY = (Window.ClientBounds.Height - (int)newWidth) / 2; ;
+                    drawRectangle = new Rectangle(drawX+25, drawY, Window.ClientBounds.Width -50, (int)newWidth);
                 } else { 
                     drawRectangle = new Rectangle(25, 25, Window.ClientBounds.Width - 50, Window.ClientBounds.Height - 50);
                 }
