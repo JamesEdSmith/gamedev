@@ -1271,7 +1271,17 @@ namespace PikeAndShot
                     _levels[currLevel].formationTimes[i] += amount;
                 }
             }
+            for (int i = 0; i < _levels[currLevel].terrainPositions.Count; i++)
+            {
+                if (_levels[currLevel].terrainPositions[i].X > begin)
+                {
+                    _levels[currLevel].terrainPositions[i] = _levels[currLevel].terrainPositions[i] + new Vector2(amount, 0);
+                    _levels[currLevel].terrainTimes[i] += amount;
+                }
+            }
+
             sendUpdate();
+            sendUpdateTerrain();
             refreshFormationListBox();
         }
 

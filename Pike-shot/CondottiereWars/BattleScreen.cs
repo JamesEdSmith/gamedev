@@ -23,11 +23,10 @@ namespace PikeAndShot
         public const int SIDE_NEUTRAL = 0;
         public const int SIDE_ENEMY = -1;
         public const float WATER_CHECK_HEIGHT = 40;
-
         public const float SCROLLPOINT = 0.33f;
         public const float BATTLEHEIGHTEXTEND = 384f;
-
         public const int DESIRED_GENERATED_TERRAIN = 30;
+        public const float WOLF_FUDGE_AMOUNT = 10f;
 
         public enum TerrainSituationResult
         {
@@ -620,6 +619,21 @@ namespace PikeAndShot
                         else
                         {
                             collision = true;
+
+                            if (so is Wolf && co is PikeTip)
+                            {
+                                soX -= WOLF_FUDGE_AMOUNT;
+                                soY -= WOLF_FUDGE_AMOUNT;
+                                soWidth += WOLF_FUDGE_AMOUNT;
+                                soHeight += WOLF_FUDGE_AMOUNT;
+                            }
+                            else if (co is Wolf && so is PikeTip)
+                            {
+                                coX -= WOLF_FUDGE_AMOUNT;
+                                coY -= WOLF_FUDGE_AMOUNT;
+                                coWidth += WOLF_FUDGE_AMOUNT;
+                                coHeight += WOLF_FUDGE_AMOUNT;
+                            }
 
                             // see if we didn't collide
                             if (soX > coX + coWidth)
