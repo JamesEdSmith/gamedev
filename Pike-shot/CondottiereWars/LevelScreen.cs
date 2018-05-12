@@ -157,8 +157,6 @@ namespace PikeAndShot
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 0.5f;
 
-            //MediaPlayer.Play(PikeAndShotGame.THEME_1);
-
             spawnInitialTerrain(_levelData.startingPosition);
             doppelType = true;
         }
@@ -959,8 +957,8 @@ namespace PikeAndShot
 
             spawnInitialTerrain(_levelData.startingPosition);
 
-            //MediaPlayer.Stop();
-            //MediaPlayer.Play(PikeAndShotGame.THEME_1);
+            MediaPlayer.Stop();
+            MediaPlayer.Play(PikeAndShotGame.THEME_1);
         }
 
         internal void makeShotSound()

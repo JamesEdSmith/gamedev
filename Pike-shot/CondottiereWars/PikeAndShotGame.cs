@@ -31,6 +31,7 @@ namespace PikeAndShot
         public const int SCREEN_LEVELPLAY = 0;
         public const int SCREEN_FORMATIONMAKER = 1;
         public const int SCREEN_LEVELEDITOR = 2;
+        public const int SCREEN_TITLE = 3;
 
         public const float ROAD_FADE = 0.4f;
 
@@ -390,6 +391,7 @@ namespace PikeAndShot
         public static Texture2D DOT;
         public static Texture2D SWORD_POINTER;
         public static Texture2D TEST;
+        public static Texture2D TITLE_ANIMATION;
 
         //Audio
         public static Song THEME_1;
@@ -833,6 +835,8 @@ namespace PikeAndShot
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
             SPARKLE = Content.Load<Texture2D>(@"sparkle");
 
+            TITLE_ANIMATION = Content.Load<Texture2D>(@"title_animation");
+
             THEME_1 = Content.Load<Song>(@"boss01");
             SHOT_0 = Content.Load<SoundEffect>(@"shot00");
             SHOT_1 = Content.Load<SoundEffect>(@"shot01");
@@ -900,6 +904,8 @@ namespace PikeAndShot
             _gameScreens.Add( new LevelEditorScreen(this, _form));
             _form.addFormListener((FormListener)_gameScreens[SCREEN_LEVELEDITOR]);
             _form.addFormListener((LevelScreen)_currScreen);
+            _gameScreens.Add(new TitleScreen(this));
+            _currScreen = (TitleScreen)_gameScreens[3];
 
             //TODO: set this as variable
             SoundEffect.MasterVolume = 0.2f;

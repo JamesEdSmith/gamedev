@@ -1007,7 +1007,14 @@ namespace PikeAndShot
                         _stateTimer = 0f;
                         _state = preAttackState;
                         _stateChanged = true;
-                        paviseToHit.knockOver();
+                        if (paviseToHit != null)
+                        {
+                            paviseToHit.knockOver();
+                        }
+                        else
+                        {
+                            oneAttackSoldier.hitOneHit();
+                        }
                     }
                 }
                 else if (_state == STATE_SPAWN)
@@ -1449,8 +1456,23 @@ namespace PikeAndShot
                             {
                                 bool rescueFight = (_side == BattleScreen.SIDE_PLAYER && !thisInFormation) ||
                                                     (collider.getSide() == BattleScreen.SIDE_PLAYER && !colliderInFormation);
-
-                                if (this is Colmillos)
+                                if (this is NPCFleer)
+                                {
+                                    if (collider.getState() != STATE_ONEATTACK)
+                                    {
+                                        ((Soldier)collider).oneAttack(this);
+                                    }
+                                    ((NPCFleer)this).wait();
+                                }
+                                else if (collider is NPCFleer)
+                                {
+                                    if (_state != STATE_ONEATTACK)
+                                    {
+                                        oneAttack((Soldier)collider);
+                                    }
+                                    ((NPCFleer)collider).wait();
+                                }
+                                else if (this is Colmillos)
                                 {
                                     if (_state != Colmillos.STATE_ATTACK)
                                         attack();
@@ -1587,6 +1609,39 @@ namespace PikeAndShot
             }
         }
 
+        public void hitOneHit()
+        {
+            if (_state != STATE_DYING && _state != STATE_DEAD)
+            {
+                if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
+                {
+                    if (_engager.givesRescueReward)
+                    {
+                        ((LevelScreen)_screen).collectCoin(_engager);
+                        _engager.myFormation.retreat();
+                    }
+                    else
+                    {
+                        _engager.setState(_engager.preAttackState);
+                    }
+                }
+
+                _state = STATE_DYING;
+                _stateTimer = _deathTime;
+                _destination = _position;
+                _screen.addLooseSoldierNext(this);
+                hitSound.Play();
+                playedFallSound = false;
+                splashed = false;
+
+                //I want guys that are running in as replacements to count as a loss
+                if (((myFormation == _screen.getPlayerFormation() && this._type != TYPE_SWINGER) || ((this._type == TYPE_PIKE || this._type == TYPE_SHOT) && _side == BattleScreen.SIDE_PLAYER)) && _screen is LevelScreen)
+                {
+                    ((LevelScreen)_screen).loseCoin(getType());
+                }
+            }
+        }
+
         public virtual void route()
         {
             if (_state != STATE_DEAD && _state != STATE_DYING)
@@ -1654,11 +1709,21 @@ namespace PikeAndShot
         }
 
         Pavise paviseToHit;
+        Soldier oneAttackSoldier;
         private bool splashed;
 
         internal void oneAttack(Pavise pavise)
         {
             paviseToHit = pavise;
+            preAttackState = _state;
+            _state = STATE_ONEATTACK;
+            _stateTimer = _oneAttackTime;
+            _meleeDestination = _position;
+        }
+
+        internal void oneAttack(Soldier soldier)
+        {
+            oneAttackSoldier = soldier;
             preAttackState = _state;
             _state = STATE_ONEATTACK;
             _stateTimer = _oneAttackTime;
@@ -1776,6 +1841,13 @@ namespace PikeAndShot
             _feet.setAnimationSpeed(_footSpeed / (_speed - 0.04f));
         }
 
+        bool waiting = false;
+
+        public void wait()
+        {
+            waiting = true;
+        }
+
         public override void setSide(int side)
         {
             _side = side;
@@ -1785,8 +1857,11 @@ namespace PikeAndShot
         {
             _speed = 0.1f;
             _feet.setAnimationSpeed(_footSpeed / (0.11f));
-            if(_screen is LevelScreen)
-                _destination = new Vector2 (_screen.getMapOffset().X - 200f, _position.Y);
+
+            if (_screen is LevelScreen && (_state == STATE_READY || _state == STATE_FLEE) && !waiting)
+            {
+                _destination = new Vector2(_screen.getMapOffset().X - 200f, _position.Y);
+            }
  	        base.update(timeSpan);
         }
 
