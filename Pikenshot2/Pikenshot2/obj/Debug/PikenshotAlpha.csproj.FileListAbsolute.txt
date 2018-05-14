@@ -444,7 +444,6 @@ C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\De
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\blue_feet.xnb
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\bodies.xnb
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\boss.xnb
-C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\boss01.xnb
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\bottles.xnb
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\brigand_charge.xnb
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\brigand_death.xnb
@@ -761,7 +760,6 @@ C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\De
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\Benz1_level.xml
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\Bloom.fx
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\BloomExtract.fx
-C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\boss01.wma
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\cgwg-xna.fx
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\cgwg-xna_new.fx
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\GoblinRaid_level.xml
@@ -796,7 +794,11 @@ C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\De
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\ATI.TextureConverter.dll
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\PVRTexLibNET.dll
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\SharpDX.dll
-C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotAlpha.csprojResolveAssemblyReference.cache
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotAlpha.csproj.CoreCompileInputs.cache
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotDemo.exe
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotDemo.pdb
+C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\title_animation.xnb
+C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\boss_music.ogg
+C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\boss_music.xnb
+C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\level_music.ogg
+C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\level_music.xnb

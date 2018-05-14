@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Media;
 using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -2010,7 +2011,7 @@ namespace PikeAndShot
                     s.update(timeSpan);
                 }
             }
-            else
+            else 
             {
                 for (int i = 0; i < ((PatternAction)_pattern[_currentAction]).count(); i++)
                 {
@@ -2076,6 +2077,13 @@ namespace PikeAndShot
                     _pikesRaised = false;
                 }
             }
+            /*else
+            {
+                foreach (Soldier s in this.getSoldiers())
+                {
+                    s.update(timeSpan);
+                }
+            }*/
         }
     }
 
@@ -2429,9 +2437,10 @@ namespace PikeAndShot
                 {
                     colmillos.howl();
                     _state = STATE_HOLD;
+                    _screen.playerInPlay = true;
+                    MediaPlayer.Play(PikeAndShotGame.THEME_2);
                     colmillos.setSpeed(0.15f);
                     chargeRecoverTimer = 0;
-                    _screen.playerInPlay = true;
                 }
 
                 double angle = Math.Atan2(_delta.Y, _delta.X);
@@ -2710,6 +2719,7 @@ namespace PikeAndShot
 
         internal void setEnd()
         {
+            MediaPlayer.Stop();
             _state = STATE_END;
             _position = colmillos.getPosition();
             _screen.playerInPlay = false;

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections;
 using Microsoft.Xna.Framework.Audio;
 
 namespace PikeAndShot
@@ -477,7 +480,7 @@ namespace PikeAndShot
             doneFlashing = false;
             this.finalPosition = finalPosition;
             coinSound = PikeAndShotGame.COIN_SOUND.CreateInstance();
-            coinSound.Volume = 0.25f;
+            coinSound.Volume = 0.75f;
             playCoinSound = true;
         }
 
@@ -561,7 +564,7 @@ namespace PikeAndShot
             _sprite.setEffect(Sprite.EFFECT_FLASH_YELLOW, FLASH_TIME/5f);
             _done = false;
             lootSound = PikeAndShotGame.LOOT_SOUND.CreateInstance();
-            lootSound.Volume = 0.25f;
+            lootSound.Volume = 0.75f;
         }
 
         public override void update(TimeSpan timeSpan)

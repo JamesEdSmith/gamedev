@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -56,11 +57,16 @@ namespace PikeAndShot
         ArrayList meleeSounds;
         int meleeSoundsPlayed;
 
+        bool retreating = false;
+        float retreatTime = 5000f;
+        float retreatTimer = 5000f;
+        
+
         public LevelScreen(PikeAndShotGame game, Level level)
             : base(game)
         {
             _levelData = level;
-            //_levelData.startingPosition = 11000;
+            //_levelData.startingPosition = 10000f;
             playerInPlay = false;
 
             _formation = new Formation(this, -300, PikeAndShotGame.SCREENHEIGHT/2 - Soldier.HEIGHT*5, 20, SIDE_PLAYER);
@@ -123,8 +129,8 @@ namespace PikeAndShot
             foreach (SoundEffectInstance sfx in shotSounds)
                 sfx.Volume = 1f;
 
-            ((SoundEffectInstance)shotSounds[3]).Volume = 1f;
-            ((SoundEffectInstance)shotSounds[4]).Volume = 1f;
+            ((SoundEffectInstance)shotSounds[3]).Volume = 0.75f;
+            ((SoundEffectInstance)shotSounds[4]).Volume = 0.75f;
 
             pikeSounds = new ArrayList(6);
             pikeSounds.Add(PikeAndShotGame.PIKE_0.CreateInstance());
@@ -135,7 +141,7 @@ namespace PikeAndShot
             pikeSounds.Add(PikeAndShotGame.PIKE_5.CreateInstance());
 
             foreach (SoundEffectInstance sfx in pikeSounds)
-                sfx.Volume = 0.5f;
+                sfx.Volume = 1f;
 
             meleeSounds = new ArrayList(6);
             meleeSounds.Add(PikeAndShotGame.MELEE_CLANG_0.CreateInstance());
@@ -146,16 +152,18 @@ namespace PikeAndShot
             meleeSounds.Add(PikeAndShotGame.MELEE_CLANG_2.CreateInstance());
 
             foreach (SoundEffectInstance sfx in meleeSounds)
-                sfx.Volume = 0.25f;
+                sfx.Volume = 0.75f;
 
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 1f;
 
-            //MediaPlayer.Play(PikeAndShotGame.THEME_1);
-
             spawnInitialTerrain(_levelData.startingPosition);
             doppelType = true;
-           // _game.fullScreen();
+        }
+
+        public void end()
+        {
+            _game.setScreen(1);
         }
 
         ColmillosFormation cFormation;
@@ -163,6 +171,17 @@ namespace PikeAndShot
         public override void update(GameTime gameTime)
         {
             base.update(gameTime);
+
+            if(retreating)
+            {
+                if (retreatTimer > 0)
+                {
+                    retreatTimer -= gameTime.ElapsedGameTime.Milliseconds;
+                } else
+                {
+                    end();
+                }
+            }
 
             if (!playerInPlay && _mapOffset.X == 0)
             {
@@ -318,7 +337,9 @@ namespace PikeAndShot
                 if (ef.getSide() == SIDE_PLAYER)
                     ef.retreat();
             }
+            MediaPlayer.Stop();
             PikeAndShotGame.GAME_OVER.Play();
+            retreating = true;
         }
 
         public Vector2 spawnRescue(int type)
@@ -632,11 +653,6 @@ namespace PikeAndShot
             previousGamePadState = gamePadState;
         }
 
-        void updateLevel(Level level, int formation, int terrain)
-        {
-            _levelData = level;
-        }
-
         protected void checkLevelData()
         {
             for(int f = 0; f < _levelData.formations.Count; f++)
@@ -678,8 +694,9 @@ namespace PikeAndShot
                 }
             }
 
-            if (cFormation == null && _mapOffset.X >= 12900)
+            if (cFormation == null && _mapOffset.X >= 13760)
             {
+                MediaPlayer.Stop();
                 cFormation = new ColmillosFormation(this, _mapOffset.X + PikeAndShotGame.SCREENWIDTH + 300, 500);
                 playerInPlay = false;
             }
@@ -954,8 +971,11 @@ namespace PikeAndShot
 
             spawnInitialTerrain(_levelData.startingPosition);
 
-            //MediaPlayer.Stop();
-            //MediaPlayer.Play(PikeAndShotGame.THEME_1);
+            MediaPlayer.Stop();
+            retreatTimer = retreatTime;
+            retreating = false;
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(PikeAndShotGame.THEME_1);
         }
 
         internal void makeShotSound()

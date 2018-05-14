@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections;
@@ -207,10 +209,10 @@ namespace PikeAndShot
             // DEBUG VARS
             DEBUGFOUNDPIKE = false;
             bodyFallSound = PikeAndShotGame.BODY_FALL.CreateInstance();
-            bodyFallSound.Volume = 0.3f;
+            bodyFallSound.Volume = 0.8f;
             hitSound = PikeAndShotGame.OWW_ALLY.CreateInstance();
             chargeSound = PikeAndShotGame.CHARGE_ROAR.CreateInstance();
-            chargeSound.Volume = 0.25f;
+            chargeSound.Volume = 0.75f;
             playedFallSound = false;
         }
 
@@ -258,7 +260,7 @@ namespace PikeAndShot
                     _newEnemyFormation.addSoldier(new Hauler(screen, x, y, BattleScreen.SIDE_ENEMY));
                     break;
                 case Soldier.CLASS_GOBLIN_CANNON:
-                    _newEnemyFormation.addSoldier(new Slinger(screen, x, y, BattleScreen.SIDE_ENEMY, true));
+                    _newEnemyFormation.addSoldier(new Cannon(screen, x, y, BattleScreen.SIDE_ENEMY, true));
                     break;
 
             }
@@ -322,7 +324,7 @@ namespace PikeAndShot
         public virtual void draw(SpriteBatch spritebatch)
         {
             _drawingPosition = _position + randDestOffset - _screen.getMapOffset();
-            if (this is Slinger && ((Slinger)this).cannon)
+            if (this is Cannon)
             {
 
             }
@@ -385,7 +387,7 @@ namespace PikeAndShot
                 else
                     addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED ? _side : _side * -1, _drawingY));
             }
-            else if (this is Slinger && ((Slinger)this).cannon)
+            else if (this is Cannon)
             {
                 addDrawjob(new DrawJob(_body, _drawingPosition + _jostleOffset, _state != STATE_ROUTED && _state != STATE_SPAWN ? _side * -1 : _side * -1, _drawingY));
             }
@@ -1005,7 +1007,14 @@ namespace PikeAndShot
                         _stateTimer = 0f;
                         _state = preAttackState;
                         _stateChanged = true;
-                        paviseToHit.knockOver();
+                        if (paviseToHit != null)
+                        {
+                            paviseToHit.knockOver();
+                        }
+                        else
+                        {
+                            oneAttackSoldier.hitOneHit();
+                        }
                     }
                 }
                 else if (_state == STATE_SPAWN)
@@ -1447,8 +1456,23 @@ namespace PikeAndShot
                             {
                                 bool rescueFight = (_side == BattleScreen.SIDE_PLAYER && !thisInFormation) ||
                                                     (collider.getSide() == BattleScreen.SIDE_PLAYER && !colliderInFormation);
-
-                                if (this is Colmillos)
+                                if (this is NPCFleer)
+                                {
+                                    if (collider.getState() != STATE_ONEATTACK)
+                                    {
+                                        ((Soldier)collider).oneAttack(this);
+                                    }
+                                    ((NPCFleer)this).wait();
+                                }
+                                else if (collider is NPCFleer)
+                                {
+                                    if (_state != STATE_ONEATTACK)
+                                    {
+                                        oneAttack((Soldier)collider);
+                                    }
+                                    ((NPCFleer)collider).wait();
+                                }
+                                else if (this is Colmillos)
                                 {
                                     if (_state != Colmillos.STATE_ATTACK)
                                         attack();
@@ -1585,6 +1609,39 @@ namespace PikeAndShot
             }
         }
 
+        public void hitOneHit()
+        {
+            if (_state != STATE_DYING && _state != STATE_DEAD)
+            {
+                if ((_state == STATE_MELEE_LOSS || _state == STATE_MELEE_WIN) && (_engager.getState() == STATE_MELEE_LOSS || _engager.getState() == STATE_MELEE_WIN))
+                {
+                    if (_engager.givesRescueReward)
+                    {
+                        ((LevelScreen)_screen).collectCoin(_engager);
+                        _engager.myFormation.retreat();
+                    }
+                    else
+                    {
+                        _engager.setState(_engager.preAttackState);
+                    }
+                }
+
+                _state = STATE_DYING;
+                _stateTimer = _deathTime;
+                _destination = _position;
+                _screen.addLooseSoldierNext(this);
+                hitSound.Play();
+                playedFallSound = false;
+                splashed = false;
+
+                //I want guys that are running in as replacements to count as a loss
+                if (((myFormation == _screen.getPlayerFormation() && this._type != TYPE_SWINGER) || ((this._type == TYPE_PIKE || this._type == TYPE_SHOT) && _side == BattleScreen.SIDE_PLAYER)) && _screen is LevelScreen)
+                {
+                    ((LevelScreen)_screen).loseCoin(getType());
+                }
+            }
+        }
+
         public virtual void route()
         {
             if (_state != STATE_DEAD && _state != STATE_DYING)
@@ -1652,11 +1709,21 @@ namespace PikeAndShot
         }
 
         Pavise paviseToHit;
+        Soldier oneAttackSoldier;
         private bool splashed;
 
         internal void oneAttack(Pavise pavise)
         {
             paviseToHit = pavise;
+            preAttackState = _state;
+            _state = STATE_ONEATTACK;
+            _stateTimer = _oneAttackTime;
+            _meleeDestination = _position;
+        }
+
+        internal void oneAttack(Soldier soldier)
+        {
+            oneAttackSoldier = soldier;
             preAttackState = _state;
             _state = STATE_ONEATTACK;
             _stateTimer = _oneAttackTime;
@@ -1774,6 +1841,13 @@ namespace PikeAndShot
             _feet.setAnimationSpeed(_footSpeed / (_speed - 0.04f));
         }
 
+        bool waiting = false;
+
+        public void wait()
+        {
+            waiting = true;
+        }
+
         public override void setSide(int side)
         {
             _side = side;
@@ -1783,8 +1857,11 @@ namespace PikeAndShot
         {
             _speed = 0.1f;
             _feet.setAnimationSpeed(_footSpeed / (0.11f));
-            if(_screen is LevelScreen)
-                _destination = new Vector2 (_screen.getMapOffset().X - 200f, _position.Y);
+
+            if (_screen is LevelScreen && (_state == STATE_READY || _state == STATE_FLEE) && !waiting)
+            {
+                _destination = new Vector2(_screen.getMapOffset().X - 200f, _position.Y);
+            }
  	        base.update(timeSpan);
         }
 
@@ -2261,7 +2338,7 @@ namespace PikeAndShot
 
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
             shotHitSound = PikeAndShotGame.SHOT_HIT.CreateInstance();
-            shotHitSound.Volume = 0.25f;
+            shotHitSound.Volume = 0.75f;
         }
 
         public override void route()
@@ -3302,16 +3379,14 @@ namespace PikeAndShot
 
     public class Slinger : Soldier
     {
-        private Sprite _slingerReload;
-        private Sprite _slingerShoot;
-        private SoundEffectInstance slingSound;
-        private SoundEffectInstance rockHitSound;
+        protected Sprite _slingerReload;
+        protected Sprite _slingerShoot;
+        protected SoundEffectInstance slingSound;
+        protected SoundEffectInstance rockHitSound;
 
-        private bool variant;
-        private bool soundMade;
-        public bool cannon;
-        int health;
-        float flashTimer;
+        protected bool variant;
+        protected bool soundMade;
+        protected float flashTimer;
 
         public Slinger(BattleScreen screen, float x, float y, int side)
             : base(screen, side, x, y)
@@ -3321,7 +3396,6 @@ namespace PikeAndShot
             _attackTime = 600f;
             _reloadTime = 1000f;
             soundMade = false;
-            cannon = false;
 
             if (PikeAndShotGame.random.Next(51) > 25)
             {
@@ -3353,30 +3427,9 @@ namespace PikeAndShot
             _retreat.setAnimationSpeed(_footSpeed / _speed);
             slingSound = PikeAndShotGame.SLING_ROCK.CreateInstance();
             rockHitSound = PikeAndShotGame.ROCK_HIT.CreateInstance();
-            rockHitSound.Volume = 0.6f;
+            rockHitSound.Volume = 1f;
             hitSound = PikeAndShotGame.OWW_ENEMY.CreateInstance();
-            hitSound.Volume = 0.25f;
-        }
-
-        public Slinger(BattleScreen screen, float x, float y, int side, bool cannon)
-            : this(screen, x, y, side)
-        {
-            this.cannon = true;
-            _idle = new Sprite(PikeAndShotGame.CANNON_IDLE, new Rectangle(44, 16, 90, 46), 138, 76, false, true, screen);
-            _idle.flashable = false;
-            _slingerReload = new Sprite(PikeAndShotGame.CANNON, new Rectangle(44, 16, 90, 46), 138, 76,false, true, screen);
-            _slingerReload.flashable = false;
-            _slingerShoot = new Sprite(PikeAndShotGame.SLINGER_SHOOT, new Rectangle(28, 12, 16, 28), 72, 50);
-            _death = new Sprite(PikeAndShotGame.SLINGER_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
-            _melee1 = new Sprite(PikeAndShotGame.SLINGER_MELEE, new Rectangle(24, 30, 16, 28), 64, 68);
-            _defend1 = new Sprite(PikeAndShotGame.SLINGER_DEFEND, new Rectangle(20, 2, 16, 28), 52, 40);
-            _retreat = new Sprite(PikeAndShotGame.SLINGER_RETREAT, new Rectangle(6, 2, 16, 28), 46, 40, true);
-            variant = false;
-            _class = Soldier.CLASS_GOBLIN_CANNON;
-            _attackTime = 600f;
-            _reloadTime = 7000f;
-            slingSound = PikeAndShotGame.SHOT_4.CreateInstance();
-            health = 3;
+            hitSound.Volume = 0.75f;
         }
 
         public override bool attack()
@@ -3395,34 +3448,6 @@ namespace PikeAndShot
         public override void react(float p)
         {
 
-        }
-
-        public override void collide(ScreenObject collider, TimeSpan timeSpan)
-        {
-            if (cannon)
-            {
-                if (!(collider is PikeTip) && !(collider is Soldier))
-                    base.collide(collider, timeSpan);
-            }
-            else
-            {
-                base.collide(collider, timeSpan);
-            }
-        }
-
-        public override void hit()
-        {
-            if (health < 1)
-            {
-                base.hit();
-            }
-            else
-            {
-                health--;
-                _slingerReload.setEffect(Sprite.EFFECT_FLASH_RED, 1500f / 8f);
-                _idle.setEffect(Sprite.EFFECT_FLASH_RED, 1500f / 8f);
-                flashTimer = 500f;
-            }
         }
 
         protected override bool checkReactions(TimeSpan timeSpan)
@@ -3458,22 +3483,6 @@ namespace PikeAndShot
                 if (_state == STATE_RELOADING)
                 {
                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
-
-                    if (cannon)
-                    {
-                        if (_slingerReload.getCurrFrame() == (60) && !soundMade)
-                        {
-                            soundMade = true;
-                            if (_screen is LevelScreen)
-                                ((LevelScreen)_screen).makeShotSound();
-                            shotDone();
-                        }
-                        if (_slingerReload.getCurrFrame() == (62))
-                        {
-                            soundMade = false;
-                        }
-                    }
-
                     if (_stateTimer <= 0)
                     {
                         _stateTimer = 0f;
@@ -3548,11 +3557,7 @@ namespace PikeAndShot
         {
             _shotMade = true;
 
-            if (cannon)
-            {
-                _screen.addShot(new CannonBall(new Vector2(this._position.X + randDestOffset.X, this._position.Y + 16 + randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
-            }
-            else if (_side == BattleScreen.SIDE_PLAYER)
+            if (_side == BattleScreen.SIDE_PLAYER)
             {
                 if(variant)
                     _screen.addShot(new SkirmisherJavelin(new Vector2(this._position.X + 32 + randDestOffset.X, this._position.Y + 4 + randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
@@ -3565,6 +3570,103 @@ namespace PikeAndShot
                     _screen.addShot(new SkirmisherJavelin(new Vector2(this._position.X - 18 + randDestOffset.X, this._position.Y + 4 + randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
                 else
                     _screen.addShot(new SlingerRock(new Vector2(this._position.X - 12 + randDestOffset.X, this._position.Y + randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
+            }
+        }
+    }
+
+    public class Cannon : Slinger
+    {
+        private int health;
+
+        public Cannon(BattleScreen screen, float x, float y, int side, bool cannon)
+            : base(screen, x, y, side)
+        {
+            _idle = new Sprite(PikeAndShotGame.CANNON_IDLE, new Rectangle(44, 16, 90, 46), 138, 76, false, true, screen);
+            _idle.flashable = false;
+            _slingerReload = new Sprite(PikeAndShotGame.CANNON, new Rectangle(44, 16, 90, 46), 138, 76,false, true, screen);
+            _slingerReload.flashable = false;
+            _slingerShoot = new Sprite(PikeAndShotGame.SLINGER_SHOOT, new Rectangle(28, 12, 16, 28), 72, 50);
+            _death = new Sprite(PikeAndShotGame.SLINGER_DEATH, new Rectangle(40, 2, 16, 28), 72, 40);
+            _melee1 = new Sprite(PikeAndShotGame.SLINGER_MELEE, new Rectangle(24, 30, 16, 28), 64, 68);
+            _defend1 = new Sprite(PikeAndShotGame.SLINGER_DEFEND, new Rectangle(20, 2, 16, 28), 52, 40);
+            _retreat = new Sprite(PikeAndShotGame.SLINGER_RETREAT, new Rectangle(6, 2, 16, 28), 46, 40, true);
+            variant = false;
+            _class = Soldier.CLASS_GOBLIN_CANNON;
+            _attackTime = 600f;
+            _reloadTime = 7000f;
+            slingSound = slingSound = PikeAndShotGame.SHOT_4.CreateInstance();
+            health = 3;
+        }
+
+        public override void collide(ScreenObject collider, TimeSpan timeSpan)
+        {
+            if (!(collider is PikeTip) && !(collider is Soldier))
+                base.collide(collider, timeSpan);
+        }
+
+        public override void hit()
+        {
+            if (health < 1)
+            {
+                base.hit();
+            }
+            else
+            {
+                health--;
+                _slingerReload.setEffect(Sprite.EFFECT_FLASH_RED, 1500f / 8f);
+                _idle.setEffect(Sprite.EFFECT_FLASH_RED, 1500f / 8f);
+                flashTimer = 500f;
+            }
+        }
+
+        protected override void shotDone()
+        {
+            _shotMade = true;
+            _screen.addShot(new CannonBall(new Vector2(this._position.X + randDestOffset.X, this._position.Y + 16 + randDestOffset.Y), this._screen, _side, _slingerShoot.getBoundingRect().Height, rockHitSound));
+        }
+
+        protected override void updateState(TimeSpan timeSpan)
+        {
+            base.updateState(timeSpan);
+
+            if (flashTimer > 0)
+            {
+                flashTimer -= (float)timeSpan.TotalMilliseconds;
+                if (flashTimer <= 0)
+                {
+                    _slingerReload.setEffect(0, 1500f / 8f);
+                    _idle.setEffect(0, 1500f / 8f);
+                }
+            }
+
+            if (!_stateChanged)
+            {
+                if (_state == STATE_RELOADING)
+                {
+
+                    if (_slingerReload.getCurrFrame() == (60) && !soundMade)
+                    {
+                        soundMade = true;
+                        slingSound.Play();
+                        shotDone();
+                    }
+                    else if (_slingerReload.getCurrFrame() == (62))
+                    {
+                        soundMade = false;
+                    }
+                   
+                    if (_stateTimer <= 0)
+                    {
+                        _stateTimer = 0f;
+                        if (_side != BattleScreen.SIDE_PLAYER)
+                            _state = STATE_READY;
+                        else
+                        {
+                            _state = STATE_ATTACKING;
+                            _stateTimer = _attackTime;
+                        }
+                    }
+                }
             }
         }
     }
@@ -3616,7 +3718,7 @@ namespace PikeAndShot
 
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
             hitSound = PikeAndShotGame.OWW_ENEMY.CreateInstance();
-            hitSound.Volume = 0.25f;
+            hitSound.Volume = 0.75f;
         }
     }
 
@@ -3664,7 +3766,7 @@ namespace PikeAndShot
 
             _feet.setAnimationSpeed(_footSpeed / 0.11f);
             hitSound = PikeAndShotGame.OWW_ENEMY.CreateInstance();
-            hitSound.Volume = 0.25f;
+            hitSound.Volume = 0.75f;
         }
 
         protected override bool checkReactions(TimeSpan timeSpan)
@@ -4114,7 +4216,7 @@ namespace PikeAndShot
                     _stateTimer -= (float)timeSpan.TotalMilliseconds;
                     if (_stateTimer <= _eatenTime/4f && whiteWolf == null)
                     {
-                        whiteWolf = new ColmillosWolf(_screen, new Vector2(_position.X + 10f, _position.Y + getHeight() / 2), _side);
+                        whiteWolf = new ColmillosWolf(_screen, new Vector2(_position.X + 10f, _position.Y + getHeight()/2), _side);
                         _screen.addLooseSoldierNext(whiteWolf);
                     }
                     else if (_stateTimer <= 0)
@@ -4763,7 +4865,7 @@ namespace PikeAndShot
             if (_meleeDestination.X > _position.X)
             {
                 killOrientRight = true;
-                _destination = bossFormation.colmillos.getCenter() + new Vector2(-20f, 10f + PikeAndShotGame.getRandPlusMinus(PikeAndShotGame.random.Next(15)));
+                _destination = bossFormation.colmillos.getCenter() + new Vector2(-20f, 10f +  PikeAndShotGame.getRandPlusMinus(PikeAndShotGame.random.Next(15)));
                 _meleeDestination = _destination;
             }
         }
@@ -5032,6 +5134,10 @@ namespace PikeAndShot
                             _stateTimer -= 0;
                     }
                 }
+                else if (_state == STATE_FLEE && _position.X > _screen.getMapOffset().X + PikeAndShotGame.SCREENWIDTH && _screen is LevelScreen)
+                {
+                    ((LevelScreen)_screen).end();
+                }
             }
         }
     }
@@ -5173,7 +5279,7 @@ namespace PikeAndShot
             }
 
             shieldBreakSound = PikeAndShotGame.SHIELD_BREAK.CreateInstance();
-            shieldBreakSound.Volume = 0.5f;
+            shieldBreakSound.Volume = 1f;
         }
 
         public override bool attack()

@@ -371,6 +371,7 @@ namespace PikeAndShot
         public static Texture2D LOOT;
         public static Texture2D COIN_SPINNA;
         public static Texture2D SPARKLE;
+        public static Texture2D TITLE_ANIMATION;
 
         //Utility Graphics
         public static Texture2D DOT;
@@ -379,6 +380,7 @@ namespace PikeAndShot
 
         //Audio
         public static Song THEME_1;
+        public static Song THEME_2;
         public static SoundEffect SHOT_0;
         public static SoundEffect SHOT_1;
         public static SoundEffect SHOT_2;
@@ -829,17 +831,19 @@ namespace PikeAndShot
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
             SPARKLE = Content.Load<Texture2D>(@"sparkle");
+            TITLE_ANIMATION = Content.Load<Texture2D>(@"title_animation");
 
-            //THEME_1 = Content.Load<Song>(@"boss01");
+            THEME_2 = Content.Load<Song>(@"boss_music");
+            THEME_1 = Content.Load<Song>(@"level_music");
             SHOT_0 = Content.Load<SoundEffect>(@"shot00");
             SHOT_1 = Content.Load<SoundEffect>(@"shot01");
             SHOT_2 = Content.Load<SoundEffect>(@"shot02");
             SHOT_3 = Content.Load<SoundEffect>(@"shot04");
             SHOT_4 = Content.Load<SoundEffect>(@"shot05");
             PIKES_LOWER = Content.Load<SoundEffect>(@"down").CreateInstance();
-            PIKES_LOWER.Volume = 0.5f;
+            PIKES_LOWER.Volume = 1f;
             PIKES_RAISE = Content.Load<SoundEffect>(@"drop").CreateInstance();
-            PIKES_RAISE.Volume = 0.5f;
+            PIKES_RAISE.Volume = 1f;
             SHOT_HIT = Content.Load<SoundEffect>(@"hit");
             ROCK_HIT = Content.Load<SoundEffect>(@"smack");
             SLING_ROCK = Content.Load<SoundEffect>(@"huck");
@@ -867,6 +871,7 @@ namespace PikeAndShot
             COLMILLOS_HURT = Content.Load<SoundEffect>(@"arg");
             COLMILLOS_YELL = Content.Load<SoundEffect>(@"boss");
 
+
             _gameScreens = new ArrayList(3);
 
             // MAKE LEVELS
@@ -890,6 +895,8 @@ namespace PikeAndShot
             // PLAY LEVEL
             _currScreen = new LevelScreen(this, levels.ElementAt(0));
             _gameScreens.Add(_currScreen);
+            _gameScreens.Add(new TitleScreen(this));
+            _currScreen = (TitleScreen)_gameScreens[1];
 
             // MAKE FORMATION
             //_gameScreens.Add(new FormationEditorScreen(this));
@@ -920,16 +927,14 @@ namespace PikeAndShot
 
         public void setScreen(int screenIndex)
         {
-            if (screenIndex >= 0 && screenIndex <= SCREEN_LEVELEDITOR)
-                _currScreen = (BattleScreen)_gameScreens[screenIndex];
-
-            //if (screenIndex == SCREEN_LEVELEDITOR)
-            //    _form.Show();
-            //else
-             //   _form.Hide();
+            _currScreen = (BattleScreen)_gameScreens[screenIndex];
 
             if (screenIndex == SCREEN_LEVELPLAY)
                 ((LevelScreen)_currScreen).restart();
+            else if (screenIndex == 1)
+            {
+                ((TitleScreen)_currScreen).restart();
+            }
         }
 
         protected override void Draw(GameTime gameTime)
