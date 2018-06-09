@@ -802,3 +802,4 @@ C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\De
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\boss_music.xnb
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\level_music.ogg
 C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\level_music.xnb
+C:\Users\jasmith\Documents\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotAlpha.csprojResolveAssemblyReference.cache

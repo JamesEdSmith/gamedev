@@ -1150,7 +1150,7 @@ namespace PikeAndShot
             }
             else
             {
-                drawRectangle = new Rectangle(25, 25, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width - 50, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height - 50);
+                drawRectangle = new Rectangle(0, 0, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height);
             }
         }
     }
