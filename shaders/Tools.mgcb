@@ -31,6 +31,12 @@
 /processorParam:DebugMode=Auto
 /build:cgwg-xna.fx
 
+#begin gbShader2.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:gbShader2.fx
+
 #begin lottes_crt.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -49,15 +55,15 @@
 /processorParam:DebugMode=Auto
 /build:newshader2.fx
 
-#begin theme.ogg
-/importer:OggImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:theme.ogg
-
 #begin theme.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:theme.mp3
+
+#begin theme.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:theme.ogg
 

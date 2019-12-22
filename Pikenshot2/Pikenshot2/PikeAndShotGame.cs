@@ -441,7 +441,7 @@ namespace PikeAndShot
                 graphics.IsFullScreen = false;
                 this.Window.AllowUserResizing = true;
                 graphics.ApplyChanges();
-                useShaders = false;
+                useShaders = true;
             }
             else
                 useShaders = false;
@@ -450,7 +450,7 @@ namespace PikeAndShot
 
             Content.RootDirectory = "Content";
             screenColor = new Color(16, 16, 16, 255);
-            screenColorShader = new Color(16, 16, 16, 255);
+            screenColorShader = new Color(0, 0, 0, 255);
         }
 
         private void Window_ClientSizeChanged(object sender, EventArgs e)
@@ -485,13 +485,13 @@ namespace PikeAndShot
 
             ShaderRenderTarget = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
             ShaderRenderTarget2 = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
-            //effect = Content.Load<Effect>(@"newshader");
+            effect = Content.Load<Effect>(@"newshader");
 
-            //effect.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
+            effect.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
 
-           // effect2 = Content.Load<Effect>(@"newshader2");
-           // effect2.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
-            //effect2.Parameters["iResolution"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT) * 1.5f);
+            effect2 = Content.Load<Effect>(@"newshader2");
+            effect2.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
+            effect2.Parameters["iResolution"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT) * 1.5f);
 
             //TERRAIN_DRY_GRASS = Content.Load<Texture2D>(@"dry_grass");
             ROAD_TERRAIN = new List<Texture2D>(11);
@@ -827,14 +827,14 @@ namespace PikeAndShot
 
             DOT = Content.Load<Texture2D>(@"dot");
             SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
-            //TEST = Content.Load<Texture2D>(@"sfea");
+            TEST = Content.Load<Texture2D>(@"foxy2_4");
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
             SPARKLE = Content.Load<Texture2D>(@"sparkle");
             TITLE_ANIMATION = Content.Load<Texture2D>(@"title_animation");
 
-            THEME_2 = Content.Load<Song>(@"boss_music");
-            THEME_1 = Content.Load<Song>(@"level_music");
+ //           THEME_2 = Content.Load<Song>(@"boss_music");
+ //           THEME_1 = Content.Load<Song>(@"level_music");
             SHOT_0 = Content.Load<SoundEffect>(@"shot00");
             SHOT_1 = Content.Load<SoundEffect>(@"shot01");
             SHOT_2 = Content.Load<SoundEffect>(@"shot02");
@@ -948,7 +948,7 @@ namespace PikeAndShot
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
                     GraphicsDevice.Viewport = viewport;
                     GraphicsDevice.Clear(screenColor); 
-                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, mapTransform);
 
                     if (_currScreen != null)
                     {
@@ -989,7 +989,7 @@ namespace PikeAndShot
 
                     GraphicsDevice.SetRenderTarget(null);
                     GraphicsDevice.Clear(screenColorShader);
-                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null);
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, effect);
                     spriteBatch.Draw(ShaderRenderTarget2, drawRectangle, drawSourceRectangle, Color.White);
                     spriteBatch.End();
                 }

@@ -55,11 +55,12 @@ namespace PikeAndShot
 
         public override void draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            title.draw(spriteBatch, new Vector2(PikeAndShotGame.SCREENWIDTH / 2f, PikeAndShotGame.SCREENHEIGHT / 3f), SIDE_PLAYER);
-            if (fadeTime <= 0)
-            {
-                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Press Pike or Shot", new Vector2(450, PikeAndShotGame.SCREENHEIGHT * 2f/ 3f), textColor);
-            }
+            spriteBatch.Draw(PikeAndShotGame.TEST, new Rectangle(0, 64, 1024, 640), new Rectangle(0, 0, 640, 400), Color.White);
+            //title.draw(spriteBatch, new Vector2(PikeAndShotGame.SCREENWIDTH / 2f, PikeAndShotGame.SCREENHEIGHT / 3f), SIDE_PLAYER);
+            //if (fadeTime <= 0)
+            //{
+            //    spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Press Pike or Shot", new Vector2(450, PikeAndShotGame.SCREENHEIGHT * 2f/ 3f), textColor);
+            //}
         }
 
         protected override void getInput(TimeSpan timeSpan)
