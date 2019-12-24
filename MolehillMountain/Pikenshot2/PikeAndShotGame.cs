@@ -1057,7 +1057,7 @@ namespace PikeAndShot
                     //spriteBatch.End();
 
                     effect3.CurrentTechnique = effect3.Techniques["gameboy2"];
-                    effect3.Parameters["text"].SetValue(ShaderRenderTarget);
+                    effect3.Parameters["text"].SetValue(ShaderRenderTarget2);
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget4);
                     GraphicsDevice.Clear(screenColorShader);
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
