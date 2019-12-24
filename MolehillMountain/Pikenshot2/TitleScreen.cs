@@ -70,16 +70,16 @@ namespace PikeAndShot
             keyboardState = Keyboard.GetState();
             gamePadState = GamePad.GetState(PlayerIndex.One);
 
-            //if (keyboardState.IsKeyDown(Keys.Escape) || GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-            //    _game.Exit();
-            //if ((keyboardState.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyUp(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.A) && previousGamePadState.IsButtonUp(Buttons.A)))
-            //{
-            //    _game.setScreen(PikeAndShotGame.SCREEN_LEVELPLAY);
-            //}
-            //if ((keyboardState.IsKeyDown(Keys.X) && !keyboardState.IsKeyDown(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.X) && !gamePadState.IsButtonDown(Buttons.A)))
-            //{
-            //    _game.setScreen(PikeAndShotGame.SCREEN_LEVELPLAY);
-            //}
+            if (keyboardState.IsKeyDown(Keys.Escape) || GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+                _game.Exit();
+            if ((keyboardState.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyUp(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.A) && previousGamePadState.IsButtonUp(Buttons.A)))
+            {
+                _game.setScreen(PikeAndShotGame.SCREEN_LEVELPLAY);
+            }
+            if ((keyboardState.IsKeyDown(Keys.X) && !keyboardState.IsKeyDown(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.X) && !gamePadState.IsButtonDown(Buttons.A)))
+            {
+                _game.setScreen(PikeAndShotGame.SCREEN_LEVELPLAY);
+            }
 
             base.getInput(timeSpan);
             previousKeyboardState = keyboardState;
