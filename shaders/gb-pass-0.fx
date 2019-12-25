@@ -119,8 +119,8 @@ float4 main_fragment(float4 position : SV_Position, float4 col : COLOR0,
 //a simple blur technique that softens harsh color transitions
 //specialized to only blur alpha values and limited to only blurring texels lying in the spaces between two or more texels
 #define blending_modifier(color) saturate(half(color.a == 0) + blending_mode)
-#define blending_mode 0							//0 - only the space between dots is blending, 1 - all texels are blended
-#define adjacent_texel_alpha_blending 0.1755	//the amount of alpha swapped between neighboring texels
+#define blending_mode 0.0				//0 - only the space between dots is blending, 1 - all texels are blended [DEFAULT: 0]
+#define adjacent_texel_alpha_blending 0.38	//the amount of alpha swapped between neighboring texels [DEFAULT: 0.38]
 
 half simple_blur( half4 COLOR, half2 tex_coord_1, half2 tex_coord_2, half2 tex_coord_3, half2 tex_coord_4, half2 lower_bound, half2 upper_bound)
 {
@@ -179,6 +179,8 @@ float4 main_fragment1(float4 position : SV_Position, float4 col : COLOR0, float2
     return out_color;
 }
 
+#define shadow_blur1 2.0	//blurriness of the shadow [0, 5]  [DEFAULT: 2.0]
+
 half4 gaussian_blur(float2 tex_coord, float2 texel, float2 lower_bound, float2 upper_bound)
 {
     //define offsets and weights - change this for both the X and Y passes if you change the sigma value or number of texels sampled
@@ -193,27 +195,23 @@ half4 gaussian_blur(float2 tex_coord, float2 texel, float2 lower_bound, float2 u
 
 //sample the current fragment and apply its weight
 
-    half4 out_color = tex2D(text, clamp(tex_coord, lower_bound, upper_bound)) * 0.13465834124289953661305802732548;
+    half4 out_color = tex2D(text, clamp(tex_coord, lower_bound, upper_bound)) * 0.13;
 
 
     //iterate across the offsets in both directions sampling texels and adding their weighted alpha values to the total
 
  
-        out_color.a += tex2D(text, clamp(tex_coord + half2(0.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.13465834124289953661305802732548;
-        out_color.a += tex2D(text, clamp(tex_coord - half2(0.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.13465834124289953661305802732548;
+        out_color.a += tex2D(text, clamp(tex_coord + half2(0.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.13;
+        out_color.a += tex2D(text, clamp(tex_coord - half2(0.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.13;
 
-        out_color.a += tex2D(text, clamp(tex_coord + half2(1.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.13051534237555914090930704141833;
-        out_color.a += tex2D(text, clamp(tex_coord - half2(1.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.13051534237555914090930704141833;
+        out_color.a += tex2D(text, clamp(tex_coord + half2(1.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.13 - (shadow_blur1 / 100);
+        out_color.a += tex2D(text, clamp(tex_coord - half2(1.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.13 - (shadow_blur1 / 100);
 
-        out_color.a += tex2D(text, clamp(tex_coord + half2(2.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.11883557904592230273554609080014;
-        out_color.a += tex2D(text, clamp(tex_coord - half2(2.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.11883557904592230273554609080014;
+        out_color.a += tex2D(text, clamp(tex_coord + half2(2.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.13 - (3 * shadow_blur1 / 100);
+        out_color.a += tex2D(text, clamp(tex_coord - half2(2.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.13 - (3 * shadow_blur1 / 100);
 
-        out_color.a += tex2D(text, clamp(tex_coord + half2(3.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.10164546793794160274995705611009;
-        out_color.a += tex2D(text, clamp(tex_coord - half2(3.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.10164546793794160274995705611009;
-
-        out_color.a += tex2D(text, clamp(tex_coord + half2(4.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.08167444001912718529866079800870;
-        out_color.a += tex2D(text, clamp(tex_coord - half2(4.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.08167444001912718529866079800870;
-
+        out_color.a += tex2D(text, clamp(tex_coord + half2(3.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.13 - (5 * shadow_blur1 / 100) ;
+        out_color.a += tex2D(text, clamp(tex_coord - half2(3.0 * texel.x, 0.0), lower_bound, upper_bound)).a * 0.13 - (5 * shadow_blur1 / 100) ;
 
     //return the new value
 
