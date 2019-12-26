@@ -458,8 +458,8 @@ namespace PikeAndShot
             this.Window.ClientSizeChanged += Window_ClientSizeChanged;
 
             Content.RootDirectory = "Content";
-            screenColor = new Color(16, 16, 16, 255);
-            screenColorShader = new Color(166, 172, 132, 255);
+            screenColor = new Color(131, 140, 89, 255);
+            screenColorShader = new Color(192, 198, 159, 255);
         }
 
         private void Window_ClientSizeChanged(object sender, EventArgs e)
@@ -508,9 +508,6 @@ namespace PikeAndShot
             effect2.Parameters["iResolution"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT) * 1.5f);
 
             effect3 = Content.Load<Effect>(@"gb-pass-0"); 
-            effect3.Parameters["video_size"].SetValue(new Vector2(256, 192));
-            effect3.Parameters["texture_size"].SetValue(new Vector2(256, 192));
-            effect3.Parameters["output_size"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
      //       effect3.Parameters["modelViewProj"].SetValue(Matrix.Identity);
             effect3.Parameters["$COLOR_PALETTE"].SetValue(PALETTE);
             effect3.Parameters["$BACKGROUND"].SetValue(BACKGROUND);
@@ -993,7 +990,7 @@ namespace PikeAndShot
                 {
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
                     GraphicsDevice.Viewport = viewport;
-                    GraphicsDevice.Clear(screenColorShader);
+                    GraphicsDevice.Clear(Color.White);
                     //get rid of blurry sprites
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, mapTransform);
 
@@ -1008,7 +1005,7 @@ namespace PikeAndShot
                     spriteBatch.End();
 
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget2);
-                    GraphicsDevice.Clear(screenColorShader);
+                    GraphicsDevice.Clear(Color.White);
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null);
                     spriteBatch.Draw(ShaderRenderTarget, testDrawRectangle, bufferRect, Color.White);
                     spriteBatch.End();
@@ -1042,6 +1039,9 @@ namespace PikeAndShot
                     effect3.Parameters["$PREV4"].SetValue(arrayOfPrevs[2]);
                     effect3.Parameters["$PREV5"].SetValue(arrayOfPrevs[1]);
                     effect3.Parameters["$PREV6"].SetValue(arrayOfPrevs[0]);
+                    effect3.Parameters["video_size"].SetValue(new Vector2(256, 192));
+                    effect3.Parameters["texture_size"].SetValue(new Vector2(256, 192));
+                    effect3.Parameters["output_size"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
                     effect3.CurrentTechnique = effect3.Techniques["gameboy"];
 
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
@@ -1061,7 +1061,7 @@ namespace PikeAndShot
                     effect3.CurrentTechnique = effect3.Techniques["gameboy2"];
                     effect3.Parameters["text"].SetValue(ShaderRenderTarget2);
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget3);
-                    GraphicsDevice.Clear(Color.Transparent);
+                    GraphicsDevice.Clear(screenColorShader);
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
                     spriteBatch.Draw(ShaderRenderTarget2, testDrawRectangle, testDrawRectangle, Color.White);
                     spriteBatch.End();
@@ -1069,17 +1069,17 @@ namespace PikeAndShot
                     effect3.CurrentTechnique = effect3.Techniques["gameboy3"];
                     effect3.Parameters["text"].SetValue(ShaderRenderTarget3);
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget4);
-                    GraphicsDevice.Clear(Color.Transparent);
+                    GraphicsDevice.Clear(screenColorShader);
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
                     spriteBatch.Draw(ShaderRenderTarget2, testDrawRectangle, testDrawRectangle, Color.White);
                     spriteBatch.End();
 
 
                     effect3.CurrentTechnique = effect3.Techniques["gameboy4"];
-                    effect3.Parameters["$PASS2"].SetValue(ShaderRenderTarget4);
+                    effect3.Parameters["$PASS2"].SetValue(ShaderRenderTarget3);
                     effect3.Parameters["text"].SetValue(ShaderRenderTarget2);
                     GraphicsDevice.SetRenderTarget(null);
-                    GraphicsDevice.Clear(screenColorShader);
+                    GraphicsDevice.Clear(screenColor);
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
                     spriteBatch.Draw(ShaderRenderTarget, drawRectangle, testDrawRectangle, Color.White);
                     spriteBatch.End();
