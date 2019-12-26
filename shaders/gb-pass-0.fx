@@ -23,8 +23,8 @@
 //config                                                                                                                                  //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define baseline_alpha 0.1 //the alpha value of dots in their "off" state, does not affect the border region of the screen - [0, 1]
-#define response_time 0.333 //simulate response time, higher values result in longer color transition periods - [0, 1]
+#define baseline_alpha 0.05 //the alpha value of dots in their "off" state, does not affect the border region of the screen - [0, 1]
+#define response_time 0.444 //simulate response time, higher values result in longer color transition periods - [0, 1]
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //structs                                                                                                                                 //
@@ -51,7 +51,7 @@ sampler2D text : register(s0) ;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #define foreground_color tex2D(COLOR_PALETTE, half2(0.75, 0.5)).rgb					//hardcoded to look up the foreground color from the right half of the palette image
-#define rgb_to_alpha(rgb) ((rgb.r + rgb.g + rgb.b) / 3.0) //+ (is_on_dot * baseline_alpha) )		//averages rgb values (allows it to work with color games), modified for contrast and base alpha
+#define rgb_to_alpha(rgb) ((rgb.r + rgb.g + rgb.b) / 2.6) //+ (is_on_dot * baseline_alpha) )		//averages rgb values (allows it to work with color games), modified for contrast and base alpha
 
 
 //frame sampling definitions
@@ -232,11 +232,61 @@ float4 main_fragment2(float4 position : SV_Position, float4 col : COLOR0,
                float2(texel * (output_size - 1.0)));
 }
 
+half4 gaussian_blur2(float2 tex_coord, float2 texel, float2 lower_bound, float2 upper_bound)
+{
+    //define offsets and weights - change this for both the X and Y passes if you change the sigma value or number of texels sampled
+
+    //float offsets[5] = float[](0.0, 1.0, 2.0, 3.0, 4.0);
+    //half weights[5] = fixed[](0.13465834124289953661305802732548,     //precalculated using the Gaussian function:
+    //    0.13051534237555914090930704141833,     //  G(x) = (1 / sqrt(2 * pi * sigma^2)) * e^(-x^2 / (2 * sigma^2))
+    //    0.11883557904592230273554609080014,     //where sigma = 4.0 and x = offset in range [0, 5]
+    //    0.10164546793794160274995705611009,     //normalized to 1 to prevent image darkening by multiplying each weight by:
+    //    0.08167444001912718529866079800870);    //  1 / sum(all weights)
+
+
+//sample the current fragment and apply its weight
+
+    half4 out_color = tex2D(text, clamp(tex_coord, lower_bound, upper_bound)) * 0.13;
+
+
+    //iterate across the offsets in both directions sampling texels and adding their weighted alpha values to the total
+
+ 
+        out_color.a += tex2D(text, clamp(tex_coord + half2( 0.0, 0.0 * texel.x), lower_bound, upper_bound)).a * 0.13;
+        out_color.a += tex2D(text, clamp(tex_coord - half2( 0.0, 0.0 * texel.x), lower_bound, upper_bound)).a * 0.13;
+
+        out_color.a += tex2D(text, clamp(tex_coord + half2(0.0, 1.0 * texel.x), lower_bound, upper_bound)).a * 0.13 - (shadow_blur1 / 100);
+        out_color.a += tex2D(text, clamp(tex_coord - half2(0.0, 1.0 * texel.x), lower_bound, upper_bound)).a * 0.13 - (shadow_blur1 / 100);
+
+        out_color.a += tex2D(text, clamp(tex_coord + half2(0.0, 2.0 * texel.x), lower_bound, upper_bound)).a * 0.13 - (3 * shadow_blur1 / 100);
+        out_color.a += tex2D(text, clamp(tex_coord - half2(0.0, 2.0 * texel.x), lower_bound, upper_bound)).a * 0.13 - (3 * shadow_blur1 / 100);
+
+        out_color.a += tex2D(text, clamp(tex_coord + half2(0.0, 3.0 * texel.x), lower_bound, upper_bound)).a * 0.13 - (5 * shadow_blur1 / 100) ;
+        out_color.a += tex2D(text, clamp(tex_coord - half2(0.0, 3.0 * texel.x), lower_bound, upper_bound)).a * 0.13 - (5 * shadow_blur1 / 100) ;
+
+    //return the new value
+
+    return out_color;
+}
+
+float4 main_fragment3(float4 position : SV_Position, float4 col : COLOR0,
+    float2 texCoord : TEXCOORD0) : COLOR0
+{
+    //apply the Gaussian blur along the x axis and return the result
+
+    float2 texel = 1.0 / texture_size;
+
+      return gaussian_blur2(texCoord,
+               texel,
+               float2(0.0,0.0),
+               float2(texel * (output_size - 1.0)));
+}
+
 #define contrast 1.00   	//useful to fine-tune the colors. higher values make the "black" color closer to black - [0, 1] [DEFAULT: 0.95]
 #define screen_light 1.00   //controls the ambient light of the screen. lower values darken the screen - [0, 2] [DEFAULT: 1.00]
-#define pixel_opacity 0.75	//controls the opacity of the dot-matrix pixels. lower values make pixels more transparent - [0, 1] [DEFAULT: 1.00]
-#define bg_smoothing 0.75	//higher values suppress changes in background color directly beneath the foreground to improve image clarity - [0, 1] [DEFAULT: 0.75]
-#define shadow_opacity 0.40	//how strongly shadows affect the background, higher values darken the shadows - [0, 1] [DEFAULT: 0.55]
+#define pixel_opacity 0.95	//controls the opacity of the dot-matrix pixels. lower values make pixels more transparent - [0, 1] [DEFAULT: 1.00]
+#define bg_smoothing 0.01	//higher values suppress changes in background color directly beneath the foreground to improve image clarity - [0, 1] [DEFAULT: 0.75]
+#define shadow_opacity 0.50	//how strongly shadows affect the background, higher values darken the shadows - [0, 1] [DEFAULT: 0.55]
 #define shadow_offset_x 0.5	//how far the shadow should be shifted to the right in pixels - [-infinity, infinity] [DEFAULT: 1.0]
 #define shadow_offset_y 0.5	//how far the shadow should be shifted to down in pixels - [-infinity, infinity] [DEFAULT: 1.5]
 #define screen_offset_x 0	//screen offset - [-infinity, infinity] [DEFAULT: 0]
@@ -309,6 +359,14 @@ technique gameboy2
     pass P0
     {
         PixelShader = compile ps_5_0 main_fragment2();
+    }
+}
+
+technique gameboy3
+{
+    pass P0
+    {
+        PixelShader = compile ps_5_0 main_fragment3();
     }
 }
 
