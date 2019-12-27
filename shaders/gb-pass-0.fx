@@ -51,19 +51,19 @@ sampler2D text : register(s0) ;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #define foreground_color tex2D(COLOR_PALETTE, half2(0.75, 0.5)).rgb					//hardcoded to look up the foreground color from the right half of the palette image
-#define rgb_to_alpha(rgb) ((rgb.r + rgb.g + rgb.b) / 2.6 + (is_on_dot * baseline_alpha) )		//averages rgb values (allows it to work with color games), modified for contrast and base alpha
+#define rgb_to_alpha(rgb) ((rgb.r + rgb.g + rgb.b) / 2.6) //+ (is_on_dot * baseline_alpha) )		//averages rgb values (allows it to work with color games), modified for contrast and base alpha
 
 
 //frame sampling definitions
 
-#define curr_rgb  abs(1 - tex2D(text, texCoord).rgb)
-#define prev0_rgb abs(1 - tex2D(PREV, texCoord).rgb)
-#define prev1_rgb abs(1 - tex2D(PREV1, texCoord).rgb)
-#define prev2_rgb abs(1 - tex2D(PREV2, texCoord).rgb)
-#define prev3_rgb abs(1 - tex2D(PREV3, texCoord).rgb)
-#define prev4_rgb abs(1 - tex2D(PREV4, texCoord).rgb)
-#define prev5_rgb abs(1 - tex2D(PREV5, texCoord).rgb)
-#define prev6_rgb abs(1 - tex2D(PREV6, texCoord).rgb)
+#define curr_rgb  tex2D(text, texCoord).rgb
+#define prev0_rgb tex2D(PREV, texCoord).rgb
+#define prev1_rgb tex2D(PREV1, texCoord).rgb
+#define prev2_rgb tex2D(PREV2, texCoord).rgb
+#define prev3_rgb tex2D(PREV3, texCoord).rgb
+#define prev4_rgb tex2D(PREV4, texCoord).rgb
+#define prev5_rgb tex2D(PREV5, texCoord).rgb
+#define prev6_rgb tex2D(PREV6, texCoord).rgb
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //fragment shader                                                                                                                         //
@@ -104,7 +104,7 @@ float4 main_fragment(float4 position : SV_Position, float4 col : COLOR0,
   //apply foreground color and assign alpha value
 
     //half4 out_color = half4(input_rgb, rgb_to_alpha(input_rgb));	//apply the foreground color to all texels (the color will be modified by alpha later) and assign alpha based on rgb input
-  half alpha =((input_rgb.r + input_rgb.g + input_rgb.b) / 2.6) + (is_on_dot * baseline_alpha) ;
+  half alpha = 1- ((input_rgb.r + input_rgb.g + input_rgb.b) / 3.0) + (is_on_dot * baseline_alpha) ;
   half4 out_color = half4(foreground_color, alpha);
 
   //overlay the matrix
@@ -119,7 +119,7 @@ float4 main_fragment(float4 position : SV_Position, float4 col : COLOR0,
 //a simple blur technique that softens harsh color transitions
 //specialized to only blur alpha values and limited to only blurring texels lying in the spaces between two or more texels
 #define blending_modifier(color) saturate(half(color.a == 0) + blending_mode)
-#define blending_mode 1.0				//0 - only the space between dots is blending, 1 - all texels are blended [DEFAULT: 0]
+#define blending_mode 0.0				//0 - only the space between dots is blending, 1 - all texels are blended [DEFAULT: 0]
 #define adjacent_texel_alpha_blending 0.38	//the amount of alpha swapped between neighboring texels [DEFAULT: 0.38]
 
 half simple_blur( half4 COLOR, half2 tex_coord_1, half2 tex_coord_2, half2 tex_coord_3, half2 tex_coord_4, half2 lower_bound, half2 upper_bound)
@@ -179,7 +179,7 @@ float4 main_fragment1(float4 position : SV_Position, float4 col : COLOR0, float2
     return out_color;
 }
 
-#define shadow_blur1 5.0	//blurriness of the shadow [0, 5]  [DEFAULT: 2.0]
+#define shadow_blur1 2.0	//blurriness of the shadow [0, 5]  [DEFAULT: 2.0]
 
 half4 gaussian_blur(float2 tex_coord, float2 texel, float2 lower_bound, float2 upper_bound)
 {
@@ -284,11 +284,11 @@ float4 main_fragment3(float4 position : SV_Position, float4 col : COLOR0,
 
 #define contrast 1.00   	//useful to fine-tune the colors. higher values make the "black" color closer to black - [0, 1] [DEFAULT: 0.95]
 #define screen_light 1.00   //controls the ambient light of the screen. lower values darken the screen - [0, 2] [DEFAULT: 1.00]
-#define pixel_opacity 0.80	//controls the opacity of the dot-matrix pixels. lower values make pixels more transparent - [0, 1] [DEFAULT: 1.00]
-#define bg_smoothing 1.0	//higher values suppress changes in background color directly beneath the foreground to improve image clarity - [0, 1] [DEFAULT: 0.75]
-#define shadow_opacity 1.0	//how strongly shadows affect the background, higher values darken the shadows - [0, 1] [DEFAULT: 0.55]
-#define shadow_offset_x -2.0	//how far the shadow should be shifted to the right in pixels - [-infinity, infinity] [DEFAULT: 1.0]
-#define shadow_offset_y -2.0	//how far the shadow should be shifted to down in pixels - [-infinity, infinity] [DEFAULT: 1.5]
+#define pixel_opacity 0.95	//controls the opacity of the dot-matrix pixels. lower values make pixels more transparent - [0, 1] [DEFAULT: 1.00]
+#define bg_smoothing 0.01	//higher values suppress changes in background color directly beneath the foreground to improve image clarity - [0, 1] [DEFAULT: 0.75]
+#define shadow_opacity 0.50	//how strongly shadows affect the background, higher values darken the shadows - [0, 1] [DEFAULT: 0.55]
+#define shadow_offset_x 0.5	//how far the shadow should be shifted to the right in pixels - [-infinity, infinity] [DEFAULT: 1.0]
+#define shadow_offset_y 0.5	//how far the shadow should be shifted to down in pixels - [-infinity, infinity] [DEFAULT: 1.5]
 #define screen_offset_x 0	//screen offset - [-infinity, infinity] [DEFAULT: 0]
 #define screen_offset_y 0	//screen offset - [-infinity, infinity] [DEFAULT: 0]
 
@@ -315,8 +315,8 @@ float4 main_fragment4(float4 position : SV_Position, float4 col : COLOR0,
 
       //foreground and background are blended with the background color
 
-        foreground *= (1);
-        background -= (background -0.5) * bg_smoothing * half(foreground.a > 0.0);	//suppress drastic background color changes under the foreground to improve clarity
+        foreground *= bg_color;
+        background -= (background - 0.5) * bg_smoothing * half(foreground.a > 0.0);	//suppress drastic background color changes under the foreground to improve clarity
 
         background.rgb = saturate(half3( 				//allows for highlights, background = bg_color when the background color is 0.5 gray
         bg_color.r + lerp(-1.0, 1.0, background.r),
@@ -330,7 +330,7 @@ float4 main_fragment4(float4 position : SV_Position, float4 col : COLOR0,
 
           //foreground is alpha blended with the shadowed background
 
-            out_color = (foreground * foreground.a * (1.0 - foreground.a * foreground.a * contrast)) + (out_color * (screen_light - foreground.a * contrast * pixel_opacity));
+            out_color = (foreground * foreground.a * contrast) + (out_color * (screen_light - foreground.a * contrast * pixel_opacity));
 
 
             //return fragment
