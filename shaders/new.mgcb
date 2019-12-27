@@ -25,71 +25,105 @@
 /processorParam:TextureFormat=Color
 /build:background2.png
 
+#begin bin/background2.xnb
+/importer:
+/processor:
+/build:bin/background2.xnb
+
+#begin bin/dmg-palette.xnb
+/importer:
+/processor:
+/build:bin/dmg-palette.xnb
+
+#begin bin/gb-pass-0.xnb
+/importer:
+/processor:
+/build:bin/gb-pass-0.xnb
+
+#begin bin/mole_miner.xnb
+/importer:
+/processor:
+/build:bin/mole_miner.xnb
+
+#begin bin/newshader2.xnb
+/importer:
+/processor:
+/build:bin/newshader2.xnb
+
+#begin bin/palette.xnb
+/importer:
+/processor:
+/build:bin/palette.xnb
+
+#begin bin/test_mole_back.xnb
+/importer:
+/processor:
+/build:bin/test_mole_back.xnb
+
+#begin bin/theme.wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:bin/theme.wma
+
+#begin bin/theme.xnb
+/importer:
+/processor:
+/build:bin/theme.xnb
+
+#begin Bloom.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Bloom.fx
+
+#begin BloomExtract.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:BloomExtract.fx
+
 #begin boss_music.ogg
 /importer:OggImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:boss_music.ogg
 
-#begin darkSouls.png
+#begin cgwg-xna.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:cgwg-xna.fx
+
+#begin dmg-palette.png
 /importer:TextureImporter
 /processor:TextureProcessor
-/processorParam:ColorKeyColor=0,0,0,255
+/processorParam:ColorKeyColor=255,0,255,255
 /processorParam:ColorKeyEnabled=True
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:darkSouls.png
+/build:dmg-palette.png
 
-#begin flyer_feb2020_big.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=0,0,0,255
-/processorParam:ColorKeyEnabled=False
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:flyer_feb2020_big.png
-
-#begin foxy2_4.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=0,0,0,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:foxy2_4.png
+#begin File.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:File.fx
 
 #begin gb-pass-0.fx
 /importer:EffectImporter
 /processor:EffectProcessor
-/processorParam:DebugMode=Debug
+/processorParam:DebugMode=Auto
 /build:gb-pass-0.fx
 
-#begin gbShader2.fx
+#begin lottes_crt.fx
 /importer:EffectImporter
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
-/build:gbShader2.fx
-
-#begin guynar22.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=0,0,0,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:guynar22.png
+/build:lottes_crt.fx
 
 #begin mole_miner.png
 /importer:TextureImporter
@@ -103,6 +137,30 @@
 /processorParam:TextureFormat=Color
 /build:mole_miner.png
 
+#begin mole_miner2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mole_miner2.png
+
+#begin mole_miner3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mole_miner3.png
+
 #begin mole_mockups.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -115,17 +173,72 @@
 /processorParam:TextureFormat=Color
 /build:mole_mockups.png
 
+#begin new.mgcb
+/importer:
+/processor:
+/build:new.mgcb
+
 #begin newshader.fx
 /importer:EffectImporter
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:newshader.fx
 
-#begin outfile.fx
+#begin newshader2.fx
 /importer:EffectImporter
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
-/build:outfile.fx
+/build:newshader2.fx
+
+#begin obj/.mgcontent
+/importer:
+/processor:
+/build:obj/.mgcontent
+
+#begin obj/.mgstats
+/importer:
+/processor:
+/build:obj/.mgstats
+
+#begin obj/background2.mgcontent
+/importer:
+/processor:
+/build:obj/background2.mgcontent
+
+#begin obj/dmg-palette.mgcontent
+/importer:
+/processor:
+/build:obj/dmg-palette.mgcontent
+
+#begin obj/gb-pass-0.mgcontent
+/importer:
+/processor:
+/build:obj/gb-pass-0.mgcontent
+
+#begin obj/mole_miner.mgcontent
+/importer:
+/processor:
+/build:obj/mole_miner.mgcontent
+
+#begin obj/newshader2.mgcontent
+/importer:
+/processor:
+/build:obj/newshader2.mgcontent
+
+#begin obj/palette.mgcontent
+/importer:
+/processor:
+/build:obj/palette.mgcontent
+
+#begin obj/test_mole_back.mgcontent
+/importer:
+/processor:
+/build:obj/test_mole_back.mgcontent
+
+#begin obj/theme.mgcontent
+/importer:
+/processor:
+/build:obj/theme.mgcontent
 
 #begin palette.png
 /importer:TextureImporter
@@ -151,11 +264,22 @@
 /processorParam:TextureFormat=Color
 /build:paper-bg.png
 
-#begin pass0.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:pass0.fx
+#begin safeplace_fullsize.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:safeplace_fullsize.png
+
+#begin scaling.inc
+/importer:
+/processor:
+/build:scaling.inc
 
 #begin test_mole_back.png
 /importer:TextureImporter
@@ -168,4 +292,21 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:test_mole_back.png
+
+#begin theme.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:theme.mp3
+
+#begin theme.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:theme.ogg
+
+#begin Tools.mgcb
+/importer:
+/processor:
+/build:Tools.mgcb
 

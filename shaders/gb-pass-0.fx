@@ -23,7 +23,7 @@
 //config                                                                                                                                  //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define baseline_alpha 0.1 //the alpha value of dots in their "off" state, does not affect the border region of the screen - [0, 1]
+#define baseline_alpha 0.3 //the alpha value of dots in their "off" state, does not affect the border region of the screen - [0, 1]
 #define response_time 0.333 //simulate response time, higher values result in longer color transition periods - [0, 1]
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ float4 main_fragment(float4 position : SV_Position, float4 col : COLOR0,
 
     int is_on_dot = all(int2(fmod(texCoord.x, dot_size.x) > one_texel.x, 		//returns 1 if fragment lies on a dot, 0 otherwise
                     fmod(texCoord.y, dot_size.y) > one_texel.y));
-    
+   
 
 //sample color from the current and previous frames, apply response time modifier
 //response time effect implmented through an exponential dropoff algorithm
@@ -291,9 +291,9 @@ float4 main_fragment3(float4 position : SV_Position, float4 col : COLOR0,
 
 #define contrast 1.00   	//useful to fine-tune the colors. higher values make the "black" color closer to black - [0, 1] [DEFAULT: 0.95]
 #define screen_light 1.00   //controls the ambient light of the screen. lower values darken the screen - [0, 2] [DEFAULT: 1.00]
-#define pixel_opacity 0.75	//controls the opacity of the dot-matrix pixels. lower values make pixels more transparent - [0, 1] [DEFAULT: 1.00]
-#define bg_smoothing 0.25	//higher values suppress changes in background color directly beneath the foreground to improve image clarity - [0, 1] [DEFAULT: 0.75]
-#define shadow_opacity 0.4	//how strongly shadows affect the background, higher values darken the shadows - [0, 1] [DEFAULT: 0.55]
+#define pixel_opacity 0.95	//controls the opacity of the dot-matrix pixels. lower values make pixels more transparent - [0, 1] [DEFAULT: 1.00]
+#define bg_smoothing 0.85	//higher values suppress changes in background color directly beneath the foreground to improve image clarity - [0, 1] [DEFAULT: 0.75]
+#define shadow_opacity 0.33	//how strongly shadows affect the background, higher values darken the shadows - [0, 1] [DEFAULT: 0.55]
 #define shadow_offset_x 0.7	//how far the shadow should be shifted to the right in pixels - [-infinity, infinity] [DEFAULT: 1.0]
 #define shadow_offset_y 0.7	//how far the shadow should be shifted to down in pixels - [-infinity, infinity] [DEFAULT: 1.5]
 #define screen_offset_x 0	//screen offset - [-infinity, infinity] [DEFAULT: 0]
@@ -319,16 +319,15 @@ float4 main_fragment4(float4 position : SV_Position, float4 col : COLOR0,
       half4 shadows = tex2D(text, texCoord - (shadow_offset + screen_offset));
       half4 background_color = bg_color;
 
-
       //foreground and background are blended with the background color
 
-        foreground *= bg_color;
+        foreground *= background_color;
         background -= (background - 0.5) * bg_smoothing * half(foreground.a > 0.0);	//suppress drastic background color changes under the foreground to improve clarity
 
         background.rgb = saturate(half3( 				//allows for highlights, background = bg_color when the background color is 0.5 gray
-        bg_color.r + lerp(-1.0, 1.0, background.r),
-        bg_color.g + lerp(-1.0, 1.0, background.g),
-        bg_color.b + lerp(-1.0, 1.0, background.b)));
+            background_color.r + lerp(-1.0, 1.0, background.r),
+            background_color.g + lerp(-1.0, 1.0, background.g),
+            background_color.b + lerp(-1.0, 1.0, background.b)));
 
         //shadows are alpha blended with the background
 

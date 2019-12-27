@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>D:/backup/gamedev/shaders/mole_miner.png</SourceFile>
-  <SourceTime>2019-12-26T21:20:55.1731968-05:00</SourceTime>
+  <SourceTime>2019-12-26T21:52:43.3942908-05:00</SourceTime>
   <DestFile>D:/backup/gamedev/shaders/bin/mole_miner.xnb</DestFile>
-  <DestTime>2019-12-26T21:22:13.7006616-05:00</DestTime>
+  <DestTime>2019-12-27T00:04:43.2086309-05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
