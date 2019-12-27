@@ -237,10 +237,10 @@ float4 main_fragment2(float4 position : SV_Position, float4 col : COLOR0,
 #define contrast 1.00   	//useful to fine-tune the colors. higher values make the "black" color closer to black - [0, 1] [DEFAULT: 0.95]
 #define screen_light 1.00   //controls the ambient light of the screen. lower values darken the screen - [0, 2] [DEFAULT: 1.00]
 #define pixel_opacity 0.75	//controls the opacity of the dot-matrix pixels. lower values make pixels more transparent - [0, 1] [DEFAULT: 1.00]
-#define bg_smoothing 0.75	//higher values suppress changes in background color directly beneath the foreground to improve image clarity - [0, 1] [DEFAULT: 0.75]
+#define bg_smoothing 0.25	//higher values suppress changes in background color directly beneath the foreground to improve image clarity - [0, 1] [DEFAULT: 0.75]
 #define shadow_opacity 0.40	//how strongly shadows affect the background, higher values darken the shadows - [0, 1] [DEFAULT: 0.55]
-#define shadow_offset_x 0.5	//how far the shadow should be shifted to the right in pixels - [-infinity, infinity] [DEFAULT: 1.0]
-#define shadow_offset_y 0.5	//how far the shadow should be shifted to down in pixels - [-infinity, infinity] [DEFAULT: 1.5]
+#define shadow_offset_x 0.7	//how far the shadow should be shifted to the right in pixels - [-infinity, infinity] [DEFAULT: 1.0]
+#define shadow_offset_y 0.7	//how far the shadow should be shifted to down in pixels - [-infinity, infinity] [DEFAULT: 1.5]
 #define screen_offset_x 0	//screen offset - [-infinity, infinity] [DEFAULT: 0]
 #define screen_offset_y 0	//screen offset - [-infinity, infinity] [DEFAULT: 0]
 
