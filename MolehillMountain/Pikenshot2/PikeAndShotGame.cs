@@ -960,7 +960,6 @@ namespace PikeAndShot
 
         protected override void Draw(GameTime gameTime)
         {
-
             if (_currScreen != null)
             {
                 Matrix mapTransform = Matrix.CreateScale(ZOOM);
@@ -1074,7 +1073,7 @@ namespace PikeAndShot
                     spriteBatch.Draw(ShaderRenderTarget2, testDrawRectangle, testDrawRectangle, Color.White);
                     spriteBatch.End();
 
-
+                    effect3.Parameters["texture_size"].SetValue(new Vector2(256, 192));
                     effect3.CurrentTechnique = effect3.Techniques["gameboy4"];
                     effect3.Parameters["$PASS2"].SetValue(ShaderRenderTarget3);
                     effect3.Parameters["text"].SetValue(ShaderRenderTarget2);
@@ -1083,8 +1082,6 @@ namespace PikeAndShot
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
                     spriteBatch.Draw(ShaderRenderTarget, drawRectangle, testDrawRectangle, Color.White);
                     spriteBatch.End();
-
-
                 }
             }
         }
