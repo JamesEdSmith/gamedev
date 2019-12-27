@@ -1,2 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"D:/backup/gamedev/shaders/gb-pass-0.fx","D:/backup/gamedev/shaders/bin/gb-pass-0.xnb","EffectProcessor","CompiledEffectContent",16601,136613,0.3459436
+"D:/backup/gamedev/shaders/gb-pass-0.fx","D:/backup/gamedev/shaders/bin/gb-pass-0.xnb","EffectProcessor","CompiledEffectContent",19665,192760,0.4149165
+"D:/backup/gamedev/shaders/mole_miner.png","D:/backup/gamedev/shaders/bin/mole_miner.xnb","TextureProcessor","Texture2DContent",539,5481,0.2625593

@@ -91,6 +91,18 @@
 /processorParam:TextureFormat=Color
 /build:guynar22.png
 
+#begin mole_miner.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mole_miner.png
+
 #begin mole_mockups.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -5,6 +5,7 @@
   <Config />
   <SourceFiles>
     <File>D:/backup/gamedev/shaders/gb-pass-0.fx</File>
+    <File>D:/backup/gamedev/shaders/mole_miner.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

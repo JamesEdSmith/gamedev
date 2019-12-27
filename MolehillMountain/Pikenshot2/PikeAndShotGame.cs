@@ -381,6 +381,7 @@ namespace PikeAndShot
         public static Texture2D DOT;
         public static Texture2D SWORD_POINTER;
         public static Texture2D TEST;
+        public static Texture2D TEST2;
         public static Texture2D PALETTE;
         public static Texture2D BACKGROUND;
 
@@ -458,7 +459,7 @@ namespace PikeAndShot
 
             Content.RootDirectory = "Content";
             screenColor = new Color(16, 16, 16, 255);
-            screenColorShader = new Color(166, 172, 132, 255);
+            screenColorShader = new Color(166, 172, 132, 215);
         }
 
         private void Window_ClientSizeChanged(object sender, EventArgs e)
@@ -851,6 +852,7 @@ namespace PikeAndShot
             DOT = Content.Load<Texture2D>(@"dot");
             SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
             TEST = Content.Load<Texture2D>(@"mole_mockups");
+            TEST2 = Content.Load<Texture2D>(@"mole_miner");
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
             SPARKLE = Content.Load<Texture2D>(@"sparkle");
@@ -1032,7 +1034,7 @@ namespace PikeAndShot
 
                     Texture2D[] arrayOfPrevs = prevFrames.ToArray();
                     effect3.Parameters["text"].SetValue(ShaderRenderTarget2);
-   //                 effect3.Parameters["modelViewProj"].SetValue(Matrix.Identity);
+                    //                 effect3.Parameters["modelViewProj"].SetValue(Matrix.Identity);
                     effect3.Parameters["$PREV"].SetValue(arrayOfPrevs[6]);
                     effect3.Parameters["$PREV1"].SetValue(arrayOfPrevs[5]);
                     effect3.Parameters["$PREV2"].SetValue(arrayOfPrevs[4]);
@@ -1041,6 +1043,7 @@ namespace PikeAndShot
                     effect3.Parameters["$PREV5"].SetValue(arrayOfPrevs[1]);
                     effect3.Parameters["$PREV6"].SetValue(arrayOfPrevs[0]);
                     effect3.CurrentTechnique = effect3.Techniques["gameboy"];
+                    effect3.Parameters["texture_size"].SetValue(new Vector2(256, 192));
 
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
                     GraphicsDevice.Clear(screenColorShader);
@@ -1048,25 +1051,28 @@ namespace PikeAndShot
                     spriteBatch.Draw(ShaderRenderTarget2, testDrawRectangle, testDrawRectangle, Color.White);
                     spriteBatch.End();
 
-                    //effect3.CurrentTechnique = effect3.Techniques["gameboy1"];
-                    //effect3.Parameters["text"].SetValue(ShaderRenderTarget);
+                    //effect3.Parameters["texture_size"].SetValue(new Vector2(1024, 768));
+                    //effect3.CurrentTechnique = effect3.Techniques["gameboy2"];
+                    //effect3.Parameters["text"].SetValue(ShaderRenderTarget2);
                     //GraphicsDevice.SetRenderTarget(ShaderRenderTarget3);
-                    //GraphicsDevice.Clear(screenColorShader);
+                    //GraphicsDevice.Clear(Color.Transparent);
                     //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
-                    //spriteBatch.Draw(ShaderRenderTarget, testDrawRectangle, testDrawRectangle, Color.White);
+                    //spriteBatch.Draw(ShaderRenderTarget2, testDrawRectangle, testDrawRectangle, Color.White);
                     //spriteBatch.End();
 
-                    effect3.CurrentTechnique = effect3.Techniques["gameboy2"];
-                    effect3.Parameters["text"].SetValue(ShaderRenderTarget2);
-                    GraphicsDevice.SetRenderTarget(ShaderRenderTarget4);
-                    GraphicsDevice.Clear(screenColorShader);
-                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
-                    spriteBatch.Draw(ShaderRenderTarget3, testDrawRectangle, testDrawRectangle, Color.White);
-                    spriteBatch.End();
 
+                    //effect3.CurrentTechnique = effect3.Techniques["gameboy3"];
+                    //effect3.Parameters["text"].SetValue(ShaderRenderTarget2);
+                    //GraphicsDevice.SetRenderTarget(ShaderRenderTarget4);
+                    //GraphicsDevice.Clear(Color.Transparent);
+                    //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
+                    //spriteBatch.Draw(ShaderRenderTarget3, testDrawRectangle, testDrawRectangle, Color.White);
+                    //spriteBatch.End();
 
+                    effect3.Parameters["texture_size"].SetValue(new Vector2(256, 192));
                     effect3.CurrentTechnique = effect3.Techniques["gameboy4"];
-                    effect3.Parameters["$PASS2"].SetValue(ShaderRenderTarget4);
+                    effect3.Parameters["text"].SetValue(ShaderRenderTarget2);
+                    effect3.Parameters["$PASS2"].SetValue(ShaderRenderTarget2);
                     GraphicsDevice.SetRenderTarget(null);
                     GraphicsDevice.Clear(screenColorShader);
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
