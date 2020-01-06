@@ -57,7 +57,7 @@ namespace PikeAndShot
         public override void draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(PikeAndShotGame.TEST, new Rectangle(0, 0, 130, 115), new Rectangle(0, 0, 130, 115), Color.White);
-            spriteBatch.Draw(PikeAndShotGame.TEST3, new Rectangle(100, 80, 90, 18), new Rectangle(0, 0, 90, 18), Color.White);
+            spriteBatch.Draw(PikeAndShotGame.TEST3, new Rectangle(100, 80, 90, 19), new Rectangle(0, 0, 90, 19), Color.White);
             
             //title.draw(spriteBatch, new Vector2(PikeAndShotGame.SCREENWIDTH / 2f, PikeAndShotGame.SCREENHEIGHT / 3f), SIDE_PLAYER);
             //title.draw(spriteBatch, new Vector2(0,0), SIDE_PLAYER);

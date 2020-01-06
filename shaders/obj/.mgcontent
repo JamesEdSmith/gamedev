@@ -4,9 +4,10 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/backup/gamedev/shaders/mole_miner2.png</File>
+    <File>D:/backup/gamedev/shaders/safeplace_fullsize2.png</File>
     <File>D:/backup/gamedev/shaders/safeplace_fullsize.png</File>
     <File>D:/backup/gamedev/shaders/test_mole_back.png</File>
-    <File>D:/backup/gamedev/shaders/mole_miner2.png</File>
     <File>D:/backup/gamedev/shaders/gb-pass-0.fx</File>
     <File>D:/backup/gamedev/shaders/mole_miner3.png</File>
     <File>D:/backup/gamedev/shaders/palette.png</File>

@@ -388,11 +388,10 @@ namespace PikeAndShot
         public static Texture2D TEST;
         public static Texture2D TEST2;
         public static Texture2D TEST3;
-        public static Texture2D TEST4;
         public static Texture2D PALETTE;
-        public static Texture2D PALETTE2;
         public static Texture2D BACKGROUND;
         public static Texture2D BACKGROUND2;
+        public static Texture2D BACKGROUND3;
         public static Texture2D SCREEN_TEXT;
 
         public Queue<Texture2D> prevFrames;
@@ -453,12 +452,12 @@ namespace PikeAndShot
             if (!DEBUG)
             {
                 //make it full screen... (borderless if you want to is an option as well)
-                this.Window.Position = new Point((int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - (float)SCREENWIDTH)/2, (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - (float)SCREENHEIGHT) / 2);
-                this.Window.IsBorderless = false;
+                this.Window.Position = new Point((int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - (float)SCREENWIDTH)/2 -50, (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - (float)SCREENHEIGHT) / 2 - 50);
+                this.Window.IsBorderless = true;
                 graphics.PreferredBackBufferWidth = SCREENWIDTH+50;
                 graphics.PreferredBackBufferHeight = SCREENHEIGHT+50;
                 graphics.IsFullScreen = false;
-                this.Window.AllowUserResizing = true;
+                this.Window.AllowUserResizing = false;
                 graphics.ApplyChanges();
                 useShaders = true;
             }
@@ -522,9 +521,9 @@ namespace PikeAndShot
             soldierFont = Content.Load<SpriteFont>("SpriteFont1");
 
             PALETTE = Content.Load<Texture2D>(@"palette");
-            PALETTE2 = Content.Load<Texture2D>(@"dmg-palette");
             BACKGROUND = Content.Load<Texture2D>(@"background2");
             BACKGROUND2 = Content.Load<Texture2D>(@"safeplace_fullsize");
+            BACKGROUND3 = Content.Load<Texture2D>(@"safeplace_fullsize2");
             SCREEN_TEXT = CreateTexture(GraphicsDevice, 1, 1, pixel => new Color(166, 172, 132, 150));
 
             ShaderRenderTarget = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
@@ -886,7 +885,7 @@ namespace PikeAndShot
             TEST = Content.Load<Texture2D>(@"mole_mockups");
             TEST2 = Content.Load<Texture2D>(@"mole_miner");
             TEST3 = Content.Load<Texture2D>(@"mole_miner2");
-            TEST4 = Content.Load<Texture2D>(@"mole_miner3");
+           
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
             SPARKLE = Content.Load<Texture2D>(@"sparkle");
@@ -1068,7 +1067,6 @@ namespace PikeAndShot
 
                     Texture2D[] arrayOfPrevs = prevFrames.ToArray();
                     effect3.Parameters["text"].SetValue(ShaderRenderTarget2);
-                    //                 effect3.Parameters["modelViewProj"].SetValue(Matrix.Identity);
                     effect3.Parameters["$PREV"].SetValue(arrayOfPrevs[6]);
                     effect3.Parameters["$PREV1"].SetValue(arrayOfPrevs[5]);
                     effect3.Parameters["$PREV2"].SetValue(arrayOfPrevs[4]);
