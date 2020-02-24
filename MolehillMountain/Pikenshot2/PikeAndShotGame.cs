@@ -951,9 +951,10 @@ namespace PikeAndShot
                 stream.Close();
                 levels.Add(new Level(levelContent));
             }
-            
+
             // PLAY LEVEL
-            _currScreen = new LevelScreen(this, levels.ElementAt(0));
+            //_currScreen = new LevelScreen(this, levels.ElementAt(0));
+            _currScreen = new DungeonScreen(this);
             _gameScreens.Add(_currScreen);
             _gameScreens.Add(new TitleScreen(this));
             _currScreen = (TitleScreen)_gameScreens[1];
@@ -987,9 +988,9 @@ namespace PikeAndShot
 
         public void setScreen(int screenIndex)
         {
-            _currScreen = (BattleScreen)_gameScreens[screenIndex];
+            _currScreen = (GameScreen)_gameScreens[screenIndex];
 
-            if (screenIndex == SCREEN_LEVELPLAY)
+            if (_currScreen is LevelScreen)
                 ((LevelScreen)_currScreen).restart();
             else if (screenIndex == 1)
             {

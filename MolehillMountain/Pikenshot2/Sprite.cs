@@ -17,10 +17,12 @@ namespace PikeAndShot
 
         public const int DIRECTION_LEFT = 0;
         public const int DIRECTION_RIGHT = 1;
+
         public const int DIRECTION_NONE = 0;
         public const int DIRECTION_UP = 1;
         public const int DIRECTION_DOWN = 2;
 
+        private Rectangle _boundingRect;
         private Texture2D _sourceBitmap;
         public Texture2D _flashTexture;
         public Texture2D _blackTexture;
@@ -229,6 +231,11 @@ namespace PikeAndShot
         }
 
         const float RGB_OFFSET = 1f;
+
+        public void draw(SpriteBatch spriteBatch, Vector2 position, int side)
+        {
+            draw(spriteBatch, position, side, PikeAndShotGame.DUMMY_TIMESPAN);
+        }
 
         public void draw(SpriteBatch spritebatch, Vector2 _position, int horzDirection, int verticalDirection)
         {
