@@ -15,10 +15,15 @@ namespace PikeAndShot
         public const int EFFECT_FLASH_YELLOW = 2;
         public const int EFFECT_FLASH_RED = 3;
 
+        public const int DIRECTION_LEFT = 0;
+        public const int DIRECTION_RIGHT = 1;
+        public const int DIRECTION_NONE = 0;
+        public const int DIRECTION_UP = 1;
+        public const int DIRECTION_DOWN = 2;
+
         private Texture2D _sourceBitmap;
         public Texture2D _flashTexture;
         public Texture2D _blackTexture;
-        private Rectangle _boundingRect;
         private Rectangle _flippedRect;
         public Rectangle _currRect;
         private Vector2 _size;
@@ -46,7 +51,7 @@ namespace PikeAndShot
             _boundingRect = boundingRect;
             _flippedRect = new Rectangle(frameWidth - boundingRect.X - boundingRect.Width, boundingRect.Y, boundingRect.Width, boundingRect.Height);
             _size = new Vector2(frameWidth, frameHeight);
-            _cols = _sourceBitmap.Width / frameWidth; 
+            _cols = _sourceBitmap.Width / frameWidth;
             _rows = _sourceBitmap.Height / frameHeight;
             _currRect = new Rectangle(0, 0, frameWidth, frameHeight);
             _currFrame = 0;
@@ -68,7 +73,7 @@ namespace PikeAndShot
             _blackTexture.SetData<Color>(pixelData);*/
         }
 
-        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreshold, Color color, float dampening, BattleScreen screen):
+        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight, bool loop, bool flashable, int flashStartThreshold, Color color, float dampening, BattleScreen screen) :
             this(bitmap, boundingRect, frameWidth, frameHeight, loop)
         {
             this.flashable = true;
@@ -90,12 +95,12 @@ namespace PikeAndShot
         {
         }
 
-        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight): 
+        public Sprite(Texture2D bitmap, Rectangle boundingRect, int frameWidth, int frameHeight) :
             this(bitmap, boundingRect, frameWidth, frameHeight, false)
         {
         }
 
-        public void setLoop (bool loop)
+        public void setLoop(bool loop)
         {
             _loop = loop;
         }
@@ -225,14 +230,43 @@ namespace PikeAndShot
 
         const float RGB_OFFSET = 1f;
 
-        public void draw(SpriteBatch spritebatch, Vector2 _position, int side)
+        public void draw(SpriteBatch spritebatch, Vector2 _position, int horzDirection, int verticalDirection)
         {
-            draw(spritebatch, _position, side, PikeAndShotGame.DUMMY_TIMESPAN);
+            if (horzDirection == DIRECTION_LEFT)
+            {
+                if (verticalDirection == DIRECTION_NONE)
+                {
+                    spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                }
+                else if (verticalDirection == DIRECTION_UP)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+                if (verticalDirection == DIRECTION_NONE)
+                {
+                    spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                }
+                else if (verticalDirection == DIRECTION_UP)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
         }
 
         public void draw(SpriteBatch spritebatch, Vector2 _position, int side, TimeSpan timeSpan)
         {
-            
+
             if (effect == EFFECT_FADEIN)
             {
                 Color color = Color.White;
@@ -333,8 +367,8 @@ namespace PikeAndShot
                 }
                 else
                 {
-//                    spritebatch.Draw(_flashTexture, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
-                    spritebatch.Draw(_flashTexture, _position- new Vector2(1,1) - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                    //                    spritebatch.Draw(_flashTexture, _position - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                    spritebatch.Draw(_flashTexture, _position - new Vector2(1, 1) - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
                     spritebatch.Draw(_flashTexture, _position - new Vector2(-1, 1) - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
                     spritebatch.Draw(_flashTexture, _position - new Vector2(1, -1) - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
                     spritebatch.Draw(_flashTexture, _position - new Vector2(-1, -1) - new Vector2(_flippedRect.X, _flippedRect.Y), _currRect, color, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
@@ -377,7 +411,7 @@ namespace PikeAndShot
             else
             {
                 float a = (float)color.A / dampening;
-                if(a > 255)
+                if (a > 255)
                     a = 255;
                 color.A = (byte)a;
             }
@@ -396,7 +430,7 @@ namespace PikeAndShot
         {
             Color color = Color.White;
 
-            float a = (float)((curTime % flickerTime)/flickerTime);
+            float a = (float)((curTime % flickerTime) / flickerTime);
             color *= a;
 
             if (side == BattleScreen.SIDE_PLAYER)

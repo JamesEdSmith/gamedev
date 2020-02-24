@@ -3,6 +3,8 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/backup/gamedev/shaders/dmg-palette.png","D:/backup/gamedev/shaders/bin/dmg-palette.xnb","TextureProcessor","Texture2DContent",292,32853,0.0997564
 "D:/backup/gamedev/shaders/gb-pass-0.fx","D:/backup/gamedev/shaders/bin/gb-pass-0.xnb","EffectProcessor","CompiledEffectContent",19707,192592,0.4159453
 "D:/backup/gamedev/shaders/mole_miner.png","D:/backup/gamedev/shaders/bin/mole_miner.xnb","TextureProcessor","Texture2DContent",539,5481,0.0996908
+"D:/backup/gamedev/shaders/mole_miner_sprite.png","D:/backup/gamedev/shaders/bin/mole_miner_sprite.xnb","TextureProcessor","Texture2DContent",574,5269,0.3266115
+"D:/backup/gamedev/shaders/mole_miner_sprite_dig.png","D:/backup/gamedev/shaders/bin/mole_miner_sprite_dig.xnb","TextureProcessor","Texture2DContent",589,5269,0.0079834
 "D:/backup/gamedev/shaders/mole_miner2.png","D:/backup/gamedev/shaders/bin/mole_miner2.xnb","TextureProcessor","Texture2DContent",615,6925,0.0927524
 "D:/backup/gamedev/shaders/mole_miner3.png","D:/backup/gamedev/shaders/bin/mole_miner3.xnb","TextureProcessor","Texture2DContent",688,5481,0.0089767
 "D:/backup/gamedev/shaders/palette.png","D:/backup/gamedev/shaders/bin/palette.xnb","TextureProcessor","Texture2DContent",252,32853,0.0972482

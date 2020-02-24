@@ -386,8 +386,8 @@ namespace PikeAndShot
         public static Texture2D DOT;
         public static Texture2D SWORD_POINTER;
         public static Texture2D TEST;
-        public static Texture2D TEST2;
-        public static Texture2D TEST3;
+        public static Texture2D MOLE_MINER_WALKING;
+        public static Texture2D MOLE_MINER_DIGGING;
         public static Texture2D PALETTE;
         public static Texture2D BACKGROUND;
         public static Texture2D BACKGROUND2;
@@ -434,7 +434,7 @@ namespace PikeAndShot
         public static SoundEffect COLMILLOS_YELL;
 
         private ArrayList _gameScreens;
-        private BattleScreen _currScreen;
+        private GameScreen _currScreen;
 
         public static float ZOOM = 1.0f;
         public Color screenColor;
@@ -882,10 +882,12 @@ namespace PikeAndShot
 
             DOT = Content.Load<Texture2D>(@"dot");
             SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
-            TEST = Content.Load<Texture2D>(@"mole_mockups");
-            TEST2 = Content.Load<Texture2D>(@"mole_miner");
-            TEST3 = Content.Load<Texture2D>(@"mole_miner2");
-           
+            MOLE_MINER_WALKING = Content.Load<Texture2D>(@"mole_miner_sprite");
+            MOLE_MINER_DIGGING = Content.Load<Texture2D>(@"mole_miner_sprite_dig");
+            TEST = new Texture2D(GraphicsDevice, 1, 1);
+            Color[] colors = { Color.Black };
+            TEST.SetData(colors);
+
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
             SPARKLE = Content.Load<Texture2D>(@"sparkle");
