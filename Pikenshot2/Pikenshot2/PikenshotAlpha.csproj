@@ -1241,9 +1241,9 @@
     <None Include="Content\dragonknight1extra-1a.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="Content\flyer_attempt.xnb">
+    <None Include="Content\flyer_april_2020_small.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
     <None Include="Content\speaker3.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

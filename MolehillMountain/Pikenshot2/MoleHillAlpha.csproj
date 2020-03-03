@@ -88,6 +88,7 @@
     <Compile Include="Sprite.cs" />
     <Compile Include="Terrain.cs" />
     <Compile Include="TitleScreen.cs" />
+    <Compile Include="Tunnel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.5.1.1679, Culture=neutral, processorArchitecture=MSIL">
@@ -1263,6 +1264,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Content\test_mole_back.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\tunnel.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

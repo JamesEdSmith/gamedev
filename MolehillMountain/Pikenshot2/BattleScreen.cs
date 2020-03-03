@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections;
 
-namespace PikeAndShot
+namespace MoleHillMountain
 {
     /// <summary>
     /// This is the main type for your game

@@ -8,7 +8,7 @@ using System.Collections;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 
-namespace PikeAndShot
+namespace MoleHillMountain
 {
     public interface DoppelSoldier
     {

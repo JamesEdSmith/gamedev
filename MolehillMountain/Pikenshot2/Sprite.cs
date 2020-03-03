@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace PikeAndShot
+namespace MoleHillMountain
 {
     public class Sprite
     {
@@ -15,18 +15,22 @@ namespace PikeAndShot
         public const int EFFECT_FLASH_YELLOW = 2;
         public const int EFFECT_FLASH_RED = 3;
 
+        //for horz direction
         public const int DIRECTION_LEFT = 0;
         public const int DIRECTION_RIGHT = 1;
 
+        //for vert direction
         public const int DIRECTION_NONE = 0;
         public const int DIRECTION_UP = 1;
         public const int DIRECTION_DOWN = 2;
 
         private Rectangle _boundingRect;
+        private Vector2 _boundingVector;
         private Texture2D _sourceBitmap;
         public Texture2D _flashTexture;
         public Texture2D _blackTexture;
         private Rectangle _flippedRect;
+        private Vector2 _center;
         public Rectangle _currRect;
         private Vector2 _size;
         private int _cols;
@@ -51,8 +55,10 @@ namespace PikeAndShot
             flashable = false;
             _sourceBitmap = bitmap;
             _boundingRect = boundingRect;
+            _boundingVector = new Vector2(boundingRect.X, boundingRect.Y);
             _flippedRect = new Rectangle(frameWidth - boundingRect.X - boundingRect.Width, boundingRect.Y, boundingRect.Width, boundingRect.Height);
             _size = new Vector2(frameWidth, frameHeight);
+            _center = _size / 2;
             _cols = _sourceBitmap.Width / frameWidth;
             _rows = _sourceBitmap.Height / frameHeight;
             _currRect = new Rectangle(0, 0, frameWidth, frameHeight);
@@ -239,34 +245,35 @@ namespace PikeAndShot
 
         public void draw(SpriteBatch spritebatch, Vector2 _position, int horzDirection, int verticalDirection)
         {
+
             if (horzDirection == DIRECTION_LEFT)
             {
                 if (verticalDirection == DIRECTION_NONE)
                 {
-                    spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, Color.White, 0, _center, 1, SpriteEffects.None, 0);
                 }
                 else if (verticalDirection == DIRECTION_UP)
                 {
-
+                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, Color.White, MathHelper.Pi * 0.5f, _center, 1, SpriteEffects.None, 0);
                 }
                 else
                 {
-
+                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, Color.White, MathHelper.Pi * 0.5f, _center, 1, SpriteEffects.FlipHorizontally, 0);
                 }
             }
             else
             {
                 if (verticalDirection == DIRECTION_NONE)
                 {
-                    spritebatch.Draw(_sourceBitmap, _position - new Vector2(_boundingRect.X, _boundingRect.Y), _currRect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, Color.White, 0, _center, 1, SpriteEffects.FlipHorizontally, 0);
                 }
                 else if (verticalDirection == DIRECTION_UP)
                 {
-
+                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, Color.White, -MathHelper.Pi * 0.5f, _center, 1, SpriteEffects.FlipHorizontally, 0);
                 }
                 else
                 {
-
+                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, Color.White, -MathHelper.Pi * 0.5f, _center, 1, SpriteEffects.None, 0);
                 }
             }
         }

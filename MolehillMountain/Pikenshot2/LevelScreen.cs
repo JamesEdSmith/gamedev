@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.Collections;
 
-namespace PikeAndShot
+namespace MoleHillMountain
 {
     public class LevelScreen : BattleScreen, ScreenAnimationListener
     {

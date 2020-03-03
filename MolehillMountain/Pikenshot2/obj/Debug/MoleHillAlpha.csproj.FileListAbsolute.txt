@@ -429,3 +429,4 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\safeplace_fullsize2.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\mole_miner_sprite.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\mole_miner_sprite_dig.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\tunnel.xnb

@@ -827,7 +827,7 @@ namespace PikeAndShot
 
             DOT = Content.Load<Texture2D>(@"dot");
             SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
-            TEST = Content.Load<Texture2D>(@"flyer_attempt");
+            TEST = Content.Load<Texture2D>(@"flyer_april_2020_small");
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
             SPARKLE = Content.Load<Texture2D>(@"sparkle");

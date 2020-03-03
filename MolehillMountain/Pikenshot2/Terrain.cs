@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections;
 
-namespace PikeAndShot
+namespace MoleHillMountain
 {
     public class Terrain : ScreenObject, LevelEditorGrabbable
     {

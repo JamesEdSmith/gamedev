@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace PikeAndShot
+namespace MoleHillMountain
 {
     class TitleScreen : BattleScreen
     {

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 
 
-namespace PikeAndShot
+namespace MoleHillMountain
 {
     class LevelReader: ContentTypeReader<Level>
         {
