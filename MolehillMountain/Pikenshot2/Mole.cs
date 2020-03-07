@@ -19,8 +19,9 @@ namespace MoleHillMountain
         const int STATE_DIGGING = 1;
 
         float animationTimer;
-        float walkSpeed = 25f;
-        float walkTime = 400f;
+        float walkSpeed = 30f;
+        float walkTime = 325f;
+        float digTime = 375f;
 
         Sprite walking;
         Sprite digging;
@@ -67,26 +68,30 @@ namespace MoleHillMountain
 
                 if ((state & STATE_DIGGING) != 0)
                 {
-                    walkSpeed = 20;
+                    walkSpeed = 22;
                 }
                 else
                 {
-                    walkSpeed = 25;
+                    walkSpeed = 30;
                 }
 
-                    switch (moving)
+                switch (moving)
                 {
                     case MOVING_LEFT:
-                        position.X -= (float)timeSpan.TotalSeconds * walkSpeed;
+                        if (position.X > 10)
+                            position.X -= (float)timeSpan.TotalSeconds * walkSpeed;
                         break;
                     case MOVING_RIGHT:
-                        position.X += (float)timeSpan.TotalSeconds * walkSpeed;
+                        if (position.X < DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_WIDTH - 0.5))
+                            position.X += (float)timeSpan.TotalSeconds * walkSpeed;
                         break;
                     case MOVING_UP:
-                        position.Y -= (float)timeSpan.TotalSeconds * walkSpeed;
+                        if (position.Y > 10)
+                            position.Y -= (float)timeSpan.TotalSeconds * walkSpeed;
                         break;
                     case MOVING_DOWN:
-                        position.Y += (float)timeSpan.TotalSeconds * walkSpeed;
+                        if (position.Y < DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_HEIGHT - 0.5f))
+                            position.Y += (float)timeSpan.TotalSeconds * walkSpeed;
                         break;
                 }
                 drawPosition.X = (int)position.X;
@@ -101,18 +106,7 @@ namespace MoleHillMountain
         }
         public void draw(SpriteBatch spritebatch)
         {
-            //if ((state & STATE_DIGGING) != 0)
-            //{
-            //    if (vertFacing == Sprite.DIRECTION_NONE)
-            //    {
-            //        if (horzFacing == Sprite.DIRECTION_LEFT)
-            //        {
-            //            spritebatch.Draw(PikeAndShotGame.TUNNEL, drawPosition + DungeonScreen.OFFSET - new Vector2(5, -2), new Rectangle(0,2,20,16), Color.White, 0, Tunnel.center, 1, SpriteEffects.None, 0);
-            //        }
-            //    }
-            //}
             walkingSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
-
         }
 
         void walk()

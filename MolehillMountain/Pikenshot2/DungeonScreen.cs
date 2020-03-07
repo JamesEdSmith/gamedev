@@ -131,7 +131,7 @@ namespace MoleHillMountain
             }
             else if (mole.horzFacing == Sprite.DIRECTION_LEFT)
             {
-                if (tunnels[moleLeft, moleMiddleY].left != Tunnel.DUG && (tunnels[moleLeft, moleMiddleY].right != Tunnel.DUG || leftRemainder < 9))
+                if (tunnels[moleLeft, moleMiddleY].left != Tunnel.DUG && (tunnels[moleLeft, moleMiddleY].right != Tunnel.DUG || leftRemainder < 10))
                     mole.setDig(true);
                 else
                     mole.setDig(false);
@@ -146,7 +146,7 @@ namespace MoleHillMountain
             }
             else if (mole.vertFacing == Sprite.DIRECTION_UP)
             {
-                if (tunnels[moleMiddleX, moleUp].top != Tunnel.DUG && (tunnels[moleMiddleX, moleUp].bottom != Tunnel.DUG || upRemainder < 9))
+                if (tunnels[moleMiddleX, moleUp].top != Tunnel.DUG && (tunnels[moleMiddleX, moleUp].bottom != Tunnel.DUG || upRemainder < 10))
                     mole.setDig(true);
                 else
                     mole.setDig(false);
