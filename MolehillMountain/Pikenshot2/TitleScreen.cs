@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace PikeAndShot
+namespace MoleHillMountain
 {
     class TitleScreen : BattleScreen
     {
@@ -55,16 +55,12 @@ namespace PikeAndShot
         }
 
         public override void draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(PikeAndShotGame.TEST, new Rectangle(0, 0, 130, 115), new Rectangle(0, 0, 130, 115), Color.White);
-            spriteBatch.Draw(PikeAndShotGame.TEST3, new Rectangle(100, 80, 90, 19), new Rectangle(0, 0, 90, 19), Color.White);
-            
-            //title.draw(spriteBatch, new Vector2(PikeAndShotGame.SCREENWIDTH / 2f, PikeAndShotGame.SCREENHEIGHT / 3f), SIDE_PLAYER);
-            //title.draw(spriteBatch, new Vector2(0,0), SIDE_PLAYER);
-            //if (fadeTime <= 0)
-            //{
-            //    spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Press Pike or Shot", new Vector2(450, PikeAndShotGame.SCREENHEIGHT * 2f/ 3f), textColor);
-            //}
+        {   
+            title.draw(spriteBatch, new Vector2(0,0), SIDE_PLAYER, PikeAndShotGame.DUMMY_TIMESPAN);
+            if (fadeTime <= 0)
+            {
+                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Press Pike or Shot", new Vector2(450, PikeAndShotGame.SCREENHEIGHT * 2f/ 3f), textColor);
+            }
         }
 
         protected override void getInput(TimeSpan timeSpan)

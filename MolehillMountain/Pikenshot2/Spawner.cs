@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PikeAndShot
+namespace MoleHillMountain
 {
     public class Spawner
     {

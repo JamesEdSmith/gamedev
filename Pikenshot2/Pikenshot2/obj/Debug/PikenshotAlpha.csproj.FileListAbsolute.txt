@@ -1228,4 +1228,4 @@ D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\speak
 D:\backup\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotAlpha.csprojAssemblyReference.cache
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\dragonknight1-6.xnb
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\dragonknight1extra-1a.xnb
-D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\foxy2_4.xnb
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\flyer_april_2020_small.xnb

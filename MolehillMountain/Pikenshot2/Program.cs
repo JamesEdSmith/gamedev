@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PikeAndShot
+namespace MoleHillMountain
 {
     static class Program
     {

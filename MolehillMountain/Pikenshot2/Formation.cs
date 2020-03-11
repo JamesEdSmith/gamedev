@@ -7,7 +7,7 @@ using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PikeAndShot
+namespace MoleHillMountain
 {
     public class Formation
     {

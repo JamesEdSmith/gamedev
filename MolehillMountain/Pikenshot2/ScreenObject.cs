@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections;
 using Microsoft.Xna.Framework.Audio;
 
-namespace PikeAndShot
+namespace MoleHillMountain
 {
     public class ScreenObject
     {

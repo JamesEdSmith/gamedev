@@ -6,12 +6,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections;
 
-namespace PikeAndShot
+namespace MoleHillMountain
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class BattleScreen
+    public class BattleScreen : GameScreen
     {
         public const int SIDE_PLAYER = 1;
         public const int SIDE_NEUTRAL = 0;
