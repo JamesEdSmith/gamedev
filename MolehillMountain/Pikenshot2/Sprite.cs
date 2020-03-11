@@ -243,6 +243,11 @@ namespace MoleHillMountain
             draw(spriteBatch, position, side, PikeAndShotGame.DUMMY_TIMESPAN);
         }
 
+        public void draw(SpriteBatch spriteBatch, Vector2 position, float rotation)
+        {
+            spriteBatch.Draw(_sourceBitmap, position - _boundingVector, _currRect, Color.White, rotation, _center, 1, SpriteEffects.None, 0);
+        }
+
         public void draw(SpriteBatch spritebatch, Vector2 _position, int horzDirection, int verticalDirection)
         {
 
