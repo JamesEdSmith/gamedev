@@ -21,7 +21,8 @@ namespace MoleHillMountain
         float animationTimer;
         float walkSpeed = 30f;
         float walkTime = 325f;
-        float digTime = 375f;
+        float digTime = 650;
+        float animationTime;
 
         Sprite walking;
         Sprite digging;
@@ -40,6 +41,7 @@ namespace MoleHillMountain
             walking = new Sprite(PikeAndShotGame.MOLE_MINER_WALKING, new Rectangle(0, 0, 18, 18), 18, 18);
             digging = new Sprite(PikeAndShotGame.MOLE_MINER_DIGGING, new Rectangle(0, 0, 18, 18), 18, 18);
             walkingSprite = walking;
+            animationTime = walkTime;
             position = new Vector2(10, 10);
             drawPosition = new Vector2(position.X, position.Y);
         }
@@ -63,15 +65,17 @@ namespace MoleHillMountain
             {
                 if (animationTimer < 0)
                 {
-                    animationTimer += walkTime;
+                    animationTimer += animationTime;
                 }
 
                 if ((state & STATE_DIGGING) != 0)
                 {
+                    animationTime = digTime;
                     walkSpeed = 22;
                 }
                 else
                 {
+                    animationTime = walkTime;
                     walkSpeed = 30;
                 }
 
@@ -98,7 +102,7 @@ namespace MoleHillMountain
                 drawPosition.Y = (int)position.Y;
 
                 int maxFrames = walkingSprite.getMaxFrames();
-                float frameTime = walkTime / (float)maxFrames;
+                float frameTime = animationTime / (float)maxFrames;
                 int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
 
                 walkingSprite.setFrame(frameNumber);
@@ -113,7 +117,7 @@ namespace MoleHillMountain
         {
             if (moving == MOVING_NONE)
             {
-                animationTimer = walkTime;
+                animationTimer = animationTime;
             }
         }
 
@@ -123,11 +127,17 @@ namespace MoleHillMountain
             {
                 state |= STATE_DIGGING;
                 walkingSprite = digging;
+                animationTime = digTime;
             }
             else
             {
                 state &= ~STATE_DIGGING;
                 walkingSprite = walking;
+                animationTime = walkTime;
+                if (animationTimer > animationTime)
+                {
+                    animationTimer -= animationTime;
+                }
             }
         }
 

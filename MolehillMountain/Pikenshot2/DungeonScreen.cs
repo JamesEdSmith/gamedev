@@ -34,6 +34,7 @@ namespace MoleHillMountain
         {
             _game = game;
             sprites = new ArrayList(10);
+            sprites.Add(new Sprite(PikeAndShotGame.TURNIP, new Rectangle(0, 0, 18, 18), 18, 18, true));
             mole = new Mole();
             tunnels = new Tunnel[GRID_WIDTH, GRID_HEIGHT];
             for (int j = 0; j < GRID_HEIGHT; j++)
@@ -59,6 +60,11 @@ namespace MoleHillMountain
                 tunnel.draw(spriteBatch);
             }
             mole.draw(spriteBatch);
+
+            foreach(Sprite sprite in sprites)
+            {
+                sprite.draw(spriteBatch, new Vector2(100, 100) + OFFSET, BattleScreen.SIDE_PLAYER);
+            }
         }
 
         public void update(GameTime gameTime)
@@ -185,6 +191,13 @@ namespace MoleHillMountain
             {
                 mole.stopMoving();
             }
+
+            if (keyboardState.IsKeyDown(Keys.Q) && previousKeyboardState.IsKeyUp(Keys.Q))
+            {
+                (sprites[0] as Sprite).nextFrame();
+            }
+
+            previousKeyboardState = keyboardState;
         }
     }
 }
