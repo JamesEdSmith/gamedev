@@ -395,7 +395,9 @@ namespace MoleHillMountain
         public static Texture2D SCREEN_TEXT;
         public static Texture2D TUNNEL;
         public static Texture2D TUNNEL_DIGGING;
-        public static Texture2D TURNIP;
+        public static Texture2D TURNIP_SHAKE;
+        public static Texture2D TURNIP_SPLIT;
+        public static Texture2D TURNIP_TWIRL;
 
         public Queue<Texture2D> prevFrames;
 
@@ -889,7 +891,9 @@ namespace MoleHillMountain
             MOLE_MINER_DIGGING = Content.Load<Texture2D>(@"mole_miner_sprite_dig");
             TUNNEL = Content.Load<Texture2D>(@"tunnel");
             TUNNEL_DIGGING = Content.Load<Texture2D>(@"tunnel_digging");
-            TURNIP = Content.Load<Texture2D>(@"turnip");
+            TURNIP_SHAKE = Content.Load<Texture2D>(@"turnip_fall");
+            TURNIP_TWIRL = Content.Load<Texture2D>(@"turnip_twirl");
+            TURNIP_SPLIT = Content.Load<Texture2D>(@"turnip_split");
             TEST = new Texture2D(GraphicsDevice, 1, 1);
             Color[] colors = { Color.Black };
             TEST.SetData(colors);

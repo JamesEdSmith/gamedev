@@ -432,3 +432,6 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\tunnel.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\tunnel_digging.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\turnip.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\turnip_fall.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\turnip_split.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\turnip_twirl.xnb

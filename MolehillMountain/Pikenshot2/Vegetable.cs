@@ -1,0 +1,108 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System.Collections;
+
+namespace MoleHillMountain
+{
+    class Vegetable
+    {
+        public const int NONE = 0;
+        public const int SHAKING = 1;
+        public const int FALLING = 2;
+        public const int BREAKING = 3;
+
+        float animationTimer;
+        float fallSpeed = 68f;
+        float fallTime = 225f;
+        float shakeTime = 595f;
+        float breakTime = 400f;
+        float animationTime;
+
+        DungeonScreen dungeonScreen;
+
+        Sprite shaking;
+        Sprite falling;
+        Sprite breaking;
+        Sprite currSprite;
+        public Vector2 position;
+        Vector2 drawPosition;
+        //not flags
+        int state = 0;
+        public Vegetable(float x, float y, DungeonScreen dungeonScreen)
+        {
+            this.dungeonScreen = dungeonScreen;
+            shaking = new Sprite(PikeAndShotGame.TURNIP_SHAKE, new Rectangle(0, 0, 20, 20), 20, 20);
+            falling = new Sprite(PikeAndShotGame.TURNIP_TWIRL, new Rectangle(0, 0, 20, 20), 20, 20);
+            breaking = new Sprite(PikeAndShotGame.TURNIP_SPLIT, new Rectangle(0, 0, 40, 20), 40, 20);
+            currSprite = shaking;
+            animationTime = shakeTime;
+            position = new Vector2(x, y);
+            drawPosition = new Vector2(position.X, position.Y);
+            state = NONE;
+        }
+
+        public void draw(SpriteBatch spritebatch)
+        {
+            currSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, 0, 0);
+        }
+
+        internal void update(TimeSpan elapsedGameTime)
+        {
+            Tunnel tunnelBelow = dungeonScreen.getTunnelBelow(position);
+
+            if (state == NONE)
+            {
+                if (tunnelBelow?.left == Tunnel.DUG || tunnelBelow?.right == Tunnel.DUG || tunnelBelow?.bottom == Tunnel.DUG || tunnelBelow?.top == Tunnel.DUG)
+                {
+                    if (!dungeonScreen.molebelow(position))
+                    {
+                        state = SHAKING;
+                        animationTime = shakeTime;
+                        animationTimer = animationTime;
+                        currSprite = shaking;
+                    }
+                }
+            }
+            else
+            {
+                animationTimer -= (float)elapsedGameTime.TotalMilliseconds;
+                if (state == SHAKING)
+                {
+                    if (animationTimer < 0)
+                    {
+                        state = FALLING;
+                        currSprite = falling;
+                        animationTime = fallTime;
+                        animationTimer = animationTime;
+                    }
+                }
+                else if (state == FALLING)
+                {
+                    position.Y += (float)elapsedGameTime.TotalSeconds * fallSpeed;
+                    if (animationTimer < 0)
+                    {
+                        animationTime = fallTime;
+                        animationTimer = animationTime;
+                    }
+                }
+
+                animate(elapsedGameTime);
+            }
+            drawPosition.X = (int)position.X;
+            drawPosition.Y = (int)position.Y;
+        }
+
+        private void animate(TimeSpan elapsedGameTime)
+        {
+            int maxFrames = currSprite.getMaxFrames();
+            float frameTime = animationTime / (float)maxFrames;
+            int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
+
+            currSprite.setFrame(frameNumber);
+        }
+    }
+}

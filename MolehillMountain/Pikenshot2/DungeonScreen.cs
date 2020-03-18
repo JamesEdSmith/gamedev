@@ -16,9 +16,9 @@ namespace MoleHillMountain
         public static Vector2 OFFSET = new Vector2(8, 6);
 
         public PikeAndShotGame _game;
-        ArrayList sprites;
         Mole mole;
         Tunnel[,] tunnels;
+        ArrayList vegetables;
 
         protected KeyboardState keyboardState;
         protected KeyboardState previousKeyboardState;
@@ -33,13 +33,6 @@ namespace MoleHillMountain
         public DungeonScreen(PikeAndShotGame game)
         {
             _game = game;
-            sprites = new ArrayList(10);
-            sprites.Add(new Sprite(PikeAndShotGame.TURNIP, new Rectangle(0, 0, 20, 20), 20, 20, true));
-            sprites.Add(new Sprite(PikeAndShotGame.TURNIP, new Rectangle(0, 0, 20, 20), 20, 20, true));
-            sprites.Add(new Sprite(PikeAndShotGame.TURNIP, new Rectangle(0, 0, 20, 20), 20, 20, true));
-            sprites.Add(new Sprite(PikeAndShotGame.TURNIP, new Rectangle(0, 0, 20, 20), 20, 20, true));
-            sprites.Add(new Sprite(PikeAndShotGame.TURNIP, new Rectangle(0, 0, 20, 20), 20, 20, true));
-            sprites.Add(new Sprite(PikeAndShotGame.TURNIP, new Rectangle(0, 0, 20, 20), 20, 20, true));
             mole = new Mole();
             tunnels = new Tunnel[GRID_WIDTH, GRID_HEIGHT];
             for (int j = 0; j < GRID_HEIGHT; j++)
@@ -56,6 +49,31 @@ namespace MoleHillMountain
             prevMoleRight = ((int)mole.position.X + GRID_SIZE / 4) / GRID_SIZE;
             prevMoleUp = ((int)mole.position.Y - GRID_SIZE / 4) / GRID_SIZE;
             prevMoleDown = ((int)mole.position.Y + GRID_SIZE / 4) / GRID_SIZE;
+
+            vegetables = new ArrayList(5);
+            vegetables.Add(new Vegetable(3 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
+        }
+
+        internal Tunnel getTunnelBelow(Vector2 position)
+        {
+            int x = (int)(position.X / GRID_SIZE);
+            int y = (int)(position.Y / GRID_SIZE) + 1;
+            if (x < GRID_WIDTH && y < GRID_HEIGHT)
+                return tunnels[x, y];
+            else
+                return null;
+        }
+
+        internal bool molebelow(Vector2 position)
+        {
+            Vector2 absPos = (mole.position - position);
+
+            if (Math.Abs(absPos.X) < GRID_SIZE/2 && ((int)(mole.position.Y - position.Y) > GRID_SIZE/2 && (int)(mole.position.Y - position.Y) < GRID_SIZE + 5))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public void draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -64,19 +82,25 @@ namespace MoleHillMountain
             {
                 tunnel.draw(spriteBatch);
             }
+
             mole.draw(spriteBatch);
 
-            foreach (Sprite sprite in sprites)
+            foreach (Vegetable vegetable in vegetables)
             {
-                sprite.setFrame(sprites.IndexOf(sprite));
-                sprite.draw(spriteBatch, new Vector2(60 + 20 * sprites.IndexOf(sprite), 40) + OFFSET, BattleScreen.SIDE_PLAYER);
+                vegetable.draw(spriteBatch);
             }
+
         }
 
         public void update(GameTime gameTime)
         {
             getInput(gameTime.ElapsedGameTime);
             mole.update(gameTime.ElapsedGameTime);
+
+            foreach (Vegetable vege in vegetables)
+            {
+                vege.update(gameTime.ElapsedGameTime);
+            }
 
             int moleMiddleX = ((int)mole.position.X) / GRID_SIZE;
             int moleMiddleY = ((int)mole.position.Y) / GRID_SIZE;
@@ -197,11 +221,6 @@ namespace MoleHillMountain
             {
                 mole.stopMoving();
             }
-
-            //if (keyboardState.IsKeyDown(Keys.Q) && previousKeyboardState.IsKeyUp(Keys.Q))
-            //{
-            //    (sprites[0] as Sprite).nextFrame();
-            //}
 
             previousKeyboardState = keyboardState;
         }

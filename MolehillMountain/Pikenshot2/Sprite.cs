@@ -250,35 +250,39 @@ namespace MoleHillMountain
 
         public void draw(SpriteBatch spritebatch, Vector2 _position, int horzDirection, int verticalDirection)
         {
+            draw(spritebatch, _position, horzDirection, verticalDirection, Color.White);
+        }
+        public void draw(SpriteBatch spritebatch, Vector2 _position, int horzDirection, int verticalDirection, Color color)
+        {
 
             if (horzDirection == DIRECTION_LEFT)
             {
                 if (verticalDirection == DIRECTION_NONE)
                 {
-                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, Color.White, 0, _center, 1, SpriteEffects.None, 0);
+                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, color, 0, _center, 1, SpriteEffects.None, 0);
                 }
                 else if (verticalDirection == DIRECTION_UP)
                 {
-                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, Color.White, MathHelper.Pi * 0.5f, _center, 1, SpriteEffects.None, 0);
+                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, color, MathHelper.Pi * 0.5f, _center, 1, SpriteEffects.None, 0);
                 }
                 else
                 {
-                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, Color.White, MathHelper.Pi * 0.5f, _center, 1, SpriteEffects.FlipHorizontally, 0);
+                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, color, MathHelper.Pi * 0.5f, _center, 1, SpriteEffects.FlipHorizontally, 0);
                 }
             }
             else
             {
                 if (verticalDirection == DIRECTION_NONE)
                 {
-                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, Color.White, 0, _center, 1, SpriteEffects.FlipHorizontally, 0);
+                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, color, 0, _center, 1, SpriteEffects.FlipHorizontally, 0);
                 }
                 else if (verticalDirection == DIRECTION_UP)
                 {
-                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, Color.White, -MathHelper.Pi * 0.5f, _center, 1, SpriteEffects.FlipHorizontally, 0);
+                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, color, -MathHelper.Pi * 0.5f, _center, 1, SpriteEffects.FlipHorizontally, 0);
                 }
                 else
                 {
-                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, Color.White, -MathHelper.Pi * 0.5f, _center, 1, SpriteEffects.None, 0);
+                    spritebatch.Draw(_sourceBitmap, _position - _boundingVector, _currRect, color, -MathHelper.Pi * 0.5f, _center, 1, SpriteEffects.None, 0);
                 }
             }
         }
