@@ -10,7 +10,6 @@ namespace MoleHillMountain
 {
     internal class Mole
     {
-        const float AFTERIMAGE_TIME = 50f;
         const float WALK_SPEED = 38f;
         const float DIG_SPEED = 30f;
 
@@ -21,8 +20,6 @@ namespace MoleHillMountain
         public const int MOVING_DOWN = 4;
 
         const int STATE_DIGGING = 1;
-
-        float afterImageTimer;
 
         float animationTimer;
         float walkSpeed = WALK_SPEED;
@@ -42,9 +39,6 @@ namespace MoleHillMountain
         public int horzFacing = Sprite.DIRECTION_LEFT;
         public int vertFacing = Sprite.DIRECTION_NONE;
 
-        Queue<Vector2> afterImages;
-        Color[] afterImageColors;
-
         public Mole()
         {
             walking = new Sprite(PikeAndShotGame.MOLE_MINER_WALKING, new Rectangle(0, 0, 18, 18), 18, 18);
@@ -53,30 +47,13 @@ namespace MoleHillMountain
             animationTime = walkTime;
             position = new Vector2(10, 10);
             drawPosition = new Vector2(position.X, position.Y);
-
-            afterImages = new Queue<Vector2>();
-            afterImageTimer = AFTERIMAGE_TIME;
-            afterImageColors = new Color[5];
-            for (int i = 0; i < 5; i++)
-            {
-                afterImages.Enqueue(position);
-                afterImageColors[i] = new Color(0f + (1f / 6f * (i + 1)), 0f + (1f / 6f * (i + 1)), 0f + (1f / 6f * (i + 1)));
-            }
         }
 
         public void update(TimeSpan timeSpan)
         {
 
             animationTimer -= (float)timeSpan.TotalMilliseconds;
-            afterImageTimer -= (float)timeSpan.TotalMilliseconds;
-
-            if (afterImageTimer < 0)
-            {
-                afterImageTimer = AFTERIMAGE_TIME + afterImageTimer;
-                afterImages.Dequeue();
-                afterImages.Enqueue(position);
-            }
-
+           
             if (moving == MOVING_NONE)
             {
                 if ((state & STATE_DIGGING) != 0)
@@ -137,13 +114,7 @@ namespace MoleHillMountain
         }
         public void draw(SpriteBatch spritebatch)
         {
-            int i = 0;
-            foreach (Vector2 position in afterImages)
-            {
-                walkingSprite.draw(spritebatch, position + DungeonScreen.OFFSET, horzFacing, vertFacing, afterImageColors[i++]);
-            }
-            walkingSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
-            
+            walkingSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);  
         }
 
         void walk()

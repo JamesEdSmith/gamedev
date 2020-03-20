@@ -17,8 +17,9 @@ namespace MoleHillMountain
 
         public PikeAndShotGame _game;
         Mole mole;
-        Tunnel[,] tunnels;
+        public Tunnel[,] tunnels;
         ArrayList vegetables;
+        ArrayList deadStuff;
 
         protected KeyboardState keyboardState;
         protected KeyboardState previousKeyboardState;
@@ -52,6 +53,7 @@ namespace MoleHillMountain
 
             vegetables = new ArrayList(5);
             vegetables.Add(new Vegetable(3 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
+            deadStuff = new ArrayList(5);
         }
 
         internal Tunnel getTunnelBelow(Vector2 position)
@@ -68,7 +70,7 @@ namespace MoleHillMountain
         {
             Vector2 absPos = (mole.position - position);
 
-            if (Math.Abs(absPos.X) < GRID_SIZE/2 && ((int)(mole.position.Y - position.Y) > GRID_SIZE/2 && (int)(mole.position.Y - position.Y) < GRID_SIZE + 5))
+            if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(mole.position.Y - position.Y) > GRID_SIZE / 2 && (int)(mole.position.Y - position.Y) < GRID_SIZE + 5))
             {
                 return true;
             }
@@ -100,6 +102,19 @@ namespace MoleHillMountain
             foreach (Vegetable vege in vegetables)
             {
                 vege.update(gameTime.ElapsedGameTime);
+                if (vege.state == Vegetable.FALLING)
+                {
+                    checkCollisions(vege);
+                }
+                if(vege.state == Vegetable.DEAD)
+                {
+                    deadStuff.Add(vege);
+                }
+            }
+
+            foreach(Vegetable vege in deadStuff)
+            {
+                vegetables.Remove(vege);
             }
 
             int moleMiddleX = ((int)mole.position.X) / GRID_SIZE;
@@ -190,6 +205,27 @@ namespace MoleHillMountain
 
             prevMoleUp = moleUp;
             prevMoleDown = moleDown;
+        }
+
+        private void checkCollisions(Vegetable vege)
+        {
+            int middleX = ((int)vege.position.X) / GRID_SIZE;
+            int bottomY = ((int)vege.position.Y + GRID_SIZE / 2) / GRID_SIZE;
+
+
+            if (tunnels[middleX, bottomY].left != Tunnel.DUG && tunnels[middleX, bottomY].right != Tunnel.DUG
+                && tunnels[middleX, bottomY].top != Tunnel.DUG && tunnels[middleX, bottomY].bottom != Tunnel.DUG)
+            {
+                if (tunnels[middleX, bottomY].top != Tunnel.HALF_DUG)
+                {
+                    vege.split();
+                }
+            }
+            else
+            {
+                tunnels[middleX, bottomY].top = Tunnel.DUG;
+                tunnels[middleX, bottomY - 1].bottom = Tunnel.DUG;
+            }
         }
 
         private void getInput(TimeSpan timeSpan)

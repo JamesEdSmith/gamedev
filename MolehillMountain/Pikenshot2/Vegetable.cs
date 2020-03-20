@@ -13,31 +13,32 @@ namespace MoleHillMountain
         public const int NONE = 0;
         public const int SHAKING = 1;
         public const int FALLING = 2;
-        public const int BREAKING = 3;
+        public const int SPLITTING = 3;
+        public const int DEAD = 4;
 
         float animationTimer;
         float fallSpeed = 68f;
         float fallTime = 225f;
         float shakeTime = 595f;
-        float breakTime = 400f;
+        float splitTime = 400f;
         float animationTime;
 
         DungeonScreen dungeonScreen;
 
         Sprite shaking;
         Sprite falling;
-        Sprite breaking;
+        Sprite splitting;
         Sprite currSprite;
         public Vector2 position;
         Vector2 drawPosition;
         //not flags
-        int state = 0;
+        public int state = 0;
         public Vegetable(float x, float y, DungeonScreen dungeonScreen)
         {
             this.dungeonScreen = dungeonScreen;
             shaking = new Sprite(PikeAndShotGame.TURNIP_SHAKE, new Rectangle(0, 0, 20, 20), 20, 20);
             falling = new Sprite(PikeAndShotGame.TURNIP_TWIRL, new Rectangle(0, 0, 20, 20), 20, 20);
-            breaking = new Sprite(PikeAndShotGame.TURNIP_SPLIT, new Rectangle(0, 0, 40, 20), 40, 20);
+            splitting = new Sprite(PikeAndShotGame.TURNIP_SPLIT, new Rectangle(0, 0, 40, 20), 40, 20);
             currSprite = shaking;
             animationTime = shakeTime;
             position = new Vector2(x, y);
@@ -52,10 +53,11 @@ namespace MoleHillMountain
 
         internal void update(TimeSpan elapsedGameTime)
         {
-            Tunnel tunnelBelow = dungeonScreen.getTunnelBelow(position);
+            
 
             if (state == NONE)
             {
+                Tunnel tunnelBelow = dungeonScreen.getTunnelBelow(position);
                 if (tunnelBelow?.left == Tunnel.DUG || tunnelBelow?.right == Tunnel.DUG || tunnelBelow?.bottom == Tunnel.DUG || tunnelBelow?.top == Tunnel.DUG)
                 {
                     if (!dungeonScreen.molebelow(position))
@@ -88,6 +90,12 @@ namespace MoleHillMountain
                         animationTime = fallTime;
                         animationTimer = animationTime;
                     }
+                } else if (state == SPLITTING)
+                {
+                    if (animationTimer < 0)
+                    {
+                        state = DEAD;
+                    }
                 }
 
                 animate(elapsedGameTime);
@@ -103,6 +111,14 @@ namespace MoleHillMountain
             int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
 
             currSprite.setFrame(frameNumber);
+        }
+
+        internal void split()
+        {
+            state = SPLITTING;
+            currSprite = splitting;
+            animationTime = splitTime;
+            animationTimer = animationTime;
         }
     }
 }
