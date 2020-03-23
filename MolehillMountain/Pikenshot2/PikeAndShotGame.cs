@@ -388,6 +388,9 @@ namespace MoleHillMountain
         public static Texture2D TEST;
         public static Texture2D MOLE_MINER_WALKING;
         public static Texture2D MOLE_MINER_DIGGING;
+        public static Texture2D MOLE_MINER_NUDGE;
+        public static Texture2D MOLE_SQUASHED;
+
         public static Texture2D PALETTE;
         public static Texture2D BACKGROUND;
         public static Texture2D BACKGROUND2;
@@ -889,6 +892,8 @@ namespace MoleHillMountain
             //SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
             MOLE_MINER_WALKING = Content.Load<Texture2D>(@"mole_miner_sprite");
             MOLE_MINER_DIGGING = Content.Load<Texture2D>(@"mole_miner_sprite_dig");
+            MOLE_MINER_NUDGE = Content.Load<Texture2D>(@"mole_miner_nudge");
+            MOLE_SQUASHED = Content.Load<Texture2D>(@"mole_squashed");
             TUNNEL = Content.Load<Texture2D>(@"tunnel");
             TUNNEL_DIGGING = Content.Load<Texture2D>(@"tunnel_digging");
             TURNIP_SHAKE = Content.Load<Texture2D>(@"turnip_fall");

@@ -15,6 +15,10 @@ namespace MoleHillMountain
         public const int FALLING = 2;
         public const int SPLITTING = 3;
         public const int DEAD = 4;
+        public const int MOVING = 5;
+
+        bool listingLeft;
+        bool listingRight;
 
         float animationTimer;
         float fallSpeed = 68f;
@@ -33,6 +37,8 @@ namespace MoleHillMountain
         Vector2 drawPosition;
         //not flags
         public int state = 0;
+
+        public bool squashingMole;
         public Vegetable(float x, float y, DungeonScreen dungeonScreen)
         {
             this.dungeonScreen = dungeonScreen;
@@ -48,24 +54,47 @@ namespace MoleHillMountain
 
         public void draw(SpriteBatch spritebatch)
         {
-            currSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, 0, 0);
+            if (listingLeft)
+            {
+                shaking.setFrame(1);
+                shaking.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, 0, 0);
+            }
+            else if (listingRight)
+            {
+                shaking.setFrame(3);
+                shaking.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, 0, 0);
+            }
+            else
+            {
+                currSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, 0, 0);
+            }
         }
 
         internal void update(TimeSpan elapsedGameTime)
         {
-            
 
-            if (state == NONE)
+
+            if (state == NONE || state == MOVING)
             {
                 Tunnel tunnelBelow = dungeonScreen.getTunnelBelow(position);
                 if (tunnelBelow?.left == Tunnel.DUG || tunnelBelow?.right == Tunnel.DUG || tunnelBelow?.bottom == Tunnel.DUG || tunnelBelow?.top == Tunnel.DUG)
                 {
-                    if (!dungeonScreen.molebelow(position))
+                    if (!dungeonScreen.moleBelow(position))
                     {
-                        state = SHAKING;
-                        animationTime = shakeTime;
-                        animationTimer = animationTime;
-                        currSprite = shaking;
+                        if (state == NONE)
+                        {
+                            state = SHAKING;
+                            animationTime = shakeTime;
+                            animationTimer = animationTime;
+                            currSprite = shaking;
+                        }
+                        else
+                        {
+                            state = FALLING;
+                            currSprite = falling;
+                            animationTime = fallTime;
+                            animationTimer = animationTime;
+                        }
                     }
                 }
             }
@@ -85,12 +114,39 @@ namespace MoleHillMountain
                 else if (state == FALLING)
                 {
                     position.Y += (float)elapsedGameTime.TotalSeconds * fallSpeed;
+                    Tunnel tunnel = dungeonScreen.getTunnelBelow(position);
+
+                    if (tunnel != null)
+                    {
+                        if ((int)tunnel.position.X + Tunnel.center.X < (int)position.X)
+                        {
+                            position.X -= 60f * (float)elapsedGameTime.TotalSeconds;
+                            listingLeft = true;
+                        }
+                        else if ((int)tunnel.position.X + Tunnel.center.X > (int)position.X)
+                        {
+                            position.X += 60f * (float)elapsedGameTime.TotalSeconds;
+                            listingRight = true;
+                        }
+                        else
+                        {
+                            listingLeft = false;
+                            listingRight = false;
+                        }
+                    }
+                    if (dungeonScreen.moleJustBelow(position))
+                    {
+                        dungeonScreen.squashMole(this);
+                        squashingMole = true;
+                    }
+
                     if (animationTimer < 0)
                     {
                         animationTime = fallTime;
                         animationTimer = animationTime;
                     }
-                } else if (state == SPLITTING)
+                }
+                else if (state == SPLITTING)
                 {
                     if (animationTimer < 0)
                     {

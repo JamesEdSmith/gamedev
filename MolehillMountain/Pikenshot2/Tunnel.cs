@@ -19,7 +19,7 @@ namespace MoleHillMountain
 
         public static Vector2 center = new Vector2(DungeonScreen.GRID_SIZE / 2, DungeonScreen.GRID_SIZE / 2);
 
-        private Vector2 position;
+        public Vector2 position;
         public const int DUG = 2;
         public const int HALF_DUG = 1;
         public const int NOT_DUG = 0;

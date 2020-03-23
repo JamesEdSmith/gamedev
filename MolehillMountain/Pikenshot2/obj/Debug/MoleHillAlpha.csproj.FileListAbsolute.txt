@@ -435,3 +435,5 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\turnip_fall.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\turnip_split.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\turnip_twirl.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\mole_miner_nudge.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\mole_squashed.xnb

@@ -20,15 +20,20 @@ namespace MoleHillMountain
         public const int MOVING_DOWN = 4;
 
         const int STATE_DIGGING = 1;
+        const int STATE_NUDGING = 2;
+        const int STATE_SQUASHED = 4;
 
         float animationTimer;
-        float walkSpeed = WALK_SPEED;
+        public float walkSpeed = WALK_SPEED;
         float walkTime = 325f;
         float digTime = 650;
         float animationTime;
 
         Sprite walking;
         Sprite digging;
+        Sprite nudging;
+        Sprite squashed;
+
         Sprite walkingSprite;
         public Vector2 position;
         Vector2 drawPosition;
@@ -39,10 +44,16 @@ namespace MoleHillMountain
         public int horzFacing = Sprite.DIRECTION_LEFT;
         public int vertFacing = Sprite.DIRECTION_NONE;
 
-        public Mole()
+        DungeonScreen dungeonScene;
+        private Vegetable vegetable;
+
+        public Mole(DungeonScreen dungeonScene)
         {
+            this.dungeonScene = dungeonScene;
             walking = new Sprite(PikeAndShotGame.MOLE_MINER_WALKING, new Rectangle(0, 0, 18, 18), 18, 18);
             digging = new Sprite(PikeAndShotGame.MOLE_MINER_DIGGING, new Rectangle(0, 0, 18, 18), 18, 18);
+            nudging = new Sprite(PikeAndShotGame.MOLE_MINER_NUDGE, new Rectangle(0, 0, 18, 18), 18, 18);
+            squashed = new Sprite(PikeAndShotGame.MOLE_SQUASHED, new Rectangle(0, 0, 18, 18), 18, 18);
             walkingSprite = walking;
             animationTime = walkTime;
             position = new Vector2(10, 10);
@@ -53,8 +64,14 @@ namespace MoleHillMountain
         {
 
             animationTimer -= (float)timeSpan.TotalMilliseconds;
-           
-            if (moving == MOVING_NONE)
+
+            if ((state & STATE_SQUASHED) != 0)
+            {
+                position.Y = vegetable.position.Y + DungeonScreen.GRID_SIZE / 2 ;
+                drawPosition.X = (int)position.X;
+                drawPosition.Y = (int)position.Y;
+            }
+            else if (moving == MOVING_NONE)
             {
                 if ((state & STATE_DIGGING) != 0)
                 {
@@ -87,19 +104,51 @@ namespace MoleHillMountain
                 {
                     case MOVING_LEFT:
                         if (position.X > 10)
-                            position.X -= (float)timeSpan.TotalSeconds * walkSpeed;
+                        {
+                            if (!dungeonScene.vegetableLeft(this, (float)timeSpan.TotalSeconds * walkSpeed * 0.5f))
+                            {
+                                state &= ~STATE_NUDGING;
+                                position.X -= (float)timeSpan.TotalSeconds * walkSpeed;
+                            }
+                            else
+                            {
+                                state |= STATE_NUDGING;
+                                position.X -= (float)timeSpan.TotalSeconds * walkSpeed * 0.5f;
+                                animationTime = walkTime;
+                                walkingSprite = nudging;
+                            }
+                        }
                         break;
                     case MOVING_RIGHT:
                         if (position.X < DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_WIDTH - 0.5))
-                            position.X += (float)timeSpan.TotalSeconds * walkSpeed;
+                        {
+                            if (!dungeonScene.vegetableRight(this, (float)timeSpan.TotalSeconds * walkSpeed * 0.5f))
+                            {
+                                state &= ~STATE_NUDGING;
+                                position.X += (float)timeSpan.TotalSeconds * walkSpeed;
+                            }
+                            else
+                            {
+                                state |= STATE_NUDGING;
+                                position.X += (float)timeSpan.TotalSeconds * walkSpeed * 0.5f;
+                                animationTime = walkTime;
+                                walkingSprite = nudging;
+                            }
+                        }
                         break;
                     case MOVING_UP:
-                        if (position.Y > 10)
+                        if (position.Y > 10 && !dungeonScene.vegetableAbove(this))
+                        {
                             position.Y -= (float)timeSpan.TotalSeconds * walkSpeed;
+                            state &= ~STATE_NUDGING;
+                        }
                         break;
                     case MOVING_DOWN:
-                        if (position.Y < DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_HEIGHT - 0.5f))
+                        if (position.Y < DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_HEIGHT - 0.5f) && !dungeonScene.vegetableBelow(this))
+                        {
+                            state &= ~STATE_NUDGING;
                             position.Y += (float)timeSpan.TotalSeconds * walkSpeed;
+                        }
                         break;
                 }
                 drawPosition.X = (int)position.X;
@@ -114,7 +163,14 @@ namespace MoleHillMountain
         }
         public void draw(SpriteBatch spritebatch)
         {
-            walkingSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);  
+            if ((state & STATE_SQUASHED) == 0)
+            {
+                walkingSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
+            }
+            else
+            {
+                squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE);
+            }
         }
 
         void walk()
@@ -127,20 +183,23 @@ namespace MoleHillMountain
 
         public void setDig(bool yes)
         {
-            if (yes)
+            if ((state & STATE_NUDGING) == 0)
             {
-                state |= STATE_DIGGING;
-                walkingSprite = digging;
-                animationTime = digTime;
-            }
-            else
-            {
-                state &= ~STATE_DIGGING;
-                walkingSprite = walking;
-                animationTime = walkTime;
-                if (animationTimer > animationTime)
+                if (yes)
                 {
-                    animationTimer -= animationTime;
+                    state |= STATE_DIGGING;
+                    walkingSprite = digging;
+                    animationTime = digTime;
+                }
+                else
+                {
+                    state &= ~STATE_DIGGING;
+                    walkingSprite = walking;
+                    animationTime = walkTime;
+                    if (animationTimer > animationTime)
+                    {
+                        animationTimer -= animationTime;
+                    }
                 }
             }
         }
@@ -190,6 +249,12 @@ namespace MoleHillMountain
             {
                 down();
             }
+        }
+
+        internal void squash(Vegetable vegetable)
+        {
+            state |= STATE_SQUASHED;
+            this.vegetable = vegetable;
         }
 
         internal void moveUp()
@@ -270,6 +335,12 @@ namespace MoleHillMountain
         internal void stopMoving()
         {
             moving = MOVING_NONE;
+            state &= ~STATE_NUDGING;
+        }
+
+        internal bool alive()
+        {
+            return (state & STATE_SQUASHED) == 0;
         }
     }
 }
