@@ -42,9 +42,18 @@ namespace MoleHillMountain
         public Vegetable(float x, float y, DungeonScreen dungeonScreen)
         {
             this.dungeonScreen = dungeonScreen;
-            shaking = new Sprite(PikeAndShotGame.TURNIP_SHAKE, new Rectangle(0, 0, 20, 20), 20, 20);
-            falling = new Sprite(PikeAndShotGame.TURNIP_TWIRL, new Rectangle(0, 0, 20, 20), 20, 20);
-            splitting = new Sprite(PikeAndShotGame.TURNIP_SPLIT, new Rectangle(0, 0, 40, 20), 40, 20);
+            Random random = new Random();
+            if (random.Next(2) == 0)
+            {
+                shaking = new Sprite(PikeAndShotGame.TURNIP_SHAKE, new Rectangle(0, 0, 20, 20), 20, 20);
+                falling = new Sprite(PikeAndShotGame.TURNIP_TWIRL, new Rectangle(0, 0, 20, 20), 20, 20);
+                splitting = new Sprite(PikeAndShotGame.TURNIP_SPLIT, new Rectangle(0, 0, 40, 20), 40, 20);
+            } else
+            {
+                shaking = new Sprite(PikeAndShotGame.ONION_SHAKE, new Rectangle(0, 0, 20, 20), 20, 20);
+                falling = new Sprite(PikeAndShotGame.ONION_TWIRL, new Rectangle(0, 0, 20, 20), 20, 20);
+                splitting = new Sprite(PikeAndShotGame.ONION_SPLIT, new Rectangle(0, 0, 40, 20), 40, 20);
+            }
             currSprite = shaking;
             animationTime = shakeTime;
             position = new Vector2(x, y);
@@ -72,8 +81,6 @@ namespace MoleHillMountain
 
         internal void update(TimeSpan elapsedGameTime)
         {
-
-
             if (state == NONE || state == MOVING)
             {
                 Tunnel tunnelBelow = dungeonScreen.getTunnelBelow(position);

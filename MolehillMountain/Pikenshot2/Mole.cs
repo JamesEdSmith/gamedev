@@ -54,6 +54,7 @@ namespace MoleHillMountain
             digging = new Sprite(PikeAndShotGame.MOLE_MINER_DIGGING, new Rectangle(0, 0, 18, 18), 18, 18);
             nudging = new Sprite(PikeAndShotGame.MOLE_MINER_NUDGE, new Rectangle(0, 0, 18, 18), 18, 18);
             squashed = new Sprite(PikeAndShotGame.MOLE_SQUASHED, new Rectangle(0, 0, 18, 18), 18, 18);
+            squashed.setFrame(1);
             walkingSprite = walking;
             animationTime = walkTime;
             position = new Vector2(10, 10);
@@ -67,7 +68,7 @@ namespace MoleHillMountain
 
             if ((state & STATE_SQUASHED) != 0)
             {
-                position.Y = vegetable.position.Y + DungeonScreen.GRID_SIZE / 2 ;
+                position.Y = vegetable.position.Y + DungeonScreen.GRID_SIZE / 4 ;
                 drawPosition.X = (int)position.X;
                 drawPosition.Y = (int)position.Y;
             }

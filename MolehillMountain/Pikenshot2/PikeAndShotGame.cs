@@ -401,6 +401,9 @@ namespace MoleHillMountain
         public static Texture2D TURNIP_SHAKE;
         public static Texture2D TURNIP_SPLIT;
         public static Texture2D TURNIP_TWIRL;
+        public static Texture2D ONION_SHAKE;
+        public static Texture2D ONION_SPLIT;
+        public static Texture2D ONION_TWIRL;
 
         public Queue<Texture2D> prevFrames;
 
@@ -899,6 +902,11 @@ namespace MoleHillMountain
             TURNIP_SHAKE = Content.Load<Texture2D>(@"turnip_fall");
             TURNIP_TWIRL = Content.Load<Texture2D>(@"turnip_twirl");
             TURNIP_SPLIT = Content.Load<Texture2D>(@"turnip_split");
+            TUNNEL_DIGGING = Content.Load<Texture2D>(@"tunnel_digging");
+            ONION_SHAKE = Content.Load<Texture2D>(@"onion_shake");
+            ONION_TWIRL = Content.Load<Texture2D>(@"onion_twirl");
+            ONION_SPLIT = Content.Load<Texture2D>(@"onion_split");
+
             TEST = new Texture2D(GraphicsDevice, 1, 1);
             Color[] colors = { Color.Black };
             TEST.SetData(colors);

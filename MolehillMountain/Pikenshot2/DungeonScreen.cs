@@ -67,18 +67,6 @@ namespace MoleHillMountain
                 return null;
         }
 
-        internal bool moleBelow(Vector2 position)
-        {
-            Vector2 absPos = (mole.position - position);
-
-            if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(mole.position.Y - position.Y) > GRID_SIZE / 2 && (int)(mole.position.Y - position.Y) < GRID_SIZE + 5))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         public void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             foreach (Tunnel tunnel in tunnels)
@@ -217,11 +205,23 @@ namespace MoleHillMountain
             prevMoleDown = moleDown;
         }
 
+        internal bool moleBelow(Vector2 position)
+        {
+            Vector2 absPos = (mole.position - position);
+
+            if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(mole.position.Y - position.Y) > GRID_SIZE / 2 && (int)(mole.position.Y - position.Y) < GRID_SIZE + 5))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         internal bool moleJustBelow(Vector2 position)
         {
             Vector2 absPos = (mole.position - position);
 
-            if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(mole.position.Y - position.Y) > GRID_SIZE / 2 && (int)(mole.position.Y - position.Y) < GRID_SIZE - 6))
+            if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(mole.position.Y - position.Y) > 0 && (int)(mole.position.Y - position.Y) <= GRID_SIZE/4))
             {
                 return true;
             }
@@ -305,7 +305,7 @@ namespace MoleHillMountain
 
             if(vege.squashingMole)
             {
-                bottomY = ((int)vege.position.Y + GRID_SIZE) / GRID_SIZE;
+                bottomY = ((int)vege.position.Y + GRID_SIZE*3/4) / GRID_SIZE;
             }
 
             if (bottomY >= GRID_HEIGHT)
