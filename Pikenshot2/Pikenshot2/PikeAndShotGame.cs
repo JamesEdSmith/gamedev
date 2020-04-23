@@ -377,12 +377,6 @@ namespace PikeAndShot
         public static Texture2D DOT;
         public static Texture2D SWORD_POINTER;
         public static Texture2D TEST;
-        public static Texture2D GIRL;
-        public static Texture2D STAR;
-        public static Texture2D DISK1;
-        public static Texture2D DISK2;
-        public static Texture2D DISK3;
-        public static Texture2D ARROW_DOWN;
 
         //Audio
         public static Song THEME_1;
@@ -833,13 +827,7 @@ namespace PikeAndShot
 
             DOT = Content.Load<Texture2D>(@"dot");
             SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
-            TEST = Content.Load<Texture2D>(@"promo_bg");
-            GIRL = Content.Load<Texture2D>(@"promo_girl");
-            STAR = Content.Load<Texture2D>(@"star");
-            DISK1 = Content.Load<Texture2D>(@"promo_disks_1");
-            DISK2 = Content.Load<Texture2D>(@"promo_disks_2");
-            DISK3 = Content.Load<Texture2D>(@"promo_disks_3");
-            ARROW_DOWN = Content.Load<Texture2D>(@"arrow_down");
+            TEST = Content.Load<Texture2D>(@"riches");
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
             SPARKLE = Content.Load<Texture2D>(@"sparkle");

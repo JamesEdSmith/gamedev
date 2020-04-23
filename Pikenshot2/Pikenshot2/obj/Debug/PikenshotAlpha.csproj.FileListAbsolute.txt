@@ -1227,10 +1227,5 @@ D:\backup\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotAlpha.csproj.CopyComp
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\speaker3.xnb
 D:\backup\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotAlpha.csprojAssemblyReference.cache
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\Hellovetica.xnb
-D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\promo_bg.xnb
-D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\promo_girl.xnb
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\star.xnb
-D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\promo_disks_1.xnb
-D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\promo_disks_2.xnb
-D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\promo_disks_3.xnb
-D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\arrow_down.xnb
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\riches.xnb
