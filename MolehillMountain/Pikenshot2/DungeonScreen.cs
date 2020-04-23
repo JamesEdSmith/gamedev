@@ -81,6 +81,8 @@ namespace MoleHillMountain
 
             mole.draw(spriteBatch);
 
+            spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle(40 + (int)OFFSET.X, -2 + (int)OFFSET.Y, 100, 100), new Rectangle(0, 0, 100, 100), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
+
         }
 
         public void update(GameTime gameTime)
@@ -221,7 +223,7 @@ namespace MoleHillMountain
         {
             Vector2 absPos = (mole.position - position);
 
-            if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(mole.position.Y - position.Y) > 0 && (int)(mole.position.Y - position.Y) <= GRID_SIZE/4))
+            if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(mole.position.Y - position.Y) > 0 && (int)(mole.position.Y - position.Y) <= GRID_SIZE / 4))
             {
                 return true;
             }
@@ -303,9 +305,9 @@ namespace MoleHillMountain
             int middleX = ((int)vege.position.X) / GRID_SIZE;
             int bottomY = ((int)vege.position.Y + GRID_SIZE / 2) / GRID_SIZE;
 
-            if(vege.squashingMole)
+            if (vege.squashingMole)
             {
-                bottomY = ((int)vege.position.Y + GRID_SIZE*3/4) / GRID_SIZE;
+                bottomY = ((int)vege.position.Y + GRID_SIZE * 3 / 4) / GRID_SIZE;
             }
 
             if (bottomY >= GRID_HEIGHT)

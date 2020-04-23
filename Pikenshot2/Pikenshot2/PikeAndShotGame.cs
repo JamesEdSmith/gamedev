@@ -18,8 +18,8 @@ namespace PikeAndShot
         public const bool DEBUG = false;
         public static bool TEST_BOSS = false;
 
-        public const int SCREENWIDTH = 1024;
-        public const int SCREENHEIGHT = 1000;//768;
+        public const int SCREENWIDTH = 640;
+        public const int SCREENHEIGHT = 400;//768;
 
         public const int SCREEN_LEVELPLAY = 0;
         public const int SCREEN_FORMATIONMAKER = 1;
@@ -377,6 +377,12 @@ namespace PikeAndShot
         public static Texture2D DOT;
         public static Texture2D SWORD_POINTER;
         public static Texture2D TEST;
+        public static Texture2D GIRL;
+        public static Texture2D STAR;
+        public static Texture2D DISK1;
+        public static Texture2D DISK2;
+        public static Texture2D DISK3;
+        public static Texture2D ARROW_DOWN;
 
         //Audio
         public static Song THEME_1;
@@ -433,8 +439,8 @@ namespace PikeAndShot
             graphics.ApplyChanges();
             if (!DEBUG)
             {
-                graphics.PreferredBackBufferWidth = SCREENWIDTH + 50;
-                graphics.PreferredBackBufferHeight = SCREENHEIGHT + 50;
+                graphics.PreferredBackBufferWidth = SCREENWIDTH;// + 50;
+                graphics.PreferredBackBufferHeight = SCREENHEIGHT;// + 50;
                 graphics.IsFullScreen = false;
                 graphics.ApplyChanges();
                 //make it full screen... (borderless if you want to is an option as well)
@@ -481,7 +487,7 @@ namespace PikeAndShot
 
             setDrawRect();
 
-            soldierFont = Content.Load<SpriteFont>("SpriteFont1");
+            soldierFont = Content.Load<SpriteFont>("Hellovetica");
 
             ShaderRenderTarget = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
             ShaderRenderTarget2 = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
@@ -827,7 +833,13 @@ namespace PikeAndShot
 
             DOT = Content.Load<Texture2D>(@"dot");
             SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
-            TEST = Content.Load<Texture2D>(@"announcement");
+            TEST = Content.Load<Texture2D>(@"promo_bg");
+            GIRL = Content.Load<Texture2D>(@"promo_girl");
+            STAR = Content.Load<Texture2D>(@"star");
+            DISK1 = Content.Load<Texture2D>(@"promo_disks_1");
+            DISK2 = Content.Load<Texture2D>(@"promo_disks_2");
+            DISK3 = Content.Load<Texture2D>(@"promo_disks_3");
+            ARROW_DOWN = Content.Load<Texture2D>(@"arrow_down");
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
             SPARKLE = Content.Load<Texture2D>(@"sparkle");
@@ -971,7 +983,7 @@ namespace PikeAndShot
                     GraphicsDevice.Viewport = viewport;
                     GraphicsDevice.Clear(screenColorShader);
                     //get rid of blurry sprites
-                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null, mapTransform);
 
                     if (_currScreen != null)
                     {

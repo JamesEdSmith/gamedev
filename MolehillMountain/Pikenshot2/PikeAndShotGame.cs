@@ -405,6 +405,8 @@ namespace MoleHillMountain
         public static Texture2D ONION_SPLIT;
         public static Texture2D ONION_TWIRL;
 
+        public static Texture2D SANDBOX;
+
         public Queue<Texture2D> prevFrames;
 
         //Audio
@@ -906,6 +908,8 @@ namespace MoleHillMountain
             ONION_SHAKE = Content.Load<Texture2D>(@"onion_shake");
             ONION_TWIRL = Content.Load<Texture2D>(@"onion_twirl");
             ONION_SPLIT = Content.Load<Texture2D>(@"onion_split");
+
+            SANDBOX = Content.Load<Texture2D>(@"sandbox");
 
             TEST = new Texture2D(GraphicsDevice, 1, 1);
             Color[] colors = { Color.Black };
