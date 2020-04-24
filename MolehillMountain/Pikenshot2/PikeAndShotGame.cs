@@ -386,6 +386,7 @@ namespace MoleHillMountain
         public static Texture2D DOT;
         public static Texture2D SWORD_POINTER;
         public static Texture2D TEST;
+
         public static Texture2D MOLE_MINER_WALKING;
         public static Texture2D MOLE_MINER_DIGGING;
         public static Texture2D MOLE_MINER_NUDGE;
@@ -395,15 +396,22 @@ namespace MoleHillMountain
         public static Texture2D BACKGROUND;
         public static Texture2D BACKGROUND2;
         public static Texture2D BACKGROUND3;
+
         public static Texture2D SCREEN_TEXT;
+
         public static Texture2D TUNNEL;
         public static Texture2D TUNNEL_DIGGING;
+
         public static Texture2D TURNIP_SHAKE;
         public static Texture2D TURNIP_SPLIT;
         public static Texture2D TURNIP_TWIRL;
+
         public static Texture2D ONION_SHAKE;
         public static Texture2D ONION_SPLIT;
         public static Texture2D ONION_TWIRL;
+
+        public static Texture2D RAT_WALKING;
+
 
         public static Texture2D SANDBOX;
 
@@ -908,6 +916,8 @@ namespace MoleHillMountain
             ONION_SHAKE = Content.Load<Texture2D>(@"onion_shake");
             ONION_TWIRL = Content.Load<Texture2D>(@"onion_twirl");
             ONION_SPLIT = Content.Load<Texture2D>(@"onion_split");
+
+            RAT_WALKING = Content.Load<Texture2D>(@"rat_walk_one");
 
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
 

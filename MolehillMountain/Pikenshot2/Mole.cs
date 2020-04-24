@@ -29,12 +29,12 @@ namespace MoleHillMountain
         float digTime = 650;
         float animationTime;
 
-        Sprite walking;
+        protected Sprite walking;
         Sprite digging;
         Sprite nudging;
         Sprite squashed;
 
-        Sprite walkingSprite;
+        protected Sprite walkingSprite;
         public Vector2 position;
         Vector2 drawPosition;
         //flags
@@ -44,7 +44,7 @@ namespace MoleHillMountain
         public int horzFacing = Sprite.DIRECTION_LEFT;
         public int vertFacing = Sprite.DIRECTION_NONE;
 
-        DungeonScreen dungeonScene;
+        protected DungeonScreen dungeonScene;
         private Vegetable vegetable;
 
         public Mole(DungeonScreen dungeonScene)
@@ -61,7 +61,7 @@ namespace MoleHillMountain
             drawPosition = new Vector2(position.X, position.Y);
         }
 
-        public void update(TimeSpan timeSpan)
+        public virtual void update(TimeSpan timeSpan)
         {
 
             animationTimer -= (float)timeSpan.TotalMilliseconds;
@@ -205,7 +205,7 @@ namespace MoleHillMountain
             }
         }
 
-        internal void moveLeft()
+        public virtual void moveLeft()
         {
             int vert = getVert();
             if (vert == 0)
@@ -235,7 +235,7 @@ namespace MoleHillMountain
             return remainder - (int)(DungeonScreen.GRID_SIZE * 0.5f);
         }
 
-        internal void moveRight()
+        public virtual void moveRight()
         {
             int vert = getVert();
             if (vert == 0)
@@ -258,7 +258,7 @@ namespace MoleHillMountain
             this.vegetable = vegetable;
         }
 
-        internal void moveUp()
+        public virtual void moveUp()
         {
             int horz = getHorz();
             if (horz == 0)
@@ -275,7 +275,7 @@ namespace MoleHillMountain
             }
         }
 
-        internal void moveDown()
+        public virtual void moveDown()
         {
             int horz = getHorz();
             if (horz == 0)

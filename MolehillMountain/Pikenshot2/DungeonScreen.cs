@@ -15,9 +15,15 @@ namespace MoleHillMountain
         public const int GRID_HEIGHT = 9;
         public static Vector2 OFFSET = new Vector2(8, 6);
 
+        internal Tunnel getCurrTunnel(Vector2 position)
+        {
+            return tunnels[(int)position.X / GRID_SIZE, (int)position.Y / GRID_SIZE];
+        }
+
         public PikeAndShotGame _game;
         Mole mole;
         public Tunnel[,] tunnels;
+        ArrayList enemies;
         ArrayList vegetables;
         ArrayList deadStuff;
 
@@ -54,11 +60,11 @@ namespace MoleHillMountain
             vegetables = new ArrayList(5);
             vegetables.Add(new Vegetable(3 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
             deadStuff = new ArrayList(5);
+            enemies = new ArrayList(10);
         }
 
         internal Tunnel getTunnelBelow(Vector2 position)
         {
-            int yText = (int)((position.Y + GRID_SIZE) / GRID_SIZE) + 1;
             int x = (int)(position.X / GRID_SIZE);
             int y = (int)(position.Y / GRID_SIZE) + 1;
             if (x < GRID_WIDTH && y < GRID_HEIGHT)
@@ -79,9 +85,14 @@ namespace MoleHillMountain
                 vegetable.draw(spriteBatch);
             }
 
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.draw(spriteBatch);
+            }
+
             mole.draw(spriteBatch);
 
-            spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle(40 + (int)OFFSET.X, -2 + (int)OFFSET.Y, 100, 100), new Rectangle(0, 0, 100, 100), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
+            //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle(100 + (int)OFFSET.X, -1 + (int)OFFSET.Y, 100, 100), new Rectangle(0, 0, 100, 100), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
 
         }
 
@@ -106,6 +117,11 @@ namespace MoleHillMountain
             foreach (Vegetable vege in deadStuff)
             {
                 vegetables.Remove(vege);
+            }
+
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.update(gameTime.ElapsedGameTime);
             }
 
             if (mole.alive())
@@ -319,7 +335,14 @@ namespace MoleHillMountain
             {
                 if (tunnels[middleX, bottomY].top != Tunnel.HALF_DUG)
                 {
-                    vege.split();
+                    if ((int)vege.position.Y - vege.fallingFrom > GRID_SIZE)
+                    {
+                        vege.split();
+                    }
+                    else
+                    {
+                        vege.land();
+                    }
                 }
             }
             else
@@ -362,7 +385,14 @@ namespace MoleHillMountain
                 }
             }
 
+            if (keyboardState.IsKeyDown(Keys.Q) && previousKeyboardState.IsKeyUp(Keys.Q)) 
+            {
+                enemies.Add(new Enemy(this));
+            }
+                
+
             previousKeyboardState = keyboardState;
+            previousGamePadState = gamePadState;
         }
     }
 }

@@ -38,7 +38,10 @@ namespace MoleHillMountain
         //not flags
         public int state = 0;
 
+        public int fallingFrom;
+
         public bool squashingMole;
+        public bool gonnaBreak;
         public Vegetable(float x, float y, DungeonScreen dungeonScreen)
         {
             this.dungeonScreen = dungeonScreen;
@@ -48,7 +51,8 @@ namespace MoleHillMountain
                 shaking = new Sprite(PikeAndShotGame.TURNIP_SHAKE, new Rectangle(0, 0, 20, 20), 20, 20);
                 falling = new Sprite(PikeAndShotGame.TURNIP_TWIRL, new Rectangle(0, 0, 20, 20), 20, 20);
                 splitting = new Sprite(PikeAndShotGame.TURNIP_SPLIT, new Rectangle(0, 0, 40, 20), 40, 20);
-            } else
+            }
+            else
             {
                 shaking = new Sprite(PikeAndShotGame.ONION_SHAKE, new Rectangle(0, 0, 20, 20), 20, 20);
                 falling = new Sprite(PikeAndShotGame.ONION_TWIRL, new Rectangle(0, 0, 20, 20), 20, 20);
@@ -97,12 +101,13 @@ namespace MoleHillMountain
                         }
                         else
                         {
-                            state = FALLING;
-                            currSprite = falling;
-                            animationTime = fallTime;
-                            animationTimer = animationTime;
+                            fall();
                         }
                     }
+                }
+                if (state == MOVING)
+                {
+                    state = NONE;
                 }
             }
             else
@@ -112,10 +117,7 @@ namespace MoleHillMountain
                 {
                     if (animationTimer < 0)
                     {
-                        state = FALLING;
-                        currSprite = falling;
-                        animationTime = fallTime;
-                        animationTimer = animationTime;
+                        fall();
                     }
                 }
                 else if (state == FALLING)
@@ -145,6 +147,7 @@ namespace MoleHillMountain
                     {
                         dungeonScreen.squashMole(this);
                         squashingMole = true;
+                        gonnaBreak = true;
                     }
 
                     if (animationTimer < 0)
@@ -167,6 +170,15 @@ namespace MoleHillMountain
             drawPosition.Y = (int)position.Y;
         }
 
+        private void fall()
+        {
+            state = FALLING;
+            currSprite = falling;
+            animationTime = fallTime;
+            animationTimer = animationTime;
+            fallingFrom = (int)position.Y;
+        }
+
         private void animate(TimeSpan elapsedGameTime)
         {
             int maxFrames = currSprite.getMaxFrames();
@@ -182,6 +194,12 @@ namespace MoleHillMountain
             currSprite = splitting;
             animationTime = splitTime;
             animationTimer = animationTime;
+        }
+
+        internal void land()
+        {
+            state = Vegetable.NONE;
+            currSprite.setFrame(0);
         }
     }
 }
