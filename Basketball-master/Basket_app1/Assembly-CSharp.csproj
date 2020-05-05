@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Project\Scripts\Ball.cs" />
+    <Compile Include="Assets\Project\Scripts\fts.cs" />
     <Compile Include="Assets\Project\Scripts\GameController.cs" />
     <Compile Include="Assets\Project\Scripts\Player.cs" />
     <Compile Include="Assets\Project\Scripts\ScoreArea.cs" />

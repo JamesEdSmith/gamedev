@@ -28,12 +28,16 @@ public class Player : MonoBehaviour
     private float gravity = Physics.gravity.y;
 
     public Transform basket;
+    Vector3 s0;
+    Vector3 s1;
 
 
     // Use this for initialization
     void Start()
     {
         ball.GetComponent<Rigidbody>().useGravity = false;
+        s0 = new Vector3();
+        s1 = new Vector3();
 
     }
 
@@ -47,20 +51,8 @@ public class Player : MonoBehaviour
             float y = target.y - transform.position.y;
             target.y = 0;
             float x = (target - transform.position).sqrMagnitude;
-            
-            //calc ball angle
-            float wofkep = gravity * (gravity * Mathf.Pow(x, 2) + 2f * y * Mathf.Pow(ballThrowingForce, 2));
-            float i = (Mathf.Pow(ballThrowingForce, 2) + Mathf.Sqrt(Mathf.Pow(ballThrowingForce, 4) - gravity * (gravity * Mathf.Pow(x, 2) + 2f * y * Mathf.Pow(ballThrowingForce, 2))));
-            float angle = (Mathf.Pow(ballThrowingForce, 2) + Mathf.Sqrt(Mathf.Pow(ballThrowingForce, 4) - gravity * (gravity * Mathf.Pow(x, 2) + 2f * y * Mathf.Pow(ballThrowingForce, 2)))) / (gravity * x);
-            angleToBasket = Mathf.Atan(angle);
-            if (float.IsNaN(angleToBasket))
-            {
-                angle = 0;
-            }
-            else
-            {
-                Debug.Log("tell me");
-            }
+
+            fts.solve_ballistic_arc(ball.transform.position, ballThrowingForce, basket.TransformPoint(Vector3.zero), Physics.gravity.y * -1, out s0, out s1);
 
             
             //clic mouse
@@ -72,7 +64,7 @@ public class Player : MonoBehaviour
                 ball.GetComponent<Rigidbody>().useGravity = true;
                 Transform transformRotation = transform;
                 transformRotation.Rotate(Mathf.Rad2Deg * angleToBasket, 0, 0);
-                ball.GetComponent<Rigidbody>().velocity = transformRotation.forward * ballThrowingForce;
+                ball.GetComponent<Rigidbody>().AddForce(s1.x,s1.y,s1.z,ForceMode.Impulse);
                 //Quaternion.AngleAxis(Mathf.Rad2Deg * angleToBasket, Vector3.left) 
             }
 
