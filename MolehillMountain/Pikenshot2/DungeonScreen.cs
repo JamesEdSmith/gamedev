@@ -40,27 +40,7 @@ namespace MoleHillMountain
         public DungeonScreen(PikeAndShotGame game)
         {
             _game = game;
-            mole = new Mole(this);
-            tunnels = new Tunnel[GRID_WIDTH, GRID_HEIGHT];
-            for (int j = 0; j < GRID_HEIGHT; j++)
-            {
-                for (int i = 0; i < GRID_WIDTH; i++)
-                {
-                    tunnels[i, j] = new Tunnel(i * GRID_SIZE, j * GRID_SIZE);
-                }
-            }
-            tunnels[0, 0].right = Tunnel.DUG;
-            tunnels[1, 0].left = Tunnel.DUG;
-
-            prevMoleLeft = ((int)mole.position.X - GRID_SIZE / 4) / GRID_SIZE;
-            prevMoleRight = ((int)mole.position.X + GRID_SIZE / 4) / GRID_SIZE;
-            prevMoleUp = ((int)mole.position.Y - GRID_SIZE / 4) / GRID_SIZE;
-            prevMoleDown = ((int)mole.position.Y + GRID_SIZE / 4) / GRID_SIZE;
-
-            vegetables = new ArrayList(5);
-            vegetables.Add(new Vegetable(3 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
-            deadStuff = new ArrayList(5);
-            enemies = new ArrayList(10);
+            init();
         }
 
         internal Tunnel getTunnelBelow(Vector2 position)
@@ -103,7 +83,7 @@ namespace MoleHillMountain
 
             foreach (Vegetable vege in vegetables)
             {
-                vege.update(gameTime.ElapsedGameTime);
+                vege.update(gameTime);
                 if (vege.state == Vegetable.FALLING)
                 {
                     checkCollisions(vege);
@@ -351,7 +331,6 @@ namespace MoleHillMountain
                 tunnels[middleX, bottomY - 1].bottom = Tunnel.DUG;
             }
         }
-
         private void getInput(TimeSpan timeSpan)
         {
             keyboardState = Keyboard.GetState();
@@ -389,10 +368,41 @@ namespace MoleHillMountain
             {
                 enemies.Add(new Enemy(this));
             }
-                
+            else if (keyboardState.IsKeyDown(Keys.R) && previousKeyboardState.IsKeyUp(Keys.R))
+            {
+                init();
+            }
+
 
             previousKeyboardState = keyboardState;
             previousGamePadState = gamePadState;
+        }
+
+        private void init()
+        {
+            mole = new Mole(this);
+            tunnels = new Tunnel[GRID_WIDTH, GRID_HEIGHT];
+            for (int j = 0; j < GRID_HEIGHT; j++)
+            {
+                for (int i = 0; i < GRID_WIDTH; i++)
+                {
+                    tunnels[i, j] = new Tunnel(i * GRID_SIZE, j * GRID_SIZE);
+                }
+            }
+            tunnels[0, 0].right = Tunnel.DUG;
+            tunnels[1, 0].left = Tunnel.DUG;
+
+            prevMoleLeft = ((int)mole.position.X - GRID_SIZE / 4) / GRID_SIZE;
+            prevMoleRight = ((int)mole.position.X + GRID_SIZE / 4) / GRID_SIZE;
+            prevMoleUp = ((int)mole.position.Y - GRID_SIZE / 4) / GRID_SIZE;
+            prevMoleDown = ((int)mole.position.Y + GRID_SIZE / 4) / GRID_SIZE;
+
+            vegetables = new ArrayList(5);
+            vegetables.Add(new Vegetable(4 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
+            vegetables.Add(new Vegetable(3 * GRID_SIZE - GRID_SIZE * 0.5f, 1 * GRID_SIZE - GRID_SIZE * 0.5f, this));
+            vegetables.Add(new Vegetable(5 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
+            deadStuff = new ArrayList(5);
+            enemies = new ArrayList(10);
         }
     }
 }

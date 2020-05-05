@@ -10,6 +10,8 @@ namespace MoleHillMountain
 {
     class Vegetable
     {
+        static Random random = new Random();
+
         public const int NONE = 0;
         public const int SHAKING = 1;
         public const int FALLING = 2;
@@ -45,18 +47,20 @@ namespace MoleHillMountain
         public Vegetable(float x, float y, DungeonScreen dungeonScreen)
         {
             this.dungeonScreen = dungeonScreen;
-            Random random = new Random();
+            
             if (random.Next(2) == 0)
             {
                 shaking = new Sprite(PikeAndShotGame.TURNIP_SHAKE, new Rectangle(0, 0, 20, 20), 20, 20);
                 falling = new Sprite(PikeAndShotGame.TURNIP_TWIRL, new Rectangle(0, 0, 20, 20), 20, 20);
                 splitting = new Sprite(PikeAndShotGame.TURNIP_SPLIT, new Rectangle(0, 0, 40, 20), 40, 20);
+                fallTime = 112.5f;
             }
             else
             {
                 shaking = new Sprite(PikeAndShotGame.ONION_SHAKE, new Rectangle(0, 0, 20, 20), 20, 20);
                 falling = new Sprite(PikeAndShotGame.ONION_TWIRL, new Rectangle(0, 0, 20, 20), 20, 20);
                 splitting = new Sprite(PikeAndShotGame.ONION_SPLIT, new Rectangle(0, 0, 40, 20), 40, 20);
+                fallTime = 225f;
             }
             currSprite = shaking;
             animationTime = shakeTime;
@@ -83,8 +87,9 @@ namespace MoleHillMountain
             }
         }
 
-        internal void update(TimeSpan elapsedGameTime)
+        internal void update(GameTime gameTime)
         {
+            TimeSpan elapsedGameTime = gameTime.ElapsedGameTime;
             if (state == NONE || state == MOVING)
             {
                 Tunnel tunnelBelow = dungeonScreen.getTunnelBelow(position);
@@ -166,8 +171,17 @@ namespace MoleHillMountain
 
                 animate(elapsedGameTime);
             }
-            drawPosition.X = (int)position.X;
-            drawPosition.Y = (int)position.Y;
+
+            if (state == SHAKING)
+            {
+                drawPosition.X = (int)position.X + (int)(1.1f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds/25f));
+                drawPosition.Y = (int)position.Y + (int)(1.1f * (float)Math.Cos(gameTime.TotalGameTime.TotalMilliseconds/25f));
+            }
+            else
+            {
+                drawPosition.X = (int)position.X;
+                drawPosition.Y = (int)position.Y;
+            }
         }
 
         private void fall()
@@ -181,11 +195,13 @@ namespace MoleHillMountain
 
         private void animate(TimeSpan elapsedGameTime)
         {
-            int maxFrames = currSprite.getMaxFrames();
-            float frameTime = animationTime / (float)maxFrames;
-            int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
-
-            currSprite.setFrame(frameNumber);
+            if (state != SHAKING)
+            {
+                int maxFrames = currSprite.getMaxFrames();
+                float frameTime = animationTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
+                currSprite.setFrame(frameNumber);
+            }
         }
 
         internal void split()
