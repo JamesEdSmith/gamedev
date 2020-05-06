@@ -68,6 +68,7 @@
     <Compile Include="Assets\Project\Scripts\GameController.cs" />
     <Compile Include="Assets\Project\Scripts\Player.cs" />
     <Compile Include="Assets\Project\Scripts\ScoreArea.cs" />
+    <Compile Include="Assets\Target.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/backup/gamedev/Basketball-master/Basket_app1/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

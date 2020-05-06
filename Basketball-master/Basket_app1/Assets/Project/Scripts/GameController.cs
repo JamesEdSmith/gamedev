@@ -14,27 +14,34 @@ public class GameController : MonoBehaviour
     public Player player;
     public GameObject floor;
     public GameObject marker;
+    public Ball[] balls;
+    public GameObject[] keys;
+    int keyIndex = 0;
 
-    ArrayList balls;
-
-    public GameObject ballPrefab;
-
-    const float RANDOM_RANGE = 5;
+    const float RANDOM_RANGE = 3;
 
     // Use this for initialization
     void Start()
     {
-        balls = new ArrayList();
-    }
-
-    internal void removeBall(Ball ball)
-    {
-        balls.Remove(ball);
+        if(keys[keyIndex] != null)
+        {
+            keys[keyIndex].GetComponent<Target>().activate(true);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            keys[keyIndex].GetComponent<Target>().activate(false);
+            keyIndex++;
+            if(keyIndex>= keys.Length)
+            {
+                keyIndex = 0;
+            }
+            keys[keyIndex].GetComponent<Target>().activate(true);
+        }
         // create a ray from the mousePosition
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         // plane.Raycast returns the distance from the ray start to the hit point
@@ -50,14 +57,20 @@ public class GameController : MonoBehaviour
         if (respawnBallTimer < 0)
         {
             respawnBallTimer = RESPAWN_BALL_TIME;
-            if (balls.Count < 3)
+            foreach (Ball ball in balls)
             {
-                GameObject newBall = Instantiate(ballPrefab, new Vector3(UnityEngine.Random.Range(-RANDOM_RANGE, RANDOM_RANGE), 0, UnityEngine.Random.Range(-RANDOM_RANGE, RANDOM_RANGE)), Quaternion.identity);
-                newBall.GetComponent<Ball>().gameController = this;
-                Ball ball = newBall.GetComponent<Ball>();
-                balls.Add(newBall);
+                if (ball.dead) {
+                    ball.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    ball.gameObject.transform.position = new Vector3(UnityEngine.Random.Range(-RANDOM_RANGE, RANDOM_RANGE), 10, UnityEngine.Random.Range(-RANDOM_RANGE, RANDOM_RANGE));
+                    ball.dead = false;
+                }
             }
         }
 
+    }
+
+    internal Transform getActiveKey()
+    {
+        return keys[keyIndex].GetComponent<Target>().floor.transform;
     }
 }

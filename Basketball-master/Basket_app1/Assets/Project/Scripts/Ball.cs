@@ -7,6 +7,8 @@ public class Ball : MonoBehaviour
 
     public GameObject trailObject;
     public GameController gameController;
+    internal bool dead = false;
+    Player player;
 
     // Use this for initialization
     void Start()
@@ -22,18 +24,22 @@ public class Ball : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y < 4)
+        if (transform.position.y < -4)
         {
-            gameController.removeBall(this);
-            Destroy(this);
+            dead = true;
+            
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
         Player player = collision.gameObject.GetComponent<Player>();
-        if ( player != null)//&& !player.holdingBall && player.canCatchBall
+        if (player != null)//&& !player.holdingBall && player.canCatchBall
         {
             player.catchBall(this);
+            if (this.player != null)
+            {
+                this.player.loseBall();
+            }
         }
     }
 }

@@ -8,8 +8,12 @@ public class Player : MonoBehaviour
     const float MAX_MOVEMEN_SPEED = 12;
     const float CATCH_BALL_TIME = 0.5f;
     const float SHOOT_BALL_TIME = 0.5f;
+    const float STUN_TIME = 1f;
+
+    public GameController gameController;
 
     float canCatchBallTimer = CATCH_BALL_TIME;
+    float stunTimer = 0;
     float shootBallTimer = SHOOT_BALL_TIME;
     public Ball ball;
     public float ballDistance = 1f;
@@ -25,21 +29,33 @@ public class Player : MonoBehaviour
     //values for internal use
     private Quaternion _lookRotation;
     private Vector3 _direction;
-    public float sqrMagnitude;
+    
     public float movementSpeed = 0;
     public float decellMagnitude = 20;
 
     public float angleToBasket;
     private float gravity = Physics.gravity.y;
 
+    internal void loseBall()
+    {
+        holdingBall = false;
+        ball = null;
+        stunTimer = STUN_TIME;
+    }
+
     public Transform basket;
     Vector3 s0;
     Vector3 s1;
     internal bool canCatchBall = false;
     private bool shooting = false;
+    public bool cpu = true;
 
     void Start()
     {
+        if (cpu)
+        {
+            decellMagnitude = 2;
+        }
         s0 = new Vector3();
         s1 = new Vector3();
     }
@@ -99,10 +115,10 @@ public class Player : MonoBehaviour
 
             //click mouse
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                shootBall();
-            }
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    shootBall();
+            //}
         }
         else
         {
@@ -116,76 +132,99 @@ public class Player : MonoBehaviour
             }
         }
 
-        /*if (Input.GetMouseButtonDown(1))
+        float sqrMagnitude = -1;
+        if (stunTimer <= 0)
         {
-            ball.GetComponent<Rigidbody>().useGravity = false;
-            ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            ball.ActivateTrail(false);
-            holdingBall = true;
-            canCatchBall = false;
-            canCatchBallTimer = CATCH_BALL_TIME;
-        }*/
-
-        //find the vector pointing from our position to the target
-        Vector3 targetPosition = target.position;
-        targetPosition.y = transform.position.y;
-        _direction = (targetPosition - transform.position).normalized;
-
-        //create the rotation we need to be in to look at the target
-        _lookRotation = Quaternion.LookRotation(_direction);
-
-        //rotate us over time according to speed until we are in the required rotation
-        transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * RotationSpeed);
-
-        sqrMagnitude = (targetPosition - transform.position).sqrMagnitude;
-        if (sqrMagnitude > 1)
-        {
-            shootBallTimer = SHOOT_BALL_TIME;
-
-            if (movementSpeed < MAX_MOVEMEN_SPEED)
+            if (cpu)
             {
-                movementSpeed += 8f * Time.deltaTime;
-            }
-            else
-            {
-                movementSpeed = MAX_MOVEMEN_SPEED;
-            }
-            if (sqrMagnitude < decellMagnitude)
-            {
-                movementSpeed = sqrMagnitude / decellMagnitude * MAX_MOVEMEN_SPEED;
-            }
-
-            transform.position += transform.forward * Time.deltaTime * movementSpeed;
-        }
-        else
-        {
-            if (movementSpeed > 0)
-            {
-                movementSpeed -= 10f * Time.deltaTime;
-            }
-            else
-            {
-                movementSpeed = 0;
-            }
-
-            if (shooting && holdingBall)
-            {
-                shootBallTimer -= Time.deltaTime;
-                if (shootBallTimer < 0)
+                if (!holdingBall)
                 {
-                    shootBall();
+                    foreach (Ball ball in gameController.balls)
+                    {
+                        float newSqrMagnitude = (ball.transform.position - transform.position).sqrMagnitude;
+                        if (sqrMagnitude < 0 || sqrMagnitude > newSqrMagnitude)
+                        {
+                            sqrMagnitude = newSqrMagnitude;
+                            target = ball.transform;
+                        }
+
+                    }
+                }
+                else
+                {
+                    target = gameController.getActiveKey();
+                }
+            }
+
+            //find the vector pointing from our position to the target
+            Vector3 targetPosition = target.TransformPoint(Vector3.zero);
+            targetPosition.y = transform.position.y;
+            _direction = (targetPosition - transform.position).normalized;
+
+            //create the rotation we need to be in to look at the target
+            _lookRotation = Quaternion.LookRotation(_direction);
+
+            //rotate us over time according to speed until we are in the required rotation
+            transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * RotationSpeed);
+
+            sqrMagnitude = (targetPosition - transform.position).sqrMagnitude;
+            if ((cpu && sqrMagnitude > 0.01f) || (!cpu && sqrMagnitude > 1))
+            {
+                shootBallTimer = SHOOT_BALL_TIME;
+
+                if (movementSpeed < MAX_MOVEMEN_SPEED)
+                {
+                    movementSpeed += 8f * Time.deltaTime;
+                }
+                else
+                {
+                    movementSpeed = MAX_MOVEMEN_SPEED;
+                }
+                if (sqrMagnitude < decellMagnitude)
+                {
+                    movementSpeed = sqrMagnitude / decellMagnitude * MAX_MOVEMEN_SPEED;
+                }
+
+                transform.position += transform.forward * Time.deltaTime * movementSpeed;
+            }
+            else
+            {
+                if (movementSpeed > 0)
+                {
+                    movementSpeed -= 10f * Time.deltaTime;
+                }
+                else
+                {
+                    movementSpeed = 0;
+                }
+
+                if (shooting && holdingBall)
+                {
+                    shootBallTimer -= Time.deltaTime;
+                    if (shootBallTimer < 0)
+                    {
+                        shootBall();
+                        shootBallTimer = SHOOT_BALL_TIME;
+                    }
+                }
+                else
+                {
                     shootBallTimer = SHOOT_BALL_TIME;
                 }
             }
-            else
-            {
-                shootBallTimer = SHOOT_BALL_TIME;
-            }
+        }
+        else
+        {
+            stunTimer -= Time.deltaTime;
         }
     }
 
     private void shootBall()
     {
+        if (cpu)
+        {
+            stunTimer = STUN_TIME;
+        }
         holdingBall = false;
         ball.ActivateTrail(true);
         ball.GetComponent<Rigidbody>().useGravity = true;
