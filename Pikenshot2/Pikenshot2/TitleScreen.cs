@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
@@ -42,19 +41,26 @@ namespace PikeAndShot
 
         private void newFrameEvent(object sender, NewFrameEventArgs eventArgs)
         {
-            texture = ConvertToTexture((Bitmap)eventArgs.Frame.Clone(), _game.GraphicsDevice);
-        }
+            Bitmap bmp = (Bitmap)eventArgs.Frame.Clone();
 
-        public static Texture2D ConvertToTexture(System.Drawing.Bitmap b, GraphicsDevice graphicsDevice)
-        {
-            Texture2D tx = null;
-            using (MemoryStream s = new MemoryStream())
+            rect.Width = bmp.Width;
+            rect.Height = bmp.Height;
+
+            System.Drawing.Imaging.BitmapData data = bmp.LockBits(rect,
+            System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+            byte[] bytes = new byte[data.Height * data.Width * 4];
+
+            System.Runtime.InteropServices.Marshal.Copy(data.Scan0, bytes, 0, bytes.Length);
+
+            // Unlock the bits.
+            bmp.UnlockBits(data);
+            if (texture == null)
             {
-                b.Save(s, System.Drawing.Imaging.ImageFormat.Png);
-                s.Seek(0, SeekOrigin.Begin);
-                tx = Texture2D.FromStream(graphicsDevice, s);
+                texture = new Texture2D(_game.GraphicsDevice, bmp.Width, bmp.Height);
             }
-            return tx;
+            texture.SetData<byte>(bytes, 0, data.Height * data.Width * 4);
+
         }
 
         public override void update(GameTime gameTime)
