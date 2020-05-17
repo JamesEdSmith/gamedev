@@ -1228,4 +1228,10 @@ D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\speak
 D:\backup\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotAlpha.csprojAssemblyReference.cache
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\Hellovetica.xnb
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\star.xnb
-D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\riches.xnb
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\attempt_flyer_online2_june_2020.xnb
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.dll
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.Video.DirectShow.dll
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.Video.dll
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.xml
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.Video.xml
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.Video.DirectShow.xml

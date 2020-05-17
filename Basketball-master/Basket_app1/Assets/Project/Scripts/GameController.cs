@@ -41,9 +41,12 @@ public class GameController : MonoBehaviour
                 keyIndex = 0;
             }
             keys[keyIndex].GetComponent<Target>().activate(true);
+        }else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
-        // create a ray from the mousePosition
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            // create a ray from the mousePosition
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         // plane.Raycast returns the distance from the ray start to the hit point
         float distance = 1000;
         if (floor.GetComponent<BoxCollider>().Raycast(ray, out RaycastHit info, distance))

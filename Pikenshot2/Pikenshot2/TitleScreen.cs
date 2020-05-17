@@ -2,25 +2,59 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using AForge;
+using AForge.Video;
+using AForge.Video.DirectShow;
+using System.Drawing;
 
 namespace PikeAndShot
 {
     class TitleScreen : BattleScreen
     {
-
         Sprite title;
-
 
         private float waitTime = 2000f;
         private float fadeTime = 1000f;
 
+        private System.Drawing.Rectangle rect;
+
+        private FilterInfoCollection captureDevices;
+        Texture2D texture;
+        private VideoCaptureDevice videoSource;
+
         public TitleScreen(PikeAndShotGame game)
             : base(game)
         {
-            title = new Sprite(PikeAndShotGame.TITLE_ANIMATION, new Rectangle(253, 122, 253, 122), 506, 244);
+            title = new Sprite(PikeAndShotGame.TITLE_ANIMATION, new Microsoft.Xna.Framework.Rectangle(253, 122, 253, 122), 506, 244);
+            captureDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            if (captureDevices.Count > 0)
+            {
+                videoSource = new VideoCaptureDevice(captureDevices[0].MonikerString);
+                videoSource.NewFrame += new NewFrameEventHandler(newFrameEvent);
+                videoSource.Start();
+            }
+
+        }
+
+        private void newFrameEvent(object sender, NewFrameEventArgs eventArgs)
+        {
+            texture = ConvertToTexture((Bitmap)eventArgs.Frame.Clone(), _game.GraphicsDevice);
+        }
+
+        public static Texture2D ConvertToTexture(System.Drawing.Bitmap b, GraphicsDevice graphicsDevice)
+        {
+            Texture2D tx = null;
+            using (MemoryStream s = new MemoryStream())
+            {
+                b.Save(s, System.Drawing.Imaging.ImageFormat.Png);
+                s.Seek(0, SeekOrigin.Begin);
+                tx = Texture2D.FromStream(graphicsDevice, s);
+            }
+            return tx;
         }
 
         public override void update(GameTime gameTime)
@@ -54,7 +88,10 @@ namespace PikeAndShot
 
         public override void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(PikeAndShotGame.TEST, new Vector2(40, 50), Color.White);
+            if (texture != null)
+            {
+                spriteBatch.Draw(texture, new Microsoft.Xna.Framework.Rectangle(0, 0, rect.Width, rect.Height), Microsoft.Xna.Framework.Color.White);
+            }
             //title.draw(spriteBatch, new Vector2(PikeAndShotGame.SCREENWIDTH / 2f, PikeAndShotGame.SCREENHEIGHT / 3f), SIDE_PLAYER);
             //if (fadeTime <= 0)
             //{
@@ -69,7 +106,10 @@ namespace PikeAndShot
             gamePadState = GamePad.GetState(PlayerIndex.One);
 
             if (keyboardState.IsKeyDown(Keys.Escape) || GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            {
+                videoSource.Stop();
                 _game.Exit();
+            }
             if ((keyboardState.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyUp(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.A) && previousGamePadState.IsButtonUp(Buttons.A)))
             {
                 _game.setScreen(PikeAndShotGame.SCREEN_LEVELPLAY);
