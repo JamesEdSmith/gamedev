@@ -31,7 +31,7 @@ namespace MoleHillMountain
 
         protected Sprite walking;
         Sprite digging;
-        Sprite nudging;
+        protected Sprite nudging;
         Sprite squashed;
 
         protected Sprite walkingSprite;

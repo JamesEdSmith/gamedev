@@ -23,14 +23,16 @@ namespace MoleHillMountain
         public Enemy(DungeonScreen dungeonScene) : base(dungeonScene)
         {
             walking = new Sprite(PikeAndShotGame.RAT_WALKING, new Rectangle(0, 0, 18, 18), 22, 18);
+            
             walkingSprite = walking;
-
+            nudging = new Sprite(PikeAndShotGame.RAT_NUDGE, new Rectangle(0, 0, 18, 18), 22, 18);
             clearDirections = new ArrayList(4);
         }
 
         public override void update(TimeSpan timeSpan)
         {
             Tunnel newTunnel = dungeonScene.getCurrTunnel(position);
+            setDig(false);
             if (tunnel == null || newTunnel != tunnel)
             {
                 tunnel = newTunnel;

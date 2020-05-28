@@ -411,6 +411,7 @@ namespace MoleHillMountain
         public static Texture2D ONION_TWIRL;
 
         public static Texture2D RAT_WALKING;
+        public static Texture2D RAT_NUDGE;
 
 
         public static Texture2D SANDBOX;
@@ -918,6 +919,7 @@ namespace MoleHillMountain
             ONION_SPLIT = Content.Load<Texture2D>(@"onion_split");
 
             RAT_WALKING = Content.Load<Texture2D>(@"rat_walk_one");
+            RAT_NUDGE = Content.Load<Texture2D>(@"rat_push");
 
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
 
