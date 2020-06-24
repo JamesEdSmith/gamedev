@@ -25,6 +25,7 @@ namespace MoleHillMountain
         public Tunnel[,] tunnels;
         ArrayList enemies;
         ArrayList vegetables;
+        ArrayList pickups;
         ArrayList deadStuff;
 
         protected KeyboardState keyboardState;
@@ -65,6 +66,11 @@ namespace MoleHillMountain
                 vegetable.draw(spriteBatch);
             }
 
+            foreach(Pickup pickup in pickups)
+            {
+                pickup.draw(spriteBatch);
+            }
+
             foreach (Enemy enemy in enemies)
             {
                 enemy.draw(spriteBatch);
@@ -72,7 +78,7 @@ namespace MoleHillMountain
 
             mole.draw(spriteBatch);
 
-            //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle(100 + (int)OFFSET.X, -1 + (int)OFFSET.Y, 100, 100), new Rectangle(0, 0, 100, 100), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
+//            spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 110 + (int)OFFSET.Y, 70, 70), new Rectangle(128, 0, 70, 70), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
 
         }
 
@@ -97,6 +103,11 @@ namespace MoleHillMountain
             foreach (Vegetable vege in deadStuff)
             {
                 vegetables.Remove(vege);
+            }
+
+            foreach(Pickup pickup in pickups)
+            {
+                pickup.update(gameTime);
             }
 
             foreach (Enemy enemy in enemies)
@@ -398,9 +409,14 @@ namespace MoleHillMountain
             prevMoleDown = ((int)mole.position.Y + GRID_SIZE / 4) / GRID_SIZE;
 
             vegetables = new ArrayList(5);
-            vegetables.Add(new Vegetable(4 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
-            vegetables.Add(new Vegetable(3 * GRID_SIZE - GRID_SIZE * 0.5f, 1 * GRID_SIZE - GRID_SIZE * 0.5f, this));
-            vegetables.Add(new Vegetable(5 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
+            //vegetables.Add(new Vegetable(4 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
+            vegetables.Add(new Vegetable(2 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
+            //vegetables.Add(new Vegetable(5 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
+
+            pickups = new ArrayList(80);
+            pickups.Add(new Pickup(5 * GRID_SIZE - GRID_SIZE * 0.5f, 2 * GRID_SIZE - GRID_SIZE * 0.5f, this));
+
+
             deadStuff = new ArrayList(5);
             enemies = new ArrayList(10);
         }

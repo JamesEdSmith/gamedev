@@ -1254,10 +1254,7 @@
     <Content Include="Content\Hellovetica.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\attempt_flyer_online2_june_2020.xnb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\some_poster_big.xnb">
+    <Content Include="Content\flyer_july_2020.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Content\speaker3.xnb">

@@ -1,0 +1,3 @@
+C:\Users\roomf\Desktop\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csprojAssemblyReference.cache
+C:\Users\roomf\Desktop\MolehillMountain\Pikenshot2\obj\x64\Debug\PikenshotDemo.exe
+C:\Users\roomf\Desktop\MolehillMountain\Pikenshot2\obj\x64\Debug\PikenshotDemo.pdb
