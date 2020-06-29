@@ -35,13 +35,14 @@ namespace MoleHillMountain
         SpriteBatch spriteBatch;
 
         Rectangle testDrawRectangle = new Rectangle(0, 0, SCREENWIDTH, SCREENHEIGHT);
-        Rectangle drawRectangle = new Rectangle(0, 0, SCREENWIDTH, SCREENHEIGHT);
+        Rectangle drawRectangle = new Rectangle(205, 96, 660, 604);
         Rectangle fullDrawRectangle = new Rectangle(0, 0, SCREENWIDTH + 50, SCREENHEIGHT + 50);
         Rectangle screenDrawRectangle = new Rectangle(0, 25, 25, SCREENHEIGHT);
         Rectangle screenDrawRectangle2 = new Rectangle(SCREENWIDTH + 25, 25, 25, SCREENHEIGHT);
         Rectangle screenDrawRectangle3 = new Rectangle(0, 22, SCREENWIDTH + 50, 3);
         Rectangle screenDrawRectangle4 = new Rectangle(0, SCREENHEIGHT + 25, SCREENWIDTH + 50, 3);
         Rectangle drawSourceRectangle = new Rectangle(2, 2, SCREENWIDTH, SCREENHEIGHT);
+        Vector2 pocketPos = new Vector2(-1, 0);
 
         RenderTarget2D ShaderRenderTarget;
         RenderTarget2D ShaderRenderTarget2;
@@ -548,7 +549,7 @@ namespace MoleHillMountain
 
         private void Window_ClientSizeChanged(object sender, EventArgs e)
         {
-            setDrawRect();
+            //setDrawRect();
         }
 
         /// <summary>
@@ -572,7 +573,7 @@ namespace MoleHillMountain
             spriteBatch = new SpriteBatch(GraphicsDevice);
             viewport = GraphicsDevice.Viewport;
 
-            setDrawRect();
+            //setDrawRect();
 
             soldierFont = Content.Load<SpriteFont>("SpriteFont1");
 
@@ -1172,12 +1173,13 @@ namespace MoleHillMountain
                     effect3.Parameters["$PASS2"].SetValue(ShaderRenderTarget);
                     GraphicsDevice.SetRenderTarget(null);
                     GraphicsDevice.Clear(screenColorShader);
+
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
-                    //spriteBatch.Draw(BACKGROUND2, fullDrawRectangle, Color.White);
-                    spriteBatch.Draw(ShaderRenderTarget, drawRectangle, testDrawRectangle, Color.White);
+                    spriteBatch.Draw(ShaderRenderTarget, drawRectangle, drawRectangle, Color.White);
                     spriteBatch.End();
+
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null);
-                    spriteBatch.Draw(POCKET, Vector2.Zero, Color.White);
+                    spriteBatch.Draw(POCKET, pocketPos, Color.White);
                     spriteBatch.End();
 
                 }
@@ -1292,7 +1294,7 @@ namespace MoleHillMountain
                 this.Window.AllowUserResizing = true;
             }
 
-            setDrawRect();
+            //setDrawRect();
         }
 
         void setDrawRect()

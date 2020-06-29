@@ -10,6 +10,7 @@ namespace MoleHillMountain
 {
     class DungeonScreen : GameScreen
     {
+        static Random random = new Random();
         public const int GRID_SIZE = 20;
         public const int GRID_WIDTH = 12;
         public const int GRID_HEIGHT = 9;
@@ -66,7 +67,7 @@ namespace MoleHillMountain
                 vegetable.draw(spriteBatch);
             }
 
-            foreach(Pickup pickup in pickups)
+            foreach (Pickup pickup in pickups)
             {
                 pickup.draw(spriteBatch);
             }
@@ -78,7 +79,7 @@ namespace MoleHillMountain
 
             mole.draw(spriteBatch);
 
-//            spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 110 + (int)OFFSET.Y, 70, 70), new Rectangle(128, 0, 70, 70), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
+            //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 90 + (int)OFFSET.Y, 70, 100), new Rectangle(128, 0, 70, 100), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
 
         }
 
@@ -105,7 +106,7 @@ namespace MoleHillMountain
                 vegetables.Remove(vege);
             }
 
-            foreach(Pickup pickup in pickups)
+            foreach (Pickup pickup in pickups)
             {
                 pickup.update(gameTime);
             }
@@ -120,6 +121,36 @@ namespace MoleHillMountain
                 updateTunnels();
             }
 
+        }
+
+        internal int checkMoleSight(Vector2 position)
+        {
+            Vector2 distance = mole.position - position;
+            float avg = (Math.Abs(distance.X) + Math.Abs(distance.Y)) / 2f;
+            //if ((int)Math.Abs(distance.X) <= GRID_SIZE && (int)Math.Abs(distance.Y) <= GRID_SIZE)
+            //{
+            //    return Pickup.SEEN;
+            //}
+            //else if ((int)Math.Abs(distance.X) <= GRID_SIZE * 2 && (int)Math.Abs(distance.Y) <= GRID_SIZE * 2)
+            //{
+            //    return Pickup.HALF_SEEN;
+            //}
+            //else
+            //{
+            //    return Pickup.NOT_SEEN;
+            //}
+            if (avg <= GRID_SIZE * 0.9f)
+            {
+                return Pickup.SEEN;
+            }
+            else if (avg <= GRID_SIZE * 1.5f)
+            {
+                return Pickup.HALF_SEEN;
+            }
+            else
+            {
+                return Pickup.NOT_SEEN;
+            }
         }
 
         void updateTunnels()
@@ -375,7 +406,7 @@ namespace MoleHillMountain
                 }
             }
 
-            if (keyboardState.IsKeyDown(Keys.Q) && previousKeyboardState.IsKeyUp(Keys.Q)) 
+            if (keyboardState.IsKeyDown(Keys.Q) && previousKeyboardState.IsKeyUp(Keys.Q))
             {
                 enemies.Add(new Enemy(this));
             }
@@ -400,25 +431,85 @@ namespace MoleHillMountain
                     tunnels[i, j] = new Tunnel(i * GRID_SIZE, j * GRID_SIZE);
                 }
             }
-            tunnels[0, 0].right = Tunnel.DUG;
-            tunnels[1, 0].left = Tunnel.DUG;
+
+            //tunnels[0, 0].right = Tunnel.DUG;
+            //tunnels[1, 0].left = Tunnel.DUG;
+            vegetables = new ArrayList(5);
+            //vegetables.Add(new Vegetable(4 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
+            //vegetables.Add(new Vegetable(2 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
+            //vegetables.Add(new Vegetable(5 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
+
+            pickups = new ArrayList(40);
+            //pickups.Add(new Pickup(5, 2, this));
+            //pickups.Add(new Pickup(6, 2, this));
+
+            deadStuff = new ArrayList(5);
+            enemies = new ArrayList(10);
+
+            generateLevel();
 
             prevMoleLeft = ((int)mole.position.X - GRID_SIZE / 4) / GRID_SIZE;
             prevMoleRight = ((int)mole.position.X + GRID_SIZE / 4) / GRID_SIZE;
             prevMoleUp = ((int)mole.position.Y - GRID_SIZE / 4) / GRID_SIZE;
             prevMoleDown = ((int)mole.position.Y + GRID_SIZE / 4) / GRID_SIZE;
-
-            vegetables = new ArrayList(5);
-            //vegetables.Add(new Vegetable(4 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
-            vegetables.Add(new Vegetable(2 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
-            //vegetables.Add(new Vegetable(5 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
-
-            pickups = new ArrayList(80);
-            pickups.Add(new Pickup(5 * GRID_SIZE - GRID_SIZE * 0.5f, 2 * GRID_SIZE - GRID_SIZE * 0.5f, this));
-
-
-            deadStuff = new ArrayList(5);
-            enemies = new ArrayList(10);
         }
+
+        private void generateLevel()
+        {
+            int[,] generatedTunnels = new int[GRID_WIDTH, GRID_HEIGHT];
+            int currX = 0;
+            int currY = random.Next(GRID_HEIGHT);
+
+            while (currX < GRID_WIDTH && generatedTunnels[currX, currY] != 1)
+            {
+                generatedTunnels[currX, currY] = 1;
+
+                switch (random.Next(6))
+                {
+                    case 0:
+                        if (currY > 0 && generatedTunnels[currX, currY - 1] != 1)
+                        {
+                            currY--;
+                        }
+                        break;
+                    case 1:
+                        if (currY < GRID_HEIGHT - 1 && generatedTunnels[currX, currY + 1] != 1)
+                        {
+                            currY++;
+                        }
+                        break;
+                    default:
+                        currX++;
+                        break;
+                }
+            }
+
+            for (int j = 0; j < GRID_HEIGHT; j++)
+            {
+                for (int i = 0; i < GRID_WIDTH; i++)
+                {
+                    if (generatedTunnels[i, j] == 1)
+                    {
+                        if (i > 0 && generatedTunnels[i - 1, j] == 1)
+                        {
+                            tunnels[i, j].left = Tunnel.DUG;
+                        }
+                        if (i < GRID_WIDTH - 1 && generatedTunnels[i + 1, j] == 1)
+                        {
+                            tunnels[i, j].right = Tunnel.DUG;
+                        }
+                        if (j > 0 && generatedTunnels[i, j - 1] == 1)
+                        {
+                            tunnels[i, j].top = Tunnel.DUG;
+                        }
+                        if (j < GRID_HEIGHT - 1 && generatedTunnels[i, j + 1] == 1)
+                        {
+                            tunnels[i, j].bottom = Tunnel.DUG;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

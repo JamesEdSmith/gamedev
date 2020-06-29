@@ -35,7 +35,7 @@ namespace MoleHillMountain
         {
             title = new Sprite(PikeAndShotGame.JAMEBOY, new Microsoft.Xna.Framework.Rectangle(0, 0, 54, 15), 108, 30);
             titlePosition = new Vector2();
-            titlePosition.X = 128 - 54;
+            titlePosition.X = 130 - 54;
             captureDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             if (captureDevices.Count > 0)
             {
@@ -50,63 +50,64 @@ namespace MoleHillMountain
         {
             //if (!titleFlag)
             //{
-                bmp = (Bitmap)eventArgs.Frame.Clone();
+            bmp = (Bitmap)eventArgs.Frame.Clone();
 
-                rect.Width = bmp.Width;
-                rect.Height = bmp.Height;
+            rect.Width = bmp.Width;
+            rect.Height = bmp.Height;
 
-                data = bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            data = bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-                bytes = new byte[data.Height * data.Width * 4];
+            bytes = new byte[data.Height * data.Width * 4];
 
-                System.Runtime.InteropServices.Marshal.Copy(data.Scan0, bytes, 0, bytes.Length);
 
-                // Unlock the bits.
-                bmp.UnlockBits(data);
-                bool blueMatch;
-                bool greenMatch;
-                bool redMatch;
-                for (int i = 0; i < bytes.Length; i += 4)
+            System.Runtime.InteropServices.Marshal.Copy(data.Scan0, bytes, 0, bytes.Length);
+
+            // Unlock the bits.
+            bmp.UnlockBits(data);
+            bool blueMatch;
+            bool greenMatch;
+            bool redMatch;
+            for (int i = 0; i < bytes.Length; i += 4)
+            {
+                //blueMatch = bytes[i] < 90;
+                //greenMatch = bytes[i+1] < 95;
+                //redMatch = bytes[i + 2] > 170;
+                //if (blueMatch && greenMatch && redMatch)
+                //{
+                //    bytes[i] = bytes[i + 1] = bytes[i + 2] = 255;
+                //}
+                //else
+                //{
+                //    blueMatch = true;
+                //}
+                byte avg = (byte)((bytes[i] + bytes[i + 1] + bytes[i + 2]) * 0.333);
+                //light boost
+                if (avg < 255 - lightBoost)
                 {
-                    //blueMatch = bytes[i] < 90;
-                    //greenMatch = bytes[i+1] < 95;
-                    //redMatch = bytes[i + 2] > 170;
-                    //if (blueMatch && greenMatch && redMatch)
-                    //{
-                    //    bytes[i] = bytes[i + 1] = bytes[i + 2] = 255;
-                    //}
-                    //else
-                    //{
-                    //    blueMatch = true;
-                    //}
-                    byte avg = (byte)((bytes[i] + bytes[i + 1] + bytes[i + 2]) * 0.333);
-                    //light boost
-                    if (avg < 255 - lightBoost)
-                    {
-                        avg += (byte)lightBoost;
-                    }
-
-                    avg = (byte)(avg * 0.023);
-                    int temp = (byte)((avg + 1) * 42);
-                    if (temp > 255)
-                    {
-                        avg = 255;
-                    }
-                    else
-                    {
-                        avg = (byte)temp;
-                    }
-
-
-                    bytes[i] = bytes[i + 1] = bytes[i + 2] = avg;
+                    avg += (byte)lightBoost;
                 }
 
-                if (texture == null)
+                avg = (byte)(avg * 0.023);
+                int temp = (byte)((avg + 1) * 42);
+                if (temp > 255)
                 {
-                    texture = new Texture2D(_game.GraphicsDevice, bmp.Width, bmp.Height);
+                    avg = 255;
                 }
-                texture.SetData<byte>(bytes, 0, data.Height * data.Width * 4);
-           // }
+                else
+                {
+                    avg = (byte)temp;
+                }
+
+
+                bytes[i] = bytes[i + 1] = bytes[i + 2] = avg;
+            }
+
+            if (texture == null)
+            {
+                texture = new Texture2D(_game.GraphicsDevice, bmp.Width, bmp.Height);
+            }
+            texture.SetData<byte>(bytes, 0, data.Height * data.Width * 4);
+            // }
         }
 
         public override void update(GameTime gameTime)
@@ -139,7 +140,8 @@ namespace MoleHillMountain
                 if (fadeTime > 0)
                 {
                     titlePosition.Y = 65 - 65 * (fadeTime / 2000f);
-                }else
+                }
+                else
                 {
                     titlePosition.Y = 65;
                 }
