@@ -464,13 +464,18 @@ namespace MoleHillMountain
             //generate
             for (int i = 0; i < generations; i++)
             {
-                switch (random.Next(2))
+                switch (random.Next(5))
                 {
                     case 0:
+                    case 1:
                         generatedTunnels[i] = generateVerticalLine();
                         break;
-                    default:
+                    case 2:
+                    case 3:
                         generatedTunnels[i] = generateHorizontalLine();
+                        break;
+                    default:
+                        generatedTunnels[i] = generateLoop();
                         break;
                 }
             }
@@ -557,6 +562,105 @@ namespace MoleHillMountain
                         break;
                 }
             }
+            return generatedTunnels;
+        }
+
+        private int[,] generateLoop()
+        {
+            int[,] generatedTunnels = new int[GRID_WIDTH, GRID_HEIGHT];
+
+            int radiusX = random.Next(3, (GRID_WIDTH + GRID_HEIGHT) / 4 );
+            int radiusY = random.Next(3, (GRID_WIDTH + GRID_HEIGHT) / 4 );
+
+            int currX = random.Next(radiusX, GRID_WIDTH - radiusX);
+            int initialX = currX;
+            int currY = random.Next(0, GRID_HEIGHT - radiusY * 2); ;
+            int initial = currY;
+
+            while (currX - initialX < radiusX)
+            {
+                generatedTunnels[currX, currY] = 1;
+
+                int downPaths = (int)(((float)currX - (float)initialX) * ((float)radiusY / (float)(radiusX+1)));
+                for (int j = 0; j < downPaths; j++)
+                {
+                    currY++;
+                    if (currY >= GRID_HEIGHT)
+                    {
+                        currY = GRID_HEIGHT - 1;
+                    }
+                    generatedTunnels[currX, currY] = 1;
+                }
+                currX++;
+                if (currX >= GRID_WIDTH)
+                {
+                    currX = GRID_WIDTH - 1;
+                }
+            }
+
+            while (currX - initialX > 0)
+            {
+                generatedTunnels[currX, currY] = 1;
+
+                int downPaths = (int)(((float)currX - (float)initialX) * ((float)radiusY / (float)(radiusX + 1)));
+                for (int j = 0; j < downPaths; j++)
+                {
+                    currY++;
+                    if (currY >= GRID_HEIGHT)
+                    {
+                        currY = GRID_HEIGHT - 1;
+                    }
+                    generatedTunnels[currX, currY] = 1;
+                }
+                currX--;
+                if (currX < 0)
+                {
+                    currX = 0;
+                }
+            }
+
+            while (currX - initialX > -radiusX)
+            {
+                generatedTunnels[currX, currY] = 1;
+
+                int downPaths = (int)(((float)currX - (float)initialX) * -1 * ((float)radiusY / (float)(radiusX + 1)));
+                for (int j = 0; j < downPaths; j++)
+                {
+                    currY--;
+                    if (currY < 0 )
+                    {
+                        currY = 0;
+                    }
+                    generatedTunnels[currX, currY] = 1;
+                }
+                currX--;
+                if (currX < 0)
+                {
+                    currX = 0;
+                }
+            }
+
+            while (currX - initialX < 0)
+            {
+                generatedTunnels[currX, currY] = 1;
+
+                int downPaths = (int)(((float)currX - (float)initialX) * -1 * ((float)radiusY / (float)(radiusX + 1)));
+                for (int j = 0; j < downPaths; j++)
+                {
+                    currY--;
+                    if (currY < 0)
+                    {
+                        currY = 0;
+                    }
+                    generatedTunnels[currX, currY] = 1;
+                }
+                currX++;
+                if (currX >= GRID_WIDTH)
+                {
+                    currX = GRID_WIDTH - 1;
+                }
+            }
+
             return generatedTunnels;
         }
 
