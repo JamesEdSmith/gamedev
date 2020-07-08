@@ -15,10 +15,15 @@ namespace MoleHillMountain
     class TitleScreen : BattleScreen
     {
         Sprite title;
+        Sprite subTitle;
         Vector2 titlePosition;
+        Texture2D testTexture;
+        Microsoft.Xna.Framework.Rectangle screenPosition = new Microsoft.Xna.Framework.Rectangle(0, 0, PikeAndShotGame.SMALL_WIDTH, PikeAndShotGame.SMALL_HEIGHT);
 
         private float waitTime = 10000f;
         private float fadeTime = 5000f;
+        bool fadeFlag = false;
+        bool titleFlag = false;
         private int lightBoost = 0;
         byte[] bytes;
         Bitmap bmp;
@@ -29,11 +34,16 @@ namespace MoleHillMountain
         private FilterInfoCollection captureDevices;
         Texture2D texture;
         private VideoCaptureDevice videoSource;
+        private Microsoft.Xna.Framework.Rectangle barRect;
+        private Vector2 subTitleOffset;
+        private const float FADE_TIME = 900f;
 
         public TitleScreen(PikeAndShotGame game)
             : base(game)
         {
             title = new Sprite(PikeAndShotGame.JAMEBOY, new Microsoft.Xna.Framework.Rectangle(0, 0, 54, 15), 108, 30);
+            subTitle = new Sprite(PikeAndShotGame.DIRTYRECTANGLES, new Microsoft.Xna.Framework.Rectangle(0, 0, 51, 5), 102, 10);
+            subTitleOffset = new Vector2(3, 50);
             titlePosition = new Vector2();
             titlePosition.X = 130 - 54;
             captureDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
@@ -43,71 +53,74 @@ namespace MoleHillMountain
                 videoSource.NewFrame += new NewFrameEventHandler(newFrameEvent);
                 videoSource.Start();
             }
-
+            testTexture = new Texture2D(_game.GraphicsDevice, 1, 1);
+            Microsoft.Xna.Framework.Color[] colors = { Microsoft.Xna.Framework.Color.White };
+            testTexture.SetData(colors);
+            barRect = new Microsoft.Xna.Framework.Rectangle(0, 0, PikeAndShotGame.SMALL_WIDTH, 1);
         }
 
         private void newFrameEvent(object sender, NewFrameEventArgs eventArgs)
         {
-            //if (!titleFlag)
-            //{
-            bmp = (Bitmap)eventArgs.Frame.Clone();
-
-            rect.Width = bmp.Width;
-            rect.Height = bmp.Height;
-
-            data = bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-            bytes = new byte[data.Height * data.Width * 4];
-
-
-            System.Runtime.InteropServices.Marshal.Copy(data.Scan0, bytes, 0, bytes.Length);
-
-            // Unlock the bits.
-            bmp.UnlockBits(data);
-            bool blueMatch;
-            bool greenMatch;
-            bool redMatch;
-            for (int i = 0; i < bytes.Length; i += 4)
+            if (!fadeFlag)
             {
-                //blueMatch = bytes[i] < 90;
-                //greenMatch = bytes[i+1] < 95;
-                //redMatch = bytes[i + 2] > 170;
-                //if (blueMatch && greenMatch && redMatch)
-                //{
-                //    bytes[i] = bytes[i + 1] = bytes[i + 2] = 255;
-                //}
-                //else
-                //{
-                //    blueMatch = true;
-                //}
-                byte avg = (byte)((bytes[i] + bytes[i + 1] + bytes[i + 2]) * 0.333);
-                //light boost
-                if (avg < 255 - lightBoost)
-                {
-                    avg += (byte)lightBoost;
-                }
+                bmp = (Bitmap)eventArgs.Frame.Clone();
 
-                avg = (byte)(avg * 0.023);
-                int temp = (byte)((avg + 1) * 42);
-                if (temp > 255)
-                {
-                    avg = 255;
-                }
-                else
-                {
-                    avg = (byte)temp;
-                }
+                rect.Width = bmp.Width;
+                rect.Height = bmp.Height;
+
+                data = bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+                bytes = new byte[data.Height * data.Width * 4];
 
 
-                bytes[i] = bytes[i + 1] = bytes[i + 2] = avg;
+                System.Runtime.InteropServices.Marshal.Copy(data.Scan0, bytes, 0, bytes.Length);
+
+                // Unlock the bits.
+                bmp.UnlockBits(data);
+                bool blueMatch;
+                bool greenMatch;
+                bool redMatch;
+                for (int i = 0; i < bytes.Length; i += 4)
+                {
+                    //blueMatch = bytes[i] < 90;
+                    //greenMatch = bytes[i+1] < 95;
+                    //redMatch = bytes[i + 2] > 170;
+                    //if (blueMatch && greenMatch && redMatch)
+                    //{
+                    //    bytes[i] = bytes[i + 1] = bytes[i + 2] = 255;
+                    //}
+                    //else
+                    //{
+                    //    blueMatch = true;
+                    //}
+                    byte avg = (byte)((bytes[i] + bytes[i + 1] + bytes[i + 2]) * 0.333);
+                    //light boost
+                    if (avg < 255 - lightBoost)
+                    {
+                        avg += (byte)lightBoost;
+                    }
+
+                    avg = (byte)(avg * 0.023);
+                    int temp = (byte)((avg + 1) * 42);
+                    if (temp > 255)
+                    {
+                        avg = 255;
+                    }
+                    else
+                    {
+                        avg = (byte)temp;
+                    }
+
+
+                    bytes[i] = bytes[i + 1] = bytes[i + 2] = avg;
+                }
+
+                if (texture == null)
+                {
+                    texture = new Texture2D(_game.GraphicsDevice, bmp.Width, bmp.Height);
+                }
+                texture.SetData<byte>(bytes, 0, data.Height * data.Width * 4);
             }
-
-            if (texture == null)
-            {
-                texture = new Texture2D(_game.GraphicsDevice, bmp.Width, bmp.Height);
-            }
-            texture.SetData<byte>(bytes, 0, data.Height * data.Width * 4);
-            // }
         }
 
         public override void update(GameTime gameTime)
@@ -147,6 +160,17 @@ namespace MoleHillMountain
                 }
 
             }
+            else if (fadeFlag)
+            {
+                if (waitTime > 0)
+                {
+                    waitTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                    if (waitTime < 0)
+                    {
+                        waitTime = 0;
+                    }
+                }
+            }
             //if (waitTime > 0)
             //{
             //    waitTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -172,17 +196,38 @@ namespace MoleHillMountain
             //}
 
         }
-        bool titleFlag = false;
 
         public override void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (texture != null && !titleFlag)
             {
-                spriteBatch.Draw(texture, new Microsoft.Xna.Framework.Rectangle(0, 0, PikeAndShotGame.SMALL_WIDTH, PikeAndShotGame.SMALL_HEIGHT), Microsoft.Xna.Framework.Color.White);
+                spriteBatch.Draw(texture, screenPosition, Microsoft.Xna.Framework.Color.White);
+                if (fadeFlag)
+                {
+                    for (int i = 0; i < PikeAndShotGame.SMALL_HEIGHT; i += 2)
+                    {
+                        barRect.Y = i;
+                        spriteBatch.Draw(testTexture, barRect, Microsoft.Xna.Framework.Color.White);
+                    }
+                    for (int i = 1; i < PikeAndShotGame.SMALL_HEIGHT; i += 2)
+                    {
+                        barRect.Y = i;
+                        Microsoft.Xna.Framework.Color fadeDrawColor = Microsoft.Xna.Framework.Color.White;
+                        byte colorValue = (byte)(255 * (1 - (waitTime / FADE_TIME)));
+                        fadeDrawColor = new Microsoft.Xna.Framework.Color(colorValue, colorValue, colorValue, colorValue);
+                        spriteBatch.Draw(testTexture, barRect, fadeDrawColor);
+                    }
+                }
             }
             else
             {
                 title.draw(spriteBatch, titlePosition, SIDE_PLAYER);
+                if (fadeTime <= 0)
+                {
+                    subTitle.draw(spriteBatch, titlePosition + subTitleOffset, SIDE_PLAYER);
+                }
+
+
             }
             //title.draw(spriteBatch, new Vector2(PikeAndShotGame.SCREENWIDTH / 2f, PikeAndShotGame.SCREENHEIGHT / 3f), SIDE_PLAYER);
             //if (fadeTime <= 0)
@@ -232,9 +277,26 @@ namespace MoleHillMountain
                 restart();
             }
 
+            if ((keyboardState.IsKeyDown(Keys.F) && previousKeyboardState.IsKeyUp(Keys.F)))
+            {
+                fadeOut();
+            }
+
             base.getInput(timeSpan);
             previousKeyboardState = keyboardState;
             previousGamePadState = gamePadState;
+        }
+
+        private void fadeOut()
+        {
+            if (!fadeFlag)
+            {
+                waitTime = FADE_TIME;
+
+            }
+            fadeFlag = !fadeFlag;
+            _game.changeLightFlag(fadeFlag);
+
         }
 
         public void restart()

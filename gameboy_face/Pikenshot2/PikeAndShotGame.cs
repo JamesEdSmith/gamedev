@@ -403,6 +403,7 @@ namespace MoleHillMountain
         public static Texture2D BACKGROUND2;
         public static Texture2D BACKGROUND3;
         public static Texture2D POCKET;
+        public static Texture2D POCKET_GRAY;
         public static Texture2D JAMEBOY;
         public static Texture2D DIRTYRECTANGLES;
 
@@ -477,6 +478,8 @@ namespace MoleHillMountain
         public Color screenColorShader2;
 
         private bool paletteFlag;
+        private bool lightFlag;
+
         internal void changePalette()
         {
             paletteFlag = !paletteFlag;
@@ -485,13 +488,36 @@ namespace MoleHillMountain
                 effect3.Parameters["$COLOR_PALETTE"].SetValue(PALETTE_LIGHT);
                 screenColor = screenColor2;
                 screenColorShader = screenColorShader2;
-            }else
+            }
+            else
             {
                 effect3.Parameters["$COLOR_PALETTE"].SetValue(PALETTE);
                 screenColor = screenColor1;
                 screenColorShader = screenColorShader1;
             }
         }
+
+        internal void changeLightFlag(bool change)
+        {
+            lightFlag = change;
+            if (lightFlag && paletteFlag)
+            {
+                paletteFlag = !paletteFlag;
+                if (paletteFlag)
+                {
+                    effect3.Parameters["$COLOR_PALETTE"].SetValue(PALETTE_LIGHT);
+                    screenColor = screenColor2;
+                    screenColorShader = screenColorShader2;
+                }
+                else
+                {
+                    effect3.Parameters["$COLOR_PALETTE"].SetValue(PALETTE);
+                    screenColor = screenColor1;
+                    screenColorShader = screenColorShader1;
+                }
+            }
+        }
+
 
         public PikeAndShotGame()
         {
@@ -583,6 +609,7 @@ namespace MoleHillMountain
             BACKGROUND2 = Content.Load<Texture2D>(@"safeplace_fullsize");
             BACKGROUND3 = Content.Load<Texture2D>(@"safeplace_fullsize2");
             POCKET = Content.Load<Texture2D>(@"pocket-border-square-4x");
+            POCKET_GRAY = getGreyscaleClone(POCKET);
             JAMEBOY = Content.Load<Texture2D>(@"jameboy");
             DIRTYRECTANGLES = Content.Load<Texture2D>(@"dirtyrectangles");
             SCREEN_TEXT = CreateTexture(GraphicsDevice, 1, 1, pixel => new Color(166, 172, 132, 150));
@@ -1179,7 +1206,14 @@ namespace MoleHillMountain
                     spriteBatch.End();
 
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null);
-                    spriteBatch.Draw(POCKET, pocketPos, Color.White);
+                    if (lightFlag)
+                    {
+                        spriteBatch.Draw(POCKET_GRAY, pocketPos, Color.White);
+                    }
+                    else
+                    {
+                        spriteBatch.Draw(POCKET, pocketPos, Color.White);
+                    }
                     spriteBatch.End();
 
                 }

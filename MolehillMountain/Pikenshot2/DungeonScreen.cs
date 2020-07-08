@@ -14,6 +14,7 @@ namespace MoleHillMountain
         public const int GRID_SIZE = 20;
         public const int GRID_WIDTH = 12;
         public const int GRID_HEIGHT = 9;
+
         public static Vector2 OFFSET = new Vector2(8, 6);
 
         internal Tunnel getCurrTunnel(Vector2 position)
@@ -79,7 +80,7 @@ namespace MoleHillMountain
 
             mole.draw(spriteBatch);
 
-            //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 90 + (int)OFFSET.Y, 70, 100), new Rectangle(128, 0, 70, 100), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
+            // spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 80 + (int)OFFSET.Y, 70, 100), new Rectangle(128, 0, 70, 100), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
 
         }
 
@@ -456,53 +457,58 @@ namespace MoleHillMountain
 
         private void generateLevel()
         {
-            int[,] generatedTunnels = new int[GRID_WIDTH, GRID_HEIGHT];
-            int currX = 0;
-            int currY = random.Next(GRID_HEIGHT);
+            const int generations = 2;
+            int[][,] generatedTunnels = new int[generations][,];
+            int[,] combinedTunnels = new int[GRID_WIDTH, GRID_HEIGHT];
 
-            while (currX < GRID_WIDTH && generatedTunnels[currX, currY] != 1)
+            //generate
+            for (int i = 0; i < generations; i++)
             {
-                generatedTunnels[currX, currY] = 1;
-
-                switch (random.Next(6))
+                switch (random.Next(2))
                 {
                     case 0:
-                        if (currY > 0 && generatedTunnels[currX, currY - 1] != 1)
-                        {
-                            currY--;
-                        }
-                        break;
-                    case 1:
-                        if (currY < GRID_HEIGHT - 1 && generatedTunnels[currX, currY + 1] != 1)
-                        {
-                            currY++;
-                        }
+                        generatedTunnels[i] = generateVerticalLine();
                         break;
                     default:
-                        currX++;
+                        generatedTunnels[i] = generateHorizontalLine();
                         break;
                 }
             }
 
+            for (int k = 0; k < generations; k++)
+            {
+                for (int j = 0; j < GRID_HEIGHT; j++)
+                {
+                    for (int i = 0; i < GRID_WIDTH; i++)
+                    {
+                        if (generatedTunnels[k][i, j] == 1)
+                        {
+                            combinedTunnels[i, j] = 1;
+                        }
+                    }
+                }
+            }
+
+            //translate to the actual Tunnel array
             for (int j = 0; j < GRID_HEIGHT; j++)
             {
                 for (int i = 0; i < GRID_WIDTH; i++)
                 {
-                    if (generatedTunnels[i, j] == 1)
+                    if (combinedTunnels[i, j] == 1)
                     {
-                        if (i > 0 && generatedTunnels[i - 1, j] == 1)
+                        if (i > 0 && combinedTunnels[i - 1, j] == 1)
                         {
                             tunnels[i, j].left = Tunnel.DUG;
                         }
-                        if (i < GRID_WIDTH - 1 && generatedTunnels[i + 1, j] == 1)
+                        if (i < GRID_WIDTH - 1 && combinedTunnels[i + 1, j] == 1)
                         {
                             tunnels[i, j].right = Tunnel.DUG;
                         }
-                        if (j > 0 && generatedTunnels[i, j - 1] == 1)
+                        if (j > 0 && combinedTunnels[i, j - 1] == 1)
                         {
                             tunnels[i, j].top = Tunnel.DUG;
                         }
-                        if (j < GRID_HEIGHT - 1 && generatedTunnels[i, j + 1] == 1)
+                        if (j < GRID_HEIGHT - 1 && combinedTunnels[i, j + 1] == 1)
                         {
                             tunnels[i, j].bottom = Tunnel.DUG;
                         }
@@ -511,5 +517,90 @@ namespace MoleHillMountain
             }
         }
 
+        private int[,] generateHorizontalLine()
+        {
+            int[,] generatedTunnels = new int[GRID_WIDTH, GRID_HEIGHT];
+            int currX = 0;
+            int currY = random.Next(GRID_HEIGHT);
+            int result = 0;
+            int lastResult;
+
+            while (currX < GRID_WIDTH && generatedTunnels[currX, currY] != 1)
+            {
+                generatedTunnels[currX, currY] = 1;
+                lastResult = result;
+                result = random.Next(6);
+                switch (result)
+                {
+                    case 0:
+                        if (currY > 0 && generatedTunnels[currX, currY - 1] != 1 && lastResult != 1)
+                        {
+                            currY--;
+                        }
+                        else
+                        {
+                            currX++;
+                        }
+                        break;
+                    case 1:
+                        if (currY < GRID_HEIGHT - 1 && generatedTunnels[currX, currY + 1] != 1 && lastResult != 0)
+                        {
+                            currY++;
+                        }
+                        else
+                        {
+                            currX++;
+                        }
+                        break;
+                    default:
+                        currX++;
+                        break;
+                }
+            }
+            return generatedTunnels;
+        }
+
+        private int[,] generateVerticalLine()
+        {
+            int[,] generatedTunnels = new int[GRID_WIDTH, GRID_HEIGHT];
+            int currX = random.Next(GRID_WIDTH);
+            int currY = 0;
+            int result = 0;
+            int lastResult;
+
+            while (currY < GRID_HEIGHT && generatedTunnels[currX, currY] != 1)
+            {
+                generatedTunnels[currX, currY] = 1;
+                lastResult = result;
+                result = random.Next(6);
+                switch (result)
+                {
+                    case 0:
+                        if (currX > 0 && generatedTunnels[currX - 1, currY] != 1 && lastResult != 1)
+                        {
+                            currX--;
+                        }
+                        else
+                        {
+                            currY++;
+                        }
+                        break;
+                    case 1:
+                        if (currX < GRID_WIDTH - 1 && generatedTunnels[currX + 1, currY] != 1 && lastResult != 0)
+                        {
+                            currX++;
+                        }
+                        else
+                        {
+                            currY++;
+                        }
+                        break;
+                    default:
+                        currY++;
+                        break;
+                }
+            }
+            return generatedTunnels;
+        }
     }
 }
