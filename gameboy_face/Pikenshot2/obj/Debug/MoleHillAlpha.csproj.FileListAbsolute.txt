@@ -1355,3 +1355,4 @@ D:\backup\gamedev\gameboy_face\Pikenshot2\obj\Debug\MoleHillAlpha.csprojAssembly
 D:\backup\gamedev\gameboy_face\Pikenshot2\obj\Debug\MoleHillAlpha.csproj.CopyComplete
 D:\backup\gamedev\gameboy_face\Pikenshot2\obj\Debug\PikenshotDemo.exe
 D:\backup\gamedev\gameboy_face\Pikenshot2\obj\Debug\PikenshotDemo.pdb
+D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\Cat_Jon.xnb

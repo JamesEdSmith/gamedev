@@ -424,6 +424,7 @@ namespace MoleHillMountain
 
 
         public static Texture2D SANDBOX;
+        public static Texture2D CATJON;
 
         public Queue<Texture2D> prevFrames;
 
@@ -987,6 +988,7 @@ namespace MoleHillMountain
             RAT_WALKING = Content.Load<Texture2D>(@"rat_walk_one");
 
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
+            CATJON = Content.Load<Texture2D>(@"Cat_Jon");
 
             TEST = new Texture2D(GraphicsDevice, 1, 1);
             Color[] colors = { Color.Black };
