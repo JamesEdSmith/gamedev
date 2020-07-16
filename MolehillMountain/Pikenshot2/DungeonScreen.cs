@@ -80,7 +80,7 @@ namespace MoleHillMountain
 
             mole.draw(spriteBatch);
 
-            // spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 80 + (int)OFFSET.Y, 70, 100), new Rectangle(128, 0, 70, 100), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
+            //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 80 + (int)OFFSET.Y, 70, 100), new Rectangle(128, 0, 70, 100), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
 
         }
 
@@ -461,27 +461,26 @@ namespace MoleHillMountain
             int tunnelId = 1;
             int[][,] generatedTunnels = new int[generations][,];
             int[,] combinedTunnels = new int[GRID_WIDTH, GRID_HEIGHT];
+            ArrayList vegetablePlacements = new ArrayList(10);
 
             //generate
             for (int i = 0; i < generations; i++)
             {
-                switch (random.Next(7))
+                switch (random.Next(6))
                 {
                     case 0:
                     case 1:
-                    case 2:
                         generatedTunnels[i] = generateVerticalLine(tunnelId);
                         break;
+                    case 2:
                     case 3:
-                    case 4:
-                    case 5:
                         generatedTunnels[i] = generateHorizontalLine(tunnelId);
                         break;
                     default:
                         generatedTunnels[i] = generateLoop(tunnelId);
                         break;
                 }
-                if(random.Next(3) == 0)
+                if (random.Next(3) == 0)
                 {
                     tunnelId++;
                 }
@@ -508,6 +507,7 @@ namespace MoleHillMountain
                 {
                     if (combinedTunnels[i, j] != 0)
                     {
+                        //dig tunnels
                         if (i > 0 && combinedTunnels[i - 1, j] == combinedTunnels[i, j])
                         {
                             tunnels[i, j].left = Tunnel.DUG;
@@ -525,7 +525,50 @@ namespace MoleHillMountain
                             tunnels[i, j].bottom = Tunnel.DUG;
                         }
                     }
+                    else
+                    {
+                        //populate possible position vegetable array
+                        if (j < GRID_HEIGHT - 2 && j > 0 && combinedTunnels[i, j + 1] == 0 && i > 0 && i < GRID_WIDTH - 1)
+                        {
+                            bool vegetableVertical = false;
+                            foreach(Point point in vegetablePlacements)
+                            {
+                                if(point.X == i && Math.Abs(point.Y - j) < 2)
+                                {
+                                    vegetableVertical = true;
+                                }
+                            }
+                            if (!vegetableVertical)
+                            {
+                                Point addedPoint = new Point(i, j);
+                                vegetablePlacements.Add(addedPoint);
+                                if(combinedTunnels[i + 1, j] == 0 && combinedTunnels[i - 1, j] == 0 && combinedTunnels[i, j+2] == 0)
+                                {
+                                    if (random.Next(5) != 0)
+                                    {
+                                        vegetablePlacements.Remove(addedPoint);
+                                    }
+                                }
+                                else if (j > GRID_HEIGHT * 0.5f)
+                                {
+                                    if (random.Next(2) != 0)
+                                    {
+                                        vegetablePlacements.Remove(addedPoint);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
+            }
+
+            int totalVegetables = random.Next(4, 6);
+            for (int i = 0; i < totalVegetables; i++)
+            {
+                int vegetableSpotIndex = random.Next(vegetablePlacements.Count);
+                Point vegetableSpot = (Point)vegetablePlacements[vegetableSpotIndex];
+                vegetables.Add(new Vegetable(vegetableSpot.X * GRID_SIZE + GRID_SIZE * 0.5f, vegetableSpot.Y * GRID_SIZE + GRID_SIZE * 0.5f, this));
+                vegetablePlacements.RemoveAt(vegetableSpotIndex);
             }
         }
 
@@ -580,8 +623,8 @@ namespace MoleHillMountain
         {
             int[,] generatedTunnels = new int[GRID_WIDTH, GRID_HEIGHT];
 
-            int radiusX = random.Next(3, (GRID_WIDTH + GRID_HEIGHT) / 4 );
-            int radiusY = random.Next(3, (GRID_WIDTH + GRID_HEIGHT) / 4 );
+            int radiusX = random.Next(3, (GRID_WIDTH + GRID_HEIGHT) / 4);
+            int radiusY = random.Next(3, (GRID_WIDTH + GRID_HEIGHT) / 4);
 
             int currX = random.Next(radiusX, GRID_WIDTH - radiusX);
             int initialX = currX;
@@ -592,7 +635,7 @@ namespace MoleHillMountain
             {
                 generatedTunnels[currX, currY] = id;
 
-                int downPaths = (int)(((float)currX - (float)initialX) * ((float)radiusY / (float)(radiusX+1)));
+                int downPaths = (int)(((float)currX - (float)initialX) * ((float)radiusY / (float)(radiusX + 1)));
                 for (int j = 0; j < downPaths; j++)
                 {
                     currY++;
@@ -638,7 +681,7 @@ namespace MoleHillMountain
                 for (int j = 0; j < downPaths; j++)
                 {
                     currY--;
-                    if (currY < 0 )
+                    if (currY < 0)
                     {
                         currY = 0;
                     }
@@ -714,7 +757,7 @@ namespace MoleHillMountain
                         currY++;
                         break;
                 }
-                if (random.Next(random.Next(10,30)) == 0)
+                if (random.Next(random.Next(10, 30)) == 0)
                 {
                     id++;
                 }
