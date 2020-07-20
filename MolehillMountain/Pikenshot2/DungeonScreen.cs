@@ -596,22 +596,33 @@ namespace MoleHillMountain
                     {
                         ArrayList paths = new ArrayList();
                         generatePickupClusters(paths, new ArrayList(), i, j);
-                        pickupClusters.AddRange(paths);
+                        if (paths.Count > 0)
+                        {
+                            pickupClusters.Add(paths[random.Next(paths.Count)]);
+                        }
                     }
                 }
             }
 
-            for (int i = 0; i < 3; i++)
+            if (pickupClusters.Count < 1)
             {
-                int pickupClusterIndex = random.Next(pickupClusters.Count);
-                ArrayList pickupCluster = (ArrayList)pickupClusters[pickupClusterIndex];
-                pickupClusters.RemoveAt(pickupClusterIndex);
-                foreach (Point point in pickupCluster)
+                //level couldn't populate any pickup clusters(very rare), in future might make this cause something interesting, but for now just redo generation
+                init();
+            }
+            else
+            {
+
+                for (int i = 0; i < 3; i++)
                 {
-                    pickups.Add(new Pickup(point.X, point.Y, this));
+                    int pickupClusterIndex = random.Next(pickupClusters.Count);
+                    ArrayList pickupCluster = (ArrayList)pickupClusters[pickupClusterIndex];
+                    pickupClusters.RemoveAt(pickupClusterIndex);
+                    foreach (Point point in pickupCluster)
+                    {
+                        pickups.Add(new Pickup(point.X, point.Y, this));
+                    }
                 }
             }
-
         }
 
         private void generatePickupClusters(ArrayList paths, ArrayList path, int i, int j)
