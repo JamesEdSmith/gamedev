@@ -455,13 +455,15 @@ namespace MoleHillMountain
             prevMoleDown = ((int)mole.position.Y + GRID_SIZE / 4) / GRID_SIZE;
         }
 
+        int[,] combinedTunnels;
         private void generateLevel()
         {
             const int generations = 2;
             int tunnelId = 1;
             int[][,] generatedTunnels = new int[generations][,];
-            int[,] combinedTunnels = new int[GRID_WIDTH, GRID_HEIGHT];
+            combinedTunnels = new int[GRID_WIDTH, GRID_HEIGHT];
             ArrayList vegetablePlacements = new ArrayList(10);
+            ArrayList pickupClusters = new ArrayList(20);
 
             //generate
             for (int i = 0; i < generations; i++)
@@ -531,9 +533,9 @@ namespace MoleHillMountain
                         if (j < GRID_HEIGHT - 2 && j > 0 && combinedTunnels[i, j + 1] == 0 && i > 0 && i < GRID_WIDTH - 1)
                         {
                             bool vegetableVertical = false;
-                            foreach(Point point in vegetablePlacements)
+                            foreach (Point point in vegetablePlacements)
                             {
-                                if(point.X == i && Math.Abs(point.Y - j) < 2)
+                                if (point.X == i && Math.Abs(point.Y - j) < 2)
                                 {
                                     vegetableVertical = true;
                                 }
@@ -542,7 +544,7 @@ namespace MoleHillMountain
                             {
                                 Point addedPoint = new Point(i, j);
                                 vegetablePlacements.Add(addedPoint);
-                                if(combinedTunnels[i + 1, j] == 0 && combinedTunnels[i - 1, j] == 0 && combinedTunnels[i, j+2] == 0)
+                                if (combinedTunnels[i + 1, j] == 0 && combinedTunnels[i - 1, j] == 0 && combinedTunnels[i, j + 2] == 0)
                                 {
                                     if (random.Next(5) != 0)
                                     {
@@ -562,6 +564,19 @@ namespace MoleHillMountain
                 }
             }
 
+            //remove all tunnel identities so the can all just be '1' for "tunnel" for the rest of the proc gen
+            for (int j = 0; j < GRID_HEIGHT; j++)
+            {
+                for (int i = 0; i < GRID_WIDTH; i++)
+                {
+                    if (combinedTunnels[i, j] != 0)
+                    {
+                        combinedTunnels[i, j] = 1;
+                    }
+                }
+            }
+
+            //place vegetables
             int totalVegetables = random.Next(4, 6);
             for (int i = 0; i < totalVegetables; i++)
             {
@@ -569,6 +584,65 @@ namespace MoleHillMountain
                 Point vegetableSpot = (Point)vegetablePlacements[vegetableSpotIndex];
                 vegetables.Add(new Vegetable(vegetableSpot.X * GRID_SIZE + GRID_SIZE * 0.5f, vegetableSpot.Y * GRID_SIZE + GRID_SIZE * 0.5f, this));
                 vegetablePlacements.RemoveAt(vegetableSpotIndex);
+                combinedTunnels[vegetableSpot.X, vegetableSpot.Y] = 2; // 2 for vegetable
+            }
+
+            //populate grub
+            for (int j = 0; j < GRID_HEIGHT; j++)
+            {
+                for (int i = 0; i < GRID_WIDTH; i++)
+                {
+                    if (combinedTunnels[i, j] == 0)
+                    {
+                        ArrayList paths = new ArrayList();
+                        generatePickupClusters(paths, new ArrayList(), i, j);
+                        pickupClusters.AddRange(paths);
+                    }
+                }
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                int pickupClusterIndex = random.Next(pickupClusters.Count);
+                ArrayList pickupCluster = (ArrayList)pickupClusters[pickupClusterIndex];
+                pickupClusters.RemoveAt(pickupClusterIndex);
+                foreach (Point point in pickupCluster)
+                {
+                    pickups.Add(new Pickup(point.X, point.Y, this));
+                }
+            }
+
+        }
+
+        private void generatePickupClusters(ArrayList paths, ArrayList path, int i, int j)
+        {
+            if (combinedTunnels[i, j] == 0)
+            {
+                path.Add(new Point(i, j));
+                combinedTunnels[i, j] = 3;
+                if (path.Count == 8)
+                {
+                    paths.Add(path);
+                }
+                else
+                {
+                    if (i > 0 && combinedTunnels[i - 1, j] == 0)
+                    {
+                        generatePickupClusters(paths, new ArrayList(path), i - 1, j);
+                    }
+                    if (i < GRID_WIDTH - 1 && combinedTunnels[i + 1, j] == 0)
+                    {
+                        generatePickupClusters(paths, new ArrayList(path), i + 1, j);
+                    }
+                    if (j > 0 && combinedTunnels[i, j - 1] == 0)
+                    {
+                        generatePickupClusters(paths, new ArrayList(path), i, j - 1);
+                    }
+                    if (j < GRID_HEIGHT - 1 && combinedTunnels[i, j + 1] == 0)
+                    {
+                        generatePickupClusters(paths, new ArrayList(path), i, j + 1);
+                    }
+                }
             }
         }
 
