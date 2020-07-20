@@ -386,8 +386,6 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\libSDL2
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\libopenal.1.dylib
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\MonoGame.Framework.dll.config
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\speaker3.xnb
-D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\PikenshotDemo.exe
-D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\PikenshotDemo.pdb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\MonoGame.Framework.Content.Pipeline.dll
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\MonoGame.Framework.dll
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\SharpDX.MediaFoundation.dll
@@ -418,13 +416,8 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\SharpFo
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\SharpDX.D3DCompiler.xml
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AssimpNet.xml
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\Debug\MoleHillAlpha.csproj.CopyComplete
-D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\Debug\PikenshotDemo.exe
-D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\Debug\PikenshotDemo.pdb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\gb-pass-0.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\palette.xnb
-D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\Debug\MoleHillAlpha.csprojAssemblyReference.cache
-D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\test_mole_back.xnb
-D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\background2.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\safeplace_fullsize.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\safeplace_fullsize2.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\mole_miner_sprite.xnb
@@ -432,3 +425,20 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\tunnel.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\tunnel_digging.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\turnip.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\turnip_fall.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\turnip_split.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\turnip_twirl.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\mole_miner_nudge.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\mole_squashed.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\onion_shake.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\onion_split.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\onion_twirl.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\sandbox.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\rat_walk_one.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\rat_push.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\egg.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Molehill Mountain.exe
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Molehill Mountain.pdb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\Debug\Molehill Mountain.exe
+D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\Debug\Molehill Mountain.pdb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\Debug\MoleHillAlpha.csprojAssemblyReference.cache

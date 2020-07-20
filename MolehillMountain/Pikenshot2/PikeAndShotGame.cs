@@ -386,16 +386,36 @@ namespace MoleHillMountain
         public static Texture2D DOT;
         public static Texture2D SWORD_POINTER;
         public static Texture2D TEST;
+
         public static Texture2D MOLE_MINER_WALKING;
         public static Texture2D MOLE_MINER_DIGGING;
+        public static Texture2D MOLE_MINER_NUDGE;
+        public static Texture2D MOLE_SQUASHED;
+
         public static Texture2D PALETTE;
         public static Texture2D BACKGROUND;
         public static Texture2D BACKGROUND2;
         public static Texture2D BACKGROUND3;
+
         public static Texture2D SCREEN_TEXT;
+
         public static Texture2D TUNNEL;
         public static Texture2D TUNNEL_DIGGING;
-        public static Texture2D TURNIP;
+
+        public static Texture2D TURNIP_SHAKE;
+        public static Texture2D TURNIP_SPLIT;
+        public static Texture2D TURNIP_TWIRL;
+
+        public static Texture2D ONION_SHAKE;
+        public static Texture2D ONION_SPLIT;
+        public static Texture2D ONION_TWIRL;
+
+        public static Texture2D RAT_WALKING;
+        public static Texture2D RAT_NUDGE;
+
+        public static Texture2D GRUB_EGG;
+
+        public static Texture2D SANDBOX;
 
         public Queue<Texture2D> prevFrames;
 
@@ -524,7 +544,6 @@ namespace MoleHillMountain
             soldierFont = Content.Load<SpriteFont>("SpriteFont1");
 
             PALETTE = Content.Load<Texture2D>(@"palette");
-            BACKGROUND = Content.Load<Texture2D>(@"background2");
             BACKGROUND2 = Content.Load<Texture2D>(@"safeplace_fullsize");
             BACKGROUND3 = Content.Load<Texture2D>(@"safeplace_fullsize2");
             SCREEN_TEXT = CreateTexture(GraphicsDevice, 1, 1, pixel => new Color(166, 172, 132, 150));
@@ -887,9 +906,28 @@ namespace MoleHillMountain
             //SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
             MOLE_MINER_WALKING = Content.Load<Texture2D>(@"mole_miner_sprite");
             MOLE_MINER_DIGGING = Content.Load<Texture2D>(@"mole_miner_sprite_dig");
+            MOLE_MINER_NUDGE = Content.Load<Texture2D>(@"mole_miner_nudge");
+            MOLE_SQUASHED = Content.Load<Texture2D>(@"mole_squashed");
+
             TUNNEL = Content.Load<Texture2D>(@"tunnel");
             TUNNEL_DIGGING = Content.Load<Texture2D>(@"tunnel_digging");
-            TURNIP = Content.Load<Texture2D>(@"turnip");
+            TUNNEL_DIGGING = Content.Load<Texture2D>(@"tunnel_digging");
+
+            TURNIP_SHAKE = Content.Load<Texture2D>(@"turnip_fall");
+            TURNIP_TWIRL = Content.Load<Texture2D>(@"turnip_twirl");
+            TURNIP_SPLIT = Content.Load<Texture2D>(@"turnip_split");
+            
+            ONION_SHAKE = Content.Load<Texture2D>(@"onion_shake");
+            ONION_TWIRL = Content.Load<Texture2D>(@"onion_twirl");
+            ONION_SPLIT = Content.Load<Texture2D>(@"onion_split");
+
+            RAT_WALKING = Content.Load<Texture2D>(@"rat_walk_one");
+            RAT_NUDGE = Content.Load<Texture2D>(@"rat_push");
+
+            GRUB_EGG = Content.Load<Texture2D>(@"egg");
+
+            SANDBOX = Content.Load<Texture2D>(@"sandbox");
+
             TEST = new Texture2D(GraphicsDevice, 1, 1);
             Color[] colors = { Color.Black };
             TEST.SetData(colors);
@@ -1098,6 +1136,9 @@ namespace MoleHillMountain
                     effect3.Parameters["$PASS2"].SetValue(ShaderRenderTarget);
                     GraphicsDevice.SetRenderTarget(null);
                     GraphicsDevice.Clear(screenColorShader);
+                    //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null);
+                    //spriteBatch.Draw(BACKGROUND2, fullDrawRectangle, Color.White);
+                    //spriteBatch.End();
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
                     spriteBatch.Draw(BACKGROUND2, fullDrawRectangle, Color.White);
                     spriteBatch.Draw(ShaderRenderTarget, drawRectangle, testDrawRectangle, Color.White);

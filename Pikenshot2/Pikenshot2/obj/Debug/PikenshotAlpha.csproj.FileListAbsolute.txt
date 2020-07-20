@@ -1226,6 +1226,12 @@ D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AssimpNet.xml
 D:\backup\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotAlpha.csproj.CopyComplete
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\speaker3.xnb
 D:\backup\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotAlpha.csprojAssemblyReference.cache
-D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\dragonknight1-6.xnb
-D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\dragonknight1extra-1a.xnb
-D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\flyer_april_2020_small.xnb
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\Hellovetica.xnb
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\star.xnb
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.dll
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.Video.DirectShow.dll
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.Video.dll
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.xml
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.Video.xml
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.Video.DirectShow.xml
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\flyer_july_2020.xnb

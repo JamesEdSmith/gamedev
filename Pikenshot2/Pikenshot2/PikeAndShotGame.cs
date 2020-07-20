@@ -18,8 +18,8 @@ namespace PikeAndShot
         public const bool DEBUG = false;
         public static bool TEST_BOSS = false;
 
-        public const int SCREENWIDTH = 1024;
-        public const int SCREENHEIGHT = 768;
+        public const int SCREENWIDTH = 640;
+        public const int SCREENHEIGHT = 828;
 
         public const int SCREEN_LEVELPLAY = 0;
         public const int SCREEN_FORMATIONMAKER = 1;
@@ -433,14 +433,14 @@ namespace PikeAndShot
             graphics.ApplyChanges();
             if (!DEBUG)
             {
+                graphics.PreferredBackBufferWidth = SCREENWIDTH;// + 50;
+                graphics.PreferredBackBufferHeight = SCREENHEIGHT;// + 50;
+                graphics.IsFullScreen = false;
+                graphics.ApplyChanges();
                 //make it full screen... (borderless if you want to is an option as well)
                 this.Window.Position = new Point((int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - (float)SCREENWIDTH)/2, (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - (float)SCREENHEIGHT) / 2);
                 this.Window.IsBorderless = false;
-                graphics.PreferredBackBufferWidth = SCREENWIDTH+50;
-                graphics.PreferredBackBufferHeight = SCREENHEIGHT+50;
-                graphics.IsFullScreen = false;
                 this.Window.AllowUserResizing = true;
-                graphics.ApplyChanges();
                 useShaders = true;
             }
             else
@@ -481,7 +481,7 @@ namespace PikeAndShot
 
             setDrawRect();
 
-            soldierFont = Content.Load<SpriteFont>("SpriteFont1");
+            soldierFont = Content.Load<SpriteFont>("Hellovetica");
 
             ShaderRenderTarget = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
             ShaderRenderTarget2 = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
@@ -827,7 +827,8 @@ namespace PikeAndShot
 
             DOT = Content.Load<Texture2D>(@"dot");
             SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
-            TEST = Content.Load<Texture2D>(@"flyer_april_2020_small");
+            
+            TEST = Content.Load<Texture2D>(@"flyer_july_2020");
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
             SPARKLE = Content.Load<Texture2D>(@"sparkle");
@@ -971,7 +972,7 @@ namespace PikeAndShot
                     GraphicsDevice.Viewport = viewport;
                     GraphicsDevice.Clear(screenColorShader);
                     //get rid of blurry sprites
-                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null, mapTransform);
 
                     if (_currScreen != null)
                     {
@@ -1109,49 +1110,49 @@ namespace PikeAndShot
 
         void setDrawRect()
         {
-            if (!graphics.IsFullScreen)
-            {
-                if ((float)this.Window.ClientBounds.Height / (float)this.Window.ClientBounds.Width < 0.74f)
-                {                  
-                    float newWidth = (float)(Window.ClientBounds.Height -50)* 4f / 3f;
+            //if (!graphics.IsFullScreen)
+            //{
+            //    if ((float)this.Window.ClientBounds.Height / (float)this.Window.ClientBounds.Width < 0.74f)
+            //    {                  
+            //        float newWidth = (float)(Window.ClientBounds.Height -50)* 4f / 3f;
 
-                    int drawX = (Window.ClientBounds.Width - (int)newWidth) / 2;
-                    int drawY = 0;
-                    drawRectangle = new Rectangle(drawX, drawY+25, (int)newWidth, Window.ClientBounds.Height -50);
-                } else
-                if ((float)this.Window.ClientBounds.Height / (float)this.Window.ClientBounds.Width > 0.76f)
-                {
-                    float newWidth = (float)(Window.ClientBounds.Width - 50) * 3f / 4f;
+            //        int drawX = (Window.ClientBounds.Width - (int)newWidth) / 2;
+            //        int drawY = 0;
+            //        drawRectangle = new Rectangle(drawX, drawY+25, (int)newWidth, Window.ClientBounds.Height -50);
+            //    } else
+            //    if ((float)this.Window.ClientBounds.Height / (float)this.Window.ClientBounds.Width > 0.76f)
+            //    {
+            //        float newWidth = (float)(Window.ClientBounds.Width - 50) * 3f / 4f;
 
-                    int drawX = 0;
-                    int drawY = (Window.ClientBounds.Height - (int)newWidth) / 2; ;
-                    drawRectangle = new Rectangle(drawX+25, drawY, Window.ClientBounds.Width -50, (int)newWidth);
-                } else { 
-                    drawRectangle = new Rectangle(25, 25, Window.ClientBounds.Width - 50, Window.ClientBounds.Height - 50);
-                }
-            }
-            else if ((float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height / (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width < 0.74f)
-            {
-                viewport = new Viewport(0, 0, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height);
-                float newWidth = (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height * 4f / 3f;
+            //        int drawX = 0;
+            //        int drawY = (Window.ClientBounds.Height - (int)newWidth) / 2; ;
+            //        drawRectangle = new Rectangle(drawX+25, drawY, Window.ClientBounds.Width -50, (int)newWidth);
+            //    } else { 
+            //        drawRectangle = new Rectangle(25, 25, Window.ClientBounds.Width - 50, Window.ClientBounds.Height - 50);
+            //    }
+            //}
+            //else if ((float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height / (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width < 0.74f)
+            //{
+            //    viewport = new Viewport(0, 0, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height);
+            //    float newWidth = (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height * 4f / 3f;
 
-                int drawX = (viewport.Width - (int)newWidth) / 2;
-                int drawY = 0;
-                drawRectangle = new Rectangle(drawX, drawY, (int)newWidth, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height);
-            }
-            else if ((float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height / (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width > 0.76f)
-            {
-                viewport = new Viewport(0, 0, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height);
-                float newHeight = (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width * 3f / 4f;
+            //    int drawX = (viewport.Width - (int)newWidth) / 2;
+            //    int drawY = 0;
+            //    drawRectangle = new Rectangle(drawX, drawY, (int)newWidth, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height);
+            //}
+            //else if ((float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height / (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width > 0.76f)
+            //{
+            //    viewport = new Viewport(0, 0, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height);
+            //    float newHeight = (float)graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width * 3f / 4f;
 
-                int drawX = 0;
-                int drawY = (viewport.Height - (int)newHeight) / 2;
-                drawRectangle = new Rectangle(drawX, drawY, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width, (int)newHeight);
-            }
-            else
-            {
-                drawRectangle = new Rectangle(0, 0, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height);
-            }
+            //    int drawX = 0;
+            //    int drawY = (viewport.Height - (int)newHeight) / 2;
+            //    drawRectangle = new Rectangle(drawX, drawY, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width, (int)newHeight);
+            //}
+            //else
+            //{
+            //    drawRectangle = new Rectangle(0, 0, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height);
+            //}
         }
     }
 
