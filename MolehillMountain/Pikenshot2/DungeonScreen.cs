@@ -423,7 +423,6 @@ namespace MoleHillMountain
 
         private void init()
         {
-            mole = new Mole(this);
             tunnels = new Tunnel[GRID_WIDTH, GRID_HEIGHT];
             for (int j = 0; j < GRID_HEIGHT; j++)
             {
@@ -564,6 +563,85 @@ namespace MoleHillMountain
                 }
             }
 
+            ArrayList possibleSpawns = new ArrayList(GRID_WIDTH * GRID_HEIGHT);
+
+            for (int j = 0; j < GRID_HEIGHT; j++)
+            {
+                for (int i = 0; i < GRID_WIDTH; i++)
+                {
+                    if (combinedTunnels[i, j] != 0)
+                    {
+                        if (i > 0 && combinedTunnels[i, j] == combinedTunnels[i - 1, j])
+                        {
+                            possibleSpawns.Add(new Point(i, j));
+                        }
+                        else if (i < GRID_WIDTH - 1 && combinedTunnels[i, j] == combinedTunnels[i + 1, j])
+                        {
+                            possibleSpawns.Add(new Point(i, j));
+                        }
+                        else if (j > 0 && combinedTunnels[i, j] == combinedTunnels[i, j - 1])
+                        {
+                            possibleSpawns.Add(new Point(i, j));
+                        }
+                        else if (j < GRID_HEIGHT - 1 && combinedTunnels[i, j] == combinedTunnels[i, j + 1])
+                        {
+                            possibleSpawns.Add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+
+            ArrayList narrowDownSpawns = new ArrayList(GRID_WIDTH * GRID_HEIGHT);
+            int distance = 100;
+            int xDist;
+            int yDist;
+
+            foreach (Point point in possibleSpawns)
+            {
+                xDist = point.X;
+                yDist = point.Y;
+                if (point.X > GRID_WIDTH * 0.5f)
+                {
+                    xDist = GRID_WIDTH - point.X;
+                }
+                if (point.Y > GRID_HEIGHT * 0.5f)
+                {
+                    xDist = GRID_HEIGHT - point.Y;
+                }
+
+                if (xDist < distance)
+                {
+                    distance = xDist;
+                }
+                if (yDist < distance)
+                {
+                    distance = yDist;
+                }
+            }
+
+            foreach (Point point in possibleSpawns)
+            {
+                xDist = point.X;
+                yDist = point.Y;
+                if (point.X > GRID_WIDTH * 0.5f)
+                {
+                    xDist = GRID_WIDTH - point.X;
+                }
+                if (point.Y > GRID_HEIGHT * 0.5f)
+                {
+                    xDist = GRID_HEIGHT - point.Y;
+                }
+
+                if (xDist == distance || yDist == distance)
+                {
+                    narrowDownSpawns.Add(point);
+                }
+            }
+
+            Point point2 = (Point)narrowDownSpawns[random.Next(narrowDownSpawns.Count)];
+
+            mole = new Mole(point2.X, point2.Y, this);
+
             //remove all tunnel identities so the can all just be '1' for "tunnel" for the rest of the proc gen
             for (int j = 0; j < GRID_HEIGHT; j++)
             {
@@ -578,48 +656,55 @@ namespace MoleHillMountain
 
             //place vegetables
             int totalVegetables = random.Next(4, 6);
-            for (int i = 0; i < totalVegetables; i++)
+            if (vegetablePlacements.Count < totalVegetables)
             {
-                int vegetableSpotIndex = random.Next(vegetablePlacements.Count);
-                Point vegetableSpot = (Point)vegetablePlacements[vegetableSpotIndex];
-                vegetables.Add(new Vegetable(vegetableSpot.X * GRID_SIZE + GRID_SIZE * 0.5f, vegetableSpot.Y * GRID_SIZE + GRID_SIZE * 0.5f, this));
-                vegetablePlacements.RemoveAt(vegetableSpotIndex);
-                combinedTunnels[vegetableSpot.X, vegetableSpot.Y] = 2; // 2 for vegetable
-            }
-
-            //populate grub
-            for (int j = 0; j < GRID_HEIGHT; j++)
-            {
-                for (int i = 0; i < GRID_WIDTH; i++)
-                {
-                    if (combinedTunnels[i, j] == 0)
-                    {
-                        ArrayList paths = new ArrayList();
-                        generatePickupClusters(paths, new ArrayList(), i, j);
-                        if (paths.Count > 0)
-                        {
-                            pickupClusters.Add(paths[random.Next(paths.Count)]);
-                        }
-                    }
-                }
-            }
-
-            if (pickupClusters.Count < 1)
-            {
-                //level couldn't populate any pickup clusters(very rare), in future might make this cause something interesting, but for now just redo generation
-                init();
+                totalVegetables = vegetablePlacements.Count;
             }
             else
             {
-
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < totalVegetables; i++)
                 {
-                    int pickupClusterIndex = random.Next(pickupClusters.Count);
-                    ArrayList pickupCluster = (ArrayList)pickupClusters[pickupClusterIndex];
-                    pickupClusters.RemoveAt(pickupClusterIndex);
-                    foreach (Point point in pickupCluster)
+                    int vegetableSpotIndex = random.Next(vegetablePlacements.Count);
+                    Point vegetableSpot = (Point)vegetablePlacements[vegetableSpotIndex];
+                    vegetables.Add(new Vegetable(vegetableSpot.X * GRID_SIZE + GRID_SIZE * 0.5f, vegetableSpot.Y * GRID_SIZE + GRID_SIZE * 0.5f, this));
+                    vegetablePlacements.RemoveAt(vegetableSpotIndex);
+                    combinedTunnels[vegetableSpot.X, vegetableSpot.Y] = 2; // 2 for vegetable
+                }
+
+                //populate grub
+                for (int j = 0; j < GRID_HEIGHT; j++)
+                {
+                    for (int i = 0; i < GRID_WIDTH; i++)
                     {
-                        pickups.Add(new Pickup(point.X, point.Y, this));
+                        if (combinedTunnels[i, j] == 0)
+                        {
+                            ArrayList paths = new ArrayList();
+                            generatePickupClusters(paths, new ArrayList(), i, j);
+                            if (paths.Count > 0)
+                            {
+                                pickupClusters.Add(paths[random.Next(paths.Count)]);
+                            }
+                        }
+                    }
+                }
+
+                if (pickupClusters.Count < 3)
+                {
+                    //level couldn't populate any pickup clusters(very rare), in future might make this cause something interesting, but for now just redo generation
+                    init();
+                }
+                else
+                {
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        int pickupClusterIndex = random.Next(pickupClusters.Count);
+                        ArrayList pickupCluster = (ArrayList)pickupClusters[pickupClusterIndex];
+                        pickupClusters.RemoveAt(pickupClusterIndex);
+                        foreach (Point point in pickupCluster)
+                        {
+                            pickups.Add(new Pickup(point.X, point.Y, this));
+                        }
                     }
                 }
             }
@@ -633,7 +718,10 @@ namespace MoleHillMountain
                 combinedTunnels[i, j] = 3;
                 if (path.Count == 8)
                 {
-                    paths.Add(path);
+                    if (checkForTwoRoutes(path))
+                    {
+                        paths.Add(path);
+                    }
                 }
                 else
                 {
@@ -655,6 +743,28 @@ namespace MoleHillMountain
                     }
                 }
             }
+        }
+
+        private bool checkForTwoRoutes(ArrayList path)
+        {
+            for (int i = 0; i < path.Count; i++)
+            {
+                Point checkThisPoint = (Point)path[i];
+                int tally = 0;
+
+                foreach (Point point in path)
+                {
+                    if (path.IndexOf(point) != i && Math.Abs(checkThisPoint.X - point.X) <= 1 && Math.Abs(checkThisPoint.Y - point.Y) <= 1)
+                    {
+                        tally++;
+                    }
+                }
+                if (tally < 3)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private int[,] generateHorizontalLine(int id)

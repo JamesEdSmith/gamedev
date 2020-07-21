@@ -61,6 +61,19 @@ namespace MoleHillMountain
             drawPosition = new Vector2(position.X, position.Y);
         }
 
+        public Mole(float x, float y, DungeonScreen dungeonScene) : this(dungeonScene)
+        {
+            position = new Vector2(x, y);
+            drawPosition = new Vector2(position.X, position.Y);
+        }
+
+        public Mole(int x, int y, DungeonScreen dungeonScreen) : this(0f, 0f, dungeonScreen)
+        {
+            position.X = DungeonScreen.GRID_SIZE * x + DungeonScreen.GRID_SIZE * 0.5f;
+            position.Y = DungeonScreen.GRID_SIZE * y + DungeonScreen.GRID_SIZE * 0.5f;
+            drawPosition = new Vector2(position.X, position.Y);
+        }
+
         public virtual void update(TimeSpan timeSpan)
         {
 
