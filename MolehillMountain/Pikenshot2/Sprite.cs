@@ -248,6 +248,11 @@ namespace MoleHillMountain
             spriteBatch.Draw(_sourceBitmap, position - _boundingVector, _currRect, color, rotation, _center, 1, SpriteEffects.None, 0);
         }
 
+        public void draw(SpriteBatch spriteBatch, Vector2 position, float rotation, Color color, SpriteEffects effect)
+        {
+            spriteBatch.Draw(_sourceBitmap, position - _boundingVector, _currRect, color, rotation, _center, 1, effect, 0);
+        }
+
         public void draw(SpriteBatch spriteBatch, Vector2 position, float rotation)
         {
             spriteBatch.Draw(_sourceBitmap, position - _boundingVector, _currRect, Color.White, rotation, _center, 1, SpriteEffects.None, 0);

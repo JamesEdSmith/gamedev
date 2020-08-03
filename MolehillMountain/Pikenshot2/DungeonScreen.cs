@@ -128,18 +128,7 @@ namespace MoleHillMountain
         {
             Vector2 distance = mole.position - position;
             float avg = (Math.Abs(distance.X) + Math.Abs(distance.Y)) / 2f;
-            //if ((int)Math.Abs(distance.X) <= GRID_SIZE && (int)Math.Abs(distance.Y) <= GRID_SIZE)
-            //{
-            //    return Pickup.SEEN;
-            //}
-            //else if ((int)Math.Abs(distance.X) <= GRID_SIZE * 2 && (int)Math.Abs(distance.Y) <= GRID_SIZE * 2)
-            //{
-            //    return Pickup.HALF_SEEN;
-            //}
-            //else
-            //{
-            //    return Pickup.NOT_SEEN;
-            //}
+
             if (avg <= GRID_SIZE * 0.9f)
             {
                 return Pickup.SEEN;
@@ -147,6 +136,21 @@ namespace MoleHillMountain
             else if (avg <= GRID_SIZE * 1.5f)
             {
                 return Pickup.HALF_SEEN;
+            }
+            else
+            {
+                return Pickup.NOT_SEEN;
+            }
+        }
+
+        internal int checkMoleClose(Vector2 position)
+        {
+            Vector2 distance = mole.position - position;
+            float avg = (Math.Abs(distance.X) + Math.Abs(distance.Y)) / 2f;
+
+            if (avg <= GRID_SIZE * 1.1f)
+            {
+                return Pickup.SEEN;
             }
             else
             {
@@ -244,6 +248,11 @@ namespace MoleHillMountain
 
             prevMoleUp = moleUp;
             prevMoleDown = moleDown;
+        }
+
+        internal Vector2 getMolePosition()
+        {
+            return mole.position;
         }
 
         internal bool moleBelow(Vector2 position)
