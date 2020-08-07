@@ -889,3 +889,4 @@ C:\repos\MolehillMountain\Pikenshot2\obj\Debug\Molehill Mountain.exe
 C:\repos\MolehillMountain\Pikenshot2\obj\Debug\Molehill Mountain.pdb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\grub_craw_sml.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\grub_look.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\possibleSound5.xnb

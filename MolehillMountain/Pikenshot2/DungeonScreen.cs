@@ -40,6 +40,10 @@ namespace MoleHillMountain
         int prevMoleUp;
         int prevMoleDown;
 
+        private float pickupTime;
+        private float pickupTimer;
+        private int pickupSequenceCount;
+
         public DungeonScreen(PikeAndShotGame game)
         {
             _game = game;
@@ -106,11 +110,38 @@ namespace MoleHillMountain
             {
                 vegetables.Remove(vege);
             }
+            deadStuff.Clear();
 
             foreach (Pickup pickup in pickups)
             {
+                Vector2 distance = pickup.position - mole.position;
+                if (distance.Length() <= 5)
+                {
+                    if (pickupTimer < 0)
+                    {
+                        pickupSequenceCount = 0;
+                    }
+                    else
+                    {
+                        pickupSequenceCount++;
+                        if (pickupSequenceCount > 8)
+                        {
+                            pickupSequenceCount = 0;
+                        }
+                    }
+                    pickupTimer = pickupTime;
+
+                    pickup.collected(pickupSequenceCount);
+                    deadStuff.Add(pickup);
+                }
                 pickup.update(gameTime);
             }
+
+            foreach (Pickup pickup in deadStuff)
+            {
+                pickups.Remove(pickup);
+            }
+            deadStuff.Clear();
 
             foreach (Enemy enemy in enemies)
             {
@@ -121,6 +152,8 @@ namespace MoleHillMountain
             {
                 updateTunnels();
             }
+
+            pickupTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
         }
 
@@ -461,6 +494,9 @@ namespace MoleHillMountain
             prevMoleRight = ((int)mole.position.X + GRID_SIZE / 4) / GRID_SIZE;
             prevMoleUp = ((int)mole.position.Y - GRID_SIZE / 4) / GRID_SIZE;
             prevMoleDown = ((int)mole.position.Y + GRID_SIZE / 4) / GRID_SIZE;
+
+            pickupTime = 22f / mole.getDigSpeed();
+            pickupTimer = -1;
         }
 
         int[,] combinedTunnels;

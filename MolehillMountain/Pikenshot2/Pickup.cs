@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MoleHillMountain
@@ -11,6 +12,7 @@ namespace MoleHillMountain
     {
         public const int STATE_IDLE = 0;
         public const int STATE_LOOKING = 1;
+        public const int STATE_COLLECTED = 2;
 
         static Random random = new Random();
         static Color SEEN_COLOR = new Color(255, 255, 255, 255);
@@ -27,7 +29,7 @@ namespace MoleHillMountain
 
         float timeToAntic;
         float anticTime = 1000f;
-        float blinkTime = 300f;
+        float blinkTime = 400f;
 
         float animationTimer;
 
@@ -233,7 +235,7 @@ namespace MoleHillMountain
                 int moleClose = dungeonScreen.checkMoleClose(position);
                 if (moleClose > 0)
                 {
-                    if (state != STATE_LOOKING)
+                    if (state != STATE_LOOKING && state != STATE_COLLECTED)
                     {
                         state = STATE_LOOKING;
                         animationTimer = blinkTime;
@@ -243,7 +245,7 @@ namespace MoleHillMountain
                 }
                 else
                 {
-                    if (state != STATE_IDLE)
+                    if (state != STATE_IDLE && state != STATE_COLLECTED)
                     {
                         state = STATE_IDLE;
                         animationTimer = anticTime;
@@ -251,6 +253,14 @@ namespace MoleHillMountain
                 }
             }
 
+        }
+
+        internal void collected(int count)
+        {
+            SoundEffectInstance collectedNoise = PikeAndShotGame.PICKUP_GRUB.CreateInstance();
+            collectedNoise.Pitch = 0.125f * (float)count;
+            collectedNoise.Play();
+            state = STATE_COLLECTED;
         }
 
         private void resetAntic()

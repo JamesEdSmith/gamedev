@@ -356,5 +356,10 @@ namespace MoleHillMountain
         {
             return (state & STATE_SQUASHED) == 0;
         }
+
+        internal float getDigSpeed()
+        {
+            return DIG_SPEED;
+        }
     }
 }

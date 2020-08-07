@@ -422,6 +422,8 @@ namespace MoleHillMountain
         public Queue<Texture2D> prevFrames;
 
         //Audio
+        public static SoundEffect PICKUP_GRUB;
+
         public static Song THEME_1;
         public static Song THEME_2;
         public static SoundEffect SHOT_0;
@@ -930,6 +932,8 @@ namespace MoleHillMountain
             GRUB_GRUB = Content.Load<Texture2D>(@"grub_craw_sml");
             GRUB_LOOK = Content.Load<Texture2D>(@"grub_look");
 
+
+
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
 
             TEST = new Texture2D(GraphicsDevice, 1, 1);
@@ -941,43 +945,48 @@ namespace MoleHillMountain
             SPARKLE = Content.Load<Texture2D>(@"sparkle");
             TITLE_ANIMATION = Content.Load<Texture2D>(@"title_animation");
 
+            PICKUP_GRUB = Content.Load<SoundEffect>("possibleSound5");
+
  //           THEME_2 = Content.Load<Song>(@"boss_music");
  //           THEME_1 = Content.Load<Song>(@"level_music");
-            SHOT_0 = Content.Load<SoundEffect>(@"shot00");
-            SHOT_1 = Content.Load<SoundEffect>(@"shot01");
-            SHOT_2 = Content.Load<SoundEffect>(@"shot02");
-            SHOT_3 = Content.Load<SoundEffect>(@"shot04");
-            SHOT_4 = Content.Load<SoundEffect>(@"shot05");
-            PIKES_LOWER = Content.Load<SoundEffect>(@"down").CreateInstance();
-            PIKES_LOWER.Volume = 1f;
-            PIKES_RAISE = Content.Load<SoundEffect>(@"drop").CreateInstance();
-            PIKES_RAISE.Volume = 1f;
-            SHOT_HIT = Content.Load<SoundEffect>(@"hit");
-            ROCK_HIT = Content.Load<SoundEffect>(@"smack");
-            SLING_ROCK = Content.Load<SoundEffect>(@"huck");
-            OWW_ALLY = Content.Load<SoundEffect>(@"oww");
-            OWW_ENEMY = Content.Load<SoundEffect>(@"bark");
-            BODY_FALL = Content.Load<SoundEffect>(@"thud");
-            CHARGE_ROAR = Content.Load<SoundEffect>(@"roar2");
-            LOOT_SOUND = Content.Load<SoundEffect>(@"coin3");
-            COIN_SOUND = Content.Load<SoundEffect>(@"coin2");
-            SHIELD_BREAK = Content.Load<SoundEffect>(@"shield");
-            PIKE_0 = Content.Load<SoundEffect>(@"pike1");
-            PIKE_1 = Content.Load<SoundEffect>(@"pike2");
-            PIKE_2 = Content.Load<SoundEffect>(@"pike3");
-            PIKE_3 = Content.Load<SoundEffect>(@"pike4");
-            PIKE_4 = Content.Load<SoundEffect>(@"pike5");
-            PIKE_5 = Content.Load<SoundEffect>(@"pike6");
-            MELEE_CLANG_0 = Content.Load<SoundEffect>(@"clang2");
-            MELEE_CLANG_1 = Content.Load<SoundEffect>(@"clang3");
-            MELEE_CLANG_2 = Content.Load<SoundEffect>(@"clang4");
-            SLASH = Content.Load<SoundEffect>(@"slash");
-            GAME_OVER = Content.Load<SoundEffect>(@"go");
-            POWER_UP = Content.Load<SoundEffect>(@"loaded");
-            DOPPEL_DOWN = Content.Load<SoundEffect>(@"downbeat");
-            DOPPEL_UP = Content.Load<SoundEffect>(@"loot_sound");
-            COLMILLOS_HURT = Content.Load<SoundEffect>(@"arg");
-            COLMILLOS_YELL = Content.Load<SoundEffect>(@"boss");
+            //SHOT_0 = Content.Load<SoundEffect>(@"shot00");
+            //SHOT_1 = Content.Load<SoundEffect>(@"shot01");
+            //SHOT_2 = Content.Load<SoundEffect>(@"shot02");
+            //SHOT_3 = Content.Load<SoundEffect>(@"shot04");
+            //SHOT_4 = Content.Load<SoundEffect>(@"shot05");
+
+
+
+            //PIKES_LOWER = Content.Load<SoundEffect>(@"down").CreateInstance();
+            //PIKES_LOWER.Volume = 1f;
+            //PIKES_RAISE = Content.Load<SoundEffect>(@"drop").CreateInstance();
+            //PIKES_RAISE.Volume = 1f;
+            //SHOT_HIT = Content.Load<SoundEffect>(@"hit");
+            //ROCK_HIT = Content.Load<SoundEffect>(@"smack");
+            //SLING_ROCK = Content.Load<SoundEffect>(@"huck");
+            //OWW_ALLY = Content.Load<SoundEffect>(@"oww");
+            //OWW_ENEMY = Content.Load<SoundEffect>(@"bark");
+            //BODY_FALL = Content.Load<SoundEffect>(@"thud");
+            //CHARGE_ROAR = Content.Load<SoundEffect>(@"roar2");
+            //LOOT_SOUND = Content.Load<SoundEffect>(@"coin3");
+            //COIN_SOUND = Content.Load<SoundEffect>(@"coin2");
+            //SHIELD_BREAK = Content.Load<SoundEffect>(@"shield");
+            //PIKE_0 = Content.Load<SoundEffect>(@"pike1");
+            //PIKE_1 = Content.Load<SoundEffect>(@"pike2");
+            //PIKE_2 = Content.Load<SoundEffect>(@"pike3");
+            //PIKE_3 = Content.Load<SoundEffect>(@"pike4");
+            //PIKE_4 = Content.Load<SoundEffect>(@"pike5");
+            //PIKE_5 = Content.Load<SoundEffect>(@"pike6");
+            //MELEE_CLANG_0 = Content.Load<SoundEffect>(@"clang2");
+            //MELEE_CLANG_1 = Content.Load<SoundEffect>(@"clang3");
+            //MELEE_CLANG_2 = Content.Load<SoundEffect>(@"clang4");
+            //SLASH = Content.Load<SoundEffect>(@"slash");
+            //GAME_OVER = Content.Load<SoundEffect>(@"go");
+            //POWER_UP = Content.Load<SoundEffect>(@"loaded");
+            //DOPPEL_DOWN = Content.Load<SoundEffect>(@"downbeat");
+            //DOPPEL_UP = Content.Load<SoundEffect>(@"loot_sound");
+            //COLMILLOS_HURT = Content.Load<SoundEffect>(@"arg");
+            //COLMILLOS_YELL = Content.Load<SoundEffect>(@"boss");
 
 
             _gameScreens = new ArrayList(3);
