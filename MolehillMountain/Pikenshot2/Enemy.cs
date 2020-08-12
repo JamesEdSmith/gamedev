@@ -23,10 +23,17 @@ namespace MoleHillMountain
         public Enemy(DungeonScreen dungeonScene) : base(dungeonScene)
         {
             walking = new Sprite(PikeAndShotGame.RAT_WALKING, new Rectangle(0, 0, 18, 18), 22, 18);
-            
+
             walkingSprite = walking;
             nudging = new Sprite(PikeAndShotGame.RAT_NUDGE, new Rectangle(0, 0, 18, 18), 22, 18);
             clearDirections = new ArrayList(4);
+        }
+
+        public Enemy(DungeonScreen dungeonScreen, int x, int y) : this(dungeonScreen)
+        {
+            position.X = DungeonScreen.GRID_SIZE * x + DungeonScreen.GRID_SIZE * 0.5f;
+            position.Y = DungeonScreen.GRID_SIZE * y + DungeonScreen.GRID_SIZE * 0.5f;
+            drawPosition = new Vector2(position.X, position.Y);
         }
 
         public override void update(TimeSpan timeSpan)
@@ -66,7 +73,7 @@ namespace MoleHillMountain
                 }
                 else
                 {
-                    if(clearDirections.Count > 1)
+                    if (clearDirections.Count > 1)
                     {
                         switch (intendingToMove)
                         {
@@ -77,15 +84,23 @@ namespace MoleHillMountain
                         }
                     }
                     int choice = random.Next(clearDirections.Count);
-                    switch ((int)clearDirections[choice])
+                    if (clearDirections.Count < 1)
                     {
-                        case LEFT_CLEAR: moveLeft(); break;
-                        case RIGHT_CLEAR: moveRight(); break;
-                        case UP_CLEAR: moveUp(); break;
-                        case DOWN_CLEAR: moveDown(); break;
+                        // handle state here
+                    }
+                    else
+                    {
+                        switch ((int)clearDirections[choice])
+                        {
+                            case LEFT_CLEAR: moveLeft(); break;
+                            case RIGHT_CLEAR: moveRight(); break;
+                            case UP_CLEAR: moveUp(); break;
+                            case DOWN_CLEAR: moveDown(); break;
+                        }
                     }
                 }
-            } else
+            }
+            else
             {
                 switch (intendingToMove)
                 {

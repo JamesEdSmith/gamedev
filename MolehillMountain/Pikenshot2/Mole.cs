@@ -36,9 +36,9 @@ namespace MoleHillMountain
 
         protected Sprite walkingSprite;
         public Vector2 position;
-        Vector2 drawPosition;
+        protected Vector2 drawPosition;
         //flags
-        int state = 0;
+        protected int state = 0;
         //notflags
         public int moving = 0;
         public int horzFacing = Sprite.DIRECTION_LEFT;
