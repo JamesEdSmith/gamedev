@@ -124,7 +124,7 @@ namespace MoleHillMountain
                     else
                     {
                         pickupSequenceCount++;
-                        if (pickupSequenceCount > 8)
+                        if (pickupSequenceCount > 7)
                         {
                             pickupSequenceCount = 0;
                         }

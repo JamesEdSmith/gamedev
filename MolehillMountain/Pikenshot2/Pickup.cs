@@ -258,7 +258,8 @@ namespace MoleHillMountain
         internal void collected(int count)
         {
             SoundEffectInstance collectedNoise = PikeAndShotGame.PICKUP_GRUB.CreateInstance();
-            collectedNoise.Pitch = 0.125f * (float)count;
+            collectedNoise.Volume = 0.5f;
+            collectedNoise.Pitch = -0.25f + 0.125f * (float)count;
             collectedNoise.Play();
             state = STATE_COLLECTED;
         }
