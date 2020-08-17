@@ -19,13 +19,15 @@ namespace MoleHillMountain
         public const int DEAD = 4;
         public const int MOVING = 5;
 
+        private const float NUDGE_SPACING = 2;
+
         bool listingLeft;
         bool listingRight;
 
         float animationTimer;
         float fallSpeed = 68f;
         float fallTime = 225f;
-        float shakeTime = 595f;
+        float shakeTime = 500f;
         float splitTime = 400f;
         float animationTime;
 
@@ -42,8 +44,10 @@ namespace MoleHillMountain
 
         public int fallingFrom;
 
-        public bool squashingMole;
+        public bool squashing;
         public bool gonnaBreak;
+        internal float movement;
+
         public Vegetable(float x, float y, DungeonScreen dungeonScreen)
         {
             this.dungeonScreen = dungeonScreen;
@@ -112,6 +116,13 @@ namespace MoleHillMountain
                 }
                 if (state == MOVING)
                 {
+                    if (movement > 0)
+                    {
+                        dungeonScreen.vegetableRight(position, movement, NUDGE_SPACING);
+                    } else
+                    {
+                        dungeonScreen.vegetableLeft(position, movement, NUDGE_SPACING);
+                    }
                     state = NONE;
                 }
             }
@@ -148,10 +159,10 @@ namespace MoleHillMountain
                             listingRight = false;
                         }
                     }
-                    if (dungeonScreen.moleJustBelow(position))
+
+                    if (dungeonScreen.moleJustBelow(this))
                     {
-                        dungeonScreen.squashMole(this);
-                        squashingMole = true;
+                        squashing = true;
                         gonnaBreak = true;
                     }
 

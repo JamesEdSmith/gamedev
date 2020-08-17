@@ -85,6 +85,7 @@ namespace MoleHillMountain
             mole.draw(spriteBatch);
 
             //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 80 + (int)OFFSET.Y, 70, 100), new Rectangle(128, 0, 70, 100), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
+            //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 80 + (int)OFFSET.Y, 72, 20), new Rectangle(0, 1, 72, 20), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
 
         }
 
@@ -300,16 +301,42 @@ namespace MoleHillMountain
             return false;
         }
 
-        internal bool moleJustBelow(Vector2 position)
+        internal bool moleJustBelow(Vegetable vegetable)
         {
+            Vector2 position = vegetable.position;
             Vector2 absPos = (mole.position - position);
+            bool squashedSomeone = false;
 
             if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(mole.position.Y - position.Y) > 0 && (int)(mole.position.Y - position.Y) <= GRID_SIZE / 4))
             {
-                return true;
+                squashMole(vegetable);
+                squashedSomeone = true;
             }
 
-            return false;
+            foreach (Enemy enemy in enemies)
+            {
+                absPos = (enemy.position - position);
+                if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(enemy.position.Y - position.Y) > 0 && (int)(enemy.position.Y - position.Y) <= GRID_SIZE / 4))
+                {
+                    enemy.squash(vegetable);
+                    squashedSomeone = true;
+                }
+            }
+
+            foreach (Vegetable vege in vegetables)
+            {
+                absPos = (vege.position - position);
+                if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(vege.position.Y - position.Y) > 0 
+                    && (int)(vege.position.Y - position.Y) <= GRID_SIZE*3/4) 
+                    && vege.state != Vegetable.FALLING)
+                {
+                    vege.split();
+                    vegetable.split();
+                    squashedSomeone = true;
+                }
+            }
+
+            return squashedSomeone;
         }
 
         internal void squashMole(Vegetable vegetable)
@@ -317,15 +344,16 @@ namespace MoleHillMountain
             mole.squash(vegetable);
         }
 
-        internal bool vegetableRight(Mole mole, float movement)
+        internal bool vegetableRight(Vector2 position, float movement, float spacing)
         {
             foreach (Vegetable vege in vegetables)
             {
                 if (vege.state == Vegetable.NONE || vege.state == Vegetable.MOVING)
                 {
-                    if (vege.position.X - mole.position.X < GRID_SIZE - 7 && Math.Abs(vege.position.Y - mole.position.Y) < GRID_SIZE - 2 && vege.position.X - mole.position.X > 0)
+                    if (vege.position.X - position.X < GRID_SIZE - spacing && Math.Abs(vege.position.Y - position.Y) < GRID_SIZE - 2 && vege.position.X - position.X > 0)
                     {
                         vege.state = Vegetable.MOVING;
+                        vege.movement = movement;
                         vege.position.X += movement;
                         return true;
                     }
@@ -334,16 +362,17 @@ namespace MoleHillMountain
             return false;
         }
 
-        internal bool vegetableLeft(Mole mole, float movement)
+        internal bool vegetableLeft(Vector2 position, float movement, float spacing)
         {
             foreach (Vegetable vege in vegetables)
             {
                 if (vege.state == Vegetable.NONE || vege.state == Vegetable.MOVING)
                 {
-                    if (mole.position.X - vege.position.X < GRID_SIZE - 7 && Math.Abs(vege.position.Y - mole.position.Y) < GRID_SIZE - 2 && mole.position.X - vege.position.X > 0)
+                    if (position.X - vege.position.X < GRID_SIZE - spacing && Math.Abs(vege.position.Y - position.Y) < GRID_SIZE - 2 && position.X - vege.position.X > 0)
                     {
                         vege.state = Vegetable.MOVING;
-                        vege.position.X -= movement;
+                        vege.movement = movement;
+                        vege.position.X += movement;
                         return true;
                     }
                 }
@@ -386,7 +415,7 @@ namespace MoleHillMountain
             int middleX = ((int)vege.position.X) / GRID_SIZE;
             int bottomY = ((int)vege.position.Y + GRID_SIZE / 2) / GRID_SIZE;
 
-            if (vege.squashingMole)
+            if (vege.squashing)
             {
                 bottomY = ((int)vege.position.Y + GRID_SIZE * 3 / 4) / GRID_SIZE;
             }
@@ -400,7 +429,7 @@ namespace MoleHillMountain
             {
                 if (tunnels[middleX, bottomY].top != Tunnel.HALF_DUG)
                 {
-                    if ((int)vege.position.Y - vege.fallingFrom > GRID_SIZE)
+                    if ((int)vege.position.Y - vege.fallingFrom > GRID_SIZE || vege.gonnaBreak)
                     {
                         vege.split();
                     }
@@ -821,7 +850,7 @@ namespace MoleHillMountain
             {
                 int index = 7;
                 ArrayList possibleSpots = new ArrayList();
-                while(possibleSpots.Count<5)
+                while (possibleSpots.Count < 5)
                 {
                     if (tunnelBuckets[index].Count > 0)
                     {

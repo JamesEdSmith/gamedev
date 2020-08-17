@@ -23,6 +23,8 @@ namespace MoleHillMountain
         const int STATE_NUDGING = 2;
         const int STATE_SQUASHED = 4;
 
+        private const float MOLE_NUDGE_SPACING = 7;
+
         float animationTimer;
         public float walkSpeed = WALK_SPEED;
         float walkTime = 325f;
@@ -46,6 +48,7 @@ namespace MoleHillMountain
 
         protected DungeonScreen dungeonScene;
         private Vegetable vegetable;
+        
 
         public Mole(DungeonScreen dungeonScene)
         {
@@ -119,7 +122,7 @@ namespace MoleHillMountain
                     case MOVING_LEFT:
                         if (position.X > 10)
                         {
-                            if (!dungeonScene.vegetableLeft(this, (float)timeSpan.TotalSeconds * walkSpeed * 0.5f))
+                            if (!dungeonScene.vegetableLeft(position, (float)timeSpan.TotalSeconds * walkSpeed * -0.5f, MOLE_NUDGE_SPACING))
                             {
                                 state &= ~STATE_NUDGING;
                                 position.X -= (float)timeSpan.TotalSeconds * walkSpeed;
@@ -136,7 +139,7 @@ namespace MoleHillMountain
                     case MOVING_RIGHT:
                         if (position.X < DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_WIDTH - 0.5))
                         {
-                            if (!dungeonScene.vegetableRight(this, (float)timeSpan.TotalSeconds * walkSpeed * 0.5f))
+                            if (!dungeonScene.vegetableRight(position, (float)timeSpan.TotalSeconds * walkSpeed * 0.5f, MOLE_NUDGE_SPACING))
                             {
                                 state &= ~STATE_NUDGING;
                                 position.X += (float)timeSpan.TotalSeconds * walkSpeed;
