@@ -316,7 +316,7 @@ namespace MoleHillMountain
             foreach (Enemy enemy in enemies)
             {
                 absPos = (enemy.position - position);
-                if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(enemy.position.Y - position.Y) > 0 && (int)(enemy.position.Y - position.Y) <= GRID_SIZE / 4))
+                if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(enemy.position.Y - position.Y) >= -GRID_SIZE/8 && (int)(enemy.position.Y - position.Y) <= GRID_SIZE / 4))
                 {
                     enemy.squash(vegetable);
                     squashedSomeone = true;
@@ -400,6 +400,21 @@ namespace MoleHillMountain
             foreach (Vegetable vege in vegetables)
             {
                 if (vege.state != Vegetable.SPLITTING)
+                {
+                    if (Math.Abs(vege.position.X - mole.position.X) < GRID_SIZE - 8 && mole.position.Y - vege.position.Y <= GRID_SIZE && mole.position.Y - vege.position.Y > 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        internal bool vegetableFallingAbove(Mole mole)
+        {
+            foreach (Vegetable vege in vegetables)
+            {
+                if (vege.state == Vegetable.FALLING)
                 {
                     if (Math.Abs(vege.position.X - mole.position.X) < GRID_SIZE - 8 && mole.position.Y - vege.position.Y <= GRID_SIZE && mole.position.Y - vege.position.Y > 0)
                     {

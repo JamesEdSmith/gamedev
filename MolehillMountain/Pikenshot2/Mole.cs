@@ -19,22 +19,22 @@ namespace MoleHillMountain
         public const int MOVING_UP = 3;
         public const int MOVING_DOWN = 4;
 
-        const int STATE_DIGGING = 1;
-        const int STATE_NUDGING = 2;
-        const int STATE_SQUASHED = 4;
+        public const int STATE_DIGGING = 1;
+        public const int STATE_NUDGING = 2;
+        public const int STATE_SQUASHED = 4;
 
         private const float MOLE_NUDGE_SPACING = 7;
 
-        float animationTimer;
+        protected float animationTimer;
         public float walkSpeed = WALK_SPEED;
-        float walkTime = 325f;
-        float digTime = 650;
-        float animationTime;
+        protected float walkTime = 325f;
+        protected float digTime = 650;
+        protected float animationTime;
 
         protected Sprite walking;
         Sprite digging;
         protected Sprite nudging;
-        Sprite squashed;
+        protected Sprite squashed;
 
         protected Sprite walkingSprite;
         public Vector2 position;
@@ -48,7 +48,7 @@ namespace MoleHillMountain
 
         protected DungeonScreen dungeonScene;
         private Vegetable vegetable;
-        
+
 
         public Mole(DungeonScreen dungeonScene)
         {
@@ -57,7 +57,7 @@ namespace MoleHillMountain
             digging = new Sprite(PikeAndShotGame.MOLE_MINER_DIGGING, new Rectangle(0, 0, 18, 18), 18, 18);
             nudging = new Sprite(PikeAndShotGame.MOLE_MINER_NUDGE, new Rectangle(0, 0, 18, 18), 18, 18);
             squashed = new Sprite(PikeAndShotGame.MOLE_SQUASHED, new Rectangle(0, 0, 18, 18), 18, 18);
-            squashed.setFrame(1);
+            squashed.setFrame(squashed.getMaxFrames() - 1);
             walkingSprite = walking;
             animationTime = walkTime;
             position = new Vector2(10, 10);
@@ -84,9 +84,12 @@ namespace MoleHillMountain
 
             if ((state & STATE_SQUASHED) != 0)
             {
-                position.Y = vegetable.position.Y + DungeonScreen.GRID_SIZE / 4 ;
-                drawPosition.X = (int)position.X;
-                drawPosition.Y = (int)position.Y;
+                if (position.Y - vegetable.position.Y <= vegetable.position.Y + DungeonScreen.GRID_SIZE / 4)
+                {
+                    position.Y = vegetable.position.Y + DungeonScreen.GRID_SIZE / 4;
+                    drawPosition.X = (int)position.X;
+                    drawPosition.Y = (int)position.Y;
+                }
             }
             else if (moving == MOVING_NONE)
             {
@@ -178,7 +181,7 @@ namespace MoleHillMountain
                 walkingSprite.setFrame(frameNumber);
             }
         }
-        public void draw(SpriteBatch spritebatch)
+        public virtual void draw(SpriteBatch spritebatch)
         {
             if ((state & STATE_SQUASHED) == 0)
             {
@@ -268,7 +271,7 @@ namespace MoleHillMountain
             }
         }
 
-        internal void squash(Vegetable vegetable)
+        public virtual void squash(Vegetable vegetable)
         {
             state |= STATE_SQUASHED;
             this.vegetable = vegetable;

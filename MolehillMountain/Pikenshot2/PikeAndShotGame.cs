@@ -412,6 +412,7 @@ namespace MoleHillMountain
 
         public static Texture2D RAT_WALKING;
         public static Texture2D RAT_NUDGE;
+        public static Texture2D RAT_CRUSHED;
 
         public static Texture2D GRUB_EGG;
         public static Texture2D GRUB_GRUB;
@@ -927,12 +928,11 @@ namespace MoleHillMountain
 
             RAT_WALKING = Content.Load<Texture2D>(@"rat_walk_one");
             RAT_NUDGE = Content.Load<Texture2D>(@"rat_push");
+            RAT_CRUSHED = Content.Load<Texture2D>(@"rat_crushed");
 
             GRUB_EGG = Content.Load<Texture2D>(@"egg");
             GRUB_GRUB = Content.Load<Texture2D>(@"grub_craw_sml");
             GRUB_LOOK = Content.Load<Texture2D>(@"grub_look");
-
-
 
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
 

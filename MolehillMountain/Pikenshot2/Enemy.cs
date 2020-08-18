@@ -15,6 +15,8 @@ namespace MoleHillMountain
         const int UP_CLEAR = 3;
         const int RIGHT_CLEAR = 4;
 
+        const int STATE_SCARED = 8;
+
         Tunnel tunnel;
         ArrayList clearDirections;
         static Random random = new Random();
@@ -22,10 +24,11 @@ namespace MoleHillMountain
 
         public Enemy(DungeonScreen dungeonScene) : base(dungeonScene)
         {
-            walking = new Sprite(PikeAndShotGame.RAT_WALKING, new Rectangle(0, 0, 18, 18), 22, 18);
+            walking = new Sprite(PikeAndShotGame.RAT_WALKING, new Rectangle(0, 0, 22, 18), 22, 18);
 
             walkingSprite = walking;
-            nudging = new Sprite(PikeAndShotGame.RAT_NUDGE, new Rectangle(0, 0, 18, 18), 22, 18);
+            nudging = new Sprite(PikeAndShotGame.RAT_NUDGE, new Rectangle(0, 0, 22, 18), 22, 18);
+            squashed = new Sprite(PikeAndShotGame.RAT_CRUSHED, new Rectangle(0, 0, 22, 18), 22, 18);
             clearDirections = new ArrayList(4);
         }
 
@@ -34,6 +37,19 @@ namespace MoleHillMountain
             position.X = DungeonScreen.GRID_SIZE * x + DungeonScreen.GRID_SIZE * 0.5f;
             position.Y = DungeonScreen.GRID_SIZE * y + DungeonScreen.GRID_SIZE * 0.5f;
             drawPosition = new Vector2(position.X, position.Y);
+        }
+
+        public override void draw(SpriteBatch spritebatch)
+        {
+            if ((state & STATE_SCARED) != 0)
+            {
+                squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
+            }
+            else
+            {
+                squashed.setFrame(squashed.getMaxFrames() - 1);
+                base.draw(spritebatch);
+            }
         }
 
         public override void update(TimeSpan timeSpan)
@@ -112,6 +128,26 @@ namespace MoleHillMountain
             }
 
             base.update(timeSpan);
+
+            if (dungeonScene.vegetableFallingAbove(this) && (state & STATE_SQUASHED) == 0)
+            {
+                state |= STATE_SCARED;
+                int maxFrames = squashed.getMaxFrames() - 1;
+                float frameTime = animationTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
+
+                squashed.setFrame(frameNumber);
+            }
+            else
+            {
+                state &= ~STATE_SCARED;
+            }
+        }
+
+        public override void squash(Vegetable vegetable)
+        {
+            base.squash(vegetable);
+            state &= ~STATE_SCARED;
         }
 
         public override void moveLeft()

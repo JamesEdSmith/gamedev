@@ -445,3 +445,4 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.CopyComplete
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\Molehill Mountain.exe
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\Molehill Mountain.pdb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\rat_crushed.xnb
