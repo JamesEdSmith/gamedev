@@ -47,7 +47,7 @@ namespace MoleHillMountain
         public int vertFacing = Sprite.DIRECTION_NONE;
 
         protected DungeonScreen dungeonScene;
-        private Vegetable vegetable;
+        protected Vegetable vegetable;
 
 
         public Mole(DungeonScreen dungeonScene)
@@ -57,7 +57,7 @@ namespace MoleHillMountain
             digging = new Sprite(PikeAndShotGame.MOLE_MINER_DIGGING, new Rectangle(0, 0, 18, 18), 18, 18);
             nudging = new Sprite(PikeAndShotGame.MOLE_MINER_NUDGE, new Rectangle(0, 0, 18, 18), 18, 18);
             squashed = new Sprite(PikeAndShotGame.MOLE_SQUASHED, new Rectangle(0, 0, 18, 18), 18, 18);
-            squashed.setFrame(squashed.getMaxFrames() - 1);
+            squashed.setFrame(squashed.getMaxFrames() - 2);
             walkingSprite = walking;
             animationTime = walkTime;
             position = new Vector2(10, 10);
@@ -189,7 +189,45 @@ namespace MoleHillMountain
             }
             else
             {
-                squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE);
+                if (vegetable != null && (vegetable.state == Vegetable.SPLITTING || vegetable.state == Vegetable.DEAD))
+                {
+                    squashed.setFrame(squashed.getMaxFrames() - 1);
+                }
+                else
+                {
+                    squashed.setFrame(squashed.getMaxFrames() - 2);
+                }
+
+                if (horzFacing == Sprite.DIRECTION_LEFT)
+                {
+                    if (vertFacing == Sprite.DIRECTION_NONE)
+                    {
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, Sprite.DIRECTION_NONE);
+                    }
+                    else if (vertFacing == Sprite.DIRECTION_DOWN)
+                    {
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, Sprite.DIRECTION_NONE);
+                    }
+                    else
+                    {
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE);
+                    }
+                }
+                else
+                {
+                    if (vertFacing == Sprite.DIRECTION_NONE)
+                    {
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, Sprite.DIRECTION_NONE);
+                    }
+                    else if (vertFacing == Sprite.DIRECTION_DOWN)
+                    {
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, Sprite.DIRECTION_RIGHT, Sprite.DIRECTION_NONE);
+                    }
+                    else
+                    {
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, Sprite.DIRECTION_RIGHT, Sprite.DIRECTION_NONE);
+                    }
+                }
             }
         }
 

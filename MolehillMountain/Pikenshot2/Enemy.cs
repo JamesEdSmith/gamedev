@@ -45,85 +45,129 @@ namespace MoleHillMountain
             {
                 squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
             }
+            else if ((state & STATE_SQUASHED) != 0)
+            {
+                if (vegetable != null && (vegetable.state == Vegetable.SPLITTING || vegetable.state == Vegetable.DEAD))
+                {
+                    squashed.setFrame(squashed.getMaxFrames() - 1);
+                }
+                else
+                {
+                    squashed.setFrame(squashed.getMaxFrames() - 2);
+                }
+
+                if (horzFacing == Sprite.DIRECTION_LEFT)
+                {
+                    if (vertFacing == Sprite.DIRECTION_NONE)
+                    {
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, Sprite.DIRECTION_NONE);
+                    }
+                    else if (vertFacing == Sprite.DIRECTION_DOWN)
+                    {
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, Sprite.DIRECTION_NONE);
+                    }
+                    else
+                    {
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, Sprite.DIRECTION_RIGHT, Sprite.DIRECTION_NONE);
+                    }
+                }
+                else
+                {
+                    if (vertFacing == Sprite.DIRECTION_NONE)
+                    {
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, Sprite.DIRECTION_NONE);
+                    }
+                    else if (vertFacing == Sprite.DIRECTION_DOWN)
+                    {
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE);
+                    }
+                    else
+                    {
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE);
+                    }
+                }
+            }
             else
             {
-                squashed.setFrame(squashed.getMaxFrames() - 1);
                 base.draw(spritebatch);
             }
         }
 
         public override void update(TimeSpan timeSpan)
         {
-            Tunnel newTunnel = dungeonScene.getCurrTunnel(position);
-            setDig(false);
-            if (tunnel == null || newTunnel != tunnel)
+            if ((state & STATE_SQUASHED) == 0)
             {
-                tunnel = newTunnel;
+                Tunnel newTunnel = dungeonScene.getCurrTunnel(position);
+                setDig(false);
+                if (tunnel == null || newTunnel != tunnel)
+                {
+                    tunnel = newTunnel;
 
-                clearDirections.Clear();
+                    clearDirections.Clear();
 
-                if ((tunnel.left == Tunnel.DUG || tunnel.left == Tunnel.HALF_DUG))
-                    clearDirections.Add(LEFT_CLEAR);
-                if ((tunnel.right == Tunnel.DUG || tunnel.right == Tunnel.HALF_DUG))
-                    clearDirections.Add(RIGHT_CLEAR);
-                if ((tunnel.top == Tunnel.DUG || tunnel.top == Tunnel.HALF_DUG))
-                    clearDirections.Add(UP_CLEAR);
-                if ((tunnel.bottom == Tunnel.DUG || tunnel.bottom == Tunnel.HALF_DUG))
-                    clearDirections.Add(DOWN_CLEAR);
+                    if ((tunnel.left == Tunnel.DUG || tunnel.left == Tunnel.HALF_DUG))
+                        clearDirections.Add(LEFT_CLEAR);
+                    if ((tunnel.right == Tunnel.DUG || tunnel.right == Tunnel.HALF_DUG))
+                        clearDirections.Add(RIGHT_CLEAR);
+                    if ((tunnel.top == Tunnel.DUG || tunnel.top == Tunnel.HALF_DUG))
+                        clearDirections.Add(UP_CLEAR);
+                    if ((tunnel.bottom == Tunnel.DUG || tunnel.bottom == Tunnel.HALF_DUG))
+                        clearDirections.Add(DOWN_CLEAR);
 
-                if (intendingToMove == MOVING_LEFT && clearDirections.Contains(LEFT_CLEAR))
-                {
-                    moveLeft();
-                }
-                else if (intendingToMove == MOVING_RIGHT && clearDirections.Contains(RIGHT_CLEAR))
-                {
-                    moveRight();
-                }
-                else if (intendingToMove == MOVING_DOWN && clearDirections.Contains(DOWN_CLEAR))
-                {
-                    moveDown();
-                }
-                else if (intendingToMove == MOVING_UP && clearDirections.Contains(UP_CLEAR))
-                {
-                    moveUp();
-                }
-                else
-                {
-                    if (clearDirections.Count > 1)
+                    if (intendingToMove == MOVING_LEFT && clearDirections.Contains(LEFT_CLEAR))
                     {
-                        switch (intendingToMove)
-                        {
-                            case MOVING_DOWN: clearDirections.Remove(UP_CLEAR); break;
-                            case MOVING_LEFT: clearDirections.Remove(RIGHT_CLEAR); break;
-                            case MOVING_RIGHT: clearDirections.Remove(LEFT_CLEAR); break;
-                            case MOVING_UP: clearDirections.Remove(DOWN_CLEAR); break;
-                        }
+                        moveLeft();
                     }
-                    int choice = random.Next(clearDirections.Count);
-                    if (clearDirections.Count < 1)
+                    else if (intendingToMove == MOVING_RIGHT && clearDirections.Contains(RIGHT_CLEAR))
                     {
-                        // handle state here
+                        moveRight();
+                    }
+                    else if (intendingToMove == MOVING_DOWN && clearDirections.Contains(DOWN_CLEAR))
+                    {
+                        moveDown();
+                    }
+                    else if (intendingToMove == MOVING_UP && clearDirections.Contains(UP_CLEAR))
+                    {
+                        moveUp();
                     }
                     else
                     {
-                        switch ((int)clearDirections[choice])
+                        if (clearDirections.Count > 1)
                         {
-                            case LEFT_CLEAR: moveLeft(); break;
-                            case RIGHT_CLEAR: moveRight(); break;
-                            case UP_CLEAR: moveUp(); break;
-                            case DOWN_CLEAR: moveDown(); break;
+                            switch (intendingToMove)
+                            {
+                                case MOVING_DOWN: clearDirections.Remove(UP_CLEAR); break;
+                                case MOVING_LEFT: clearDirections.Remove(RIGHT_CLEAR); break;
+                                case MOVING_RIGHT: clearDirections.Remove(LEFT_CLEAR); break;
+                                case MOVING_UP: clearDirections.Remove(DOWN_CLEAR); break;
+                            }
+                        }
+                        int choice = random.Next(clearDirections.Count);
+                        if (clearDirections.Count < 1)
+                        {
+                            // handle state here
+                        }
+                        else
+                        {
+                            switch ((int)clearDirections[choice])
+                            {
+                                case LEFT_CLEAR: moveLeft(); break;
+                                case RIGHT_CLEAR: moveRight(); break;
+                                case UP_CLEAR: moveUp(); break;
+                                case DOWN_CLEAR: moveDown(); break;
+                            }
                         }
                     }
                 }
-            }
-            else
-            {
-                switch (intendingToMove)
+                else
                 {
-                    case MOVING_DOWN: moveDown(); break;
-                    case MOVING_LEFT: moveLeft(); break;
-                    case MOVING_RIGHT: moveRight(); break;
-                    case MOVING_UP: moveUp(); break;
+                    switch (intendingToMove)
+                    {
+                        case MOVING_DOWN: moveDown(); break;
+                        case MOVING_LEFT: moveLeft(); break;
+                        case MOVING_RIGHT: moveRight(); break;
+                        case MOVING_UP: moveUp(); break;
+                    }
                 }
             }
 
@@ -132,7 +176,7 @@ namespace MoleHillMountain
             if (dungeonScene.vegetableFallingAbove(this) && (state & STATE_SQUASHED) == 0)
             {
                 state |= STATE_SCARED;
-                int maxFrames = squashed.getMaxFrames() - 1;
+                int maxFrames = squashed.getMaxFrames() - 2;
                 float frameTime = animationTime / (float)maxFrames;
                 int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
 
