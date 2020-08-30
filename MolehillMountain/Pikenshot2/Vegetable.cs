@@ -19,7 +19,7 @@ namespace MoleHillMountain
         public const int DEAD = 4;
         public const int MOVING = 5;
 
-        private const float NUDGE_SPACING = 2;
+        public const float NUDGE_SPACING = 2;
 
         bool listingLeft;
         bool listingRight;
@@ -46,12 +46,14 @@ namespace MoleHillMountain
 
         public bool squashing;
         public bool gonnaBreak;
-        internal float movement;
+
+        public ArrayList leftPushers;
+        public ArrayList rightPushers;
 
         public Vegetable(float x, float y, DungeonScreen dungeonScreen)
         {
             this.dungeonScreen = dungeonScreen;
-            
+
             if (random.Next(2) == 0)
             {
                 shaking = new Sprite(PikeAndShotGame.TURNIP_SHAKE, new Rectangle(0, 0, 20, 20), 20, 20);
@@ -71,6 +73,8 @@ namespace MoleHillMountain
             position = new Vector2(x, y);
             drawPosition = new Vector2(position.X, position.Y);
             state = NONE;
+            leftPushers = new ArrayList(2);
+            rightPushers = new ArrayList(2);
         }
 
         public void draw(SpriteBatch spritebatch)
@@ -113,17 +117,6 @@ namespace MoleHillMountain
                             fall();
                         }
                     }
-                }
-                if (state == MOVING)
-                {
-                    if (movement > 0)
-                    {
-                        dungeonScreen.vegetableRight(position, movement, NUDGE_SPACING);
-                    } else
-                    {
-                        dungeonScreen.vegetableLeft(position, movement, NUDGE_SPACING);
-                    }
-                    state = NONE;
                 }
             }
             else
@@ -185,14 +178,59 @@ namespace MoleHillMountain
 
             if (state == SHAKING)
             {
-                drawPosition.X = (int)position.X + (int)(1.1f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds/25f));
-                drawPosition.Y = (int)position.Y + (int)(1.1f * (float)Math.Cos(gameTime.TotalGameTime.TotalMilliseconds/25f));
+                drawPosition.X = (int)position.X + (int)(1.1f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 25f));
+                drawPosition.Y = (int)position.Y + (int)(1.1f * (float)Math.Cos(gameTime.TotalGameTime.TotalMilliseconds / 25f));
             }
             else
             {
                 drawPosition.X = (int)position.X;
                 drawPosition.Y = (int)position.Y;
             }
+        }
+
+        public void push(float totalSeconds)
+        {
+            int leftPushersStr = 0;
+            int rightPushersStr = 0;
+            float movement = 0;
+
+            foreach (Mole pusher in leftPushers)
+            {
+                if ((pusher.state & Mole.STATE_NUDGING) != 0 || pusher != dungeonScreen.mole)
+                {
+                    leftPushersStr += pusher.str;
+                }
+            }
+            foreach (Mole pusher in rightPushers)
+            {
+                if ((pusher.state & Mole.STATE_NUDGING) != 0 || pusher != dungeonScreen.mole)
+                {
+                    rightPushersStr += pusher.str;
+                }
+            }
+
+            if (leftPushersStr > rightPushersStr)
+            {
+                movement = totalSeconds * ((Mole)leftPushers[0]).walkSpeed * 0.5f;
+                position.X += movement;
+            }
+            else if (leftPushersStr < rightPushersStr)
+            {
+                movement = totalSeconds * ((Mole)rightPushers[0]).walkSpeed * -0.5f;
+                position.X += movement;
+            }
+
+            foreach (Mole pusher in leftPushers)
+            {
+                pusher.nudgeMovement = movement;
+            }
+            foreach (Mole pusher in rightPushers)
+            {
+                pusher.nudgeMovement = movement;
+            }
+
+            leftPushers.Clear();
+            rightPushers.Clear();
         }
 
         private void fall()

@@ -23,7 +23,7 @@ namespace MoleHillMountain
         }
 
         public PikeAndShotGame _game;
-        Mole mole;
+        public Mole mole;
         public Tunnel[,] tunnels;
         ArrayList enemies;
         ArrayList vegetables;
@@ -105,6 +105,15 @@ namespace MoleHillMountain
                 {
                     deadStuff.Add(vege);
                 }
+            }
+
+            foreach (Vegetable vege in vegetables)
+            {
+                if(vege.leftPushers.Count == 0 && vege.rightPushers.Count == 0 && vege.state == Vegetable.MOVING)
+                {
+                    vege.state = Vegetable.NONE;
+                }
+                vege.push((float)gameTime.ElapsedGameTime.TotalSeconds);
             }
 
             foreach (Vegetable vege in deadStuff)
@@ -316,7 +325,7 @@ namespace MoleHillMountain
             foreach (Enemy enemy in enemies)
             {
                 absPos = (enemy.position - position);
-                if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(enemy.position.Y - position.Y) >= -GRID_SIZE/8 && (int)(enemy.position.Y - position.Y) <= GRID_SIZE / 4))
+                if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(enemy.position.Y - position.Y) >= -GRID_SIZE / 8 && (int)(enemy.position.Y - position.Y) <= GRID_SIZE / 4))
                 {
                     enemy.squash(vegetable);
                     squashedSomeone = true;
@@ -326,8 +335,8 @@ namespace MoleHillMountain
             foreach (Vegetable vege in vegetables)
             {
                 absPos = (vege.position - position);
-                if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(vege.position.Y - position.Y) > 0 
-                    && (int)(vege.position.Y - position.Y) <= GRID_SIZE*3/4) 
+                if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(vege.position.Y - position.Y) > 0
+                    && (int)(vege.position.Y - position.Y) <= GRID_SIZE * 3 / 4)
                     && vege.state != Vegetable.FALLING)
                 {
                     vege.split();
@@ -344,17 +353,18 @@ namespace MoleHillMountain
             mole.squash(vegetable);
         }
 
-        internal bool vegetableRight(Vector2 position, float movement, float spacing)
+        internal bool vegetableRight(Vector2 position, ArrayList pushers, float spacing)
         {
             foreach (Vegetable vege in vegetables)
             {
-                if (vege.state == Vegetable.NONE || vege.state == Vegetable.MOVING)
+                if ((vege.state == Vegetable.NONE || vege.state == Vegetable.MOVING) && position != vege.position)
                 {
                     if (vege.position.X - position.X < GRID_SIZE - spacing && Math.Abs(vege.position.Y - position.Y) < GRID_SIZE - 2 && vege.position.X - position.X > 0)
                     {
                         vege.state = Vegetable.MOVING;
-                        vege.movement = movement;
-                        vege.position.X += movement;
+                        vege.leftPushers.AddRange(pushers);
+                        vegetableRight(vege.position, pushers, Vegetable.NUDGE_SPACING);
+                        moleRight(vege, spacing);
                         return true;
                     }
                 }
@@ -362,22 +372,67 @@ namespace MoleHillMountain
             return false;
         }
 
-        internal bool vegetableLeft(Vector2 position, float movement, float spacing)
+        private void moleRight(Vegetable vegetable, float spacing)
+        {
+            if (mole.position.X - vegetable.position.X < GRID_SIZE - spacing
+                && Math.Abs(mole.position.Y - vegetable.position.Y) < GRID_SIZE - 2
+                && mole.position.X - vegetable.position.X > 0
+                && !vegetable.rightPushers.Contains(mole))
+            {
+                vegetable.rightPushers.Add(mole);
+            }
+
+            foreach (Enemy enemy in enemies)
+            {
+                if (enemy.position.X - vegetable.position.X < GRID_SIZE - spacing
+                && Math.Abs(enemy.position.Y - vegetable.position.Y) < GRID_SIZE - 2
+                && enemy.position.X - vegetable.position.X > 0
+                && !vegetable.rightPushers.Contains(enemy))
+                {
+                    vegetable.rightPushers.Add(enemy);
+                }
+            }
+        }
+
+        internal bool vegetableLeft(Vector2 position, ArrayList pushers, float spacing)
         {
             foreach (Vegetable vege in vegetables)
             {
-                if (vege.state == Vegetable.NONE || vege.state == Vegetable.MOVING)
+                if ((vege.state == Vegetable.NONE || vege.state == Vegetable.MOVING) && position != vege.position)
                 {
                     if (position.X - vege.position.X < GRID_SIZE - spacing && Math.Abs(vege.position.Y - position.Y) < GRID_SIZE - 2 && position.X - vege.position.X > 0)
                     {
                         vege.state = Vegetable.MOVING;
-                        vege.movement = movement;
-                        vege.position.X += movement;
+                        vege.rightPushers.AddRange(pushers);
+                        vegetableLeft(vege.position, pushers, Vegetable.NUDGE_SPACING);
+                        moleLeft(vege, spacing);
                         return true;
                     }
                 }
             }
             return false;
+        }
+
+        private void moleLeft(Vegetable vegetable, float spacing)
+        {
+            if (vegetable.position.X - mole.position.X < GRID_SIZE - spacing
+                && Math.Abs(vegetable.position.Y - mole.position.Y) < GRID_SIZE - 2
+                && vegetable.position.X - mole.position.X > 0
+                && !vegetable.leftPushers.Contains(mole))
+            {
+                vegetable.leftPushers.Add(mole);
+            }
+
+            foreach (Enemy enemy in enemies)
+            {
+                if (vegetable.position.X - enemy.position.X < GRID_SIZE - spacing
+                && Math.Abs(vegetable.position.Y - enemy.position.Y) < GRID_SIZE - 2
+                && vegetable.position.X - enemy.position.X > 0
+                && !vegetable.leftPushers.Contains(enemy))
+                {
+                    vegetable.leftPushers.Add(enemy);
+                }
+            }
         }
 
         internal bool vegetableBelow(Mole mole)

@@ -30,6 +30,7 @@ namespace MoleHillMountain
             nudging = new Sprite(PikeAndShotGame.RAT_NUDGE, new Rectangle(0, 0, 22, 18), 22, 18);
             squashed = new Sprite(PikeAndShotGame.RAT_CRUSHED, new Rectangle(0, 0, 22, 18), 22, 18);
             clearDirections = new ArrayList(4);
+            str = 3;
         }
 
         public Enemy(DungeonScreen dungeonScreen, int x, int y) : this(dungeonScreen)

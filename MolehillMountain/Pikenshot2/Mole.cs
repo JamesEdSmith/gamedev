@@ -40,7 +40,7 @@ namespace MoleHillMountain
         public Vector2 position;
         protected Vector2 drawPosition;
         //flags
-        protected int state = 0;
+        public int state = 0;
         //notflags
         public int moving = 0;
         public int horzFacing = Sprite.DIRECTION_LEFT;
@@ -48,7 +48,8 @@ namespace MoleHillMountain
 
         protected DungeonScreen dungeonScene;
         protected Vegetable vegetable;
-
+        public int str;
+        public float nudgeMovement;
 
         public Mole(DungeonScreen dungeonScene)
         {
@@ -62,6 +63,7 @@ namespace MoleHillMountain
             animationTime = walkTime;
             position = new Vector2(10, 10);
             drawPosition = new Vector2(position.X, position.Y);
+            str = 3;
         }
 
         public Mole(float x, float y, DungeonScreen dungeonScene) : this(dungeonScene)
@@ -101,6 +103,10 @@ namespace MoleHillMountain
                 {
                     walking.setFrame(0);
                 }
+                position.X += nudgeMovement;
+                drawPosition.X = (int)position.X;
+                drawPosition.Y = (int)position.Y;
+
             }
             else
             {
@@ -125,7 +131,7 @@ namespace MoleHillMountain
                     case MOVING_LEFT:
                         if (position.X > 10)
                         {
-                            if (!dungeonScene.vegetableLeft(position, (float)timeSpan.TotalSeconds * walkSpeed * -0.5f, MOLE_NUDGE_SPACING))
+                            if (!dungeonScene.vegetableLeft(position, new ArrayList { this }, MOLE_NUDGE_SPACING))
                             {
                                 state &= ~STATE_NUDGING;
                                 position.X -= (float)timeSpan.TotalSeconds * walkSpeed;
@@ -133,16 +139,18 @@ namespace MoleHillMountain
                             else
                             {
                                 state |= STATE_NUDGING;
-                                position.X -= (float)timeSpan.TotalSeconds * walkSpeed * 0.5f;
+                                position.X += nudgeMovement;
                                 animationTime = walkTime;
                                 walkingSprite = nudging;
+                                nudgeMovement = 0;
+                                Console.WriteLine("nudgeMovement: " + nudgeMovement);
                             }
                         }
                         break;
                     case MOVING_RIGHT:
                         if (position.X < DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_WIDTH - 0.5))
                         {
-                            if (!dungeonScene.vegetableRight(position, (float)timeSpan.TotalSeconds * walkSpeed * 0.5f, MOLE_NUDGE_SPACING))
+                            if (!dungeonScene.vegetableRight(position, new ArrayList { this }, MOLE_NUDGE_SPACING))
                             {
                                 state &= ~STATE_NUDGING;
                                 position.X += (float)timeSpan.TotalSeconds * walkSpeed;
@@ -150,9 +158,11 @@ namespace MoleHillMountain
                             else
                             {
                                 state |= STATE_NUDGING;
-                                position.X += (float)timeSpan.TotalSeconds * walkSpeed * 0.5f;
+                                position.X += nudgeMovement;
                                 animationTime = walkTime;
                                 walkingSprite = nudging;
+                                nudgeMovement = 0;
+                                Console.WriteLine("nudgeMovement: " + nudgeMovement);
                             }
                         }
                         break;
@@ -179,6 +189,8 @@ namespace MoleHillMountain
                 int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
 
                 walkingSprite.setFrame(frameNumber);
+
+                nudgeMovement = 0;
             }
         }
         public virtual void draw(SpriteBatch spritebatch)
