@@ -104,6 +104,7 @@ namespace MoleHillMountain
                     walking.setFrame(0);
                 }
                 position.X += nudgeMovement;
+                nudgeMovement = 0;
                 drawPosition.X = (int)position.X;
                 drawPosition.Y = (int)position.Y;
 
@@ -143,7 +144,7 @@ namespace MoleHillMountain
                                 animationTime = walkTime;
                                 walkingSprite = nudging;
                                 nudgeMovement = 0;
-                                Console.WriteLine("nudgeMovement: " + nudgeMovement);
+                                //Console.WriteLine("nudgeMovement: " + nudgeMovement);
                             }
                         }
                         break;
@@ -162,7 +163,7 @@ namespace MoleHillMountain
                                 animationTime = walkTime;
                                 walkingSprite = nudging;
                                 nudgeMovement = 0;
-                                Console.WriteLine("nudgeMovement: " + nudgeMovement);
+                                //Console.WriteLine("nudgeMovement: " + nudgeMovement);
                             }
                         }
                         break;
