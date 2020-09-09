@@ -18,45 +18,47 @@ namespace MoleHillMountain
         float textTimer = 2000f;
         Color textColor;
 
+        int frameNumber = 0;
+
         public TitleScreen(PikeAndShotGame game)
             : base(game)
         {
-            //title = new Sprite(PikeAndShotGame.TITLE_ANIMATION, new Rectangle(253, 122, 253, 122), 506, 244);
-            title = new Sprite(PikeAndShotGame.TITLE_ANIMATION, new Rectangle(0, 0, 253, 122), 506, 244);
+            //   title = new Sprite(PikeAndShotGame.TITLE_ANIMATION, new Rectangle(0, 0, 253, 122), 506, 244);
+            title = new Sprite(PikeAndShotGame.TITLE_ANIMATION, new Rectangle(0, 0, 256, 192), 256, 192);
             textColor = new Color(0.8f, 0.8f, 0f);
         }
 
         public override void update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             getInput(gameTime.ElapsedGameTime);
-            if (waitTime > 0)
-            {
-                waitTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            }
-            else if (fadeTime > 0)
-            {
-                fadeTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            //if (waitTime > 0)
+            //{
+            //    waitTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            //}
+            //else if (fadeTime > 0)
+            //{
+            //    fadeTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-                int maxFrames = title.getMaxFrames();
-                float deathFrameTime = animationTime / (float)maxFrames;
-                int frameNumber = maxFrames - (int)(fadeTime / deathFrameTime) - 1;
+            //    int maxFrames = title.getMaxFrames();
+            //    float deathFrameTime = animationTime / (float)maxFrames;
+            //    int frameNumber = maxFrames - (int)(fadeTime / deathFrameTime) - 1;
 
                 title.setFrame(frameNumber);
-            }
-            else
-            {
-                textTimer -= (float)gameTime.ElapsedGameTime.Milliseconds;
-                if(textTimer <= 0)
-                {
-                    textTimer = textTime + textTimer;
-                }
-                textColor = new Color(0.8f, 0.8f, 0f, Math.Abs(textTime - textTimer) / (textTime/2f) );
-            }
+            //}
+            //else
+            //{
+            //    textTimer -= (float)gameTime.ElapsedGameTime.Milliseconds;
+            //    if(textTimer <= 0)
+            //    {
+            //        textTimer = textTime + textTimer;
+            //    }
+            //    textColor = new Color(0.8f, 0.8f, 0f, Math.Abs(textTime - textTimer) / (textTime/2f) );
+            //}
         }
 
         public override void draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {   
-            title.draw(spriteBatch, new Vector2(0,0), SIDE_PLAYER, PikeAndShotGame.DUMMY_TIMESPAN);
+            title.draw(spriteBatch, new Vector2(10,0), SIDE_PLAYER, PikeAndShotGame.DUMMY_TIMESPAN);
             if (fadeTime <= 0)
             {
                 spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Press Pike or Shot", new Vector2(450, PikeAndShotGame.SCREENHEIGHT * 2f/ 3f), textColor);
@@ -74,9 +76,19 @@ namespace MoleHillMountain
             {
                 _game.setScreen(PikeAndShotGame.SCREEN_LEVELPLAY);
             }
-            if ((keyboardState.IsKeyDown(Keys.X) && !keyboardState.IsKeyDown(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.X) && !gamePadState.IsButtonDown(Buttons.A)))
+            if ((keyboardState.IsKeyDown(Keys.X) && !previousKeyboardState.IsKeyDown(Keys.X)) || (gamePadState.IsButtonDown(Buttons.X) && !previousGamePadState.IsButtonDown(Buttons.X)))
             {
                 _game.setScreen(PikeAndShotGame.SCREEN_LEVELPLAY);
+            }
+            if ((keyboardState.IsKeyDown(Keys.Q) && !previousKeyboardState.IsKeyDown(Keys.Q)))
+            {
+                if(title.getCurrFrame() == 1)
+                {
+                    frameNumber = 0;
+                } else
+                {
+                    frameNumber = 1;
+                }
             }
 
             base.getInput(timeSpan);

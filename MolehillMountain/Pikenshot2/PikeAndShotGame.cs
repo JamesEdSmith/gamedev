@@ -943,7 +943,9 @@ namespace MoleHillMountain
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
             SPARKLE = Content.Load<Texture2D>(@"sparkle");
-            TITLE_ANIMATION = Content.Load<Texture2D>(@"title_animation");
+            //TITLE_ANIMATION = Content.Load<Texture2D>(@"title_animation");
+            TITLE_ANIMATION = Content.Load<Texture2D>(@"title_screen");
+
 
             PICKUP_GRUB = Content.Load<SoundEffect>("possibleSound5");
 

@@ -356,7 +356,6 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\wolf_spooked
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\wolf_turn.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\wolf_turn_col.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\wounded_dude.xnb
-D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\title_animation.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\boss_music.ogg
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\boss_music.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\level_music.ogg
@@ -446,3 +445,4 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\Molehill Mountain.exe
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\Molehill Mountain.pdb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\rat_crushed.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\title_screen.xnb
