@@ -33,11 +33,11 @@ namespace MoleHillMountain
 
         Rectangle testDrawRectangle = new Rectangle(0, 0, SCREENWIDTH, SCREENHEIGHT);
         Rectangle drawRectangle = new Rectangle(0, 0, SCREENWIDTH, SCREENHEIGHT);
-        Rectangle fullDrawRectangle = new Rectangle(0, 0, SCREENWIDTH+50, SCREENHEIGHT+50);
+        Rectangle fullDrawRectangle = new Rectangle(0, 0, SCREENWIDTH + 50, SCREENHEIGHT + 50);
         Rectangle screenDrawRectangle = new Rectangle(0, 25, 25, SCREENHEIGHT);
-        Rectangle screenDrawRectangle2 = new Rectangle(SCREENWIDTH+25, 25, 25, SCREENHEIGHT);
-        Rectangle screenDrawRectangle3 = new Rectangle(0, 22, SCREENWIDTH+50, 3);
-        Rectangle screenDrawRectangle4 = new Rectangle(0, SCREENHEIGHT+25, SCREENWIDTH+50, 3);
+        Rectangle screenDrawRectangle2 = new Rectangle(SCREENWIDTH + 25, 25, 25, SCREENHEIGHT);
+        Rectangle screenDrawRectangle3 = new Rectangle(0, 22, SCREENWIDTH + 50, 3);
+        Rectangle screenDrawRectangle4 = new Rectangle(0, SCREENHEIGHT + 25, SCREENWIDTH + 50, 3);
         Rectangle drawSourceRectangle = new Rectangle(2, 2, SCREENWIDTH, SCREENHEIGHT);
 
         RenderTarget2D ShaderRenderTarget;
@@ -480,10 +480,10 @@ namespace MoleHillMountain
             if (!DEBUG)
             {
                 //make it full screen... (borderless if you want to is an option as well)
-                this.Window.Position = new Point((int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - (float)SCREENWIDTH)/2 -50, (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - (float)SCREENHEIGHT) / 2 - 50);
+                this.Window.Position = new Point((int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - (float)SCREENWIDTH) / 2 - 50, (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - (float)SCREENHEIGHT) / 2 - 50);
                 this.Window.IsBorderless = true;
-                graphics.PreferredBackBufferWidth = SCREENWIDTH+50;
-                graphics.PreferredBackBufferHeight = SCREENHEIGHT+50;
+                graphics.PreferredBackBufferWidth = SCREENWIDTH + 50;
+                graphics.PreferredBackBufferHeight = SCREENHEIGHT + 50;
                 graphics.IsFullScreen = false;
                 this.Window.AllowUserResizing = false;
                 graphics.ApplyChanges();
@@ -496,7 +496,9 @@ namespace MoleHillMountain
 
             Content.RootDirectory = "Content";
             screenColor = new Color(166, 172, 132, 150);
-            screenColorShader = new Color(166, 172, 132,0);
+            screenColorShader = new Color(166, 172, 132, 0);
+
+
         }
 
         public static Texture2D CreateTexture(GraphicsDevice device, int width, int height, Func<int, Color> paint)
@@ -565,11 +567,11 @@ namespace MoleHillMountain
             effect2.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
             effect2.Parameters["iResolution"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT) * 1.5f);
 
-            effect3 = Content.Load<Effect>(@"gb-pass-0"); 
+            effect3 = Content.Load<Effect>(@"gb-pass-0");
             effect3.Parameters["video_size"].SetValue(new Vector2(256, 192));
             effect3.Parameters["texture_size"].SetValue(new Vector2(256, 192));
             effect3.Parameters["output_size"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
-     //       effect3.Parameters["modelViewProj"].SetValue(Matrix.Identity);
+            //       effect3.Parameters["modelViewProj"].SetValue(Matrix.Identity);
             effect3.Parameters["$COLOR_PALETTE"].SetValue(PALETTE);
             //effect3.Parameters["$BACKGROUND"].SetValue(BACKGROUND);
 
@@ -921,7 +923,7 @@ namespace MoleHillMountain
             TURNIP_SHAKE = Content.Load<Texture2D>(@"turnip_fall");
             TURNIP_TWIRL = Content.Load<Texture2D>(@"turnip_twirl");
             TURNIP_SPLIT = Content.Load<Texture2D>(@"turnip_split");
-            
+
             ONION_SHAKE = Content.Load<Texture2D>(@"onion_shake");
             ONION_TWIRL = Content.Load<Texture2D>(@"onion_twirl");
             ONION_SPLIT = Content.Load<Texture2D>(@"onion_split");
@@ -949,8 +951,8 @@ namespace MoleHillMountain
 
             PICKUP_GRUB = Content.Load<SoundEffect>("possibleSound5");
 
- //           THEME_2 = Content.Load<Song>(@"boss_music");
- //           THEME_1 = Content.Load<Song>(@"level_music");
+            //           THEME_2 = Content.Load<Song>(@"boss_music");
+            //           THEME_1 = Content.Load<Song>(@"level_music");
             //SHOT_0 = Content.Load<SoundEffect>(@"shot00");
             //SHOT_1 = Content.Load<SoundEffect>(@"shot01");
             //SHOT_2 = Content.Load<SoundEffect>(@"shot02");
@@ -1067,7 +1069,7 @@ namespace MoleHillMountain
                 {
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
                     GraphicsDevice.Viewport = viewport;
-                    GraphicsDevice.Clear(screenColor); 
+                    GraphicsDevice.Clear(screenColor);
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
 
                     if (_currScreen != null)
@@ -1109,13 +1111,14 @@ namespace MoleHillMountain
                     spriteBatch.Draw(ShaderRenderTarget, testDrawRectangle, new Rectangle(0, 0, SCREENWIDTH / 4, SCREENHEIGHT / 4), Color.White);
                     spriteBatch.End();
 
-                    if (prevFrames.Count<1)
+                    if (prevFrames.Count < 1)
                     {
-                        for(int i = 0; i< 7; i++)
+                        for (int i = 0; i < 7; i++)
                         {
                             prevFrames.Enqueue(ShaderRenderTarget2);
                         }
-                    } else
+                    }
+                    else
                     {
                         prevFrames.Dequeue();
                         prevFrames.Enqueue(ShaderRenderTarget2);
@@ -1269,7 +1272,7 @@ namespace MoleHillMountain
 
                 //make it full screen... (borderless if you want to is an option as well)
 
-                graphics.PreferredBackBufferWidth = SCREENWIDTH+50;
+                graphics.PreferredBackBufferWidth = SCREENWIDTH + 50;
                 graphics.PreferredBackBufferHeight = SCREENHEIGHT + 50;
                 graphics.IsFullScreen = false;
                 graphics.ApplyChanges();
@@ -1285,21 +1288,24 @@ namespace MoleHillMountain
             if (!graphics.IsFullScreen)
             {
                 if ((float)this.Window.ClientBounds.Height / (float)this.Window.ClientBounds.Width < 0.74f)
-                {                  
-                    float newWidth = (float)(Window.ClientBounds.Height -50)* 4f / 3f;
+                {
+                    float newWidth = (float)(Window.ClientBounds.Height - 50) * 4f / 3f;
 
                     int drawX = (Window.ClientBounds.Width - (int)newWidth) / 2;
                     int drawY = 0;
-                    drawRectangle = new Rectangle(drawX, drawY+25, (int)newWidth, Window.ClientBounds.Height -50);
-                } else
+                    drawRectangle = new Rectangle(drawX, drawY + 25, (int)newWidth, Window.ClientBounds.Height - 50);
+                }
+                else
                 if ((float)this.Window.ClientBounds.Height / (float)this.Window.ClientBounds.Width > 0.76f)
                 {
                     float newWidth = (float)(Window.ClientBounds.Width - 50) * 3f / 4f;
 
                     int drawX = 0;
                     int drawY = (Window.ClientBounds.Height - (int)newWidth) / 2; ;
-                    drawRectangle = new Rectangle(drawX+25, drawY, Window.ClientBounds.Width -50, (int)newWidth);
-                } else { 
+                    drawRectangle = new Rectangle(drawX + 25, drawY, Window.ClientBounds.Width - 50, (int)newWidth);
+                }
+                else
+                {
                     drawRectangle = new Rectangle(25, 25, Window.ClientBounds.Width - 50, Window.ClientBounds.Height - 50);
                 }
             }

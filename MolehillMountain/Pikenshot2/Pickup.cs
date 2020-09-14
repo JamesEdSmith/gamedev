@@ -176,7 +176,7 @@ namespace MoleHillMountain
                     {
                         right = true;
                     }
-                    else if (diff.X < 0 && Math.Abs(diff.X) >= Math.Abs(diff.Y)* 0.75f)
+                    else if (diff.X < 0 && Math.Abs(diff.X) >= Math.Abs(diff.Y) * 0.75f)
                     {
                         left = true;
                     }
@@ -258,7 +258,7 @@ namespace MoleHillMountain
         internal void collected(int count)
         {
             SoundEffectInstance collectedNoise = PikeAndShotGame.PICKUP_GRUB.CreateInstance();
-            collectedNoise.Volume = 0.5f;
+            collectedNoise.Volume = 0.25f;
             collectedNoise.Pitch = -0.25f + 0.125f * (float)count;
             collectedNoise.Play();
             state = STATE_COLLECTED;

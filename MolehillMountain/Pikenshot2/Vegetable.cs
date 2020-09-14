@@ -196,14 +196,14 @@ namespace MoleHillMountain
 
             foreach (Mole pusher in leftPushers)
             {
-                if ((pusher.state & Mole.STATE_NUDGING) != 0 || pusher != dungeonScreen.mole)
+                if ((pusher.state & Mole.STATE_NUDGING) != 0 || (pusher != dungeonScreen.mole && pusher.moving == Mole.MOVING_RIGHT))
                 {
                     leftPushersStr += pusher.str;
                 }
             }
             foreach (Mole pusher in rightPushers)
             {
-                if ((pusher.state & Mole.STATE_NUDGING) != 0 || pusher != dungeonScreen.mole)
+                if ((pusher.state & Mole.STATE_NUDGING) != 0 || (pusher != dungeonScreen.mole && pusher.moving == Mole.MOVING_LEFT))
                 {
                     rightPushersStr += pusher.str;
                 }
