@@ -485,6 +485,7 @@ namespace MoleHillMountain
                 graphics.PreferredBackBufferWidth = SCREENWIDTH + 50;
                 graphics.PreferredBackBufferHeight = SCREENHEIGHT + 50;
                 graphics.IsFullScreen = false;
+                graphics.PreferMultiSampling = false;
                 this.Window.AllowUserResizing = false;
                 graphics.ApplyChanges();
                 useShaders = true;
@@ -497,7 +498,6 @@ namespace MoleHillMountain
             Content.RootDirectory = "Content";
             screenColor = new Color(166, 172, 132, 150);
             screenColorShader = new Color(166, 172, 132, 0);
-
 
         }
 
@@ -1157,9 +1157,11 @@ namespace MoleHillMountain
                     //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null);
                     //spriteBatch.Draw(BACKGROUND2, fullDrawRectangle, Color.White);
                     //spriteBatch.End();
+                    
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
                     spriteBatch.Draw(BACKGROUND2, fullDrawRectangle, Color.White);
                     spriteBatch.Draw(ShaderRenderTarget, drawRectangle, testDrawRectangle, Color.White);
+                    //spriteBatch.Draw(ShaderRenderTarget, new Rectangle(drawRectangle.X, drawRectangle.Y, drawRectangle.Width*2, drawRectangle.Height * 2), testDrawRectangle, Color.White);
                     spriteBatch.End();
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null);
                     spriteBatch.Draw(SCREEN_TEXT, screenDrawRectangle, Color.White);
