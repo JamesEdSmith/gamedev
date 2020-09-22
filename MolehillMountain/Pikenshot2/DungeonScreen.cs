@@ -181,7 +181,7 @@ namespace MoleHillMountain
 
             if (yDiff >= 0)
             {
-                for (int y = (int)startingTunnel.position.Y + GRID_SIZE; y + GRID_SIZE < mole.position.Y && y < GRID_SIZE * (GRID_HEIGHT - 1); y += GRID_SIZE)
+                for (int y = (int)startingTunnel.position.Y + GRID_SIZE; y < mole.position.Y && y < GRID_SIZE * (GRID_HEIGHT - 1); y += GRID_SIZE)
                 {
                     float x = (y - yIntercept) / slope;
 
@@ -243,7 +243,7 @@ namespace MoleHillMountain
             }
             if (xDiff >= 0)
             {
-                for (int x = (int)startingTunnel.position.Y + GRID_SIZE; x + GRID_SIZE < mole.position.X && x < GRID_SIZE * (GRID_WIDTH - 1); x += GRID_SIZE)
+                for (int x = (int)startingTunnel.position.X + GRID_SIZE; x < mole.position.X && x < GRID_SIZE * (GRID_WIDTH - 1); x += GRID_SIZE)
                 {
                     float y = x * slope + yIntercept;
                     if (y < 0 || y > GRID_SIZE * GRID_HEIGHT)
