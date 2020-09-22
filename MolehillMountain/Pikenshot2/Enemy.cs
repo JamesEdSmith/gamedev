@@ -98,11 +98,19 @@ namespace MoleHillMountain
         {
             if ((state & STATE_SQUASHED) == 0)
             {
-                Tunnel newTunnel = dungeonScene.getCurrTunnel(position);
                 setDig(false);
+                Tunnel newTunnel = dungeonScene.getCurrTunnel(position);
+
                 if (tunnel == null || newTunnel != tunnel)
                 {
                     tunnel = newTunnel;
+
+                    int targetDirection = dungeonScene.checkForTarget(dungeonScene.mole, this);
+
+                    if (targetDirection != MOVING_NONE)
+                    {
+                        intendingToMove = targetDirection;
+                    }
 
                     clearDirections.Clear();
 
@@ -159,6 +167,7 @@ namespace MoleHillMountain
                             }
                         }
                     }
+
                 }
                 else
                 {
@@ -170,6 +179,7 @@ namespace MoleHillMountain
                         case MOVING_UP: moveUp(); break;
                     }
                 }
+
             }
 
             base.update(timeSpan);

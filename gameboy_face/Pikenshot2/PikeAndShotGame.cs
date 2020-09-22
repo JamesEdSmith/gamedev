@@ -988,7 +988,7 @@ namespace MoleHillMountain
             RAT_WALKING = Content.Load<Texture2D>(@"rat_walk_one");
 
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
-            CATJON = Content.Load<Texture2D>(@"Cat_Jon");
+            CATJON = Content.Load<Texture2D>(@"97a9fa08");
 
             TEST = new Texture2D(GraphicsDevice, 1, 1);
             Color[] colors = { Color.Black };

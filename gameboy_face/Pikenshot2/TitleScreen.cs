@@ -33,6 +33,7 @@ namespace MoleHillMountain
 
         private FilterInfoCollection captureDevices;
         Texture2D texture;
+        Texture2D texture2;
         private VideoCaptureDevice videoSource;
         private Microsoft.Xna.Framework.Rectangle barRect;
         private Vector2 subTitleOffset;
@@ -57,6 +58,14 @@ namespace MoleHillMountain
             Microsoft.Xna.Framework.Color[] colors = { Microsoft.Xna.Framework.Color.White };
             testTexture.SetData(colors);
             barRect = new Microsoft.Xna.Framework.Rectangle(0, 0, PikeAndShotGame.SMALL_WIDTH, 1);
+            texture2 = new Texture2D(_game.GraphicsDevice, PikeAndShotGame.CATJON.Width, PikeAndShotGame.CATJON.Height);
+            colors = new Microsoft.Xna.Framework.Color[texture2.Height * texture2.Width];
+            PikeAndShotGame.CATJON.GetData(colors);
+            for (int i = 0; i < colors.Length; i++)
+            {
+               colors[i].R = colors[i].B= colors[i].G =  (byte)((colors[i].B + colors[i].G + colors[i].R) * 0.333);
+            }
+            texture2.SetData(colors);
         }
 
         private void newFrameEvent(object sender, NewFrameEventArgs eventArgs)
@@ -230,7 +239,7 @@ namespace MoleHillMountain
 
             }
 
-            //spriteBatch.Draw(PikeAndShotGame.CATJON, new Microsoft.Xna.Framework.Rectangle(40,10,190,190), Microsoft.Xna.Framework.Color.White);
+            //spriteBatch.Draw(texture2, new Microsoft.Xna.Framework.Rectangle(40,24, PikeAndShotGame.SMALL_WIDTH, PikeAndShotGame.SMALL_HEIGHT), Microsoft.Xna.Framework.Color.White);
             //title.draw(spriteBatch, new Vector2(PikeAndShotGame.SCREENWIDTH / 2f, PikeAndShotGame.SCREENHEIGHT / 3f), SIDE_PLAYER);
             //if (fadeTime <= 0)
             //{

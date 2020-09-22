@@ -109,7 +109,7 @@ namespace MoleHillMountain
 
             foreach (Vegetable vege in vegetables)
             {
-                if(vege.leftPushers.Count == 0 && vege.rightPushers.Count == 0 && vege.state == Vegetable.MOVING)
+                if (vege.leftPushers.Count == 0 && vege.rightPushers.Count == 0 && vege.state == Vegetable.MOVING)
                 {
                     vege.state = Vegetable.NONE;
                 }
@@ -165,6 +165,149 @@ namespace MoleHillMountain
 
             pickupTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+        }
+
+        internal int checkForTarget(Mole mole, Enemy enemy)
+        {
+            float yDiff = mole.position.Y - enemy.position.Y;
+            float xDiff = mole.position.X - enemy.position.X;
+
+            float slope = yDiff / xDiff;
+            float yIntercept = enemy.position.Y - (slope * enemy.position.X);
+
+            Tunnel startingTunnel = getCurrTunnel(enemy.position);
+            Tunnel tunnel;
+            Vector2 vect = Vector2.Zero;
+
+            if (yDiff >= 0)
+            {
+                for (int y = (int)startingTunnel.position.Y + GRID_SIZE; y + GRID_SIZE < mole.position.Y && y < GRID_SIZE * (GRID_HEIGHT - 1); y += GRID_SIZE)
+                {
+                    float x = (y - yIntercept) / slope;
+
+                    if (float.IsNaN(x))
+                        x = enemy.position.X;
+
+                    if (x < 0 || x > GRID_SIZE * GRID_WIDTH)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        vect.X = x;
+                        vect.Y = y - 1;
+                        tunnel = getCurrTunnel(vect);
+                        if (tunnel.bottom == Tunnel.NOT_DUG)
+                        {
+                            return Mole.MOVING_NONE;
+                        }
+                        vect.Y = y + 1;
+                        tunnel = getCurrTunnel(vect);
+                        if (tunnel.top == Tunnel.NOT_DUG)
+                        {
+                            return Mole.MOVING_NONE;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int y = (int)startingTunnel.position.Y; y > mole.position.Y && y > 0; y -= GRID_SIZE)
+                {
+                    float x = (y - yIntercept) / slope;
+
+                    if (float.IsNaN(x))
+                        x = enemy.position.X;
+
+                    if (x < 0 || x > GRID_SIZE * GRID_WIDTH)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        vect.X = x;
+                        vect.Y = y - 1;
+                        tunnel = getCurrTunnel(vect);
+                        if (tunnel.bottom == Tunnel.NOT_DUG)
+                        {
+                            return Mole.MOVING_NONE;
+                        }
+                        vect.Y = y + 1;
+                        tunnel = getCurrTunnel(vect);
+                        if (tunnel.top == Tunnel.NOT_DUG)
+                        {
+                            return Mole.MOVING_NONE;
+                        }
+                    }
+                }
+            }
+            if (xDiff >= 0)
+            {
+                for (int x = (int)startingTunnel.position.Y + GRID_SIZE; x + GRID_SIZE < mole.position.X && x < GRID_SIZE * (GRID_WIDTH - 1); x += GRID_SIZE)
+                {
+                    float y = x * slope + yIntercept;
+                    if (y < 0 || y > GRID_SIZE * GRID_HEIGHT)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        vect.X = x - 1;
+                        vect.Y = y;
+                        tunnel = getCurrTunnel(vect);
+                        if (tunnel.right == Tunnel.NOT_DUG)
+                        {
+                            return Mole.MOVING_NONE;
+                        }
+                        vect.X = x + 1;
+                        tunnel = getCurrTunnel(vect);
+                        if (tunnel.left == Tunnel.NOT_DUG)
+                        {
+                            return Mole.MOVING_NONE;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int x = (int)startingTunnel.position.X; x > mole.position.X && x > 0; x -= GRID_SIZE)
+                {
+                    float y = x * slope + yIntercept;
+                    if (y < 0 || y > GRID_SIZE * GRID_HEIGHT)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        vect.X = x - 1;
+                        vect.Y = y;
+                        tunnel = getCurrTunnel(vect);
+                        if (tunnel.right == Tunnel.NOT_DUG)
+                        {
+                            return Mole.MOVING_NONE;
+                        }
+                        vect.X = x + 1;
+                        tunnel = getCurrTunnel(vect);
+                        if (tunnel.left == Tunnel.NOT_DUG)
+                        {
+                            return Mole.MOVING_NONE;
+                        }
+                    }
+                }
+            }
+            if(Math.Abs(xDiff) > Math.Abs(yDiff))
+            {
+                if (xDiff > 0)
+                    return Mole.MOVING_RIGHT;
+                else
+                    return Mole.MOVING_LEFT;
+            } else
+            {
+                if (yDiff > 0)
+                    return Mole.MOVING_DOWN;
+                else
+                    return Mole.MOVING_UP;
+            }
         }
 
         internal int checkMoleSight(Vector2 position)
