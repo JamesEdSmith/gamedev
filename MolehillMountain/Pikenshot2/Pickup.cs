@@ -222,18 +222,13 @@ namespace MoleHillMountain
                 }
             }
 
-            int moleSeen = dungeonScreen.checkMoleSight(position);
+            seen = dungeonScreen.checkMoleSight(position);
 
-
-            if (moleSeen > seen)
-            {
-                seen = moleSeen;
-            }
 
             if (isGrub)
             {
-                int moleClose = dungeonScreen.checkMoleClose(position);
-                if (moleClose > 0)
+                int moleClose = dungeonScreen.checkMoleSight(position);
+                if (moleClose == Pickup.SEEN)
                 {
                     if (state != STATE_LOOKING && state != STATE_COLLECTED)
                     {

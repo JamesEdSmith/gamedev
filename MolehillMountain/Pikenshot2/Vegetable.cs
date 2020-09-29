@@ -27,7 +27,7 @@ namespace MoleHillMountain
         float animationTimer;
         float fallSpeed = 68f;
         float fallTime = 225f;
-        float shakeTime = 500f;
+        float shakeTime = 350f;
         float splitTime = 400f;
         float animationTime;
 

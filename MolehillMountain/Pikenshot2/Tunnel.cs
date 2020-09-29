@@ -14,7 +14,7 @@ namespace MoleHillMountain
         public static Rectangle halfSourceRect = new Rectangle(0, 0, 12, DungeonScreen.GRID_SIZE);
 
         private static Vector2 halfRight = new Vector2(DungeonScreen.GRID_SIZE-2, DungeonScreen.GRID_SIZE / 2);
-        private static Vector2 halfTop = new Vector2(DungeonScreen.GRID_SIZE / 2, 0);
+        private static Vector2 halfTop = new Vector2(DungeonScreen.GRID_SIZE / 2, 2);
         private static Vector2 halfBottom = new Vector2(DungeonScreen.GRID_SIZE / 2, DungeonScreen.GRID_SIZE-2);
 
         public static Vector2 center = new Vector2(DungeonScreen.GRID_SIZE / 2, DungeonScreen.GRID_SIZE / 2);

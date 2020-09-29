@@ -446,3 +446,6 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\Molehill Mountain.ex
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\Molehill Mountain.pdb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\rat_crushed.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\title_screen.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\rat_digging.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\rat_mad.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\rat_sniff.xnb

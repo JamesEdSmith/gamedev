@@ -70,7 +70,7 @@
   <ItemGroup>
     <Compile Include="BattleScreen.cs" />
     <Compile Include="DungeonScreen.cs" />
-    <Compile Include="Enemy.cs" />
+    <Compile Include="Rat.cs" />
     <Compile Include="GameScreen.cs" />
     <Compile Include="Formation.cs" />
     <Compile Include="Game1.cs" />
@@ -1295,6 +1295,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\rat_crushed.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\rat_digging.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\rat_mad.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\rat_sniff.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Content\speaker3.xnb">

@@ -77,7 +77,7 @@ namespace MoleHillMountain
                 pickup.draw(spriteBatch);
             }
 
-            foreach (Enemy enemy in enemies)
+            foreach (Rat enemy in enemies)
             {
                 enemy.draw(spriteBatch);
             }
@@ -153,7 +153,7 @@ namespace MoleHillMountain
             }
             deadStuff.Clear();
 
-            foreach (Enemy enemy in enemies)
+            foreach (Rat enemy in enemies)
             {
                 enemy.update(gameTime.ElapsedGameTime);
             }
@@ -167,7 +167,7 @@ namespace MoleHillMountain
 
         }
 
-        internal int checkForTarget(Mole mole, Enemy enemy)
+        internal int checkForTarget(Mole mole, Rat enemy)
         {
             float yDiff = mole.position.Y - enemy.position.Y;
             float xDiff = mole.position.X - enemy.position.X;
@@ -312,14 +312,13 @@ namespace MoleHillMountain
 
         internal int checkMoleSight(Vector2 position)
         {
-            Vector2 distance = mole.position - position;
-            float avg = (Math.Abs(distance.X) + Math.Abs(distance.Y)) / 2f;
+            float distance = (mole.position - position).Length();
 
-            if (avg <= GRID_SIZE * 0.9f)
+            if (distance <= GRID_SIZE * 1.5f)
             {
                 return Pickup.SEEN;
             }
-            else if (avg <= GRID_SIZE * 1.5f)
+            else if (distance <= GRID_SIZE * 2)
             {
                 return Pickup.HALF_SEEN;
             }
@@ -329,20 +328,6 @@ namespace MoleHillMountain
             }
         }
 
-        internal int checkMoleClose(Vector2 position)
-        {
-            Vector2 distance = mole.position - position;
-            float avg = (Math.Abs(distance.X) + Math.Abs(distance.Y)) / 2f;
-
-            if (avg <= GRID_SIZE * 1.1f)
-            {
-                return Pickup.SEEN;
-            }
-            else
-            {
-                return Pickup.NOT_SEEN;
-            }
-        }
 
         void updateTunnels()
         {
@@ -465,7 +450,7 @@ namespace MoleHillMountain
                 squashedSomeone = true;
             }
 
-            foreach (Enemy enemy in enemies)
+            foreach (Rat enemy in enemies)
             {
                 absPos = (enemy.position - position);
                 if (Math.Abs(absPos.X) < GRID_SIZE / 2 && ((int)(enemy.position.Y - position.Y) >= -GRID_SIZE / 8 && (int)(enemy.position.Y - position.Y) <= GRID_SIZE / 4))
@@ -525,7 +510,7 @@ namespace MoleHillMountain
                 vegetable.rightPushers.Add(mole);
             }
 
-            foreach (Enemy enemy in enemies)
+            foreach (Rat enemy in enemies)
             {
                 if (enemy.position.X - vegetable.position.X < GRID_SIZE - spacing
                 && Math.Abs(enemy.position.Y - vegetable.position.Y) < GRID_SIZE - 2
@@ -566,7 +551,7 @@ namespace MoleHillMountain
                 vegetable.leftPushers.Add(mole);
             }
 
-            foreach (Enemy enemy in enemies)
+            foreach (Rat enemy in enemies)
             {
                 if (vegetable.position.X - enemy.position.X < GRID_SIZE - spacing
                 && Math.Abs(vegetable.position.Y - enemy.position.Y) < GRID_SIZE - 2
@@ -693,7 +678,7 @@ namespace MoleHillMountain
 
             if (keyboardState.IsKeyDown(Keys.Q) && previousKeyboardState.IsKeyUp(Keys.Q))
             {
-                enemies.Add(new Enemy(this));
+                enemies.Add(new Rat(this));
             }
             else if (keyboardState.IsKeyDown(Keys.R) && previousKeyboardState.IsKeyUp(Keys.R))
             {
@@ -1077,7 +1062,7 @@ namespace MoleHillMountain
                     }
                 }
                 Point chosenPoint = (Point)possibleSpots[random.Next(possibleSpots.Count)];
-                enemies.Add(new Enemy(this, chosenPoint.X, chosenPoint.Y));
+                enemies.Add(new Rat(this, chosenPoint.X, chosenPoint.Y));
             }
 
         }

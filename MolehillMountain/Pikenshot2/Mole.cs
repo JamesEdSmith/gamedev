@@ -22,6 +22,9 @@ namespace MoleHillMountain
         public const int STATE_DIGGING = 1;
         public const int STATE_NUDGING = 2;
         public const int STATE_SQUASHED = 4;
+        public const int STATE_SNIFFING = 8;
+        public const int STATE_SCARED = 16;
+        public const int STATE_MAD = 32;
 
         private const float MOLE_NUDGE_SPACING = 7;
 
@@ -32,7 +35,7 @@ namespace MoleHillMountain
         protected float animationTime;
 
         protected Sprite walking;
-        Sprite digging;
+        protected Sprite digging;
         protected Sprite nudging;
         protected Sprite squashed;
 
