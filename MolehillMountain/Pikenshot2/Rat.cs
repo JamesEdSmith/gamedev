@@ -15,7 +15,7 @@ namespace MoleHillMountain
         const int UP_CLEAR = 3;
         const int RIGHT_CLEAR = 4;
 
-        protected float sniffTime = 1250;
+        protected float sniffTime = 1000;
 
         Tunnel tunnel;
         ArrayList clearDirections;
@@ -119,7 +119,7 @@ namespace MoleHillMountain
                 {
                     if (animationTimer >= 0)
                     {
-                        int maxFrames = sniffing.getMaxFrames() - 2;
+                        int maxFrames = 10;
                         float frameTime = animationTime / (float)maxFrames;
                         int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
                         sniffing.setFrame(frameNumber);
