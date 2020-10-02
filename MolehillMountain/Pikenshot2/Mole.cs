@@ -51,8 +51,14 @@ namespace MoleHillMountain
 
         protected DungeonScreen dungeonScene;
         protected Vegetable vegetable;
-        public int str;
         public float nudgeMovement;
+
+        public int str;
+        public int per;
+        internal int prevMoleRight;
+        internal int prevMoleLeft;
+        internal int prevMoleDown;
+        internal int prevMoleUp;
 
         public Mole(DungeonScreen dungeonScene)
         {
@@ -67,6 +73,7 @@ namespace MoleHillMountain
             position = new Vector2(10, 10);
             drawPosition = new Vector2(position.X, position.Y);
             str = 3;
+            per = 3;
         }
 
         public Mole(float x, float y, DungeonScreen dungeonScene) : this(dungeonScene)
@@ -327,7 +334,7 @@ namespace MoleHillMountain
 
         public virtual void squash(Vegetable vegetable)
         {
-            state |= STATE_SQUASHED;
+            state = STATE_SQUASHED;
             this.vegetable = vegetable;
         }
 

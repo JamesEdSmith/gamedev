@@ -15,7 +15,7 @@ namespace MoleHillMountain
         const int UP_CLEAR = 3;
         const int RIGHT_CLEAR = 4;
 
-        protected float sniffTime = 1000;
+        protected float sniffTime = 900;
 
         Tunnel tunnel;
         ArrayList clearDirections;
@@ -109,7 +109,9 @@ namespace MoleHillMountain
         {
             if ((state & STATE_SQUASHED) == 0)
             {
-                if ((state & STATE_SNIFFING) == 0 && (dungeonScene.mole.position - position).Length() <= DungeonScreen.GRID_SIZE * 1.5f && dungeonScene.mole.moving != MOVING_NONE)
+                int targetDirection = dungeonScene.checkForTarget(dungeonScene.mole, this, (state & STATE_MAD) != 0);
+                if (targetDirection == MOVING_NONE && (state & STATE_SNIFFING) == 0 && (state & STATE_SCARED) == 0 && (state & STATE_NUDGING) == 0 && (state & STATE_MAD) == 0
+                    && (dungeonScene.mole.position - position).Length() <= DungeonScreen.GRID_SIZE * 1.5f && dungeonScene.mole.moving != MOVING_NONE)
                 {
                     state |= STATE_SNIFFING;
                     animationTime = animationTimer = sniffTime;
@@ -119,29 +121,33 @@ namespace MoleHillMountain
                 {
                     if (animationTimer >= 0)
                     {
-                        int maxFrames = 10;
+                        int maxFrames = 16;
                         float frameTime = animationTime / (float)maxFrames;
                         int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
-                        sniffing.setFrame(frameNumber);
-                    } else
+                        sniffing.setFrame(frameNumber+4);
+                    }
+                    else
                     {
                         state &= ~STATE_SNIFFING;
-                        if(dungeonScene.mole.moving != MOVING_NONE)
+                        if (dungeonScene.mole.moving != MOVING_NONE)
                         {
                             state |= STATE_MAD;
+                            tunnel = null;
                         }
                     }
                 }
                 else
                 {
-                    setDig(false);
                     Tunnel newTunnel = dungeonScene.getCurrTunnel(position);
 
                     if (tunnel == null || newTunnel != tunnel)
                     {
                         tunnel = newTunnel;
 
-                        int targetDirection = dungeonScene.checkForTarget(dungeonScene.mole, this);
+                        if ((state & STATE_MAD) == 0)
+                        {
+                            setDig(false);
+                        }
 
                         if (targetDirection != MOVING_NONE)
                         {
@@ -150,13 +156,13 @@ namespace MoleHillMountain
 
                         clearDirections.Clear();
 
-                        if ((tunnel.left == Tunnel.DUG || tunnel.left == Tunnel.HALF_DUG))
+                        if ((state & STATE_MAD) != 0 || (tunnel.left == Tunnel.DUG || tunnel.left == Tunnel.HALF_DUG))
                             clearDirections.Add(LEFT_CLEAR);
-                        if ((tunnel.right == Tunnel.DUG || tunnel.right == Tunnel.HALF_DUG))
+                        if ((state & STATE_MAD) != 0 || (tunnel.right == Tunnel.DUG || tunnel.right == Tunnel.HALF_DUG))
                             clearDirections.Add(RIGHT_CLEAR);
-                        if ((tunnel.top == Tunnel.DUG || tunnel.top == Tunnel.HALF_DUG))
+                        if ((state & STATE_MAD) != 0 || (tunnel.top == Tunnel.DUG || tunnel.top == Tunnel.HALF_DUG))
                             clearDirections.Add(UP_CLEAR);
-                        if ((tunnel.bottom == Tunnel.DUG || tunnel.bottom == Tunnel.HALF_DUG))
+                        if ((state & STATE_MAD) != 0 || (tunnel.bottom == Tunnel.DUG || tunnel.bottom == Tunnel.HALF_DUG))
                             clearDirections.Add(DOWN_CLEAR);
 
                         if (intendingToMove == MOVING_LEFT && clearDirections.Contains(LEFT_CLEAR))
@@ -222,7 +228,7 @@ namespace MoleHillMountain
 
             if (dungeonScene.vegetableFallingAbove(this) && (state & STATE_SQUASHED) == 0)
             {
-                state |= STATE_SCARED;
+                state = STATE_SCARED;
                 int maxFrames = squashed.getMaxFrames() - 2;
                 float frameTime = animationTime / (float)maxFrames;
                 int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
