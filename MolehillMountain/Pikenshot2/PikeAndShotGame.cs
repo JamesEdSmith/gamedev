@@ -381,6 +381,7 @@ namespace MoleHillMountain
         public static Texture2D COIN_SPINNA;
         public static Texture2D SPARKLE;
         public static Texture2D TITLE_ANIMATION;
+        public static Texture2D SLIDE;
 
         //Utility Graphics
         public static Texture2D DOT;
@@ -952,7 +953,9 @@ namespace MoleHillMountain
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
             SPARKLE = Content.Load<Texture2D>(@"sparkle");
             //TITLE_ANIMATION = Content.Load<Texture2D>(@"title_animation");
+            //TITLE_ANIMATION = Content.Load<Texture2D>(@"title_screen");
             TITLE_ANIMATION = Content.Load<Texture2D>(@"title_screen");
+            SLIDE = Content.Load<Texture2D>(@"slide");
 
 
             PICKUP_GRUB = Content.Load<SoundEffect>("possibleSound5");

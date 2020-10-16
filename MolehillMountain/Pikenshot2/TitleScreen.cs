@@ -57,12 +57,11 @@ namespace MoleHillMountain
         }
 
         public override void draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
-        {   
+        {
             title.draw(spriteBatch, new Vector2(10,0), SIDE_PLAYER, PikeAndShotGame.DUMMY_TIMESPAN);
-            if (fadeTime <= 0)
-            {
-                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Press Pike or Shot", new Vector2(450, PikeAndShotGame.SCREENHEIGHT * 2f/ 3f), textColor);
-            }
+
+            //spriteBatch.Draw(PikeAndShotGame.SLIDE, new Rectangle(0, 0, 256, 192), new Rectangle(0, 0, 1024, 768), Color.White);
+
         }
 
         protected override void getInput(TimeSpan timeSpan)

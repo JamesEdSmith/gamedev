@@ -151,10 +151,9 @@ namespace MoleHillMountain
             foreach (Rat enemy in enemies)
             {
                 enemy.update(gameTime.ElapsedGameTime);
-                if ((enemy.state & Mole.STATE_MAD) != 0)
-                {
-                    updateTunnels(enemy);
-                }
+
+                updateTunnels(enemy);
+
             }
 
             if (mole.alive())
@@ -341,9 +340,63 @@ namespace MoleHillMountain
             int moleMiddleY = ((int)mole.position.Y) / GRID_SIZE;
 
             int moleLeft = ((int)mole.position.X - GRID_SIZE / 4) / GRID_SIZE;
-            int leftRemainder = ((int)mole.position.X - GRID_SIZE / 4) % GRID_SIZE;
             int moleRight = ((int)mole.position.X + GRID_SIZE / 4) / GRID_SIZE;
-            int rightRemainder = ((int)mole.position.X + GRID_SIZE / 4) % GRID_SIZE;
+            int moleUp = ((int)mole.position.Y - GRID_SIZE / 4) / GRID_SIZE;
+            int moleDown = ((int)mole.position.Y + GRID_SIZE / 4) / GRID_SIZE;
+
+            if (mole.horzFacing == Sprite.DIRECTION_RIGHT)
+            {
+                if ((tunnels[moleRight, moleMiddleY].left != Tunnel.DUG && tunnels[moleRight, moleMiddleY].right != Tunnel.DUG ) || mole.diggingTunnel == tunnels[moleRight, moleMiddleY])
+                {
+                    mole.setDig(true);
+                    mole.diggingTunnel = tunnels[moleRight, moleMiddleY];
+                }
+                else
+                {
+                    mole.setDig(false);
+                    mole.diggingTunnel = null;
+                }
+            }
+            else if (mole.horzFacing == Sprite.DIRECTION_LEFT)
+            {
+                if ((tunnels[moleLeft, moleMiddleY].right != Tunnel.DUG && tunnels[moleLeft, moleMiddleY].left != Tunnel.DUG) || mole.diggingTunnel == tunnels[moleLeft, moleMiddleY])
+                {
+                    mole.setDig(true);
+                    mole.diggingTunnel = tunnels[moleLeft, moleMiddleY];
+                }
+                else
+                {
+                    mole.setDig(false);
+                    mole.diggingTunnel = null;
+                }
+            }
+
+            if (mole.vertFacing == Sprite.DIRECTION_DOWN)
+            {
+                if ((tunnels[moleMiddleX, moleDown].top != Tunnel.DUG && tunnels[moleMiddleX, moleDown].bottom != Tunnel.DUG) || (mole.diggingTunnel == tunnels[moleMiddleX, moleDown] && tunnels[moleMiddleX, moleDown].bottom != Tunnel.DUG))
+                {
+                    mole.setDig(true);
+                    mole.diggingTunnel = tunnels[moleMiddleX, moleDown];
+                }
+                else
+                {
+                    mole.setDig(false);
+                    mole.diggingTunnel = null;
+                }
+            }
+            else if (mole.vertFacing == Sprite.DIRECTION_UP)
+            {
+                if ((tunnels[moleMiddleX, moleUp].bottom != Tunnel.DUG && tunnels[moleMiddleX, moleUp].top != Tunnel.DUG) || (mole.diggingTunnel == tunnels[moleMiddleX, moleUp] && tunnels[moleMiddleX, moleDown].top != Tunnel.DUG))
+                {
+                    mole.setDig(true);
+                    mole.diggingTunnel = tunnels[moleMiddleX, moleUp];
+                }
+                else
+                {
+                    mole.setDig(false);
+                    mole.diggingTunnel = null;
+                }
+            }
 
             if (tunnels[moleRight, moleMiddleY].left == Tunnel.NOT_DUG && mole.prevMoleRight == moleRight - 1)
             {
@@ -368,11 +421,6 @@ namespace MoleHillMountain
             mole.prevMoleLeft = moleLeft;
             mole.prevMoleRight = moleRight;
 
-            int moleUp = ((int)mole.position.Y - GRID_SIZE / 4) / GRID_SIZE;
-            int upRemainder = ((int)mole.position.Y - GRID_SIZE / 4) % GRID_SIZE;
-            int moleDown = ((int)mole.position.Y + GRID_SIZE / 4) / GRID_SIZE;
-            int downRemainder = ((int)mole.position.Y + GRID_SIZE / 4) % GRID_SIZE;
-
             if (tunnels[moleMiddleX, moleDown].top == Tunnel.NOT_DUG && mole.prevMoleDown == moleDown - 1)
             {
                 tunnels[moleMiddleX, moleDown].top = Tunnel.HALF_DUG;
@@ -393,38 +441,9 @@ namespace MoleHillMountain
                 tunnels[moleMiddleX, moleDown].bottom = Tunnel.DUG;
             }
 
-            if (mole.horzFacing == Sprite.DIRECTION_RIGHT)
-            {
-                if (tunnels[moleRight, moleMiddleY].right != Tunnel.DUG && (tunnels[moleRight, moleMiddleY].left != Tunnel.DUG || rightRemainder > 8))
-                    mole.setDig(true);
-                else
-                    mole.setDig(false);
-            }
-            else if (mole.horzFacing == Sprite.DIRECTION_LEFT)
-            {
-                if (tunnels[moleLeft, moleMiddleY].left != Tunnel.DUG && (tunnels[moleLeft, moleMiddleY].right != Tunnel.DUG || leftRemainder < 10))
-                    mole.setDig(true);
-                else
-                    mole.setDig(false);
-            }
-
-            if (mole.vertFacing == Sprite.DIRECTION_DOWN)
-            {
-                if (tunnels[moleMiddleX, moleDown].bottom != Tunnel.DUG && (tunnels[moleMiddleX, moleDown].top != Tunnel.DUG || downRemainder > 8))
-                    mole.setDig(true);
-                else
-                    mole.setDig(false);
-            }
-            else if (mole.vertFacing == Sprite.DIRECTION_UP)
-            {
-                if (tunnels[moleMiddleX, moleUp].top != Tunnel.DUG && (tunnels[moleMiddleX, moleUp].bottom != Tunnel.DUG || upRemainder < 10))
-                    mole.setDig(true);
-                else
-                    mole.setDig(false);
-            }
-
             mole.prevMoleUp = moleUp;
             mole.prevMoleDown = moleDown;
+
         }
 
         internal Vector2 getMolePosition()
@@ -728,7 +747,7 @@ namespace MoleHillMountain
             mole.prevMoleUp = ((int)mole.position.Y - GRID_SIZE / 4) / GRID_SIZE;
             mole.prevMoleDown = ((int)mole.position.Y + GRID_SIZE / 4) / GRID_SIZE;
 
-            foreach(Mole mole in enemies)
+            foreach (Mole mole in enemies)
             {
                 mole.prevMoleLeft = ((int)mole.position.X - GRID_SIZE / 4) / GRID_SIZE;
                 mole.prevMoleRight = ((int)mole.position.X + GRID_SIZE / 4) / GRID_SIZE;

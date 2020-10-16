@@ -16,6 +16,9 @@ namespace MoleHillMountain
         const int RIGHT_CLEAR = 4;
 
         protected float sniffTime = 900;
+        protected float madTimer = 0;
+        protected const float MAD_TIME = 1500;
+        protected const float MAD_RESET_TIME = 2000;
 
         Tunnel tunnel;
         ArrayList clearDirections;
@@ -23,7 +26,7 @@ namespace MoleHillMountain
         int intendingToMove;
 
         Sprite sniffing;
-        Sprite mad;
+        //Sprite mad;
 
         public Rat(DungeonScreen dungeonScene) : base(dungeonScene)
         {
@@ -34,7 +37,7 @@ namespace MoleHillMountain
             squashed = new Sprite(PikeAndShotGame.RAT_CRUSHED, new Rectangle(0, 0, 22, 18), 22, 18);
             digging = new Sprite(PikeAndShotGame.RAT_DIGGING, new Rectangle(0, 0, 22, 18), 22, 18);
             sniffing = new Sprite(PikeAndShotGame.RAT_SNIFF, new Rectangle(0, 0, 20, 18), 20, 18);
-            mad = new Sprite(PikeAndShotGame.RAT_MAD, new Rectangle(0, 0, 20, 18), 20, 18);
+            //mad = new Sprite(PikeAndShotGame.RAT_MAD, new Rectangle(0, 0, 20, 18), 20, 18);
             clearDirections = new ArrayList(4);
             str = 3;
             digTime = 325;
@@ -107,7 +110,17 @@ namespace MoleHillMountain
 
         public override void update(TimeSpan timeSpan)
         {
-            if ((state & STATE_SQUASHED) == 0)
+            if (madTimer > 0)
+            {
+                madTimer -= (float)timeSpan.TotalMilliseconds;
+                if (madTimer <= 0 && (state & STATE_MAD) != 0)
+                {
+                    state &= ~STATE_MAD;
+                    madTimer = MAD_RESET_TIME;
+                }
+            }
+
+            if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0)
             {
                 int targetDirection = dungeonScene.checkForTarget(dungeonScene.mole, this, (state & STATE_MAD) != 0);
                 if (targetDirection == MOVING_NONE && (state & STATE_SNIFFING) == 0 && (state & STATE_SCARED) == 0 && (state & STATE_NUDGING) == 0 && (state & STATE_MAD) == 0
@@ -121,6 +134,7 @@ namespace MoleHillMountain
                 {
                     if (animationTimer >= 0)
                     {
+                        //magic numbers cause the animation was too long
                         int maxFrames = 16;
                         float frameTime = animationTime / (float)maxFrames;
                         int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
@@ -132,6 +146,7 @@ namespace MoleHillMountain
                         if (dungeonScene.mole.moving != MOVING_NONE)
                         {
                             state |= STATE_MAD;
+                            madTimer = MAD_TIME;
                             tunnel = null;
                         }
                     }
@@ -143,11 +158,6 @@ namespace MoleHillMountain
                     if (tunnel == null || newTunnel != tunnel)
                     {
                         tunnel = newTunnel;
-
-                        if ((state & STATE_MAD) == 0)
-                        {
-                            setDig(false);
-                        }
 
                         if (targetDirection != MOVING_NONE)
                         {
@@ -232,7 +242,7 @@ namespace MoleHillMountain
                 int maxFrames = squashed.getMaxFrames() - 2;
                 float frameTime = animationTime / (float)maxFrames;
                 int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
-
+                moving = MOVING_NONE;
                 squashed.setFrame(frameNumber);
             }
             else

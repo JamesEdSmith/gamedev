@@ -449,3 +449,4 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\title_screen
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\rat_digging.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\rat_mad.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\rat_sniff.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\slide.xnb

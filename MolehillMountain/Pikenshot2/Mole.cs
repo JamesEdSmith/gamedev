@@ -51,6 +51,7 @@ namespace MoleHillMountain
 
         protected DungeonScreen dungeonScene;
         protected Vegetable vegetable;
+        public Tunnel diggingTunnel;
         public float nudgeMovement;
 
         public int str;
@@ -93,6 +94,10 @@ namespace MoleHillMountain
         {
 
             animationTimer -= (float)timeSpan.TotalMilliseconds;
+            if(state == STATE_SNIFFING)
+            {
+                Console.WriteLine("fuck");
+            }
 
             if ((state & STATE_SQUASHED) != 0)
             {
@@ -264,7 +269,7 @@ namespace MoleHillMountain
 
         public void setDig(bool yes)
         {
-            if ((state & STATE_NUDGING) == 0)
+            if ((state & STATE_NUDGING) == 0 && (state & STATE_SNIFFING) == 0)
             {
                 if (yes)
                 {
