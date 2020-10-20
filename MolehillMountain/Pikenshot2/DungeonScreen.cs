@@ -19,7 +19,13 @@ namespace MoleHillMountain
 
         internal Tunnel getCurrTunnel(Vector2 position)
         {
-            return tunnels[(int)position.X / GRID_SIZE, (int)position.Y / GRID_SIZE];
+            if (((int)position.X / GRID_SIZE >= 0 && (int)position.X / GRID_SIZE < GRID_WIDTH) && ((int)position.Y / GRID_SIZE >= 0 && (int)position.Y / GRID_SIZE < GRID_HEIGHT))
+            {
+                return tunnels[(int)position.X / GRID_SIZE, (int)position.Y / GRID_SIZE];
+            } else
+            {
+                return null;
+            }
         }
 
         public PikeAndShotGame _game;
@@ -316,14 +322,14 @@ namespace MoleHillMountain
 
         internal bool vegetableRightClear(Rat mole)
         {
-            Vector2 position = mole.position - moleWidth;
-            if (!vegetableLeft(mole.position, new ArrayList { }, Vegetable.NUDGE_SPACING))
+            Vector2 position = mole.position;
+            if (!vegetableRight(mole.position, new ArrayList { }, Vegetable.NUDGE_SPACING))
             {
                 return true;
             }
-            else if ((int)(position.X - GRID_SIZE / 2 + GRID_SIZE * 2) < GRID_WIDTH)
+            else if ((int)(position.X -5 + GRID_SIZE *2 ) < GRID_WIDTH * GRID_SIZE)
             {
-                Tunnel tunnelTwoOver = tunnels[(int)(position.X - GRID_SIZE / 2 + GRID_SIZE * 2) / GRID_SIZE, (int)mole.position.Y / GRID_SIZE];
+                Tunnel tunnelTwoOver = tunnels[(int)(position.X-5 + GRID_SIZE*2 ) / GRID_SIZE, (int)mole.position.Y / GRID_SIZE];
                 if (tunnelTwoOver.left == Tunnel.DUG || tunnelTwoOver.left == Tunnel.HALF_DUG)
                 {
                     return true;
@@ -332,19 +338,19 @@ namespace MoleHillMountain
             return false;
         }
 
-        Vector2 moleWidth = new Vector2(GRID_SIZE / 2 - 1, 0);
+        Vector2 moleWidth = new Vector2(GRID_SIZE / 2, 0);
 
         internal bool vegetableLeftClear(Rat mole)
         {
-            Vector2 position = mole.position + moleWidth;
+            Vector2 position = mole.position;
 
             if (!vegetableLeft(mole.position, new ArrayList { }, Vegetable.NUDGE_SPACING))
             {
                 return true;
             }
-            else if ((int)(position.X + GRID_SIZE/2 - GRID_SIZE * 2) > 0)
+            else if ((int)(position.X+5 - GRID_SIZE*2 ) > 0)
             {
-                Tunnel tunnelTwoOver = tunnels[(int)(position.X + GRID_SIZE / 2 - GRID_SIZE * 2) / GRID_SIZE, (int)mole.position.Y / GRID_SIZE];
+                Tunnel tunnelTwoOver = tunnels[(int)(position.X + 5 - GRID_SIZE*2 ) / GRID_SIZE, (int)mole.position.Y / GRID_SIZE];
                 if (tunnelTwoOver.right == Tunnel.DUG || tunnelTwoOver.right == Tunnel.HALF_DUG)
                 {
                     return true;
@@ -648,7 +654,7 @@ namespace MoleHillMountain
             {
                 if (vege.state != Vegetable.SPLITTING)
                 {
-                    if (Math.Abs(vege.position.X - mole.position.X) < GRID_SIZE/2 - 2 && vege.position.Y - mole.position.Y <= GRID_SIZE && vege.position.Y - mole.position.Y > 0)
+                    if (Math.Abs(vege.position.X - mole.position.X) < GRID_SIZE / 2 - 2 && vege.position.Y - mole.position.Y <= GRID_SIZE && vege.position.Y - mole.position.Y > 0)
                     {
                         return true;
                     }

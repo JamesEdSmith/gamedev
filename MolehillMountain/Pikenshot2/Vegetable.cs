@@ -193,12 +193,18 @@ namespace MoleHillMountain
             int leftPushersStr = 0;
             int rightPushersStr = 0;
             float movement = 0;
+            bool moleLeft = false;
+            bool moleRight = false;
 
             foreach (Mole pusher in leftPushers)
             {
                 if ((pusher.state & Mole.STATE_NUDGING) != 0 || (pusher != dungeonScreen.mole && pusher.moving == Mole.MOVING_RIGHT))
                 {
                     leftPushersStr += pusher.str;
+                }
+                if (pusher == dungeonScreen.mole)
+                {
+                    moleLeft = true;
                 }
             }
             foreach (Mole pusher in rightPushers)
@@ -207,14 +213,19 @@ namespace MoleHillMountain
                 {
                     rightPushersStr += pusher.str;
                 }
+                if (pusher == dungeonScreen.mole)
+                {
+                    moleRight = true;
+                }
             }
+            Tunnel currTunnel = dungeonScreen.getCurrTunnel(position);
 
-            if (leftPushersStr > rightPushersStr)
+            if (leftPushersStr > rightPushersStr && (currTunnel != null && (currTunnel.right > 0 || position.X % DungeonScreen.GRID_SIZE < 11 || moleLeft)))
             {
                 movement = totalSeconds * ((Mole)leftPushers[0]).walkSpeed * 0.5f;
                 position.X += movement;
             }
-            else if (leftPushersStr < rightPushersStr)
+            else if (leftPushersStr < rightPushersStr && (currTunnel != null && (currTunnel.left > 0 || position.X % DungeonScreen.GRID_SIZE > 9 || moleRight)))
             {
                 movement = totalSeconds * ((Mole)rightPushers[0]).walkSpeed * -0.5f;
                 position.X += movement;
