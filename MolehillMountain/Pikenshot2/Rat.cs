@@ -20,7 +20,7 @@ namespace MoleHillMountain
         protected const float MAD_TIME = 1500;
         protected const float MAD_RESET_TIME = 2000;
 
-        Tunnel tunnel;
+        public Tunnel tunnel;
         ArrayList clearDirections;
         static Random random = new Random();
         int intendingToMove;
@@ -120,7 +120,7 @@ namespace MoleHillMountain
                 }
             }
 
-            if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0)
+            if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0 )
             {
                 int targetDirection = dungeonScene.checkForTarget(dungeonScene.mole, this, (state & STATE_MAD) != 0);
                 if (targetDirection == MOVING_NONE && (state & STATE_SNIFFING) == 0 && (state & STATE_SCARED) == 0 && (state & STATE_NUDGING) == 0 && (state & STATE_MAD) == 0
@@ -138,7 +138,7 @@ namespace MoleHillMountain
                         int maxFrames = 16;
                         float frameTime = animationTime / (float)maxFrames;
                         int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
-                        sniffing.setFrame(frameNumber+4);
+                        sniffing.setFrame(frameNumber + 4);
                     }
                     else
                     {
@@ -166,13 +166,13 @@ namespace MoleHillMountain
 
                         clearDirections.Clear();
 
-                        if ((state & STATE_MAD) != 0 || (tunnel.left == Tunnel.DUG || tunnel.left == Tunnel.HALF_DUG))
+                        if (dungeonScene.vegetableLeftClear(this) && ((state & STATE_MAD) != 0 || (tunnel.left == Tunnel.DUG || tunnel.left == Tunnel.HALF_DUG)))
                             clearDirections.Add(LEFT_CLEAR);
-                        if ((state & STATE_MAD) != 0 || (tunnel.right == Tunnel.DUG || tunnel.right == Tunnel.HALF_DUG))
+                        if (dungeonScene.vegetableRightClear(this) && ((state & STATE_MAD) != 0 || (tunnel.right == Tunnel.DUG || tunnel.right == Tunnel.HALF_DUG)))
                             clearDirections.Add(RIGHT_CLEAR);
                         if ((state & STATE_MAD) != 0 || (tunnel.top == Tunnel.DUG || tunnel.top == Tunnel.HALF_DUG))
                             clearDirections.Add(UP_CLEAR);
-                        if ((state & STATE_MAD) != 0 || (tunnel.bottom == Tunnel.DUG || tunnel.bottom == Tunnel.HALF_DUG))
+                        if (!dungeonScene.vegetableDirectlyBelow(this) && ((state & STATE_MAD) != 0 || (tunnel.bottom == Tunnel.DUG || tunnel.bottom == Tunnel.HALF_DUG)))
                             clearDirections.Add(DOWN_CLEAR);
 
                         if (intendingToMove == MOVING_LEFT && clearDirections.Contains(LEFT_CLEAR))
@@ -223,12 +223,19 @@ namespace MoleHillMountain
                     }
                     else
                     {
-                        switch (intendingToMove)
+                        if (intendingToMove != MOVING_DOWN || !dungeonScene.vegetableDirectlyBelow(this))
                         {
-                            case MOVING_DOWN: moveDown(); break;
-                            case MOVING_LEFT: moveLeft(); break;
-                            case MOVING_RIGHT: moveRight(); break;
-                            case MOVING_UP: moveUp(); break;
+                            switch (intendingToMove)
+                            {
+                                case MOVING_DOWN: moveDown(); break;
+                                case MOVING_LEFT: moveLeft(); break;
+                                case MOVING_RIGHT: moveRight(); break;
+                                case MOVING_UP: moveUp(); break;
+                            }
+                        }
+                        else
+                        {
+                            tunnel = null;
                         }
                     }
                 }
@@ -248,6 +255,11 @@ namespace MoleHillMountain
             else
             {
                 state &= ~STATE_SCARED;
+            }
+
+            if((state & STATE_NUDGING) != 0)
+            {
+                tunnel = null;
             }
         }
 

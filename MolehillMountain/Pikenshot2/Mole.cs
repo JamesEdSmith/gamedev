@@ -94,10 +94,6 @@ namespace MoleHillMountain
         {
 
             animationTimer -= (float)timeSpan.TotalMilliseconds;
-            if(state == STATE_SNIFFING)
-            {
-                Console.WriteLine("fuck");
-            }
 
             if ((state & STATE_SQUASHED) != 0)
             {

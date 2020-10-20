@@ -151,8 +151,10 @@ namespace MoleHillMountain
             foreach (Rat enemy in enemies)
             {
                 enemy.update(gameTime.ElapsedGameTime);
-
-                updateTunnels(enemy);
+                if ((enemy.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_NUDGING) == 0)
+                {
+                    updateTunnels(enemy);
+                }
 
             }
 
@@ -295,10 +297,7 @@ namespace MoleHillMountain
                     }
                 }
             }
-            else
-            {
-                Console.WriteLine("Cool");
-            }
+
             if (Math.Abs(xDiff) > Math.Abs(yDiff))
             {
                 if (xDiff > 0)
@@ -313,6 +312,46 @@ namespace MoleHillMountain
                 else
                     return Mole.MOVING_UP;
             }
+        }
+
+        internal bool vegetableRightClear(Rat mole)
+        {
+            Vector2 position = mole.position - moleWidth;
+            if (!vegetableLeft(mole.position, new ArrayList { }, Vegetable.NUDGE_SPACING))
+            {
+                return true;
+            }
+            else if ((int)(position.X - GRID_SIZE / 2 + GRID_SIZE * 2) < GRID_WIDTH)
+            {
+                Tunnel tunnelTwoOver = tunnels[(int)(position.X - GRID_SIZE / 2 + GRID_SIZE * 2) / GRID_SIZE, (int)mole.position.Y / GRID_SIZE];
+                if (tunnelTwoOver.left == Tunnel.DUG || tunnelTwoOver.left == Tunnel.HALF_DUG)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        Vector2 moleWidth = new Vector2(GRID_SIZE / 2 - 1, 0);
+
+        internal bool vegetableLeftClear(Rat mole)
+        {
+            Vector2 position = mole.position + moleWidth;
+
+            if (!vegetableLeft(mole.position, new ArrayList { }, Vegetable.NUDGE_SPACING))
+            {
+                return true;
+            }
+            else if ((int)(position.X + GRID_SIZE/2 - GRID_SIZE * 2) > 0)
+            {
+                Tunnel tunnelTwoOver = tunnels[(int)(position.X + GRID_SIZE / 2 - GRID_SIZE * 2) / GRID_SIZE, (int)mole.position.Y / GRID_SIZE];
+                if (tunnelTwoOver.right == Tunnel.DUG || tunnelTwoOver.right == Tunnel.HALF_DUG)
+                {
+                    return true;
+                }
+            }
+            return false;
+
         }
 
         internal int checkMoleSight(Vector2 position)
@@ -346,7 +385,7 @@ namespace MoleHillMountain
 
             if (mole.horzFacing == Sprite.DIRECTION_RIGHT)
             {
-                if ((tunnels[moleRight, moleMiddleY].left != Tunnel.DUG && tunnels[moleRight, moleMiddleY].right != Tunnel.DUG ) || mole.diggingTunnel == tunnels[moleRight, moleMiddleY])
+                if ((tunnels[moleRight, moleMiddleY].left != Tunnel.DUG && tunnels[moleRight, moleMiddleY].right != Tunnel.DUG) || mole.diggingTunnel == tunnels[moleRight, moleMiddleY])
                 {
                     mole.setDig(true);
                     mole.diggingTunnel = tunnels[moleRight, moleMiddleY];
@@ -603,6 +642,21 @@ namespace MoleHillMountain
             return false;
         }
 
+        internal bool vegetableDirectlyBelow(Mole mole)
+        {
+            foreach (Vegetable vege in vegetables)
+            {
+                if (vege.state != Vegetable.SPLITTING)
+                {
+                    if (Math.Abs(vege.position.X - mole.position.X) < GRID_SIZE/2 - 2 && vege.position.Y - mole.position.Y <= GRID_SIZE && vege.position.Y - mole.position.Y > 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         internal bool vegetableAbove(Mole mole)
         {
             foreach (Vegetable vege in vegetables)
@@ -624,7 +678,8 @@ namespace MoleHillMountain
             {
                 if (vege.state == Vegetable.FALLING)
                 {
-                    if (Math.Abs(vege.position.X - mole.position.X) < GRID_SIZE - 8 && mole.position.Y - vege.position.Y <= GRID_SIZE && mole.position.Y - vege.position.Y > 0)
+                    Vector2 absPos = (mole.position - vege.position);
+                    if (Math.Abs(absPos.X) < GRID_SIZE / 2 && mole.position.Y - vege.position.Y <= GRID_SIZE && mole.position.Y - vege.position.Y > 0)
                     {
                         return true;
                     }
