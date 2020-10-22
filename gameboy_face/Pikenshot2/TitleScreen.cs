@@ -208,7 +208,7 @@ namespace MoleHillMountain
 
         public override void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (texture != null && !titleFlag)
+            if (texture != null && !titleFlag && _game.drawBezel)
             {
                 spriteBatch.Draw(texture, screenPosition, Microsoft.Xna.Framework.Color.White);
                 if (fadeFlag)
@@ -239,7 +239,9 @@ namespace MoleHillMountain
 
             }
 
-            //spriteBatch.Draw(texture2, new Microsoft.Xna.Framework.Rectangle(40,24, PikeAndShotGame.SMALL_WIDTH, PikeAndShotGame.SMALL_HEIGHT), Microsoft.Xna.Framework.Color.White);
+            spriteBatch.Draw(texture2, Vector2.Zero, Microsoft.Xna.Framework.Color.White);
+            //spriteBatch.Draw(PikeAndShotGame.CATJON, Vector2.Zero, Microsoft.Xna.Framework.Color.White);
+
             //title.draw(spriteBatch, new Vector2(PikeAndShotGame.SCREENWIDTH / 2f, PikeAndShotGame.SCREENHEIGHT / 3f), SIDE_PLAYER);
             //if (fadeTime <= 0)
             //{
@@ -291,6 +293,11 @@ namespace MoleHillMountain
             if ((keyboardState.IsKeyDown(Keys.F) && previousKeyboardState.IsKeyUp(Keys.F)))
             {
                 fadeOut();
+            }
+
+            if ((keyboardState.IsKeyDown(Keys.B) && previousKeyboardState.IsKeyUp(Keys.B)))
+            {
+                _game.drawBezel = !_game.drawBezel;
             }
 
             base.getInput(timeSpan);

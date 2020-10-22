@@ -480,6 +480,7 @@ namespace MoleHillMountain
 
         private bool paletteFlag;
         private bool lightFlag;
+        public bool drawBezel = true;
 
         internal void changePalette()
         {
@@ -549,6 +550,7 @@ namespace MoleHillMountain
             Content.RootDirectory = "Content";
             screenColor = new Color(166, 172, 132, 150);
             screenColorShader = new Color(166, 172, 132, 0);
+
             screenColor1 = new Color(166, 172, 132, 150);
             screenColorShader1 = new Color(166, 172, 132, 0);
             screenColor2 = new Color(5, 186, 155, 150);
@@ -604,9 +606,11 @@ namespace MoleHillMountain
 
             soldierFont = Content.Load<SpriteFont>("SpriteFont1");
 
-            PALETTE = Content.Load<Texture2D>(@"palette");
+            PALETTE = Content.Load<Texture2D>(@"palette-4");
+            //PALETTE = Content.Load<Texture2D>(@"palette");
             //PALETTE_LIGHT = Content.Load<Texture2D>(@"lightpalette");
-            PALETTE_LIGHT = Content.Load<Texture2D>(@"gblight-palette-2");
+            //PALETTE_LIGHT = Content.Load<Texture2D>(@"gblight-palette-2");
+            PALETTE_LIGHT = Content.Load<Texture2D>(@"palette-3");
             BACKGROUND2 = Content.Load<Texture2D>(@"safeplace_fullsize");
             BACKGROUND3 = Content.Load<Texture2D>(@"safeplace_fullsize2");
             POCKET = Content.Load<Texture2D>(@"pocket-border-square-4x");
@@ -988,7 +992,7 @@ namespace MoleHillMountain
             RAT_WALKING = Content.Load<Texture2D>(@"rat_walk_one");
 
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
-            CATJON = Content.Load<Texture2D>(@"97a9fa08");
+            CATJON = Content.Load<Texture2D>(@"try_this2");
 
             TEST = new Texture2D(GraphicsDevice, 1, 1);
             Color[] colors = { Color.Black };
@@ -1204,17 +1208,27 @@ namespace MoleHillMountain
                     GraphicsDevice.Clear(screenColorShader);
 
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
-                    spriteBatch.Draw(ShaderRenderTarget, drawRectangle, drawRectangle, Color.White);
+                    if (drawBezel)
+                    {
+                        spriteBatch.Draw(ShaderRenderTarget, drawRectangle, drawRectangle, Color.White);
+                    } else
+                    {
+                        spriteBatch.Draw(ShaderRenderTarget, new Rectangle(25,25, testDrawRectangle.Width, testDrawRectangle.Height), testDrawRectangle, Color.White);
+                    }
                     spriteBatch.End();
 
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null);
-                    if (lightFlag)
+                    if (drawBezel)
                     {
-                        spriteBatch.Draw(POCKET_GRAY, pocketPos, Color.White);
-                    }
-                    else
-                    {
-                        spriteBatch.Draw(POCKET, pocketPos, Color.White);
+                        if (lightFlag)
+                        {
+                            spriteBatch.Draw(POCKET_GRAY, pocketPos, Color.White);
+                        }
+                        else
+                        {
+                            spriteBatch.Draw(POCKET, pocketPos, Color.White);
+                        }
+                        //spriteBatch.Draw(PALETTE_LIGHT, Vector2.Zero, Color.White);
                     }
                     spriteBatch.End();
 

@@ -60,7 +60,7 @@ namespace MoleHillMountain
         {
             title.draw(spriteBatch, new Vector2(10,0), SIDE_PLAYER, PikeAndShotGame.DUMMY_TIMESPAN);
 
-            //spriteBatch.Draw(PikeAndShotGame.SLIDE, new Rectangle(0, 0, 256, 192), new Rectangle(0, 0, 1024, 768), Color.White);
+            //spriteBatch.Draw(PikeAndShotGame.SLIDE, new Vector2(0,0), Color.White);
 
         }
 
