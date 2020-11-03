@@ -22,7 +22,8 @@ namespace MoleHillMountain
             if (((int)position.X / GRID_SIZE >= 0 && (int)position.X / GRID_SIZE < GRID_WIDTH) && ((int)position.Y / GRID_SIZE >= 0 && (int)position.Y / GRID_SIZE < GRID_HEIGHT))
             {
                 return tunnels[(int)position.X / GRID_SIZE, (int)position.Y / GRID_SIZE];
-            } else
+            }
+            else
             {
                 return null;
             }
@@ -34,6 +35,7 @@ namespace MoleHillMountain
         ArrayList enemies;
         ArrayList vegetables;
         ArrayList pickups;
+        ArrayList stones;
         ArrayList deadStuff;
 
         protected KeyboardState keyboardState;
@@ -44,6 +46,7 @@ namespace MoleHillMountain
         private float pickupTime;
         private float pickupTimer;
         private int pickupSequenceCount;
+        bool firstCheck = true;
 
         public DungeonScreen(PikeAndShotGame game)
         {
@@ -81,6 +84,11 @@ namespace MoleHillMountain
             foreach (Rat enemy in enemies)
             {
                 enemy.draw(spriteBatch);
+            }
+
+            foreach (Stone stone in stones)
+            {
+                stone.draw(spriteBatch);
             }
 
             mole.draw(spriteBatch);
@@ -154,6 +162,11 @@ namespace MoleHillMountain
             }
             deadStuff.Clear();
 
+            foreach (Stone stone in stones)
+            {
+                stone.update(gameTime.ElapsedGameTime);
+            }
+
             foreach (Rat enemy in enemies)
             {
                 enemy.update(gameTime.ElapsedGameTime);
@@ -171,6 +184,11 @@ namespace MoleHillMountain
 
             pickupTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+        }
+
+        public void spawnStone(Vector2 position, int horzFacing, int vertFacing)
+        {
+            stones.Add(new Stone(position, vertFacing, horzFacing, this));
         }
 
         internal int checkForTarget(Mole mole, Rat enemy, bool mad)
@@ -327,9 +345,9 @@ namespace MoleHillMountain
             {
                 return true;
             }
-            else if ((int)(position.X -5 + GRID_SIZE *2 ) < GRID_WIDTH * GRID_SIZE)
+            else if ((int)(position.X - 5 + GRID_SIZE * 2) < GRID_WIDTH * GRID_SIZE)
             {
-                Tunnel tunnelTwoOver = tunnels[(int)(position.X-5 + GRID_SIZE*2 ) / GRID_SIZE, (int)mole.position.Y / GRID_SIZE];
+                Tunnel tunnelTwoOver = tunnels[(int)(position.X - 5 + GRID_SIZE * 2) / GRID_SIZE, (int)mole.position.Y / GRID_SIZE];
                 if (tunnelTwoOver.left == Tunnel.DUG || tunnelTwoOver.left == Tunnel.HALF_DUG)
                 {
                     return true;
@@ -348,9 +366,9 @@ namespace MoleHillMountain
             {
                 return true;
             }
-            else if ((int)(position.X+5 - GRID_SIZE*2 ) > 0)
+            else if ((int)(position.X + 5 - GRID_SIZE * 2) > 0)
             {
-                Tunnel tunnelTwoOver = tunnels[(int)(position.X + 5 - GRID_SIZE*2 ) / GRID_SIZE, (int)mole.position.Y / GRID_SIZE];
+                Tunnel tunnelTwoOver = tunnels[(int)(position.X + 5 - GRID_SIZE * 2) / GRID_SIZE, (int)mole.position.Y / GRID_SIZE];
                 if (tunnelTwoOver.right == Tunnel.DUG || tunnelTwoOver.right == Tunnel.HALF_DUG)
                 {
                     return true;
@@ -734,43 +752,58 @@ namespace MoleHillMountain
             keyboardState = Keyboard.GetState();
             gamePadState = GamePad.GetState(PlayerIndex.One);
 
-            // Allows the game to exit
-            if (keyboardState.IsKeyDown(Keys.Escape) || GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                _game.Exit();
-
-            if (mole.alive())
+            if (!firstCheck)
             {
-                if (keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft) || gamePadState.ThumbSticks.Left.X < 0)
+                // Allows the game to exit
+                if (keyboardState.IsKeyDown(Keys.Escape) || GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+                    _game.Exit();
+
+                if (mole.alive() && (mole.state & Mole.STATE_USE) == 0)
                 {
-                    mole.moveLeft();
+                    if ((keyboardState.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyUp(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.A) && previousGamePadState.IsButtonUp(Buttons.A)))
+                    {
+                        mole.stopMoving();
+                        mole.useItem();
+                    }
+                    else
+                    {
+
+                        if (keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft) || gamePadState.ThumbSticks.Left.X < 0)
+                        {
+                            mole.moveLeft();
+                        }
+                        else if (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight) || gamePadState.ThumbSticks.Left.X > 0)
+                        {
+                            mole.moveRight();
+                        }
+                        else if (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y < 0)
+                        {
+                            mole.moveDown();
+                        }
+                        else if (keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp) || gamePadState.ThumbSticks.Left.Y > 0)
+                        {
+                            mole.moveUp();
+                        }
+                        else
+                        {
+                            mole.stopMoving();
+                        }
+                    }
                 }
-                else if (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight) || gamePadState.ThumbSticks.Left.X > 0)
+
+                if (keyboardState.IsKeyDown(Keys.Q) && previousKeyboardState.IsKeyUp(Keys.Q))
                 {
-                    mole.moveRight();
+                    enemies.Add(new Rat(this));
                 }
-                else if (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y < 0)
+                else if (keyboardState.IsKeyDown(Keys.R) && previousKeyboardState.IsKeyUp(Keys.R))
                 {
-                    mole.moveDown();
-                }
-                else if (keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp) || gamePadState.ThumbSticks.Left.Y > 0)
-                {
-                    mole.moveUp();
-                }
-                else
-                {
-                    mole.stopMoving();
+                    init();
                 }
             }
-
-            if (keyboardState.IsKeyDown(Keys.Q) && previousKeyboardState.IsKeyUp(Keys.Q))
+            else
             {
-                enemies.Add(new Rat(this));
+                firstCheck = false;
             }
-            else if (keyboardState.IsKeyDown(Keys.R) && previousKeyboardState.IsKeyUp(Keys.R))
-            {
-                init();
-            }
-
 
             previousKeyboardState = keyboardState;
             previousGamePadState = gamePadState;
@@ -800,6 +833,7 @@ namespace MoleHillMountain
 
             deadStuff = new ArrayList(5);
             enemies = new ArrayList(10);
+            stones = new ArrayList(10);
 
             generateLevel();
 

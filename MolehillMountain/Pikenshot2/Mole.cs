@@ -25,6 +25,7 @@ namespace MoleHillMountain
         public const int STATE_SNIFFING = 8;
         public const int STATE_SCARED = 16;
         public const int STATE_MAD = 32;
+        public const int STATE_USE = 64;
 
         private const float MOLE_NUDGE_SPACING = 7;
 
@@ -38,6 +39,7 @@ namespace MoleHillMountain
         protected Sprite digging;
         protected Sprite nudging;
         protected Sprite squashed;
+        protected Sprite slingshot;
 
         protected Sprite walkingSprite;
         public Vector2 position;
@@ -60,6 +62,7 @@ namespace MoleHillMountain
         internal int prevMoleLeft;
         internal int prevMoleDown;
         internal int prevMoleUp;
+        private float useTime = 250;
 
         public Mole(DungeonScreen dungeonScene)
         {
@@ -68,6 +71,7 @@ namespace MoleHillMountain
             digging = new Sprite(PikeAndShotGame.MOLE_MINER_DIGGING, new Rectangle(0, 0, 18, 18), 18, 18);
             nudging = new Sprite(PikeAndShotGame.MOLE_MINER_NUDGE, new Rectangle(0, 0, 18, 18), 18, 18);
             squashed = new Sprite(PikeAndShotGame.MOLE_SQUASHED, new Rectangle(0, 0, 18, 18), 18, 18);
+            slingshot = new Sprite(PikeAndShotGame.MINER_SLING, new Rectangle(0, 0, 40, 18), 40, 18);
             squashed.setFrame(squashed.getMaxFrames() - 2);
             walkingSprite = walking;
             animationTime = walkTime;
@@ -102,6 +106,22 @@ namespace MoleHillMountain
                     position.Y = vegetable.position.Y + DungeonScreen.GRID_SIZE / 4;
                     drawPosition.X = (int)position.X;
                     drawPosition.Y = (int)position.Y;
+                }
+            }
+            else if ((state & STATE_USE) != 0)
+            {
+                if (animationTimer >= 0)
+                {
+                    //magic numbers cause the animation was too long
+                    int maxFrames = slingshot.getMaxFrames();
+                    float frameTime = animationTime / (float)maxFrames;
+                    int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
+                    slingshot.setFrame(frameNumber);
+                }
+                else
+                {
+                    state &= ~STATE_USE;
+                    dungeonScene.spawnStone(position, horzFacing, vertFacing);
                 }
             }
             else if (moving == MOVING_NONE)
@@ -207,7 +227,11 @@ namespace MoleHillMountain
         }
         public virtual void draw(SpriteBatch spritebatch)
         {
-            if ((state & STATE_SQUASHED) == 0)
+            if ((state & STATE_USE) != 0)
+            {
+                slingshot.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
+            }
+            else if ((state & STATE_SQUASHED) == 0)
             {
                 walkingSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
             }
@@ -428,6 +452,15 @@ namespace MoleHillMountain
         internal float getDigSpeed()
         {
             return DIG_SPEED;
+        }
+
+        internal void useItem()
+        {
+            if ((state & STATE_SQUASHED) == 0 && (state & STATE_USE) == 0)
+            {
+                state |= STATE_USE;
+                animationTime = animationTimer = useTime;
+            }
         }
     }
 }

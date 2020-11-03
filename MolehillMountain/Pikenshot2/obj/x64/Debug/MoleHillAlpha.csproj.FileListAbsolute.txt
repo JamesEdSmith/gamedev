@@ -450,3 +450,6 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\rat_digging.
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\rat_mad.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\rat_sniff.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\slide.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\miner_slingshot.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\slingshot.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\stone.xnb

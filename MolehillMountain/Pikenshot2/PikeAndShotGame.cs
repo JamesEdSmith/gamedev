@@ -391,6 +391,7 @@ namespace MoleHillMountain
         public static Texture2D MOLE_MINER_WALKING;
         public static Texture2D MOLE_MINER_DIGGING;
         public static Texture2D MOLE_MINER_NUDGE;
+        public static Texture2D MINER_SLING;
         public static Texture2D MOLE_SQUASHED;
 
         public static Texture2D PALETTE;
@@ -421,6 +422,9 @@ namespace MoleHillMountain
         public static Texture2D GRUB_EGG;
         public static Texture2D GRUB_GRUB;
         public static Texture2D GRUB_LOOK;
+
+        public static Texture2D SLINGSHOT;
+        public static Texture2D STONE;
 
         public static Texture2D SANDBOX;
 
@@ -919,6 +923,7 @@ namespace MoleHillMountain
             MOLE_MINER_DIGGING = Content.Load<Texture2D>(@"mole_miner_sprite_dig");
             MOLE_MINER_NUDGE = Content.Load<Texture2D>(@"mole_miner_nudge");
             MOLE_SQUASHED = Content.Load<Texture2D>(@"mole_squashed");
+            MINER_SLING = Content.Load<Texture2D>(@"miner_slingshot");
 
             TUNNEL = Content.Load<Texture2D>(@"tunnel");
             TUNNEL_DIGGING = Content.Load<Texture2D>(@"tunnel_digging");
@@ -942,6 +947,9 @@ namespace MoleHillMountain
             GRUB_EGG = Content.Load<Texture2D>(@"egg");
             GRUB_GRUB = Content.Load<Texture2D>(@"grub_craw_sml");
             GRUB_LOOK = Content.Load<Texture2D>(@"grub_look");
+
+            SLINGSHOT = Content.Load<Texture2D>(@"slingshot");
+            STONE = Content.Load<Texture2D>(@"stone");
 
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
 
