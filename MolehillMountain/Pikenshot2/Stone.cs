@@ -24,8 +24,11 @@ namespace MoleHillMountain
 
         Sprite stone;
 
+        public bool dead;
+
         public Stone(Vector2 position, int vert, int horz, DungeonScreen dungeonScreen)
         {
+            dead = false;
             vertFacing = vert;
             horzFacing = horz;
             this.dungeonScreen = dungeonScreen;
@@ -154,6 +157,16 @@ namespace MoleHillMountain
                 {
                     stone.setFrame(2);
                 }
+            }
+
+            Mole enemy = dungeonScreen.checkEnemyCollision(position.X, position.Y, 1);
+            if (enemy != null)
+            {
+                enemy.hit();
+                position.X += 10;
+                position.Y += 10;
+                dungeonScreen.createAnimation(position, 0, 0);
+                dead = true;
             }
         }
     }

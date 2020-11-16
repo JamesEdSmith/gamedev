@@ -37,6 +37,7 @@ namespace MoleHillMountain
         ArrayList pickups;
         ArrayList stones;
         ArrayList deadStuff;
+        ArrayList effects;
 
         protected KeyboardState keyboardState;
         protected KeyboardState previousKeyboardState;
@@ -64,6 +65,60 @@ namespace MoleHillMountain
                 return null;
         }
 
+        public void createAnimation(Vector2 position, int horz, int vert)
+        {
+            Animation returnedEffect = null;
+
+            foreach (Animation effect in effects)
+            {
+                if (!effect.active)
+                {
+                    returnedEffect = effect;
+                    break;
+                }
+            }
+
+            if (returnedEffect == null)
+            {
+                returnedEffect = new Animation();
+                effects.Add(returnedEffect);
+            }
+
+            returnedEffect.activate((int)position.X, (int)position.Y, horz, vert);
+        }
+
+
+        public Mole checkEnemyCollision(float x, float y, float radius)
+        {
+            float enemyRadius = 9;
+            foreach (Mole enemy in enemies)
+            {
+                if (enemy.position.X - enemyRadius + radius > x)
+                {
+                    continue;
+                }
+                else if (enemy.position.X + enemyRadius - radius < x)
+                {
+                    continue;
+                }
+                else if (enemy.position.Y - enemyRadius + radius > y)
+                {
+                    continue;
+                }
+                else if (enemy.position.Y + enemyRadius - radius < y)
+                {
+                    continue;
+                }
+                return enemy;
+            }
+            return null;
+        }
+
+        public void createAnimation(Mole mole)
+        {
+            createAnimation(mole.position, mole.horzFacing, mole.vertFacing);
+        }
+
         public void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             foreach (Tunnel tunnel in tunnels)
@@ -89,6 +144,14 @@ namespace MoleHillMountain
             foreach (Stone stone in stones)
             {
                 stone.draw(spriteBatch);
+            }
+
+            foreach (Animation effect in effects)
+            {
+                if (effect.active)
+                {
+                    effect.draw(spriteBatch);
+                }
             }
 
             mole.draw(spriteBatch);
@@ -165,6 +228,22 @@ namespace MoleHillMountain
             foreach (Stone stone in stones)
             {
                 stone.update(gameTime.ElapsedGameTime);
+                if (stone.dead)
+                    deadStuff.Add(stone);
+            }
+            foreach (Stone stone in deadStuff)
+            {
+                stones.Remove(stone);
+            }
+            deadStuff.Clear();
+
+
+            foreach (Animation effect in effects)
+            {
+                if (effect.active)
+                {
+                    effect.update(gameTime.ElapsedGameTime);
+                }
             }
 
             foreach (Rat enemy in enemies)
@@ -820,20 +899,16 @@ namespace MoleHillMountain
                 }
             }
 
-            //tunnels[0, 0].right = Tunnel.DUG;
-            //tunnels[1, 0].left = Tunnel.DUG;
             vegetables = new ArrayList(5);
-            //vegetables.Add(new Vegetable(4 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
-            //vegetables.Add(new Vegetable(2 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
-            //vegetables.Add(new Vegetable(5 * GRID_SIZE - GRID_SIZE * 0.5f, 3 * GRID_SIZE - GRID_SIZE * 0.5f, this));
-
             pickups = new ArrayList(40);
-            //pickups.Add(new Pickup(5, 2, this));
-            //pickups.Add(new Pickup(6, 2, this));
-
             deadStuff = new ArrayList(5);
             enemies = new ArrayList(10);
             stones = new ArrayList(10);
+            effects = new ArrayList(5);
+            for (int i = 0; i < 5; i++)
+            {
+                effects.Add(new Animation());
+            }
 
             generateLevel();
 

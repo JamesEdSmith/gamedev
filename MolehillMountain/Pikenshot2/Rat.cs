@@ -37,7 +37,7 @@ namespace MoleHillMountain
             squashed = new Sprite(PikeAndShotGame.RAT_CRUSHED, new Rectangle(0, 0, 22, 18), 22, 18);
             digging = new Sprite(PikeAndShotGame.RAT_DIGGING, new Rectangle(0, 0, 22, 18), 22, 18);
             sniffing = new Sprite(PikeAndShotGame.RAT_SNIFF, new Rectangle(0, 0, 20, 18), 20, 18);
-            //mad = new Sprite(PikeAndShotGame.RAT_MAD, new Rectangle(0, 0, 20, 18), 20, 18);
+            mad = new Sprite(PikeAndShotGame.RAT_MAD, new Rectangle(0, 0, 20, 18), 20, 18);
             clearDirections = new ArrayList(4);
             str = 3;
             digTime = 325;
@@ -52,7 +52,11 @@ namespace MoleHillMountain
 
         public override void draw(SpriteBatch spritebatch)
         {
-            if ((state & STATE_SCARED) != 0)
+            if((state & STATE_HIT) != 0)
+            {
+                mad.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
+            }
+            else if ((state & STATE_SCARED) != 0 )
             {
                 squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
             }
@@ -120,7 +124,7 @@ namespace MoleHillMountain
                 }
             }
 
-            if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0 )
+            if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0 && (state & STATE_SCARED) == 0)
             {
                 int targetDirection = dungeonScene.checkForTarget(dungeonScene.mole, this, (state & STATE_MAD) != 0);
                 if (targetDirection == MOVING_NONE && (state & STATE_SNIFFING) == 0 && (state & STATE_SCARED) == 0 && (state & STATE_NUDGING) == 0 && (state & STATE_MAD) == 0
@@ -257,7 +261,7 @@ namespace MoleHillMountain
                 state &= ~STATE_SCARED;
             }
 
-            if((state & STATE_NUDGING) != 0)
+            if ((state & STATE_NUDGING) != 0)
             {
                 tunnel = null;
             }

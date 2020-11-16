@@ -425,6 +425,7 @@ namespace MoleHillMountain
 
         public static Texture2D SLINGSHOT;
         public static Texture2D STONE;
+        public static Texture2D STONE_IMPACT;
 
         public static Texture2D SANDBOX;
 
@@ -950,6 +951,7 @@ namespace MoleHillMountain
 
             SLINGSHOT = Content.Load<Texture2D>(@"slingshot");
             STONE = Content.Load<Texture2D>(@"stone");
+            STONE_IMPACT = Content.Load<Texture2D>(@"stone_impact");
 
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
 

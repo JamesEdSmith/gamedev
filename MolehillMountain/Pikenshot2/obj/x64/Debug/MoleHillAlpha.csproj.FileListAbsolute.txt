@@ -453,3 +453,4 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\slide.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\miner_slingshot.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\slingshot.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\stone.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\stone_impact.xnb
