@@ -324,6 +324,10 @@ namespace MoleHillMountain
                     state &= ~STATE_DIGGING;
                     walkingSprite = walking;
                     animationTime = walkTime;
+                    if (animationTimer > animationTime && (state & STATE_HIT) == 0)
+                    {
+                        animationTimer -= animationTime;
+                    }
                 }
             }
         }
