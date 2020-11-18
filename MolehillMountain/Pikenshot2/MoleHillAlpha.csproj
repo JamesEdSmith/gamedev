@@ -71,6 +71,7 @@
     <Compile Include="BattleScreen.cs" />
     <Compile Include="DungeonScreen.cs" />
     <Compile Include="Animation.cs" />
+    <Compile Include="EasingFunctions.cs" />
     <Compile Include="Rat.cs" />
     <Compile Include="GameScreen.cs" />
     <Compile Include="Formation.cs" />

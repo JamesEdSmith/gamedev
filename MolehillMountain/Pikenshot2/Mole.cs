@@ -66,6 +66,8 @@ namespace MoleHillMountain
         internal int prevMoleDown;
         internal int prevMoleUp;
         private float useTime = 250;
+        private Vector2 hitPosition;
+        private Vector2 startPosition;
 
         public Mole(DungeonScreen dungeonScene)
         {
@@ -111,6 +113,44 @@ namespace MoleHillMountain
                     float frameTime = hitTime / (float)maxFrames;
                     int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
                     mad.setFrame(frameNumber);
+                    Vector2 diff = startPosition - hitPosition;
+                    float p = EasingFunction.EaseOutQuint(0, 1, 1 - animationTimer / hitTime);
+                    Tunnel currTunnel = dungeonScene.getCurrTunnel(position);
+                    int staggerAmount = 5;
+                    if (currTunnel != null)
+                    {
+                        if (Math.Abs(diff.X) > Math.Abs(diff.Y) && diff.X >= 0 && currTunnel.right != Tunnel.NOT_DUG)
+                            position.X = MathHelper.Lerp(startPosition.X, startPosition.X + staggerAmount, p);
+                        else if (Math.Abs(diff.X) > Math.Abs(diff.Y) && diff.X <= 0 && currTunnel.left != Tunnel.NOT_DUG)
+                            position.X = MathHelper.Lerp(startPosition.X, startPosition.X - staggerAmount, p);
+                        else if (Math.Abs(diff.X) < Math.Abs(diff.Y) && diff.Y >= 0)
+                        {
+                            if (currTunnel.bottom != Tunnel.NOT_DUG)
+                                position.Y = MathHelper.Lerp(startPosition.Y, startPosition.Y + staggerAmount, p);
+                            else
+                            {
+                                if (diff.X >= 0)
+                                    position.X = MathHelper.Lerp(startPosition.X, startPosition.X + staggerAmount, p);
+                                else
+                                    position.X = MathHelper.Lerp(startPosition.X, startPosition.X - staggerAmount, p);
+                            }
+                        }
+                        else
+                        {
+                            if (currTunnel.top != Tunnel.NOT_DUG)
+                                position.Y = MathHelper.Lerp(startPosition.Y, startPosition.Y - staggerAmount, p);
+                            else
+                            {
+                                if (diff.X >= 0)
+                                    position.X = MathHelper.Lerp(startPosition.X, startPosition.X + staggerAmount, p);
+                                else
+                                    position.X = MathHelper.Lerp(startPosition.X, startPosition.X - staggerAmount, p);
+                            }
+                        }
+                    }
+
+                    drawPosition.X = (int)position.X;
+                    drawPosition.Y = (int)position.Y;
                 }
                 else
                 {
@@ -385,8 +425,10 @@ namespace MoleHillMountain
             this.vegetable = vegetable;
         }
 
-        public void hit()
+        public void hit(Vector2 position)
         {
+            hitPosition = position;
+            startPosition = this.position;
             state |= STATE_HIT;
             animationTimer = hitTime;
         }

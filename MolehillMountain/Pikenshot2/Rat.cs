@@ -26,7 +26,6 @@ namespace MoleHillMountain
         int intendingToMove;
 
         Sprite sniffing;
-        //Sprite mad;
 
         public Rat(DungeonScreen dungeonScene) : base(dungeonScene)
         {

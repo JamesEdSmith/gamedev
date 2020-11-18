@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System.Collections;
 
 namespace MoleHillMountain
@@ -120,51 +115,58 @@ namespace MoleHillMountain
                         velocity.Y *= -1;
                     }
                 }
-            }
-            if (velocity.X > 0)
-            {
-                horzFacing = Sprite.DIRECTION_RIGHT;
-            }
-            else
-            {
-                horzFacing = Sprite.DIRECTION_LEFT;
-            }
 
-            if (newTunnel.right == Tunnel.NOT_DUG && position.X % DungeonScreen.GRID_SIZE >= 15)
-            {
-                stone.setFrame(3);
-            }
-            else if (newTunnel.left == Tunnel.NOT_DUG && position.X % DungeonScreen.GRID_SIZE <= 5)
-            {
-                stone.setFrame(3);
-            }
-
-            else if (newTunnel.bottom == Tunnel.NOT_DUG && position.Y % DungeonScreen.GRID_SIZE >= 15)
-            {
-                stone.setFrame(1);
-            }
-            else if (newTunnel.top == Tunnel.NOT_DUG && position.Y % DungeonScreen.GRID_SIZE <= 5)
-            {
-                stone.setFrame(1);
-            }
-            else
-            {
-                if (velocity.Y > 0)
+                if (velocity.X > 0)
                 {
-                    stone.setFrame(0);
+                    horzFacing = Sprite.DIRECTION_RIGHT;
                 }
                 else
                 {
-                    stone.setFrame(2);
+                    horzFacing = Sprite.DIRECTION_LEFT;
+                }
+
+                if (newTunnel.right == Tunnel.NOT_DUG && position.X % DungeonScreen.GRID_SIZE >= 15)
+                {
+                    stone.setFrame(3);
+                }
+                else if (newTunnel.left == Tunnel.NOT_DUG && position.X % DungeonScreen.GRID_SIZE <= 5)
+                {
+                    stone.setFrame(3);
+                }
+
+                else if (newTunnel.bottom == Tunnel.NOT_DUG && position.Y % DungeonScreen.GRID_SIZE >= 15)
+                {
+                    stone.setFrame(1);
+                }
+                else if (newTunnel.top == Tunnel.NOT_DUG && position.Y % DungeonScreen.GRID_SIZE <= 5)
+                {
+                    stone.setFrame(1);
+                }
+                else
+                {
+                    if (velocity.Y > 0)
+                    {
+                        stone.setFrame(0);
+                    }
+                    else
+                    {
+                        stone.setFrame(2);
+                    }
+                }
+
+                Mole enemy = dungeonScreen.checkEnemyCollision(position.X, position.Y, 1);
+                if (enemy != null)
+                {
+                    enemy.hit(position);
+                    //hack cause of the sprite
+                    position.X += 10;
+                    position.Y += 10;
+                    dungeonScreen.createAnimation(position, 0, 0);
+                    dead = true;
                 }
             }
-
-            Mole enemy = dungeonScreen.checkEnemyCollision(position.X, position.Y, 1);
-            if (enemy != null)
+            else
             {
-                enemy.hit();
-                position.X += 10;
-                position.Y += 10;
                 dungeonScreen.createAnimation(position, 0, 0);
                 dead = true;
             }

@@ -90,7 +90,7 @@ namespace MoleHillMountain
 
         public Mole checkEnemyCollision(float x, float y, float radius)
         {
-            float enemyRadius = 9;
+            float enemyRadius = 8;
             foreach (Mole enemy in enemies)
             {
                 if (enemy.position.X - enemyRadius + radius > x)
