@@ -376,7 +376,6 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\theme.wma
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\gb-pass-0.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\palette.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\safeplace_fullsize.xnb
-D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\safeplace_fullsize2.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\mole_miner_nudge.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\egg.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\grub_craw_sml.xnb
@@ -454,3 +453,4 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\miner_slings
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\slingshot.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\stone.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\stone_impact.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\bg_red.xnb

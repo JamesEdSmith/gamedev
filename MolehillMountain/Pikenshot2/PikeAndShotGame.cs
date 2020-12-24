@@ -397,7 +397,6 @@ namespace MoleHillMountain
         public static Texture2D PALETTE;
         public static Texture2D BACKGROUND;
         public static Texture2D BACKGROUND2;
-        public static Texture2D BACKGROUND3;
 
         public static Texture2D SCREEN_TEXT;
 
@@ -560,8 +559,8 @@ namespace MoleHillMountain
             soldierFont = Content.Load<SpriteFont>("SpriteFont1");
 
             PALETTE = Content.Load<Texture2D>(@"palette");
-            BACKGROUND2 = Content.Load<Texture2D>(@"safeplace_fullsize");
-            BACKGROUND3 = Content.Load<Texture2D>(@"safeplace_fullsize2");
+            BACKGROUND = Content.Load<Texture2D>(@"safeplace_fullsize");
+            BACKGROUND2 = Content.Load<Texture2D>(@"bg_red");
             SCREEN_TEXT = CreateTexture(GraphicsDevice, 1, 1, pixel => new Color(166, 172, 132, 150));
 
             ShaderRenderTarget = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
@@ -1178,7 +1177,7 @@ namespace MoleHillMountain
                     //spriteBatch.End();
                     
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
-                    spriteBatch.Draw(BACKGROUND2, fullDrawRectangle, Color.White);
+                    spriteBatch.Draw(BACKGROUND, fullDrawRectangle, Color.White);
                     spriteBatch.Draw(ShaderRenderTarget, drawRectangle, testDrawRectangle, Color.White);
                     //spriteBatch.Draw(ShaderRenderTarget, new Rectangle(drawRectangle.X, drawRectangle.Y, drawRectangle.Width*2, drawRectangle.Height * 2), testDrawRectangle, Color.White);
                     spriteBatch.End();
