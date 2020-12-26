@@ -389,7 +389,6 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\rat_walk_one
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\rat_push.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\possibleSound5.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\tunnel.xnb
-D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\tunnel_digging.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\turnip.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\turnip_fall.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\turnip_split.xnb
@@ -454,3 +453,4 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\slingshot.xn
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\stone.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\stone_impact.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\bg_red.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\door.xnb

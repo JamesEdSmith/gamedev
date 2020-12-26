@@ -1122,9 +1122,16 @@ namespace MoleHillMountain
             {
                 for (int i = 0; i < GRID_WIDTH; i++)
                 {
-                    if (combinedTunnels[i, j] != 0)
+                    if (combinedTunnels[i, j] != 0 && 
+                        (tunnels[i,j].left == Tunnel.DUG || 
+                        tunnels[i, j].right == Tunnel.DUG || 
+                        tunnels[i, j].top == Tunnel.DUG || 
+                        tunnels[i, j].bottom == Tunnel.DUG))
                     {
                         combinedTunnels[i, j] = 1;
+                    } else
+                    {
+                        combinedTunnels[i, j] = 0;
                     }
                 }
             }

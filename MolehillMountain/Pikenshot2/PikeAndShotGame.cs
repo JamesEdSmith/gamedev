@@ -399,9 +399,7 @@ namespace MoleHillMountain
         public static Texture2D BACKGROUND2;
 
         public static Texture2D SCREEN_TEXT;
-
         public static Texture2D TUNNEL;
-        public static Texture2D TUNNEL_DIGGING;
 
         public static Texture2D TURNIP_SHAKE;
         public static Texture2D TURNIP_SPLIT;
@@ -425,6 +423,7 @@ namespace MoleHillMountain
         public static Texture2D SLINGSHOT;
         public static Texture2D STONE;
         public static Texture2D STONE_IMPACT;
+        public static Texture2D DOOR;
 
         public static Texture2D SANDBOX;
 
@@ -926,8 +925,6 @@ namespace MoleHillMountain
             MINER_SLING = Content.Load<Texture2D>(@"miner_slingshot");
 
             TUNNEL = Content.Load<Texture2D>(@"tunnel");
-            TUNNEL_DIGGING = Content.Load<Texture2D>(@"tunnel_digging");
-            TUNNEL_DIGGING = Content.Load<Texture2D>(@"tunnel_digging");
 
             TURNIP_SHAKE = Content.Load<Texture2D>(@"turnip_fall");
             TURNIP_TWIRL = Content.Load<Texture2D>(@"turnip_twirl");
@@ -951,6 +948,8 @@ namespace MoleHillMountain
             SLINGSHOT = Content.Load<Texture2D>(@"slingshot");
             STONE = Content.Load<Texture2D>(@"stone");
             STONE_IMPACT = Content.Load<Texture2D>(@"stone_impact");
+
+            DOOR = Content.Load<Texture2D>(@"door");
 
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
 
@@ -1158,7 +1157,6 @@ namespace MoleHillMountain
                     effect3.Parameters["$PREV5"].SetValue(arrayOfPrevs[1]);
                     effect3.Parameters["$PREV6"].SetValue(arrayOfPrevs[0]);
                     effect3.CurrentTechnique = effect3.Techniques["gameboy"];
-                    effect3.Parameters["texture_size"].SetValue(new Vector2(256, 192));
 
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
                     GraphicsDevice.Clear(screenColor);
@@ -1166,7 +1164,6 @@ namespace MoleHillMountain
                     spriteBatch.Draw(ShaderRenderTarget2, testDrawRectangle, testDrawRectangle, Color.White);
                     spriteBatch.End();
 
-                    effect3.Parameters["texture_size"].SetValue(new Vector2(256, 192));
                     effect3.CurrentTechnique = effect3.Techniques["gameboy4"];
                     effect3.Parameters["text"].SetValue(ShaderRenderTarget2);
                     effect3.Parameters["$PASS2"].SetValue(ShaderRenderTarget);
