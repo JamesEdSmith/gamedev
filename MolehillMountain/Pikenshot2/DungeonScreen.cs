@@ -14,6 +14,7 @@ namespace MoleHillMountain
         public const int GRID_SIZE = 20;
         public const int GRID_WIDTH = 12;
         public const int GRID_HEIGHT = 9;
+        public const int ENEMY_TIME = 3000;
 
         public static Vector2 OFFSET = new Vector2(8, 6);
 
@@ -31,8 +32,9 @@ namespace MoleHillMountain
 
         public PikeAndShotGame _game;
         public Mole mole;
+        public Door door;
         public Tunnel[,] tunnels;
-        ArrayList enemies;
+        public ArrayList enemies;
         ArrayList vegetables;
         ArrayList pickups;
         ArrayList stones;
@@ -48,6 +50,8 @@ namespace MoleHillMountain
         private float pickupTimer;
         private int pickupSequenceCount;
         bool firstCheck = true;
+        public int enemyCount;
+        public float enemyTimer;
 
         public DungeonScreen(PikeAndShotGame game)
         {
@@ -126,6 +130,11 @@ namespace MoleHillMountain
                 tunnel.draw(spriteBatch);
             }
 
+            if (door != null)
+            {
+                door.draw(spriteBatch);
+            }
+
             foreach (Vegetable vegetable in vegetables)
             {
                 vegetable.draw(spriteBatch);
@@ -164,7 +173,11 @@ namespace MoleHillMountain
         public void update(GameTime gameTime)
         {
             getInput(gameTime.ElapsedGameTime);
-            mole.update(gameTime.ElapsedGameTime);
+            mole.update(gameTime);
+            if (door != null)
+            {
+                door.update(gameTime);
+            }
 
             foreach (Vegetable vege in vegetables)
             {
@@ -237,7 +250,6 @@ namespace MoleHillMountain
             }
             deadStuff.Clear();
 
-
             foreach (Animation effect in effects)
             {
                 if (effect.active)
@@ -248,13 +260,21 @@ namespace MoleHillMountain
 
             foreach (Rat enemy in enemies)
             {
-                enemy.update(gameTime.ElapsedGameTime);
+                enemy.update(gameTime);
                 if ((enemy.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_NUDGING) == 0)
                 {
                     updateTunnels(enemy);
                 }
-
+                if((enemy.state & Mole.STATE_SQUASHED) != 0 && enemy.squashedTimer <= 0)
+                {
+                    deadStuff.Add(enemy);
+                }
             }
+            foreach(Rat enemy in deadStuff)
+            {
+                enemies.Remove(enemy);
+            }
+            deadStuff.Clear();
 
             if (mole.alive())
             {
@@ -262,6 +282,17 @@ namespace MoleHillMountain
             }
 
             pickupTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (enemyCount > 0)
+            {
+                enemyTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (enemyTimer <= 0)
+                {
+                    enemyTimer = ENEMY_TIME;
+                    enemies.Add(new Rat(this, door.position.X, door.position.Y));
+                    enemyCount--;
+                }
+            }
 
         }
 
@@ -927,6 +958,7 @@ namespace MoleHillMountain
 
             pickupTime = 22f / mole.getDigSpeed();
             pickupTimer = -1;
+            enemyTimer = ENEMY_TIME;
         }
 
         int[,] combinedTunnels;
@@ -1122,14 +1154,15 @@ namespace MoleHillMountain
             {
                 for (int i = 0; i < GRID_WIDTH; i++)
                 {
-                    if (combinedTunnels[i, j] != 0 && 
-                        (tunnels[i,j].left == Tunnel.DUG || 
-                        tunnels[i, j].right == Tunnel.DUG || 
-                        tunnels[i, j].top == Tunnel.DUG || 
+                    if (combinedTunnels[i, j] != 0 &&
+                        (tunnels[i, j].left == Tunnel.DUG ||
+                        tunnels[i, j].right == Tunnel.DUG ||
+                        tunnels[i, j].top == Tunnel.DUG ||
                         tunnels[i, j].bottom == Tunnel.DUG))
                     {
                         combinedTunnels[i, j] = 1;
-                    } else
+                    }
+                    else
                     {
                         combinedTunnels[i, j] = 0;
                     }
@@ -1253,27 +1286,28 @@ namespace MoleHillMountain
             }
 
             //place rats
-            int enemyCount = random.Next(1, 4);
-            for (int i = 0; i < enemyCount; i++)
+            enemyCount = random.Next(1, 4);
+            //for (int i = 0; i < enemyCount; i++)
+            //{
+            int index = 7;
+            ArrayList possibleSpots = new ArrayList();
+            while (possibleSpots.Count < 5)
             {
-                int index = 7;
-                ArrayList possibleSpots = new ArrayList();
-                while (possibleSpots.Count < 5)
+                if (tunnelBuckets[index].Count > 0)
                 {
-                    if (tunnelBuckets[index].Count > 0)
-                    {
-                        int chosen = random.Next(tunnelBuckets[index].Count);
-                        possibleSpots.Add(tunnelBuckets[index][chosen]);
-                        tunnelBuckets[index].RemoveAt(chosen);
-                    }
-                    else
-                    {
-                        index--;
-                    }
+                    int chosen = random.Next(tunnelBuckets[index].Count);
+                    possibleSpots.Add(tunnelBuckets[index][chosen]);
+                    tunnelBuckets[index].RemoveAt(chosen);
                 }
-                Point chosenPoint = (Point)possibleSpots[random.Next(possibleSpots.Count)];
-                enemies.Add(new Rat(this, chosenPoint.X, chosenPoint.Y));
+                else
+                {
+                    index--;
+                }
             }
+            Point chosenPoint = (Point)possibleSpots[random.Next(possibleSpots.Count)];
+            door = new Door(chosenPoint.X, chosenPoint.Y, this);
+            //enemies.Add(new Rat(this, chosenPoint.X, chosenPoint.Y));
+            //}
 
         }
 

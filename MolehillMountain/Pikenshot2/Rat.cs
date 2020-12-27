@@ -15,8 +15,11 @@ namespace MoleHillMountain
         const int UP_CLEAR = 3;
         const int RIGHT_CLEAR = 4;
 
+        const float SQUASHED_TIME = 3500;
+
         protected float sniffTime = 900;
         protected float madTimer = 0;
+        public float squashedTimer = SQUASHED_TIME;
         protected const float MAD_TIME = 1500;
         protected const float MAD_RESET_TIME = 2000;
 
@@ -49,13 +52,20 @@ namespace MoleHillMountain
             drawPosition = new Vector2(position.X, position.Y);
         }
 
+        public Rat(DungeonScreen dungeonScreen, float x, float y) : this(dungeonScreen)
+        {
+            position.X = x;
+            position.Y = y;
+            drawPosition = new Vector2(position.X, position.Y);
+        }
+
         public override void draw(SpriteBatch spritebatch)
         {
-            if((state & STATE_HIT) != 0)
+            if ((state & STATE_HIT) != 0)
             {
                 mad.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
             }
-            else if ((state & STATE_SCARED) != 0 )
+            else if ((state & STATE_SCARED) != 0)
             {
                 squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
             }
@@ -78,30 +88,30 @@ namespace MoleHillMountain
                 {
                     if (vertFacing == Sprite.DIRECTION_NONE)
                     {
-                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, Sprite.DIRECTION_NONE);
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, Sprite.DIRECTION_NONE, dimColor);
                     }
                     else if (vertFacing == Sprite.DIRECTION_DOWN)
                     {
-                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, Sprite.DIRECTION_NONE);
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, Sprite.DIRECTION_NONE, dimColor);
                     }
                     else
                     {
-                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, Sprite.DIRECTION_RIGHT, Sprite.DIRECTION_NONE);
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, Sprite.DIRECTION_RIGHT, Sprite.DIRECTION_NONE, dimColor);
                     }
                 }
                 else
                 {
                     if (vertFacing == Sprite.DIRECTION_NONE)
                     {
-                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, Sprite.DIRECTION_NONE);
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, Sprite.DIRECTION_NONE, dimColor);
                     }
                     else if (vertFacing == Sprite.DIRECTION_DOWN)
                     {
-                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE);
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, dimColor);
                     }
                     else
                     {
-                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE);
+                        squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, dimColor);
                     }
                 }
             }
@@ -111,8 +121,9 @@ namespace MoleHillMountain
             }
         }
 
-        public override void update(TimeSpan timeSpan)
+        public override void update(GameTime gameTime)
         {
+            TimeSpan timeSpan = gameTime.ElapsedGameTime;
             if (madTimer > 0)
             {
                 madTimer -= (float)timeSpan.TotalMilliseconds;
@@ -120,6 +131,15 @@ namespace MoleHillMountain
                 {
                     state &= ~STATE_MAD;
                     madTimer = MAD_RESET_TIME;
+                }
+            }
+
+            if ((state & STATE_SQUASHED) != 0 && squashedTimer >= 0)
+            {
+                squashedTimer -= (float)timeSpan.TotalMilliseconds;
+                if (squashedTimer <= SQUASHED_TIME / 3f)
+                {
+                    dimColor.A = (byte)(255f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 10f));
                 }
             }
 
@@ -244,7 +264,7 @@ namespace MoleHillMountain
                 }
             }
 
-            base.update(timeSpan);
+            base.update(gameTime);
 
             if (dungeonScene.vegetableFallingAbove(this) && (state & STATE_SQUASHED) == 0)
             {

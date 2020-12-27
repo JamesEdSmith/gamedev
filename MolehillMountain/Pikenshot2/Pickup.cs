@@ -8,6 +8,60 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MoleHillMountain
 {
+    class Door
+    {
+        Sprite door;
+        Sprite flash;
+        DungeonScreen dungeonScreen;
+        public Vector2 position;
+        protected Vector2 drawPosition;
+        Color flashColor = new Color(255, 255, 255, 255);
+        public Door(float x, float y, DungeonScreen dungeonScreen)
+        {
+            position = new Vector2(x, y);
+            this.dungeonScreen = dungeonScreen;
+            door = new Sprite(PikeAndShotGame.DOOR, new Rectangle(0, 0, 20, 20), 20, 20);
+            flash = new Sprite(dungeonScreen._game.getFlashTexture(PikeAndShotGame.DOOR), new Rectangle(0, 0, 20, 20), 20, 20);
+            door.setFrame(1);
+            drawPosition = new Vector2(x, y);
+        }
+
+        public Door(int x, int y, DungeonScreen dungeonScreen) : this(0f, 0f, dungeonScreen)
+        {
+            position.X = DungeonScreen.GRID_SIZE * x + DungeonScreen.GRID_SIZE * 0.5f;
+            position.Y = DungeonScreen.GRID_SIZE * y + DungeonScreen.GRID_SIZE * 0.5f;
+            drawPosition = position;
+        }
+
+        public void draw(SpriteBatch spriteBatch)
+        {
+            door.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, Color.White);
+            if (dungeonScreen.enemyCount <= 0 && dungeonScreen.enemies.Count == 0)
+            {
+                flash.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, flashColor);
+            }
+        }
+
+        public void update(GameTime gameTime)
+        {
+            if (dungeonScreen.enemyCount > 0 && dungeonScreen.enemyTimer < DungeonScreen.ENEMY_TIME/4)
+            {
+                drawPosition.X = (int)position.X + (int)(1.1f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 25f));
+                drawPosition.Y = (int)position.Y + (int)(1.1f * (float)Math.Cos(gameTime.TotalGameTime.TotalMilliseconds / 25f));
+            }
+            else
+            {
+                drawPosition.X = (int)position.X;
+                drawPosition.Y = (int)position.Y;
+            }
+
+            if(dungeonScreen.enemyCount <= 0 && dungeonScreen.enemies.Count == 0)
+            {
+                flashColor.A = (byte)(255f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 32f));
+            }
+        }
+    }
+
     class Pickup
     {
         public const int STATE_IDLE = 0;

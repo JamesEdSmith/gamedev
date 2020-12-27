@@ -474,6 +474,7 @@ namespace MoleHillMountain
         public static float ZOOM = 1.0f;
         public Color screenColor;
         public Color screenColorShader;
+        private Dictionary<Texture2D, Texture2D> flashTextures;
 
         public PikeAndShotGame()
         {
@@ -506,6 +507,7 @@ namespace MoleHillMountain
             screenColor = new Color(166, 172, 132, 150);
             screenColorShader = new Color(166, 172, 132, 0);
 
+            flashTextures = new Dictionary<Texture2D, Texture2D>();
         }
 
         public static Texture2D CreateTexture(GraphicsDevice device, int width, int height, Func<int, Color> paint)
@@ -1110,7 +1112,7 @@ namespace MoleHillMountain
                     GraphicsDevice.Viewport = viewport;
                     GraphicsDevice.Clear(Color.White);
                     //get rid of blurry sprites
-                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, mapTransform);
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, mapTransform);
 
                     if (_currScreen != null)
                     {
@@ -1347,6 +1349,31 @@ namespace MoleHillMountain
             else
             {
                 drawRectangle = new Rectangle(0, 0, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height);
+            }
+        }
+
+        public Texture2D getFlashTexture(Texture2D bitmap)
+        {
+            if (flashTextures.ContainsKey(bitmap))
+            {
+                return flashTextures[bitmap];
+            }
+            else
+            {
+                //create flash texture
+                Color[] pixelData = new Color[bitmap.Width * bitmap.Height];
+                bitmap.GetData<Color>(pixelData);
+
+                for (int i = 0; i < pixelData.Length; i++)
+                {
+                    if (pixelData[i].A != 0)
+                        pixelData[i] = Color.White;
+                }
+                Texture2D flashTexture = new Texture2D(bitmap.GraphicsDevice, bitmap.Width, bitmap.Height);
+                flashTexture.SetData<Color>(pixelData);
+                flashTextures.Add(bitmap, flashTexture);
+
+                return flashTexture;
             }
         }
     }

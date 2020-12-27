@@ -68,6 +68,7 @@ namespace MoleHillMountain
         private float useTime = 250;
         private Vector2 hitPosition;
         private Vector2 startPosition;
+        protected Color dimColor = new Color(255, 255, 255, 255);
 
         public Mole(DungeonScreen dungeonScene)
         {
@@ -100,8 +101,9 @@ namespace MoleHillMountain
             drawPosition = new Vector2(position.X, position.Y);
         }
 
-        public virtual void update(TimeSpan timeSpan)
+        public virtual void update(GameTime gameTime)
         {
+            TimeSpan timeSpan = gameTime.ElapsedGameTime;
             animationTimer -= (float)timeSpan.TotalMilliseconds;
 
             if ((state & STATE_HIT) != 0)
