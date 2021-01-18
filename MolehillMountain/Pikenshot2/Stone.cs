@@ -161,13 +161,13 @@ namespace MoleHillMountain
                     //hack cause of the sprite
                     position.X += 10;
                     position.Y += 10;
-                    dungeonScreen.createAnimation(position, 0, 0);
+                    dungeonScreen.createAnimation(position, 0, 0, AnimationType.stoneImpact);
                     dead = true;
                 }
             }
             else
             {
-                dungeonScreen.createAnimation(position, 0, 0);
+                dungeonScreen.createAnimation(position, 0, 0, AnimationType.stoneImpact);
                 dead = true;
             }
         }

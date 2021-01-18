@@ -159,7 +159,7 @@ namespace MoleHillMountain
                     state &= ~STATE_HIT;
                 }
             }
-            else if ((state & STATE_SQUASHED) != 0)
+            else if ((state & STATE_SQUASHED) != 0 && vegetable != null)
             {
                 if (position.Y - vegetable.position.Y <= vegetable.position.Y + DungeonScreen.GRID_SIZE / 4)
                 {
@@ -273,6 +273,7 @@ namespace MoleHillMountain
                         }
                         break;
                 }
+
                 drawPosition.X = (int)position.X;
                 drawPosition.Y = (int)position.Y;
 

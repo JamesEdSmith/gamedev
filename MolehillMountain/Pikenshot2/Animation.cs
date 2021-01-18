@@ -14,6 +14,7 @@ namespace MoleHillMountain
         float time;
         int horz;
         int vert;
+        int loops;
 
         public Animation()
         {
@@ -22,19 +23,24 @@ namespace MoleHillMountain
             sprite = new Sprite(PikeAndShotGame.STONE_IMPACT, new Rectangle(0, 0, 20, 20), 20, 20);
             time = 500;
         }
+
+
         public void activate()
         {
             timer = time;
             active = true;
         }
 
-        public void activate(int x, int y, int horz, int vert)
+        public void activate(int x, int y, int horz, int vert, Sprite sprite, float time, int loops = 0)
         {
-            activate();
+            this.sprite = sprite;
+            this.time = time;
             position.X = x;
             position.Y = y;
             this.horz = horz;
             this.vert = vert;
+            this.loops = loops;
+            activate();
         }
 
         public void update(TimeSpan timeSpan)
@@ -43,8 +49,16 @@ namespace MoleHillMountain
 
             if (timer < 0)
             {
-                timer = 0;
-                active = false;
+                if (loops > 0)
+                {
+                    timer = time;
+                    loops--;
+                }
+                else
+                {
+                    timer = 0;
+                    active = false;
+                }
             }
 
             int maxFrames = sprite.getMaxFrames();

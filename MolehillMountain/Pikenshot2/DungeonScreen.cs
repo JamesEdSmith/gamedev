@@ -8,6 +8,12 @@ using System.Collections;
 
 namespace MoleHillMountain
 {
+
+    enum AnimationType
+    {
+        stoneImpact,
+        fightCloud
+    }
     class DungeonScreen : GameScreen
     {
         static Random random = new Random();
@@ -15,6 +21,7 @@ namespace MoleHillMountain
         public const int GRID_WIDTH = 12;
         public const int GRID_HEIGHT = 9;
         public const int ENEMY_TIME = 3000;
+        public const int FIGHT_DIST = 5;
 
         public static Vector2 OFFSET = new Vector2(8, 6);
 
@@ -69,7 +76,7 @@ namespace MoleHillMountain
                 return null;
         }
 
-        public void createAnimation(Vector2 position, int horz, int vert)
+        public void createAnimation(Vector2 position, int horz, int vert, AnimationType animationType)
         {
             Animation returnedEffect = null;
 
@@ -88,7 +95,19 @@ namespace MoleHillMountain
                 effects.Add(returnedEffect);
             }
 
-            returnedEffect.activate((int)position.X, (int)position.Y, horz, vert);
+            switch (animationType)
+            {
+                case AnimationType.stoneImpact:
+                    returnedEffect.activate((int)position.X, (int)position.Y, horz, vert, 
+                        new Sprite(PikeAndShotGame.STONE_IMPACT, new Rectangle(0, 0, 20, 20), 20, 20), 500);
+                    break;
+                case AnimationType.fightCloud:
+                    returnedEffect.activate((int)(position.X + OFFSET.X), (int)(position.Y + OFFSET.Y), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE,
+                        new Sprite(PikeAndShotGame.FIGHT_CLOUD, new Rectangle(0, 0, 22, 22), 22, 22), 450, 1);
+                    break;
+            }
+
+            
         }
 
 
@@ -118,9 +137,9 @@ namespace MoleHillMountain
             return null;
         }
 
-        public void createAnimation(Mole mole)
+        public void createStoneImpact(Mole mole)
         {
-            createAnimation(mole.position, mole.horzFacing, mole.vertFacing);
+            createAnimation(mole.position, mole.horzFacing, mole.vertFacing, AnimationType.stoneImpact);
         }
 
         public void draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -155,6 +174,8 @@ namespace MoleHillMountain
                 stone.draw(spriteBatch);
             }
 
+            mole.draw(spriteBatch);
+
             foreach (Animation effect in effects)
             {
                 if (effect.active)
@@ -162,8 +183,6 @@ namespace MoleHillMountain
                     effect.draw(spriteBatch);
                 }
             }
-
-            mole.draw(spriteBatch);
 
             //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 80 + (int)OFFSET.Y, 70, 100), new Rectangle(128, 0, 70, 100), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
             //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 80 + (int)OFFSET.Y, 72, 20), new Rectangle(0, 1, 72, 20), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
@@ -265,6 +284,16 @@ namespace MoleHillMountain
                 {
                     updateTunnels(enemy);
                 }
+
+                Vector2 diff = enemy.position - mole.position;
+
+                if (Math.Abs(diff.X) <= FIGHT_DIST && Math.Abs(diff.Y) <= FIGHT_DIST && (mole.state & Mole.STATE_SQUASHED) == 0)
+                {
+                    createAnimation(mole.position, mole.horzFacing, mole.vertFacing, AnimationType.fightCloud);
+                    mole.squash(null);
+                    enemy.squash(null);
+                }
+
                 if((enemy.state & Mole.STATE_SQUASHED) != 0 && enemy.squashedTimer <= 0)
                 {
                     deadStuff.Add(enemy);
