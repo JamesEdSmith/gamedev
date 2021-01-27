@@ -42,6 +42,7 @@ namespace MoleHillMountain
             mad = new Sprite(PikeAndShotGame.RAT_MAD, new Rectangle(0, 0, 20, 18), 20, 18);
             clearDirections = new ArrayList(4);
             str = 3;
+            health = 1;
             digTime = 325;
         }
 

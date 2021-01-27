@@ -103,14 +103,11 @@ namespace MoleHillMountain
                     break;
                 case AnimationType.fightCloud:
                     returnedEffect.activate((int)(position.X + OFFSET.X), (int)(position.Y + OFFSET.Y), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE,
-                        new Sprite(PikeAndShotGame.FIGHT_CLOUD, new Rectangle(0, 0, 22, 22), 22, 22), 450, 1);
+                        new Sprite(PikeAndShotGame.FIGHT_CLOUD, new Rectangle(0, 0, 22, 22), 22, 22), Mole.FIGHT_TIME/2f, 1);
                     break;
             }
 
-            
         }
-
-
         public Mole checkEnemyCollision(float x, float y, float radius)
         {
             float enemyRadius = 8;
@@ -287,11 +284,11 @@ namespace MoleHillMountain
 
                 Vector2 diff = enemy.position - mole.position;
 
-                if (Math.Abs(diff.X) <= FIGHT_DIST && Math.Abs(diff.Y) <= FIGHT_DIST && (mole.state & Mole.STATE_SQUASHED) == 0)
+                if (Math.Abs(diff.X) <= FIGHT_DIST && Math.Abs(diff.Y) <= FIGHT_DIST && (mole.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_SQUASHED) == 0 && (mole.state & Mole.STATE_FIGHTING) == 0 && (enemy.state & Mole.STATE_FIGHTING) == 0)
                 {
                     createAnimation(mole.position, mole.horzFacing, mole.vertFacing, AnimationType.fightCloud);
-                    mole.squash(null);
-                    enemy.squash(null);
+                    mole.fight();
+                    enemy.fight();
                 }
 
                 if((enemy.state & Mole.STATE_SQUASHED) != 0 && enemy.squashedTimer <= 0)

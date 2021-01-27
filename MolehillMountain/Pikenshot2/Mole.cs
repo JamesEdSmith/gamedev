@@ -12,6 +12,7 @@ namespace MoleHillMountain
     {
         const float WALK_SPEED = 38f;
         const float DIG_SPEED = 30f;
+        public const float FIGHT_TIME = 900f;
 
         public const int MOVING_NONE = 0;
         public const int MOVING_LEFT = 1;
@@ -27,6 +28,7 @@ namespace MoleHillMountain
         public const int STATE_MAD = 32;
         public const int STATE_USE = 64;
         public const int STATE_HIT = 128;
+        public const int STATE_FIGHTING = 256;
 
         private const float MOLE_NUDGE_SPACING = 7;
 
@@ -49,6 +51,8 @@ namespace MoleHillMountain
         protected Vector2 drawPosition;
         //flags
         public int state = 0;
+        private float fightTimer;
+
         //notflags
         public int moving = 0;
         public int horzFacing = Sprite.DIRECTION_LEFT;
@@ -61,6 +65,8 @@ namespace MoleHillMountain
 
         public int str;
         public int per;
+        public int con;
+        public int health;
         internal int prevMoleRight;
         internal int prevMoleLeft;
         internal int prevMoleDown;
@@ -86,6 +92,8 @@ namespace MoleHillMountain
             drawPosition = new Vector2(position.X, position.Y);
             str = 3;
             per = 3;
+            con = 3;
+            health = con;
         }
 
         public Mole(float x, float y, DungeonScreen dungeonScene) : this(dungeonScene)
@@ -110,7 +118,6 @@ namespace MoleHillMountain
             {
                 if (animationTimer >= 0)
                 {
-                    //magic numbers cause the animation was too long
                     int maxFrames = mad.getMaxFrames();
                     float frameTime = hitTime / (float)maxFrames;
                     int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
@@ -159,9 +166,9 @@ namespace MoleHillMountain
                     state &= ~STATE_HIT;
                 }
             }
-            else if ((state & STATE_SQUASHED) != 0 && vegetable != null)
+            else if ((state & STATE_SQUASHED) != 0)
             {
-                if (position.Y - vegetable.position.Y <= vegetable.position.Y + DungeonScreen.GRID_SIZE / 4)
+                if (vegetable != null && position.Y - vegetable.position.Y <= vegetable.position.Y + DungeonScreen.GRID_SIZE / 4)
                 {
                     position.Y = vegetable.position.Y + DungeonScreen.GRID_SIZE / 4;
                     drawPosition.X = (int)position.X;
@@ -182,6 +189,19 @@ namespace MoleHillMountain
                 {
                     state &= ~STATE_USE;
                     dungeonScene.spawnStone(position, horzFacing, vertFacing);
+                }
+            }
+            else if ((state & STATE_FIGHTING) != 0)
+            {
+                fightTimer -= (float)timeSpan.TotalMilliseconds;
+                if (fightTimer <= 0)
+                {
+                    state &= ~STATE_FIGHTING;
+                    health--;
+                    if (health <= 0)
+                    {
+                        state = STATE_SQUASHED;
+                    }
                 }
             }
             else if (moving == MOVING_NONE)
@@ -286,9 +306,20 @@ namespace MoleHillMountain
                 nudgeMovement = 0;
             }
         }
+
+        public void fight()
+        {
+            state = STATE_FIGHTING;
+            fightTimer = FIGHT_TIME;
+        }
+
         public virtual void draw(SpriteBatch spritebatch)
         {
-            if ((state & STATE_HIT) != 0)
+            if ((state & STATE_FIGHTING) != 0)
+            {
+
+            }
+            else if ((state & STATE_HIT) != 0)
             {
                 mad.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
             }
@@ -430,10 +461,13 @@ namespace MoleHillMountain
 
         public void hit(Vector2 position)
         {
-            hitPosition = position;
-            startPosition = this.position;
-            state |= STATE_HIT;
-            animationTimer = hitTime;
+            if ((state & STATE_SQUASHED) == 0)
+            {
+                hitPosition = position;
+                startPosition = this.position;
+                state |= STATE_HIT;
+                animationTimer = hitTime;
+            }
         }
 
         public virtual void moveUp()
