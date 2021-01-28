@@ -393,6 +393,7 @@ namespace MoleHillMountain
         public static Texture2D MOLE_MINER_NUDGE;
         public static Texture2D MINER_SLING;
         public static Texture2D MOLE_SQUASHED;
+        public static Texture2D MOLE_DIZZY;
 
         public static Texture2D PALETTE;
         public static Texture2D BACKGROUND;
@@ -425,6 +426,7 @@ namespace MoleHillMountain
         public static Texture2D STONE_IMPACT;
         public static Texture2D DOOR;
         public static Texture2D FIGHT_CLOUD;
+        public static Texture2D DIZZY_MARK;
 
         public static Texture2D SANDBOX;
 
@@ -587,345 +589,14 @@ namespace MoleHillMountain
 
             prevFrames = new Queue<Texture2D>(7);
 
-            //TERRAIN_DRY_GRASS = Content.Load<Texture2D>(@"dry_grass");
-            //ROAD_TERRAIN = new List<Texture2D>(11);
 
-            //for (int i = 0; i < 11; i++)
-            //    ROAD_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"roadTerrain" + i)));
-
-            //TREE0 = getDimmerClone(Content.Load<Texture2D>(@"roadTerrain11"));
-            //TREE1 = getDimmerClone(Content.Load<Texture2D>(@"tree01"));
-            //TREE2 = getDimmerClone(Content.Load<Texture2D>(@"tree02"));
-
-            //BUSH0 = getDimmerClone(Content.Load<Texture2D>(@"bush00"));
-            //BUSH1 = getDimmerClone(Content.Load<Texture2D>(@"bush01"));
-            //BUSH2 = getDimmerClone(Content.Load<Texture2D>(@"bush03"));
-            //WAGON = getDimmerClone(Content.Load<Texture2D>(@"wagon"));
-            //OX_BROWN = getDimmerClone(Content.Load<Texture2D>(@"ox_brown"));
-            //OX_GREY = getDimmerClone(Content.Load<Texture2D>(@"ox_grey"));
-            //OX_DEAD = getDimmerClone(Content.Load<Texture2D>(@"ox_dead"));
-            //WOUNDED_PEASANT = getDimmerClone(Content.Load<Texture2D>(@"wounded_dude"));
-            //DEAD_PEASANT = getDimmerClone(Content.Load<Texture2D>(@"bodies"));
-            //TOTEMPOLE = getDimmerClone(Content.Load<Texture2D>(@"totempole"));
-            //RIVER = getDimmerClone(Content.Load<Texture2D>(@"river"));
-            //RIVER_BED_0 = getDimmerClone(Content.Load<Texture2D>(@"river_bed00"));
-            //RIVER_BED_1 = getDimmerClone(Content.Load<Texture2D>(@"river_bed01"));
-            //RIVER_BED_0L = getDimmerClone(Content.Load<Texture2D>(@"left_river_bed00"));
-            //RIVER_BED_1L = getDimmerClone(Content.Load<Texture2D>(@"left_river_bed01"));
-            //WATER_TERRAIN = new List<Texture2D>(3);
-            //WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock")));
-            //WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock2")));
-            //WATER_TERRAIN.Add(getDimmerClone(Content.Load<Texture2D>(@"watery_rock3")));
-            //BOTTLES = getDimmerClone(Content.Load<Texture2D>(@"bottles"));
-            //RUIN_BUILDING = getDimmerClone(Content.Load<Texture2D>(@"ruin_building"));
-            //RUIN_CROSS = getDimmerClone(Content.Load<Texture2D>(@"ruin_cross"));
-            //FANG_ROCK = getDimmerClone(Content.Load<Texture2D>(@"fang_rock"));
-            //FANG_ROCKS = getDimmerClone(Content.Load<Texture2D>(@"fang_rocks"));
-            //BARRICADES = getDimmerClone(Content.Load<Texture2D>(@"barricades"));
-            //TRUNKS = getDimmerClone(Content.Load<Texture2D>(@"trunks"));
-
-            //DROP_SPLASH = Content.Load<Texture2D>(@"splash");
-            //DROP = Content.Load<Texture2D>(@"water_drop");
-            //SPLASHING = Content.Load<Texture2D>(@"splashing");
-            //WADING = Content.Load<Texture2D>(@"wading");
-
-            //ROAD_HORIZONTAL = getDimmerClone(Content.Load<Texture2D>(@"roadHorizontal"), ROAD_FADE);
-            //ROAD_TURN = getDimmerClone(Content.Load<Texture2D>(@"roadTurn"), ROAD_FADE);
-            //ROAD_MILE_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadMileMarker"));
-            //ROAD_TURN_MARKER = getDimmerClone(Content.Load<Texture2D>(@"roadTurnMarker"));
-            //ROAD_HORIZONTAL_2 = getDimmerClone(Content.Load<Texture2D>(@"road_h2"), ROAD_FADE);
-
-            //PUCELLE_IDLE = Content.Load<Texture2D>(@"pucelle_ready2");
-            //PUCELLE_MOTION = Content.Load<Texture2D>(@"pucelle_motion");
-            //PUCELLE_ROUTED = Content.Load<Texture2D>(@"pucelle_routed");
-            //PUCELLE_DROP = Content.Load<Texture2D>(@"dropped_flag");
-
-            //SOLDIER_FEET = Content.Load<Texture2D>(@"soldier_feet");
-            //SOLDIER_IDLE = Content.Load<Texture2D>(@"soldier_idle");
-            //SOLDIER2_IDLE = Content.Load<Texture2D>(@"soldier2_idle");
-            //SOLDIER_DEATH = Content.Load<Texture2D>(@"soldier_death");
-            //SOLDIER2_DEATH = Content.Load<Texture2D>(@"soldier2_death");
-            //SOLDIER_MELEE1 = Content.Load<Texture2D>(@"soldier_melee1");
-            //SOLDIER_DEFEND1 = Content.Load<Texture2D>(@"soldier_defend1");
-            //SOLDIER_MELEE2 = Content.Load<Texture2D>(@"soldier_melee2");
-            //SOLDIER_DEFEND2 = Content.Load<Texture2D>(@"soldier_defend2");
-            //SOLDIER2_MELEE2 = Content.Load<Texture2D>(@"soldier2_melee");
-            //SOLDIER2_DEFEND2 = Content.Load<Texture2D>(@"soldier2_defend");
-            //SOLDIER_SHIELDBREAK = Content.Load<Texture2D>(@"soldier_shieldbreak");
-            //SOLDIER_FALL = Content.Load<Texture2D>(@"soldier_fall");
-            //SOLDIER_BROKENSHIELD1 = Content.Load<Texture2D>(@"brokenshield1");
-            //SOLDIER_BROKENSHIELD2 = Content.Load<Texture2D>(@"brokenshield2");
-            //SOLDIER_BROKENARMOUR = Content.Load<Texture2D>(@"brokenarmour");
-            //SOLDIER_IDLENOSHIELD = Content.Load<Texture2D>(@"soldier_idlenoshield");
-            //SOLDIER_ROUTE = Content.Load<Texture2D>(@"soldier_route");
-            //SOLDIER_ROUTED = Content.Load<Texture2D>(@"soldier1_routed");
-            //SOLDIER2_ROUTED = Content.Load<Texture2D>(@"soldier2_routed");
-            //SOLDIER_CHARGENOSHIELD = Content.Load<Texture2D>(@"soldier_chargenoshield");
-            //SOLDIER_CHARGE = Content.Load<Texture2D>(@"soldier_charge");
-
-            //CAVALRY_HORSE_IDLE = Content.Load<Texture2D>(@"horse_idle");
-            //CAVALRY_HORSE_RUN = Content.Load<Texture2D>(@"horse_run");
-            //CAVALRY_HORSE_HALT = Content.Load<Texture2D>(@"horse_halt");
-            //CAVALRY_HORSE_TURN = Content.Load<Texture2D>(@"horse_turn");
-            //CAVALRY_HORSE_DEATH = Content.Load<Texture2D>(@"horse_death");
-            //CAVALRY_LEFTFOOT = Content.Load<Texture2D>(@"cavalry_leftfoot");
-            //CAVALRY_RIGHTFOOT = Content.Load<Texture2D>(@"cavalry_rightfoot");
-            //CAVALRY_LEFTIDLE = Content.Load<Texture2D>(@"cavalry_leftidle");
-            //CAVALRY_RIGHTIDLE = Content.Load<Texture2D>(@"cavalry_rightidle");
-            //CAVALRY_LEFTLOWER = Content.Load<Texture2D>(@"cavalry_leftlower");
-            //CAVALRY_RIGHTLOWER = Content.Load<Texture2D>(@"cavalry_rightlower");
-            //CAVALRY_LEFTRECOIL = Content.Load<Texture2D>(@"cavalry_leftrecoil");
-            //CAVALRY_RIGHTRECOIL = Content.Load<Texture2D>(@"cavalry_rightrecoil");
-
-            //CAVALRY_FALL = Content.Load<Texture2D>(@"cavalry_fall");
-            //DISMOUNTED_CAVALRY_IDLE = Content.Load<Texture2D>(@"dismountedcavalry_idle");
-            //DISMOUNTED_CAVALRY_DEATH = Content.Load<Texture2D>(@"dismountedcavalry_death");
-            //DISMOUNTED_CAVALRY_IDLENOSHIELD = Content.Load<Texture2D>(@"dismountedcavalry_idlenoshield");
-            //DISMOUNTED_CAVALRY_SHIELDBREAK = Content.Load<Texture2D>(@"dismountedcavalry_shieldbreak");
-            //DISMOUNTED_CAVALRY_FALL = Content.Load<Texture2D>(@"dismountedcavalry_fall");
-            //DISMOUNTED_CAVALRY_MELEE1 = Content.Load<Texture2D>(@"dismountedcavalry_melee1");
-            //DISMOUNTED_CAVALRY_DEFEND1 = Content.Load<Texture2D>(@"dismountedcavalry_defend1");
-
-            //PIKEMAN_FEET = Content.Load<Texture2D>(@"pikeman_feet");
-            //PIKEMAN_IDLE = Content.Load<Texture2D>(@"pikeman_idle");
-            //PIKEMAN_DROP = Content.Load<Texture2D>(@"dropped_pike");
-            //PIKEMAN_LOWER_LOW = Content.Load<Texture2D>(@"pikeman_lower_low");
-            //PIKEMAN_LOWER_HIGH = Content.Load<Texture2D>(@"pikeman_lower_high");
-            //PIKEMAN_RECOIL = Content.Load<Texture2D>(@"pikeman_recoil");
-            //PIKEMAN_DEATH = Content.Load<Texture2D>(@"pikeman_death");
-            //PIKEMAN1_IDLE = Content.Load<Texture2D>(@"pikeman1_idle");
-            //PIKEMAN1_LOWER_LOW = Content.Load<Texture2D>(@"pikeman1_lower_low");
-            //PIKEMAN1_LOWER_HIGH = Content.Load<Texture2D>(@"pikeman1_lower_high");
-            //PIKEMAN1_RECOIL = Content.Load<Texture2D>(@"pikeman1_recoil");
-            //PIKEMAN1_DEATH = Content.Load<Texture2D>(@"pikeman1_death");
-            //PIKEMAN1_MELEE = Content.Load<Texture2D>(@"pikeman1_melee1");
-            //PIKEMAN1_DEFEND = Content.Load<Texture2D>(@"pikeman1_defend1");
-            //PIKEMAN2_IDLE = Content.Load<Texture2D>(@"pikeman2_idle");
-            //PIKEMAN2_LOWER_LOW = Content.Load<Texture2D>(@"pikeman2_lower_low");
-            //PIKEMAN2_LOWER_HIGH = Content.Load<Texture2D>(@"pikeman2_lower_high");
-            //PIKEMAN2_RECOIL = Content.Load<Texture2D>(@"pikeman2_recoil");
-            //PIKEMAN2_DEATH = Content.Load<Texture2D>(@"pikeman2_death");
-            //PIKEMAN2_MELEE = Content.Load<Texture2D>(@"pikeman2_melee1");
-            //PIKEMAN2_DEFEND = Content.Load<Texture2D>(@"pikeman2_defend1");
-            //PIKEMAN_MELEE = Content.Load<Texture2D>(@"pikeman_melee");
-            //PIKEMAN_ROUTE = Content.Load<Texture2D>(@"pikeman_route");
-            //PIKEMAN_ROUTED = Content.Load<Texture2D>(@"pikeman1_over");
-            //PIKEMAN2_ROUTED = Content.Load<Texture2D>(@"pikeman2_over");
-            //PIKEMAN_TUG = Content.Load<Texture2D>(@"tug_pikeman");
-            //PIKEMAN2_TUG = Content.Load<Texture2D>(@"tug_pikeman2");
-            //WOLF_TUG = Content.Load<Texture2D>(@"tug_wolf");
-            //WOLF2_TUG = Content.Load<Texture2D>(@"tug_wolf2");
-            //WOLF_TUGg = getGreyscaleClone(WOLF_TUG);
-            //WOLF2_TUGg = getGreyscaleClone(WOLF2_TUG);
-
-            //ARQUEBUSIER_FEET = Content.Load<Texture2D>(@"arquebusier_feet");
-            //ARQUEBUSIER_IDLE = Content.Load<Texture2D>(@"gonner_idle");
-            //ARQUEBUSIER_RELOAD = Content.Load<Texture2D>(@"gonner_reload");
-            //ARQUEBUSIER_SHOOT = Content.Load<Texture2D>(@"gonner_shoot");
-            //ARQUEBUSIER_SMOKE = Content.Load<Texture2D>(@"gonner_smoke");
-            //ARQUEBUSIER_DEATH = Content.Load<Texture2D>(@"gonner_death");
-            //ARQUEBUSIER_MELEE = Content.Load<Texture2D>(@"gonner_melee");
-            //ARQUEBUSIER_DEFEND = Content.Load<Texture2D>(@"gonner_defend");
-            //ARQUEBUSIER_ROUTE = Content.Load<Texture2D>(@"arquebusier_route");
-            //ARQUEBUSIER_ROUTED = Content.Load<Texture2D>(@"gonner_over");
-            //ARQUEBUSIER_SHOT1 = Content.Load<Texture2D>(@"shot1");
-            //ARQUEBUSIER_SHOT2 = Content.Load<Texture2D>(@"shot2");
-            //ARQUEBUSIER_SHOT3 = Content.Load<Texture2D>(@"shot3");
-            //ARQUEBUSIER_GROUND = Content.Load<Texture2D>(@"arquebusier_ground");
-
-            //ARQUEBUSIER_FEET2 = Content.Load<Texture2D>(@"brown_lady_feet");
-            //ARQUEBUSIER_IDLE2 = Content.Load<Texture2D>(@"arque_idle");
-            //ARQUEBUSIER_DEATH2 = Content.Load<Texture2D>(@"arque_death");
-            //ARQUEBUSIER_MELEE2 = Content.Load<Texture2D>(@"arque_melee");
-            //ARQUEBUSIER_DEFEND2 = Content.Load<Texture2D>(@"arque_defend");
-            //ARQUEBUSIER_RELOAD2 = Content.Load<Texture2D>(@"arque_reload");
-            //ARQUEBUSIER_SHOOT2 = Content.Load<Texture2D>(@"arque_shoot");
-            //ARQUEBUSIER_SMOKE2 = Content.Load<Texture2D>(@"arque_smoke");
-            //ARQUEBUSIER2_ROUTED = Content.Load<Texture2D>(@"arque_over");
-            //ARQUEBUSIER_DROP = Content.Load<Texture2D>(@"dropped_gonne");
-            //ARQUEBUSIER2_DROP = Content.Load<Texture2D>(@"dropped_arque");
-
-            //CROSSBOWMAN_IDLE = Content.Load<Texture2D>(@"crossbowman_idle");
-            //CROSSBOWMAN_RELOAD = Content.Load<Texture2D>(@"crossbowman_reload");
-            //CROSSBOWMAN_RELOAD2 = Content.Load<Texture2D>(@"crossbowman_reload2");
-            //CROSSBOWMAN_SHOOT = Content.Load<Texture2D>(@"crossbowman_shoot");
-            //CROSSBOWMAN_DEATH = Content.Load<Texture2D>(@"crossbowman_death");
-            //CROSSBOWMAN_MELEE = Content.Load<Texture2D>(@"crossbowman_melee");
-            //CROSSBOWMAN_MELEE2 = Content.Load<Texture2D>(@"crossbowman_melee2");
-            //CROSSBOWMAN_DEFEND2 = Content.Load<Texture2D>(@"crossbowman_defend2");
-            //CROSSBOWMAN_BOLT = Content.Load<Texture2D>(@"crossbowman_bolt");
-            //CROSSBOWMAN_BOLT2 = Content.Load<Texture2D>(@"crossbowman_bolt2");
-            //CROSSBOWMAN_GROUND = Content.Load<Texture2D>(@"crossbowman_ground");
-            //CROSSBOWMAN_ROUTE = Content.Load<Texture2D>(@"crossbowman_route");
-            //CROSSBOWMAN_ROUTED = Content.Load<Texture2D>(@"crossbowman_routed");
-            //CROSSBOWMAN_PAVISE = Content.Load<Texture2D>(@"crossbowman_pavise_idle");
-            //CROSSBOWMAN_PAVISE_PLACE = Content.Load<Texture2D>(@"crossbowman_pavise_place");
-            //CROSSBOWMAN_SHIELDBREAK = Content.Load<Texture2D>(@"crossbowman_shieldbreak");
-
-            //PLACED_PAVISE = Content.Load<Texture2D>(@"placed_pavise");
-            //PAVISE_FALL = Content.Load<Texture2D>(@"pavise_fall");
-
-            //DOPPLE_DEATH = Content.Load<Texture2D>(@"dopple_death");
-            //DOPPLE_IDLE = Content.Load<Texture2D>(@"dopple_idle");
-            //DOPPLE_SWING1 = Content.Load<Texture2D>(@"dopple_swing1");
-            //DOPPLE_RELOAD1 = Content.Load<Texture2D>(@"dopple_reload1");
-            //DOPPLE_ROUTE = Content.Load<Texture2D>(@"dopple_route");
-            //DOPPLE_ROUTED = Content.Load<Texture2D>(@"dopple_routed");
-
-            //SLINGER_IDLE = Content.Load<Texture2D>(@"slinger_idle");
-            //SLINGER_DEATH = Content.Load<Texture2D>(@"slinger_death");
-            //SLINGER_MELEE = Content.Load<Texture2D>(@"slinger_melee2");
-            //SLINGER_DEFEND = Content.Load<Texture2D>(@"slinger_defend2");
-            //SLINGER_RELOAD = Content.Load<Texture2D>(@"slinger_reload");
-            //SLINGER_ROCK = Content.Load<Texture2D>(@"slinger_rock");
-            //SLINGER_SHOOT = Content.Load<Texture2D>(@"slinger_shoot");
-            //SLINGER_ROUTE = Content.Load<Texture2D>(@"slinger_route");
-            //SLINGER_ROUTED = Content.Load<Texture2D>(@"slinger_routed");
-            //SLINGER_RETREAT = Content.Load<Texture2D>(@"slinger_retreat");
-
-            //SKIRMISHER_IDLE = Content.Load<Texture2D>(@"skirmisher_idle");
-            //SKIRMISHER_RELOAD = Content.Load<Texture2D>(@"skirmisher_reload");
-            //SKIRMISHER_SHOOT = Content.Load<Texture2D>(@"skirmisher_shoot");
-            //SKIRMISHER_JAVELIN = Content.Load<Texture2D>(@"skirmisher_javelin");
-            //SKIRMISHER_GROUND = Content.Load<Texture2D>(@"skirmisher_ground");
-            //SKIRMISHER_DEATH = Content.Load<Texture2D>(@"skirmisher_death");
-            //SKIRMISHER_MELEE = Content.Load<Texture2D>(@"skirmisher_melee2");
-            //SKIRMISHER_DEFEND = Content.Load<Texture2D>(@"skirmisher_defend2");
-            //SKIRMISHER_RETREAT = Content.Load<Texture2D>(@"skirmisher_retreat");
-
-            //BERZERKER_IDLE = Content.Load<Texture2D>(@"gobraider1_idle");
-            //BERZERKER_DEATH = Content.Load<Texture2D>(@"gobraider1_death");
-            //BERZERKER_MELEE1 = Content.Load<Texture2D>(@"gobraider1_melee1");
-            //BERZERKER_DEFEND1 = Content.Load<Texture2D>(@"gobraider1_defend1");
-            //BERZERKER_MELEE2 = Content.Load<Texture2D>(@"gobraider1_melee2");
-            //BERZERKER_DEFEND2 = Content.Load<Texture2D>(@"gobraider1_defend2");
-            //BERZERKER_ROUTE = Content.Load<Texture2D>(@"beserker_route");
-            //BERZERKER_ROUTED = Content.Load<Texture2D>(@"beserker_routed");
-            //BERZERKER_IDLENOSHIELD = Content.Load<Texture2D>(@"gobraider1_idlenoshield");
-            //BERZERKER_SHIELDBREAK = Content.Load<Texture2D>(@"gobraider1_shieldbreak");
-            //BERZERKER_FALL = Content.Load<Texture2D>(@"gobraider1_fall");
-            //BERZERKER_CHARGENOSHIELD = Content.Load<Texture2D>(@"gobraider1_chargenoshield");
-            //BERZERKER_CHARGE = Content.Load<Texture2D>(@"gobraider1_charge");
-
-            //BERZERKER2_IDLE = Content.Load<Texture2D>(@"gobraider2_idle");
-            //BERZERKER2_DEATH = Content.Load<Texture2D>(@"gobraider2_death");
-            //BERZERKER2_MELEE1 = Content.Load<Texture2D>(@"gobraider2_melee1");
-            //BERZERKER2_DEFEND1 = Content.Load<Texture2D>(@"gobraider2_defend1");
-            //BERZERKER2_MELEE2 = Content.Load<Texture2D>(@"gobraider2_melee2");
-            //BERZERKER2_DEFEND2 = Content.Load<Texture2D>(@"gobraider2_defend2");
-            //BERZERKER2_ROUTE = Content.Load<Texture2D>(@"beserker_route");
-            //BERZERKER2_ROUTED = Content.Load<Texture2D>(@"beserker_routed");
-            //BERZERKER2_IDLENOSHIELD = Content.Load<Texture2D>(@"gobraider2_idlenoshield");
-            //BERZERKER2_SHIELDBREAK = Content.Load<Texture2D>(@"gobraider2_shieldbreak");
-            //BERZERKER2_FALL = Content.Load<Texture2D>(@"gobraider2_fall");
-            //BERZERKER2_CHARGENOSHIELD = Content.Load<Texture2D>(@"gobraider2_chargenoshield");
-            //BERZERKER2_CHARGE = Content.Load<Texture2D>(@"gobraider2_charge");
-
-            //BRIGAND1_IDLE = Content.Load<Texture2D>(@"berzerker_idle");
-            //BRIGAND1_DEATH = Content.Load<Texture2D>(@"bezerker_death");
-            //BRIGAND1_MELEE1 = Content.Load<Texture2D>(@"berserker_melee2");
-            //BRIGAND1_DEFEND1 = Content.Load<Texture2D>(@"berserker_defend2");
-            //BRIGAND1_CHARGE = Content.Load<Texture2D>(@"berserker_charge");
-            //BRIGAND1_SPAWN = Content.Load<Texture2D>(@"brigand_eating");
-
-            //BRIGAND2_IDLE = Content.Load<Texture2D>(@"brigand_idle");
-            //BRIGAND2_DEATH = Content.Load<Texture2D>(@"brigand_death");
-            //BRIGAND2_MELEE1 = Content.Load<Texture2D>(@"brigand_melee2");
-            //BRIGAND2_DEFEND1 = Content.Load<Texture2D>(@"brigand_defend2");
-            //BRIGAND2_CHARGE = Content.Load<Texture2D>(@"brigand_charge");
-            //BRIGAND2_SPAWN = Content.Load<Texture2D>(@"brigand_stealing");
-
-            //HAULER_HAUL = Content.Load<Texture2D>(@"hauler_haul");
-            //HAULER_FEET = Content.Load<Texture2D>(@"grey_feet");
-            //HAULER_IDLE = Content.Load<Texture2D>(@"hauler_idle");
-            //HAULER_DEATH = Content.Load<Texture2D>(@"hauler_death");
-            //HAULER_THROW = Content.Load<Texture2D>(@"chest_throw");
-            //BAGGER_DEATH = Content.Load<Texture2D>(@"bagger_death");
-            //BAGGER_HAUL = Content.Load<Texture2D>(@"bagger_haul");
-            //BAGGER_IDLE = Content.Load<Texture2D>(@"bagger_idle");
-            //BAGGER_THROW = Content.Load<Texture2D>(@"bag_throw");
-            //BAGGER_BAG = Content.Load<Texture2D>(@"bagger_bag_idle");
-
-            //WOLF_IDLE = Content.Load<Texture2D>(@"wolf_idle");
-            //WOLF_RUN = Content.Load<Texture2D>(@"wolf_run");
-            //WOLF_SPOOKED = Content.Load<Texture2D>(@"wolf_spooked");
-            //WOLF_TURN = Content.Load<Texture2D>(@"wolf_turn");
-            //WOLF_BITE = Content.Load<Texture2D>(@"wolf_bite");
-            //WOLF_MELEE = Content.Load<Texture2D>(@"wolf_melee");
-            //WOLF_DEFEND = Content.Load<Texture2D>(@"wolf_defend");
-            //WOLF_KILL = Content.Load<Texture2D>(@"wolf_kill");
-            //WOLF_HOWL = Content.Load<Texture2D>(@"wolf_howl");
-
-            //WOLF_IDLE_COL = Content.Load<Texture2D>(@"wolf_idle_col");
-            //WOLF_TURN_COL = Content.Load<Texture2D>(@"wolf_turn_col");
-            //WOLF_ATTACK_COL = Content.Load<Texture2D>(@"wolf_bite_col");
-            //WOLF_HOWL_COL = Content.Load<Texture2D>(@"wolf_howl_col");
-            //WOLF_RUN_COL = Content.Load<Texture2D>(@"wolf_run_col");
-            //WOLF_GETUP_COL = Content.Load<Texture2D>(@"wolf_getup_col");
-
-            //WOLF_IDLEg = getGreyscaleClone(WOLF_IDLE);
-            //WOLF_RUNg = getGreyscaleClone(WOLF_RUN);
-            //WOLF_SPOOKEDg = getGreyscaleClone(WOLF_SPOOKED);
-            //WOLF_TURNg = getGreyscaleClone(WOLF_TURN);
-            //WOLF_BITEg = getGreyscaleClone(WOLF_BITE);
-            //WOLF_MELEEg = getGreyscaleClone(WOLF_MELEE);
-            //WOLF_DEFENDg = getGreyscaleClone(WOLF_DEFEND);
-            //WOLF_KILLg = getGreyscaleClone(WOLF_KILL);
-            //WOLF_HOWLg = getGreyscaleClone(WOLF_HOWL);
-
-            //COLMILLOS_IDLE = Content.Load<Texture2D>(@"los_colmillos_idle0");
-            //COLMILLOS_IDLENOSHIELD = Content.Load<Texture2D>(@"los_colmillos_idle1");
-            //COLMILLOS_IDLENOARMOUR = Content.Load<Texture2D>(@"los_colmillos_idle2");
-            //COLMILLOS_SHIELDBREAK = Content.Load<Texture2D>(@"los_colmillos_shieldbreak");
-
-            //COLMILLOS_FALL = Content.Load<Texture2D>(@"los_colmillos_fall1");
-            //COLMILLOS_FALLNOSHIELD = Content.Load<Texture2D>(@"los_colmillos_fall2");
-            //COLMILLOS_ATTACK = Content.Load<Texture2D>(@"los_colmillos_attack");
-            //COLMILLOS_ATTACK2 = Content.Load<Texture2D>(@"los_colmillos_attack2");
-            //COLMILLOS_ATTACK3 = Content.Load<Texture2D>(@"los_colmillos_attack3");
-            //COLMILLOS_DEATH = Content.Load<Texture2D>(@"los_colmillos_death");
-            //COLMILLOS_HELMET = Content.Load<Texture2D>(@"helmet");
-            //COLMILLOS_RISE = Content.Load<Texture2D>(@"los_colmillos_rise");
-            //COLMILLOS_HOWL = Content.Load<Texture2D>(@"los_colmillos_howl");
-            //COLMILLOS_HOWL_NOSHIELD = Content.Load<Texture2D>(@"los_colmillos_howl_noshield");
-            //COLMILLOS_HOWL_NOARMOUR = Content.Load<Texture2D>(@"los_colmillos_howl_noarmour");
-            //COLMILLOS_STAGGER = Content.Load<Texture2D>(@"los_colmillos_stagger");
-            //FALCHION_THROWN = Content.Load<Texture2D>(@"falchion_thrown");
-            //FALCHION_DIRT = Content.Load<Texture2D>(@"falchion_dirt");
-
-            //CANNON = Content.Load<Texture2D>(@"cannon");
-            //CANNON_IDLE = Content.Load<Texture2D>(@"cannon_idle");
-            //CANNON_BALL = Content.Load<Texture2D>(@"cannonball");
-            //CANNON_WAVE = Content.Load<Texture2D>(@"cannon_wave");
-
-            //PEASANT1_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_01_idle"));
-            //PEASANT2_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_02_idle"));
-            //PEASANT3_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_03_idle"));
-            //PEASANT4_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_04_idle"));
-            //PEASANT5_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_05_idle"));
-            //PEASANT6_IDLE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_06_idle"));
-
-            //PEASANT1_FLEE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_01_fleeing"));
-            //PEASANT5_FLEE = getDimmerClone(Content.Load<Texture2D>(@"npc_1_05_fleeing"));
-
-            //GOBLIN_FEET = Content.Load<Texture2D>(@"goblin_feet");
-            //BROWN_FEET = Content.Load<Texture2D>(@"brown_feet");
-            //BLUE_FEET = Content.Load<Texture2D>(@"blue_feet");
-            //SLINGER_GROUND = Content.Load<Texture2D>(@"slinger_ground");
-
-            //COIN = Content.Load<Texture2D>(@"coin");
-            //COIN_METER = Content.Load<Texture2D>(@"coin_meter");
-            //COIN_METER_BACK = Content.Load<Texture2D>(@"coin_meter_back");
-            //LOOT = Content.Load<Texture2D>(@"loot");
-            //DOPPEL_METER = Content.Load<Texture2D>(@"doppel_meter");
-
-            //DOT = Content.Load<Texture2D>(@"dot");
-            //SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
             MOLE_MINER_WALKING = Content.Load<Texture2D>(@"mole_miner_sprite");
             MOLE_MINER_DIGGING = Content.Load<Texture2D>(@"mole_miner_sprite_dig");
             MOLE_MINER_NUDGE = Content.Load<Texture2D>(@"mole_miner_nudge");
             MOLE_SQUASHED = Content.Load<Texture2D>(@"mole_squashed");
             MINER_SLING = Content.Load<Texture2D>(@"miner_slingshot");
+            MOLE_DIZZY = Content.Load<Texture2D>(@"mole_miner_dizzy");
+            DIZZY_MARK = Content.Load<Texture2D>(@"seeing_stars");
 
             TUNNEL = Content.Load<Texture2D>(@"tunnel");
 
@@ -954,6 +625,7 @@ namespace MoleHillMountain
 
             DOOR = Content.Load<Texture2D>(@"door");
             FIGHT_CLOUD = Content.Load<Texture2D>(@"fight_cloud");
+
 
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
 

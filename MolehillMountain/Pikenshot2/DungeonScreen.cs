@@ -284,7 +284,10 @@ namespace MoleHillMountain
 
                 Vector2 diff = enemy.position - mole.position;
 
-                if (Math.Abs(diff.X) <= FIGHT_DIST && Math.Abs(diff.Y) <= FIGHT_DIST && (mole.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_SQUASHED) == 0 && (mole.state & Mole.STATE_FIGHTING) == 0 && (enemy.state & Mole.STATE_FIGHTING) == 0)
+                if (Math.Abs(diff.X) <= FIGHT_DIST && Math.Abs(diff.Y) <= FIGHT_DIST 
+                    && (mole.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_SQUASHED) == 0 
+                    && (mole.state & Mole.STATE_FIGHTING) == 0 && (enemy.state & Mole.STATE_FIGHTING) == 0
+                    && (mole.state & Mole.STATE_DIZZY) == 0)
                 {
                     createAnimation(mole.position, mole.horzFacing, mole.vertFacing, AnimationType.fightCloud);
                     mole.fight();

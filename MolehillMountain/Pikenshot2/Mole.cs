@@ -10,9 +10,14 @@ namespace MoleHillMountain
 {
     internal class Mole
     {
+        public static Vector2 STAR_OFFSET_UP = new Vector2(0, -6);
+        public static Vector2 STAR_OFFSET_RIGHT = new Vector2(6, 0);
+
         const float WALK_SPEED = 38f;
         const float DIG_SPEED = 30f;
         public const float FIGHT_TIME = 900f;
+        public const float DIZZY_TIME = 3000f;
+        public const float DIZZY_MARK_TIME = 325f;
 
         public const int MOVING_NONE = 0;
         public const int MOVING_LEFT = 1;
@@ -29,10 +34,12 @@ namespace MoleHillMountain
         public const int STATE_USE = 64;
         public const int STATE_HIT = 128;
         public const int STATE_FIGHTING = 256;
+        public const int STATE_DIZZY = 512;
 
         private const float MOLE_NUDGE_SPACING = 7;
 
         protected float animationTimer;
+        protected float dizzyMarkTimer;
         public float walkSpeed = WALK_SPEED;
         protected float walkTime = 325f;
         protected float digTime = 650;
@@ -41,10 +48,13 @@ namespace MoleHillMountain
 
         protected Sprite walking;
         protected Sprite digging;
+        protected Sprite dizzy;
         protected Sprite nudging;
         protected Sprite squashed;
         protected Sprite slingshot;
         protected Sprite mad;
+
+        protected Sprite dizzy_stars;
 
         protected Sprite walkingSprite;
         public Vector2 position;
@@ -81,10 +91,12 @@ namespace MoleHillMountain
             this.dungeonScene = dungeonScene;
             walking = new Sprite(PikeAndShotGame.MOLE_MINER_WALKING, new Rectangle(0, 0, 18, 18), 18, 18);
             digging = new Sprite(PikeAndShotGame.MOLE_MINER_DIGGING, new Rectangle(0, 0, 18, 18), 18, 18);
+            dizzy = new Sprite(PikeAndShotGame.MOLE_DIZZY, new Rectangle(0, 0, 20, 20), 20, 20);
             nudging = new Sprite(PikeAndShotGame.MOLE_MINER_NUDGE, new Rectangle(0, 0, 18, 18), 18, 18);
             squashed = new Sprite(PikeAndShotGame.MOLE_SQUASHED, new Rectangle(0, 0, 18, 18), 18, 18);
             slingshot = new Sprite(PikeAndShotGame.MINER_SLING, new Rectangle(0, 0, 40, 18), 40, 18);
             mad = new Sprite(PikeAndShotGame.RAT_MAD, new Rectangle(0, 0, 20, 18), 20, 18);
+            dizzy_stars = new Sprite(PikeAndShotGame.DIZZY_MARK, new Rectangle(0, 0, 20, 12), 20, 12);
             squashed.setFrame(squashed.getMaxFrames() - 2);
             walkingSprite = walking;
             animationTime = walkTime;
@@ -202,23 +214,21 @@ namespace MoleHillMountain
                     {
                         state = STATE_SQUASHED;
                     }
+                    else
+                    {
+                        state |= STATE_DIZZY;
+                        dizzyMarkTimer = DIZZY_MARK_TIME;
+                        fightTimer = DIZZY_TIME;
+                    }
                 }
             }
             else if (moving == MOVING_NONE)
             {
-                if ((state & STATE_DIGGING) != 0)
-                {
-                    digging.setFrame(0);
-                }
-                else
-                {
-                    walking.setFrame(0);
-                }
+                walkingSprite.setFrame(0);
                 position.X += nudgeMovement;
                 nudgeMovement = 0;
                 drawPosition.X = (int)position.X;
                 drawPosition.Y = (int)position.Y;
-
             }
             else
             {
@@ -303,7 +313,28 @@ namespace MoleHillMountain
 
                 walkingSprite.setFrame(frameNumber);
 
-                nudgeMovement = 0;
+                nudgeMovement = 0;                
+            }
+            if ((state & STATE_DIZZY) != 0)
+            {
+                dimColor.A = (byte)(255f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 10f));
+                fightTimer -= (float)timeSpan.TotalMilliseconds;
+
+                if (fightTimer <= 0)
+                {
+                    state &= ~STATE_DIZZY;
+                }
+
+                dizzyMarkTimer -= (float)timeSpan.TotalMilliseconds;
+                if (dizzyMarkTimer <= 0)
+                {
+                    dizzyMarkTimer += DIZZY_MARK_TIME;
+                }
+                int maxFrames = dizzy_stars.getMaxFrames();
+                float frameTime = DIZZY_MARK_TIME / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(dizzyMarkTimer / frameTime) - 1;
+
+                dizzy_stars.setFrame(frameNumber);
             }
         }
 
@@ -329,7 +360,24 @@ namespace MoleHillMountain
             }
             else if ((state & STATE_SQUASHED) == 0)
             {
-                walkingSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
+                if ((state & STATE_DIZZY) != 0)
+                {
+                    walkingSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
+                    if (vertFacing == Sprite.DIRECTION_NONE)
+                    {
+                        dizzy_stars.draw(spritebatch, drawPosition + DungeonScreen.OFFSET + STAR_OFFSET_UP, Sprite.DIRECTION_NONE, vertFacing);
+                    }else if(horzFacing == Sprite.DIRECTION_LEFT)
+                    {
+                        dizzy_stars.draw(spritebatch, drawPosition + DungeonScreen.OFFSET + STAR_OFFSET_RIGHT, Sprite.DIRECTION_NONE, vertFacing);
+                    }else
+                    {
+                        dizzy_stars.draw(spritebatch, drawPosition + DungeonScreen.OFFSET - STAR_OFFSET_RIGHT, Sprite.DIRECTION_NONE, vertFacing);
+                    }
+                }
+                else
+                {
+                    walkingSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
+                }
             }
             else
             {
@@ -396,7 +444,14 @@ namespace MoleHillMountain
                 else
                 {
                     state &= ~STATE_DIGGING;
-                    walkingSprite = walking;
+                    if ((state & STATE_DIZZY) != 0)
+                    {
+                        walkingSprite = dizzy;
+                    }
+                    else
+                    {
+                        walkingSprite = walking;
+                    }
                     animationTime = walkTime;
                     if (animationTimer > animationTime && (state & STATE_HIT) == 0)
                     {
