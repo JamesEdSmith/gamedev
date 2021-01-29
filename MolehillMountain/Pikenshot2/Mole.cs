@@ -365,13 +365,13 @@ namespace MoleHillMountain
                     walkingSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
                     if (vertFacing == Sprite.DIRECTION_NONE)
                     {
-                        dizzy_stars.draw(spritebatch, drawPosition + DungeonScreen.OFFSET + STAR_OFFSET_UP, Sprite.DIRECTION_NONE, vertFacing);
+                        dizzy_stars.draw(spritebatch, drawPosition + DungeonScreen.OFFSET + STAR_OFFSET_UP, horzFacing, vertFacing);
                     }else if(horzFacing == Sprite.DIRECTION_LEFT)
                     {
-                        dizzy_stars.draw(spritebatch, drawPosition + DungeonScreen.OFFSET + STAR_OFFSET_RIGHT, Sprite.DIRECTION_NONE, vertFacing);
+                        dizzy_stars.draw(spritebatch, drawPosition + DungeonScreen.OFFSET + STAR_OFFSET_RIGHT, horzFacing, vertFacing);
                     }else
                     {
-                        dizzy_stars.draw(spritebatch, drawPosition + DungeonScreen.OFFSET - STAR_OFFSET_RIGHT, Sprite.DIRECTION_NONE, vertFacing);
+                        dizzy_stars.draw(spritebatch, drawPosition + DungeonScreen.OFFSET - STAR_OFFSET_RIGHT, horzFacing, vertFacing);
                     }
                 }
                 else
