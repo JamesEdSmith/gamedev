@@ -56,11 +56,18 @@ namespace MoleHillMountain
             //}
         }
 
-        public override void draw(Microsoft.Xna.Framework.GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+        public override void draw(GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             title.draw(spriteBatch, new Vector2(10,0), SIDE_PLAYER, PikeAndShotGame.DUMMY_TIMESPAN);
 
-            //spriteBatch.Draw(PikeAndShotGame.SLIDE, new Vector2(0,0), Color.White);
+            //spriteBatch.Draw(PikeAndShotGame.TEXT, new Vector2(0,80), Color.White);
+            //spriteBatch.DrawString(PikeAndShotGame.MOLE_FONT, "James Edward Smith", new Vector2(49f, 139f), Color.Black);
+            //spriteBatch.DrawString(PikeAndShotGame.MOLE_FONT, "James Edward Smith", new Vector2(51f, 139f), Color.Black);
+            //spriteBatch.DrawString(PikeAndShotGame.MOLE_FONT, "James Edward Smith", new Vector2(49f, 141f), Color.Black);
+            //spriteBatch.DrawString(PikeAndShotGame.MOLE_FONT, "James Edward Smith", new Vector2(51f, 141f), Color.Black);
+
+            //spriteBatch.DrawString(PikeAndShotGame.MOLE_FONT, "James Edward Smith", new Vector2(50f, 140f), Color.White);
+
 
         }
 

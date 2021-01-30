@@ -46,6 +46,8 @@ namespace MoleHillMountain
         RenderTarget2D ShaderRenderTarget4;
 
         static SpriteFont soldierFont;
+        public static SpriteFont MOLE_FONT;
+        public static SpriteFont GOBLIN_FONT;
         public static Random random = new Random();
         public static bool useShaders = false;
 
@@ -382,6 +384,7 @@ namespace MoleHillMountain
         public static Texture2D SPARKLE;
         public static Texture2D TITLE_ANIMATION;
         public static Texture2D SLIDE;
+        public static Texture2D TEXT;
 
         //Utility Graphics
         public static Texture2D DOT;
@@ -401,6 +404,7 @@ namespace MoleHillMountain
 
         public static Texture2D SCREEN_TEXT;
         public static Texture2D TUNNEL;
+        public static Texture2D HEART;
 
         public static Texture2D TURNIP_SHAKE;
         public static Texture2D TURNIP_SPLIT;
@@ -561,6 +565,8 @@ namespace MoleHillMountain
             setDrawRect();
 
             soldierFont = Content.Load<SpriteFont>("SpriteFont1");
+            MOLE_FONT = Content.Load<SpriteFont>("Alagard");
+            GOBLIN_FONT = Content.Load<SpriteFont>("GoblinFont");
 
             PALETTE = Content.Load<Texture2D>(@"palette");
             BACKGROUND = Content.Load<Texture2D>(@"safeplace_fullsize");
@@ -599,6 +605,7 @@ namespace MoleHillMountain
             DIZZY_MARK = Content.Load<Texture2D>(@"seeing_stars");
 
             TUNNEL = Content.Load<Texture2D>(@"tunnel");
+            HEART = Content.Load<Texture2D>(@"heart");
 
             TURNIP_SHAKE = Content.Load<Texture2D>(@"turnip_fall");
             TURNIP_TWIRL = Content.Load<Texture2D>(@"turnip_twirl");
@@ -640,6 +647,7 @@ namespace MoleHillMountain
             //TITLE_ANIMATION = Content.Load<Texture2D>(@"title_screen");
             TITLE_ANIMATION = Content.Load<Texture2D>(@"title_screen");
             SLIDE = Content.Load<Texture2D>(@"slide");
+            TEXT = Content.Load<Texture2D>(@"text");
 
 
             PICKUP_GRUB = Content.Load<SoundEffect>("possibleSound5");

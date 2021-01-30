@@ -23,7 +23,10 @@ namespace MoleHillMountain
         public const int ENEMY_TIME = 3000;
         public const int FIGHT_DIST = 5;
 
-        public static Vector2 OFFSET = new Vector2(8, 6);
+        public static Vector2 OFFSET = new Vector2(8, 0);
+        Sprite heart;
+        Vector2 heartPosition = new Vector2(22, 181);
+        Vector2 heartOffset = new Vector2(12, 0);
 
         internal Tunnel getCurrTunnel(Vector2 position)
         {
@@ -63,6 +66,7 @@ namespace MoleHillMountain
         public DungeonScreen(PikeAndShotGame game)
         {
             _game = game;
+            heart = new Sprite(PikeAndShotGame.HEART, new Rectangle(0, 0, 11, 9), 11, 9);
             init();
         }
 
@@ -183,6 +187,12 @@ namespace MoleHillMountain
 
             //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 80 + (int)OFFSET.Y, 70, 100), new Rectangle(128, 0, 70, 100), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
             //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 80 + (int)OFFSET.Y, 72, 20), new Rectangle(0, 1, 72, 20), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "HP", new Vector2(3f, 182f), Color.Black);
+            heart.draw(spriteBatch, heartPosition, 0);
+            heart.draw(spriteBatch, heartPosition + heartOffset, 0);
+            heart.nextFrame();
+            heart.draw(spriteBatch, heartPosition + heartOffset*2, 0);
+            heart.prevFrame();
 
         }
 
@@ -950,6 +960,7 @@ namespace MoleHillMountain
 
         private void init()
         {
+            
             tunnels = new Tunnel[GRID_WIDTH, GRID_HEIGHT];
             for (int j = 0; j < GRID_HEIGHT; j++)
             {
