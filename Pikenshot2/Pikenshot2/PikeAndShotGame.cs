@@ -18,8 +18,8 @@ namespace PikeAndShot
         public const bool DEBUG = false;
         public static bool TEST_BOSS = false;
 
-        public const int SCREENWIDTH = 1024; //1280//1024//1400
-        public const int SCREENHEIGHT = 738;//720//576//788
+        public const int SCREENWIDTH = 1400;//1024; //1280//1024//1400
+        public const int SCREENHEIGHT = 788;//738;//720//576//788
 
         public const int SCREEN_LEVELPLAY = 0;
         public const int SCREEN_FORMATIONMAKER = 1;
@@ -828,8 +828,8 @@ namespace PikeAndShot
             DOT = Content.Load<Texture2D>(@"dot");
             SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
 
-            //TEST = Content.Load<Texture2D>(@"sept_flyer_2020");
-            TEST = Content.Load<Texture2D>(@"slide");
+            TEST = Content.Load<Texture2D>(@"flyer_feb2021");
+            //TEST = Content.Load<Texture2D>(@"slide");
 
             COIN_SPINNA = Content.Load<Texture2D>(@"coin_spinna");
             SPARKLE = Content.Load<Texture2D>(@"sparkle");

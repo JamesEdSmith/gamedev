@@ -8,25 +8,31 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MoleHillMountain
 {
-    class Door
+    class Item
     {
-        Sprite door;
-        Sprite flash;
-        DungeonScreen dungeonScreen;
+        protected Sprite sprite;
+        protected Sprite flash;
+        protected DungeonScreen dungeonScreen;
         public Vector2 position;
         protected Vector2 drawPosition;
-        Color flashColor = new Color(255, 255, 255, 255);
-        public Door(float x, float y, DungeonScreen dungeonScreen)
+        protected Color flashColor = new Color(255, 255, 255, 255);
+        protected bool flashing = false;
+
+        public Item(float x, float y, DungeonScreen dungeonScreen)
         {
             position = new Vector2(x, y);
             this.dungeonScreen = dungeonScreen;
-            door = new Sprite(PikeAndShotGame.DOOR, new Rectangle(0, 0, 20, 20), 20, 20);
-            flash = new Sprite(dungeonScreen._game.getFlashTexture(PikeAndShotGame.DOOR), new Rectangle(0, 0, 20, 20), 20, 20);
-            door.setFrame(1);
             drawPosition = new Vector2(x, y);
+            initSprites();
         }
 
-        public Door(int x, int y, DungeonScreen dungeonScreen) : this(0f, 0f, dungeonScreen)
+        protected virtual void initSprites()
+        {
+            sprite = new Sprite(PikeAndShotGame.SLINGSHOT, new Rectangle(0, 0, 20, 20), 20, 20);
+            flash = new Sprite(dungeonScreen._game.getFlashTexture(PikeAndShotGame.SLINGSHOT), new Rectangle(0, 0, 20, 20), 20, 20);
+        }
+
+        public Item(int x, int y, DungeonScreen dungeonScreen) : this(0f, 0f, dungeonScreen)
         {
             position.X = DungeonScreen.GRID_SIZE * x + DungeonScreen.GRID_SIZE * 0.5f;
             position.Y = DungeonScreen.GRID_SIZE * y + DungeonScreen.GRID_SIZE * 0.5f;
@@ -35,16 +41,45 @@ namespace MoleHillMountain
 
         public void draw(SpriteBatch spriteBatch)
         {
-            door.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, Color.White);
-            if (dungeonScreen.enemyCount <= 0 && dungeonScreen.enemies.Count == 0)
+            sprite.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, Color.White);
+            if (flashing)
             {
                 flash.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, flashColor);
             }
         }
 
-        public void update(GameTime gameTime)
+        public virtual void update(GameTime gameTime)
         {
-            if (dungeonScreen.enemyCount > 0 && dungeonScreen.enemyTimer < DungeonScreen.ENEMY_TIME/4)
+            if (flashing)
+            {
+                flashColor.A = (byte)(255f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 32f));
+            }
+        }
+    }
+
+    class Door : Item
+    {
+        public Door(float x, float y, DungeonScreen dungeonScreen) : base(x, y, dungeonScreen) { }
+
+        public Door(int x, int y, DungeonScreen dungeonScreen) : base(x, y, dungeonScreen) { }
+
+        protected override void initSprites()
+        {
+            sprite = new Sprite(PikeAndShotGame.DOOR, new Rectangle(0, 0, 20, 20), 20, 20);
+            flash = new Sprite(dungeonScreen._game.getFlashTexture(PikeAndShotGame.DOOR), new Rectangle(0, 0, 20, 20), 20, 20);
+            sprite.setFrame(1);
+        }
+
+        public override void update(GameTime gameTime)
+        {
+            base.update(gameTime);
+
+            if (dungeonScreen.enemyCount <= 0 && dungeonScreen.enemies.Count == 0)
+            {
+                flashing = true;
+            }
+
+            if (dungeonScreen.enemyCount > 0 && dungeonScreen.enemyTimer < DungeonScreen.ENEMY_TIME / 4)
             {
                 drawPosition.X = (int)position.X + (int)(1.1f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 25f));
                 drawPosition.Y = (int)position.Y + (int)(1.1f * (float)Math.Cos(gameTime.TotalGameTime.TotalMilliseconds / 25f));
@@ -54,15 +89,10 @@ namespace MoleHillMountain
                 drawPosition.X = (int)position.X;
                 drawPosition.Y = (int)position.Y;
             }
-
-            if(dungeonScreen.enemyCount <= 0 && dungeonScreen.enemies.Count == 0)
-            {
-                flashColor.A = (byte)(255f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 32f));
-            }
         }
     }
 
-    class Pickup
+    class Grub
     {
         public const int STATE_IDLE = 0;
         public const int STATE_LOOKING = 1;
@@ -98,7 +128,7 @@ namespace MoleHillMountain
         float totalTime;
 
 
-        public Pickup(float x, float y, DungeonScreen dungeonScreen)
+        public Grub(float x, float y, DungeonScreen dungeonScreen)
         {
             position = new Vector2(x, y);
             this.dungeonScreen = dungeonScreen;
@@ -116,7 +146,7 @@ namespace MoleHillMountain
             seen = NOT_SEEN;
         }
 
-        public Pickup(int x, int y, DungeonScreen dungeonScreen) : this(0f, 0f, dungeonScreen)
+        public Grub(int x, int y, DungeonScreen dungeonScreen) : this(0f, 0f, dungeonScreen)
         {
             position.X = DungeonScreen.GRID_SIZE * x + DungeonScreen.GRID_SIZE * 0.5f;
             position.Y = DungeonScreen.GRID_SIZE * y + DungeonScreen.GRID_SIZE * 0.5f;
@@ -282,7 +312,7 @@ namespace MoleHillMountain
             if (isGrub)
             {
                 int moleClose = dungeonScreen.checkMoleSight(position);
-                if (moleClose == Pickup.SEEN)
+                if (moleClose == Grub.SEEN)
                 {
                     if (state != STATE_LOOKING && state != STATE_COLLECTED)
                     {
@@ -307,7 +337,7 @@ namespace MoleHillMountain
         internal void collected(int count)
         {
             SoundEffectInstance collectedNoise = PikeAndShotGame.PICKUP_GRUB.CreateInstance();
-            collectedNoise.Volume = 0.25f;
+            collectedNoise.Volume = 0.10f;
             collectedNoise.Pitch = -0.25f + 0.125f * (float)count;
             collectedNoise.Play();
             state = STATE_COLLECTED;

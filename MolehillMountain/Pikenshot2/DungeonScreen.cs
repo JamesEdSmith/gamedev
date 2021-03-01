@@ -160,7 +160,7 @@ namespace MoleHillMountain
                 vegetable.draw(spriteBatch);
             }
 
-            foreach (Pickup pickup in pickups)
+            foreach (Grub pickup in pickups)
             {
                 pickup.draw(spriteBatch);
             }
@@ -233,7 +233,7 @@ namespace MoleHillMountain
             }
             deadStuff.Clear();
 
-            foreach (Pickup pickup in pickups)
+            foreach (Grub pickup in pickups)
             {
                 Vector2 distance = pickup.position - mole.position;
                 if (distance.Length() <= 5)
@@ -258,11 +258,17 @@ namespace MoleHillMountain
                 pickup.update(gameTime);
             }
 
-            foreach (Pickup pickup in deadStuff)
+            foreach (Grub pickup in deadStuff)
             {
                 pickups.Remove(pickup);
             }
             deadStuff.Clear();
+
+            //check if level over
+            if(pickups.Count <= 0)
+            {
+                beatLevel();
+            }
 
             foreach (Stone stone in stones)
             {
@@ -333,6 +339,11 @@ namespace MoleHillMountain
                 }
             }
 
+        }
+
+        private void beatLevel()
+        {
+            init();
         }
 
         public void spawnStone(Vector2 position, int horzFacing, int vertFacing)
@@ -529,19 +540,26 @@ namespace MoleHillMountain
 
         internal int checkMoleSight(Vector2 position)
         {
+            Tunnel tunnel = getCurrTunnel(position);
+
+            if(tunnel != null &&(tunnel.left != Tunnel.NOT_DUG || tunnel.right != Tunnel.NOT_DUG || tunnel.top != Tunnel.NOT_DUG || tunnel.bottom != Tunnel.NOT_DUG))
+            {
+                return Grub.SEEN;
+            }
+
             float distance = (mole.position - position).Length();
 
             if (distance <= GRID_SIZE * (mole.per * 0.5f + 0.1f))
             {
-                return Pickup.SEEN;
+                return Grub.SEEN;
             }
             else if (distance <= GRID_SIZE * (mole.per + 0.1f))
             {
-                return Pickup.HALF_SEEN;
+                return Grub.HALF_SEEN;
             }
             else
             {
-                return Pickup.NOT_SEEN;
+                return Grub.NOT_SEEN;
             }
         }
 
@@ -1256,7 +1274,7 @@ namespace MoleHillMountain
                     pickupClusters.RemoveAt(pickupClusterIndex);
                     foreach (Point point in pickupCluster)
                     {
-                        pickups.Add(new Pickup(point.X, point.Y, this));
+                        pickups.Add(new Grub(point.X, point.Y, this));
                     }
                 }
 
