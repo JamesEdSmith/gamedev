@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace MoleHillMountain
 {
@@ -47,6 +48,8 @@ namespace MoleHillMountain
         public ArrayList leftPushers;
         public ArrayList rightPushers;
 
+        public List<int> dropList;
+
         public Vegetable(float x, float y, DungeonScreen dungeonScreen)
         {
             this.dungeonScreen = dungeonScreen;
@@ -72,6 +75,11 @@ namespace MoleHillMountain
             state = NONE;
             leftPushers = new ArrayList(2);
             rightPushers = new ArrayList(2);
+            dropList = new List<int> { 
+                Item.DROP_NONE, 
+                Item.DROP_NONE, 
+                Item.DROP_SLINGSHOT
+            };
         }
 
         public void draw(SpriteBatch spritebatch)
@@ -267,6 +275,7 @@ namespace MoleHillMountain
             currSprite = splitting;
             animationTime = splitTime;
             animationTimer = animationTime;
+            dungeonScreen.spawnItem(this);
         }
 
         internal void land()

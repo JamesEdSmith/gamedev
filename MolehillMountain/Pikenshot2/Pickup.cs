@@ -10,19 +10,29 @@ namespace MoleHillMountain
 {
     class Item
     {
+        public const int DROP_NONE = 0;
+        public const int DROP_SLINGSHOT = 1;
+
         protected Sprite sprite;
         protected Sprite flash;
         protected DungeonScreen dungeonScreen;
         public Vector2 position;
         protected Vector2 drawPosition;
         protected Color flashColor = new Color(255, 255, 255, 255);
+        protected Color drawColor = new Color(255, 255, 255, 255);
         protected bool flashing = false;
+        protected float flashReduction;
+        public bool pulse;
+        private int flashCycle;
 
         public Item(float x, float y, DungeonScreen dungeonScreen)
         {
             position = new Vector2(x, y);
             this.dungeonScreen = dungeonScreen;
             drawPosition = new Vector2(x, y);
+            flashing = true;
+            flashReduction = 64f;
+            pulse = false;
             initSprites();
         }
 
@@ -41,10 +51,32 @@ namespace MoleHillMountain
 
         public void draw(SpriteBatch spriteBatch)
         {
-            sprite.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, Color.White);
-            if (flashing)
+            if (pulse)
             {
-                flash.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, flashColor);
+                sprite.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, Color.White);
+                if (flashing)
+                {
+                    flash.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, flashColor);
+                }
+            }
+            else
+            {
+                if (flashing)
+                {
+                    if (flashCycle > 0)
+                    {
+                        sprite.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, Color.White);
+                        //flash.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, flashColor);
+                    }
+                    else
+                    {
+                        sprite.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, drawColor);
+                    }
+                }
+                else
+                {
+                    sprite.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, Color.White);
+                }
             }
         }
 
@@ -52,8 +84,26 @@ namespace MoleHillMountain
         {
             if (flashing)
             {
-                flashColor.A = (byte)(255f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 32f));
+                if (pulse)
+                {
+                    flashColor.A = (byte)(255f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / flashReduction));
+                }
+                else
+                {
+                    flashCycle = (int)(255f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / flashReduction));
+                    if (flashCycle > 0)
+                    {
+                        flashColor.A = (byte)(255f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / flashReduction));
+                    }
+                    else
+                    {
+                        drawColor.A = (byte)(255f + (255f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / flashReduction)));
+                    }
+                    //flashColor.A = (byte)(255f * Math.Abs((float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / flashReduction)));
+                }
             }
+
+
         }
     }
 
@@ -68,6 +118,9 @@ namespace MoleHillMountain
             sprite = new Sprite(PikeAndShotGame.DOOR, new Rectangle(0, 0, 20, 20), 20, 20);
             flash = new Sprite(dungeonScreen._game.getFlashTexture(PikeAndShotGame.DOOR), new Rectangle(0, 0, 20, 20), 20, 20);
             sprite.setFrame(1);
+            flashing = false;
+            flashReduction = 32f;
+            pulse = true;
         }
 
         public override void update(GameTime gameTime)

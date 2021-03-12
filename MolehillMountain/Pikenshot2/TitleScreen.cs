@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MoleHillMountain
 {
@@ -59,7 +60,8 @@ namespace MoleHillMountain
         public override void draw(GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             title.draw(spriteBatch, new Vector2(10,0), SIDE_PLAYER, PikeAndShotGame.DUMMY_TIMESPAN);
-
+            //spriteBatch.Draw(PikeAndShotGame.DOT, new Rectangle(0, 0, PikeAndShotGame.SCREENWIDTH, PikeAndShotGame.SCREENHEIGHT), Color.White);
+            //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle(0, 0, 200, 125), new Rectangle(0, 0, 200, 125), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
             //spriteBatch.Draw(PikeAndShotGame.TEXT, new Vector2(0,80), Color.White);
             //spriteBatch.DrawString(PikeAndShotGame.MOLE_FONT, "James Edward Smith", new Vector2(49f, 139f), Color.Black);
             //spriteBatch.DrawString(PikeAndShotGame.MOLE_FONT, "James Edward Smith", new Vector2(51f, 139f), Color.Black);

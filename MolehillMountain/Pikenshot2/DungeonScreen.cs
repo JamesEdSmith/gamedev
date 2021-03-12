@@ -50,6 +50,7 @@ namespace MoleHillMountain
         ArrayList stones;
         ArrayList deadStuff;
         ArrayList effects;
+        ArrayList items;
 
         protected KeyboardState keyboardState;
         protected KeyboardState previousKeyboardState;
@@ -102,12 +103,12 @@ namespace MoleHillMountain
             switch (animationType)
             {
                 case AnimationType.stoneImpact:
-                    returnedEffect.activate((int)position.X, (int)position.Y, horz, vert, 
+                    returnedEffect.activate((int)position.X, (int)position.Y, horz, vert,
                         new Sprite(PikeAndShotGame.STONE_IMPACT, new Rectangle(0, 0, 20, 20), 20, 20), 500);
                     break;
                 case AnimationType.fightCloud:
                     returnedEffect.activate((int)(position.X + OFFSET.X), (int)(position.Y + OFFSET.Y), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE,
-                        new Sprite(PikeAndShotGame.FIGHT_CLOUD, new Rectangle(0, 0, 22, 22), 22, 22), Mole.FIGHT_TIME/2f, 1);
+                        new Sprite(PikeAndShotGame.FIGHT_CLOUD, new Rectangle(0, 0, 22, 22), 22, 22), Mole.FIGHT_TIME / 2f, 1);
                     break;
             }
 
@@ -175,6 +176,11 @@ namespace MoleHillMountain
                 stone.draw(spriteBatch);
             }
 
+            foreach (Item item in items)
+            {
+                item.draw(spriteBatch);
+            }
+
             mole.draw(spriteBatch);
 
             foreach (Animation effect in effects)
@@ -191,7 +197,7 @@ namespace MoleHillMountain
             heart.draw(spriteBatch, heartPosition, 0);
             heart.draw(spriteBatch, heartPosition + heartOffset, 0);
             heart.nextFrame();
-            heart.draw(spriteBatch, heartPosition + heartOffset*2, 0);
+            heart.draw(spriteBatch, heartPosition + heartOffset * 2, 0);
             heart.prevFrame();
 
         }
@@ -265,7 +271,7 @@ namespace MoleHillMountain
             deadStuff.Clear();
 
             //check if level over
-            if(pickups.Count <= 0)
+            if (pickups.Count <= 0)
             {
                 beatLevel();
             }
@@ -300,8 +306,8 @@ namespace MoleHillMountain
 
                 Vector2 diff = enemy.position - mole.position;
 
-                if (Math.Abs(diff.X) <= FIGHT_DIST && Math.Abs(diff.Y) <= FIGHT_DIST 
-                    && (mole.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_SQUASHED) == 0 
+                if (Math.Abs(diff.X) <= FIGHT_DIST && Math.Abs(diff.Y) <= FIGHT_DIST
+                    && (mole.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_SQUASHED) == 0
                     && (mole.state & Mole.STATE_FIGHTING) == 0 && (enemy.state & Mole.STATE_FIGHTING) == 0
                     && (mole.state & Mole.STATE_DIZZY) == 0)
                 {
@@ -310,16 +316,26 @@ namespace MoleHillMountain
                     enemy.fight();
                 }
 
-                if((enemy.state & Mole.STATE_SQUASHED) != 0 && enemy.squashedTimer <= 0)
+                if ((enemy.state & Mole.STATE_SQUASHED) != 0 && enemy.squashedTimer <= 0)
                 {
                     deadStuff.Add(enemy);
                 }
             }
-            foreach(Rat enemy in deadStuff)
+            foreach (Rat enemy in deadStuff)
             {
                 enemies.Remove(enemy);
             }
             deadStuff.Clear();
+
+            foreach (Item item in items)
+            {
+                item.update(gameTime);
+                Vector2 distance = item.position - mole.position;
+                if (distance.Length() <= 5)
+                {
+
+                }
+            }
 
             if (mole.alive())
             {
@@ -339,6 +355,18 @@ namespace MoleHillMountain
                 }
             }
 
+        }
+
+        internal void spawnItem(Vegetable vegetable)
+        {
+            switch (vegetable.dropList[PikeAndShotGame.random.Next(vegetable.dropList.Count)])
+            {
+                case Item.DROP_SLINGSHOT:
+                    items.Add(new Item((int)(vegetable.position.X / GRID_SIZE), (int)(vegetable.position.Y / GRID_SIZE), this));
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void beatLevel()
@@ -542,7 +570,7 @@ namespace MoleHillMountain
         {
             Tunnel tunnel = getCurrTunnel(position);
 
-            if(tunnel != null &&(tunnel.left != Tunnel.NOT_DUG || tunnel.right != Tunnel.NOT_DUG || tunnel.top != Tunnel.NOT_DUG || tunnel.bottom != Tunnel.NOT_DUG))
+            if (tunnel != null && (tunnel.left != Tunnel.NOT_DUG || tunnel.right != Tunnel.NOT_DUG || tunnel.top != Tunnel.NOT_DUG || tunnel.bottom != Tunnel.NOT_DUG))
             {
                 return Grub.SEEN;
             }
@@ -978,7 +1006,6 @@ namespace MoleHillMountain
 
         private void init()
         {
-            
             tunnels = new Tunnel[GRID_WIDTH, GRID_HEIGHT];
             for (int j = 0; j < GRID_HEIGHT; j++)
             {
@@ -994,6 +1021,7 @@ namespace MoleHillMountain
             enemies = new ArrayList(10);
             stones = new ArrayList(10);
             effects = new ArrayList(5);
+            items = new ArrayList(5);
             for (int i = 0; i < 5; i++)
             {
                 effects.Add(new Animation());

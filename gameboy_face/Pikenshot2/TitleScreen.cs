@@ -239,7 +239,7 @@ namespace MoleHillMountain
 
             }
 
-            spriteBatch.Draw(texture2, Vector2.Zero, Microsoft.Xna.Framework.Color.White);
+            //spriteBatch.Draw(texture2, Vector2.Zero, Microsoft.Xna.Framework.Color.White);
             //spriteBatch.Draw(PikeAndShotGame.CATJON, Vector2.Zero, Microsoft.Xna.Framework.Color.White);
 
             //title.draw(spriteBatch, new Vector2(PikeAndShotGame.SCREENWIDTH / 2f, PikeAndShotGame.SCREENHEIGHT / 3f), SIDE_PLAYER);

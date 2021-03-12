@@ -562,6 +562,8 @@ namespace MoleHillMountain
             spriteBatch = new SpriteBatch(GraphicsDevice);
             viewport = GraphicsDevice.Viewport;
 
+            DOT = CreateTexture(GraphicsDevice, 1, 1, pixel => Color.Black);
+
             setDrawRect();
 
             soldierFont = Content.Load<SpriteFont>("SpriteFont1");
@@ -570,7 +572,7 @@ namespace MoleHillMountain
 
             PALETTE = Content.Load<Texture2D>(@"palette");
             BACKGROUND = Content.Load<Texture2D>(@"safeplace_fullsize");
-            BACKGROUND2 = Content.Load<Texture2D>(@"bg_red");
+            //BACKGROUND2 = Content.Load<Texture2D>(@"bg_red");
             SCREEN_TEXT = CreateTexture(GraphicsDevice, 1, 1, pixel => new Color(166, 172, 132, 150));
 
             ShaderRenderTarget = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
@@ -646,8 +648,8 @@ namespace MoleHillMountain
             //TITLE_ANIMATION = Content.Load<Texture2D>(@"title_animation");
             //TITLE_ANIMATION = Content.Load<Texture2D>(@"title_screen");
             TITLE_ANIMATION = Content.Load<Texture2D>(@"title_screen");
-            SLIDE = Content.Load<Texture2D>(@"slide");
-            TEXT = Content.Load<Texture2D>(@"text");
+            //SLIDE = Content.Load<Texture2D>(@"slide");
+            //TEXT = Content.Load<Texture2D>(@"text");
 
 
             PICKUP_GRUB = Content.Load<SoundEffect>("possibleSound5");
