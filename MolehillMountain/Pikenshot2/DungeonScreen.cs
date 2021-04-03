@@ -12,7 +12,8 @@ namespace MoleHillMountain
     enum AnimationType
     {
         stoneImpact,
-        fightCloud
+        fightCloud,
+        tunnelReveal
     }
     class DungeonScreen : GameScreen
     {
@@ -63,11 +64,17 @@ namespace MoleHillMountain
         bool firstCheck = true;
         public int enemyCount;
         public float enemyTimer;
+        private double _fps = 0;
+        private double _draws = 0;
+
+        Vector2 fpsPosition;
 
         public DungeonScreen(PikeAndShotGame game)
         {
             _game = game;
             heart = new Sprite(PikeAndShotGame.HEART, new Rectangle(0, 0, 11, 9), 11, 9);
+            hpPosition = new Vector2(3f, 182f);
+            fpsPosition = new Vector2(190f, 182);
             init();
         }
 
@@ -81,13 +88,13 @@ namespace MoleHillMountain
                 return null;
         }
 
-        public void createAnimation(Vector2 position, int horz, int vert, AnimationType animationType)
+        public void createAnimation(Vector2 position, int horz, int vert, AnimationType animationType, float delay = 0)
         {
             Animation returnedEffect = null;
 
             foreach (Animation effect in effects)
             {
-                if (!effect.active)
+                if (!effect.active && effect.type == animationType)
                 {
                     returnedEffect = effect;
                     break;
@@ -96,19 +103,20 @@ namespace MoleHillMountain
 
             if (returnedEffect == null)
             {
-                returnedEffect = new Animation();
+                returnedEffect = new Animation(animationType);
                 effects.Add(returnedEffect);
             }
 
             switch (animationType)
             {
                 case AnimationType.stoneImpact:
-                    returnedEffect.activate((int)position.X, (int)position.Y, horz, vert,
-                        new Sprite(PikeAndShotGame.STONE_IMPACT, new Rectangle(0, 0, 20, 20), 20, 20), 500);
+                    returnedEffect.activate((int)position.X, (int)position.Y, horz, vert, delay);
                     break;
                 case AnimationType.fightCloud:
-                    returnedEffect.activate((int)(position.X + OFFSET.X), (int)(position.Y + OFFSET.Y), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE,
-                        new Sprite(PikeAndShotGame.FIGHT_CLOUD, new Rectangle(0, 0, 22, 22), 22, 22), Mole.FIGHT_TIME / 2f, 1);
+                    returnedEffect.activate((int)(position.X + OFFSET.X), (int)(position.Y + OFFSET.Y), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, delay);
+                    break;
+                case AnimationType.tunnelReveal:
+                    returnedEffect.activate((int)(position.X + OFFSET.X), (int)(position.Y + OFFSET.Y), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, delay);
                     break;
             }
 
@@ -146,6 +154,7 @@ namespace MoleHillMountain
 
         public void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            _draws++;
             foreach (Tunnel tunnel in tunnels)
             {
                 tunnel.draw(spriteBatch);
@@ -193,18 +202,21 @@ namespace MoleHillMountain
 
             //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 80 + (int)OFFSET.Y, 70, 100), new Rectangle(128, 0, 70, 100), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
             //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 80 + (int)OFFSET.Y, 72, 20), new Rectangle(0, 1, 72, 20), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "HP", new Vector2(3f, 182f), Color.Black);
+            spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "HP", hpPosition, Color.Black);
             heart.draw(spriteBatch, heartPosition, 0);
             heart.draw(spriteBatch, heartPosition + heartOffset, 0);
             heart.nextFrame();
             heart.draw(spriteBatch, heartPosition + heartOffset * 2, 0);
             heart.prevFrame();
 
+            //spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "fps: " + _fps, fpsPosition, Color.Black);
+
         }
 
         public void update(GameTime gameTime)
         {
             getInput(gameTime.ElapsedGameTime);
+            SeenStatus.update(gameTime);
             mole.update(gameTime);
             if (door != null)
             {
@@ -337,10 +349,16 @@ namespace MoleHillMountain
                 }
             }
 
-            if (mole.alive())
+            foreach(Tunnel tunnel in tunnels)
             {
-                updateTunnels(mole);
+                tunnel.update(this);
             }
+            updateTunnels(mole);
+            if(getCurrTunnel(mole.position).seen == SeenStatus.HALF_SEEN)
+            {
+                revealTunnels();
+            }
+
 
             pickupTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -354,7 +372,8 @@ namespace MoleHillMountain
                     enemyCount--;
                 }
             }
-
+            _fps = (double)_draws / gameTime.ElapsedGameTime.TotalSeconds;
+            _draws = 0;
         }
 
         internal void spawnItem(Vegetable vegetable)
@@ -572,22 +591,43 @@ namespace MoleHillMountain
 
             if (tunnel != null && (tunnel.left != Tunnel.NOT_DUG || tunnel.right != Tunnel.NOT_DUG || tunnel.top != Tunnel.NOT_DUG || tunnel.bottom != Tunnel.NOT_DUG))
             {
-                return Grub.SEEN;
+                return SeenStatus.SEEN;
             }
 
             float distance = (mole.position - position).Length();
 
             if (distance <= GRID_SIZE * (mole.per * 0.5f + 0.1f))
             {
-                return Grub.SEEN;
+                return SeenStatus.SEEN;
             }
             else if (distance <= GRID_SIZE * (mole.per + 0.1f))
             {
-                return Grub.HALF_SEEN;
+                return SeenStatus.HALF_SEEN;
             }
             else
             {
-                return Grub.NOT_SEEN;
+                return SeenStatus.NOT_SEEN;
+            }
+        }
+
+        internal int checkMoleSight(Tunnel tunnel)
+        {
+            if (tunnel.revealed)
+                return SeenStatus.SEEN;
+
+            float distance = (mole.position - tunnel.position).Length();
+
+            if (distance <= GRID_SIZE * (mole.per * 0.5f + 0.1f))
+            {
+                return SeenStatus.HALF_SEEN;
+            }
+            else if (distance <= GRID_SIZE * (mole.per + 0.1f))
+            {
+                return SeenStatus.HALF_SEEN;
+            }
+            else
+            {
+                return SeenStatus.NOT_SEEN;
             }
         }
 
@@ -701,6 +741,26 @@ namespace MoleHillMountain
 
             mole.prevMoleUp = moleUp;
             mole.prevMoleDown = moleDown;
+
+            foreach (Tunnel tunnel in tunnels)
+            {
+                if (tunnel.bottom == Tunnel.DUG || tunnel.top == Tunnel.DUG || tunnel.right == Tunnel.DUG || tunnel.left == Tunnel.DUG)
+                {
+                    if (tunnel.bottom == Tunnel.HALF_DUG)
+                        tunnel.bottom = Tunnel.DUG;
+                    if (tunnel.top == Tunnel.HALF_DUG)
+                        tunnel.top = Tunnel.DUG;
+                    if (tunnel.right == Tunnel.HALF_DUG)
+                        tunnel.right = Tunnel.DUG;
+                    if (tunnel.left == Tunnel.HALF_DUG)
+                        tunnel.left = Tunnel.DUG;
+                }
+            }
+
+            if ((mole.state & Mole.STATE_DIGGING) != 0)
+            {
+                revealTunnels();
+            }
 
         }
 
@@ -940,6 +1000,7 @@ namespace MoleHillMountain
             {
                 tunnels[middleX, bottomY].top = Tunnel.DUG;
                 tunnels[middleX, bottomY - 1].bottom = Tunnel.DUG;
+                revealTunnels();
             }
         }
         private void getInput(TimeSpan timeSpan)
@@ -1022,10 +1083,12 @@ namespace MoleHillMountain
             stones = new ArrayList(10);
             effects = new ArrayList(5);
             items = new ArrayList(5);
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
-                effects.Add(new Animation());
+                effects.Add(new Animation(AnimationType.tunnelReveal));
             }
+            effects.Add(new Animation(AnimationType.stoneImpact));
+            effects.Add(new Animation(AnimationType.fightCloud));
 
             generateLevel();
 
@@ -1048,6 +1111,8 @@ namespace MoleHillMountain
         }
 
         int[,] combinedTunnels;
+        private Vector2 hpPosition;
+
         private void generateLevel()
         {
             const int generations = 2;
@@ -1101,6 +1166,7 @@ namespace MoleHillMountain
                 {
                     if (combinedTunnels[i, j] != 0)
                     {
+                        tunnels[i, j].starting = true;
                         //dig tunnels
                         if (i > 0 && combinedTunnels[i - 1, j] == combinedTunnels[i, j])
                         {
@@ -1235,7 +1301,7 @@ namespace MoleHillMountain
 
             mole = new Mole(point2.X, point2.Y, this);
 
-            //remove all tunnel identities so the can all just be '1' for "tunnel" for the rest of the proc gen
+            //remove all tunnel identities so they can all just be '1' for "tunnel" for the rest of the proc gen
             for (int j = 0; j < GRID_HEIGHT; j++)
             {
                 for (int i = 0; i < GRID_WIDTH; i++)
@@ -1308,8 +1374,54 @@ namespace MoleHillMountain
 
                 placeEnemies();
             }
+
+            //reveal starting tunnel to player
+            revealTunnels(true);
         }
 
+        public void revealTunnels(bool start = false)
+        {
+            if (checkedTunnels == null)
+            {
+                checkedTunnels = new ArrayList(GRID_WIDTH * GRID_HEIGHT);
+            }
+            else
+            {
+                checkedTunnels.Clear();
+            }
+
+            revealTunnels(start, (int)mole.position.X / GRID_SIZE, (int)mole.position.Y / GRID_SIZE);
+        }
+
+        private void revealTunnels(bool start, int x, int y)
+        {
+            if(!start && tunnels[x, y].seen != SeenStatus.SEEN && tunnels[x, y].starting)
+            {
+                createAnimation(tunnels[x, y].position +  Tunnel.center, 0, 0, AnimationType.tunnelReveal, y * Animation.REVEAL_TIME);
+            }
+            tunnels[x, y].seen = SeenStatus.SEEN;
+            tunnels[x, y].revealed = true;
+            checkedTunnels.Add(tunnels[x, y]);
+
+            if (x > 0 && tunnels[x, y].left == Tunnel.DUG && !checkedTunnels.Contains(tunnels[x - 1, y]))
+            {
+                revealTunnels(start, x - 1, y);
+            }
+            if (x < GRID_WIDTH - 1 && tunnels[x, y].right == Tunnel.DUG && !checkedTunnels.Contains(tunnels[x + 1, y]))
+            {
+                revealTunnels(start, x + 1, y);
+            }
+            if (y > 0 && tunnels[x, y].top == Tunnel.DUG && !checkedTunnels.Contains(tunnels[x, y - 1]))
+            {
+                revealTunnels(start, x, y - 1);
+            }
+            if (y < GRID_HEIGHT - 1 && tunnels[x, y].bottom == Tunnel.DUG && !checkedTunnels.Contains(tunnels[x, y + 1]))
+            {
+                revealTunnels(start, x, y + 1);
+            }
+        }
+
+        ArrayList checkedTunnels;
 
         private void placeEnemies()
         {

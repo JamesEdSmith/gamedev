@@ -145,6 +145,38 @@ namespace MoleHillMountain
         }
     }
 
+    public static class SeenStatus
+    {
+        public const int SEEN = 2;
+        public const int HALF_SEEN = 1;
+        public const int NOT_SEEN = 0;
+
+        private static Color SEEN_COLOR = new Color(255, 255, 255, 255);
+        private static Color currHalfSeenColor = new Color(255, 255, 255, 127);
+        private static Color NOT_SEEN_COLOR = new Color(255, 255, 255, 0);
+
+        private static float totalTime;
+
+        public static void update(GameTime gameTime)
+        {
+            totalTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50f; // flickering
+        }
+
+        public static Color getVisibilityColor(int seen)
+        {
+            switch (seen)
+            {
+                case NOT_SEEN:
+                    return NOT_SEEN_COLOR;
+                case HALF_SEEN:
+                    currHalfSeenColor.A = (byte)(64 + 32f * Math.Sin(totalTime));
+                    return currHalfSeenColor;
+                default:
+                    return SEEN_COLOR;
+            }
+        }
+    }
+
     class Grub
     {
         public const int STATE_IDLE = 0;
@@ -152,11 +184,7 @@ namespace MoleHillMountain
         public const int STATE_COLLECTED = 2;
 
         static Random random = new Random();
-        static Color SEEN_COLOR = new Color(255, 255, 255, 255);
-        static Color HALF_SEEN_COLOR = new Color(255, 255, 255, 127);
-        Color currHalfSeenColor = new Color(255, 255, 255, 127);
-        static Color NOT_SEEN_COLOR = new Color(255, 255, 255, 0);
-
+        
         DungeonScreen dungeonScreen;
         public Vector2 position;
         Sprite idle;
@@ -171,16 +199,9 @@ namespace MoleHillMountain
         float animationTimer;
 
         bool isGrub = false;
-        bool flip = false;
-
-        public const int SEEN = 2;
-        public const int HALF_SEEN = 1;
-        public const int NOT_SEEN = 0;
-
+        bool flip = false;     
         public int seen;
-        float totalTime;
-
-
+        
         public Grub(float x, float y, DungeonScreen dungeonScreen)
         {
             position = new Vector2(x, y);
@@ -196,7 +217,7 @@ namespace MoleHillMountain
                 idle = new Sprite(PikeAndShotGame.GRUB_EGG, new Rectangle(0, 0, 20, 20), 20, 20);
             }
             resetAntic();
-            seen = NOT_SEEN;
+            seen = SeenStatus.NOT_SEEN;
         }
 
         public Grub(int x, int y, DungeonScreen dungeonScreen) : this(0f, 0f, dungeonScreen)
@@ -209,39 +230,26 @@ namespace MoleHillMountain
         {
             if (state == STATE_IDLE)
             {
-                idle.draw(spriteBatch, position + DungeonScreen.OFFSET, 0f, getVisibilityColor());
+                idle.draw(spriteBatch, position + DungeonScreen.OFFSET, 0f, SeenStatus.getVisibilityColor(seen));
             }
             else
             {
                 if (flip)
                 {
-                    currSprite.draw(spriteBatch, position + DungeonScreen.OFFSET, 0f, getVisibilityColor(), SpriteEffects.FlipHorizontally);
+                    currSprite.draw(spriteBatch, position + DungeonScreen.OFFSET, 0f, SeenStatus.getVisibilityColor(seen), SpriteEffects.FlipHorizontally);
                 }
                 else
                 {
-                    currSprite.draw(spriteBatch, position + DungeonScreen.OFFSET, 0f, getVisibilityColor());
+                    currSprite.draw(spriteBatch, position + DungeonScreen.OFFSET, 0f, SeenStatus.getVisibilityColor(seen));
                 }
             }
         }
 
-        private Color getVisibilityColor()
-        {
-            switch (seen)
-            {
-                case NOT_SEEN:
-                    return NOT_SEEN_COLOR;
-                case HALF_SEEN:
-                    currHalfSeenColor.A = (byte)(64 + 32f * Math.Sin(totalTime));
-                    return currHalfSeenColor;
-                default:
-                    return SEEN_COLOR;
-            }
-        }
+        
 
         public void update(GameTime gameTime)
         {
             float elapsedMilliseconds = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            totalTime += elapsedMilliseconds / 50f; // flickering
 
             if (state == STATE_IDLE)
             {
@@ -365,7 +373,7 @@ namespace MoleHillMountain
             if (isGrub)
             {
                 int moleClose = dungeonScreen.checkMoleSight(position);
-                if (moleClose == Grub.SEEN)
+                if (moleClose == SeenStatus.SEEN)
                 {
                     if (state != STATE_LOOKING && state != STATE_COLLECTED)
                     {

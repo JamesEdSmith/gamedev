@@ -9,21 +9,38 @@ namespace MoleHillMountain
     {
         Vector2 position;
         public bool active;
-        Sprite sprite;
-        float timer;
-        float time;
-        int horz;
-        int vert;
-        int loops;
+        protected Sprite sprite;
+        private float timer;
+        public float time;
+        private int horz;
+        private int vert;
+        private int loops;
+        private float delay;
+        public AnimationType type;
+        public const int REVEAL_TIME = 200;
 
-        public Animation()
+        public Animation(AnimationType type)
         {
             position = new Vector2(0, 0);
             active = false;
-            sprite = new Sprite(PikeAndShotGame.STONE_IMPACT, new Rectangle(0, 0, 20, 20), 20, 20);
-            time = 500;
+            this.type = type;
+            switch (type)
+            {
+                case AnimationType.stoneImpact:
+                    sprite = new Sprite(PikeAndShotGame.STONE_IMPACT, new Rectangle(0, 0, 20, 20), 20, 20);
+                    time = 500;
+                    break;
+                case AnimationType.fightCloud:
+                    sprite = new Sprite(PikeAndShotGame.FIGHT_CLOUD, new Rectangle(0, 0, 22, 22), 22, 22);
+                    time = Mole.FIGHT_TIME/2f;
+                    loops = 1;
+                    break;
+                case AnimationType.tunnelReveal:
+                    sprite = new Sprite(PikeAndShotGame.TUNNEL_REVEAL, new Rectangle(0, 0, 20, 20), 20, 20);
+                    time = REVEAL_TIME;
+                    break;
+            }
         }
-
 
         public void activate()
         {
@@ -31,21 +48,26 @@ namespace MoleHillMountain
             active = true;
         }
 
-        public void activate(int x, int y, int horz, int vert, Sprite sprite, float time, int loops = 0)
+        public void activate(int x, int y, int horz, int vert, float delay = 0)
         {
-            this.sprite = sprite;
-            this.time = time;
             position.X = x;
             position.Y = y;
             this.horz = horz;
             this.vert = vert;
-            this.loops = loops;
+            this.delay = delay;
             activate();
         }
 
         public void update(TimeSpan timeSpan)
         {
-            timer -= (float)timeSpan.TotalMilliseconds;
+            if (delay > 0)
+            {
+                delay -= (float)timeSpan.TotalMilliseconds;
+            }
+            else
+            {
+                timer -= (float)timeSpan.TotalMilliseconds;
+            }
 
             if (timer < 0)
             {

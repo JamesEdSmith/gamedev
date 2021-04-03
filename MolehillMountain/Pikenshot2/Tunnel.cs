@@ -30,32 +30,46 @@ namespace MoleHillMountain
         public int left;
         public int bottom;
 
+        public const int SEEN = 2;
+        public const int HALF_SEEN = 1;
+        public const int NOT_SEEN = 0;
+
+        public int seen;
+        internal bool revealed;
+        internal bool starting;
+
         public Tunnel(int x, int y)
         {
             position = new Vector2(x, y);
+            seen = SeenStatus.NOT_SEEN;
+        }
+
+        public void update(DungeonScreen dungeonScreen)
+        {
+            seen = dungeonScreen.checkMoleSight(this);
         }
 
         public void draw(SpriteBatch spritebatch)
         {
             if (right == DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, Color.White, 0, center, 1, SpriteEffects.None, 0);
+                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, SeenStatus.getVisibilityColor(seen), 0, center, 1, SpriteEffects.None, 0);
             else if (right == HALF_DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + halfRight + DungeonScreen.OFFSET, halfSourceRect, Color.White, 0, center, 1, SpriteEffects.None, 0);
+                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + halfRight + DungeonScreen.OFFSET, halfSourceRect, SeenStatus.getVisibilityColor(seen), 0, center, 1, SpriteEffects.None, 0);
 
             if (left == DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, Color.White, 0, center, 1, SpriteEffects.FlipHorizontally, 0);
+                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, SeenStatus.getVisibilityColor(seen), 0, center, 1, SpriteEffects.FlipHorizontally, 0);
             else if (left == HALF_DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, halfSourceRect, Color.White, 0, center, 1, SpriteEffects.FlipHorizontally, 0);
+                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, halfSourceRect, SeenStatus.getVisibilityColor(seen), 0, center, 1, SpriteEffects.FlipHorizontally, 0);
 
             if (bottom == DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, Color.White, MathHelper.Pi * 0.5f, center, 1, SpriteEffects.None, 0);
+                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * 0.5f, center, 1, SpriteEffects.None, 0);
             else if (bottom == HALF_DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + halfBottom + DungeonScreen.OFFSET, halfSourceRect, Color.White, MathHelper.Pi * 0.5f, center, 1, SpriteEffects.None, 0);
+                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + halfBottom + DungeonScreen.OFFSET, halfSourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * 0.5f, center, 1, SpriteEffects.None, 0);
 
             if (top == DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, Color.White, MathHelper.Pi * -0.5f, center, 1, SpriteEffects.None, 0);
+                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * -0.5f, center, 1, SpriteEffects.None, 0);
             else if (top == HALF_DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + halfTop + DungeonScreen.OFFSET, halfSourceRect, Color.White, MathHelper.Pi * -0.5f, center, 1, SpriteEffects.None, 0);
+                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + halfTop + DungeonScreen.OFFSET, halfSourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * -0.5f, center, 1, SpriteEffects.None, 0);
 
         }
     }

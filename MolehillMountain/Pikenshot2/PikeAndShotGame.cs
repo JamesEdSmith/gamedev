@@ -404,6 +404,7 @@ namespace MoleHillMountain
 
         public static Texture2D SCREEN_TEXT;
         public static Texture2D TUNNEL;
+        public static Texture2D TUNNEL_REVEAL;
         public static Texture2D HEART;
 
         public static Texture2D TURNIP_SHAKE;
@@ -607,6 +608,7 @@ namespace MoleHillMountain
             DIZZY_MARK = Content.Load<Texture2D>(@"seeing_stars");
 
             TUNNEL = Content.Load<Texture2D>(@"tunnel");
+            TUNNEL_REVEAL = Content.Load<Texture2D>(@"tunnelReveal_1");
             HEART = Content.Load<Texture2D>(@"heart");
 
             TURNIP_SHAKE = Content.Load<Texture2D>(@"turnip_fall");

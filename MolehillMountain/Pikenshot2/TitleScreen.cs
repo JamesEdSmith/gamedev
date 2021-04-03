@@ -63,12 +63,10 @@ namespace MoleHillMountain
             //spriteBatch.Draw(PikeAndShotGame.DOT, new Rectangle(0, 0, PikeAndShotGame.SCREENWIDTH, PikeAndShotGame.SCREENHEIGHT), Color.White);
             //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle(0, 0, 200, 125), new Rectangle(0, 0, 200, 125), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
             //spriteBatch.Draw(PikeAndShotGame.TEXT, new Vector2(0,80), Color.White);
-            //spriteBatch.DrawString(PikeAndShotGame.MOLE_FONT, "James Edward Smith", new Vector2(49f, 139f), Color.Black);
-            //spriteBatch.DrawString(PikeAndShotGame.MOLE_FONT, "James Edward Smith", new Vector2(51f, 139f), Color.Black);
-            //spriteBatch.DrawString(PikeAndShotGame.MOLE_FONT, "James Edward Smith", new Vector2(49f, 141f), Color.Black);
-            //spriteBatch.DrawString(PikeAndShotGame.MOLE_FONT, "James Edward Smith", new Vector2(51f, 141f), Color.Black);
+            
 
-            //spriteBatch.DrawString(PikeAndShotGame.MOLE_FONT, "James Edward Smith", new Vector2(50f, 140f), Color.White);
+            //spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "Smith's Amusements", new Vector2(68f, 30f), Color.Black);
+            //spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "Presents", new Vector2(100f, 45f), Color.Black);
 
 
         }

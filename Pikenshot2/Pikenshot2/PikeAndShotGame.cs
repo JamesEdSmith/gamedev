@@ -18,8 +18,8 @@ namespace PikeAndShot
         public const bool DEBUG = false;
         public static bool TEST_BOSS = false;
 
-        public const int SCREENWIDTH = 1400;//1024; //1280//1024//1400
-        public const int SCREENHEIGHT = 788;//738;//720//576//788
+        public const int SCREENWIDTH = 1024;//1024; //1280//1024//1400
+        public const int SCREENHEIGHT = 768;//738;//720//576//788
 
         public const int SCREEN_LEVELPLAY = 0;
         public const int SCREEN_FORMATIONMAKER = 1;
