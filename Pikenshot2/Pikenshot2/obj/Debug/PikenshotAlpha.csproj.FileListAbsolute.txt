@@ -1236,4 +1236,4 @@ D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.Video.
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.Video.DirectShow.xml
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\DRO_aug_2020.xnb
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\slide.xnb
-D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\flyer_feb2021.xnb
+D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\flyer2021-May-12.xnb

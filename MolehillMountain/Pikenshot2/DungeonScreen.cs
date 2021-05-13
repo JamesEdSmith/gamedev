@@ -349,12 +349,12 @@ namespace MoleHillMountain
                 }
             }
 
-            foreach(Tunnel tunnel in tunnels)
+            foreach (Tunnel tunnel in tunnels)
             {
                 tunnel.update(this);
             }
             updateTunnels(mole);
-            if(getCurrTunnel(mole.position).seen == SeenStatus.HALF_SEEN)
+            if (getCurrTunnel(mole.position).seen == SeenStatus.HALF_SEEN)
             {
                 revealTunnels();
             }
@@ -1083,7 +1083,7 @@ namespace MoleHillMountain
             stones = new ArrayList(10);
             effects = new ArrayList(5);
             items = new ArrayList(5);
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
                 effects.Add(new Animation(AnimationType.tunnelReveal));
             }
@@ -1384,20 +1384,44 @@ namespace MoleHillMountain
             if (checkedTunnels == null)
             {
                 checkedTunnels = new ArrayList(GRID_WIDTH * GRID_HEIGHT);
+                tunnelsToReveal = new ArrayList[GRID_HEIGHT];
+                for (int i = 0; i < GRID_HEIGHT; i++)
+                {
+                    tunnelsToReveal[i] = new ArrayList(GRID_WIDTH);
+                }
             }
             else
             {
                 checkedTunnels.Clear();
+                for (int i = 0; i < GRID_HEIGHT; i++)
+                {
+                    tunnelsToReveal[i].Clear();
+                }
             }
 
             revealTunnels(start, (int)mole.position.X / GRID_SIZE, (int)mole.position.Y / GRID_SIZE);
+
+            int tracker = 0;
+            for (int i = 0; i < GRID_HEIGHT; i++)
+            {
+                if (tunnelsToReveal[i].Count > 0)
+                {
+                    foreach (Tunnel tunnel in tunnelsToReveal[i])
+                    {
+                        createAnimation(tunnel.position + Tunnel.center, 0, 0, AnimationType.tunnelReveal); //tracker * Animation.REVEAL_TIME);
+                    }
+                    //tracker++;
+                }
+            }
         }
+
+        private ArrayList[] tunnelsToReveal;
 
         private void revealTunnels(bool start, int x, int y)
         {
-            if(!start && tunnels[x, y].seen != SeenStatus.SEEN && tunnels[x, y].starting)
+            if (!start && tunnels[x, y].seen != SeenStatus.SEEN && tunnels[x, y].starting)
             {
-                createAnimation(tunnels[x, y].position +  Tunnel.center, 0, 0, AnimationType.tunnelReveal, y * Animation.REVEAL_TIME);
+                tunnelsToReveal[y].Add(tunnels[x, y]);
             }
             tunnels[x, y].seen = SeenStatus.SEEN;
             tunnels[x, y].revealed = true;

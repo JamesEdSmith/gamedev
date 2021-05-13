@@ -1260,7 +1260,7 @@
     <Content Include="Content\slide.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\flyer_feb2021.xnb">
+    <Content Include="Content\flyer2021-May-12.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Content\speaker3.xnb">

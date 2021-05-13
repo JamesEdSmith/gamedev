@@ -1312,7 +1312,6 @@ D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\x64\libopen
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\libSDL2-2.0.0.dylib
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\libopenal.1.dylib
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\MonoGame.Framework.dll.config
-D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\Cat_Jon.xnb
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\mole_miner_sprite.xnb
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\mole_miner_sprite_dig.xnb
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\speaker3.xnb
@@ -1361,3 +1360,4 @@ D:\backup\gamedev\gameboy_face\Pikenshot2\obj\Debug\PikenshotDemo.pdb
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\try_this2.xnb
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\try_this3.xnb
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\palette-4.xnb
+D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\Cool_poster_mang.xnb

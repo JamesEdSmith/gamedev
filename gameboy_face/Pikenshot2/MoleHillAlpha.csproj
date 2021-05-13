@@ -1281,9 +1281,9 @@
     <Content Include="Content\gameboy_start_up.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Content\Cat_Jon.xnb">
+    <Content Include="Content\Cool_poster_mang.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Content\mole_miner_sprite.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

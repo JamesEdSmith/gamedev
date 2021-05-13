@@ -608,7 +608,7 @@ namespace MoleHillMountain
             DIZZY_MARK = Content.Load<Texture2D>(@"seeing_stars");
 
             TUNNEL = Content.Load<Texture2D>(@"tunnel");
-            TUNNEL_REVEAL = Content.Load<Texture2D>(@"tunnelReveal_1");
+            TUNNEL_REVEAL = Content.Load<Texture2D>(@"dirt");
             HEART = Content.Load<Texture2D>(@"heart");
 
             TURNIP_SHAKE = Content.Load<Texture2D>(@"turnip_fall");

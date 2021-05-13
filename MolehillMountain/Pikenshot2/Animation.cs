@@ -17,7 +17,7 @@ namespace MoleHillMountain
         private int loops;
         private float delay;
         public AnimationType type;
-        public const int REVEAL_TIME = 200;
+        public const int REVEAL_TIME = 600;
 
         public Animation(AnimationType type)
         {
@@ -32,7 +32,7 @@ namespace MoleHillMountain
                     break;
                 case AnimationType.fightCloud:
                     sprite = new Sprite(PikeAndShotGame.FIGHT_CLOUD, new Rectangle(0, 0, 22, 22), 22, 22);
-                    time = Mole.FIGHT_TIME/2f;
+                    time = Mole.FIGHT_TIME / 2f;
                     loops = 1;
                     break;
                 case AnimationType.tunnelReveal:
@@ -69,7 +69,7 @@ namespace MoleHillMountain
                 timer -= (float)timeSpan.TotalMilliseconds;
             }
 
-            if (timer < 0)
+            if (timer <= 0)
             {
                 if (loops > 0)
                 {
