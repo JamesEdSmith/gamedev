@@ -57,7 +57,7 @@ namespace PikeAndShot
         {
 
             //spriteBatch.Draw(PikeAndShotGame.TEST, new Rectangle((PikeAndShotGame.SCREENWIDTH - 834) /2, (PikeAndShotGame.SCREENHEIGHT - 738) / 2, 834, 738), Color.White);
-            spriteBatch.Draw(PikeAndShotGame.TEST, new Rectangle(0, 0, PikeAndShotGame.SCREENWIDTH, PikeAndShotGame.SCREENHEIGHT), Color.White);
+            spriteBatch.Draw(PikeAndShotGame.TEST, new Rectangle(0, 0, 1024, PikeAndShotGame.SCREENHEIGHT), Color.White);
             //title.draw(spriteBatch, new Vector2(PikeAndShotGame.SCREENWIDTH / 2f, PikeAndShotGame.SCREENHEIGHT / 3f), SIDE_PLAYER);
             //if (fadeTime <= 0)
             //{

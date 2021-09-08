@@ -117,7 +117,7 @@ namespace MoleHillMountain
         {
             sprite = new Sprite(PikeAndShotGame.DOOR, new Rectangle(0, 0, 20, 20), 20, 20);
             flash = new Sprite(dungeonScreen._game.getFlashTexture(PikeAndShotGame.DOOR), new Rectangle(0, 0, 20, 20), 20, 20);
-            sprite.setFrame(1);
+            sprite.setFrame(8);
             flashing = false;
             flashReduction = 32f;
             pulse = true;
