@@ -1353,11 +1353,13 @@ D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\SharpDX.XIn
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\SharpFont.xml
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\SharpDX.D3DCompiler.xml
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AssimpNet.xml
-D:\backup\gamedev\gameboy_face\Pikenshot2\obj\Debug\MoleHillAlpha.csprojAssemblyReference.cache
 D:\backup\gamedev\gameboy_face\Pikenshot2\obj\Debug\MoleHillAlpha.csproj.CopyComplete
 D:\backup\gamedev\gameboy_face\Pikenshot2\obj\Debug\PikenshotDemo.exe
 D:\backup\gamedev\gameboy_face\Pikenshot2\obj\Debug\PikenshotDemo.pdb
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\try_this2.xnb
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\try_this3.xnb
 D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\palette-4.xnb
-D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\Cool_poster_mang.xnb
+D:\backup\gamedev\gameboy_face\Pikenshot2\obj\Debug\MoleHillAlpha.csproj.CoreCompileInputs.cache
+D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\dang_man.xnb
+D:\backup\gamedev\gameboy_face\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\GoblinFont.xnb
+D:\backup\gamedev\gameboy_face\Pikenshot2\obj\Debug\MoleHillAlpha.csproj.AssemblyReference.cache

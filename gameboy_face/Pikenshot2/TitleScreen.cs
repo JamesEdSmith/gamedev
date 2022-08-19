@@ -240,12 +240,30 @@ namespace MoleHillMountain
             }
 
             //spriteBatch.Draw(texture2, Vector2.Zero, Microsoft.Xna.Framework.Color.White);
-            spriteBatch.Draw(PikeAndShotGame.CATJON, Vector2.Zero, Microsoft.Xna.Framework.Color.White);
+            //spriteBatch.Draw(PikeAndShotGame.CATJON, new Microsoft.Xna.Framework.Rectangle(25,25,200,200), 
+            //  new Microsoft.Xna.Framework.Rectangle(150,50,300,300), Microsoft.Xna.Framework.Color.White);
 
             //title.draw(spriteBatch, new Vector2(PikeAndShotGame.SCREENWIDTH / 2f, PikeAndShotGame.SCREENHEIGHT / 3f), SIDE_PLAYER);
             //if (fadeTime <= 0)
             //{
-            //    spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Press Pike or Shot", new Vector2(450, PikeAndShotGame.SCREENHEIGHT * 2f/ 3f), textColor);
+
+            //int offset = 10;
+
+            //spriteBatch.Draw(PikeAndShotGame.TUNNEL, new Microsoft.Xna.Framework.Rectangle(50, 48 + offset, 200, 11), new Microsoft.Xna.Framework.Rectangle(5, 5, 1, 1), new Microsoft.Xna.Framework.Color(0,0,0,(int)(255f*0.5f)));
+            //spriteBatch.DrawString(PikeAndShotGame.gobFont, "Dirty Rectangles", new Vector2(52, 50 + offset), Microsoft.Xna.Framework.Color.White);
+            //spriteBatch.DrawString(PikeAndShotGame.gobFont, "We're looking for guests", 
+            //        new Vector2(52,65 + offset), Microsoft.Xna.Framework.Color.Black);
+            //spriteBatch.DrawString(PikeAndShotGame.gobFont, "for our show next month",
+            //        new Vector2(52, 73 + offset), Microsoft.Xna.Framework.Color.Black);
+
+            //spriteBatch.Draw(PikeAndShotGame.TUNNEL, new Microsoft.Xna.Framework.Rectangle(50, 86 + offset, 200, 20), new Microsoft.Xna.Framework.Rectangle(5, 5, 1, 1), new Microsoft.Xna.Framework.Color(0,0,0,255));
+            //spriteBatch.DrawString(PikeAndShotGame.gobFont, "Wednesday, May 11th",
+            //        new Vector2(52, 88 + offset), Microsoft.Xna.Framework.Color.White);
+            //spriteBatch.DrawString(PikeAndShotGame.gobFont, "@ 8:00pm EST",
+            //        new Vector2(52, 97 + offset), Microsoft.Xna.Framework.Color.White);
+
+            //spriteBatch.DrawString(PikeAndShotGame.gobFont, "dirty-rectangles.com",
+            //        new Vector2(52, 112 + offset), Microsoft.Xna.Framework.Color.Black);
             //}
 
         }

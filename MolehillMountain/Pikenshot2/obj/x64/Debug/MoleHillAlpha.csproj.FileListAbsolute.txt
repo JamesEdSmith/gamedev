@@ -438,7 +438,6 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\SharpDX.XInput.xml
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\SharpFont.xml
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\SharpDX.D3DCompiler.xml
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\AssimpNet.xml
-D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csprojAssemblyReference.cache
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.CopyComplete
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\Molehill Mountain.exe
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\Molehill Mountain.pdb
@@ -463,3 +462,5 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\GoblinFont.x
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\heart.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\tunnelReveal_1.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\dirt.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.AssemblyReference.cache
+D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.CoreCompileInputs.cache

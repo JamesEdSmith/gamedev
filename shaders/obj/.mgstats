@@ -1,5 +1,6 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "D:/backup/gamedev/shaders/background2.png","D:/backup/gamedev/shaders/bin/background2.xnb","TextureProcessor","Texture2DContent",5223540,16777301,0.5191283
+"D:/backup/gamedev/shaders/dang_man.png","D:/backup/gamedev/shaders/bin/dang_man.xnb","TextureProcessor","Texture2DContent",188008,1774885,0.1392456
 "D:/backup/gamedev/shaders/dmg-palette.png","D:/backup/gamedev/shaders/bin/dmg-palette.xnb","TextureProcessor","Texture2DContent",292,32853,0.0997564
 "D:/backup/gamedev/shaders/gb-pass-0.fx","D:/backup/gamedev/shaders/bin/gb-pass-0.xnb","EffectProcessor","CompiledEffectContent",19707,192592,0.4159453
 "D:/backup/gamedev/shaders/mole_miner.png","D:/backup/gamedev/shaders/bin/mole_miner.xnb","TextureProcessor","Texture2DContent",539,5481,0.0996908

@@ -50,6 +50,7 @@ namespace MoleHillMountain
         RenderTarget2D ShaderRenderTarget4;
 
         static SpriteFont soldierFont;
+        public static SpriteFont gobFont;
         public static Random random = new Random();
         public static bool useShaders = false;
 
@@ -605,6 +606,7 @@ namespace MoleHillMountain
             //setDrawRect();
 
             soldierFont = Content.Load<SpriteFont>("SpriteFont1");
+            gobFont = Content.Load<SpriteFont>("GoblinFont");
 
             PALETTE = Content.Load<Texture2D>(@"palette-4");
             //PALETTE = Content.Load<Texture2D>(@"palette");
@@ -973,7 +975,7 @@ namespace MoleHillMountain
             //LOOT = Content.Load<Texture2D>(@"loot");
             //DOPPEL_METER = Content.Load<Texture2D>(@"doppel_meter");
 
-            //DOT = Content.Load<Texture2D>(@"dot");
+            DOT = Content.Load<Texture2D>(@"dot");
             //SWORD_POINTER = Content.Load<Texture2D>(@"sword_pointer");
             MOLE_MINER_WALKING = Content.Load<Texture2D>(@"mole_miner_sprite");
             MOLE_MINER_DIGGING = Content.Load<Texture2D>(@"mole_miner_sprite_dig");
@@ -992,7 +994,7 @@ namespace MoleHillMountain
             RAT_WALKING = Content.Load<Texture2D>(@"rat_walk_one");
 
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
-            CATJON = Content.Load<Texture2D>(@"Cool_poster_mang");
+            CATJON = Content.Load<Texture2D>(@"dang_man");
 
             TEST = new Texture2D(GraphicsDevice, 1, 1);
             Color[] colors = { Color.Black };

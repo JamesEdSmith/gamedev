@@ -65,8 +65,8 @@ namespace MoleHillMountain
             //spriteBatch.Draw(PikeAndShotGame.TEXT, new Vector2(0,80), Color.White);
             
 
-            //spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "Smith's Amusements", new Vector2(68f, 30f), Color.Black);
-            //spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "Presents", new Vector2(100f, 45f), Color.Black);
+            spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "Smith's Amusements", new Vector2(68f, 30f), Color.Black);
+            spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "Presents", new Vector2(100f, 45f), Color.Black);
 
 
         }

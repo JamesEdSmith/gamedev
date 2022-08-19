@@ -4,6 +4,7 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/backup/gamedev/shaders/dang_man.png</File>
     <File>D:/backup/gamedev/shaders/mole_miner_sprite.png</File>
     <File>D:/backup/gamedev/shaders/mole_miner_sprite_dig.png</File>
     <File>D:/backup/gamedev/shaders/mole_miner2.png</File>
@@ -18,7 +19,6 @@
     <File>D:/backup/gamedev/shaders/background2.png</File>
   </SourceFiles>
   <DestFiles>
-    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

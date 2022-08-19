@@ -1225,7 +1225,6 @@ D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\SharpDX.D3DCo
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AssimpNet.xml
 D:\backup\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotAlpha.csproj.CopyComplete
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\speaker3.xnb
-D:\backup\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotAlpha.csprojAssemblyReference.cache
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\Hellovetica.xnb
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\star.xnb
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.dll
@@ -1237,3 +1236,5 @@ D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\AForge.Video.
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\DRO_aug_2020.xnb
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\slide.xnb
 D:\backup\gamedev\Pikenshot2\Pikenshot2\bin\DesktopGL\AnyCPU\Debug\Content\adam.xnb
+D:\backup\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotAlpha.csproj.AssemblyReference.cache
+D:\backup\gamedev\Pikenshot2\Pikenshot2\obj\Debug\PikenshotAlpha.csproj.CoreCompileInputs.cache
