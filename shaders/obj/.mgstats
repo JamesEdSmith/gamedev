@@ -9,6 +9,8 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/backup/gamedev/shaders/mole_miner2.png","D:/backup/gamedev/shaders/bin/mole_miner2.xnb","TextureProcessor","Texture2DContent",615,6925,0.0927524
 "D:/backup/gamedev/shaders/mole_miner3.png","D:/backup/gamedev/shaders/bin/mole_miner3.xnb","TextureProcessor","Texture2DContent",688,5481,0.0089767
 "D:/backup/gamedev/shaders/palette.png","D:/backup/gamedev/shaders/bin/palette.xnb","TextureProcessor","Texture2DContent",252,32853,0.0972482
+"D:/backup/gamedev/shaders/questionmark_sprite.png","D:/backup/gamedev/shaders/bin/questionmark_sprite.xnb","TextureProcessor","Texture2DContent",223,5269,0.1153032
 "D:/backup/gamedev/shaders/safeplace_fullsize.png","D:/backup/gamedev/shaders/bin/safeplace_fullsize.xnb","TextureProcessor","Texture2DContent",234090,1440085,0.1421556
 "D:/backup/gamedev/shaders/safeplace_fullsize2.png","D:/backup/gamedev/shaders/bin/safeplace_fullsize2.xnb","TextureProcessor","Texture2DContent",211415,1440085,0.1273425
 "D:/backup/gamedev/shaders/test_mole_back.png","D:/backup/gamedev/shaders/bin/test_mole_back.xnb","TextureProcessor","Texture2DContent",5223905,16777301,0.5178182
+"D:/backup/gamedev/shaders/unseen_sprite.png","D:/backup/gamedev/shaders/bin/unseen_sprite.xnb","TextureProcessor","Texture2DContent",410,5269,0.1044984

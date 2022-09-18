@@ -53,7 +53,7 @@ namespace MoleHillMountain
         {
             if (pulse)
             {
-                sprite.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, Color.White);
+                sprite.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, SeenStatus.getVisibilityColor(dungeonScreen.checkMoleSight(dungeonScreen.getCurrTunnel(position))));
                 if (flashing)
                 {
                     flash.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, flashColor);

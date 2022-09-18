@@ -53,6 +53,7 @@ namespace MoleHillMountain
         protected Sprite squashed;
         protected Sprite slingshot;
         protected Sprite mad;
+        protected Sprite unseen;
 
         protected Sprite dizzy_stars;
 
@@ -96,6 +97,7 @@ namespace MoleHillMountain
             squashed = new Sprite(PikeAndShotGame.MOLE_SQUASHED, new Rectangle(0, 0, 18, 18), 18, 18);
             slingshot = new Sprite(PikeAndShotGame.MINER_SLING, new Rectangle(0, 0, 40, 18), 40, 18);
             mad = new Sprite(PikeAndShotGame.RAT_MAD, new Rectangle(0, 0, 20, 18), 20, 18);
+            unseen = new Sprite(PikeAndShotGame.UNSEEN_WALK2, new Rectangle(0, 0, 18, 18), 18, 18);
             dizzy_stars = new Sprite(PikeAndShotGame.DIZZY_MARK, new Rectangle(0, 0, 20, 12), 20, 12);
             squashed.setFrame(squashed.getMaxFrames() - 2);
             walkingSprite = walking;
@@ -191,7 +193,6 @@ namespace MoleHillMountain
             {
                 if (animationTimer >= 0)
                 {
-                    //magic numbers cause the animation was too long
                     int maxFrames = slingshot.getMaxFrames();
                     float frameTime = animationTime / (float)maxFrames;
                     int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
@@ -322,6 +323,7 @@ namespace MoleHillMountain
 
                 if (fightTimer <= 0)
                 {
+                    dimColor.A = (byte)(255f);
                     state &= ~STATE_DIZZY;
                 }
 
@@ -376,7 +378,7 @@ namespace MoleHillMountain
                 }
                 else
                 {
-                    walkingSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
+                    walkingSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
                 }
             }
             else
@@ -438,7 +440,8 @@ namespace MoleHillMountain
                 if (yes)
                 {
                     state |= STATE_DIGGING;
-                    walkingSprite = digging;
+                    if(!(this is Rat) || ((Rat)this).seen == SeenStatus.SEEN)
+                        walkingSprite = digging;
                     animationTime = digTime;
                 }
                 else
@@ -450,7 +453,8 @@ namespace MoleHillMountain
                     }
                     else
                     {
-                        walkingSprite = walking;
+                        if(!(this is Rat) || (((Rat)this).seen == SeenStatus.SEEN))
+                            walkingSprite = walking;
                     }
                     animationTime = walkTime;
                     if (animationTimer > animationTime && (state & STATE_HIT) == 0)

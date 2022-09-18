@@ -58,21 +58,23 @@ namespace MoleHillMountain
             position.X = x;
             position.Y = y;
             drawPosition = new Vector2(position.X, position.Y);
+            if (dungeonScene.checkMoleSight(dungeonScene.getCurrTunnel(position)) != SeenStatus.SEEN)
+                walkingSprite = unseen;
         }
 
         public override void draw(SpriteBatch spritebatch)
         {
             if ((state & STATE_HIT) != 0)
             {
-                mad.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
+                mad.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
             }
             else if ((state & STATE_SCARED) != 0)
             {
-                squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
+                squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
             }
             else if ((state & STATE_SNIFFING) != 0)
             {
-                sniffing.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
+                sniffing.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
             }
             else if ((state & STATE_SQUASHED) != 0)
             {
@@ -122,9 +124,22 @@ namespace MoleHillMountain
             }
         }
 
+        public int seen;
+
         public override void update(GameTime gameTime)
         {
             TimeSpan timeSpan = gameTime.ElapsedGameTime;
+
+            seen = dungeonScene.checkMoleSight(tunnel != null ? tunnel : dungeonScene.getCurrTunnel(position));
+            if (seen != SeenStatus.SEEN)
+            {
+                walkingSprite = unseen;
+            }
+            else
+            {
+                walkingSprite = walking;
+            }
+
             if (madTimer > 0)
             {
                 madTimer -= (float)timeSpan.TotalMilliseconds;
@@ -142,9 +157,12 @@ namespace MoleHillMountain
                 {
                     dimColor.A = (byte)(255f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 10f));
                 }
+            }else
+            {
+                dimColor = SeenStatus.getVisibilityColor(seen);
             }
 
-            if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0 && (state & STATE_SCARED) == 0)
+            if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0)
             {
                 int targetDirection = dungeonScene.checkForTarget(dungeonScene.mole, this, (state & STATE_MAD) != 0);
                 if (targetDirection == MOVING_NONE && (state & STATE_SNIFFING) == 0 && (state & STATE_SCARED) == 0 && (state & STATE_NUDGING) == 0 && (state & STATE_MAD) == 0

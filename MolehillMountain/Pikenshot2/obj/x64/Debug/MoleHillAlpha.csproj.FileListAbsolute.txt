@@ -464,3 +464,5 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\tunnelReveal
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\dirt.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.AssemblyReference.cache
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.CoreCompileInputs.cache
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\questionmark_sprite.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\unseen_sprite.xnb

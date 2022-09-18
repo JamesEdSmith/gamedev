@@ -433,6 +433,9 @@ namespace MoleHillMountain
         public static Texture2D FIGHT_CLOUD;
         public static Texture2D DIZZY_MARK;
 
+        public static Texture2D UNSEEN_WALK;
+        public static Texture2D UNSEEN_WALK2;
+
         public static Texture2D SANDBOX;
 
         public Queue<Texture2D> prevFrames;
@@ -606,6 +609,9 @@ namespace MoleHillMountain
             MINER_SLING = Content.Load<Texture2D>(@"miner_slingshot");
             MOLE_DIZZY = Content.Load<Texture2D>(@"mole_miner_dizzy");
             DIZZY_MARK = Content.Load<Texture2D>(@"seeing_stars");
+
+            UNSEEN_WALK = Content.Load<Texture2D>(@"questionmark_sprite");
+            UNSEEN_WALK2 = Content.Load<Texture2D>(@"unseen_sprite");
 
             TUNNEL = Content.Load<Texture2D>(@"tunnel");
             TUNNEL_REVEAL = Content.Load<Texture2D>(@"dirt");

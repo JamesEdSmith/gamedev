@@ -300,6 +300,18 @@
 /processorParam:TextureFormat=Color
 /build:paper-bg.png
 
+#begin questionmark_sprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,0
+/processorParam:ColorKeyEnabled=False
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:questionmark_sprite.png
+
 #begin safeplace_fullsize.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -357,4 +369,16 @@
 /importer:
 /processor:
 /build:Tools.mgcb
+
+#begin unseen_sprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,0
+/processorParam:ColorKeyEnabled=False
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:unseen_sprite.png
 
