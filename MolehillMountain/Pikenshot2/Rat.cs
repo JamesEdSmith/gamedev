@@ -137,7 +137,10 @@ namespace MoleHillMountain
             }
             else
             {
-                walkingSprite = walking;
+                if((state & STATE_DIGGING) == 0)
+                    walkingSprite = walking;
+                else
+                    walkingSprite = digging;
             }
 
             if (madTimer > 0)
