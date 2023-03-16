@@ -368,7 +368,8 @@ namespace MoleHillMountain
                 if (enemyTimer <= 0)
                 {
                     enemyTimer = ENEMY_TIME;
-                    enemies.Add(new Rat(this, door.position.X, door.position.Y));
+                    //enemies.Add(new Rat(this, door.position.X, door.position.Y));
+                    enemies.Add(new Beeble(this, door.position.X, door.position.Y));
                     enemyCount--;
                 }
             }

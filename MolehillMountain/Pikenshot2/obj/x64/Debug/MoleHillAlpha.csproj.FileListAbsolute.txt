@@ -462,7 +462,10 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\GoblinFont.x
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\heart.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\tunnelReveal_1.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\dirt.xnb
-D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.AssemblyReference.cache
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.CoreCompileInputs.cache
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\questionmark_sprite.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\unseen_sprite.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\beeble_charge.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\beeble_crash.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\beeble_walk.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\beeble_zoom.xnb

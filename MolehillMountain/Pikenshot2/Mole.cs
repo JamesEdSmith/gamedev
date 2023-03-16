@@ -35,6 +35,9 @@ namespace MoleHillMountain
         public const int STATE_HIT = 128;
         public const int STATE_FIGHTING = 256;
         public const int STATE_DIZZY = 512;
+        public const int STATE_CHARGE = 1024;
+        public const int STATE_ZOOM = 2048;
+        public const int STATE_CRASH = 4096;
 
         private const float MOLE_NUDGE_SPACING = 7;
 
@@ -223,7 +226,7 @@ namespace MoleHillMountain
                     }
                 }
             }
-            else if (moving == MOVING_NONE)
+            else if (moving == MOVING_NONE || (state & STATE_CRASH) != 0)
             {
                 walkingSprite.setFrame(0);
                 position.X += nudgeMovement;
@@ -435,7 +438,8 @@ namespace MoleHillMountain
 
         public void setDig(bool yes)
         {
-            if ((state & STATE_NUDGING) == 0 && (state & STATE_SNIFFING) == 0)
+            if ((state & STATE_NUDGING) == 0 && (state & STATE_SNIFFING) == 0 && (state & STATE_CHARGE) == 0 
+                && (state & STATE_ZOOM) == 0 && (state & STATE_CRASH) == 0)
             {
                 if (yes)
                 {
