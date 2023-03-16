@@ -4,6 +4,10 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/backup/gamedev/shaders/beeble_charge.png</File>
+    <File>D:/backup/gamedev/shaders/beeble_crash.png</File>
+    <File>D:/backup/gamedev/shaders/beeble_walk.png</File>
+    <File>D:/backup/gamedev/shaders/beeble_zoom.png</File>
     <File>D:/backup/gamedev/shaders/unseen_sprite.png</File>
     <File>D:/backup/gamedev/shaders/questionmark_sprite.png</File>
     <File>D:/backup/gamedev/shaders/dang_man.png</File>
@@ -21,6 +25,9 @@
     <File>D:/backup/gamedev/shaders/background2.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

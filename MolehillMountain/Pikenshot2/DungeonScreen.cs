@@ -696,72 +696,76 @@ namespace MoleHillMountain
                 }
             }
 
-            if (tunnels[moleRight, moleMiddleY].left == Tunnel.NOT_DUG && mole.prevMoleRight == moleRight - 1)
+            if (moleLeft >= 0 && moleRight < tunnels.GetLength(0) && moleUp >= 0 && moleDown < tunnels.GetLength(1))
             {
-                tunnels[moleRight, moleMiddleY].left = Tunnel.HALF_DUG;
-                tunnels[moleRight - 1, moleMiddleY].right = Tunnel.DUG;
-            }
-            if (tunnels[moleLeft, moleMiddleY].left == Tunnel.HALF_DUG && mole.prevMoleLeft == moleLeft - 1)
-            {
-                tunnels[moleLeft, moleMiddleY].left = Tunnel.DUG;
-            }
 
-            if (tunnels[moleLeft, moleMiddleY].right == Tunnel.NOT_DUG && mole.prevMoleLeft == moleLeft + 1)
-            {
-                tunnels[moleLeft, moleMiddleY].right = Tunnel.HALF_DUG;
-                tunnels[moleLeft + 1, moleMiddleY].left = Tunnel.DUG;
-            }
-            if (tunnels[moleRight, moleMiddleY].right == Tunnel.HALF_DUG && mole.prevMoleRight == moleRight + 1)
-            {
-                tunnels[moleRight, moleMiddleY].right = Tunnel.DUG;
-            }
 
-            mole.prevMoleLeft = moleLeft;
-            mole.prevMoleRight = moleRight;
-
-            if (tunnels[moleMiddleX, moleDown].top == Tunnel.NOT_DUG && mole.prevMoleDown == moleDown - 1)
-            {
-                tunnels[moleMiddleX, moleDown].top = Tunnel.HALF_DUG;
-                tunnels[moleMiddleX, moleDown - 1].bottom = Tunnel.DUG;
-            }
-            if (tunnels[moleMiddleX, moleUp].top == Tunnel.HALF_DUG && mole.prevMoleUp == moleUp - 1)
-            {
-                tunnels[moleMiddleX, moleUp].top = Tunnel.DUG;
-            }
-
-            if (tunnels[moleMiddleX, moleUp].bottom == Tunnel.NOT_DUG && mole.prevMoleUp == moleUp + 1)
-            {
-                tunnels[moleMiddleX, moleUp].bottom = Tunnel.HALF_DUG;
-                tunnels[moleMiddleX, moleUp + 1].top = Tunnel.DUG;
-            }
-            if (tunnels[moleMiddleX, moleDown].bottom == Tunnel.HALF_DUG && mole.prevMoleDown == moleDown + 1)
-            {
-                tunnels[moleMiddleX, moleDown].bottom = Tunnel.DUG;
-            }
-
-            mole.prevMoleUp = moleUp;
-            mole.prevMoleDown = moleDown;
-
-            foreach (Tunnel tunnel in tunnels)
-            {
-                if (tunnel.bottom == Tunnel.DUG || tunnel.top == Tunnel.DUG || tunnel.right == Tunnel.DUG || tunnel.left == Tunnel.DUG)
+                if (tunnels[moleRight, moleMiddleY].left == Tunnel.NOT_DUG && mole.prevMoleRight == moleRight - 1)
                 {
-                    if (tunnel.bottom == Tunnel.HALF_DUG)
-                        tunnel.bottom = Tunnel.DUG;
-                    if (tunnel.top == Tunnel.HALF_DUG)
-                        tunnel.top = Tunnel.DUG;
-                    if (tunnel.right == Tunnel.HALF_DUG)
-                        tunnel.right = Tunnel.DUG;
-                    if (tunnel.left == Tunnel.HALF_DUG)
-                        tunnel.left = Tunnel.DUG;
+                    tunnels[moleRight, moleMiddleY].left = Tunnel.HALF_DUG;
+                    tunnels[moleRight - 1, moleMiddleY].right = Tunnel.DUG;
+                }
+                if (tunnels[moleLeft, moleMiddleY].left == Tunnel.HALF_DUG && mole.prevMoleLeft == moleLeft - 1)
+                {
+                    tunnels[moleLeft, moleMiddleY].left = Tunnel.DUG;
+                }
+
+                if (tunnels[moleLeft, moleMiddleY].right == Tunnel.NOT_DUG && mole.prevMoleLeft == moleLeft + 1)
+                {
+                    tunnels[moleLeft, moleMiddleY].right = Tunnel.HALF_DUG;
+                    tunnels[moleLeft + 1, moleMiddleY].left = Tunnel.DUG;
+                }
+                if (tunnels[moleRight, moleMiddleY].right == Tunnel.HALF_DUG && mole.prevMoleRight == moleRight + 1)
+                {
+                    tunnels[moleRight, moleMiddleY].right = Tunnel.DUG;
+                }
+
+                mole.prevMoleLeft = moleLeft;
+                mole.prevMoleRight = moleRight;
+
+                if (tunnels[moleMiddleX, moleDown].top == Tunnel.NOT_DUG && mole.prevMoleDown == moleDown - 1)
+                {
+                    tunnels[moleMiddleX, moleDown].top = Tunnel.HALF_DUG;
+                    tunnels[moleMiddleX, moleDown - 1].bottom = Tunnel.DUG;
+                }
+                if (tunnels[moleMiddleX, moleUp].top == Tunnel.HALF_DUG && mole.prevMoleUp == moleUp - 1)
+                {
+                    tunnels[moleMiddleX, moleUp].top = Tunnel.DUG;
+                }
+
+                if (tunnels[moleMiddleX, moleUp].bottom == Tunnel.NOT_DUG && mole.prevMoleUp == moleUp + 1)
+                {
+                    tunnels[moleMiddleX, moleUp].bottom = Tunnel.HALF_DUG;
+                    tunnels[moleMiddleX, moleUp + 1].top = Tunnel.DUG;
+                }
+                if (tunnels[moleMiddleX, moleDown].bottom == Tunnel.HALF_DUG && mole.prevMoleDown == moleDown + 1)
+                {
+                    tunnels[moleMiddleX, moleDown].bottom = Tunnel.DUG;
+                }
+
+                mole.prevMoleUp = moleUp;
+                mole.prevMoleDown = moleDown;
+
+                foreach (Tunnel tunnel in tunnels)
+                {
+                    if (tunnel.bottom == Tunnel.DUG || tunnel.top == Tunnel.DUG || tunnel.right == Tunnel.DUG || tunnel.left == Tunnel.DUG)
+                    {
+                        if (tunnel.bottom == Tunnel.HALF_DUG)
+                            tunnel.bottom = Tunnel.DUG;
+                        if (tunnel.top == Tunnel.HALF_DUG)
+                            tunnel.top = Tunnel.DUG;
+                        if (tunnel.right == Tunnel.HALF_DUG)
+                            tunnel.right = Tunnel.DUG;
+                        if (tunnel.left == Tunnel.HALF_DUG)
+                            tunnel.left = Tunnel.DUG;
+                    }
+                }
+
+                if ((mole.state & Mole.STATE_DIGGING) != 0)
+                {
+                    revealTunnels();
                 }
             }
-
-            if ((mole.state & Mole.STATE_DIGGING) != 0)
-            {
-                revealTunnels();
-            }
-
         }
 
         internal Vector2 getMolePosition()

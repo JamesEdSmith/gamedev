@@ -24,7 +24,7 @@ namespace MoleHillMountain
         protected const float MAD_RESET_TIME = 2000;
 
         public Tunnel tunnel;
-        ArrayList clearDirections;
+        protected ArrayList clearDirections;
         static Random random = new Random();
         int intendingToMove;
 
