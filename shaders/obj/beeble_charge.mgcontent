@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/backup/gamedev/shaders/beeble_charge.png</SourceFile>
-  <SourceTime>2023-03-15T16:51:33.0622933-04:00</SourceTime>
+  <SourceFile>D:/backup/gamedev/shaders/../art/beeble_charge.png</SourceFile>
+  <SourceTime>2023-03-20T04:15:03.8676585-04:00</SourceTime>
   <DestFile>D:/backup/gamedev/shaders/bin/beeble_charge.xnb</DestFile>
-  <DestTime>2023-03-15T21:53:26.8595899-04:00</DestTime>
+  <DestTime>2023-03-20T04:15:16.4529612-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
   <ProcessorTime>2018-12-08T11:35:54-05:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
-    <Value>255,255,255,0</Value>
+    <Value>255,0,255,255</Value>
   </Parameters>
   <Parameters>
     <Key>ColorKeyEnabled</Key>
-    <Value>False</Value>
+    <Value>True</Value>
   </Parameters>
   <Parameters>
     <Key>GenerateMipmaps</Key>

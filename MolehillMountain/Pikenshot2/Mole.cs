@@ -15,6 +15,7 @@ namespace MoleHillMountain
 
         const float WALK_SPEED = 38f;
         const float DIG_SPEED = 30f;
+        const float ZOOM_SPEED = 76f;
         public const float FIGHT_TIME = 900f;
         public const float DIZZY_TIME = 3000f;
         public const float DIZZY_MARK_TIME = 325f;
@@ -89,6 +90,8 @@ namespace MoleHillMountain
         private Vector2 hitPosition;
         private Vector2 startPosition;
         protected Color dimColor = new Color(255, 255, 255, 255);
+
+        protected bool centeringOnTile;
 
         public Mole(DungeonScreen dungeonScene)
         {
@@ -246,6 +249,11 @@ namespace MoleHillMountain
                     animationTime = digTime;
                     walkSpeed = DIG_SPEED;
                 }
+                else if ((state & STATE_ZOOM) != 0)
+                {
+                    animationTime = 375;
+                    walkSpeed = ZOOM_SPEED;
+                }
                 else
                 {
                     animationTime = walkTime;
@@ -308,6 +316,20 @@ namespace MoleHillMountain
                         break;
                 }
 
+                if (centeringOnTile)
+                {
+                    centeringOnTile = false;
+                    if( Math.Abs((int)position.X % DungeonScreen.GRID_SIZE - DungeonScreen.GRID_SIZE/2) < 2)
+                    {
+                        Tunnel tunnel = dungeonScene.getCurrTunnel(position);
+                        position.X = tunnel.position.X + DungeonScreen.GRID_SIZE / 2;
+                    }
+                    if (Math.Abs((int)position.Y % DungeonScreen.GRID_SIZE - DungeonScreen.GRID_SIZE/2) < 2)
+                    {
+                        Tunnel tunnel = dungeonScene.getCurrTunnel(position);
+                        position.Y = tunnel.position.Y + DungeonScreen.GRID_SIZE / 2;
+                    }
+                }
                 drawPosition.X = (int)position.X;
                 drawPosition.Y = (int)position.Y;
 
@@ -317,7 +339,7 @@ namespace MoleHillMountain
 
                 walkingSprite.setFrame(frameNumber);
 
-                nudgeMovement = 0;                
+                nudgeMovement = 0;
             }
             if ((state & STATE_DIZZY) != 0)
             {
@@ -371,10 +393,12 @@ namespace MoleHillMountain
                     if (vertFacing == Sprite.DIRECTION_NONE)
                     {
                         dizzy_stars.draw(spritebatch, drawPosition + DungeonScreen.OFFSET + STAR_OFFSET_UP, horzFacing, vertFacing);
-                    }else if(horzFacing == Sprite.DIRECTION_LEFT)
+                    }
+                    else if (horzFacing == Sprite.DIRECTION_LEFT)
                     {
                         dizzy_stars.draw(spritebatch, drawPosition + DungeonScreen.OFFSET + STAR_OFFSET_RIGHT, horzFacing, vertFacing);
-                    }else
+                    }
+                    else
                     {
                         dizzy_stars.draw(spritebatch, drawPosition + DungeonScreen.OFFSET - STAR_OFFSET_RIGHT, horzFacing, vertFacing);
                     }
@@ -438,13 +462,13 @@ namespace MoleHillMountain
 
         public void setDig(bool yes)
         {
-            if ((state & STATE_NUDGING) == 0 && (state & STATE_SNIFFING) == 0 && (state & STATE_CHARGE) == 0 
+            if ((state & STATE_NUDGING) == 0 && (state & STATE_SNIFFING) == 0 && (state & STATE_CHARGE) == 0
                 && (state & STATE_ZOOM) == 0 && (state & STATE_CRASH) == 0)
             {
                 if (yes)
                 {
                     state |= STATE_DIGGING;
-                    if(!(this is Rat) || ((Rat)this).seen == SeenStatus.SEEN)
+                    if (!(this is Rat) || ((Rat)this).seen == SeenStatus.SEEN)
                         walkingSprite = digging;
                     animationTime = digTime;
                 }
@@ -457,7 +481,7 @@ namespace MoleHillMountain
                     }
                     else
                     {
-                        if(!(this is Rat) || (((Rat)this).seen == SeenStatus.SEEN))
+                        if (!(this is Rat) || (((Rat)this).seen == SeenStatus.SEEN))
                             walkingSprite = walking;
                     }
                     animationTime = walkTime;
@@ -479,10 +503,12 @@ namespace MoleHillMountain
             else if (vert > 0)
             {
                 up();
+                centeringOnTile = true;
             }
             else
             {
                 down();
+                centeringOnTile = true;
             }
         }
 
@@ -509,10 +535,12 @@ namespace MoleHillMountain
             else if (vert > 0)
             {
                 up();
+                centeringOnTile = true;
             }
             else
             {
                 down();
+                centeringOnTile = true;
             }
         }
 
@@ -543,10 +571,12 @@ namespace MoleHillMountain
             else if (horz > 0)
             {
                 left();
+                centeringOnTile = true;
             }
             else
             {
                 right();
+                centeringOnTile = true;
             }
         }
 
@@ -560,10 +590,12 @@ namespace MoleHillMountain
             else if (horz > 0)
             {
                 left();
+                centeringOnTile = true;
             }
             else
             {
                 right();
+                centeringOnTile = true;
             }
         }
 
