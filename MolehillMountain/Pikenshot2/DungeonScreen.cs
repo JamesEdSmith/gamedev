@@ -31,7 +31,7 @@ namespace MoleHillMountain
 
         internal Tunnel getCurrTunnel(Vector2 position)
         {
-            if (((int)position.X / GRID_SIZE >= 0 && (int)position.X / GRID_SIZE < GRID_WIDTH) && ((int)position.Y / GRID_SIZE >= 0 && (int)position.Y / GRID_SIZE < GRID_HEIGHT))
+            if (((int)position.X >= 0 && (int)position.X / GRID_SIZE < GRID_WIDTH) && ((int)position.Y >= 0 && (int)position.Y / GRID_SIZE < GRID_HEIGHT))
             {
                 return tunnels[(int)position.X / GRID_SIZE, (int)position.Y / GRID_SIZE];
             }

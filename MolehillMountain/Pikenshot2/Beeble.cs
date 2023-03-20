@@ -10,6 +10,10 @@ namespace MoleHillMountain
 {
     class Beeble : Rat
     {
+        static Vector2 rightVector = new Vector2(DungeonScreen.GRID_SIZE, 0);
+        static Vector2 leftVector = new Vector2(-DungeonScreen.GRID_SIZE, 0);
+        static Vector2 upVector = new Vector2(0, -DungeonScreen.GRID_SIZE);
+        static Vector2 downVector = new Vector2(0, DungeonScreen.GRID_SIZE);
 
         Sprite crashing;
         Sprite charging;
@@ -37,7 +41,7 @@ namespace MoleHillMountain
             digTime = 325;
             chargeTime = 750;
             zoomTime = 325;
-            crashTime = 570f;
+            crashTime = 700f;
         }
 
         public Beeble(DungeonScreen dungeonScreen, int x, int y) : this(dungeonScreen)
@@ -128,15 +132,21 @@ namespace MoleHillMountain
             {
                 tunnel = newTunnel;
 
+                Tunnel leftTunnel = dungeonScene.getCurrTunnel(position + leftVector);
+                Tunnel rightTunnel = dungeonScene.getCurrTunnel(position + rightVector);
+                Tunnel upTunnel = dungeonScene.getCurrTunnel(position + upVector);
+                Tunnel downTunnel = dungeonScene.getCurrTunnel(position + downVector);
+
+
                 clearDirections.Clear();
 
-                if (dungeonScene.vegetableLeftClear(this) && ((state & STATE_MAD) != 0 || (tunnel.left == Tunnel.DUG || tunnel.left == Tunnel.HALF_DUG)))
+                if (leftTunnel != null && dungeonScene.vegetableLeftClear(this) && ((state & STATE_MAD) != 0 || (tunnel.left == Tunnel.DUG || tunnel.left == Tunnel.HALF_DUG || leftTunnel.left == Tunnel.DUG || leftTunnel.top == Tunnel.DUG || leftTunnel.bottom == Tunnel.DUG)))
                     clearDirections.Add(LEFT_CLEAR);
-                if (dungeonScene.vegetableRightClear(this) && ((state & STATE_MAD) != 0 || (tunnel.right == Tunnel.DUG || tunnel.right == Tunnel.HALF_DUG)))
+                if (rightTunnel != null && dungeonScene.vegetableRightClear(this) && ((state & STATE_MAD) != 0 || (tunnel.right == Tunnel.DUG || tunnel.right == Tunnel.HALF_DUG || rightTunnel.right == Tunnel.DUG || rightTunnel.top == Tunnel.DUG || rightTunnel.bottom == Tunnel.DUG)))
                     clearDirections.Add(RIGHT_CLEAR);
-                if ((state & STATE_MAD) != 0 || (tunnel.top == Tunnel.DUG || tunnel.top == Tunnel.HALF_DUG))
+                if (upTunnel != null && ((state & STATE_MAD) != 0 || (tunnel.top == Tunnel.DUG || tunnel.top == Tunnel.HALF_DUG || upTunnel.right == Tunnel.DUG || upTunnel.top == Tunnel.DUG || upTunnel.left == Tunnel.DUG)))
                     clearDirections.Add(UP_CLEAR);
-                if (!dungeonScene.vegetableDirectlyBelow(this) && ((state & STATE_MAD) != 0 || (tunnel.bottom == Tunnel.DUG || tunnel.bottom == Tunnel.HALF_DUG)))
+                if (downTunnel != null && !dungeonScene.vegetableDirectlyBelow(this) && ((state & STATE_MAD) != 0 || (tunnel.bottom == Tunnel.DUG || tunnel.bottom == Tunnel.HALF_DUG || downTunnel.right == Tunnel.DUG || downTunnel.left == Tunnel.DUG || downTunnel.bottom == Tunnel.DUG)))
                     clearDirections.Add(DOWN_CLEAR);
 
                 if (intendingToMove == MOVING_LEFT && clearDirections.Contains(LEFT_CLEAR))
