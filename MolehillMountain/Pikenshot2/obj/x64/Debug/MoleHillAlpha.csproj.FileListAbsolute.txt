@@ -469,3 +469,4 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\beeble_charg
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\beeble_crash.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\beeble_walk.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\beeble_zoom.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.AssemblyReference.cache

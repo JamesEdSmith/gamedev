@@ -123,8 +123,8 @@ namespace MoleHillMountain
             Tunnel newTunnel = dungeonScene.getCurrTunnel(position);
 
             if ((tunnel == null || newTunnel != tunnel)
-                && (int)position.X % DungeonScreen.GRID_SIZE == DungeonScreen.GRID_SIZE / 2
-                && (int)position.Y % DungeonScreen.GRID_SIZE == DungeonScreen.GRID_SIZE / 2)
+                && Math.Abs((int)position.X % DungeonScreen.GRID_SIZE - DungeonScreen.GRID_SIZE / 2) < 2
+                && Math.Abs((int)position.Y % DungeonScreen.GRID_SIZE - DungeonScreen.GRID_SIZE / 2) < 2)
             {
                 tunnel = newTunnel;
 
@@ -159,6 +159,7 @@ namespace MoleHillMountain
                 {
                     state &= ~STATE_ZOOM;
                     state |= STATE_CRASH;
+                    position = tunnel.position + new Vector2(DungeonScreen.GRID_SIZE / 2, DungeonScreen.GRID_SIZE / 2);
                     animationTime = animationTimer = crashTime;
                 }
 
