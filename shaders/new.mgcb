@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:../art/beeble_crash.png;beeble_crash.png
 
+#begin ../art/beeble_spawn.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../art/beeble_spawn.png;beeble_spawn.png
+
 #begin ../art/beeble_zoom.png
 /importer:TextureImporter
 /processor:TextureProcessor

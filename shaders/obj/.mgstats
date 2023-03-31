@@ -1,6 +1,7 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "D:/backup/gamedev/shaders/../art/beeble_charge.png","D:/backup/gamedev/shaders/bin/beeble_charge.xnb","TextureProcessor","Texture2DContent",1318,22485,0.0843373
 "D:/backup/gamedev/shaders/../art/beeble_crash.png","D:/backup/gamedev/shaders/bin/beeble_crash.xnb","TextureProcessor","Texture2DContent",727,11285,0.09399
+"D:/backup/gamedev/shaders/../art/beeble_spawn.png","D:/backup/gamedev/shaders/bin/beeble_spawn.xnb","TextureProcessor","Texture2DContent",1344,28885,0.3492152
 "D:/backup/gamedev/shaders/../art/beeble_zoom.png","D:/backup/gamedev/shaders/bin/beeble_zoom.xnb","TextureProcessor","Texture2DContent",339,6485,0.3196567
 "D:/backup/gamedev/shaders/background2.png","D:/backup/gamedev/shaders/bin/background2.xnb","TextureProcessor","Texture2DContent",5223540,16777301,0.5191283
 "D:/backup/gamedev/shaders/beeble_charge.png","D:/backup/gamedev/shaders/bin/beeble_charge.xnb","TextureProcessor","Texture2DContent",1626,32085,0.3507836

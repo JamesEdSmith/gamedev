@@ -82,7 +82,37 @@ namespace MoleHillMountain
         {
             int x = (int)(position.X / GRID_SIZE);
             int y = (int)(position.Y / GRID_SIZE) + 1;
-            if (x < GRID_WIDTH && y < GRID_HEIGHT)
+            if (x < GRID_WIDTH && y < GRID_HEIGHT && x >= 0 && y >= 0)
+                return tunnels[x, y];
+            else
+                return null;
+        }
+
+        internal Tunnel getTunnelAbove(Vector2 position)
+        {
+            int x = (int)(position.X / GRID_SIZE);
+            int y = (int)(position.Y / GRID_SIZE) - 1;
+            if (x < GRID_WIDTH && y < GRID_HEIGHT && x >= 0 && y >= 0)
+                return tunnels[x, y];
+            else
+                return null;
+        }
+
+        internal Tunnel getTunnelLeft(Vector2 position)
+        {
+            int x = (int)(position.X / GRID_SIZE) - 1;
+            int y = (int)(position.Y / GRID_SIZE);
+            if (x < GRID_WIDTH && y < GRID_HEIGHT && x >= 0 && y >= 0)
+                return tunnels[x, y];
+            else
+                return null;
+        }
+
+        internal Tunnel getTunnelRight(Vector2 position)
+        {
+            int x = (int)(position.X / GRID_SIZE) + 1;
+            int y = (int)(position.Y / GRID_SIZE);
+            if (x < GRID_WIDTH && y < GRID_HEIGHT && x >= 0 && y >= 0)
                 return tunnels[x, y];
             else
                 return null;
@@ -271,9 +301,11 @@ namespace MoleHillMountain
                     pickupTimer = pickupTime;
 
                     pickup.collected(pickupSequenceCount);
-                    deadStuff.Add(pickup);
                 }
                 pickup.update(gameTime);
+
+                if(pickup.state == Grub.STATE_COLLECTED)
+                    deadStuff.Add(pickup);
             }
 
             foreach (Grub pickup in deadStuff)
@@ -368,9 +400,9 @@ namespace MoleHillMountain
                 if (enemyTimer <= 0)
                 {
                     enemyTimer = ENEMY_TIME;
-                    if(random.Next(2) == 0)
+                    if (random.Next(2) == 0)
                         enemies.Add(new Rat(this, door.position.X, door.position.Y));
-                    else 
+                    else
                         enemies.Add(new Beeble(this, door.position.X, door.position.Y));
 
                     enemyCount--;

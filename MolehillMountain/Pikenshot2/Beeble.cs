@@ -18,10 +18,11 @@ namespace MoleHillMountain
         Sprite crashing;
         Sprite charging;
         Sprite zooming;
-
+        
         float chargeTime;
         float zoomTime;
         float crashTime;
+        
 
         public Beeble(DungeonScreen dungeonScene) : base(dungeonScene)
         {
@@ -34,6 +35,7 @@ namespace MoleHillMountain
             crashing = new Sprite(PikeAndShotGame.BEEBLE_CRASH, new Rectangle(0, 0, 20, 20), 20, 20);
             charging = new Sprite(PikeAndShotGame.BEEBLE_CHARGE, new Rectangle(0, 0, 20, 20), 20, 20);
             zooming = new Sprite(PikeAndShotGame.BEEBLE_ZOOM, new Rectangle(0, 0, 20, 20), 20, 20);
+            
             walkTime = 570f;
             clearDirections = new ArrayList(4);
             str = 3;
@@ -136,7 +138,6 @@ namespace MoleHillMountain
                 Tunnel rightTunnel = dungeonScene.getCurrTunnel(position + rightVector);
                 Tunnel upTunnel = dungeonScene.getCurrTunnel(position + upVector);
                 Tunnel downTunnel = dungeonScene.getCurrTunnel(position + downVector);
-
 
                 clearDirections.Clear();
 
