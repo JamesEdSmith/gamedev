@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/backup/gamedev/shaders/theme.ogg</SourceFile>
-  <SourceTime>2016-11-16T13:00:06.3026023-05:00</SourceTime>
-  <DestFile>D:/backup/gamedev/shaders/bin/theme.xnb</DestFile>
-  <DestTime>2023-04-03T15:03:55.0037584-04:00</DestTime>
-  <Importer>OggImporter</Importer>
+  <SourceFile>D:/backup/gamedev/shaders/bin/theme.wma</SourceFile>
+  <SourceTime>2017-01-19T21:09:53.7612121-05:00</SourceTime>
+  <DestFile>D:/backup/gamedev/shaders/bin/bin/theme.xnb</DestFile>
+  <DestTime>2023-04-03T15:03:51.5899472-04:00</DestTime>
+  <Importer>WmaImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>SongProcessor</Processor>
   <ProcessorTime>2018-12-08T11:35:54-05:00</ProcessorTime>
@@ -15,6 +15,6 @@
   <Dependencies />
   <BuildAsset />
   <BuildOutput>
-    <string>D:/backup/gamedev/shaders/bin/theme.wma</string>
+    <string>D:/backup/gamedev/shaders/bin/bin/theme.wma</string>
   </BuildOutput>
 </PipelineBuildEvent>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/backup/gamedev/shaders/gb-pass-0.fx</SourceFile>
-  <SourceTime>2019-12-27T02:25:04.5328104-05:00</SourceTime>
-  <DestFile>D:/backup/gamedev/shaders/bin/gb-pass-0.xnb</DestFile>
-  <DestTime>2023-04-03T15:03:52.3590125-04:00</DestTime>
+  <SourceFile>D:/backup/gamedev/shaders/BloomExtract.fx</SourceFile>
+  <SourceTime>2016-11-02T15:03:55.5219088-04:00</SourceTime>
+  <DestFile>D:/backup/gamedev/shaders/bin/BloomExtract.xnb</DestFile>
+  <DestTime>2023-04-03T15:03:51.8919352-04:00</DestTime>
   <Importer>EffectImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>EffectProcessor</Processor>

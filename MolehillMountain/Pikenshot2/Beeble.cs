@@ -30,7 +30,7 @@ namespace MoleHillMountain
 
             walkingSprite = walking;
             nudging = new Sprite(PikeAndShotGame.RAT_NUDGE, new Rectangle(0, 0, 22, 18), 22, 18);
-            squashed = new Sprite(PikeAndShotGame.RAT_CRUSHED, new Rectangle(0, 0, 22, 18), 22, 18);
+            squashed = new Sprite(PikeAndShotGame.BEEBLE_CRUSHED, new Rectangle(0, 0, 20, 20), 20, 20);
             digging = new Sprite(PikeAndShotGame.BEEBLE_ZOOM, new Rectangle(0, 0, 20, 20), 20, 20);
             crashing = new Sprite(PikeAndShotGame.BEEBLE_CRASH, new Rectangle(0, 0, 20, 20), 20, 20);
             charging = new Sprite(PikeAndShotGame.BEEBLE_CHARGE, new Rectangle(0, 0, 20, 20), 20, 20);

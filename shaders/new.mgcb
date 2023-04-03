@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:../art/beeble_crash.png;beeble_crash.png
 
+#begin ../art/beeble_crushed.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=False
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../art/beeble_crushed.png;beeble_crushed.png
+
 #begin ../art/beeble_spawn.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -60,6 +72,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../art/beeble_zoom.png;beeble_zoom.png
+
+#begin ../art/salamando_walk.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=False
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../art/salamando_walk.png;salamando_walk.png
 
 #begin background2.png
 /importer:TextureImporter

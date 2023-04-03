@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>D:/backup/gamedev/shaders/beeble_walk.png</SourceFile>
-  <SourceTime>2023-03-15T04:01:22.7738886-04:00</SourceTime>
+  <SourceTime>2023-03-20T06:02:45.76086-04:00</SourceTime>
   <DestFile>D:/backup/gamedev/shaders/bin/beeble_walk.xnb</DestFile>
-  <DestTime>2023-03-15T21:53:26.8745284-04:00</DestTime>
+  <DestTime>2023-04-03T15:03:50.959556-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
