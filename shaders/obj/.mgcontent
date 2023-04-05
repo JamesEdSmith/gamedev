@@ -4,11 +4,12 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/backup/gamedev/shaders/../art/salamando_spit.png</File>
+    <File>D:/backup/gamedev/shaders/../art/salamando_walk.png</File>
     <File>D:/backup/gamedev/shaders/../art/beeble_crushed.png</File>
     <File>D:/backup/gamedev/shaders/../art/beeble_charge.png</File>
     <File>D:/backup/gamedev/shaders/../art/beeble_spawn.png</File>
     <File>D:/backup/gamedev/shaders/../art/beeble_zoom.png</File>
-    <File>D:/backup/gamedev/shaders/../art/salamando_walk.png</File>
     <File>D:/backup/gamedev/shaders/background2.png</File>
     <File>D:/backup/gamedev/shaders/beeble_walk.png</File>
     <File>D:/backup/gamedev/shaders/bin/theme.wma</File>
@@ -36,11 +37,12 @@
     <File>D:/backup/gamedev/shaders/unseen_sprite.png</File>
   </SourceFiles>
   <DestFiles>
+    <File>salamando_spit.png</File>
+    <File>salamando_walk.png</File>
     <File>beeble_crushed.png</File>
     <File>beeble_charge.png</File>
     <File>beeble_spawn.png</File>
     <File>beeble_zoom.png</File>
-    <File>salamando_walk.png</File>
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

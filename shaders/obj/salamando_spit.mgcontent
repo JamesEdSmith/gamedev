@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/backup/gamedev/shaders/../art/salamando_walk.png</SourceFile>
-  <SourceTime>2023-04-05T00:08:44.7727122-04:00</SourceTime>
-  <DestFile>D:/backup/gamedev/shaders/bin/salamando_walk.xnb</DestFile>
-  <DestTime>2023-04-05T00:09:05.9831576-04:00</DestTime>
+  <SourceFile>D:/backup/gamedev/shaders/../art/salamando_spit.png</SourceFile>
+  <SourceTime>2023-04-05T00:27:30.0888825-04:00</SourceTime>
+  <DestFile>D:/backup/gamedev/shaders/bin/salamando_spit.xnb</DestFile>
+  <DestTime>2023-04-05T00:28:56.4735672-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
@@ -14,7 +14,7 @@
   </Parameters>
   <Parameters>
     <Key>ColorKeyEnabled</Key>
-    <Value>False</Value>
+    <Value>True</Value>
   </Parameters>
   <Parameters>
     <Key>GenerateMipmaps</Key>

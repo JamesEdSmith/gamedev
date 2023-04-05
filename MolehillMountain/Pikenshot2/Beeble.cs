@@ -18,11 +18,11 @@ namespace MoleHillMountain
         Sprite crashing;
         Sprite charging;
         Sprite zooming;
-        
+
         float chargeTime;
         float zoomTime;
         float crashTime;
-        
+
 
         public Beeble(DungeonScreen dungeonScene) : base(dungeonScene)
         {
@@ -35,7 +35,7 @@ namespace MoleHillMountain
             crashing = new Sprite(PikeAndShotGame.BEEBLE_CRASH, new Rectangle(0, 0, 20, 20), 20, 20);
             charging = new Sprite(PikeAndShotGame.BEEBLE_CHARGE, new Rectangle(0, 0, 20, 20), 20, 20);
             zooming = new Sprite(PikeAndShotGame.BEEBLE_ZOOM, new Rectangle(0, 0, 20, 20), 20, 20);
-            
+
             walkTime = 570f;
             clearDirections = new ArrayList(4);
             str = 3;
@@ -68,12 +68,45 @@ namespace MoleHillMountain
             float xDiff = Math.Abs(dungeonScene.mole.position.X - position.X);
 
             if (targetDirection != MOVING_NONE && (state & STATE_CHARGE) == 0 && (state & STATE_ZOOM) == 0 && (state & STATE_CRASH) == 0
-                && (((targetDirection == MOVING_LEFT || targetDirection == MOVING_RIGHT) && yDiff < 1) || ((targetDirection == MOVING_DOWN || targetDirection == MOVING_UP) && xDiff < 5)))
+                && (((targetDirection == MOVING_LEFT || targetDirection == MOVING_RIGHT) && yDiff < 5) || ((targetDirection == MOVING_DOWN || targetDirection == MOVING_UP) && xDiff < 5)))
             {
                 state |= STATE_CHARGE;
                 animationTime = animationTimer = chargeTime;
 
                 intendingToMove = targetDirection;
+
+                if (targetDirection == MOVING_RIGHT)
+                {
+                    vertFacing = Sprite.DIRECTION_NONE;
+                    horzFacing = Sprite.DIRECTION_RIGHT;
+                }
+                else if (targetDirection == MOVING_LEFT)
+                {
+                    moving = MOVING_LEFT;
+                    vertFacing = Sprite.DIRECTION_NONE;
+                    horzFacing = Sprite.DIRECTION_LEFT;
+                }
+                else if (targetDirection == MOVING_UP)
+                {
+                    moving = MOVING_UP;
+                    vertFacing = Sprite.DIRECTION_UP;
+                }
+                else
+                {
+                    moving = MOVING_DOWN;
+                    if (vertFacing == Sprite.DIRECTION_NONE)
+                    {
+                        if (horzFacing == Sprite.DIRECTION_LEFT)
+                        {
+                            horzFacing = Sprite.DIRECTION_RIGHT;
+                        }
+                        else
+                        {
+                            horzFacing = Sprite.DIRECTION_LEFT;
+                        }
+                    }
+                    vertFacing = Sprite.DIRECTION_DOWN;
+                }
 
                 stopMoving();
             }

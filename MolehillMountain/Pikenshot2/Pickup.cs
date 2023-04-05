@@ -217,7 +217,7 @@ namespace MoleHillMountain
                 looking = new Sprite(PikeAndShotGame.GRUB_LOOK, new Rectangle(0, 0, 20, 20), 20, 20);
                 idle = new Sprite(PikeAndShotGame.GRUB_GRUB, new Rectangle(0, 0, 20, 20), 20, 20);
                 spawning = new Sprite(PikeAndShotGame.BEEBLE_SPAWN, new Rectangle(0, 0, 20, 20), 20, 20);
-                spawnTime = 1500f;
+                spawnTime = 1250f;
             }
             else
             {

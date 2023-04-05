@@ -472,3 +472,5 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\beeble_zoom.
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\beeble_spawn.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\beeble_crushed.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\salamando_walk.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.AssemblyReference.cache
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\salamando_spit.xnb
