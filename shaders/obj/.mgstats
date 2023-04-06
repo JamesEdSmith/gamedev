@@ -5,8 +5,8 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/backup/gamedev/shaders/../art/beeble_zoom.png","D:/backup/gamedev/shaders/bin/beeble_zoom.xnb","TextureProcessor","Texture2DContent",339,6485,0.0038065
 "D:/backup/gamedev/shaders/../art/salamando_spit.png","D:/backup/gamedev/shaders/bin/salamando_spit.xnb","TextureProcessor","Texture2DContent",1960,38485,0.1066905
 "D:/backup/gamedev/shaders/../art/salamando_walk.png","D:/backup/gamedev/shaders/bin/salamando_walk.xnb","TextureProcessor","Texture2DContent",603,6485,0.3087908
-"D:/backup/gamedev/shaders/../art/tunnel_fire.png","D:/backup/gamedev/shaders/bin/tunnel_fire.xnb","TextureProcessor","Texture2DContent",434,6485,0.3246442
-"D:/backup/gamedev/shaders/../art/tunnel_fire_back.png","D:/backup/gamedev/shaders/bin/tunnel_fire_back.xnb","TextureProcessor","Texture2DContent",248,6485,0.001994
+"D:/backup/gamedev/shaders/../art/tunnel_fire.png","D:/backup/gamedev/shaders/bin/tunnel_fire.xnb","TextureProcessor","Texture2DContent",435,6485,0.0927562
+"D:/backup/gamedev/shaders/../art/tunnel_fire_back.png","D:/backup/gamedev/shaders/bin/tunnel_fire_back.xnb","TextureProcessor","Texture2DContent",265,6485,0.3350759
 "D:/backup/gamedev/shaders/background2.png","D:/backup/gamedev/shaders/bin/background2.xnb","TextureProcessor","Texture2DContent",5223540,16777301,0.4316938
 "D:/backup/gamedev/shaders/beeble_walk.png","D:/backup/gamedev/shaders/bin/beeble_walk.xnb","TextureProcessor","Texture2DContent",852,11285,0.0242171
 "D:/backup/gamedev/shaders/bin/theme.wma","D:/backup/gamedev/shaders/bin/bin/theme.xnb","SongProcessor","SongContent",3085344,123,0.629392

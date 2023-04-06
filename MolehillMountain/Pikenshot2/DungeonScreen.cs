@@ -113,7 +113,7 @@ namespace MoleHillMountain
 
         private void fireSpread(int x, int y, int length, int direction, int origX, int origY)
         {
-            tunnels[x, y].fire();
+            tunnels[x, y].fire(length, direction);
             if (length > 0)
             {
                 if (direction != Mole.MOVING_RIGHT && x > 0 && (x - 1 != origX || origY != y)
@@ -280,6 +280,11 @@ namespace MoleHillMountain
 
             mole.draw(spriteBatch);
 
+            foreach (Tunnel tunnel in tunnels)
+            {
+                tunnel.drawEffect(spriteBatch);
+            }
+
             foreach (Animation effect in effects)
             {
                 if (effect.active)
@@ -441,8 +446,9 @@ namespace MoleHillMountain
 
             foreach (Tunnel tunnel in tunnels)
             {
-                tunnel.update(this);
+                tunnel.update(this, gameTime);
             }
+
             updateTunnels(mole);
             if (getCurrTunnel(mole.position).seen == SeenStatus.HALF_SEEN)
             {

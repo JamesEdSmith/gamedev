@@ -13,6 +13,7 @@ namespace MoleHillMountain
         private Sprite charging;
         float chargeTime = 2000f;
         private bool waitToFire;
+        int fireDirection;
 
         public Salamando(DungeonScreen dungeonScene) : base(dungeonScene)
         {
@@ -62,6 +63,7 @@ namespace MoleHillMountain
 
                 intendingToMove = targetDirection;
                 waitToFire = true;
+                fireDirection = targetDirection;
 
                 if (targetDirection == MOVING_RIGHT)
                 {
@@ -109,7 +111,7 @@ namespace MoleHillMountain
                     if(waitToFire && frameNumber >= 18)
                     {
                         waitToFire = false;
-                        dungeonScene.fire(targetDirection, position, 4);
+                        dungeonScene.fire(fireDirection, position, 4);
                     }
                 }
                 else
