@@ -88,6 +88,64 @@ namespace MoleHillMountain
                 return null;
         }
 
+        internal void fire(int targetDirection, Vector2 position, int pathLength)
+        {
+            int x = (int)position.X / GRID_SIZE;
+            int y = (int)position.Y / GRID_SIZE;
+
+            if (targetDirection == Mole.MOVING_LEFT && x > 0 && (tunnels[x - 1, y].right == Tunnel.DUG || tunnels[x - 1, y].right == Tunnel.HALF_DUG))
+            {
+                fireSpread(x - 1, y, pathLength - 1, targetDirection, x, y);
+            }
+            else if (targetDirection == Mole.MOVING_RIGHT && x < GRID_WIDTH - 1 && (tunnels[x + 1, y].left == Tunnel.DUG || tunnels[x + 1, y].left == Tunnel.HALF_DUG))
+            {
+                fireSpread(x + 1, y, pathLength - 1, targetDirection, x, y);
+            }
+            else if (targetDirection == Mole.MOVING_UP && y > 0 && (tunnels[x, y - 1].bottom == Tunnel.DUG || tunnels[x, y - 1].bottom == Tunnel.HALF_DUG))
+            {
+                fireSpread(x, y - 1, pathLength - 1, targetDirection, x, y);
+            }
+            else if (targetDirection == Mole.MOVING_DOWN && y < GRID_HEIGHT - 1 && (tunnels[x, y + 1].top == Tunnel.DUG || tunnels[x, y + 1].top == Tunnel.HALF_DUG))
+            {
+                fireSpread(x, y + 1, pathLength - 1, targetDirection, x, y);
+            }
+        }
+
+        private void fireSpread(int x, int y, int length, int direction, int origX, int origY)
+        {
+            tunnels[x, y].fire();
+            if (length > 0)
+            {
+                if (direction != Mole.MOVING_RIGHT && x > 0 && (x - 1 != origX || origY != y)
+                    && (tunnels[x - 1, y].right == Tunnel.DUG || tunnels[x - 1, y].right == Tunnel.HALF_DUG)
+                    && !tunnels[x - 1, y].isFire())
+                {
+                    fireSpread(x - 1, y, length - 1, Mole.MOVING_LEFT, origX, origY);
+                }
+
+                if (direction != Mole.MOVING_LEFT && x < GRID_WIDTH - 1 && (x + 1 != origX || origY != y)
+                    && (tunnels[x + 1, y].left == Tunnel.DUG || tunnels[x + 1, y].left == Tunnel.HALF_DUG)
+                    && !tunnels[x + 1, y].isFire())
+                {
+                    fireSpread(x + 1, y, length - 1, Mole.MOVING_RIGHT, origX, origY);
+                }
+
+                if (direction != Mole.MOVING_UP && y < GRID_HEIGHT - 1 && (x != origX || origY != y + 1)
+                    && (tunnels[x, y + 1].top == Tunnel.DUG || tunnels[x, y + 1].top == Tunnel.HALF_DUG)
+                    && !tunnels[x, y + 1].isFire())
+                {
+                    fireSpread(x, y + 1, length - 1, Mole.MOVING_DOWN, origX, origY);
+                }
+
+                if (direction != Mole.MOVING_DOWN && y > 0 && (x != origX || origY != y - 1)
+                    && (tunnels[x, y - 1].bottom == Tunnel.DUG || tunnels[x, y - 1].bottom == Tunnel.HALF_DUG)
+                    && !tunnels[x, y - 1].isFire())
+                {
+                    fireSpread(x, y - 1, length - 1, Mole.MOVING_UP, origX, origY);
+                }
+            }
+        }
+
         internal Tunnel getTunnelAbove(Vector2 position)
         {
             int x = (int)(position.X / GRID_SIZE);
@@ -304,7 +362,7 @@ namespace MoleHillMountain
                 }
                 pickup.update(gameTime);
 
-                if(pickup.state == Grub.STATE_COLLECTED)
+                if (pickup.state == Grub.STATE_COLLECTED)
                     deadStuff.Add(pickup);
             }
 

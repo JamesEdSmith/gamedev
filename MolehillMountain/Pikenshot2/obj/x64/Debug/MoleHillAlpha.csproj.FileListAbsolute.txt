@@ -474,3 +474,5 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\beeble_crush
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\salamando_walk.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.AssemblyReference.cache
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\salamando_spit.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\tunnel_fire.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\tunnel_fire_back.xnb

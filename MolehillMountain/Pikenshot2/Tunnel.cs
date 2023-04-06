@@ -38,6 +38,8 @@ namespace MoleHillMountain
         internal bool revealed;
         internal bool starting;
 
+        bool fired;
+
         public Tunnel(int x, int y)
         {
             position = new Vector2(x, y);
@@ -52,25 +54,35 @@ namespace MoleHillMountain
         public void draw(SpriteBatch spritebatch)
         {
             if (right == DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, SeenStatus.getVisibilityColor(seen), 0, center, 1, SpriteEffects.None, 0);
+                spritebatch.Draw(fired ? PikeAndShotGame.TUNNEL_FIRE_BACK : PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, SeenStatus.getVisibilityColor(seen), 0, center, 1, SpriteEffects.None, 0);
             else if (right == HALF_DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + halfRight + DungeonScreen.OFFSET, halfSourceRect, SeenStatus.getVisibilityColor(seen), 0, center, 1, SpriteEffects.None, 0);
+                spritebatch.Draw(fired ? PikeAndShotGame.TUNNEL_FIRE_BACK : PikeAndShotGame.TUNNEL, position + halfRight + DungeonScreen.OFFSET, halfSourceRect, SeenStatus.getVisibilityColor(seen), 0, center, 1, SpriteEffects.None, 0);
 
             if (left == DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, SeenStatus.getVisibilityColor(seen), 0, center, 1, SpriteEffects.FlipHorizontally, 0);
+                spritebatch.Draw(fired ? PikeAndShotGame.TUNNEL_FIRE_BACK : PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, SeenStatus.getVisibilityColor(seen), 0, center, 1, SpriteEffects.FlipHorizontally, 0);
             else if (left == HALF_DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, halfSourceRect, SeenStatus.getVisibilityColor(seen), 0, center, 1, SpriteEffects.FlipHorizontally, 0);
+                spritebatch.Draw(fired ? PikeAndShotGame.TUNNEL_FIRE_BACK : PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, halfSourceRect, SeenStatus.getVisibilityColor(seen), 0, center, 1, SpriteEffects.FlipHorizontally, 0);
 
             if (bottom == DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * 0.5f, center, 1, SpriteEffects.None, 0);
+                spritebatch.Draw(fired ? PikeAndShotGame.TUNNEL_FIRE_BACK : PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * 0.5f, center, 1, SpriteEffects.None, 0);
             else if (bottom == HALF_DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + halfBottom + DungeonScreen.OFFSET, halfSourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * 0.5f, center, 1, SpriteEffects.None, 0);
+                spritebatch.Draw(fired ? PikeAndShotGame.TUNNEL_FIRE_BACK : PikeAndShotGame.TUNNEL, position + halfBottom + DungeonScreen.OFFSET, halfSourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * 0.5f, center, 1, SpriteEffects.None, 0);
 
             if (top == DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * -0.5f, center, 1, SpriteEffects.None, 0);
+                spritebatch.Draw(fired ? PikeAndShotGame.TUNNEL_FIRE_BACK : PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * -0.5f, center, 1, SpriteEffects.None, 0);
             else if (top == HALF_DUG)
-                spritebatch.Draw(PikeAndShotGame.TUNNEL, position + halfTop + DungeonScreen.OFFSET, halfSourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * -0.5f, center, 1, SpriteEffects.None, 0);
+                spritebatch.Draw(fired ? PikeAndShotGame.TUNNEL_FIRE_BACK : PikeAndShotGame.TUNNEL, position + halfTop + DungeonScreen.OFFSET, halfSourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * -0.5f, center, 1, SpriteEffects.None, 0);
 
+        }
+
+        internal void fire()
+        {
+            fired = true;        
+        }
+
+        internal bool isFire()
+        {
+            return fired;
         }
     }
 }

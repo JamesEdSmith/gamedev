@@ -97,6 +97,30 @@
 /processorParam:TextureFormat=Color
 /build:../art/salamando_walk.png;salamando_walk.png
 
+#begin ../art/tunnel_fire.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../art/tunnel_fire.png;tunnel_fire.png
+
+#begin ../art/tunnel_fire_back.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../art/tunnel_fire_back.png;tunnel_fire_back.png
+
 #begin background2.png
 /importer:TextureImporter
 /processor:TextureProcessor
