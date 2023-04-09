@@ -4,6 +4,7 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/backup/gamedev/shaders/../art/fire.png</File>
     <File>D:/backup/gamedev/shaders/../art/tunnel_fire.png</File>
     <File>D:/backup/gamedev/shaders/../art/tunnel_fire_back.png</File>
     <File>D:/backup/gamedev/shaders/../art/salamando_spit.png</File>
@@ -39,6 +40,7 @@
     <File>D:/backup/gamedev/shaders/unseen_sprite.png</File>
   </SourceFiles>
   <DestFiles>
+    <File>fire.png</File>
     <File>tunnel_fire.png</File>
     <File>tunnel_fire_back.png</File>
     <File>salamando_spit.png</File>

@@ -53,7 +53,7 @@ namespace MoleHillMountain
             position = new Vector2(x, y);
             seen = SeenStatus.NOT_SEEN;
             fireSprite = new Sprite(PikeAndShotGame.TUNNEL_FIRE_BACK, new Rectangle(0, 0, 20, 20), 20, 20);
-            fireEndSprite = new Sprite(PikeAndShotGame.TUNNEL_FIRE, new Rectangle(0, 0, 20, 20), 20, 20);
+            fireEndSprite = new Sprite(PikeAndShotGame.FIRE, new Rectangle(0, 0, 20, 20), 20, 20);
         }
 
         public void update(DungeonScreen dungeonScreen, GameTime gameTime)
