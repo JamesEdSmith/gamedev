@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace MoleHillMountain
 {
-    internal class Mole
+    public class Mole
     {
         public static Vector2 STAR_OFFSET_UP = new Vector2(0, -6);
         public static Vector2 STAR_OFFSET_RIGHT = new Vector2(6, 0);
@@ -58,6 +58,7 @@ namespace MoleHillMountain
         protected Sprite slingshot;
         protected Sprite mad;
         protected Sprite unseen;
+        protected Sprite hookshot;
 
         protected Sprite dizzy_stars;
 
@@ -93,6 +94,11 @@ namespace MoleHillMountain
 
         protected bool centeringOnTile;
 
+        const int ITEM_SLINGSHOT = 0;
+        const int ITEM_HOOKSHOT = 1;
+
+        public int item;
+
         public Mole(DungeonScreen dungeonScene)
         {
             this.dungeonScene = dungeonScene;
@@ -102,6 +108,7 @@ namespace MoleHillMountain
             nudging = new Sprite(PikeAndShotGame.MOLE_MINER_NUDGE, new Rectangle(0, 0, 18, 18), 18, 18);
             squashed = new Sprite(PikeAndShotGame.MOLE_SQUASHED, new Rectangle(0, 0, 18, 18), 18, 18);
             slingshot = new Sprite(PikeAndShotGame.MINER_SLING, new Rectangle(0, 0, 40, 18), 40, 18);
+            hookshot = new Sprite(PikeAndShotGame.MINER_HOOK, new Rectangle(0, 0, 24, 20), 24, 20);
             mad = new Sprite(PikeAndShotGame.RAT_MAD, new Rectangle(0, 0, 20, 18), 20, 18);
             unseen = new Sprite(PikeAndShotGame.UNSEEN_WALK2, new Rectangle(0, 0, 18, 18), 18, 18);
             dizzy_stars = new Sprite(PikeAndShotGame.DIZZY_MARK, new Rectangle(0, 0, 20, 12), 20, 12);
@@ -114,6 +121,7 @@ namespace MoleHillMountain
             per = 3;
             con = 3;
             health = con;
+            item = ITEM_HOOKSHOT;
         }
 
         public Mole(float x, float y, DungeonScreen dungeonScene) : this(dungeonScene)
@@ -128,6 +136,8 @@ namespace MoleHillMountain
             position.Y = DungeonScreen.GRID_SIZE * y + DungeonScreen.GRID_SIZE * 0.5f;
             drawPosition = new Vector2(position.X, position.Y);
         }
+
+        int prevFrame;
 
         public virtual void update(GameTime gameTime)
         {
@@ -199,15 +209,51 @@ namespace MoleHillMountain
             {
                 if (animationTimer >= 0)
                 {
-                    int maxFrames = slingshot.getMaxFrames();
+                    Sprite sprite;
+                    int useFrame;
+
+                    switch (item)
+                    {
+                        case ITEM_SLINGSHOT:
+                            sprite = slingshot;
+                            useFrame = 3;
+                            break;
+                        case ITEM_HOOKSHOT:
+                            sprite = hookshot;
+                            useFrame = 2;
+                            break;
+                        default:
+                            sprite = slingshot;
+                            useFrame = 3;
+                            break;
+                    }
+
+                    int maxFrames = sprite.getMaxFrames();
                     float frameTime = animationTime / (float)maxFrames;
                     int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
-                    slingshot.setFrame(frameNumber);
+                    sprite.setFrame(frameNumber);
+
+                    if(frameNumber != prevFrame && frameNumber == useFrame)
+                    {
+                        switch (item)
+                        {
+                            case ITEM_SLINGSHOT:
+                                dungeonScene.spawnStone(position, horzFacing, vertFacing);
+                                break;
+                            case ITEM_HOOKSHOT:
+                                dungeonScene.spawnHook(position, horzFacing, vertFacing);
+                                break;
+                            default:
+                                dungeonScene.spawnStone(position, horzFacing, vertFacing);
+                                break;
+                        }
+                        
+                    }
+                    prevFrame = frameNumber;
                 }
                 else
                 {
                     state &= ~STATE_USE;
-                    dungeonScene.spawnStone(position, horzFacing, vertFacing);
                 }
             }
             else if ((state & STATE_FIGHTING) != 0)
@@ -383,7 +429,20 @@ namespace MoleHillMountain
             }
             else if ((state & STATE_USE) != 0)
             {
-                slingshot.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
+                Sprite sprite;
+                switch (item)
+                {
+                    case ITEM_SLINGSHOT:
+                        sprite = slingshot;
+                        break;
+                    case ITEM_HOOKSHOT:
+                        sprite = hookshot;
+                        break;
+                    default:
+                        sprite = slingshot;
+                        break;
+                }
+                sprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
             }
             else if ((state & STATE_SQUASHED) == 0)
             {

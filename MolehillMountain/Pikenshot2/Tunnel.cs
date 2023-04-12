@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace MoleHillMountain
 {
-    class Tunnel
+    public class Tunnel
     {
         public static Rectangle sourceRect = new Rectangle(0, 0, DungeonScreen.GRID_SIZE, DungeonScreen.GRID_SIZE);
         public static Rectangle halfSourceRect = new Rectangle(0, 0, 12, DungeonScreen.GRID_SIZE);
@@ -47,6 +47,9 @@ namespace MoleHillMountain
 
         Sprite fireSprite;
         Sprite fireEndSprite;
+
+        static Vector2 oneX = new Vector2(1, 0);
+        static Vector2 oneY = new Vector2(0, 1);
 
         public Tunnel(int x, int y)
         {
@@ -141,9 +144,9 @@ namespace MoleHillMountain
                         sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, Mole.MOVING_NONE, Mole.MOVING_NONE, SeenStatus.getVisibilityColor(seen));
 
                     if (left == DUG)
-                        sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, Mole.MOVING_RIGHT, Mole.MOVING_NONE, SeenStatus.getVisibilityColor(seen));
+                        sprite.draw(spritebatch, position - oneX + center + DungeonScreen.OFFSET, Mole.MOVING_RIGHT, Mole.MOVING_NONE, SeenStatus.getVisibilityColor(seen));
                     else if (left == HALF_DUG)
-                        sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, Mole.MOVING_RIGHT, Mole.MOVING_NONE, SeenStatus.getVisibilityColor(seen));
+                        sprite.draw(spritebatch, position - oneX + center + DungeonScreen.OFFSET, Mole.MOVING_RIGHT, Mole.MOVING_NONE, SeenStatus.getVisibilityColor(seen));
 
                     if (bottom == DUG)
                         sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, MathHelper.Pi * 0.5f);
@@ -151,18 +154,18 @@ namespace MoleHillMountain
                         sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, MathHelper.Pi * 0.5f);
 
                     if (top == DUG)
-                        sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, -MathHelper.Pi * 0.5f);
+                        sprite.draw(spritebatch, position - oneY + center + DungeonScreen.OFFSET, -MathHelper.Pi * 0.5f);
                     else if (top == HALF_DUG)
-                        sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, -MathHelper.Pi * 0.5f);
+                        sprite.draw(spritebatch, position - oneY + center + DungeonScreen.OFFSET, -MathHelper.Pi * 0.5f);
                 }
 
-                
+
             }
         }
 
         internal void fire(int length, int direction)
         {
-            this.length = length; 
+            this.length = length;
             this.direction = direction;
             fired = true;
             animateFire = true;

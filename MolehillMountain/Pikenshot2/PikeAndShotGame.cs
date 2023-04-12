@@ -395,6 +395,7 @@ namespace MoleHillMountain
         public static Texture2D MOLE_MINER_DIGGING;
         public static Texture2D MOLE_MINER_NUDGE;
         public static Texture2D MINER_SLING;
+        public static Texture2D MINER_HOOK;
         public static Texture2D MOLE_SQUASHED;
         public static Texture2D MOLE_DIZZY;
 
@@ -442,6 +443,8 @@ namespace MoleHillMountain
         public static Texture2D SLINGSHOT;
         public static Texture2D STONE;
         public static Texture2D STONE_IMPACT;
+        public static Texture2D STONE_IMPACT2;
+        public static Texture2D HOOK;
         public static Texture2D DOOR;
         public static Texture2D FIGHT_CLOUD;
         public static Texture2D DIZZY_MARK;
@@ -620,6 +623,7 @@ namespace MoleHillMountain
             MOLE_MINER_NUDGE = Content.Load<Texture2D>(@"mole_miner_nudge");
             MOLE_SQUASHED = Content.Load<Texture2D>(@"mole_squashed");
             MINER_SLING = Content.Load<Texture2D>(@"miner_slingshot");
+            MINER_HOOK = Content.Load<Texture2D>(@"miner_hook_shot");
             MOLE_DIZZY = Content.Load<Texture2D>(@"mole_miner_dizzy");
             DIZZY_MARK = Content.Load<Texture2D>(@"seeing_stars");
 
@@ -664,7 +668,9 @@ namespace MoleHillMountain
 
             SLINGSHOT = Content.Load<Texture2D>(@"slingshot");
             STONE = Content.Load<Texture2D>(@"stone");
+            HOOK = Content.Load<Texture2D>(@"hookshot");
             STONE_IMPACT = Content.Load<Texture2D>(@"stone_impact");
+            STONE_IMPACT2 = Content.Load<Texture2D>(@"stone_impact2");
 
             DOOR = Content.Load<Texture2D>(@"door");
             FIGHT_CLOUD = Content.Load<Texture2D>(@"fight_cloud");

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MoleHillMountain
 {
-    class Item
+    public class Item
     {
         public const int DROP_NONE = 0;
         public const int DROP_SLINGSHOT = 1;
@@ -107,7 +107,7 @@ namespace MoleHillMountain
         }
     }
 
-    class Door : Item
+    public class Door : Item
     {
         public Door(float x, float y, DungeonScreen dungeonScreen) : base(x, y, dungeonScreen) { }
 

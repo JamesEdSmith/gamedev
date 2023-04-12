@@ -4,6 +4,9 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/backup/gamedev/shaders/../art/stone_impact2.png</File>
+    <File>D:/backup/gamedev/shaders/../art/miner_hook_shot.png</File>
+    <File>D:/backup/gamedev/shaders/../art/hookshot.png</File>
     <File>D:/backup/gamedev/shaders/../art/fire.png</File>
     <File>D:/backup/gamedev/shaders/../art/tunnel_fire.png</File>
     <File>D:/backup/gamedev/shaders/../art/tunnel_fire_back.png</File>
@@ -40,6 +43,9 @@
     <File>D:/backup/gamedev/shaders/unseen_sprite.png</File>
   </SourceFiles>
   <DestFiles>
+    <File>stone_impact2.png</File>
+    <File>miner_hook_shot.png</File>
+    <File>hookshot.png</File>
     <File>fire.png</File>
     <File>tunnel_fire.png</File>
     <File>tunnel_fire_back.png</File>

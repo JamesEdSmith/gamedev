@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace MoleHillMountain
 {
-    class Vegetable
+    public class Vegetable
     {
         static Random random = new Random();
 
@@ -75,9 +75,9 @@ namespace MoleHillMountain
             state = NONE;
             leftPushers = new ArrayList(2);
             rightPushers = new ArrayList(2);
-            dropList = new List<int> { 
-                Item.DROP_NONE, 
-                Item.DROP_NONE, 
+            dropList = new List<int> {
+                Item.DROP_NONE,
+                Item.DROP_NONE,
                 Item.DROP_SLINGSHOT
             };
         }

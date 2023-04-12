@@ -9,13 +9,13 @@ using System.Collections;
 namespace MoleHillMountain
 {
 
-    enum AnimationType
+    public enum AnimationType
     {
         stoneImpact,
         fightCloud,
         tunnelReveal
     }
-    class DungeonScreen : GameScreen
+    public class DungeonScreen : GameScreen
     {
         static Random random = new Random();
         public const int GRID_SIZE = 20;
@@ -268,7 +268,7 @@ namespace MoleHillMountain
                 enemy.draw(spriteBatch);
             }
 
-            foreach (Stone stone in stones)
+            foreach (Projectile stone in stones)
             {
                 stone.draw(spriteBatch);
             }
@@ -304,6 +304,11 @@ namespace MoleHillMountain
 
             //spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "fps: " + _fps, fpsPosition, Color.Black);
 
+        }
+
+        internal void spawnHook(Vector2 position, int horzFacing, int vertFacing)
+        {
+            stones.Add(new Hook(position, vertFacing, horzFacing, this));
         }
 
         public void update(GameTime gameTime)
@@ -383,13 +388,13 @@ namespace MoleHillMountain
                 beatLevel();
             }
 
-            foreach (Stone stone in stones)
+            foreach (Projectile stone in stones)
             {
                 stone.update(gameTime.ElapsedGameTime);
                 if (stone.dead)
                     deadStuff.Add(stone);
             }
-            foreach (Stone stone in deadStuff)
+            foreach (Projectile stone in deadStuff)
             {
                 stones.Remove(stone);
             }
