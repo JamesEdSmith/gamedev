@@ -13,7 +13,8 @@ namespace MoleHillMountain
     {
         stoneImpact,
         fightCloud,
-        tunnelReveal
+        tunnelReveal,
+        hookImpact
     }
     public class DungeonScreen : GameScreen
     {
@@ -198,6 +199,9 @@ namespace MoleHillMountain
             switch (animationType)
             {
                 case AnimationType.stoneImpact:
+                    returnedEffect.activate((int)position.X, (int)position.Y, horz, vert, delay);
+                    break;
+                case AnimationType.hookImpact:
                     returnedEffect.activate((int)position.X, (int)position.Y, horz, vert, delay);
                     break;
                 case AnimationType.fightCloud:
@@ -1201,6 +1205,7 @@ namespace MoleHillMountain
             }
             effects.Add(new Animation(AnimationType.stoneImpact));
             effects.Add(new Animation(AnimationType.fightCloud));
+            effects.Add(new Animation(AnimationType.hookImpact));
 
             generateLevel();
 

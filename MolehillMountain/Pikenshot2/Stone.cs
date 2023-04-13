@@ -43,8 +43,8 @@ namespace MoleHillMountain
 
         int tail;
         bool crashed;
-        float crashTimer = 150f;
-        float crashTime = 150f;
+        float crashTime = 100f;
+        float crashTimer = 100f;
         static Vector2 adjustmentX = new Vector2(DungeonScreen.GRID_SIZE, 0);
         static Vector2 adjustmentY = new Vector2(0, DungeonScreen.GRID_SIZE);
 
@@ -228,7 +228,7 @@ namespace MoleHillMountain
             
             crashed = true;
 
-            dungeonScreen.createAnimation(position + adjustmentX/1.6f + adjustmentY/5f, 0, 0, AnimationType.stoneImpact);
+            dungeonScreen.createAnimation(position + adjustmentX/1.6f + adjustmentY/5f, 0, 0, AnimationType.hookImpact);
         }
     }
 
