@@ -1135,8 +1135,14 @@ namespace MoleHillMountain
                     if ((keyboardState.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyUp(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.A) && previousGamePadState.IsButtonUp(Buttons.A)))
                     {
                         mole.stopMoving();
-                        mole.useItem();
+                        mole.useItem(0);
                     }
+                    else if ((keyboardState.IsKeyDown(Keys.X) && previousKeyboardState.IsKeyUp(Keys.X)) || (gamePadState.IsButtonDown(Buttons.X) && previousGamePadState.IsButtonUp(Buttons.X)))
+                    {
+                        mole.stopMoving();
+                        mole.useItem(1);
+                    }
+
                     else
                     {
 
@@ -1242,7 +1248,7 @@ namespace MoleHillMountain
             //generate
             for (int i = 0; i < generations; i++)
             {
-                switch (random.Next(6))
+                switch (random.Next(7))
                 {
                     case 0:
                     case 1:
@@ -1251,6 +1257,9 @@ namespace MoleHillMountain
                     case 2:
                     case 3:
                         generatedTunnels[i] = generateHorizontalLine(tunnelId);
+                        break;
+                    case 4:
+                        generatedTunnels[i] = generateRoom(tunnelId);
                         break;
                     default:
                         generatedTunnels[i] = generateLoop(tunnelId);
@@ -1494,6 +1503,41 @@ namespace MoleHillMountain
 
             //reveal starting tunnel to player
             revealTunnels(true);
+        }
+
+        private int[,] generateRoom(int tunnelId)
+        {
+            int[,] generatedTunnels = new int[GRID_WIDTH, GRID_HEIGHT];
+
+            int width = random.Next(4, GRID_WIDTH / 2);
+            int height = random.Next(4, GRID_HEIGHT / 2);
+
+            int x = random.Next(0, GRID_WIDTH - width);
+            int y = random.Next(0, GRID_HEIGHT - height);
+
+            int notchChance = random.Next(2, 10);
+            int holeChance = random.Next(4, 10);
+
+            for (int i = x; i < x + width; i++)
+            {
+                for (int j = y; j < y + height; j++)
+                {
+                    if ((i == 0 || i == x + width - 1 || j == 0 || j == y + height - 1) && random.Next(notchChance) != 0)
+                    {
+                        generatedTunnels[i, j] = tunnelId;
+                    }
+                    else if (random.Next(holeChance) != 0)
+                    {
+                        generatedTunnels[i, j] = tunnelId;
+                    }
+                    if (random.Next(random.Next(10, 30)) == 0)
+                    {
+                        tunnelId++;
+                    }
+                }
+            }
+
+            return generatedTunnels;
         }
 
         public void revealTunnels(bool start = false)
@@ -1778,7 +1822,7 @@ namespace MoleHillMountain
                     {
                         currY = GRID_HEIGHT - 1;
                     }
-                    generatedTunnels[currX, currY] = 1;
+                    generatedTunnels[currX, currY] = id;
                 }
                 currX++;
                 if (currX >= GRID_WIDTH)
@@ -1810,7 +1854,7 @@ namespace MoleHillMountain
 
             while (currX - initialX > -radiusX)
             {
-                generatedTunnels[currX, currY] = 1;
+                generatedTunnels[currX, currY] = id;
 
                 int downPaths = (int)(((float)currX - (float)initialX) * -1 * ((float)radiusY / (float)(radiusX + 1)));
                 for (int j = 0; j < downPaths; j++)
@@ -1831,7 +1875,7 @@ namespace MoleHillMountain
 
             while (currX - initialX < 0)
             {
-                generatedTunnels[currX, currY] = 1;
+                generatedTunnels[currX, currY] = id;
 
                 int downPaths = (int)(((float)currX - (float)initialX) * -1 * ((float)radiusY / (float)(radiusX + 1)));
                 for (int j = 0; j < downPaths; j++)
@@ -1850,6 +1894,10 @@ namespace MoleHillMountain
                 }
             }
 
+            if (random.Next(random.Next(10, 30)) == 0)
+            {
+                id++;
+            }
             return generatedTunnels;
         }
 

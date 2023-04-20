@@ -194,6 +194,11 @@ namespace MoleHillMountain
                 else
                 {
                     state &= ~STATE_HIT;
+                    health--;
+                    if (health <= 0)
+                    {
+                        state = STATE_SQUASHED;
+                    }
                 }
             }
             else if ((state & STATE_SQUASHED) != 0)
@@ -421,7 +426,7 @@ namespace MoleHillMountain
         {
             if ((state & STATE_FIGHTING) != 0)
             {
-
+                Console.WriteLine("Cool mang");
             }
             else if ((state & STATE_HIT) != 0)
             {
@@ -715,8 +720,9 @@ namespace MoleHillMountain
             return DIG_SPEED;
         }
 
-        internal void useItem()
+        internal void useItem(int itemID)
         {
+            item = itemID;
             if ((state & STATE_SQUASHED) == 0 && (state & STATE_USE) == 0)
             {
                 state |= STATE_USE;

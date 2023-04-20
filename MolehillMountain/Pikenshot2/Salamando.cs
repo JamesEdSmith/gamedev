@@ -27,7 +27,7 @@ namespace MoleHillMountain
 
             clearDirections = new ArrayList(4);
             str = 3;
-            health = 1;
+            health = 3;
             digTime = 325;
         }
 

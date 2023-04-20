@@ -42,7 +42,7 @@ namespace MoleHillMountain
             mad = new Sprite(PikeAndShotGame.RAT_MAD, new Rectangle(0, 0, 20, 18), 20, 18);
             clearDirections = new ArrayList(4);
             str = 3;
-            health = 1;
+            health = 2;
             digTime = 325;
         }
 
@@ -166,7 +166,7 @@ namespace MoleHillMountain
                 }
             }
 
-            if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0)
+            if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0 && (state & STATE_FIGHTING) == 0)
             {
                 targetDirection = dungeonScene.checkForTarget(dungeonScene.mole, this, (state & STATE_MAD) != 0);
                 myLogic();
