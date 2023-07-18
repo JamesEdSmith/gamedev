@@ -481,3 +481,4 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\hookshot.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\miner_hook_shot.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Icon.ico
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\stone_impact2.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\item_icons.xnb

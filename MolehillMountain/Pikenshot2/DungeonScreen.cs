@@ -27,8 +27,11 @@ namespace MoleHillMountain
 
         public static Vector2 OFFSET = new Vector2(8, 0);
         Sprite heart;
-        Vector2 heartPosition = new Vector2(22, 181);
+        Sprite itemIcon;
+        Vector2 heartPosition = new Vector2(20, 181);
         Vector2 heartOffset = new Vector2(12, 0);
+
+        string[] ItemNames = { "S. Shot", "C. Dasher" };
 
         internal Tunnel getCurrTunnel(Vector2 position)
         {
@@ -69,13 +72,24 @@ namespace MoleHillMountain
         private double _draws = 0;
 
         Vector2 fpsPosition;
+        Vector2 item1TextPos;
+        Vector2 item2TextPos;
+        Vector2 item1IconPos;
+        Vector2 item2IconPos;
+        int[,] combinedTunnels;
+        private Vector2 hpPosition;
 
         public DungeonScreen(PikeAndShotGame game)
         {
             _game = game;
             heart = new Sprite(PikeAndShotGame.HEART, new Rectangle(0, 0, 11, 9), 11, 9);
+            itemIcon = new Sprite(PikeAndShotGame.ITEM_ICONS, new Rectangle(0, 0, 9, 9), 9, 9);
             hpPosition = new Vector2(3f, 182f);
             fpsPosition = new Vector2(190f, 182);
+            item1TextPos = new Vector2(100f, 182);
+            item2TextPos = new Vector2(170f, 182);
+            item1IconPos = new Vector2(110f, 181);
+            item2IconPos = new Vector2(180f, 181);
             init();
         }
 
@@ -300,11 +314,25 @@ namespace MoleHillMountain
             //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 80 + (int)OFFSET.Y, 70, 100), new Rectangle(128, 0, 70, 100), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
             //spriteBatch.Draw(PikeAndShotGame.SANDBOX, new Rectangle((int)OFFSET.X, 80 + (int)OFFSET.Y, 72, 20), new Rectangle(0, 1, 72, 20), Color.White, 0, Vector2.Zero, SpriteEffects.None, 0f);
             spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "HP", hpPosition, Color.Black);
-            heart.draw(spriteBatch, heartPosition, 0);
-            heart.draw(spriteBatch, heartPosition + heartOffset, 0);
-            heart.nextFrame();
-            heart.draw(spriteBatch, heartPosition + heartOffset * 2, 0);
-            heart.prevFrame();
+            for (int i = 0; i < mole.con; i++)
+            {
+                if(mole.health > i)
+                {
+                    heart.setFrame(0);
+                }else
+                {
+                    heart.setFrame(1);
+                }
+                heart.draw(spriteBatch, heartPosition + heartOffset * i, 0);
+            }
+
+            itemIcon.setFrame(0);
+            itemIcon.draw(spriteBatch, item1IconPos, 1);
+            itemIcon.setFrame(1);
+            itemIcon.draw(spriteBatch, item2IconPos, 1);
+
+            spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "Z:   "+ ItemNames[mole.getItem1()], item1TextPos, Color.Black);
+            spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "X:   " + ItemNames[mole.getItem2()], item2TextPos, Color.Black);
 
             //spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "fps: " + _fps, fpsPosition, Color.Black);
 
@@ -519,6 +547,11 @@ namespace MoleHillMountain
             float yIntercept = enemy.position.Y - (slope * enemy.position.X);
 
             Tunnel startingTunnel = getCurrTunnel(enemy.position);
+            if (startingTunnel == null)
+            {
+                return enemy.moving;
+            }
+
             Tunnel tunnel;
             Vector2 vect = Vector2.Zero;
             if (!mad)
@@ -753,6 +786,11 @@ namespace MoleHillMountain
             int moleRight = ((int)mole.position.X + GRID_SIZE / 4) / GRID_SIZE;
             int moleUp = ((int)mole.position.Y - GRID_SIZE / 4) / GRID_SIZE;
             int moleDown = ((int)mole.position.Y + GRID_SIZE / 4) / GRID_SIZE;
+
+            if (moleLeft < 0 || moleRight >= GRID_WIDTH || moleUp < 0 || moleDown >= GRID_HEIGHT)
+            {
+                return;
+            }
 
             if (mole.horzFacing == Sprite.DIRECTION_RIGHT)
             {
@@ -1232,9 +1270,6 @@ namespace MoleHillMountain
             pickupTimer = -1;
             enemyTimer = ENEMY_TIME;
         }
-
-        int[,] combinedTunnels;
-        private Vector2 hpPosition;
 
         private void generateLevel()
         {

@@ -43,7 +43,6 @@ namespace MoleHillMountain
 
         int tail;
         bool crashed;
-        float crashTime = 100f;
         float crashTimer = 100f;
         static Vector2 adjustmentX = new Vector2(DungeonScreen.GRID_SIZE, 0);
         static Vector2 adjustmentY = new Vector2(0, DungeonScreen.GRID_SIZE);
@@ -51,8 +50,8 @@ namespace MoleHillMountain
         public Hook(Vector2 position, int vert, int horz, DungeonScreen dungeonScreen) : base(position, vert, horz, dungeonScreen)
         {
             stone = new Sprite(PikeAndShotGame.HOOK, new Rectangle(0, 0, 20, 20), 20, 20);
-            launchOffset = 10;
-            speed = 300f;
+            launchOffset = 20;
+            speed = 400f;
 
             if (vert == Sprite.DIRECTION_NONE)
             {

@@ -440,6 +440,7 @@ namespace MoleHillMountain
         public static Texture2D SALAMANDO_WALKING;
         public static Texture2D SALAMANDO_SPITTING;
 
+        public static Texture2D ITEM_ICONS;
         public static Texture2D SLINGSHOT;
         public static Texture2D STONE;
         public static Texture2D STONE_IMPACT;
@@ -667,6 +668,7 @@ namespace MoleHillMountain
             GRUB_LOOK = Content.Load<Texture2D>(@"grub_look");
 
             SLINGSHOT = Content.Load<Texture2D>(@"slingshot");
+            ITEM_ICONS = Content.Load<Texture2D>(@"item_icons");
             STONE = Content.Load<Texture2D>(@"stone");
             HOOK = Content.Load<Texture2D>(@"hookshot");
             STONE_IMPACT = Content.Load<Texture2D>(@"stone_impact");

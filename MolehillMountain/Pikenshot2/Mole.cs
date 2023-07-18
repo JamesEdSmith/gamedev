@@ -98,6 +98,8 @@ namespace MoleHillMountain
         const int ITEM_HOOKSHOT = 1;
 
         public int item;
+        public int item1;
+        public int item2;
 
         public Mole(DungeonScreen dungeonScene)
         {
@@ -121,7 +123,9 @@ namespace MoleHillMountain
             per = 3;
             con = 3;
             health = con;
-            item = ITEM_HOOKSHOT;
+            item1 = ITEM_SLINGSHOT;
+            item2 = ITEM_HOOKSHOT;
+            
         }
 
         public Mole(float x, float y, DungeonScreen dungeonScene) : this(dungeonScene)
@@ -416,6 +420,16 @@ namespace MoleHillMountain
             }
         }
 
+        internal int getItem2()
+        {
+            return 1;
+        }
+
+        internal int getItem1()
+        {
+            return 0;
+        }
+
         public void fight()
         {
             state = STATE_FIGHTING;
@@ -527,7 +541,7 @@ namespace MoleHillMountain
         public void setDig(bool yes)
         {
             if ((state & STATE_NUDGING) == 0 && (state & STATE_SNIFFING) == 0 && (state & STATE_CHARGE) == 0
-                && (state & STATE_ZOOM) == 0 && (state & STATE_CRASH) == 0)
+                && (state & STATE_ZOOM) == 0 && (state & STATE_CRASH) == 0 && (state & STATE_USE) == 0)
             {
                 if (yes)
                 {
@@ -722,7 +736,7 @@ namespace MoleHillMountain
 
         internal void useItem(int itemID)
         {
-            item = itemID;
+            item = itemID == 0 ? item1 : item2;
             if ((state & STATE_SQUASHED) == 0 && (state & STATE_USE) == 0)
             {
                 state |= STATE_USE;

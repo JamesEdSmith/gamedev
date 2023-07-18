@@ -97,6 +97,18 @@
 /processorParam:TextureFormat=Color
 /build:../art/hookshot.png;hookshot.png
 
+#begin ../art/item_icons.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../art/item_icons.png;item_icons.png
+
 #begin ../art/miner_hook_shot.png
 /importer:TextureImporter
 /processor:TextureProcessor
