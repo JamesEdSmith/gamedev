@@ -437,6 +437,11 @@ namespace MoleHillMountain
         public static Texture2D BEEBLE_SPAWN;
         public static Texture2D BEEBLE_CRUSHED;
 
+        public static Texture2D MOTHY_BLINK;
+        public static Texture2D MOTHY_FLAP;
+        public static Texture2D MOTHY_RUN;
+        public static Texture2D MOTHY_SPOOKED;
+
         public static Texture2D SALAMANDO_WALKING;
         public static Texture2D SALAMANDO_SPITTING;
 
@@ -659,6 +664,11 @@ namespace MoleHillMountain
             BEEBLE_CRASH = Content.Load<Texture2D>(@"beeble_crash");
             BEEBLE_SPAWN = Content.Load<Texture2D>(@"beeble_spawn");
             BEEBLE_CRUSHED = Content.Load<Texture2D>(@"beeble_crushed");
+
+            MOTHY_BLINK = Content.Load<Texture2D>(@"mothy_blink");
+            MOTHY_FLAP = Content.Load<Texture2D>(@"mothy_flap");
+            MOTHY_RUN = Content.Load<Texture2D>(@"mothy_run");
+            MOTHY_SPOOKED = Content.Load<Texture2D>(@"mothy_spooked");
 
             SALAMANDO_WALKING = Content.Load<Texture2D>(@"salamando_walk");
             SALAMANDO_SPITTING = Content.Load<Texture2D>(@"salamando_spit");

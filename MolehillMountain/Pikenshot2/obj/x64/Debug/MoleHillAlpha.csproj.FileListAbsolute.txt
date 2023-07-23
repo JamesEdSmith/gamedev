@@ -482,3 +482,7 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\miner_hook_s
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Icon.ico
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\stone_impact2.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\item_icons.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\mothy_blink.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\mothy_flap.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\mothy_run.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\mothy_spooked.xnb

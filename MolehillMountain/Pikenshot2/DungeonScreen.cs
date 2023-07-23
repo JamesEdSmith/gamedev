@@ -501,13 +501,15 @@ namespace MoleHillMountain
                 if (enemyTimer <= 0)
                 {
                     enemyTimer = ENEMY_TIME;
-                    int pick = random.Next(3);
+                    int pick = random.Next(4);
                     if (pick == 0)
                         enemies.Add(new Rat(this, door.position.X, door.position.Y));
                     else if (pick == 1)
                         enemies.Add(new Beeble(this, door.position.X, door.position.Y));
-                    else
+                    else if (pick == 2)
                         enemies.Add(new Salamando(this, door.position.X, door.position.Y));
+                    else
+                        enemies.Add(new Mothy(this, door.position.X, door.position.Y));
 
                     enemyCount--;
                 }
