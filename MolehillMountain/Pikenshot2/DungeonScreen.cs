@@ -501,14 +501,14 @@ namespace MoleHillMountain
                 if (enemyTimer <= 0)
                 {
                     enemyTimer = ENEMY_TIME;
-                    int pick = random.Next(4);
-                    if (pick == 0)
-                        enemies.Add(new Rat(this, door.position.X, door.position.Y));
-                    else if (pick == 1)
-                        enemies.Add(new Beeble(this, door.position.X, door.position.Y));
-                    else if (pick == 2)
-                        enemies.Add(new Salamando(this, door.position.X, door.position.Y));
-                    else
+                    //int pick = random.Next(4);
+                    //if (pick == 0)
+                    //    enemies.Add(new Rat(this, door.position.X, door.position.Y));
+                    //else if (pick == 1)
+                    //    enemies.Add(new Beeble(this, door.position.X, door.position.Y));
+                    //else if (pick == 2)
+                    //    enemies.Add(new Salamando(this, door.position.X, door.position.Y));
+                    //else
                         enemies.Add(new Mothy(this, door.position.X, door.position.Y));
 
                     enemyCount--;
@@ -538,6 +538,158 @@ namespace MoleHillMountain
         public void spawnStone(Vector2 position, int horzFacing, int vertFacing)
         {
             stones.Add(new Stone(position, vertFacing, horzFacing, this));
+        }
+
+        internal int checkForTarget(Vector2 position, Vector2 enemyPosition, bool mad)
+        {
+            float yDiff = position.Y - enemyPosition.Y;
+            float xDiff = position.X - enemyPosition.X;
+
+            float slope = yDiff / xDiff;
+            float yIntercept = enemyPosition.Y - (slope * enemyPosition.X);
+
+            Tunnel startingTunnel = getCurrTunnel(enemyPosition);
+            if (startingTunnel == null)
+            {
+                return Mole.MOVING_NONE;
+            }
+
+            Tunnel tunnel;
+            Vector2 vect = Vector2.Zero;
+            if (!mad)
+            {
+                if (yDiff >= 0)
+                {
+                    for (int y = (int)startingTunnel.position.Y + GRID_SIZE; y < position.Y && y < GRID_SIZE * (GRID_HEIGHT - 1); y += GRID_SIZE)
+                    {
+                        float x = (y - yIntercept) / slope;
+
+                        if (float.IsNaN(x))
+                            x = enemyPosition.X;
+
+                        if (x < 0 || x > GRID_SIZE * GRID_WIDTH)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            vect.X = x;
+                            vect.Y = y - 1;
+                            tunnel = getCurrTunnel(vect);
+                            if (tunnel.bottom == Tunnel.NOT_DUG)
+                            {
+                                return Mole.MOVING_NONE;
+                            }
+                            vect.Y = y + 1;
+                            tunnel = getCurrTunnel(vect);
+                            if (tunnel.top == Tunnel.NOT_DUG)
+                            {
+                                return Mole.MOVING_NONE;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    for (int y = (int)startingTunnel.position.Y; y > position.Y && y > 0; y -= GRID_SIZE)
+                    {
+                        float x = (y - yIntercept) / slope;
+
+                        if (float.IsNaN(x))
+                            x = enemyPosition.X;
+
+                        if (x < 0 || x > GRID_SIZE * GRID_WIDTH)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            vect.X = x;
+                            vect.Y = y - 1;
+                            tunnel = getCurrTunnel(vect);
+                            if (tunnel.bottom == Tunnel.NOT_DUG)
+                            {
+                                return Mole.MOVING_NONE;
+                            }
+                            vect.Y = y + 1;
+                            tunnel = getCurrTunnel(vect);
+                            if (tunnel.top == Tunnel.NOT_DUG)
+                            {
+                                return Mole.MOVING_NONE;
+                            }
+                        }
+                    }
+                }
+                if (xDiff >= 0)
+                {
+                    for (int x = (int)startingTunnel.position.X + GRID_SIZE; x < position.X && x < GRID_SIZE * (GRID_WIDTH - 1); x += GRID_SIZE)
+                    {
+                        float y = x * slope + yIntercept;
+                        if (y < 0 || y > GRID_SIZE * GRID_HEIGHT)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            vect.X = x - 1;
+                            vect.Y = y;
+                            tunnel = getCurrTunnel(vect);
+                            if (tunnel.right == Tunnel.NOT_DUG)
+                            {
+                                return Mole.MOVING_NONE;
+                            }
+                            vect.X = x + 1;
+                            tunnel = getCurrTunnel(vect);
+                            if (tunnel.left == Tunnel.NOT_DUG)
+                            {
+                                return Mole.MOVING_NONE;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    for (int x = (int)startingTunnel.position.X; x > position.X && x > 0; x -= GRID_SIZE)
+                    {
+                        float y = x * slope + yIntercept;
+                        if (y < 0 || y > GRID_SIZE * GRID_HEIGHT)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            vect.X = x - 1;
+                            vect.Y = y;
+                            tunnel = getCurrTunnel(vect);
+                            if (tunnel.right == Tunnel.NOT_DUG)
+                            {
+                                return Mole.MOVING_NONE;
+                            }
+                            vect.X = x + 1;
+                            tunnel = getCurrTunnel(vect);
+                            if (tunnel.left == Tunnel.NOT_DUG)
+                            {
+                                return Mole.MOVING_NONE;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (Math.Abs(xDiff) > Math.Abs(yDiff))
+            {
+                if (xDiff > 0)
+                    return Mole.MOVING_RIGHT;
+                else
+                    return Mole.MOVING_LEFT;
+            }
+            else
+            {
+                if (yDiff > 0)
+                    return Mole.MOVING_DOWN;
+                else
+                    return Mole.MOVING_UP;
+            }
         }
 
         internal int checkForTarget(Mole mole, Rat enemy, bool mad)
@@ -1706,7 +1858,7 @@ namespace MoleHillMountain
             }
 
             //place rats
-            enemyCount = random.Next(1, 4);
+            enemyCount = 1;//random.Next(1, 4);
             //for (int i = 0; i < enemyCount; i++)
             //{
             int index = 7;

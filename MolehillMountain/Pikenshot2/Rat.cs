@@ -30,6 +30,8 @@ namespace MoleHillMountain
 
         Sprite sniffing;
 
+        protected bool sawMole;
+
         public Rat(DungeonScreen dungeonScene) : base(dungeonScene)
         {
             walking = new Sprite(PikeAndShotGame.RAT_WALKING, new Rectangle(0, 0, 22, 18), 22, 18);
@@ -138,7 +140,7 @@ namespace MoleHillMountain
             }
             else
             {
-                if((state & STATE_DIGGING) == 0)
+                if ((state & STATE_DIGGING) == 0)
                     walkingSprite = walking;
                 else
                     walkingSprite = digging;
@@ -151,7 +153,8 @@ namespace MoleHillMountain
                 {
                     dimColor.A = (byte)(255f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 10f));
                 }
-            }else
+            }
+            else
             {
                 dimColor = SeenStatus.getVisibilityColor(seen);
             }
@@ -169,7 +172,17 @@ namespace MoleHillMountain
             if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0 && (state & STATE_FIGHTING) == 0)
             {
                 targetDirection = dungeonScene.checkForTarget(dungeonScene.mole, this, (state & STATE_MAD) != 0);
+
+                if (targetDirection == Mole.MOVING_NONE)
+                    sawMole = false;
+                else
+                    sawMole = true;
+
                 myLogic();
+            }
+            else
+            {
+                sawMole = false;
             }
 
             base.update(gameTime);
@@ -284,9 +297,9 @@ namespace MoleHillMountain
 
         protected virtual void myLogic()
         {
-            if (targetDirection == MOVING_NONE && (state & STATE_SNIFFING) == 0 && (state & STATE_SCARED) == 0 
-                && (state & STATE_NUDGING) == 0 && (state & STATE_MAD) == 0 
-                && (dungeonScene.mole.position - position).Length() <= DungeonScreen.GRID_SIZE * 1.5f 
+            if (targetDirection == MOVING_NONE && (state & STATE_SNIFFING) == 0 && (state & STATE_SCARED) == 0
+                && (state & STATE_NUDGING) == 0 && (state & STATE_MAD) == 0
+                && (dungeonScene.mole.position - position).Length() <= DungeonScreen.GRID_SIZE * 1.5f
                 && dungeonScene.mole.moving != MOVING_NONE)
             {
                 state |= STATE_SNIFFING;
