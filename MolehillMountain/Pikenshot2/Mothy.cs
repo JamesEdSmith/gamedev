@@ -46,7 +46,7 @@ namespace MoleHillMountain
             str = 3;
             health = 1;
             digTime = 325;
-            spookTime = 325;
+            spookTime = 400;
             runTime = 275;
             flapTime = 700f;
         }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>D:/backup/gamedev/shaders/../art/mothy_spooked.png</SourceFile>
-  <SourceTime>2023-07-22T21:21:37.2189397-04:00</SourceTime>
+  <SourceTime>2023-08-01T06:58:38.5447874-04:00</SourceTime>
   <DestFile>D:/backup/gamedev/shaders/bin/mothy_spooked.xnb</DestFile>
-  <DestTime>2023-07-22T21:55:12.5034881-04:00</DestTime>
+  <DestTime>2023-08-01T06:58:56.2281567-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T11:35:54-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

@@ -10,7 +10,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/backup/gamedev/shaders/../art/mothy_blink.png","D:/backup/gamedev/shaders/bin/mothy_blink.xnb","TextureProcessor","Texture2DContent",348,4885,0.3562404
 "D:/backup/gamedev/shaders/../art/mothy_flap.png","D:/backup/gamedev/shaders/bin/mothy_flap.xnb","TextureProcessor","Texture2DContent",833,12085,0.0019966
 "D:/backup/gamedev/shaders/../art/mothy_run.png","D:/backup/gamedev/shaders/bin/mothy_run.xnb","TextureProcessor","Texture2DContent",473,7285,0.0039891
-"D:/backup/gamedev/shaders/../art/mothy_spooked.png","D:/backup/gamedev/shaders/bin/mothy_spooked.xnb","TextureProcessor","Texture2DContent",531,7285,0.0019944
+"D:/backup/gamedev/shaders/../art/mothy_spooked.png","D:/backup/gamedev/shaders/bin/mothy_spooked.xnb","TextureProcessor","Texture2DContent",603,9685,0.3294116
 "D:/backup/gamedev/shaders/../art/salamando_spit.png","D:/backup/gamedev/shaders/bin/salamando_spit.xnb","TextureProcessor","Texture2DContent",1960,38485,0.1066905
 "D:/backup/gamedev/shaders/../art/salamando_walk.png","D:/backup/gamedev/shaders/bin/salamando_walk.xnb","TextureProcessor","Texture2DContent",603,6485,0.3087908
 "D:/backup/gamedev/shaders/../art/stone_impact2.png","D:/backup/gamedev/shaders/bin/stone_impact2.xnb","TextureProcessor","Texture2DContent",368,8085,0.3268362
