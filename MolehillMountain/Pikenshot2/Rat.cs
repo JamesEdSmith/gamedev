@@ -17,7 +17,7 @@ namespace MoleHillMountain
 
         protected const float SQUASHED_TIME = 3500;
 
-        protected float sniffTime = 900;
+        protected float sniffTime = 1000;
         protected float madTimer = 0;
         public float squashedTimer = SQUASHED_TIME;
         protected const float MAD_TIME = 1500;
