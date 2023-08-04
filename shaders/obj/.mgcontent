@@ -4,8 +4,10 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>D:/backup/gamedev/shaders/../art/mothy_spooked.png</File>
     <File>D:/backup/gamedev/shaders/../art/mothy_blink.png</File>
+    <File>D:/backup/gamedev/shaders/../art/mothy_step.png</File>
+    <File>D:/backup/gamedev/shaders/../art/mothy_walk.png</File>
+    <File>D:/backup/gamedev/shaders/../art/mothy_spooked.png</File>
     <File>D:/backup/gamedev/shaders/../art/mothy_flap.png</File>
     <File>D:/backup/gamedev/shaders/../art/mothy_run.png</File>
     <File>D:/backup/gamedev/shaders/../art/item_icons.png</File>
@@ -48,8 +50,10 @@
     <File>D:/backup/gamedev/shaders/unseen_sprite.png</File>
   </SourceFiles>
   <DestFiles>
-    <File>mothy_spooked.png</File>
     <File>mothy_blink.png</File>
+    <File>mothy_step.png</File>
+    <File>mothy_walk.png</File>
+    <File>mothy_spooked.png</File>
     <File>mothy_flap.png</File>
     <File>mothy_run.png</File>
     <File>item_icons.png</File>

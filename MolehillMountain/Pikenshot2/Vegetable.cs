@@ -227,12 +227,12 @@ namespace MoleHillMountain
 
             if (leftPushersStr > rightPushersStr && (currTunnel != null && (currTunnel.right > 0 || position.X % DungeonScreen.GRID_SIZE < 11 || moleLeft)))
             {
-                movement = totalSeconds * ((Mole)leftPushers[0]).walkSpeed * 0.5f;
+                movement = totalSeconds * ((Mole)leftPushers[0]).currWalkSpeed * 0.5f;
                 position.X += movement;
             }
             else if (leftPushersStr < rightPushersStr && (currTunnel != null && (currTunnel.left > 0 || position.X % DungeonScreen.GRID_SIZE > 9 || moleRight)))
             {
-                movement = totalSeconds * ((Mole)rightPushers[0]).walkSpeed * -0.5f;
+                movement = totalSeconds * ((Mole)rightPushers[0]).currWalkSpeed * -0.5f;
                 position.X += movement;
             }
 

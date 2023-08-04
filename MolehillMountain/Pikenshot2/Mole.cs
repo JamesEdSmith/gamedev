@@ -13,7 +13,7 @@ namespace MoleHillMountain
         public static Vector2 STAR_OFFSET_UP = new Vector2(0, -6);
         public static Vector2 STAR_OFFSET_RIGHT = new Vector2(6, 0);
 
-        const float WALK_SPEED = 38f;
+        public const float WALK_SPEED = 38f;
         const float DIG_SPEED = 30f;
         const float ZOOM_SPEED = 76f;
         public const float FIGHT_TIME = 900f;
@@ -44,6 +44,7 @@ namespace MoleHillMountain
 
         protected float animationTimer;
         protected float dizzyMarkTimer;
+        public float currWalkSpeed = WALK_SPEED;
         public float walkSpeed = WALK_SPEED;
         protected float walkTime = 325f;
         protected float digTime = 650;
@@ -302,17 +303,17 @@ namespace MoleHillMountain
                 if ((state & STATE_DIGGING) != 0)
                 {
                     animationTime = digTime;
-                    walkSpeed = DIG_SPEED;
+                    currWalkSpeed = DIG_SPEED;
                 }
                 else if ((state & STATE_ZOOM) != 0)
                 {
                     animationTime = 375;
-                    walkSpeed = ZOOM_SPEED;
+                    currWalkSpeed = ZOOM_SPEED;
                 }
                 else
                 {
                     animationTime = walkTime;
-                    walkSpeed = WALK_SPEED;
+                    currWalkSpeed = walkSpeed;
                 }
 
                 switch (moving)
@@ -323,7 +324,7 @@ namespace MoleHillMountain
                             if (!dungeonScene.vegetableLeft(position, new ArrayList { this }, MOLE_NUDGE_SPACING))
                             {
                                 state &= ~STATE_NUDGING;
-                                position.X -= (float)timeSpan.TotalSeconds * walkSpeed;
+                                position.X -= (float)timeSpan.TotalSeconds * currWalkSpeed;
                             }
                             else
                             {
@@ -342,7 +343,7 @@ namespace MoleHillMountain
                             if (!dungeonScene.vegetableRight(position, new ArrayList { this }, MOLE_NUDGE_SPACING))
                             {
                                 state &= ~STATE_NUDGING;
-                                position.X += (float)timeSpan.TotalSeconds * walkSpeed;
+                                position.X += (float)timeSpan.TotalSeconds * currWalkSpeed;
                             }
                             else
                             {
@@ -358,7 +359,7 @@ namespace MoleHillMountain
                     case MOVING_UP:
                         if (position.Y > 10 && !dungeonScene.vegetableAbove(this))
                         {
-                            position.Y -= (float)timeSpan.TotalSeconds * walkSpeed;
+                            position.Y -= (float)timeSpan.TotalSeconds * currWalkSpeed;
                             state &= ~STATE_NUDGING;
                         }
                         break;
@@ -366,7 +367,7 @@ namespace MoleHillMountain
                         if (position.Y < DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_HEIGHT - 0.5f) && !dungeonScene.vegetableBelow(this))
                         {
                             state &= ~STATE_NUDGING;
-                            position.Y += (float)timeSpan.TotalSeconds * walkSpeed;
+                            position.Y += (float)timeSpan.TotalSeconds * currWalkSpeed;
                         }
                         break;
                 }

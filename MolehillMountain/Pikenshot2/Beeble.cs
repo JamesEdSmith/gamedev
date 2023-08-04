@@ -62,7 +62,7 @@ namespace MoleHillMountain
                 walkingSprite = unseen;
         }
 
-        protected override void myLogic()
+        protected override void myLogic(TimeSpan timeSpan)
         {
             float yDiff = Math.Abs(dungeonScene.mole.position.Y - position.Y);
             float xDiff = Math.Abs(dungeonScene.mole.position.X - position.X);

@@ -169,6 +169,30 @@
 /processorParam:TextureFormat=Color
 /build:../art/mothy_spooked.png;mothy_spooked.png
 
+#begin ../art/mothy_step.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../art/mothy_step.png;mothy_step.png
+
+#begin ../art/mothy_walk.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../art/mothy_walk.png;mothy_walk.png
+
 #begin ../art/salamando_spit.png
 /importer:TextureImporter
 /processor:TextureProcessor

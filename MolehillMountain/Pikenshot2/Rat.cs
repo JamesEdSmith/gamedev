@@ -178,7 +178,7 @@ namespace MoleHillMountain
                 else
                     sawMole = true;
 
-                myLogic();
+                myLogic(timeSpan);
             }
             else
             {
@@ -295,7 +295,7 @@ namespace MoleHillMountain
             }
         }
 
-        protected virtual void myLogic()
+        protected virtual void myLogic(TimeSpan timeSpan)
         {
             if (targetDirection == MOVING_NONE && (state & STATE_SNIFFING) == 0 && (state & STATE_SCARED) == 0
                 && (state & STATE_NUDGING) == 0 && (state & STATE_MAD) == 0
