@@ -24,14 +24,8 @@ namespace MoleHillMountain
         float spookTime;
         float runTime;
         float flapTime;
-        float idleTime;
+        float idleTime;        
 
-        private Vector2 molePosition;
-        private Vector2 mothPosition;
-
-        private List<Tunnel> zoomPath;
-
-        bool idle = false;
         float idleInterval = 3000f;
         float idleTimer;
 
@@ -86,10 +80,9 @@ namespace MoleHillMountain
             if (targetDirection != MOVING_NONE && (state & STATE_CHARGE) == 0 && (state & STATE_ZOOM) == 0 && (state & STATE_CRASH) == 0
                 && sawMole)
             {
-                molePosition = dungeonScene.mole.position;//dungeonScene.getCurrTunnel(dungeonScene.mole.position).position + Tunnel.center;
-                mothPosition = position;
-                zoomPath = dungeonScene.hasPath(dungeonScene.getCurrTunnel(mothPosition), dungeonScene.getCurrTunnel(molePosition));
-                if (zoomPath != null)
+                molePosition = dungeonScene.mole.position;
+                molePath = dungeonScene.hasPath(dungeonScene.getCurrTunnel(position), dungeonScene.getCurrTunnel(molePosition));
+                if (molePath != null)
                 {
                     state |= STATE_CHARGE;
                     animationTime = animationTimer = spookTime;
@@ -157,13 +150,13 @@ namespace MoleHillMountain
                 {
                     animationTimer += runTime;
                 }
-                if (zoomPath.Count > 0 && dungeonScene.getCurrTunnel(position) == zoomPath[0])
+                if (molePath.Count > 0 && dungeonScene.getCurrTunnel(position) == molePath[0])
                 {
-                    zoomPath.RemoveAt(0);
+                    molePath.RemoveAt(0);
                 }
-                if (zoomPath.Count > 0)
+                if (molePath.Count > 0)
                 {
-                    targetDirection = dungeonScene.checkForTarget(zoomPath[0].position + Tunnel.center, position, false);
+                    targetDirection = dungeonScene.checkForTarget(molePath[0].position + Tunnel.center, position, false);
                     intendingToMove = targetDirection;
                     zoomTheTunnels();
                 }

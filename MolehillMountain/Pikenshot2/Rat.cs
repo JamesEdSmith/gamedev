@@ -18,6 +18,7 @@ namespace MoleHillMountain
         protected const float SQUASHED_TIME = 3500;
 
         protected float sniffTime = 1000;
+        protected float sniffInterval = 5000;
         protected float madTimer = 0;
         public float squashedTimer = SQUASHED_TIME;
         protected const float MAD_TIME = 1500;
@@ -29,8 +30,11 @@ namespace MoleHillMountain
         protected int intendingToMove;
 
         Sprite sniffing;
+        protected Vector2 molePosition;
+        protected List<Tunnel> molePath;
 
         protected bool sawMole;
+        private float sniffTimer;
 
         public Rat(DungeonScreen dungeonScene) : base(dungeonScene)
         {
@@ -46,6 +50,8 @@ namespace MoleHillMountain
             str = 3;
             health = 2;
             digTime = 325;
+            sniffTimer = 0;
+            molePath = new List<Tunnel>();
         }
 
         public Rat(DungeonScreen dungeonScreen, int x, int y) : this(dungeonScreen)
@@ -297,10 +303,11 @@ namespace MoleHillMountain
 
         protected virtual void myLogic(TimeSpan timeSpan)
         {
-            if (targetDirection == MOVING_NONE && (state & STATE_SNIFFING) == 0 && (state & STATE_SCARED) == 0
+            
+            if ((state & STATE_SNIFFING) == 0 && (state & STATE_SCARED) == 0
                 && (state & STATE_NUDGING) == 0 && (state & STATE_MAD) == 0
-                && (dungeonScene.mole.position - position).Length() <= DungeonScreen.GRID_SIZE * 1.5f
-                && dungeonScene.mole.moving != MOVING_NONE)
+                && sawMole == false
+                && sniffTimer <= 0)
             {
                 state |= STATE_SNIFFING;
                 animationTime = animationTimer = sniffTime;
@@ -318,18 +325,26 @@ namespace MoleHillMountain
                 }
                 else
                 {
+                    sniffTimer = sniffInterval;
                     state &= ~STATE_SNIFFING;
-                    if (dungeonScene.mole.moving != MOVING_NONE)
-                    {
-                        state |= STATE_MAD;
-                        madTimer = MAD_TIME;
-                        tunnel = null;
-                    }
+                    molePosition = dungeonScene.mole.position;
+                    molePath = dungeonScene.hasPath(dungeonScene.getCurrTunnel(position), dungeonScene.getCurrTunnel(molePosition));
                 }
             }
             else
             {
+                if (molePath != null && molePath.Count > 0 && dungeonScene.getCurrTunnel(position) == molePath[0])
+                {
+                    molePath.RemoveAt(0);
+                }
+                if (molePath != null && molePath.Count > 0)
+                {
+                    targetDirection = dungeonScene.checkForTarget(molePath[0].position + Tunnel.center, position, false);
+                    intendingToMove = targetDirection;
+                }
                 walkTheTunnels();
+                sniffTimer -= (float)timeSpan.TotalMilliseconds;
+
             }
         }
 

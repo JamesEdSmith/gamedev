@@ -28,9 +28,7 @@ namespace MoleHillMountain
         public static Vector2 OFFSET = new Vector2(8, 0);
         Sprite heart;
         Sprite itemIcon;
-        Vector2 heartPosition = new Vector2(20, 181);
-        Vector2 heartOffset = new Vector2(12, 0);
-
+        
         string[] ItemNames = { "S. Shot", "C. Dasher" };
 
         internal Tunnel getCurrTunnel(Vector2 position)
@@ -78,18 +76,20 @@ namespace MoleHillMountain
         Vector2 item2IconPos;
         int[,] combinedTunnels;
         private Vector2 hpPosition;
+        Vector2 heartPosition = new Vector2(17, 182);
+        Vector2 heartOffset = new Vector2(12, 0);
 
         public DungeonScreen(PikeAndShotGame game)
         {
             _game = game;
             heart = new Sprite(PikeAndShotGame.HEART, new Rectangle(0, 0, 11, 9), 11, 9);
             itemIcon = new Sprite(PikeAndShotGame.ITEM_ICONS, new Rectangle(0, 0, 9, 9), 9, 9);
-            hpPosition = new Vector2(3f, 182f);
-            fpsPosition = new Vector2(190f, 182);
-            item1TextPos = new Vector2(100f, 182);
-            item2TextPos = new Vector2(170f, 182);
-            item1IconPos = new Vector2(110f, 181);
-            item2IconPos = new Vector2(180f, 181);
+            hpPosition = new Vector2(1f, 183f);
+            fpsPosition = new Vector2(190f, 183);
+            //item1TextPos = new Vector2(100f, 183);
+            //item2TextPos = new Vector2(170f, 183);
+            //item1IconPos = new Vector2(110f, 183);
+            //item2IconPos = new Vector2(180f, 183);
             init();
         }
 
@@ -327,13 +327,13 @@ namespace MoleHillMountain
                 heart.draw(spriteBatch, heartPosition + heartOffset * i, 0);
             }
 
-            itemIcon.setFrame(0);
-            itemIcon.draw(spriteBatch, item1IconPos, 1);
-            itemIcon.setFrame(1);
-            itemIcon.draw(spriteBatch, item2IconPos, 1);
+            //itemIcon.setFrame(0);
+            //itemIcon.draw(spriteBatch, item1IconPos, 1);
+            //itemIcon.setFrame(1);
+            //itemIcon.draw(spriteBatch, item2IconPos, 1);
 
-            spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "Z:   " + ItemNames[mole.getItem1()], item1TextPos, Color.Black);
-            spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "X:   " + ItemNames[mole.getItem2()], item2TextPos, Color.Black);
+            //spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "Z:   " + ItemNames[mole.getItem1()], item1TextPos, Color.Black);
+            //spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "X:   " + ItemNames[mole.getItem2()], item2TextPos, Color.Black);
 
             //spriteBatch.DrawString(PikeAndShotGame.GOBLIN_FONT, "fps: " + _fps, fpsPosition, Color.Black);
 
@@ -503,14 +503,14 @@ namespace MoleHillMountain
                 {
                     enemyTimer = ENEMY_TIME;
                     int pick = random.Next(4);
-                    if (pick == 0)
-                        enemies.Add(new Rat(this, door.position.X, door.position.Y));
-                    else if (pick == 1)
-                        enemies.Add(new Beeble(this, door.position.X, door.position.Y));
-                    else if (pick == 2)
-                        enemies.Add(new Salamando(this, door.position.X, door.position.Y));
-                    else
-                        enemies.Add(new Mothy(this, door.position.X, door.position.Y));
+                    //if (pick == 0)
+                    enemies.Add(new Rat(this, door.position.X, door.position.Y));
+                    //else if (pick == 1)
+                    //    enemies.Add(new Beeble(this, door.position.X, door.position.Y));
+                    //else if (pick == 2)
+                    //    enemies.Add(new Salamando(this, door.position.X, door.position.Y));
+                    //else
+                    //    enemies.Add(new Mothy(this, door.position.X, door.position.Y));
 
                     enemyCount--;
                 }
@@ -1569,7 +1569,7 @@ namespace MoleHillMountain
 
         private void generateLevel()
         {
-            const int generations = 2;
+            int generations = PikeAndShotGame.random.Next(2,4);
             int tunnelId = 1;
             int[][,] generatedTunnels = new int[generations][,];
             combinedTunnels = new int[GRID_WIDTH, GRID_HEIGHT];
