@@ -51,7 +51,7 @@ namespace MoleHillMountain
             stepping = new Sprite(PikeAndShotGame.MOTHY_STEP, new Rectangle(0, 0, 30, 20), 30, 20);
 
             walkTime = 1000f;
-            currWalkSpeed = walkSpeed = Mole.WALK_SPEED / 6f;
+            currWalkSpeed = walkSpeed = 7f;
             clearDirections = new ArrayList(4);
             str = 3;
             health = 1;

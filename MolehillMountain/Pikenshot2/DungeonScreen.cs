@@ -503,13 +503,13 @@ namespace MoleHillMountain
                 {
                     enemyTimer = ENEMY_TIME;
                     int pick = random.Next(4);
-                    //if (pick == 0)
-                    //    enemies.Add(new Rat(this, door.position.X, door.position.Y));
-                    //else if (pick == 1)
-                    //    enemies.Add(new Beeble(this, door.position.X, door.position.Y));
-                    //else if (pick == 2)
-                    //    enemies.Add(new Salamando(this, door.position.X, door.position.Y));
-                    //else
+                    if (pick == 0)
+                        enemies.Add(new Rat(this, door.position.X, door.position.Y));
+                    else if (pick == 1)
+                        enemies.Add(new Beeble(this, door.position.X, door.position.Y));
+                    else if (pick == 2)
+                        enemies.Add(new Salamando(this, door.position.X, door.position.Y));
+                    else
                         enemies.Add(new Mothy(this, door.position.X, door.position.Y));
 
                     enemyCount--;
@@ -2000,7 +2000,7 @@ namespace MoleHillMountain
             }
 
             //place rats
-            enemyCount = 1;//random.Next(1, 4);
+            enemyCount = random.Next(1, 4);
             //for (int i = 0; i < enemyCount; i++)
             //{
             int index = 7;
