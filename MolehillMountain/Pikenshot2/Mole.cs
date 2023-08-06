@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections;
+using System.Diagnostics;
 
 namespace MoleHillMountain
 {
@@ -39,6 +40,8 @@ namespace MoleHillMountain
         public const int STATE_CHARGE = 1024;
         public const int STATE_ZOOM = 2048;
         public const int STATE_CRASH = 4096;
+        public const int STATE_GETMAD = 8192;
+
 
         private const float MOLE_NUDGE_SPACING = 7;
 
@@ -285,7 +288,7 @@ namespace MoleHillMountain
                     }
                 }
             }
-            else if (moving == MOVING_NONE || (state & STATE_CRASH) != 0)
+            else if (moving == MOVING_NONE || (state & STATE_CRASH) != 0 || (state & STATE_GETMAD) != 0)
             {
                 walkingSprite.setFrame(0);
                 position.X += nudgeMovement;
@@ -680,6 +683,9 @@ namespace MoleHillMountain
 
         private void down()
         {
+            if (this is Rat && (state & STATE_GETMAD) != 0)
+                Debug.WriteLine("");
+
             walk();
             moving = MOVING_DOWN;
             if (vertFacing == Sprite.DIRECTION_NONE)
@@ -698,6 +704,9 @@ namespace MoleHillMountain
 
         private void up()
         {
+            if (this is Rat && (state & STATE_GETMAD) != 0)
+                Debug.WriteLine("");
+
             walk();
             moving = MOVING_UP;
             vertFacing = Sprite.DIRECTION_UP;
@@ -705,6 +714,8 @@ namespace MoleHillMountain
 
         private void right()
         {
+            if (this is Rat && (state & STATE_GETMAD) != 0)
+                Debug.WriteLine("");
             walk();
             moving = MOVING_RIGHT;
             vertFacing = Sprite.DIRECTION_NONE;
@@ -713,6 +724,8 @@ namespace MoleHillMountain
 
         private void left()
         {
+            if (this is Rat && (state & STATE_GETMAD) != 0)
+                Debug.WriteLine("");
             walk();
             moving = MOVING_LEFT;
             vertFacing = Sprite.DIRECTION_NONE;

@@ -444,7 +444,7 @@ namespace MoleHillMountain
             foreach (Rat enemy in enemies)
             {
                 enemy.update(gameTime);
-                if ((enemy.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_NUDGING) == 0)
+                if ((enemy.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_NUDGING) == 0 && (enemy.state & Mole.STATE_GETMAD) == 0)
                 {
                     updateTunnels(enemy);
                 }
@@ -502,7 +502,7 @@ namespace MoleHillMountain
                 if (enemyTimer <= 0)
                 {
                     enemyTimer = ENEMY_TIME;
-                    int pick = random.Next(4);
+                    //int pick = random.Next(4);
                     //if (pick == 0)
                     enemies.Add(new Rat(this, door.position.X, door.position.Y));
                     //else if (pick == 1)
@@ -2000,7 +2000,7 @@ namespace MoleHillMountain
             }
 
             //place rats
-            enemyCount = random.Next(1, 4);
+            enemyCount = 1;//random.Next(1, 4);
             //for (int i = 0; i < enemyCount; i++)
             //{
             int index = 7;

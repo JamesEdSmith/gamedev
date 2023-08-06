@@ -20,9 +20,10 @@ namespace MoleHillMountain
         protected float sniffTime = 1000;
         protected float sniffInterval = 5000;
         protected float madTimer = 0;
+        float getMadAnimationTime = 750f;
+        protected float getMadTimer = 6000;
         public float squashedTimer = SQUASHED_TIME;
-        protected const float MAD_TIME = 1500;
-        protected const float MAD_RESET_TIME = 2000;
+        protected const float MAD_TIME = 2000;
 
         public Tunnel tunnel;
         protected ArrayList clearDirections;
@@ -30,6 +31,7 @@ namespace MoleHillMountain
         protected int intendingToMove;
 
         Sprite sniffing;
+        Sprite gettingMad;
         protected Vector2 molePosition;
         protected List<Tunnel> molePath;
 
@@ -46,6 +48,7 @@ namespace MoleHillMountain
             digging = new Sprite(PikeAndShotGame.RAT_DIGGING, new Rectangle(0, 0, 22, 18), 22, 18);
             sniffing = new Sprite(PikeAndShotGame.RAT_SNIFF, new Rectangle(0, 0, 20, 18), 20, 18);
             mad = new Sprite(PikeAndShotGame.RAT_MAD, new Rectangle(0, 0, 20, 18), 20, 18);
+            gettingMad = new Sprite(PikeAndShotGame.RAT_MAD, new Rectangle(0, 0, 20, 18), 20, 18);
             clearDirections = new ArrayList(4);
             str = 3;
             health = 2;
@@ -76,7 +79,14 @@ namespace MoleHillMountain
             {
                 mad.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
             }
-            else if ((state & STATE_SCARED) != 0)
+            else if ((state & STATE_GETMAD) != 0)
+            {
+                if((state & STATE_DIGGING) == 0)
+                    gettingMad.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
+                else
+                    walkingSprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
+            }
+            else if ((state & STATE_SCARED) != 0 || ((state & STATE_MAD) != 0 && (state & STATE_DIGGING) == 0))
             {
                 squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
             }
@@ -165,16 +175,6 @@ namespace MoleHillMountain
                 dimColor = SeenStatus.getVisibilityColor(seen);
             }
 
-            if (madTimer > 0)
-            {
-                madTimer -= (float)timeSpan.TotalMilliseconds;
-                if (madTimer <= 0 && (state & STATE_MAD) != 0)
-                {
-                    state &= ~STATE_MAD;
-                    madTimer = MAD_RESET_TIME;
-                }
-            }
-
             if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0 && (state & STATE_FIGHTING) == 0)
             {
                 targetDirection = dungeonScene.checkForTarget(dungeonScene.mole, this, (state & STATE_MAD) != 0);
@@ -200,6 +200,12 @@ namespace MoleHillMountain
                 float frameTime = animationTime / (float)maxFrames;
                 int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
                 moving = MOVING_NONE;
+                squashed.setFrame(frameNumber);
+            }else if ((state & STATE_MAD) != 0)
+            {
+                int maxFrames = squashed.getMaxFrames() - 2;
+                float frameTime = animationTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
                 squashed.setFrame(frameNumber);
             }
             else
@@ -303,9 +309,10 @@ namespace MoleHillMountain
 
         protected virtual void myLogic(TimeSpan timeSpan)
         {
-            
+
             if ((state & STATE_SNIFFING) == 0 && (state & STATE_SCARED) == 0
                 && (state & STATE_NUDGING) == 0 && (state & STATE_MAD) == 0
+                && (state & STATE_GETMAD) == 0
                 && sawMole == false
                 && sniffTimer <= 0)
             {
@@ -331,8 +338,24 @@ namespace MoleHillMountain
                     molePath = dungeonScene.hasPath(dungeonScene.getCurrTunnel(position), dungeonScene.getCurrTunnel(molePosition));
                 }
             }
+            else if ((state & STATE_GETMAD) != 0)
+            {
+                if (animationTimer >= 0)
+                {
+                    int maxFrames = gettingMad.getMaxFrames();
+                    float frameTime = animationTime / (float)maxFrames;
+                    int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
+                    gettingMad.setFrame(frameNumber);
+                }
+                else
+                {
+                    state &= ~STATE_GETMAD;
+                    state |= STATE_MAD;
+                }
+            }
             else
             {
+
                 if (molePath != null && molePath.Count > 0 && dungeonScene.getCurrTunnel(position) == molePath[0])
                 {
                     molePath.RemoveAt(0);
@@ -344,6 +367,27 @@ namespace MoleHillMountain
                 }
                 walkTheTunnels();
                 sniffTimer -= (float)timeSpan.TotalMilliseconds;
+                if (madTimer > 0)
+                {
+                    madTimer -= (float)timeSpan.TotalMilliseconds;
+                    if (madTimer <= 0 && (state & STATE_MAD) != 0)
+                    {
+                        state &= ~STATE_MAD;
+                        getMadTimer = 6000f + PikeAndShotGame.random.Next(0, 6000);
+                    }
+                }
+                else if (getMadTimer > 0)
+                {
+                    getMadTimer -= (float)timeSpan.TotalMilliseconds;
+                    if (getMadTimer <= 0)
+                    {
+                        state |= STATE_GETMAD;
+                        animationTimer = animationTime = getMadAnimationTime;
+                        stopMoving();
+                        molePath = null;
+                        madTimer = MAD_TIME + PikeAndShotGame.random.Next(0, (int)MAD_TIME);
+                    }
+                }
 
             }
         }
