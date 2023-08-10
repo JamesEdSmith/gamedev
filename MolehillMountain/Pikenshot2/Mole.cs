@@ -17,6 +17,7 @@ namespace MoleHillMountain
         public const float WALK_SPEED = 38f;
         const float DIG_SPEED = 30f;
         const float ZOOM_SPEED = 76f;
+        private float windSpeed = 57f;
         public const float FIGHT_TIME = 900f;
         public const float DIZZY_TIME = 3000f;
         public const float DIZZY_MARK_TIME = 325f;
@@ -146,7 +147,7 @@ namespace MoleHillMountain
         }
 
         int prevFrame;
-        private float windSpeed = 40f;
+        
 
         public virtual void update(GameTime gameTime)
         {

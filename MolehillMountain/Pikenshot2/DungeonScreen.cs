@@ -28,7 +28,7 @@ namespace MoleHillMountain
         public static Vector2 OFFSET = new Vector2(8, 0);
         Sprite heart;
         Sprite itemIcon;
-        
+
         string[] ItemNames = { "S. Shot", "C. Dasher" };
 
         internal Tunnel getCurrTunnel(Vector2 position)
@@ -130,23 +130,56 @@ namespace MoleHillMountain
         {
             int x = (int)position.X / GRID_SIZE;
             int y = (int)position.Y / GRID_SIZE;
-            windSpread(x, y, pathLength-1, targetDirection,-1, -1, moth);
+
+            windSpread(x, y, pathLength, targetDirection, x, y, moth);
 
             if (targetDirection == Mole.MOVING_LEFT && x > 0 && (tunnels[x - 1, y].right == Tunnel.DUG || tunnels[x - 1, y].right == Tunnel.HALF_DUG))
             {
                 windSpread(x - 1, y, pathLength - 1, targetDirection, x, y, moth);
+                if (y > 0 && (tunnels[x, y - 1].bottom == Tunnel.DUG || tunnels[x, y - 1].bottom == Tunnel.HALF_DUG))
+                {
+                    windSpread(x, y - 1, pathLength - 2, targetDirection, x, y, moth);
+                }
+                if (y < GRID_HEIGHT - 1 && (tunnels[x, y + 1].top == Tunnel.DUG || tunnels[x, y + 1].top == Tunnel.HALF_DUG))
+                {
+                    windSpread(x, y + 1, pathLength - 2, targetDirection, x, y, moth);
+                }
             }
             else if (targetDirection == Mole.MOVING_RIGHT && x < GRID_WIDTH - 1 && (tunnels[x + 1, y].left == Tunnel.DUG || tunnels[x + 1, y].left == Tunnel.HALF_DUG))
             {
                 windSpread(x + 1, y, pathLength - 1, targetDirection, x, y, moth);
+                if (y > 0 && (tunnels[x, y - 1].bottom == Tunnel.DUG || tunnels[x, y - 1].bottom == Tunnel.HALF_DUG))
+                {
+                    windSpread(x, y - 1, pathLength - 2, targetDirection, x, y, moth);
+                }
+                if (y < GRID_HEIGHT - 1 && (tunnels[x, y + 1].top == Tunnel.DUG || tunnels[x, y + 1].top == Tunnel.HALF_DUG))
+                {
+                    windSpread(x, y + 1, pathLength - 2, targetDirection, x, y, moth);
+                }
             }
             else if (targetDirection == Mole.MOVING_UP && y > 0 && (tunnels[x, y - 1].bottom == Tunnel.DUG || tunnels[x, y - 1].bottom == Tunnel.HALF_DUG))
             {
                 windSpread(x, y - 1, pathLength - 1, targetDirection, x, y, moth);
+                if (x > 0 && (tunnels[x - 1, y].right == Tunnel.DUG || tunnels[x - 1, y].right == Tunnel.HALF_DUG))
+                {
+                    windSpread(x-1, y, pathLength - 2, targetDirection, x, y, moth);
+                }
+                if (x < GRID_WIDTH - 1 && (tunnels[x + 1, y].left == Tunnel.DUG || tunnels[x + 1, y].left == Tunnel.HALF_DUG))
+                {
+                    windSpread(x+1, y, pathLength - 2, targetDirection, x, y, moth);
+                }
             }
             else if (targetDirection == Mole.MOVING_DOWN && y < GRID_HEIGHT - 1 && (tunnels[x, y + 1].top == Tunnel.DUG || tunnels[x, y + 1].top == Tunnel.HALF_DUG))
             {
                 windSpread(x, y + 1, pathLength - 1, targetDirection, x, y, moth);
+                if (x > 0 && (tunnels[x - 1, y].right == Tunnel.DUG || tunnels[x - 1, y].right == Tunnel.HALF_DUG))
+                {
+                    windSpread(x - 1, y, pathLength - 2, targetDirection, x, y, moth);
+                }
+                if (x < GRID_WIDTH - 1 && (tunnels[x + 1, y].left == Tunnel.DUG || tunnels[x + 1, y].left == Tunnel.HALF_DUG))
+                {
+                    windSpread(x + 1, y, pathLength - 2, targetDirection, x, y, moth);
+                }
             }
         }
 
@@ -812,7 +845,7 @@ namespace MoleHillMountain
                             {
                                 return Mole.MOVING_NONE;
                             }
-                            vect.Y = y -GRID_SIZE;
+                            vect.Y = y - GRID_SIZE;
                             tunnel = getCurrTunnel(vect);
                             if (tunnel.bottom == Tunnel.NOT_DUG)
                             {
@@ -1628,7 +1661,7 @@ namespace MoleHillMountain
 
         private void generateLevel()
         {
-            int generations = PikeAndShotGame.random.Next(2,4);
+            int generations = PikeAndShotGame.random.Next(2, 4);
             int tunnelId = 1;
             int[][,] generatedTunnels = new int[generations][,];
             combinedTunnels = new int[GRID_WIDTH, GRID_HEIGHT];

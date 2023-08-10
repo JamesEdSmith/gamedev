@@ -24,7 +24,7 @@ namespace MoleHillMountain
         float spookTime;
         float runTime;
         float flapTime;
-        float idleTime;        
+        float idleTime;
 
         float idleInterval = 3000f;
         float idleTimer;
@@ -168,12 +168,12 @@ namespace MoleHillMountain
                 {
                     state &= ~STATE_ZOOM;
                     state &= ~STATE_SNIFFING;
-                    state |= STATE_CRASH;                      
+                    state |= STATE_CRASH;
                     waitToWind = true;
                     windDirection = intendingToMove;
                     animationTime = animationTimer = flapTime;
                 }
-                
+
             }
             else if ((state & STATE_CRASH) != 0)
             {
@@ -181,13 +181,13 @@ namespace MoleHillMountain
                 float frameTime = animationTime / (float)maxFrames;
                 int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
                 flapping.setFrame(frameNumber);
-                if(frameNumber >= 3 && waitToWind)
+                if (frameNumber >= 3 && waitToWind)
                 {
                     waitToWind = false;
-                    dungeonScene.wind(windDirection, position, 3, this);
+                    dungeonScene.wind(windDirection != Mole.MOVING_NONE ? windDirection : intendingToMove, position, 4, this);
                 }
                 if (animationTimer <= 0)
-                { 
+                {
                     state &= ~STATE_CRASH;
                     intendingToMove = MOVING_NONE;
                     tunnel = null;
@@ -283,7 +283,7 @@ namespace MoleHillMountain
             }
             else if ((state & STATE_SNIFFING) != 0)
             {
-                if(animationTimer>=idleTime/2f)
+                if (animationTimer >= idleTime / 2f)
                     blinking.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
                 else
                     stepping.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
