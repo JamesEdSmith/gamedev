@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace MoleHillMountain
 {
-    class Rat : Mole
+    public class Rat : Mole
     {
         protected const int DOWN_CLEAR = 1;
         protected const int LEFT_CLEAR = 2;

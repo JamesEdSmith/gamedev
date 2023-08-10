@@ -443,6 +443,7 @@ namespace MoleHillMountain
         public static Texture2D MOTHY_SPOOKED;
         public static Texture2D MOTHY_WALK;
         public static Texture2D MOTHY_STEP;
+        public static Texture2D MOTHY_WIND;
 
         public static Texture2D SALAMANDO_WALKING;
         public static Texture2D SALAMANDO_SPITTING;
@@ -673,6 +674,7 @@ namespace MoleHillMountain
             MOTHY_SPOOKED = Content.Load<Texture2D>(@"mothy_spooked");
             MOTHY_WALK = Content.Load<Texture2D>(@"mothy_walk");
             MOTHY_STEP = Content.Load<Texture2D>(@"mothy_step");
+            MOTHY_WIND = Content.Load<Texture2D>(@"wind");
 
             SALAMANDO_WALKING = Content.Load<Texture2D>(@"salamando_walk");
             SALAMANDO_SPITTING = Content.Load<Texture2D>(@"salamando_spit");

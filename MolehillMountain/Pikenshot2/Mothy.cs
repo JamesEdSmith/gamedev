@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace MoleHillMountain
 {
-    class Mothy : Rat
+    public class Mothy : Rat
     {
         static Vector2 rightVector = new Vector2(DungeonScreen.GRID_SIZE, 0);
         static Vector2 leftVector = new Vector2(-DungeonScreen.GRID_SIZE, 0);
@@ -29,6 +29,8 @@ namespace MoleHillMountain
         float idleInterval = 3000f;
         float idleTimer;
 
+        bool waitToWind;
+        private int windDirection;
 
         public Mothy(DungeonScreen dungeonScene) : base(dungeonScene)
         {
@@ -85,6 +87,7 @@ namespace MoleHillMountain
                 if (molePath != null)
                 {
                     state |= STATE_CHARGE;
+                    idleTimer = idleInterval + PikeAndShotGame.random.Next(0, (int)idleInterval);
                     animationTime = animationTimer = spookTime;
                     intendingToMove = targetDirection;
 
@@ -153,6 +156,7 @@ namespace MoleHillMountain
                 if (molePath.Count > 0 && dungeonScene.getCurrTunnel(position) == molePath[0])
                 {
                     molePath.RemoveAt(0);
+
                 }
                 if (molePath.Count > 0)
                 {
@@ -163,7 +167,10 @@ namespace MoleHillMountain
                 else
                 {
                     state &= ~STATE_ZOOM;
-                    state |= STATE_CRASH;
+                    state &= ~STATE_SNIFFING;
+                    state |= STATE_CRASH;                      
+                    waitToWind = true;
+                    windDirection = intendingToMove;
                     animationTime = animationTimer = flapTime;
                 }
                 
@@ -174,8 +181,13 @@ namespace MoleHillMountain
                 float frameTime = animationTime / (float)maxFrames;
                 int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
                 flapping.setFrame(frameNumber);
-                if (animationTimer <= 0)
+                if(frameNumber >= 3 && waitToWind)
                 {
+                    waitToWind = false;
+                    dungeonScene.wind(windDirection, position, 3, this);
+                }
+                if (animationTimer <= 0)
+                { 
                     state &= ~STATE_CRASH;
                     intendingToMove = MOVING_NONE;
                     tunnel = null;
@@ -229,6 +241,7 @@ namespace MoleHillMountain
             {
                 state &= ~STATE_ZOOM;
                 state |= STATE_CRASH;
+                waitToWind = true;
                 animationTime = animationTimer = flapTime;
             }
             else

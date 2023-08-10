@@ -126,6 +126,65 @@ namespace MoleHillMountain
             }
         }
 
+        internal void wind(int targetDirection, Vector2 position, int pathLength, Mothy moth)
+        {
+            int x = (int)position.X / GRID_SIZE;
+            int y = (int)position.Y / GRID_SIZE;
+            windSpread(x, y, pathLength-1, targetDirection,-1, -1, moth);
+
+            if (targetDirection == Mole.MOVING_LEFT && x > 0 && (tunnels[x - 1, y].right == Tunnel.DUG || tunnels[x - 1, y].right == Tunnel.HALF_DUG))
+            {
+                windSpread(x - 1, y, pathLength - 1, targetDirection, x, y, moth);
+            }
+            else if (targetDirection == Mole.MOVING_RIGHT && x < GRID_WIDTH - 1 && (tunnels[x + 1, y].left == Tunnel.DUG || tunnels[x + 1, y].left == Tunnel.HALF_DUG))
+            {
+                windSpread(x + 1, y, pathLength - 1, targetDirection, x, y, moth);
+            }
+            else if (targetDirection == Mole.MOVING_UP && y > 0 && (tunnels[x, y - 1].bottom == Tunnel.DUG || tunnels[x, y - 1].bottom == Tunnel.HALF_DUG))
+            {
+                windSpread(x, y - 1, pathLength - 1, targetDirection, x, y, moth);
+            }
+            else if (targetDirection == Mole.MOVING_DOWN && y < GRID_HEIGHT - 1 && (tunnels[x, y + 1].top == Tunnel.DUG || tunnels[x, y + 1].top == Tunnel.HALF_DUG))
+            {
+                windSpread(x, y + 1, pathLength - 1, targetDirection, x, y, moth);
+            }
+        }
+
+        private void windSpread(int x, int y, int length, int direction, int origX, int origY, Mothy moth)
+        {
+            tunnels[x, y].wind(length, direction, moth);
+            if (length > 0)
+            {
+                if (direction != Mole.MOVING_RIGHT && x > 0 && (x - 1 != origX || origY != y)
+                    && (tunnels[x - 1, y].right == Tunnel.DUG || tunnels[x - 1, y].right == Tunnel.HALF_DUG)
+                    && !tunnels[x - 1, y].isFire())
+                {
+                    windSpread(x - 1, y, length - 1, Mole.MOVING_LEFT, origX, origY, moth);
+                }
+
+                if (direction != Mole.MOVING_LEFT && x < GRID_WIDTH - 1 && (x + 1 != origX || origY != y)
+                    && (tunnels[x + 1, y].left == Tunnel.DUG || tunnels[x + 1, y].left == Tunnel.HALF_DUG)
+                    && !tunnels[x + 1, y].isFire())
+                {
+                    windSpread(x + 1, y, length - 1, Mole.MOVING_RIGHT, origX, origY, moth);
+                }
+
+                if (direction != Mole.MOVING_UP && y < GRID_HEIGHT - 1 && (x != origX || origY != y + 1)
+                    && (tunnels[x, y + 1].top == Tunnel.DUG || tunnels[x, y + 1].top == Tunnel.HALF_DUG)
+                    && !tunnels[x, y + 1].isFire())
+                {
+                    windSpread(x, y + 1, length - 1, Mole.MOVING_DOWN, origX, origY, moth);
+                }
+
+                if (direction != Mole.MOVING_DOWN && y > 0 && (x != origX || origY != y - 1)
+                    && (tunnels[x, y - 1].bottom == Tunnel.DUG || tunnels[x, y - 1].bottom == Tunnel.HALF_DUG)
+                    && !tunnels[x, y - 1].isFire())
+                {
+                    windSpread(x, y - 1, length - 1, Mole.MOVING_UP, origX, origY, moth);
+                }
+            }
+        }
+
         private void fireSpread(int x, int y, int length, int direction, int origX, int origY)
         {
             tunnels[x, y].fire(length, direction);
@@ -502,15 +561,15 @@ namespace MoleHillMountain
                 if (enemyTimer <= 0)
                 {
                     enemyTimer = ENEMY_TIME;
-                    //int pick = random.Next(4);
-                    //if (pick == 0)
-                    enemies.Add(new Rat(this, door.position.X, door.position.Y));
-                    //else if (pick == 1)
-                    //    enemies.Add(new Beeble(this, door.position.X, door.position.Y));
-                    //else if (pick == 2)
-                    //    enemies.Add(new Salamando(this, door.position.X, door.position.Y));
-                    //else
-                    //    enemies.Add(new Mothy(this, door.position.X, door.position.Y));
+                    int pick = random.Next(4);
+                    if (pick == 0)
+                        enemies.Add(new Rat(this, door.position.X, door.position.Y));
+                    else if (pick == 1)
+                        enemies.Add(new Beeble(this, door.position.X, door.position.Y));
+                    else if (pick == 2)
+                        enemies.Add(new Salamando(this, door.position.X, door.position.Y));
+                    else
+                        enemies.Add(new Mothy(this, door.position.X, door.position.Y));
 
                     enemyCount--;
                 }
@@ -2000,7 +2059,7 @@ namespace MoleHillMountain
             }
 
             //place rats
-            enemyCount = 1;//random.Next(1, 4);
+            enemyCount = random.Next(1, 4);
             //for (int i = 0; i < enemyCount; i++)
             //{
             int index = 7;

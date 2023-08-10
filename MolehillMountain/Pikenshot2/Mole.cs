@@ -129,7 +129,7 @@ namespace MoleHillMountain
             health = con;
             item1 = ITEM_SLINGSHOT;
             item2 = ITEM_HOOKSHOT;
-            
+
         }
 
         public Mole(float x, float y, DungeonScreen dungeonScene) : this(dungeonScene)
@@ -146,12 +146,73 @@ namespace MoleHillMountain
         }
 
         int prevFrame;
+        private float windSpeed = 40f;
 
         public virtual void update(GameTime gameTime)
         {
             TimeSpan timeSpan = gameTime.ElapsedGameTime;
             animationTimer -= (float)timeSpan.TotalMilliseconds;
+            Tunnel windTunnel = dungeonScene.getCurrTunnel(position);
 
+            if (windTunnel.animateWind && this != windTunnel.mothy)
+            {
+                switch (windTunnel.direction)
+                {
+                    case MOVING_LEFT:
+                        if (position.X > 10)
+                        {
+                            if (!dungeonScene.vegetableLeft(position, new ArrayList { this }, MOLE_NUDGE_SPACING))
+                            {
+                                state &= ~STATE_NUDGING;
+                                position.X -= (float)timeSpan.TotalSeconds * windSpeed;
+                            }
+                            else
+                            {
+                                state |= STATE_NUDGING;
+                                position.X += nudgeMovement;
+                                animationTime = walkTime;
+                                walkingSprite = nudging;
+                                nudgeMovement = 0;
+                                //Console.WriteLine("nudgeMovement: " + nudgeMovement);
+                            }
+                        }
+                        break;
+                    case MOVING_RIGHT:
+                        if (position.X < DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_WIDTH - 0.5))
+                        {
+                            if (!dungeonScene.vegetableRight(position, new ArrayList { this }, MOLE_NUDGE_SPACING))
+                            {
+                                state &= ~STATE_NUDGING;
+                                position.X += (float)timeSpan.TotalSeconds * windSpeed;
+                            }
+                            else
+                            {
+                                state |= STATE_NUDGING;
+                                position.X += nudgeMovement;
+                                animationTime = walkTime;
+                                walkingSprite = nudging;
+                                nudgeMovement = 0;
+                                //Console.WriteLine("nudgeMovement: " + nudgeMovement);
+                            }
+                        }
+                        break;
+                    case MOVING_UP:
+                        if (position.Y > 10 && !dungeonScene.vegetableAbove(this))
+                        {
+                            position.Y -= (float)timeSpan.TotalSeconds * windSpeed;
+                            state &= ~STATE_NUDGING;
+                        }
+                        break;
+                    case MOVING_DOWN:
+                        if (position.Y < DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_HEIGHT - 0.5f) && !dungeonScene.vegetableBelow(this))
+                        {
+                            position.Y += (float)timeSpan.TotalSeconds * windSpeed;
+                        }
+                        break;
+                }
+                drawPosition.X = (int)position.X;
+                drawPosition.Y = (int)position.Y;
+            }
             if ((state & STATE_HIT) != 0)
             {
                 if (animationTimer >= 0)
@@ -246,7 +307,7 @@ namespace MoleHillMountain
                     int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
                     sprite.setFrame(frameNumber);
 
-                    if(frameNumber != prevFrame && frameNumber == useFrame)
+                    if (frameNumber != prevFrame && frameNumber == useFrame)
                     {
                         switch (item)
                         {
@@ -260,7 +321,7 @@ namespace MoleHillMountain
                                 dungeonScene.spawnStone(position, horzFacing, vertFacing);
                                 break;
                         }
-                        
+
                     }
                     prevFrame = frameNumber;
                 }
@@ -378,12 +439,12 @@ namespace MoleHillMountain
                 if (centeringOnTile)
                 {
                     centeringOnTile = false;
-                    if( Math.Abs((int)position.X % DungeonScreen.GRID_SIZE - DungeonScreen.GRID_SIZE/2) < 2)
+                    if (Math.Abs((int)position.X % DungeonScreen.GRID_SIZE - DungeonScreen.GRID_SIZE / 2) < 2)
                     {
                         Tunnel tunnel = dungeonScene.getCurrTunnel(position);
                         position.X = tunnel.position.X + DungeonScreen.GRID_SIZE / 2;
                     }
-                    if (Math.Abs((int)position.Y % DungeonScreen.GRID_SIZE - DungeonScreen.GRID_SIZE/2) < 2)
+                    if (Math.Abs((int)position.Y % DungeonScreen.GRID_SIZE - DungeonScreen.GRID_SIZE / 2) < 2)
                     {
                         Tunnel tunnel = dungeonScene.getCurrTunnel(position);
                         position.Y = tunnel.position.Y + DungeonScreen.GRID_SIZE / 2;

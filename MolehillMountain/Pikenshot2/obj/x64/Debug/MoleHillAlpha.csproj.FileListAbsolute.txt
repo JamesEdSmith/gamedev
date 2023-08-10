@@ -488,3 +488,6 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\mothy_run.xn
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\mothy_spooked.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\mothy_step.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\mothy_walk.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\wind.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\wind2.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\wind3.xnb

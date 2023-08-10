@@ -4,6 +4,9 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/backup/gamedev/shaders/../art/wind.png</File>
+    <File>D:/backup/gamedev/shaders/../art/wind2.png</File>
+    <File>D:/backup/gamedev/shaders/../art/wind3.png</File>
     <File>D:/backup/gamedev/shaders/../art/mothy_blink.png</File>
     <File>D:/backup/gamedev/shaders/../art/mothy_step.png</File>
     <File>D:/backup/gamedev/shaders/../art/mothy_walk.png</File>
@@ -50,6 +53,9 @@
     <File>D:/backup/gamedev/shaders/unseen_sprite.png</File>
   </SourceFiles>
   <DestFiles>
+    <File>wind.png</File>
+    <File>wind2.png</File>
+    <File>wind3.png</File>
     <File>mothy_blink.png</File>
     <File>mothy_step.png</File>
     <File>mothy_walk.png</File>

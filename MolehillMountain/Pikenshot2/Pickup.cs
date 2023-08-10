@@ -151,7 +151,7 @@ namespace MoleHillMountain
         public const int HALF_SEEN = 1;
         public const int NOT_SEEN = 0;
 
-        private static Color SEEN_COLOR = new Color(255, 255, 255, 255);
+        public static Color SEEN_COLOR = new Color(255, 255, 255, 255);
         private static Color currHalfSeenColor = new Color(255, 255, 255, 127);
         private static Color NOT_SEEN_COLOR = new Color(255, 255, 255, 0);
 

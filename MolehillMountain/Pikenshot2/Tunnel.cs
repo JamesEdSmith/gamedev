@@ -39,14 +39,19 @@ namespace MoleHillMountain
         internal bool starting;
 
         bool animateFire;
+        public bool animateWind;
         float animationTimer;
+        public Mothy mothy;
         float fireTime = 333.333f;
+        float windTime = 900f;
         private int length;
-        private int direction;
+        public int direction;
         bool fired;
+        bool windy;
 
         Sprite fireSprite;
         Sprite fireEndSprite;
+        Sprite windSprite;
 
         static Vector2 oneX = new Vector2(1, 0);
         static Vector2 oneY = new Vector2(0, 1);
@@ -57,16 +62,21 @@ namespace MoleHillMountain
             seen = SeenStatus.NOT_SEEN;
             fireSprite = new Sprite(PikeAndShotGame.TUNNEL_FIRE_BACK, new Rectangle(0, 0, 20, 20), 20, 20);
             fireEndSprite = new Sprite(PikeAndShotGame.FIRE, new Rectangle(0, 0, 20, 20), 20, 20);
+            windSprite = new Sprite(PikeAndShotGame.MOTHY_WIND, new Rectangle(0, 0, 20, 20), 20, 20);
         }
 
         public void update(DungeonScreen dungeonScreen, GameTime gameTime)
         {
             seen = dungeonScreen.checkMoleSight(this);
 
+            if(animateFire || animateWind)
+            {
+                animationTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
+
             if (animateFire)
             {
                 fired = false;
-                animationTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
                 if (length != 0)
                 {
@@ -84,9 +94,24 @@ namespace MoleHillMountain
                 }
             }
 
+            if (animateWind)
+            {
+                windy = false;
+
+                int maxFrames = windSprite.getMaxFrames();
+                float frameTime = windTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
+                windSprite.setFrame(frameNumber);
+            }
+
             if (animationTimer <= 0)
             {
-                animateFire = false;
+                if(animateFire)
+                    animateFire = false;
+                if (animateWind)
+                {
+                    animateWind = false;
+                }
             }
 
         }
@@ -117,10 +142,9 @@ namespace MoleHillMountain
 
         public void drawEffect(SpriteBatch spritebatch)
         {
+            Sprite sprite;
             if (animateFire)
             {
-                Sprite sprite;
-
                 if (length == 0)
                 {
                     sprite = fireEndSprite;
@@ -161,6 +185,19 @@ namespace MoleHillMountain
 
 
             }
+
+            if (animateWind)
+            {
+                sprite = windSprite;
+                if (direction == Mole.MOVING_LEFT)
+                    sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, Mole.MOVING_NONE, Mole.MOVING_NONE);
+                else if (direction == Mole.MOVING_RIGHT)
+                    sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, Mole.MOVING_RIGHT, Mole.MOVING_NONE);
+                else if (direction == Mole.MOVING_UP)
+                    sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, MathHelper.Pi * 0.5f);
+                else
+                    sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, -MathHelper.Pi * 0.5f);
+            }
         }
 
         internal void fire(int length, int direction)
@@ -172,9 +209,25 @@ namespace MoleHillMountain
             animationTimer = fireTime;
         }
 
+        internal void wind(int length, int direction, Mothy moth)
+        {
+
+            this.length = length;
+            this.direction = direction;
+            windy = true;
+            animateWind = true;
+            animationTimer = windTime;
+            this.mothy = moth;
+        }
+
         internal bool isFire()
         {
             return fired;
+        }
+
+        internal bool isWind()
+        {
+            return windy;
         }
     }
 }
