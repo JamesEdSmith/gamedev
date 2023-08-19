@@ -1,0 +1,28 @@
+diff a/MolehillMountain/Pikenshot2/Rat.cs b/MolehillMountain/Pikenshot2/Rat.cs	(rejected hunks)
+@@ -58,21 +58,23 @@
+             position.X = x;
+             position.Y = y;
+             drawPosition = new Vector2(position.X, position.Y);
++            if (dungeonScene.checkMoleSight(dungeonScene.getCurrTunnel(position)) != SeenStatus.SEEN)
++                walkingSprite = unseen;
+         }
+ 
+         public override void draw(SpriteBatch spritebatch)
+         {
+             if ((state & STATE_HIT) != 0)
+             {
+-                mad.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
++                mad.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
+             }
+             else if ((state & STATE_SCARED) != 0)
+             {
+-                squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
++                squashed.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
+             }
+             else if ((state & STATE_SNIFFING) != 0)
+             {
+-                sniffing.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
++                sniffing.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing, dimColor);
+             }
+             else if ((state & STATE_SQUASHED) != 0)
+             {

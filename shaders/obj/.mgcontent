@@ -4,21 +4,77 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/backup/gamedev/shaders/../art/wind.png</File>
+    <File>D:/backup/gamedev/shaders/../art/wind2.png</File>
+    <File>D:/backup/gamedev/shaders/../art/wind3.png</File>
+    <File>D:/backup/gamedev/shaders/../art/mothy_blink.png</File>
+    <File>D:/backup/gamedev/shaders/../art/mothy_step.png</File>
+    <File>D:/backup/gamedev/shaders/../art/mothy_walk.png</File>
+    <File>D:/backup/gamedev/shaders/../art/mothy_spooked.png</File>
+    <File>D:/backup/gamedev/shaders/../art/mothy_flap.png</File>
+    <File>D:/backup/gamedev/shaders/../art/mothy_run.png</File>
+    <File>D:/backup/gamedev/shaders/../art/item_icons.png</File>
+    <File>D:/backup/gamedev/shaders/../art/hookshot.png</File>
+    <File>D:/backup/gamedev/shaders/../art/stone_impact2.png</File>
+    <File>D:/backup/gamedev/shaders/../art/miner_hook_shot.png</File>
+    <File>D:/backup/gamedev/shaders/../art/fire.png</File>
+    <File>D:/backup/gamedev/shaders/../art/tunnel_fire.png</File>
+    <File>D:/backup/gamedev/shaders/../art/tunnel_fire_back.png</File>
+    <File>D:/backup/gamedev/shaders/../art/salamando_spit.png</File>
+    <File>D:/backup/gamedev/shaders/../art/salamando_walk.png</File>
+    <File>D:/backup/gamedev/shaders/../art/beeble_crushed.png</File>
+    <File>D:/backup/gamedev/shaders/../art/beeble_charge.png</File>
+    <File>D:/backup/gamedev/shaders/../art/beeble_spawn.png</File>
+    <File>D:/backup/gamedev/shaders/../art/beeble_zoom.png</File>
+    <File>D:/backup/gamedev/shaders/background2.png</File>
+    <File>D:/backup/gamedev/shaders/beeble_walk.png</File>
+    <File>D:/backup/gamedev/shaders/bin/theme.wma</File>
+    <File>D:/backup/gamedev/shaders/Bloom.fx</File>
+    <File>D:/backup/gamedev/shaders/BloomExtract.fx</File>
+    <File>D:/backup/gamedev/shaders/cgwg-xna.fx</File>
     <File>D:/backup/gamedev/shaders/dang_man.png</File>
-    <File>D:/backup/gamedev/shaders/mole_miner_sprite.png</File>
+    <File>D:/backup/gamedev/shaders/dmg-palette.png</File>
+    <File>D:/backup/gamedev/shaders/File.fx</File>
+    <File>D:/backup/gamedev/shaders/gb-pass-0.fx</File>
+    <File>D:/backup/gamedev/shaders/mole_miner.png</File>
     <File>D:/backup/gamedev/shaders/mole_miner_sprite_dig.png</File>
     <File>D:/backup/gamedev/shaders/mole_miner2.png</File>
-    <File>D:/backup/gamedev/shaders/safeplace_fullsize2.png</File>
-    <File>D:/backup/gamedev/shaders/safeplace_fullsize.png</File>
-    <File>D:/backup/gamedev/shaders/test_mole_back.png</File>
-    <File>D:/backup/gamedev/shaders/gb-pass-0.fx</File>
     <File>D:/backup/gamedev/shaders/mole_miner3.png</File>
+    <File>D:/backup/gamedev/shaders/mole_mockups.png</File>
+    <File>D:/backup/gamedev/shaders/newshader.fx</File>
+    <File>D:/backup/gamedev/shaders/newshader2.fx</File>
     <File>D:/backup/gamedev/shaders/palette.png</File>
-    <File>D:/backup/gamedev/shaders/mole_miner.png</File>
-    <File>D:/backup/gamedev/shaders/dmg-palette.png</File>
-    <File>D:/backup/gamedev/shaders/background2.png</File>
+    <File>D:/backup/gamedev/shaders/questionmark_sprite.png</File>
+    <File>D:/backup/gamedev/shaders/safeplace_fullsize.png</File>
+    <File>D:/backup/gamedev/shaders/safeplace_fullsize2.png</File>
+    <File>D:/backup/gamedev/shaders/test_mole_back.png</File>
+    <File>D:/backup/gamedev/shaders/theme.mp3</File>
+    <File>D:/backup/gamedev/shaders/theme.ogg</File>
+    <File>D:/backup/gamedev/shaders/unseen_sprite.png</File>
   </SourceFiles>
   <DestFiles>
+    <File>wind.png</File>
+    <File>wind2.png</File>
+    <File>wind3.png</File>
+    <File>mothy_blink.png</File>
+    <File>mothy_step.png</File>
+    <File>mothy_walk.png</File>
+    <File>mothy_spooked.png</File>
+    <File>mothy_flap.png</File>
+    <File>mothy_run.png</File>
+    <File>item_icons.png</File>
+    <File>hookshot.png</File>
+    <File>stone_impact2.png</File>
+    <File>miner_hook_shot.png</File>
+    <File>fire.png</File>
+    <File>tunnel_fire.png</File>
+    <File>tunnel_fire_back.png</File>
+    <File>salamando_spit.png</File>
+    <File>salamando_walk.png</File>
+    <File>beeble_crushed.png</File>
+    <File>beeble_charge.png</File>
+    <File>beeble_spawn.png</File>
+    <File>beeble_zoom.png</File>
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

@@ -395,6 +395,7 @@ namespace MoleHillMountain
         public static Texture2D MOLE_MINER_DIGGING;
         public static Texture2D MOLE_MINER_NUDGE;
         public static Texture2D MINER_SLING;
+        public static Texture2D MINER_HOOK;
         public static Texture2D MOLE_SQUASHED;
         public static Texture2D MOLE_DIZZY;
 
@@ -405,6 +406,9 @@ namespace MoleHillMountain
         public static Texture2D SCREEN_TEXT;
         public static Texture2D TUNNEL;
         public static Texture2D TUNNEL_REVEAL;
+        public static Texture2D TUNNEL_FIRE;
+        public static Texture2D FIRE;
+        public static Texture2D TUNNEL_FIRE_BACK;
         public static Texture2D HEART;
 
         public static Texture2D TURNIP_SHAKE;
@@ -426,12 +430,36 @@ namespace MoleHillMountain
         public static Texture2D GRUB_GRUB;
         public static Texture2D GRUB_LOOK;
 
+        public static Texture2D BEEBLE_WALKING;
+        public static Texture2D BEEBLE_CHARGE;
+        public static Texture2D BEEBLE_ZOOM;
+        public static Texture2D BEEBLE_CRASH;
+        public static Texture2D BEEBLE_SPAWN;
+        public static Texture2D BEEBLE_CRUSHED;
+
+        public static Texture2D MOTHY_BLINK;
+        public static Texture2D MOTHY_FLAP;
+        public static Texture2D MOTHY_RUN;
+        public static Texture2D MOTHY_SPOOKED;
+        public static Texture2D MOTHY_WALK;
+        public static Texture2D MOTHY_STEP;
+        public static Texture2D MOTHY_WIND;
+
+        public static Texture2D SALAMANDO_WALKING;
+        public static Texture2D SALAMANDO_SPITTING;
+
+        public static Texture2D ITEM_ICONS;
         public static Texture2D SLINGSHOT;
         public static Texture2D STONE;
         public static Texture2D STONE_IMPACT;
+        public static Texture2D STONE_IMPACT2;
+        public static Texture2D HOOK;
         public static Texture2D DOOR;
         public static Texture2D FIGHT_CLOUD;
         public static Texture2D DIZZY_MARK;
+
+        public static Texture2D UNSEEN_WALK;
+        public static Texture2D UNSEEN_WALK2;
 
         public static Texture2D SANDBOX;
 
@@ -604,11 +632,18 @@ namespace MoleHillMountain
             MOLE_MINER_NUDGE = Content.Load<Texture2D>(@"mole_miner_nudge");
             MOLE_SQUASHED = Content.Load<Texture2D>(@"mole_squashed");
             MINER_SLING = Content.Load<Texture2D>(@"miner_slingshot");
+            MINER_HOOK = Content.Load<Texture2D>(@"miner_hook_shot");
             MOLE_DIZZY = Content.Load<Texture2D>(@"mole_miner_dizzy");
             DIZZY_MARK = Content.Load<Texture2D>(@"seeing_stars");
 
+            UNSEEN_WALK = Content.Load<Texture2D>(@"questionmark_sprite");
+            UNSEEN_WALK2 = Content.Load<Texture2D>(@"unseen_sprite");
+
             TUNNEL = Content.Load<Texture2D>(@"tunnel");
             TUNNEL_REVEAL = Content.Load<Texture2D>(@"dirt");
+            TUNNEL_FIRE = Content.Load<Texture2D>(@"tunnel_fire");
+            FIRE = Content.Load<Texture2D>(@"fire");
+            TUNNEL_FIRE_BACK = Content.Load<Texture2D>(@"tunnel_fire_back");
             HEART = Content.Load<Texture2D>(@"heart");
 
             TURNIP_SHAKE = Content.Load<Texture2D>(@"turnip_fall");
@@ -626,13 +661,34 @@ namespace MoleHillMountain
             RAT_MAD = Content.Load<Texture2D>(@"rat_mad");
             RAT_SNIFF = Content.Load<Texture2D>(@"rat_sniff");
 
+            BEEBLE_WALKING = Content.Load<Texture2D>(@"beeble_walk");           
+            BEEBLE_CHARGE = Content.Load<Texture2D>(@"beeble_charge");
+            BEEBLE_ZOOM = Content.Load<Texture2D>(@"beeble_zoom");
+            BEEBLE_CRASH = Content.Load<Texture2D>(@"beeble_crash");
+            BEEBLE_SPAWN = Content.Load<Texture2D>(@"beeble_spawn");
+            BEEBLE_CRUSHED = Content.Load<Texture2D>(@"beeble_crushed");
+
+            MOTHY_BLINK = Content.Load<Texture2D>(@"mothy_blink");
+            MOTHY_FLAP = Content.Load<Texture2D>(@"mothy_flap");
+            MOTHY_RUN = Content.Load<Texture2D>(@"mothy_run");
+            MOTHY_SPOOKED = Content.Load<Texture2D>(@"mothy_spooked");
+            MOTHY_WALK = Content.Load<Texture2D>(@"mothy_walk");
+            MOTHY_STEP = Content.Load<Texture2D>(@"mothy_step");
+            MOTHY_WIND = Content.Load<Texture2D>(@"wind");
+
+            SALAMANDO_WALKING = Content.Load<Texture2D>(@"salamando_walk");
+            SALAMANDO_SPITTING = Content.Load<Texture2D>(@"salamando_spit");
+
             GRUB_EGG = Content.Load<Texture2D>(@"egg");
             GRUB_GRUB = Content.Load<Texture2D>(@"grub_craw_sml");
             GRUB_LOOK = Content.Load<Texture2D>(@"grub_look");
 
             SLINGSHOT = Content.Load<Texture2D>(@"slingshot");
+            ITEM_ICONS = Content.Load<Texture2D>(@"item_icons");
             STONE = Content.Load<Texture2D>(@"stone");
+            HOOK = Content.Load<Texture2D>(@"hookshot");
             STONE_IMPACT = Content.Load<Texture2D>(@"stone_impact");
+            STONE_IMPACT2 = Content.Load<Texture2D>(@"stone_impact2");
 
             DOOR = Content.Load<Texture2D>(@"door");
             FIGHT_CLOUD = Content.Load<Texture2D>(@"fight_cloud");

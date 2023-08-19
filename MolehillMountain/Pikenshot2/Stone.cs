@@ -5,29 +5,240 @@ using System.Collections;
 
 namespace MoleHillMountain
 {
-    class Stone
+    public class Projectile
     {
-        private Vector2 position;
-        private Vector2 drawPosition;
-        private int vertFacing;
-        private int horzFacing;
-        private DungeonScreen dungeonScreen;
-        int launchOffset = 10;
+        public Vector2 position;
+        public Vector2 drawPosition;
+        public int vertFacing;
+        protected int horzFacing;
+        public DungeonScreen dungeonScreen;
 
-        Vector2 velocity;
-        float speed = 100f;
+        protected Vector2 velocity;
+        protected float speed = 100f;
 
-        Sprite stone;
+        protected Sprite stone;
 
         public bool dead;
-
-        public Stone(Vector2 position, int vert, int horz, DungeonScreen dungeonScreen)
+        public float launchOffset;
+        public Projectile(Vector2 position, int vert, int horz, DungeonScreen dungeonScreen)
         {
             dead = false;
             vertFacing = vert;
             horzFacing = horz;
             this.dungeonScreen = dungeonScreen;
+            this.position = new Vector2(position.X, position.Y);
+            drawPosition = new Vector2(position.X, position.Y);
+
+        }
+
+        public virtual void draw(SpriteBatch spritebatch)
+        {
+            stone.draw(spritebatch, position + DungeonScreen.OFFSET, horzFacing, vertFacing);
+        }
+        public virtual void update(TimeSpan timeSpan) { }
+    }
+
+    class Hook : Projectile
+    {
+
+        int tail;
+        bool crashed;
+        float crashTimer = 100f;
+        static Vector2 adjustmentX = new Vector2(DungeonScreen.GRID_SIZE, 0);
+        static Vector2 adjustmentY = new Vector2(0, DungeonScreen.GRID_SIZE);
+
+        public Hook(Vector2 position, int vert, int horz, DungeonScreen dungeonScreen) : base(position, vert, horz, dungeonScreen)
+        {
+            stone = new Sprite(PikeAndShotGame.HOOK, new Rectangle(0, 0, 20, 20), 20, 20);
+            launchOffset = 20;
+            speed = 400f;
+
+            if (vert == Sprite.DIRECTION_NONE)
+            {
+                if (horz == Sprite.DIRECTION_LEFT)
+                {
+                    this.position = new Vector2(position.X - launchOffset, position.Y);
+                    drawPosition = new Vector2(position.X, position.Y);
+                }
+                else
+                {
+                    this.position = new Vector2(position.X + launchOffset, position.Y);
+                    drawPosition = new Vector2(position.X, position.Y);
+                }
+            }
+            else if (vert == Sprite.DIRECTION_UP)
+            {
+                if (horz == Sprite.DIRECTION_LEFT)
+                {
+                    this.position = new Vector2(position.X, position.Y - launchOffset);
+                    drawPosition = new Vector2(position.X, position.Y);
+                }
+                else
+                {
+                    this.position = new Vector2(position.X, position.Y - launchOffset);
+                    drawPosition = new Vector2(position.X, position.Y);
+                }
+            }
+            else
+            {
+                if (horz == Sprite.DIRECTION_LEFT)
+                {
+                    this.position = new Vector2(position.X, position.Y + launchOffset);
+                    drawPosition = new Vector2(position.X, position.Y);
+                }
+                else
+                {
+                    this.position = new Vector2(position.X, position.Y + launchOffset);
+                    drawPosition = new Vector2(position.X, position.Y);
+                }
+            }
+
+        }
+
+        public override void draw(SpriteBatch spritebatch)
+        {
+            stone.setFrame(0);
+            stone.draw(spritebatch, position + DungeonScreen.OFFSET, horzFacing, vertFacing);
+            for (int i = 1; i < tail; i++)
+            {
+                if (crashed && crashTimer > 0 /*&& crashTimer < crashTime /i*/)
+                    stone.setFrame((i % 2) + 2);
+                else
+                    stone.setFrame(1);
+
+                if (vertFacing == Sprite.DIRECTION_NONE)
+                {
+                    if (horzFacing == Sprite.DIRECTION_LEFT)
+                    {
+                        stone.draw(spritebatch, position + (adjustmentX * i) + DungeonScreen.OFFSET, horzFacing, vertFacing);
+                    }
+                    else
+                    {
+                        stone.draw(spritebatch, position - (adjustmentX * i) + DungeonScreen.OFFSET, horzFacing, vertFacing);
+                    }
+                }
+                else if (vertFacing == Sprite.DIRECTION_UP)
+                {
+
+                    stone.draw(spritebatch, position + (adjustmentY * i) + DungeonScreen.OFFSET, horzFacing, vertFacing);
+
+                }
+                else
+                {
+                    stone.draw(spritebatch, position - (adjustmentY * i) + DungeonScreen.OFFSET, horzFacing, vertFacing);
+                }
+            }
+        }
+
+        Tunnel currTunnel;
+
+        public override void update(TimeSpan timeSpan)
+        {
+            currTunnel = dungeonScreen.getCurrTunnel(position);
+
+            if (currTunnel == null || crashed)
+            {
+                if (crashTimer <= 0)
+                {
+                    if (vertFacing == Sprite.DIRECTION_NONE)
+                    {
+                        if (horzFacing == Sprite.DIRECTION_LEFT)
+                        {
+                            dungeonScreen.mole.position.X -= (float)timeSpan.TotalSeconds * speed;
+                            if (dungeonScreen.mole.position.X <= position.X + DungeonScreen.GRID_SIZE/1.5f)
+                                dead = true;
+                        }
+                        else
+                        {
+                            dungeonScreen.mole.position.X += (float)timeSpan.TotalSeconds * speed;
+                            if (dungeonScreen.mole.position.X >= position.X - DungeonScreen.GRID_SIZE / 1.5f)
+                                dead = true;
+                        }
+                    }
+                    else if (vertFacing == Sprite.DIRECTION_UP)
+                    {
+                        dungeonScreen.mole.position.Y -= (float)timeSpan.TotalSeconds * speed;
+                        if (dungeonScreen.mole.position.Y <= position.Y + DungeonScreen.GRID_SIZE / 1.5f)
+                            dead = true;
+                    }
+                    else
+                    {
+                        dungeonScreen.mole.position.Y += (float)timeSpan.TotalSeconds * speed;
+                        if (dungeonScreen.mole.position.Y >= position.Y - DungeonScreen.GRID_SIZE / 1.5f)
+                            dead = true;
+                    }
+                }
+                else
+                {
+                    crashed = true;
+                    crashTimer -= (float)timeSpan.TotalMilliseconds;
+                }
+            }
+            else
+            {
+                if (vertFacing == Sprite.DIRECTION_NONE)
+                {
+                    if (horzFacing == Sprite.DIRECTION_LEFT)
+                    {
+                        position.X = position.X - speed * (float)timeSpan.TotalSeconds;
+                        if (currTunnel.right == Tunnel.NOT_DUG)
+                        {
+                            position.X = (currTunnel.position + DungeonScreen.OFFSET).X + DungeonScreen.GRID_SIZE / 2;
+                            crash();
+                            
+                        }
+                    }
+                    else
+                    {
+                        this.position = new Vector2(position.X + speed * (float)timeSpan.TotalSeconds, position.Y);
+                        if (currTunnel.left == Tunnel.NOT_DUG)
+                        {
+                            position.X = (currTunnel.position + DungeonScreen.OFFSET).X - DungeonScreen.GRID_SIZE / 2;
+                            crash();
+                        }
+                    }
+                }
+                else if (vertFacing == Sprite.DIRECTION_UP)
+                {
+                    this.position = new Vector2(position.X, position.Y - speed * (float)timeSpan.TotalSeconds);
+                    if (currTunnel.bottom == Tunnel.NOT_DUG)
+                    {
+                        position.Y = (currTunnel.position + DungeonScreen.OFFSET).Y + DungeonScreen.GRID_SIZE ;
+                        crash();
+                    }
+                }
+                else
+                {
+                    this.position = new Vector2(position.X, position.Y + speed * (float)timeSpan.TotalSeconds);
+                    if (currTunnel.top == Tunnel.NOT_DUG)
+                    {
+                        position.Y = (currTunnel.position + DungeonScreen.OFFSET).Y  ;
+                        crash();
+                    }
+                }
+            }
+            drawPosition.X = position.X;
+            drawPosition.Y = position.Y;
+            tail = (int)(Math.Abs((float)(dungeonScreen.getMolePosition() - position).Length()) / stone.getBoundingRect().Width) + 1;
+        }
+
+        private void crash()
+        {
+            
+            crashed = true;
+
+            dungeonScreen.createAnimation(position + adjustmentX/1.6f + adjustmentY/5f, 0, 0, AnimationType.hookImpact);
+        }
+    }
+
+
+    class Stone : Projectile
+    {
+        public Stone(Vector2 position, int vert, int horz, DungeonScreen dungeonScreen) : base(position, vert, horz, dungeonScreen)
+        {
+
             stone = new Sprite(PikeAndShotGame.STONE, new Rectangle(0, 0, 20, 20), 20, 20);
+            launchOffset = 10f;
             if (vert == Sprite.DIRECTION_NONE)
             {
                 if (horz == Sprite.DIRECTION_LEFT)
@@ -75,12 +286,7 @@ namespace MoleHillMountain
             }
         }
 
-        public void draw(SpriteBatch spritebatch)
-        {
-            stone.draw(spritebatch, position + DungeonScreen.OFFSET, horzFacing, vertFacing);
-        }
-
-        public void update(TimeSpan timeSpan)
+        public override void update(TimeSpan timeSpan)
         {
             position += velocity * (float)timeSpan.TotalSeconds;
             drawPosition.X = (int)position.X;

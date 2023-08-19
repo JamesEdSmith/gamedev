@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MoleHillMountain
 {
-    class Item
+    public class Item
     {
         public const int DROP_NONE = 0;
         public const int DROP_SLINGSHOT = 1;
@@ -53,7 +53,7 @@ namespace MoleHillMountain
         {
             if (pulse)
             {
-                sprite.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, Color.White);
+                sprite.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, SeenStatus.getVisibilityColor(dungeonScreen.checkMoleSight(dungeonScreen.getCurrTunnel(position))));
                 if (flashing)
                 {
                     flash.draw(spriteBatch, drawPosition + DungeonScreen.OFFSET, 0f, flashColor);
@@ -107,7 +107,7 @@ namespace MoleHillMountain
         }
     }
 
-    class Door : Item
+    public class Door : Item
     {
         public Door(float x, float y, DungeonScreen dungeonScreen) : base(x, y, dungeonScreen) { }
 
@@ -151,7 +151,7 @@ namespace MoleHillMountain
         public const int HALF_SEEN = 1;
         public const int NOT_SEEN = 0;
 
-        private static Color SEEN_COLOR = new Color(255, 255, 255, 255);
+        public static Color SEEN_COLOR = new Color(255, 255, 255, 255);
         private static Color currHalfSeenColor = new Color(255, 255, 255, 127);
         private static Color NOT_SEEN_COLOR = new Color(255, 255, 255, 0);
 
@@ -182,14 +182,17 @@ namespace MoleHillMountain
         public const int STATE_IDLE = 0;
         public const int STATE_LOOKING = 1;
         public const int STATE_COLLECTED = 2;
+        public const int STATE_SPAWNING = 3;
 
         static Random random = new Random();
-        
+
         DungeonScreen dungeonScreen;
         public Vector2 position;
         Sprite idle;
         Sprite looking;
         Sprite currSprite;
+        Sprite spawning;
+        float spawnTime;
         public int state = 0;
 
         float timeToAntic;
@@ -199,9 +202,11 @@ namespace MoleHillMountain
         float animationTimer;
 
         bool isGrub = false;
-        bool flip = false;     
+        bool flip = false;
         public int seen;
-        
+
+        Tunnel spawnTarget;
+
         public Grub(float x, float y, DungeonScreen dungeonScreen)
         {
             position = new Vector2(x, y);
@@ -211,6 +216,8 @@ namespace MoleHillMountain
                 isGrub = true;
                 looking = new Sprite(PikeAndShotGame.GRUB_LOOK, new Rectangle(0, 0, 20, 20), 20, 20);
                 idle = new Sprite(PikeAndShotGame.GRUB_GRUB, new Rectangle(0, 0, 20, 20), 20, 20);
+                spawning = new Sprite(PikeAndShotGame.BEEBLE_SPAWN, new Rectangle(0, 0, 20, 20), 20, 20);
+                spawnTime = 1250f;
             }
             else
             {
@@ -232,6 +239,10 @@ namespace MoleHillMountain
             {
                 idle.draw(spriteBatch, position + DungeonScreen.OFFSET, 0f, SeenStatus.getVisibilityColor(seen));
             }
+            else if (state == STATE_SPAWNING)
+            {
+                spawning.draw(spriteBatch, position + DungeonScreen.OFFSET, 0f, SeenStatus.getVisibilityColor(seen));
+            }
             else
             {
                 if (flip)
@@ -245,7 +256,18 @@ namespace MoleHillMountain
             }
         }
 
-        
+        public static void shuffle(List<Tunnel> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                Tunnel value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
 
         public void update(GameTime gameTime)
         {
@@ -365,17 +387,83 @@ namespace MoleHillMountain
                         currSprite = looking;
                     }
                 }
+            }else if (state == STATE_SPAWNING)
+            {
+                animationTimer -= elapsedMilliseconds;
+                if(animationTimer <= 0)
+                {
+                    state = STATE_COLLECTED;
+                    dungeonScreen.enemies.Add(new Beeble(dungeonScreen, position.X, position.Y));
+                }
+
+                int maxFrames = spawning.getMaxFrames();
+                float frameTime = spawnTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
+                spawning.setFrame(frameNumber);
             }
 
             seen = dungeonScreen.checkMoleSight(position);
 
 
-            if (isGrub)
+            if (isGrub && state != STATE_SPAWNING)
             {
                 int moleClose = dungeonScreen.checkMoleSight(position);
                 if (moleClose == SeenStatus.SEEN)
                 {
-                    if (state != STATE_LOOKING && state != STATE_COLLECTED)
+                    if (state == STATE_LOOKING)
+                    {
+                        Tunnel currTunnel = dungeonScreen.getCurrTunnel(position);
+                        List<Tunnel> surroundingTunnels = new List<Tunnel>();
+                        Tunnel moleTunnel = dungeonScreen.getCurrTunnel(dungeonScreen.getMolePosition());
+                        Tunnel left = dungeonScreen.getTunnelLeft(position);
+                        Tunnel right = dungeonScreen.getTunnelRight(position);
+                        Tunnel up = dungeonScreen.getTunnelAbove(position);
+                        Tunnel down = dungeonScreen.getTunnelBelow(position);
+
+                        if(moleTunnel != left && left != null &&
+                            (left.left == Tunnel.DUG || left.right == Tunnel.DUG|| left.top == Tunnel.DUG || left.bottom == Tunnel.DUG))
+                            surroundingTunnels.Add(left);
+                        if (moleTunnel != right && right != null &&
+                            (right.left == Tunnel.DUG || right.right == Tunnel.DUG || right.top == Tunnel.DUG || right.bottom == Tunnel.DUG))
+                            surroundingTunnels.Add(right);
+                        if (moleTunnel != up && up != null &&
+                            (up.left == Tunnel.DUG || up.right == Tunnel.DUG || up.top == Tunnel.DUG || up.bottom == Tunnel.DUG))
+                            surroundingTunnels.Add(up);
+                        if (moleTunnel != down && down != null &&
+                            (down.left == Tunnel.DUG || down.right == Tunnel.DUG || down.top == Tunnel.DUG || down.bottom == Tunnel.DUG))
+                            surroundingTunnels.Add(down);
+
+                        if (surroundingTunnels.Count > 0)
+                        {
+                            shuffle(surroundingTunnels);
+                            spawnTarget = surroundingTunnels[0];
+
+                            if (spawnTarget == left)
+                            {
+                                currTunnel.left = Tunnel.DUG;
+                                spawnTarget.right = Tunnel.DUG;
+                            }
+                            else if (spawnTarget == right)
+                            {
+                                currTunnel.right = Tunnel.DUG;
+                                spawnTarget.left = Tunnel.DUG;
+                            }
+                            else if (spawnTarget == up)
+                            {
+                                currTunnel.top = Tunnel.DUG;
+                                spawnTarget.bottom = Tunnel.DUG;
+                            }
+                            else
+                            {
+                                currTunnel.bottom = Tunnel.DUG;
+                                spawnTarget.top = Tunnel.DUG;
+                            }
+
+                            state = STATE_SPAWNING;
+                            animationTimer = spawnTime;
+                        }
+                    }
+                    else if (state != STATE_LOOKING && state != STATE_COLLECTED)
                     {
                         state = STATE_LOOKING;
                         animationTimer = blinkTime;
