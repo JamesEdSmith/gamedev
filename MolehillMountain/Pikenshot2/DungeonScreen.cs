@@ -162,11 +162,11 @@ namespace MoleHillMountain
                 windSpread(x, y - 1, pathLength - 1, targetDirection, x, y, moth);
                 if (x > 0 && (tunnels[x - 1, y].right == Tunnel.DUG || tunnels[x - 1, y].right == Tunnel.HALF_DUG))
                 {
-                    windSpread(x-1, y, pathLength - 2, targetDirection, x, y, moth);
+                    windSpread(x - 1, y, pathLength - 2, targetDirection, x, y, moth);
                 }
                 if (x < GRID_WIDTH - 1 && (tunnels[x + 1, y].left == Tunnel.DUG || tunnels[x + 1, y].left == Tunnel.HALF_DUG))
                 {
-                    windSpread(x+1, y, pathLength - 2, targetDirection, x, y, moth);
+                    windSpread(x + 1, y, pathLength - 2, targetDirection, x, y, moth);
                 }
             }
             else if (targetDirection == Mole.MOVING_DOWN && y < GRID_HEIGHT - 1 && (tunnels[x, y + 1].top == Tunnel.DUG || tunnels[x, y + 1].top == Tunnel.HALF_DUG))
@@ -223,32 +223,101 @@ namespace MoleHillMountain
             tunnels[x, y].fire(length, direction);
             if (length > 0)
             {
-                if (direction != Mole.MOVING_RIGHT && x > 0 && (x - 1 != origX || origY != y)
+                if (direction == Mole.MOVING_LEFT)
+                {
+                    if (x > 0 && (x - 1 != origX || origY != y)
                     && (tunnels[x - 1, y].right == Tunnel.DUG || tunnels[x - 1, y].right == Tunnel.HALF_DUG)
                     && !tunnels[x - 1, y].isFire())
-                {
-                    fireSpread(x - 1, y, length - 1, Mole.MOVING_LEFT, origX, origY);
+                    {
+                        fireSpread(x - 1, y, length - 1, Mole.MOVING_LEFT, origX, origY);
+                    }
+                    else
+                    {
+                        if (y > 0 && (x != origX || origY != y - 1)
+                            && (tunnels[x, y - 1].bottom == Tunnel.DUG || tunnels[x, y - 1].bottom == Tunnel.HALF_DUG)
+                            && !tunnels[x, y - 1].isFire())
+                        {
+                            fireSpread(x, y - 1, length - 1, Mole.MOVING_UP, origX, origY);
+                        }
+                        if (y < GRID_HEIGHT - 1 && (x != origX || origY != y + 1)
+                            && (tunnels[x, y + 1].top == Tunnel.DUG || tunnels[x, y + 1].top == Tunnel.HALF_DUG)
+                            && !tunnels[x, y + 1].isFire())
+                        {
+                            fireSpread(x, y + 1, length - 1, Mole.MOVING_DOWN, origX, origY);
+                        }
+                    }
                 }
-
-                if (direction != Mole.MOVING_LEFT && x < GRID_WIDTH - 1 && (x + 1 != origX || origY != y)
+                else if (direction == Mole.MOVING_RIGHT)
+                {
+                    if (x < GRID_WIDTH - 1 && (x + 1 != origX || origY != y)
                     && (tunnels[x + 1, y].left == Tunnel.DUG || tunnels[x + 1, y].left == Tunnel.HALF_DUG)
                     && !tunnels[x + 1, y].isFire())
-                {
-                    fireSpread(x + 1, y, length - 1, Mole.MOVING_RIGHT, origX, origY);
+                    {
+                        fireSpread(x + 1, y, length - 1, Mole.MOVING_RIGHT, origX, origY);
+                    }
+                    else
+                    {
+                        if (y > 0 && (x != origX || origY != y - 1)
+                            && (tunnels[x, y - 1].bottom == Tunnel.DUG || tunnels[x, y - 1].bottom == Tunnel.HALF_DUG)
+                            && !tunnels[x, y - 1].isFire())
+                        {
+                            fireSpread(x, y - 1, length - 1, Mole.MOVING_UP, origX, origY);
+                        }
+                        if (y < GRID_HEIGHT - 1 && (x != origX || origY != y + 1)
+                            && (tunnels[x, y + 1].top == Tunnel.DUG || tunnels[x, y + 1].top == Tunnel.HALF_DUG)
+                            && !tunnels[x, y + 1].isFire())
+                        {
+                            fireSpread(x, y + 1, length - 1, Mole.MOVING_DOWN, origX, origY);
+                        }
+                    }
                 }
-
-                if (direction != Mole.MOVING_UP && y < GRID_HEIGHT - 1 && (x != origX || origY != y + 1)
+                else if (direction == Mole.MOVING_DOWN)
+                {
+                    if (y < GRID_HEIGHT - 1 && (x != origX || origY != y + 1)
                     && (tunnels[x, y + 1].top == Tunnel.DUG || tunnels[x, y + 1].top == Tunnel.HALF_DUG)
                     && !tunnels[x, y + 1].isFire())
-                {
-                    fireSpread(x, y + 1, length - 1, Mole.MOVING_DOWN, origX, origY);
+                    {
+                        fireSpread(x, y + 1, length - 1, Mole.MOVING_DOWN, origX, origY);
+                    }
+                    else
+                    {
+                        if (x > 0 && (x - 1 != origX || origY != y)
+                            && (tunnels[x - 1, y].right == Tunnel.DUG || tunnels[x - 1, y].right == Tunnel.HALF_DUG)
+                            && !tunnels[x - 1, y].isFire())
+                        {
+                            fireSpread(x - 1, y, length - 1, Mole.MOVING_LEFT, origX, origY);
+                        }
+                        if (x < GRID_WIDTH - 1 && (x + 1 != origX || origY != y)
+                            && (tunnels[x + 1, y].left == Tunnel.DUG || tunnels[x + 1, y].left == Tunnel.HALF_DUG)
+                            && !tunnels[x + 1, y].isFire())
+                        {
+                            fireSpread(x + 1, y, length - 1, Mole.MOVING_RIGHT, origX, origY);
+                        }
+                    }
                 }
-
-                if (direction != Mole.MOVING_DOWN && y > 0 && (x != origX || origY != y - 1)
-                    && (tunnels[x, y - 1].bottom == Tunnel.DUG || tunnels[x, y - 1].bottom == Tunnel.HALF_DUG)
-                    && !tunnels[x, y - 1].isFire())
+                if (direction == Mole.MOVING_UP)
                 {
-                    fireSpread(x, y - 1, length - 1, Mole.MOVING_UP, origX, origY);
+                    if (y > 0 && (x != origX || origY != y - 1)
+                     && (tunnels[x, y - 1].bottom == Tunnel.DUG || tunnels[x, y - 1].bottom == Tunnel.HALF_DUG)
+                     && !tunnels[x, y - 1].isFire())
+                    {
+                        fireSpread(x, y - 1, length - 1, Mole.MOVING_UP, origX, origY);
+                    }
+                    else
+                    {
+                        if (x > 0 && (x - 1 != origX || origY != y)
+                            && (tunnels[x - 1, y].right == Tunnel.DUG || tunnels[x - 1, y].right == Tunnel.HALF_DUG)
+                            && !tunnels[x - 1, y].isFire())
+                        {
+                            fireSpread(x - 1, y, length - 1, Mole.MOVING_LEFT, origX, origY);
+                        }
+                        if (x < GRID_WIDTH - 1 && (x + 1 != origX || origY != y)
+                            && (tunnels[x + 1, y].left == Tunnel.DUG || tunnels[x + 1, y].left == Tunnel.HALF_DUG)
+                            && !tunnels[x + 1, y].isFire())
+                        {
+                            fireSpread(x + 1, y, length - 1, Mole.MOVING_RIGHT, origX, origY);
+                        }
+                    }
                 }
             }
         }
