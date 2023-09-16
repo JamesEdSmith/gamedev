@@ -12,6 +12,8 @@ namespace MoleHillMountain
     {
         void update(GameTime gameTime);
 
+        void preDraw(GameTime gameTime, SpriteBatch spriteBatch);
+        void preDraw2(GameTime gameTime, SpriteBatch spriteBatch);
 
         void draw(GameTime gameTime, SpriteBatch spriteBatch);
     }

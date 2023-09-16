@@ -30,6 +30,7 @@ namespace MoleHillMountain
         GraphicsDeviceManager graphics;
         public static Viewport viewport;
         SpriteBatch spriteBatch;
+        public SpriteBatch spriteBatchTemp;
 
         Rectangle testDrawRectangle = new Rectangle(0, 0, SCREENWIDTH, SCREENHEIGHT);
         Rectangle drawRectangle = new Rectangle(0, 0, SCREENWIDTH, SCREENHEIGHT);
@@ -40,10 +41,8 @@ namespace MoleHillMountain
         Rectangle screenDrawRectangle4 = new Rectangle(0, SCREENHEIGHT + 25, SCREENWIDTH + 50, 3);
         Rectangle drawSourceRectangle = new Rectangle(2, 2, SCREENWIDTH, SCREENHEIGHT);
 
-        RenderTarget2D ShaderRenderTarget;
+        public RenderTarget2D ShaderRenderTarget;
         RenderTarget2D ShaderRenderTarget2;
-        RenderTarget2D ShaderRenderTarget3;
-        RenderTarget2D ShaderRenderTarget4;
 
         static SpriteFont soldierFont;
         public static SpriteFont MOLE_FONT;
@@ -56,6 +55,7 @@ namespace MoleHillMountain
         public static Effect effect;
         public static Effect effect2;
         public static Effect effect3;
+        public static Effect maskEffect;
 
         public static Texture2D TERRAIN_DRY_GRASS;
 
@@ -458,6 +458,9 @@ namespace MoleHillMountain
         public static Texture2D FIGHT_CLOUD;
         public static Texture2D DIZZY_MARK;
 
+        public static Texture2D WATER;
+        public static Texture2D WATER_FULL;
+
         public static Texture2D UNSEEN_WALK;
         public static Texture2D UNSEEN_WALK2;
 
@@ -512,6 +515,12 @@ namespace MoleHillMountain
         public Color screenColorShader;
         private Dictionary<Texture2D, Texture2D> flashTextures;
 
+        DepthStencilState stencil1;
+        DepthStencilState stencil2;
+
+        AlphaTestEffect maskAlphaTestEffect;
+
+
         public PikeAndShotGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -520,6 +529,7 @@ namespace MoleHillMountain
             graphics.PreferMultiSampling = false;
 
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            graphics.PreferredDepthStencilFormat = DepthFormat.Depth24Stencil8;
             graphics.ApplyChanges();
             if (!DEBUG)
             {
@@ -542,6 +552,32 @@ namespace MoleHillMountain
             Content.RootDirectory = "Content";
             screenColor = new Color(166, 172, 132, 150);
             screenColorShader = new Color(166, 172, 132, 0);
+
+            stencil1 = new DepthStencilState
+            {
+                StencilEnable = true,
+                StencilFunction = CompareFunction.Always,
+                StencilPass = StencilOperation.Replace,
+                ReferenceStencil = 1,
+                DepthBufferEnable = false,
+            };
+
+            stencil2 = new DepthStencilState
+            {
+                StencilEnable = true,
+                StencilFunction = CompareFunction.LessEqual,
+                StencilPass = StencilOperation.Keep,
+                ReferenceStencil = 1,
+                DepthBufferEnable = false,
+            };
+
+            maskAlphaTestEffect = new AlphaTestEffect(graphics.GraphicsDevice)
+            {
+                Projection = Matrix.CreateOrthographicOffCenter(0,
+                graphics.GraphicsDevice.PresentationParameters.BackBufferWidth,
+                graphics.GraphicsDevice.PresentationParameters.BackBufferHeight,
+                0, 0, 1)
+            };
 
             flashTextures = new Dictionary<Texture2D, Texture2D>();
         }
@@ -589,6 +625,7 @@ namespace MoleHillMountain
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatchTemp = new SpriteBatch(GraphicsDevice);
             viewport = GraphicsDevice.Viewport;
 
             DOT = CreateTexture(GraphicsDevice, 1, 1, pixel => Color.Black);
@@ -604,10 +641,8 @@ namespace MoleHillMountain
             //BACKGROUND2 = Content.Load<Texture2D>(@"bg_red");
             SCREEN_TEXT = CreateTexture(GraphicsDevice, 1, 1, pixel => new Color(166, 172, 132, 150));
 
-            ShaderRenderTarget = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
-            ShaderRenderTarget2 = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
-            ShaderRenderTarget3 = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
-            ShaderRenderTarget4 = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.None);
+            ShaderRenderTarget = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.Depth24Stencil8);
+            ShaderRenderTarget2 = new RenderTarget2D(GraphicsDevice, SCREENWIDTH, SCREENHEIGHT, false, SurfaceFormat.Color, DepthFormat.Depth24Stencil8);
 
             effect = Content.Load<Effect>(@"newshader");
             effect.Parameters["Viewport"].SetValue(new Vector2((float)SCREENWIDTH, (float)SCREENHEIGHT));
@@ -623,6 +658,8 @@ namespace MoleHillMountain
             //       effect3.Parameters["modelViewProj"].SetValue(Matrix.Identity);
             effect3.Parameters["$COLOR_PALETTE"].SetValue(PALETTE);
             //effect3.Parameters["$BACKGROUND"].SetValue(BACKGROUND);
+
+            maskEffect = Content.Load<Effect>(@"mask");
 
             prevFrames = new Queue<Texture2D>(7);
 
@@ -661,7 +698,7 @@ namespace MoleHillMountain
             RAT_MAD = Content.Load<Texture2D>(@"rat_mad");
             RAT_SNIFF = Content.Load<Texture2D>(@"rat_sniff");
 
-            BEEBLE_WALKING = Content.Load<Texture2D>(@"beeble_walk");           
+            BEEBLE_WALKING = Content.Load<Texture2D>(@"beeble_walk");
             BEEBLE_CHARGE = Content.Load<Texture2D>(@"beeble_charge");
             BEEBLE_ZOOM = Content.Load<Texture2D>(@"beeble_zoom");
             BEEBLE_CRASH = Content.Load<Texture2D>(@"beeble_crash");
@@ -692,6 +729,8 @@ namespace MoleHillMountain
 
             DOOR = Content.Load<Texture2D>(@"door");
             FIGHT_CLOUD = Content.Load<Texture2D>(@"fight_cloud");
+            WATER = Content.Load<Texture2D>(@"water_mole");
+            WATER_FULL = Content.Load<Texture2D>(@"water_mole2");
 
 
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
@@ -831,7 +870,7 @@ namespace MoleHillMountain
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
                     GraphicsDevice.Viewport = viewport;
                     GraphicsDevice.Clear(screenColor);
-                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, mapTransform);
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null);
 
                     if (_currScreen != null)
                     {
@@ -852,7 +891,20 @@ namespace MoleHillMountain
                 {
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
                     GraphicsDevice.Viewport = viewport;
-                    GraphicsDevice.Clear(Color.White);
+                    GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.Stencil, Color.Transparent, 0, 0);
+                    spriteBatch.Begin(SpriteSortMode.Immediate, null, null, stencil1, null, maskAlphaTestEffect);
+                    if (_currScreen != null)
+                    {
+                        _currScreen.preDraw(gameTime, spriteBatch);
+                    }
+                    spriteBatch.End();
+
+                    spriteBatch.Begin(SpriteSortMode.Immediate, null, null, stencil2, null, maskAlphaTestEffect);
+                    if (_currScreen != null)
+                    {
+                        _currScreen.preDraw2(gameTime, spriteBatch);
+                    }
+                    spriteBatch.End();
                     //get rid of blurry sprites
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, mapTransform);
 
@@ -916,7 +968,7 @@ namespace MoleHillMountain
                     //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null);
                     //spriteBatch.Draw(BACKGROUND2, fullDrawRectangle, Color.White);
                     //spriteBatch.End();
-                    
+
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, effect3);
                     spriteBatch.Draw(BACKGROUND, fullDrawRectangle, Color.White);
                     spriteBatch.Draw(ShaderRenderTarget, drawRectangle, testDrawRectangle, Color.White);

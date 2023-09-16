@@ -476,7 +476,6 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\salamando_sp
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\tunnel_fire.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\tunnel_fire_back.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\fire.xnb
-D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.AssemblyReference.cache
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\hookshot.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\miner_hook_shot.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Icon.ico
@@ -491,3 +490,7 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\mothy_walk.x
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\wind.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\wind2.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\wind3.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\water_mole.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\water_mole2.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\mask.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.AssemblyReference.cache

@@ -1083,6 +1083,16 @@ namespace MoleHillMountain
             }
             return false;
         }
+
+        public void preDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            
+        }
+
+        public void preDraw2(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+          
+        }
     }
 
     public class DrawJob

@@ -422,11 +422,7 @@ namespace MoleHillMountain
         public void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             _draws++;
-            foreach (Tunnel tunnel in tunnels)
-            {
-                tunnel.draw(spriteBatch);
-            }
-
+            
             if (door != null)
             {
                 door.draw(spriteBatch);
@@ -2054,7 +2050,7 @@ namespace MoleHillMountain
 
             revealTunnels(start, (int)mole.position.X / GRID_SIZE, (int)mole.position.Y / GRID_SIZE);
 
-            int tracker = 0;
+
             for (int i = 0; i < GRID_HEIGHT; i++)
             {
                 if (tunnelsToReveal[i].Count > 0)
@@ -2063,7 +2059,6 @@ namespace MoleHillMountain
                     {
                         createAnimation(tunnel.position + Tunnel.center, 0, 0, AnimationType.tunnelReveal); //tracker * Animation.REVEAL_TIME);
                     }
-                    //tracker++;
                 }
             }
         }
@@ -2438,6 +2433,21 @@ namespace MoleHillMountain
                 }
             }
             return generatedTunnels;
+        }
+
+        public void preDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            foreach (Tunnel tunnel in tunnels)
+            {
+                tunnel.draw(spriteBatch);
+            }
+        }
+        public void preDraw2(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            foreach (Tunnel tunnel in tunnels)
+            {
+                tunnel.waterDraw(spriteBatch);
+            }
         }
     }
 }

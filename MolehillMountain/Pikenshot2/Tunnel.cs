@@ -16,6 +16,7 @@ namespace MoleHillMountain
         private static Vector2 halfRight = new Vector2(DungeonScreen.GRID_SIZE - 2, DungeonScreen.GRID_SIZE / 2);
         private static Vector2 halfTop = new Vector2(DungeonScreen.GRID_SIZE / 2, 2);
         private static Vector2 halfBottom = new Vector2(DungeonScreen.GRID_SIZE / 2, DungeonScreen.GRID_SIZE - 2);
+        private static Vector2 halfLeft = new Vector2(0, DungeonScreen.GRID_SIZE / 2);
 
         public static Vector2 center = new Vector2(DungeonScreen.GRID_SIZE / 2, DungeonScreen.GRID_SIZE / 2);
 
@@ -48,28 +49,34 @@ namespace MoleHillMountain
         public int direction;
         bool fired;
         bool windy;
+        bool water;
 
         Sprite fireSprite;
         Sprite fireEndSprite;
         Sprite windSprite;
+        Sprite waterSprite;
+        Sprite waterFullSprite;
 
         static Vector2 oneX = new Vector2(1, 0);
         static Vector2 oneY = new Vector2(0, 1);
 
         public Tunnel(int x, int y)
         {
+            water = true;
             position = new Vector2(x, y);
             seen = SeenStatus.NOT_SEEN;
             fireSprite = new Sprite(PikeAndShotGame.TUNNEL_FIRE_BACK, new Rectangle(0, 0, 20, 20), 20, 20);
             fireEndSprite = new Sprite(PikeAndShotGame.FIRE, new Rectangle(0, 0, 20, 20), 20, 20);
             windSprite = new Sprite(PikeAndShotGame.MOTHY_WIND, new Rectangle(0, 0, 20, 20), 20, 20);
+            waterSprite = new Sprite(PikeAndShotGame.WATER, new Rectangle(0, 0, 20, 20), 20, 20);
+            waterFullSprite = new Sprite(PikeAndShotGame.WATER_FULL, new Rectangle(0, 0, 20, 20), 20, 20);
         }
 
         public void update(DungeonScreen dungeonScreen, GameTime gameTime)
         {
             seen = dungeonScreen.checkMoleSight(this);
 
-            if(animateFire || animateWind)
+            if (animateFire || animateWind)
             {
                 animationTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             }
@@ -106,14 +113,19 @@ namespace MoleHillMountain
 
             if (animationTimer <= 0)
             {
-                if(animateFire)
+                if (animateFire)
                     animateFire = false;
                 if (animateWind)
                 {
                     animateWind = false;
                 }
             }
+        }
 
+        public void waterDraw(SpriteBatch spritebatch)
+        {
+            //draw(spritebatch);
+            waterSprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, 0f);
         }
 
         public void draw(SpriteBatch spritebatch)
@@ -137,7 +149,6 @@ namespace MoleHillMountain
                 spritebatch.Draw(PikeAndShotGame.TUNNEL, position + center + DungeonScreen.OFFSET, sourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * -0.5f, center, 1, SpriteEffects.None, 0);
             else if (top == HALF_DUG)
                 spritebatch.Draw(PikeAndShotGame.TUNNEL, position + halfTop + DungeonScreen.OFFSET, halfSourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * -0.5f, center, 1, SpriteEffects.None, 0);
-
         }
 
         public void drawEffect(SpriteBatch spritebatch)

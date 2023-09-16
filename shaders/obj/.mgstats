@@ -18,6 +18,8 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/backup/gamedev/shaders/../art/stone_impact2.png","D:/backup/gamedev/shaders/bin/stone_impact2.xnb","TextureProcessor","Texture2DContent",368,8085,0.3268362
 "D:/backup/gamedev/shaders/../art/tunnel_fire.png","D:/backup/gamedev/shaders/bin/tunnel_fire.xnb","TextureProcessor","Texture2DContent",435,6485,0.0927562
 "D:/backup/gamedev/shaders/../art/tunnel_fire_back.png","D:/backup/gamedev/shaders/bin/tunnel_fire_back.xnb","TextureProcessor","Texture2DContent",265,6485,0.3350759
+"D:/backup/gamedev/shaders/../art/water_mole.png","D:/backup/gamedev/shaders/bin/water_mole.xnb","TextureProcessor","Texture2DContent",511,9685,0.3465013
+"D:/backup/gamedev/shaders/../art/water_mole2.png","D:/backup/gamedev/shaders/bin/water_mole2.xnb","TextureProcessor","Texture2DContent",91,1685,0.0019941
 "D:/backup/gamedev/shaders/../art/wind.png","D:/backup/gamedev/shaders/bin/wind.xnb","TextureProcessor","Texture2DContent",629,19285,0.3745838
 "D:/backup/gamedev/shaders/../art/wind2.png","D:/backup/gamedev/shaders/bin/wind2.xnb","TextureProcessor","Texture2DContent",550,16085,0.0041244
 "D:/backup/gamedev/shaders/../art/wind3.png","D:/backup/gamedev/shaders/bin/wind3.xnb","TextureProcessor","Texture2DContent",373,16085,0.0009992
@@ -30,7 +32,8 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/backup/gamedev/shaders/dang_man.png","D:/backup/gamedev/shaders/bin/dang_man.xnb","TextureProcessor","Texture2DContent",26629,816085,0.0373712
 "D:/backup/gamedev/shaders/dmg-palette.png","D:/backup/gamedev/shaders/bin/dmg-palette.xnb","TextureProcessor","Texture2DContent",292,32853,0.0044794
 "D:/backup/gamedev/shaders/File.fx","D:/backup/gamedev/shaders/bin/File.xnb","EffectProcessor","CompiledEffectContent",845,1278,0.0884931
-"D:/backup/gamedev/shaders/gb-pass-0.fx","D:/backup/gamedev/shaders/bin/gb-pass-0.xnb","EffectProcessor","CompiledEffectContent",19707,9592,0.2670722
+"D:/backup/gamedev/shaders/gb-pass-0.fx","D:/backup/gamedev/shaders/bin/gb-pass-0.xnb","EffectProcessor","CompiledEffectContent",19707,9508,0.4386511
+"D:/backup/gamedev/shaders/mask.fx","D:/backup/gamedev/shaders/bin/mask.xnb","EffectProcessor","CompiledEffectContent",660,667,0.228388
 "D:/backup/gamedev/shaders/mole_miner.png","D:/backup/gamedev/shaders/bin/mole_miner.xnb","TextureProcessor","Texture2DContent",539,5481,0.003967
 "D:/backup/gamedev/shaders/mole_miner_sprite_dig.png","D:/backup/gamedev/shaders/bin/mole_miner_sprite_dig.xnb","TextureProcessor","Texture2DContent",1050,11749,0.0049866
 "D:/backup/gamedev/shaders/mole_miner2.png","D:/backup/gamedev/shaders/bin/mole_miner2.xnb","TextureProcessor","Texture2DContent",615,6925,0
@@ -45,4 +48,5 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/backup/gamedev/shaders/test_mole_back.png","D:/backup/gamedev/shaders/bin/test_mole_back.xnb","TextureProcessor","Texture2DContent",5223905,16777301,0.444098
 "D:/backup/gamedev/shaders/theme.mp3","D:/backup/gamedev/shaders/bin/theme.xnb","SongProcessor","SongContent",1431543,123,0.5901746
 "D:/backup/gamedev/shaders/theme.ogg","D:/backup/gamedev/shaders/bin/theme.xnb","SongProcessor","SongContent",1380868,123,0.5360966
+"D:/backup/gamedev/shaders/tunnel.png","D:/backup/gamedev/shaders/bin/tunnel.xnb","TextureProcessor","Texture2DContent",191,1685,0.3394098
 "D:/backup/gamedev/shaders/unseen_sprite.png","D:/backup/gamedev/shaders/bin/unseen_sprite.xnb","TextureProcessor","Texture2DContent",410,5269,0.0096826

@@ -253,6 +253,30 @@
 /processorParam:TextureFormat=Color
 /build:../art/tunnel_fire_back.png;tunnel_fire_back.png
 
+#begin ../art/water_mole.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,0
+/processorParam:ColorKeyEnabled=False
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../art/water_mole.png;water_mole.png
+
+#begin ../art/water_mole2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,0
+/processorParam:ColorKeyEnabled=False
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../art/water_mole2.png;water_mole2.png
+
 #begin ../art/wind.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -424,6 +448,12 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:lottes_crt.fx
+
+#begin mask.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:mask.fx
 
 #begin mole_miner.png
 /importer:TextureImporter
@@ -657,6 +687,18 @@
 /importer:
 /processor:
 /build:Tools.mgcb
+
+#begin tunnel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,0
+/processorParam:ColorKeyEnabled=False
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:tunnel.png
 
 #begin unseen_sprite.png
 /importer:TextureImporter
