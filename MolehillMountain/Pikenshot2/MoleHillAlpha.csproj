@@ -98,6 +98,7 @@
     <Compile Include="TitleScreen.cs" />
     <Compile Include="Tunnel.cs" />
     <Compile Include="Vegetable.cs" />
+    <Compile Include="Water.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.5.1.1679, Culture=neutral, processorArchitecture=MSIL">

@@ -54,6 +54,7 @@ namespace MoleHillMountain
         ArrayList deadStuff;
         ArrayList effects;
         ArrayList items;
+        ArrayList waters;
 
         protected KeyboardState keyboardState;
         protected KeyboardState previousKeyboardState;
@@ -422,7 +423,13 @@ namespace MoleHillMountain
         public void draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             _draws++;
-            
+
+            foreach (Tunnel tunnel in tunnels)
+            {
+                if (!tunnel.water || tunnel.seen == SeenStatus.HALF_SEEN)
+                    tunnel.draw(spriteBatch);
+            }
+
             if (door != null)
             {
                 door.draw(spriteBatch);
@@ -642,6 +649,11 @@ namespace MoleHillMountain
             foreach (Tunnel tunnel in tunnels)
             {
                 tunnel.update(this, gameTime);
+            }
+
+            foreach (Water water in waters)
+            {
+                water.update(gameTime);
             }
 
             updateTunnels(mole);
@@ -1690,6 +1702,7 @@ namespace MoleHillMountain
             }
 
             vegetables = new ArrayList(5);
+            waters = new ArrayList(12);
             pickups = new ArrayList(40);
             deadStuff = new ArrayList(5);
             enemies = new ArrayList(10);
@@ -1949,6 +1962,90 @@ namespace MoleHillMountain
                 vegetables.Add(new Vegetable(vegetableSpot.X * GRID_SIZE + GRID_SIZE * 0.5f, vegetableSpot.Y * GRID_SIZE + GRID_SIZE * 0.5f, this));
                 vegetablePlacements.RemoveAt(vegetableSpotIndex);
                 combinedTunnels[vegetableSpot.X, vegetableSpot.Y] = 2; // 2 for vegetable
+            }
+
+            //place water
+
+            if (vegetablePlacements.Count > 2)
+            {
+                int totalWater = random.Next(1, 2);
+                List<Point> choices = new List<Point>();
+                List<Point> prevChoices;
+
+                for (int i = 0; i < totalWater; i++)
+                {
+                    int vegetableSpotIndex = random.Next(vegetablePlacements.Count);
+                    Point vegetableSpot = (Point)vegetablePlacements[vegetableSpotIndex];
+                    vegetablePlacements.RemoveAt(vegetableSpotIndex);
+                    tunnels[vegetableSpot.X, vegetableSpot.Y].water = true;
+                    combinedTunnels[vegetableSpot.X, vegetableSpot.Y] = 3; // 3 for water
+
+                    int waterLength = 3;
+                    while (waterLength > 0)
+                    {
+                        prevChoices = choices;
+                        choices.Clear();
+
+                        if (vegetableSpot.X < GRID_WIDTH - 1 && combinedTunnels[vegetableSpot.X + 1, vegetableSpot.Y] == 0)
+                        {
+                            choices.Add(new Point(vegetableSpot.X + 1, vegetableSpot.Y));
+                        }
+                        if (vegetableSpot.X > 1 && combinedTunnels[vegetableSpot.X - 1, vegetableSpot.Y] == 0)
+                        {
+                            choices.Add(new Point(vegetableSpot.X - 1, vegetableSpot.Y));
+                        }
+                        if (vegetableSpot.Y < GRID_HEIGHT - 1 && combinedTunnels[vegetableSpot.X, vegetableSpot.Y + 1] == 0)
+                        {
+                            choices.Add(new Point(vegetableSpot.X, vegetableSpot.Y + 1));
+                        }
+                        if (vegetableSpot.Y > 1 && combinedTunnels[vegetableSpot.X, vegetableSpot.Y - 1] == 0)
+                        {
+                            choices.Add(new Point(vegetableSpot.X, vegetableSpot.Y - 1));
+                        }
+
+                        if (choices.Count == 0)
+                        {
+                            choices = prevChoices;
+                            if (choices.Count == 0)
+                            {
+                                break;
+                            }
+                        }
+
+                        vegetableSpot = choices[random.Next(0, choices.Count)];
+                        waters.Add(new Water(vegetableSpot.X * GRID_SIZE + GRID_SIZE * 0.5f, vegetableSpot.Y * GRID_SIZE + GRID_SIZE * 0.5f, this));
+                        combinedTunnels[vegetableSpot.X, vegetableSpot.Y] = 3;
+                        waterLength--;
+                    }
+                }
+            }
+
+            for (int j = 0; j < GRID_HEIGHT; j++)
+            {
+                for (int i = 0; i < GRID_WIDTH; i++)
+                {
+                    if (combinedTunnels[i, j] == 3)
+                    {
+                        tunnels[i, j].starting = true;
+                        //dig tunnels
+                        if (i > 0 && combinedTunnels[i - 1, j] == combinedTunnels[i, j])
+                        {
+                            tunnels[i, j].left = Tunnel.DUG;
+                        }
+                        if (i < GRID_WIDTH - 1 && combinedTunnels[i + 1, j] == combinedTunnels[i, j])
+                        {
+                            tunnels[i, j].right = Tunnel.DUG;
+                        }
+                        if (j > 0 && combinedTunnels[i, j - 1] == combinedTunnels[i, j])
+                        {
+                            tunnels[i, j].top = Tunnel.DUG;
+                        }
+                        if (j < GRID_HEIGHT - 1 && combinedTunnels[i, j + 1] == combinedTunnels[i, j])
+                        {
+                            tunnels[i, j].bottom = Tunnel.DUG;
+                        }
+                    }
+                }
             }
 
             //populate grub
@@ -2439,14 +2536,22 @@ namespace MoleHillMountain
         {
             foreach (Tunnel tunnel in tunnels)
             {
-                tunnel.draw(spriteBatch);
+                if (tunnel.water && tunnel.seen == SeenStatus.SEEN)
+                    tunnel.draw(spriteBatch);
             }
         }
         public void preDraw2(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach (Tunnel tunnel in tunnels)
+
+            //foreach (Tunnel tunnel in tunnels)
+            //{
+            //    if (tunnel.water && tunnel.seen == SeenStatus.SEEN)
+            //        tunnel.waterDraw(spriteBatch);
+            //}
+            foreach (Water water in waters)
             {
-                tunnel.waterDraw(spriteBatch);
+                if (water.seen == SeenStatus.SEEN)
+                    water.draw(spriteBatch);
             }
         }
     }

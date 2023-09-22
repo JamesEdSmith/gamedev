@@ -892,14 +892,14 @@ namespace MoleHillMountain
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget);
                     GraphicsDevice.Viewport = viewport;
                     GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.Stencil, Color.Transparent, 0, 0);
-                    spriteBatch.Begin(SpriteSortMode.Immediate, null, null, stencil1, null, maskAlphaTestEffect);
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, stencil1, null, maskAlphaTestEffect);
                     if (_currScreen != null)
                     {
                         _currScreen.preDraw(gameTime, spriteBatch);
                     }
                     spriteBatch.End();
 
-                    spriteBatch.Begin(SpriteSortMode.Immediate, null, null, stencil2, null, maskAlphaTestEffect);
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, stencil2, null, maskAlphaTestEffect);
                     if (_currScreen != null)
                     {
                         _currScreen.preDraw2(gameTime, spriteBatch);

@@ -49,7 +49,6 @@ namespace MoleHillMountain
         public int direction;
         bool fired;
         bool windy;
-        bool water;
 
         Sprite fireSprite;
         Sprite fireEndSprite;
@@ -57,24 +56,36 @@ namespace MoleHillMountain
         Sprite waterSprite;
         Sprite waterFullSprite;
 
+        Color dimColor;
+
         static Vector2 oneX = new Vector2(1, 0);
         static Vector2 oneY = new Vector2(0, 1);
 
+        public bool water;
+
         public Tunnel(int x, int y)
         {
-            water = true;
             position = new Vector2(x, y);
             seen = SeenStatus.NOT_SEEN;
             fireSprite = new Sprite(PikeAndShotGame.TUNNEL_FIRE_BACK, new Rectangle(0, 0, 20, 20), 20, 20);
             fireEndSprite = new Sprite(PikeAndShotGame.FIRE, new Rectangle(0, 0, 20, 20), 20, 20);
             windSprite = new Sprite(PikeAndShotGame.MOTHY_WIND, new Rectangle(0, 0, 20, 20), 20, 20);
             waterSprite = new Sprite(PikeAndShotGame.WATER, new Rectangle(0, 0, 20, 20), 20, 20);
-            waterFullSprite = new Sprite(PikeAndShotGame.WATER_FULL, new Rectangle(0, 0, 20, 20), 20, 20);
+
+        }
+
+        public void waterDraw(SpriteBatch spritebatch)
+        {
+            //draw(spritebatch);
+            waterSprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, 0f);
+
         }
 
         public void update(DungeonScreen dungeonScreen, GameTime gameTime)
         {
+            water = false;
             seen = dungeonScreen.checkMoleSight(this);
+            dimColor = SeenStatus.getVisibilityColor(seen);
 
             if (animateFire || animateWind)
             {
@@ -120,12 +131,6 @@ namespace MoleHillMountain
                     animateWind = false;
                 }
             }
-        }
-
-        public void waterDraw(SpriteBatch spritebatch)
-        {
-            //draw(spritebatch);
-            waterSprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, 0f);
         }
 
         public void draw(SpriteBatch spritebatch)
