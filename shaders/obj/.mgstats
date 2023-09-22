@@ -20,6 +20,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/backup/gamedev/shaders/../art/tunnel_fire_back.png","D:/backup/gamedev/shaders/bin/tunnel_fire_back.xnb","TextureProcessor","Texture2DContent",265,6485,0.3350759
 "D:/backup/gamedev/shaders/../art/water_mole.png","D:/backup/gamedev/shaders/bin/water_mole.xnb","TextureProcessor","Texture2DContent",511,9685,0.3465013
 "D:/backup/gamedev/shaders/../art/water_mole2.png","D:/backup/gamedev/shaders/bin/water_mole2.xnb","TextureProcessor","Texture2DContent",91,1685,0.0019941
+"D:/backup/gamedev/shaders/../art/water_wave.png","D:/backup/gamedev/shaders/bin/water_wave.xnb","TextureProcessor","Texture2DContent",574,9685,0.363033
 "D:/backup/gamedev/shaders/../art/wind.png","D:/backup/gamedev/shaders/bin/wind.xnb","TextureProcessor","Texture2DContent",629,19285,0.3745838
 "D:/backup/gamedev/shaders/../art/wind2.png","D:/backup/gamedev/shaders/bin/wind2.xnb","TextureProcessor","Texture2DContent",550,16085,0.0041244
 "D:/backup/gamedev/shaders/../art/wind3.png","D:/backup/gamedev/shaders/bin/wind3.xnb","TextureProcessor","Texture2DContent",373,16085,0.0009992

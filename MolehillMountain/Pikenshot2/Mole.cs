@@ -155,7 +155,7 @@ namespace MoleHillMountain
             animationTimer -= (float)timeSpan.TotalMilliseconds;
             Tunnel windTunnel = dungeonScene.getCurrTunnel(position);
 
-            if (windTunnel.animateWind && this != windTunnel.mothy)
+            if (windTunnel != null && windTunnel.animateWind && this != windTunnel.mothy)
             {
                 switch (windTunnel.direction)
                 {

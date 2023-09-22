@@ -494,3 +494,4 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\water_mole.x
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\water_mole2.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\mask.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.AssemblyReference.cache
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\water_wave.xnb

@@ -654,7 +654,21 @@ namespace MoleHillMountain
             foreach (Water water in waters)
             {
                 water.update(gameTime);
+                if (water.state != Water.NONE )
+                {
+                    checkCollisions(water);
+                }
+                if (water.state == Water.DEAD)
+                {
+                    deadStuff.Add(water);
+                }
             }
+
+            foreach (Water vege in deadStuff)
+            {
+                waters.Remove(vege);
+            }
+            deadStuff.Clear();
 
             updateTunnels(mole);
             if (getCurrTunnel(mole.position).seen == SeenStatus.HALF_SEEN)
@@ -1462,6 +1476,38 @@ namespace MoleHillMountain
             return false;
         }
 
+        internal bool waterRight(Vector2 position, float spacing)
+        {
+            foreach (Water water in waters)
+            {
+                if ((water.state == Vegetable.NONE || water.state == Vegetable.MOVING) && position != water.position)
+                {
+                    if (water.position.X - position.X < GRID_SIZE - spacing && Math.Abs(water.position.Y - position.Y) < GRID_SIZE - 2 && water.position.X - position.X > 0)
+                    {
+
+
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        internal bool waterLeft(Vector2 position, float spacing)
+        {
+            foreach (Water water in waters)
+            {
+                if ((water.state == Vegetable.NONE || water.state == Vegetable.MOVING) && position != water.position)
+                {
+                    if (position.X - water.position.X < GRID_SIZE - spacing && Math.Abs(water.position.Y - position.Y) < GRID_SIZE - 2 && position.X - water.position.X > 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         private void moleRight(Vegetable vegetable, float spacing)
         {
             if (mole.position.X - vegetable.position.X < GRID_SIZE - spacing
@@ -1622,6 +1668,63 @@ namespace MoleHillMountain
                 revealTunnels();
             }
         }
+
+        private void checkCollisions(Water water)
+        {
+            int middleX = ((int)water.position.X) / GRID_SIZE;
+            int middleY = ((int)water.position.Y) / GRID_SIZE;
+            int bottomY = ((int)water.position.Y + GRID_SIZE / 2) / GRID_SIZE;
+            int leftX = ((int)water.position.X - GRID_SIZE / 2) / GRID_SIZE;
+            int rightX = ((int)water.position.X + GRID_SIZE / 2) / GRID_SIZE;
+
+
+            if (water.state == Water.FALLING)
+            {
+                if (bottomY >= GRID_HEIGHT)
+                {
+                    water.land();
+                }
+                else if (tunnels[middleX, bottomY].left != Tunnel.DUG && tunnels[middleX, bottomY].right != Tunnel.DUG
+                    && tunnels[middleX, bottomY].top != Tunnel.DUG && tunnels[middleX, bottomY].bottom != Tunnel.DUG)
+                {
+                    if (tunnels[middleX, bottomY].top != Tunnel.HALF_DUG)
+                    {
+
+                        water.land();
+
+                    }
+                }
+                else
+                {
+                    tunnels[middleX, bottomY].top = Tunnel.DUG;
+                    tunnels[middleX, bottomY - 1].bottom = Tunnel.DUG;
+                    revealTunnels();
+                }
+            }
+            else if (water.state == Water.MOVING_LEFT)
+            {
+                if (leftX <= 0)
+                {
+                    water.turnRight();
+                }
+                else if (tunnels[leftX, middleY].right != Tunnel.DUG && tunnels[leftX, middleY].right != Tunnel.HALF_DUG)
+                {
+                    water.turnRight();
+                }
+            }
+            else if (water.state == Water.MOVING_RIGHT)
+            {
+                if (rightX >= GRID_WIDTH)
+                {
+                    water.turnLeft();
+                }
+                else if (tunnels[rightX, middleY].left != Tunnel.DUG && tunnels[rightX, middleY].left != Tunnel.HALF_DUG)
+                {
+                    water.turnLeft();
+                }
+            }
+        }
+
         private void getInput(TimeSpan timeSpan)
         {
             keyboardState = Keyboard.GetState();

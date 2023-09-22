@@ -277,6 +277,18 @@
 /processorParam:TextureFormat=Color
 /build:../art/water_mole2.png;water_mole2.png
 
+#begin ../art/water_wave.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../art/water_wave.png;water_wave.png
+
 #begin ../art/wind.png
 /importer:TextureImporter
 /processor:TextureProcessor
