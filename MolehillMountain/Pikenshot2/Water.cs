@@ -32,6 +32,10 @@ namespace MoleHillMountain
         private Sprite moving;
         private Sprite falling;
         private float fallSpeed = 68f;
+        private bool listingLeft;
+        private bool listingRight;
+        private static Vector2 leftSide = new Vector2(-DungeonScreen.GRID_SIZE / 2, 0);
+        private static Vector2 leftRight = new Vector2(DungeonScreen.GRID_SIZE / 2, 0);
 
         public Water(float x, float y, DungeonScreen dungeonScreen)
         {
@@ -64,10 +68,31 @@ namespace MoleHillMountain
         public void update(GameTime gameTime)
         {
             Tunnel tunnel = dungeonScreen.getCurrTunnel(position);
-            seen = dungeonScreen.checkMoleSight(tunnel);
-            if (seen == SeenStatus.SEEN)
+            Tunnel leftTunnel = dungeonScreen.getCurrTunnel(position + leftSide);
+            Tunnel rightTunnel = dungeonScreen.getCurrTunnel(position + leftRight);
+            if (tunnel != null)
             {
-                tunnel.water = true;
+                seen = dungeonScreen.checkMoleSight(tunnel);
+                if (seen == SeenStatus.SEEN)
+                {
+                    tunnel.water = true;
+                }
+            }
+            if (leftTunnel != null)
+            {
+                seen = dungeonScreen.checkMoleSight(leftTunnel);
+                if (seen == SeenStatus.SEEN)
+                {
+                    leftTunnel.water = true;
+                }
+            }
+            if (rightTunnel != null)
+            {
+                seen = dungeonScreen.checkMoleSight(rightTunnel);
+                if (seen == SeenStatus.SEEN)
+                {
+                    rightTunnel.water = true;
+                }
             }
 
             TimeSpan elapsedGameTime = gameTime.ElapsedGameTime;
@@ -75,9 +100,13 @@ namespace MoleHillMountain
             {
                 Tunnel tunnelBelow = dungeonScreen.getTunnelBelow(position);
 
-                if (tunnelBelow?.left == Tunnel.DUG || tunnelBelow?.right == Tunnel.DUG || tunnelBelow?.bottom == Tunnel.DUG || tunnelBelow?.top == Tunnel.DUG)
+                if ((tunnelBelow?.top == Tunnel.DUG || tunnelBelow?.top == Tunnel.HALF_DUG) && !dungeonScreen.waterBelow(position))
                 {
-                    if (!dungeonScreen.moleBelow(position))
+                    fall();
+                }
+                else if (tunnelBelow?.left == Tunnel.DUG || tunnelBelow?.right == Tunnel.DUG || tunnelBelow?.bottom == Tunnel.DUG)
+                {
+                    if (!dungeonScreen.moleBelow(position) && !dungeonScreen.waterBelow(position))
                     {
                         if (state == NONE)
                         {
@@ -86,67 +115,109 @@ namespace MoleHillMountain
                             animationTimer = animationTime;
 
                         }
-                        else
+                        else if ((tunnelBelow?.top == Tunnel.DUG || tunnelBelow?.top == Tunnel.HALF_DUG) && !dungeonScreen.waterBelow(position))
                         {
                             fall();
                         }
                     }
                 }
             }
-            
-            if(state != FALLING && state != MOVING_LEFT && state != MOVING_RIGHT)
+
+            if (state != FALLING)
             {
                 Tunnel tunnelLeft = dungeonScreen.getTunnelLeft(position);
                 Tunnel tunnelRight = dungeonScreen.getTunnelRight(position);
+                Water waterLeft = dungeonScreen.waterLeft(position, 0);
+                Water waterRight = dungeonScreen.waterRight(position, 0);
 
-                if (tunnelRight?.left == Tunnel.DUG)
+                if (state == NONE)
                 {
-                    if (state == NONE)
+                    if (tunnelRight?.left == Tunnel.DUG)
                     {
-                        moveRight();
+                        if (waterRight == null || (waterRight != null && waterRight.state == MOVING_RIGHT))
+                            moveRight();
+                        else if (waterRight.state == MOVING_LEFT)
+                        {
+                            if (tunnelLeft?.right == Tunnel.DUG)
+                            {
+                                if (waterLeft == null || (waterLeft != null && waterLeft.state == MOVING_LEFT))
+                                    moveLeft();
+                            }
+                        }
+
+                    }
+                    else if (tunnelLeft?.right == Tunnel.DUG)
+                    {
+                        if (waterLeft == null || (waterLeft != null && waterLeft.state == MOVING_LEFT))
+                            moveLeft();
+                        else if (waterLeft.state == MOVING_RIGHT)
+                        {
+                            if (tunnelRight?.left == Tunnel.DUG)
+                            {
+                                if (waterRight == null || (waterRight != null && waterRight.state == MOVING_RIGHT))
+                                    moveRight();
+                            }
+                        }
                     }
                 }
-                else if (tunnelLeft?.right == Tunnel.DUG)
+                else if (state == MOVING_LEFT)
                 {
-                    if (state == NONE)
+                    if (dungeonScreen.waterLeft(position, 0) == null)
                     {
-                        moveLeft();
+                        currSprite = moving;
+                    }
+                    else
+                    {
+                        currSprite = waterIdle;
+                    }
+                }
+                else if (state == MOVING_RIGHT)
+                {
+                    if (dungeonScreen.waterRight(position, 0) == null)
+                    {
+                        currSprite = moving;
+                    }
+                    else
+                    {
+                        currSprite = waterIdle;
                     }
                 }
             }
-
 
             animationTimer -= (float)elapsedGameTime.TotalMilliseconds;
             if (state == SHAKING)
             {
                 if (animationTimer < 0)
                 {
-                    fall();
+                    if (!dungeonScreen.waterBelow(position))
+                        fall();
+                    else
+                        state = NONE;
                 }
             }
             else if (state == FALLING)
             {
                 position.Y += (float)elapsedGameTime.TotalSeconds * fallSpeed;
-                //tunnel = dungeonScreen.getTunnelBelow(position);
+                tunnel = dungeonScreen.getTunnelBelow(position);
 
-                //if (tunnel != null)
-                //{
-                //    if ((int)tunnel.position.X + Tunnel.center.X < (int)position.X)
-                //    {
-                //        position.X -= 60f * (float)elapsedGameTime.TotalSeconds;
-                //        listingLeft = true;
-                //    }
-                //    else if ((int)tunnel.position.X + Tunnel.center.X > (int)position.X)
-                //    {
-                //        position.X += 60f * (float)elapsedGameTime.TotalSeconds;
-                //        listingRight = true;
-                //    }
-                //    else
-                //    {
-                //        listingLeft = false;
-                //        listingRight = false;
-                //    }
-                //}
+                if (tunnel != null)
+                {
+                    if ((int)tunnel.position.X + Tunnel.center.X < (int)position.X)
+                    {
+                        position.X -= 60f * (float)elapsedGameTime.TotalSeconds;
+                        listingLeft = true;
+                    }
+                    else if ((int)tunnel.position.X + Tunnel.center.X > (int)position.X)
+                    {
+                        position.X += 60f * (float)elapsedGameTime.TotalSeconds;
+                        listingRight = true;
+                    }
+                    else
+                    {
+                        listingLeft = false;
+                        listingRight = false;
+                    }
+                }
 
                 if (animationTimer < 0)
                 {
@@ -184,7 +255,7 @@ namespace MoleHillMountain
             state = MOVING_LEFT;
             animationTime = waveMidTime;
             animationTimer = animationTime;
-            if (!dungeonScreen.waterLeft(position, Vegetable.NUDGE_SPACING))
+            if (dungeonScreen.waterLeft(position, 0) == null)
             {
                 currSprite = moving;
             }
@@ -199,7 +270,7 @@ namespace MoleHillMountain
             state = MOVING_RIGHT;
             animationTime = waveMidTime;
             animationTimer = animationTime;
-            if (!dungeonScreen.waterRight(position, Vegetable.NUDGE_SPACING))
+            if (dungeonScreen.waterRight(position, 0) == null)
             {
                 currSprite = moving;
             }
@@ -220,7 +291,6 @@ namespace MoleHillMountain
 
         private void animate(GameTime gameTime)
         {
-            animationTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
             if (animationTimer < 0)
             {

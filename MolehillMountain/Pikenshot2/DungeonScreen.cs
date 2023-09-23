@@ -104,6 +104,18 @@ namespace MoleHillMountain
                 return null;
         }
 
+        internal bool waterBelow(Vector2 position)
+        {
+            foreach(Water water in waters)
+            {
+                float yDiff = water.position.Y - position.Y;
+                if (Math.Abs(water.position.X - position.X) < GRID_SIZE / 2 && yDiff <= GRID_SIZE && yDiff > 0)
+                    return true;
+            }
+
+            return false;
+        }
+
         internal void fire(int targetDirection, Vector2 position, int pathLength)
         {
             int x = (int)position.X / GRID_SIZE;
@@ -1476,36 +1488,34 @@ namespace MoleHillMountain
             return false;
         }
 
-        internal bool waterRight(Vector2 position, float spacing)
+        internal Water waterRight(Vector2 position, float spacing)
         {
             foreach (Water water in waters)
             {
                 if ((water.state == Vegetable.NONE || water.state == Vegetable.MOVING) && position != water.position)
                 {
-                    if (water.position.X - position.X < GRID_SIZE - spacing && Math.Abs(water.position.Y - position.Y) < GRID_SIZE - 2 && water.position.X - position.X > 0)
+                    if (water.position.X - position.X <= GRID_SIZE - spacing && Math.Abs(water.position.Y - position.Y) <= GRID_SIZE && water.position.X - position.X > 0)
                     {
-
-
-                        return true;
+                        return water;
                     }
                 }
             }
-            return false;
+            return null;
         }
 
-        internal bool waterLeft(Vector2 position, float spacing)
+        internal Water waterLeft(Vector2 position, float spacing)
         {
             foreach (Water water in waters)
             {
                 if ((water.state == Vegetable.NONE || water.state == Vegetable.MOVING) && position != water.position)
                 {
-                    if (position.X - water.position.X < GRID_SIZE - spacing && Math.Abs(water.position.Y - position.Y) < GRID_SIZE - 2 && position.X - water.position.X > 0)
+                    if (position.X - water.position.X <= GRID_SIZE - spacing && Math.Abs(water.position.Y - position.Y) <= GRID_SIZE && position.X - water.position.X > 0)
                     {
-                        return true;
+                        return water;
                     }
                 }
             }
-            return false;
+            return null;
         }
 
         private void moleRight(Vegetable vegetable, float spacing)
@@ -1703,7 +1713,7 @@ namespace MoleHillMountain
             }
             else if (water.state == Water.MOVING_LEFT)
             {
-                if (leftX <= 0)
+                if (water.position.X <= GRID_SIZE/2)
                 {
                     water.turnRight();
                 }
@@ -1712,7 +1722,7 @@ namespace MoleHillMountain
                     water.turnRight();
                 }
             }
-            else if (water.state == Water.MOVING_RIGHT)
+            else if (water.state == Water.MOVING_RIGHT && water.position.X > GRID_SIZE/2)
             {
                 if (rightX >= GRID_WIDTH)
                 {
