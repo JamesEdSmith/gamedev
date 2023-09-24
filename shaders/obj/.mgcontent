@@ -4,12 +4,12 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/backup/gamedev/shaders/../art/water_mole2.png</File>
     <File>D:/backup/gamedev/shaders/../art/water_wave.png</File>
     <File>D:/backup/gamedev/shaders/mask.fx</File>
     <File>D:/backup/gamedev/shaders/tunnel.png</File>
     <File>D:/backup/gamedev/shaders/gb-pass-0.fx</File>
     <File>D:/backup/gamedev/shaders/../art/water_mole.png</File>
-    <File>D:/backup/gamedev/shaders/../art/water_mole2.png</File>
     <File>D:/backup/gamedev/shaders/../art/wind.png</File>
     <File>D:/backup/gamedev/shaders/../art/wind2.png</File>
     <File>D:/backup/gamedev/shaders/../art/wind3.png</File>
@@ -58,10 +58,10 @@
     <File>D:/backup/gamedev/shaders/unseen_sprite.png</File>
   </SourceFiles>
   <DestFiles>
+    <File>water_mole2.png</File>
     <File>water_wave.png</File>
     <File xsi:nil="true" />
     <File>water_mole.png</File>
-    <File>water_mole2.png</File>
     <File>wind.png</File>
     <File>wind2.png</File>
     <File>wind3.png</File>

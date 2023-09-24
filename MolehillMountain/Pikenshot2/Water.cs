@@ -36,6 +36,9 @@ namespace MoleHillMountain
         private bool listingRight;
         private static Vector2 leftSide = new Vector2(-DungeonScreen.GRID_SIZE / 2, 0);
         private static Vector2 leftRight = new Vector2(DungeonScreen.GRID_SIZE / 2, 0);
+        public Tunnel tunnel;
+        Tunnel leftTunnel;
+        Tunnel rightTunnel;
 
         public Water(float x, float y, DungeonScreen dungeonScreen)
         {
@@ -67,9 +70,8 @@ namespace MoleHillMountain
         }
         public void update(GameTime gameTime)
         {
-            Tunnel tunnel = dungeonScreen.getCurrTunnel(position);
-            Tunnel leftTunnel = dungeonScreen.getCurrTunnel(position + leftSide);
-            Tunnel rightTunnel = dungeonScreen.getCurrTunnel(position + leftRight);
+
+            tunnel = dungeonScreen.getCurrTunnel(position);
             if (tunnel != null)
             {
                 seen = dungeonScreen.checkMoleSight(tunnel);
@@ -77,177 +79,101 @@ namespace MoleHillMountain
                 {
                     tunnel.water = true;
                 }
+                else
+                {
+                    Console.WriteLine("What");
+                }
             }
-            if (leftTunnel != null)
+
+            if (state == MOVING_LEFT || state == MOVING_RIGHT)
             {
-                seen = dungeonScreen.checkMoleSight(leftTunnel);
-                if (seen == SeenStatus.SEEN)
+                leftTunnel = dungeonScreen.getCurrTunnel(position + leftSide);
+                rightTunnel = dungeonScreen.getCurrTunnel(position + leftRight);
+
+                if (leftTunnel != null)
                 {
-                    leftTunnel.water = true;
+                    if (dungeonScreen.checkMoleSight(leftTunnel) == SeenStatus.SEEN)
+                    {
+                        leftTunnel.water = true;
+                    }
                 }
-            }
-            if (rightTunnel != null)
+                if (rightTunnel != null)
+                {
+                    if (dungeonScreen.checkMoleSight(rightTunnel) == SeenStatus.SEEN)
+                    {
+                        rightTunnel.water = true;
+                    }
+                }
+            }else if (state == FALLING)
             {
-                seen = dungeonScreen.checkMoleSight(rightTunnel);
-                if (seen == SeenStatus.SEEN)
+                Tunnel topTunnel = dungeonScreen.getTunnelAbove(position);
+                Tunnel bottomTunnel = dungeonScreen.getTunnelBelow(position);
+
+                if (topTunnel != null)
                 {
-                    rightTunnel.water = true;
+                    if (dungeonScreen.checkMoleSight(topTunnel) == SeenStatus.SEEN)
+                    {
+                        topTunnel.water = true;
+                    }
+                }
+                if (bottomTunnel != null)
+                {
+                    if (dungeonScreen.checkMoleSight(bottomTunnel) == SeenStatus.SEEN)
+                    {
+                        bottomTunnel.water = true;
+                    }
                 }
             }
 
-            TimeSpan elapsedGameTime = gameTime.ElapsedGameTime;
-            if (state != FALLING)
+            Tunnel tunnelBelow = dungeonScreen.getTunnelBelow(position);
+            Water waterBelow = null;
+            foreach (Water water in dungeonScreen.waters)
             {
-                Tunnel tunnelBelow = dungeonScreen.getTunnelBelow(position);
-
-                if ((tunnelBelow?.top == Tunnel.DUG || tunnelBelow?.top == Tunnel.HALF_DUG) && !dungeonScreen.waterBelow(position))
-                {
-                    fall();
-                }
-                else if (tunnelBelow?.left == Tunnel.DUG || tunnelBelow?.right == Tunnel.DUG || tunnelBelow?.bottom == Tunnel.DUG)
-                {
-                    if (!dungeonScreen.moleBelow(position) && !dungeonScreen.waterBelow(position))
-                    {
-                        if (state == NONE)
-                        {
-                            state = SHAKING;
-                            animationTime = shakeTime;
-                            animationTimer = animationTime;
-
-                        }
-                        else if ((tunnelBelow?.top == Tunnel.DUG || tunnelBelow?.top == Tunnel.HALF_DUG) && !dungeonScreen.waterBelow(position))
-                        {
-                            fall();
-                        }
-                    }
-                }
+                if (water.tunnel == tunnelBelow)
+                    waterBelow = water;
             }
 
-            if (state != FALLING)
+
+            if (tunnelBelow == null || tunnelBelow.top == Tunnel.NOT_DUG || waterBelow != null)
             {
-                Tunnel tunnelLeft = dungeonScreen.getTunnelLeft(position);
-                Tunnel tunnelRight = dungeonScreen.getTunnelRight(position);
-                Water waterLeft = dungeonScreen.waterLeft(position, 0);
-                Water waterRight = dungeonScreen.waterRight(position, 0);
-
-                if (state == NONE)
-                {
-                    if (tunnelRight?.left == Tunnel.DUG)
-                    {
-                        if (waterRight == null || (waterRight != null && waterRight.state == MOVING_RIGHT))
-                            moveRight();
-                        else if (waterRight.state == MOVING_LEFT)
-                        {
-                            if (tunnelLeft?.right == Tunnel.DUG)
-                            {
-                                if (waterLeft == null || (waterLeft != null && waterLeft.state == MOVING_LEFT))
-                                    moveLeft();
-                            }
-                        }
-
-                    }
-                    else if (tunnelLeft?.right == Tunnel.DUG)
-                    {
-                        if (waterLeft == null || (waterLeft != null && waterLeft.state == MOVING_LEFT))
-                            moveLeft();
-                        else if (waterLeft.state == MOVING_RIGHT)
-                        {
-                            if (tunnelRight?.left == Tunnel.DUG)
-                            {
-                                if (waterRight == null || (waterRight != null && waterRight.state == MOVING_RIGHT))
-                                    moveRight();
-                            }
-                        }
-                    }
-                }
-                else if (state == MOVING_LEFT)
-                {
-                    if (dungeonScreen.waterLeft(position, 0) == null)
-                    {
-                        currSprite = moving;
-                    }
-                    else
-                    {
-                        currSprite = waterIdle;
-                    }
-                }
-                else if (state == MOVING_RIGHT)
-                {
-                    if (dungeonScreen.waterRight(position, 0) == null)
-                    {
-                        currSprite = moving;
-                    }
-                    else
-                    {
-                        currSprite = waterIdle;
-                    }
-                }
+                land();
             }
-
-            animationTimer -= (float)elapsedGameTime.TotalMilliseconds;
-            if (state == SHAKING)
+            else
             {
-                if (animationTimer < 0)
-                {
-                    if (!dungeonScreen.waterBelow(position))
-                        fall();
-                    else
-                        state = NONE;
-                }
+                fall();
             }
-            else if (state == FALLING)
+
+            if(state == NONE && currSprite != falling)
             {
-                position.Y += (float)elapsedGameTime.TotalSeconds * fallSpeed;
-                tunnel = dungeonScreen.getTunnelBelow(position);
-
-                if (tunnel != null)
+                Tunnel tunnelAbove = dungeonScreen.getTunnelAbove(position);
+                Water waterAbove = null;
+                foreach (Water water in dungeonScreen.waters)
                 {
-                    if ((int)tunnel.position.X + Tunnel.center.X < (int)position.X)
-                    {
-                        position.X -= 60f * (float)elapsedGameTime.TotalSeconds;
-                        listingLeft = true;
-                    }
-                    else if ((int)tunnel.position.X + Tunnel.center.X > (int)position.X)
-                    {
-                        position.X += 60f * (float)elapsedGameTime.TotalSeconds;
-                        listingRight = true;
-                    }
-                    else
-                    {
-                        listingLeft = false;
-                        listingRight = false;
-                    }
+                    if (water.tunnel == tunnelAbove)
+                        waterAbove = water;
                 }
 
-                if (animationTimer < 0)
+                if (waterAbove != null && waterAbove.state == NONE)
                 {
-                    animationTime = fallTime;
-                    animationTimer = animationTime;
+                    currSprite = waterFull;
                 }
-            }
-            else if (state == MOVING_LEFT)
-            {
-                position.X -= (float)elapsedGameTime.TotalSeconds * fallSpeed;
-
-                if (animationTimer < 0)
+                else
                 {
-                    animationTime = fallTime;
-                    animationTimer = animationTime;
-                }
-            }
-            else if (state == MOVING_RIGHT)
-            {
-                position.X += (float)elapsedGameTime.TotalSeconds * fallSpeed;
-
-                if (animationTimer < 0)
-                {
-                    animationTime = fallTime;
-                    animationTimer = animationTime;
+                    currSprite = waterIdle;
                 }
             }
 
+            move(gameTime);
             animate(gameTime);
 
+        }
+
+        private void move(GameTime gameTime)
+        {
+            if (state == FALLING)
+            {
+                position.Y += fallSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
         }
 
         private void moveLeft()
@@ -282,16 +208,19 @@ namespace MoleHillMountain
 
         private void fall()
         {
-            state = FALLING;
-            currSprite = falling;
-            animationTime = fallTime;
-            animationTimer = animationTime;
-            fallingFrom = (int)position.Y;
+            if (state != FALLING)
+            {
+                state = FALLING;
+                currSprite = falling;
+                animationTime = fallTime;
+                animationTimer = animationTime;
+                fallingFrom = (int)position.Y;
+            }
         }
 
         private void animate(GameTime gameTime)
         {
-
+            animationTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (animationTimer < 0)
             {
                 animationTimer = animationTime;
@@ -305,9 +234,15 @@ namespace MoleHillMountain
 
         internal void land()
         {
-            state = NONE;
-            currSprite.setFrame(0);
-            currSprite = waterIdle;
+            if (state == FALLING && position.Y >= tunnel.position.Y + Tunnel.center.Y)
+            {
+                position.Y = tunnel.position.Y + Tunnel.center.Y;
+                state = NONE;
+                currSprite.setFrame(0);
+                currSprite = waterIdle;
+                animationTime = waveMidTime;
+                animationTimer = animationTime;
+            }
         }
 
         internal void turnRight()

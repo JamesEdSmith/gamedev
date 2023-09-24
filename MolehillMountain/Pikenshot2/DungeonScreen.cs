@@ -54,7 +54,7 @@ namespace MoleHillMountain
         ArrayList deadStuff;
         ArrayList effects;
         ArrayList items;
-        ArrayList waters;
+        public ArrayList waters;
 
         protected KeyboardState keyboardState;
         protected KeyboardState previousKeyboardState;
@@ -1688,51 +1688,7 @@ namespace MoleHillMountain
             int rightX = ((int)water.position.X + GRID_SIZE / 2) / GRID_SIZE;
 
 
-            if (water.state == Water.FALLING)
-            {
-                if (bottomY >= GRID_HEIGHT)
-                {
-                    water.land();
-                }
-                else if (tunnels[middleX, bottomY].left != Tunnel.DUG && tunnels[middleX, bottomY].right != Tunnel.DUG
-                    && tunnels[middleX, bottomY].top != Tunnel.DUG && tunnels[middleX, bottomY].bottom != Tunnel.DUG)
-                {
-                    if (tunnels[middleX, bottomY].top != Tunnel.HALF_DUG)
-                    {
-
-                        water.land();
-
-                    }
-                }
-                else
-                {
-                    tunnels[middleX, bottomY].top = Tunnel.DUG;
-                    tunnels[middleX, bottomY - 1].bottom = Tunnel.DUG;
-                    revealTunnels();
-                }
-            }
-            else if (water.state == Water.MOVING_LEFT)
-            {
-                if (water.position.X <= GRID_SIZE/2)
-                {
-                    water.turnRight();
-                }
-                else if (tunnels[leftX, middleY].right != Tunnel.DUG && tunnels[leftX, middleY].right != Tunnel.HALF_DUG)
-                {
-                    water.turnRight();
-                }
-            }
-            else if (water.state == Water.MOVING_RIGHT && water.position.X > GRID_SIZE/2)
-            {
-                if (rightX >= GRID_WIDTH)
-                {
-                    water.turnLeft();
-                }
-                else if (tunnels[rightX, middleY].left != Tunnel.DUG && tunnels[rightX, middleY].left != Tunnel.HALF_DUG)
-                {
-                    water.turnLeft();
-                }
-            }
+            
         }
 
         private void getInput(TimeSpan timeSpan)
@@ -2093,7 +2049,7 @@ namespace MoleHillMountain
                     tunnels[vegetableSpot.X, vegetableSpot.Y].water = true;
                     combinedTunnels[vegetableSpot.X, vegetableSpot.Y] = 3; // 3 for water
 
-                    int waterLength = 3;
+                    int waterLength = 4;
                     while (waterLength > 0)
                     {
                         prevChoices = choices;
