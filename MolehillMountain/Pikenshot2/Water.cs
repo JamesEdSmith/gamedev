@@ -79,10 +79,7 @@ namespace MoleHillMountain
                 {
                     tunnel.water = true;
                 }
-                else
-                {
-                    Console.WriteLine("What");
-                }
+
             }
 
             if (state == MOVING_LEFT || state == MOVING_RIGHT)
@@ -129,9 +126,12 @@ namespace MoleHillMountain
             Tunnel tunnelBelow = dungeonScreen.getTunnelBelow(position);
             Tunnel tunnelLeft = dungeonScreen.getTunnelLeft(position);
             Tunnel tunnelRight = dungeonScreen.getTunnelRight(position);
+            Tunnel tunnelAbove = dungeonScreen.getTunnelAbove(position);
             Water waterBelow = null;
             Water waterLeft = null;
             Water waterRight = null;
+            Water waterAbove = null;
+
             foreach (Water water in dungeonScreen.waters)
             {
                 if (water.tunnel == tunnelBelow)
@@ -140,84 +140,59 @@ namespace MoleHillMountain
                     waterLeft = water;
                 if (water.tunnel == tunnelRight)
                     waterRight = water;
+                if (water.tunnel == tunnelAbove)
+                    waterAbove = water;
             }
 
+            bool leftOfCenter = position.X < tunnel.position.X + Tunnel.center.X;
+            bool rightOfCenter = position.X > tunnel.position.X + Tunnel.center.X;
 
-            if (tunnelBelow == null || tunnelBelow.top == Tunnel.NOT_DUG || (waterBelow != null && waterBelow.state != FALLING))
+
+            if (tunnelBelow != null && tunnelBelow.top != Tunnel.NOT_DUG && waterBelow == null && Math.Abs(position.X - (tunnel.position.X + Tunnel.center.X)) < 5)
             {
-                if (state == NONE)
+                fall();
+            }
+            else if (state == FALLING)
+            {
+                if (tunnelBelow == null || tunnelBelow.top == Tunnel.NOT_DUG || waterBelow != null)
                 {
-                    if (tunnelLeft != null && tunnelLeft.right != Tunnel.NOT_DUG && (waterLeft == null || waterLeft.state == MOVING_LEFT) && state != FALLING)
-                    {
-                        moveLeft();
-                    }
-                    else if (tunnelRight != null && tunnelRight.left != Tunnel.NOT_DUG && (waterRight == null || waterRight.state == MOVING_RIGHT) && state != FALLING)
-                    {
-                        moveRight();
-                    }
-                    else
-                    {
-                        land();
-                    }
+                    land();
                 }
-                else if (state == MOVING_LEFT)
+            }
+            else if (state == NONE || state == MOVING_LEFT)
+            {
+                if ((tunnelLeft != null && tunnelLeft.right != Tunnel.NOT_DUG) || rightOfCenter)
                 {
-                    if (tunnelLeft != null && tunnelLeft.right != Tunnel.NOT_DUG && (waterLeft == null || waterLeft.state == MOVING_LEFT) && state != FALLING)
-                    {
-                        moveLeft();
-                    }
-                    else if (tunnelRight != null && tunnelRight.left != Tunnel.NOT_DUG && (waterRight == null || waterRight.state == MOVING_RIGHT) && state != FALLING)
-                    {
-                        moveRight();
-                    }
-                    else
-                    {
-                        land();
-                    }
+                    moveLeft();
+                }
+                else if ((tunnelRight != null && tunnelRight.left != Tunnel.NOT_DUG) || leftOfCenter)
+                {
+                    moveRight();
                 }
                 else
                 {
-                    if (tunnelRight != null && tunnelRight.left != Tunnel.NOT_DUG && (waterRight == null || waterRight.state == MOVING_RIGHT) && state != FALLING)
-                    {
-                        moveRight();
-                    }
-                    else if (tunnelLeft != null && tunnelLeft.right != Tunnel.NOT_DUG && (waterLeft == null || waterLeft.state == MOVING_LEFT) && state != FALLING)
-                    {
-                        moveLeft();
-                    }
-                    else
-                    {
-                        land();
-                    }
+                    land();
                 }
             }
             else
             {
-                fall();
-            }
-
-            if (state == NONE && currSprite != falling)
-            {
-                Tunnel tunnelAbove = dungeonScreen.getTunnelAbove(position);
-                Water waterAbove = null;
-                foreach (Water water in dungeonScreen.waters)
+                if ((tunnelRight != null && tunnelRight.left != Tunnel.NOT_DUG) || leftOfCenter)
                 {
-                    if (water.tunnel == tunnelAbove)
-                        waterAbove = water;
+                    moveRight();
                 }
-
-                if (waterAbove != null && waterAbove.state == NONE)
+                else if ((tunnelLeft != null && tunnelLeft.right != Tunnel.NOT_DUG) || rightOfCenter)
                 {
-                    currSprite = waterFull;
+                    moveLeft();
                 }
                 else
                 {
-                    currSprite = waterIdle;
+                    land();
                 }
+
             }
 
             move(gameTime);
-            animate(gameTime);
+            animate(gameTime, waterAbove);
 
         }
 
@@ -244,7 +219,8 @@ namespace MoleHillMountain
                 state = MOVING_LEFT;
                 animationTime = waveMidTime;
                 animationTimer = animationTime;
-                if (dungeonScreen.waterLeft(position, 0) == null)
+                Water waterLeft = dungeonScreen.waterLeft(position, 5);
+                if (waterLeft == null || waterLeft.state == FALLING)
                 {
                     currSprite = moving;
                 }
@@ -262,9 +238,11 @@ namespace MoleHillMountain
                 state = MOVING_RIGHT;
                 animationTime = waveMidTime;
                 animationTimer = animationTime;
-                if (dungeonScreen.waterRight(position, 0) == null)
+                Water waterRight = dungeonScreen.waterRight(position, 5);
+                if (waterRight == null || waterRight.state == FALLING)
                 {
                     currSprite = moving;
+
                 }
                 else
                 {
@@ -275,7 +253,7 @@ namespace MoleHillMountain
 
         private void fall()
         {
-            if (state != FALLING && Math.Abs(position.X - (tunnel.position.X + Tunnel.center.X)) < 5)
+            if (state != FALLING)
             {
                 state = FALLING;
                 currSprite = falling;
@@ -286,8 +264,54 @@ namespace MoleHillMountain
             }
         }
 
-        private void animate(GameTime gameTime)
+        private void animate(GameTime gameTime, Water waterAbove)
         {
+            switch (state)
+            {
+                case NONE:
+                    if (waterAbove != null)
+                        currSprite = waterFull;
+                    else
+                        currSprite = waterIdle;
+                    break;
+                case FALLING:
+                    currSprite = falling;
+                    break;
+                case MOVING_LEFT:
+                    if (waterAbove != null)
+                        currSprite = waterFull;
+                    else
+                    {
+                        Water waterLeft = dungeonScreen.waterLeft(position, 5);
+                        if (waterLeft == null || waterLeft.state == FALLING)
+                        {
+                            currSprite = moving;
+                        }
+                        else
+                        {
+                            currSprite = waterIdle;
+                        }
+                    }
+                    break;
+                case MOVING_RIGHT:
+                    if (waterAbove != null)
+                        currSprite = waterFull;
+                    else
+                    {
+                        Water waterRight = dungeonScreen.waterRight(position, 5);
+                        if (waterRight == null || waterRight.state == FALLING)
+                        {
+                            currSprite = moving;
+                        }
+                        else
+                        {
+                            currSprite = waterIdle;
+                        }
+                    }
+                    break;
+
+            }
+
             animationTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (animationTimer < 0)
             {
@@ -311,16 +335,6 @@ namespace MoleHillMountain
                 animationTime = waveMidTime;
                 animationTimer = animationTime;
             }
-        }
-
-        internal void turnRight()
-        {
-            moveRight();
-        }
-
-        internal void turnLeft()
-        {
-            moveLeft();
         }
     }
 }

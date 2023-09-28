@@ -1492,9 +1492,9 @@ namespace MoleHillMountain
         {
             foreach (Water water in waters)
             {
-                if ((water.state == Vegetable.NONE || water.state == Vegetable.MOVING) && position != water.position)
+                if ((water.state != Water.FALLING) && position != water.position)
                 {
-                    if (water.position.X - position.X <= GRID_SIZE - spacing && Math.Abs(water.position.Y - position.Y) <= GRID_SIZE && water.position.X - position.X > 0)
+                    if (water.position.X - position.X <= GRID_SIZE + spacing && Math.Abs(water.position.Y - position.Y) <= 5 && water.position.X - position.X > 0)
                     {
                         return water;
                     }
@@ -1507,9 +1507,9 @@ namespace MoleHillMountain
         {
             foreach (Water water in waters)
             {
-                if ((water.state == Vegetable.NONE || water.state == Vegetable.MOVING) && position != water.position)
+                if ((water.state != Water.FALLING) && position != water.position)
                 {
-                    if (position.X - water.position.X <= GRID_SIZE - spacing && Math.Abs(water.position.Y - position.Y) <= GRID_SIZE && position.X - water.position.X > 0)
+                    if (position.X - water.position.X <= GRID_SIZE + spacing && Math.Abs(water.position.Y - position.Y) <= 5 && position.X - water.position.X > 0)
                     {
                         return water;
                     }
