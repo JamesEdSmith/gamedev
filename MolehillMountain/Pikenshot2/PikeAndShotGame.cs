@@ -461,6 +461,8 @@ namespace MoleHillMountain
         public static Texture2D WATER;
         public static Texture2D WATER_FULL;
         public static Texture2D WATER_WAVE;
+        public static Texture2D WATER_BACK;
+        public static Texture2D WATER_FALL;
 
         public static Texture2D UNSEEN_WALK;
         public static Texture2D UNSEEN_WALK2;
@@ -733,6 +735,8 @@ namespace MoleHillMountain
             WATER = Content.Load<Texture2D>(@"water_mole");
             WATER_FULL = Content.Load<Texture2D>(@"water_mole2");
             WATER_WAVE = Content.Load<Texture2D>(@"water_wave");
+            WATER_BACK = Content.Load<Texture2D>(@"water_back");
+            WATER_FALL = Content.Load<Texture2D>(@"water_fall");
 
 
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
