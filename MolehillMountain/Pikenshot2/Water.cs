@@ -196,7 +196,7 @@ namespace MoleHillMountain
                 else if ((tunnelRight != null && tunnelRight.left != Tunnel.NOT_DUG) || leftOfCenter)
                 {
                     land();
-                    if (waterLeft == null || waterLeft.state == MOVING_RIGHT) 
+                    if (waterLeft == null || waterLeft.state == MOVING_RIGHT)
                     {
                         crash++;
                         if (crash > 2)
@@ -262,7 +262,7 @@ namespace MoleHillMountain
                 if (waterL != null)
                     position.X = waterL.position.X + 20;
             }
-            
+
         }
 
         private void moveRight()
@@ -297,7 +297,7 @@ namespace MoleHillMountain
             switch (state)
             {
                 case NONE:
-                    if (waterAbove != null || (waterRight != null && waterRight.waterAbove != null && waterRight.tunnel.top == Tunnel.DUG && waterRight.tunnel.left == Tunnel.DUG) || (waterLeft != null && waterLeft.waterAbove != null && waterLeft.tunnel.top == Tunnel.DUG && waterLeft.tunnel.right == Tunnel.DUG))
+                    if (waterAbove != null || (waterRight != null && waterRight.isFull(MOVING_RIGHT)) || (waterLeft != null && waterLeft.isFull(MOVING_LEFT)))
                     {
                         currSprite = waterFull;
                     }
@@ -367,6 +367,40 @@ namespace MoleHillMountain
             float frameTime = animationTime / (float)maxFrames;
             int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
             currSprite.setFrame(frameNumber);
+        }
+
+        private bool isFull(int moving)
+        {
+            if (moving == MOVING_RIGHT)
+            {
+                if (waterAbove != null && tunnel.top == Tunnel.DUG && tunnel.left == Tunnel.DUG)
+                {
+                    return true;
+                }
+                else if ( waterRight != null)
+                {
+                    return waterRight.isFull(moving);
+                }
+                else
+                {
+                    return false;
+                }
+            }else
+            {
+                if (waterAbove != null && tunnel.top == Tunnel.DUG && tunnel.right == Tunnel.DUG)
+                {
+                    return true;
+                }
+                else if (waterLeft != null)
+                {
+                    return waterLeft.isFull(moving);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
         }
 
         private void adjustLeft()

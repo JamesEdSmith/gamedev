@@ -926,7 +926,7 @@ namespace MoleHillMountain
 
                     GraphicsDevice.SetRenderTarget(ShaderRenderTarget2);
                     GraphicsDevice.Clear(Color.White);
-                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null);
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null);
                     spriteBatch.Draw(ShaderRenderTarget, testDrawRectangle, new Rectangle(0, 0, SCREENWIDTH / 4, SCREENHEIGHT / 4), Color.White);
                     spriteBatch.End();
 
