@@ -425,6 +425,7 @@ namespace MoleHillMountain
         public static Texture2D RAT_DIGGING;
         public static Texture2D RAT_MAD;
         public static Texture2D RAT_SNIFF;
+        public static Texture2D RAT_DIZZY;
 
         public static Texture2D GRUB_EGG;
         public static Texture2D GRUB_GRUB;
@@ -700,6 +701,7 @@ namespace MoleHillMountain
             RAT_DIGGING = Content.Load<Texture2D>(@"rat_digging");
             RAT_MAD = Content.Load<Texture2D>(@"rat_mad");
             RAT_SNIFF = Content.Load<Texture2D>(@"rat_sniff");
+            RAT_DIZZY = Content.Load<Texture2D>(@"mole_miner_dizzy");
 
             BEEBLE_WALKING = Content.Load<Texture2D>(@"beeble_walk");
             BEEBLE_CHARGE = Content.Load<Texture2D>(@"beeble_charge");

@@ -210,6 +210,7 @@ namespace MoleHillMountain
 
         public void setFrame(int number)
         {
+
             if (number < 0)
                 number = 0;
             _currFrame = number;
@@ -511,8 +512,6 @@ namespace MoleHillMountain
                 {
                     this.nextFrame();
                     _animationTime += _animationSpeed;
-                    if (_animationTime > 3000f)
-                        Console.WriteLine("fuck");
                 }
             }
         }

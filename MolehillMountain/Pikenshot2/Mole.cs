@@ -622,6 +622,10 @@ namespace MoleHillMountain
                     if ((state & STATE_DIZZY) != 0)
                     {
                         walkingSprite = dizzy;
+                        if (animationTimer < 0)
+                        {
+                            animationTimer = walkTime;
+                        }
                     }
                     else
                     {

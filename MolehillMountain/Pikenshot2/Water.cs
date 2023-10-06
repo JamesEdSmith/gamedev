@@ -297,7 +297,7 @@ namespace MoleHillMountain
             switch (state)
             {
                 case NONE:
-                    if (waterAbove != null || (waterRight != null && waterRight.isFull(MOVING_RIGHT)) || (waterLeft != null && waterLeft.isFull(MOVING_LEFT)))
+                    if (waterAbove != null || (waterRight != null && waterRight.isFull(MOVING_RIGHT, new List<Water>{this})) || (waterLeft != null && waterLeft.isFull(MOVING_LEFT, new List<Water> { this })))
                     {
                         currSprite = waterFull;
                     }
@@ -369,8 +369,16 @@ namespace MoleHillMountain
             currSprite.setFrame(frameNumber);
         }
 
-        private bool isFull(int moving)
+        private bool isFull(int moving, List<Water> waters)
         {
+            if (waters.Contains(this))
+            {
+                return false;
+            }else
+            {
+                waters.Add(this);
+            }
+
             if (moving == MOVING_RIGHT)
             {
                 if (waterAbove != null && tunnel.top == Tunnel.DUG && tunnel.left == Tunnel.DUG)
@@ -379,7 +387,7 @@ namespace MoleHillMountain
                 }
                 else if ( waterRight != null)
                 {
-                    return waterRight.isFull(moving);
+                    return waterRight.isFull(moving, waters);
                 }
                 else
                 {
@@ -393,7 +401,7 @@ namespace MoleHillMountain
                 }
                 else if (waterLeft != null)
                 {
-                    return waterLeft.isFull(moving);
+                    return waterLeft.isFull(moving, waters);
                 }
                 else
                 {

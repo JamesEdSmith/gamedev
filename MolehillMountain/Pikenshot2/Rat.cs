@@ -49,6 +49,7 @@ namespace MoleHillMountain
             sniffing = new Sprite(PikeAndShotGame.RAT_SNIFF, new Rectangle(0, 0, 20, 18), 20, 18);
             mad = new Sprite(PikeAndShotGame.RAT_MAD, new Rectangle(0, 0, 20, 18), 20, 18);
             gettingMad = new Sprite(PikeAndShotGame.RAT_MAD, new Rectangle(0, 0, 20, 18), 20, 18);
+            dizzy = new Sprite(PikeAndShotGame.RAT_DIZZY, new Rectangle(0, 0, 20, 20), 20, 20);
             clearDirections = new ArrayList(4);
             str = 3;
             health = 2;
