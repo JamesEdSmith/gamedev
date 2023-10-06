@@ -155,13 +155,6 @@ namespace MoleHillMountain
             {
                 walkingSprite = unseen;
             }
-            else
-            {
-                if ((state & STATE_DIGGING) == 0)
-                    walkingSprite = walking;
-                else
-                    walkingSprite = digging;
-            }
 
             if ((state & STATE_SQUASHED) != 0 && squashedTimer >= 0)
             {
