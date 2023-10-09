@@ -48,6 +48,12 @@ namespace MoleHillMountain
         public Water waterRight = null;
         public Water waterAbove = null;
 
+        bool groupedLeft;
+        bool groupedRight;
+
+        List<Water> group;
+        Water leader;
+
         int crash;
 
         public Water(float x, float y, DungeonScreen dungeonScreen)
@@ -67,6 +73,7 @@ namespace MoleHillMountain
             state = NONE;
 
             seen = SeenStatus.NOT_SEEN;
+            group = new List<Water>(4);
         }
         public void draw(SpriteBatch spritebatch)
         {
@@ -81,6 +88,14 @@ namespace MoleHillMountain
         }
         public void update(GameTime gameTime)
         {
+            if (position.X < 0)
+            {
+                position.X = 0;
+            }
+            if (position.X / DungeonScreen.GRID_SIZE >= DungeonScreen.GRID_WIDTH)
+            {
+                position.X = DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_WIDTH - 1) + 19;
+            }
 
             tunnel = dungeonScreen.getCurrTunnel(position);
             if (tunnel != null)
@@ -174,11 +189,11 @@ namespace MoleHillMountain
             }
             else if (state == NONE)
             {
-                if ((tunnelLeft != null && tunnelLeft.right != Tunnel.NOT_DUG && waterLeft == null) || rightOfCenter)
+                if ((tunnelLeft != null && tunnelLeft.right != Tunnel.NOT_DUG && (waterLeft == null || waterLeft.state == MOVING_LEFT || waterLeft.state == FALLING)) || rightOfCenter)
                 {
                     moveLeft();
                 }
-                else if ((tunnelRight != null && tunnelRight.left != Tunnel.NOT_DUG && waterRight == null) || leftOfCenter)
+                else if ((tunnelRight != null && tunnelRight.left != Tunnel.NOT_DUG && (waterRight == null || waterRight.state == MOVING_RIGHT || waterRight.state == FALLING)) || leftOfCenter)
                 {
                     moveRight();
                 }
@@ -189,7 +204,7 @@ namespace MoleHillMountain
             }
             else if (state == MOVING_LEFT)
             {
-                if ((tunnelLeft != null && tunnelLeft.right != Tunnel.NOT_DUG && waterLeft == null) || rightOfCenter)
+                if ((tunnelLeft != null && tunnelLeft.right != Tunnel.NOT_DUG && (waterLeft == null || waterLeft.state == MOVING_LEFT || waterLeft.state == FALLING)) || rightOfCenter)
                 {
                     moveLeft();
                 }
@@ -210,7 +225,7 @@ namespace MoleHillMountain
             }
             else
             {
-                if ((tunnelRight != null && tunnelRight.left != Tunnel.NOT_DUG && waterRight == null) || leftOfCenter)
+                if ((tunnelRight != null && tunnelRight.left != Tunnel.NOT_DUG && (waterRight == null || waterRight.state == MOVING_RIGHT || waterRight.state == FALLING)) || leftOfCenter)
                 {
                     moveRight();
                 }
@@ -241,13 +256,25 @@ namespace MoleHillMountain
             {
                 position.Y += fallSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            else if (state == MOVING_LEFT)
+            else if (state == MOVING_LEFT && !groupedLeft)
             {
                 position.X -= moveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                int i = 0;
+                foreach (Water water in group)
+                {
+                    i++;
+                    water.position.X = position.X + DungeonScreen.GRID_SIZE;
+                }
             }
-            else if (state == MOVING_RIGHT)
+            else if (state == MOVING_RIGHT && !groupedRight)
             {
                 position.X += moveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                int i = 0;
+                foreach (Water water in group)
+                {
+                    i++;
+                    water.position.X = position.X - DungeonScreen.GRID_SIZE;
+                }
             }
         }
 
@@ -255,20 +282,46 @@ namespace MoleHillMountain
         {
             if (state != MOVING_LEFT)
             {
+                if (group.Count > 0)
+                {
+                    group[0].giveGroup(group, state);
+                    group.Clear();
+                }
+
                 state = MOVING_LEFT;
                 animationTime = waveMidTime;
                 animationTimer = animationTime;
-                Water waterL = dungeonScreen.waterLeft(position, 5);
-                if (waterL != null)
-                    position.X = waterL.position.X + 20;
             }
 
+        }
+
+        private void giveGroup(List<Water> group, int state)
+        {
+            if (group.Contains(this))
+            {
+                group.Remove(this);
+                leader = null;
+
+                this.group = new List<Water>(group);
+                foreach (Water water in this.group)
+                {
+                    water.leader = this;
+                }
+                groupedLeft = false;
+                groupedRight = false;
+            }
         }
 
         private void moveRight()
         {
             if (state != MOVING_RIGHT)
             {
+                if (group.Count > 0)
+                {
+                    group[0].giveGroup(group, state);
+                    group.Clear();
+                }
+
                 state = MOVING_RIGHT;
                 animationTime = waveMidTime;
                 animationTimer = animationTime;
@@ -280,6 +333,14 @@ namespace MoleHillMountain
         {
             if (state != FALLING)
             {
+                if (group.Count > 0)
+                {
+                    group[0].giveGroup(group, state);
+                    group.Clear();
+                }
+                groupedLeft = false;
+                groupedRight = false;
+                leader = null;
                 state = FALLING;
                 currSprite = falling;
                 animationTime = fallTime;
@@ -293,11 +354,12 @@ namespace MoleHillMountain
 
         private void animate(GameTime gameTime)
         {
-
+            Water waterL;
+            Water waterR;
             switch (state)
             {
                 case NONE:
-                    if (waterAbove != null || (waterRight != null && waterRight.isFull(MOVING_RIGHT, new List<Water>{this})) || (waterLeft != null && waterLeft.isFull(MOVING_LEFT, new List<Water> { this })))
+                    if (waterAbove != null || (waterRight != null && waterRight.isFull(MOVING_RIGHT, new List<Water> { this })) || (waterLeft != null && waterLeft.isFull(MOVING_LEFT, new List<Water> { this })))
                     {
                         currSprite = waterFull;
                     }
@@ -308,51 +370,83 @@ namespace MoleHillMountain
                     currSprite = falling;
                     break;
                 case MOVING_LEFT:
-                    if (waterAbove != null)
-                        currSprite = waterFull;
-                    else
+                    waterL = dungeonScreen.waterLeft(position, 5);
+                    waterR = dungeonScreen.waterRight(position, 5);
+                    if (waterL == null || waterL.state == FALLING)
                     {
-                        Water waterL = dungeonScreen.waterLeft(position, 5);
-                        Water waterR = dungeonScreen.waterRight(position, 5);
-                        if (waterL == null || waterL.state == FALLING)
+                        currSprite = moving;
+                        if (waterR != null && !group.Contains(waterR) && waterR.state != MOVING_RIGHT && waterR.state != FALLING)
                         {
-                            currSprite = moving;
-                            adjustRight();
-                        }
-                        else if (waterR == null || waterR.state == FALLING)
-                        {
-                            currSprite = waterBack;
-                            //position.X = waterL.position.X + 20;
-                        }
-                        else
-                        {
-                            currSprite = waterIdle;
-                            //position.X = waterL.position.X + 20;
+                            addToGroup(waterR);
                         }
                     }
+                    else if (waterR == null || waterR.state == FALLING)
+                    {
+                        currSprite = waterBack;
+                        if (!groupedLeft && waterL.groupedLeft)
+                        {
+                            waterL.leader.addToGroup(this);
+                        }
+                        else if (!groupedLeft && waterL.group.Count > 0)
+                        {
+                            waterL.addToGroup(this);
+                        }
+                    }
+                    else
+                    {
+                        currSprite = waterIdle;
+                        if (!groupedLeft && waterL.groupedLeft)
+                        {
+                            waterL.leader.addToGroup(this);
+                        }
+                        else if (!groupedLeft && waterL.group.Count > 0)
+                        {
+                            waterL.addToGroup(this);
+                        }
+                    }
+
+                    if (waterAbove != null)
+                        currSprite = waterFull;
                     break;
                 case MOVING_RIGHT:
-                    if (waterAbove != null)
-                        currSprite = waterFull;
-                    else
+                    waterL = dungeonScreen.waterLeft(position, 5);
+                    waterR = dungeonScreen.waterRight(position, 5);
+                    if (waterR == null || waterR.state == FALLING)
                     {
-                        Water waterL = dungeonScreen.waterLeft(position, 5);
-                        Water waterR = dungeonScreen.waterRight(position, 5);
-                        if (waterR == null || waterR.state == FALLING)
+                        currSprite = moving;
+
+                        if (waterL != null && !group.Contains(waterL) && waterL.state != MOVING_LEFT && waterL.state != FALLING)
                         {
-                            currSprite = moving;
-                        }
-                        else if (waterL == null || waterL.state == FALLING)
-                        {
-                            currSprite = waterBack;
-                            //position.X = waterR.position.X - 18;
-                        }
-                        else
-                        {
-                            currSprite = waterIdle;
-                            //position.X = waterR.position.X - 18;
+                            addToGroup(waterL);
                         }
                     }
+                    else if (waterL == null || waterL.state == FALLING)
+                    {
+                        currSprite = waterBack;
+                        if (!groupedRight && waterR.groupedRight)
+                        {
+                            waterR.leader.addToGroup(this);
+                        }
+                        else if (!groupedRight && waterR.group.Count > 0)
+                        {
+                            waterR.addToGroup(this);
+                        }
+                    }
+                    else
+                    {
+                        currSprite = waterIdle;
+                        if (!groupedRight && waterR.groupedRight)
+                        {
+                            waterR.leader.addToGroup(this);
+                        }
+                        else if (!groupedRight && waterR.group.Count > 0)
+                        {
+                            waterR.addToGroup(this);
+                        }
+                    }
+
+                    if (waterAbove != null)
+                        currSprite = waterFull;
                     break;
 
             }
@@ -369,12 +463,36 @@ namespace MoleHillMountain
             currSprite.setFrame(frameNumber);
         }
 
+        private void addToGroup(Water water)
+        {
+            if (leader == water)
+            {
+                Console.WriteLine("No");
+
+            }
+            group.Add(water);
+            water.leader = this;
+            water.animationTimer = animationTimer;
+
+            group.Sort((w1, w2) => w1.position.X.CompareTo(w2.position.X));
+            water.groupedLeft = true;
+            water.groupedRight = false;
+
+            if (state == MOVING_RIGHT)
+            {
+                group.Reverse();
+                water.groupedLeft = false;
+                water.groupedRight = true;
+            }
+        }
+
         private bool isFull(int moving, List<Water> waters)
         {
             if (waters.Contains(this))
             {
                 return false;
-            }else
+            }
+            else
             {
                 waters.Add(this);
             }
@@ -385,7 +503,7 @@ namespace MoleHillMountain
                 {
                     return true;
                 }
-                else if ( waterRight != null)
+                else if (waterRight != null)
                 {
                     return waterRight.isFull(moving, waters);
                 }
@@ -393,7 +511,8 @@ namespace MoleHillMountain
                 {
                     return false;
                 }
-            }else
+            }
+            else
             {
                 if (waterAbove != null && tunnel.top == Tunnel.DUG && tunnel.right == Tunnel.DUG)
                 {
@@ -411,30 +530,18 @@ namespace MoleHillMountain
 
         }
 
-        private void adjustLeft()
-        {
-            Water waterL = dungeonScreen.waterLeft(position, 5);
-            if (waterL != null && waterL.state == MOVING_RIGHT)
-            {
-                waterL.position.X = position.X - 18;
-                waterL.adjustLeft();
-            }
-        }
-
-        private void adjustRight()
-        {
-            Water waterR = dungeonScreen.waterRight(position, 5);
-            if (waterR != null && waterR.state == MOVING_LEFT)
-            {
-                waterR.position.X = position.X + 15;
-                waterR.adjustRight();
-            }
-        }
-
         internal void land()
         {
             if (state != NONE && (state != FALLING || position.Y >= tunnel.position.Y + Tunnel.center.Y))
             {
+                if (group.Count > 0)
+                {
+                    group[0].giveGroup(group, state);
+                    group.Clear();
+                }
+                groupedLeft = false;
+                groupedRight = false;
+                leader = null;
                 position = tunnel.position + Tunnel.center;
                 state = NONE;
                 currSprite.setFrame(0);
