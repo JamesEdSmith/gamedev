@@ -263,7 +263,7 @@ namespace MoleHillMountain
                 foreach (Water water in group)
                 {
                     i++;
-                    water.position.X = position.X + DungeonScreen.GRID_SIZE;
+                    water.position.X = position.X + DungeonScreen.GRID_SIZE*i;
                 }
             }
             else if (state == MOVING_RIGHT && !groupedRight)
@@ -273,7 +273,7 @@ namespace MoleHillMountain
                 foreach (Water water in group)
                 {
                     i++;
-                    water.position.X = position.X - DungeonScreen.GRID_SIZE;
+                    water.position.X = position.X - DungeonScreen.GRID_SIZE*i;
                 }
             }
         }
