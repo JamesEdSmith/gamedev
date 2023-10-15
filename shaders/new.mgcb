@@ -265,6 +265,18 @@
 /processorParam:TextureFormat=Color
 /build:../art/water_back.png;water_back.png
 
+#begin ../art/water_back2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../art/water_back2.png;water_back2.png
+
 #begin ../art/water_fall.png
 /importer:TextureImporter
 /processor:TextureProcessor

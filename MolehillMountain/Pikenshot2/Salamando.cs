@@ -12,7 +12,7 @@ namespace MoleHillMountain
     {
         private Sprite charging;
         float chargeTime = 2000f;
-        private bool waitToFire;
+        public bool waitToFire;
         int fireDirection;
 
         public Salamando(DungeonScreen dungeonScene) : base(dungeonScene)
@@ -52,7 +52,7 @@ namespace MoleHillMountain
             float yDiff = Math.Abs(dungeonScene.mole.position.Y - position.Y);
             float xDiff = Math.Abs(dungeonScene.mole.position.X - position.X);
 
-            if (targetDirection != MOVING_NONE && (state & STATE_CHARGE) == 0 && (state & STATE_ZOOM) == 0 && (state & STATE_CRASH) == 0
+            if (targetDirection != MOVING_NONE && (state & STATE_CHARGE) == 0 && (state & STATE_ZOOM) == 0 && (state & STATE_CRASH) == 0 && (state & STATE_HIT) == 0
                 && (((targetDirection == MOVING_LEFT || targetDirection == MOVING_RIGHT) 
                 && yDiff < 1 && xDiff < DungeonScreen.GRID_SIZE * 4) 
                 || ((targetDirection == MOVING_DOWN || targetDirection == MOVING_UP) 

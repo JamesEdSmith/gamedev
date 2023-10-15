@@ -422,7 +422,9 @@ namespace MoleHillMountain
                 {
                     continue;
                 }
-                return enemy;
+
+                if (enemy.state != Mole.STATE_SQUASHED)
+                    return enemy;
             }
             return null;
         }

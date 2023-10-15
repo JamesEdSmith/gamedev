@@ -169,7 +169,7 @@ namespace MoleHillMountain
                 dimColor = SeenStatus.getVisibilityColor(seen);
             }
 
-            if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0 && (state & STATE_FIGHTING) == 0)
+            if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0 && (state & STATE_FIGHTING) == 0 && (state & STATE_HIT) == 0)
             {
                 targetDirection = dungeonScene.checkForTarget(dungeonScene.mole, this, (state & STATE_MAD) != 0);
 
@@ -306,7 +306,7 @@ namespace MoleHillMountain
 
             if ((state & STATE_SNIFFING) == 0 && (state & STATE_SCARED) == 0
                 && (state & STATE_NUDGING) == 0 && (state & STATE_MAD) == 0
-                && (state & STATE_GETMAD) == 0
+                && (state & STATE_GETMAD) == 0 && (state & STATE_HIT) == 0
                 && sawMole == false
                 && sniffTimer <= 0)
             {

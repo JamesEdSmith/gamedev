@@ -226,6 +226,9 @@ namespace MoleHillMountain
                     float p = EasingFunction.EaseOutQuint(0, 1, 1 - animationTimer / hitTime);
                     Tunnel currTunnel = dungeonScene.getCurrTunnel(position);
                     int staggerAmount = 5;
+
+                    Vector2 oldPosition = new Vector2(position.X, position.Y);
+
                     if (currTunnel != null)
                     {
                         if (Math.Abs(diff.X) > Math.Abs(diff.Y) && diff.X >= 0 && currTunnel.right != Tunnel.NOT_DUG)
@@ -260,6 +263,11 @@ namespace MoleHillMountain
 
                     drawPosition.X = (int)position.X;
                     drawPosition.Y = (int)position.Y;
+
+                    if((oldPosition-position).Length() > 100)
+                    {
+                        Console.WriteLine("oh no");
+                    }
                 }
                 else
                 {
@@ -704,6 +712,11 @@ namespace MoleHillMountain
             {
                 hitPosition = position;
                 startPosition = this.position;
+                state = 0;
+                if(this is Salamando)
+                {
+                    ((Salamando)this).waitToFire = false;
+                }
                 state |= STATE_HIT;
                 animationTimer = hitTime;
             }
