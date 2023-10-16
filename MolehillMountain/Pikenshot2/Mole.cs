@@ -155,12 +155,20 @@ namespace MoleHillMountain
             animationTimer -= (float)timeSpan.TotalMilliseconds;
             Tunnel windTunnel = dungeonScene.getCurrTunnel(position);
 
+            
+            bool rightOfCenter = position.X > windTunnel.position.X + Tunnel.center.X;
+            bool leftOfCenter = position.X < windTunnel.position.X + Tunnel.center.X;
+
+            bool belowOfCenter = position.Y > windTunnel.position.Y + Tunnel.center.Y;
+            bool aboveOfCenter = position.Y < windTunnel.position.Y + Tunnel.center.Y;
+
             if (windTunnel != null && windTunnel.animateWind && this != windTunnel.mothy)
             {
                 switch (windTunnel.direction)
                 {
                     case MOVING_LEFT:
-                        if (position.X > 10)
+                        
+                        if (position.X > 10 && (rightOfCenter || dungeonScene.getTunnelLeft(position).right != Tunnel.NOT_DUG))
                         {
                             if (!dungeonScene.vegetableLeft(position, new ArrayList { this }, MOLE_NUDGE_SPACING))
                             {
@@ -179,7 +187,7 @@ namespace MoleHillMountain
                         }
                         break;
                     case MOVING_RIGHT:
-                        if (position.X < DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_WIDTH - 0.5))
+                        if (position.X < DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_WIDTH - 0.5) && (leftOfCenter || dungeonScene.getTunnelRight(position).left != Tunnel.NOT_DUG))
                         {
                             if (!dungeonScene.vegetableRight(position, new ArrayList { this }, MOLE_NUDGE_SPACING))
                             {
@@ -198,14 +206,14 @@ namespace MoleHillMountain
                         }
                         break;
                     case MOVING_UP:
-                        if (position.Y > 10 && !dungeonScene.vegetableAbove(this))
+                        if (position.Y > 10 && !dungeonScene.vegetableAbove(this) && (belowOfCenter || dungeonScene.getTunnelAbove(position).bottom != Tunnel.NOT_DUG))
                         {
                             position.Y -= (float)timeSpan.TotalSeconds * windSpeed;
                             state &= ~STATE_NUDGING;
                         }
                         break;
                     case MOVING_DOWN:
-                        if (position.Y < DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_HEIGHT - 0.5f) && !dungeonScene.vegetableBelow(this))
+                        if (position.Y < DungeonScreen.GRID_SIZE * (DungeonScreen.GRID_HEIGHT - 0.5f) && !dungeonScene.vegetableBelow(this) && (aboveOfCenter || dungeonScene.getTunnelBelow(position).top != Tunnel.NOT_DUG))
                         {
                             position.Y += (float)timeSpan.TotalSeconds * windSpeed;
                         }

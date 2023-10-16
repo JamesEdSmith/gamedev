@@ -407,6 +407,7 @@ namespace MoleHillMountain
         public static Texture2D TUNNEL;
         public static Texture2D TUNNEL_REVEAL;
         public static Texture2D TUNNEL_FIRE;
+        public static Texture2D FIRE_SIDE;
         public static Texture2D FIRE;
         public static Texture2D TUNNEL_FIRE_BACK;
         public static Texture2D HEART;
@@ -686,6 +687,7 @@ namespace MoleHillMountain
             FIRE = Content.Load<Texture2D>(@"fire");
             TUNNEL_FIRE_BACK = Content.Load<Texture2D>(@"tunnel_fire_back");
             HEART = Content.Load<Texture2D>(@"heart");
+            FIRE_SIDE = Content.Load<Texture2D>(@"fire_side");
 
             TURNIP_SHAKE = Content.Load<Texture2D>(@"turnip_fall");
             TURNIP_TWIRL = Content.Load<Texture2D>(@"turnip_twirl");

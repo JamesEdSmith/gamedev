@@ -4,6 +4,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/backup/gamedev/shaders/../art/beeble_spawn.png","D:/backup/gamedev/shaders/bin/beeble_spawn.xnb","TextureProcessor","Texture2DContent",1344,28885,0.0059986
 "D:/backup/gamedev/shaders/../art/beeble_zoom.png","D:/backup/gamedev/shaders/bin/beeble_zoom.xnb","TextureProcessor","Texture2DContent",339,6485,0.0038065
 "D:/backup/gamedev/shaders/../art/fire.png","D:/backup/gamedev/shaders/bin/fire.xnb","TextureProcessor","Texture2DContent",487,6485,0.3156282
+"D:/backup/gamedev/shaders/../art/fire_side.png","D:/backup/gamedev/shaders/bin/fire_side.xnb","TextureProcessor","Texture2DContent",391,6485,0.4059362
 "D:/backup/gamedev/shaders/../art/hookshot.png","D:/backup/gamedev/shaders/bin/hookshot.xnb","TextureProcessor","Texture2DContent",253,6485,0.3153567
 "D:/backup/gamedev/shaders/../art/item_icons.png","D:/backup/gamedev/shaders/bin/item_icons.xnb","TextureProcessor","Texture2DContent",179,733,0.3020796
 "D:/backup/gamedev/shaders/../art/miner_hook_shot.png","D:/backup/gamedev/shaders/bin/miner_hook_shot.xnb","TextureProcessor","Texture2DContent",1054,15445,0.0931605
@@ -23,7 +24,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/backup/gamedev/shaders/../art/water_fall.png","D:/backup/gamedev/shaders/bin/water_fall.xnb","TextureProcessor","Texture2DContent",711,9685,0.3527949
 "D:/backup/gamedev/shaders/../art/water_mole.png","D:/backup/gamedev/shaders/bin/water_mole.xnb","TextureProcessor","Texture2DContent",511,9685,0.3465013
 "D:/backup/gamedev/shaders/../art/water_mole2.png","D:/backup/gamedev/shaders/bin/water_mole2.xnb","TextureProcessor","Texture2DContent",91,1685,0.3587695
-"D:/backup/gamedev/shaders/../art/water_wave.png","D:/backup/gamedev/shaders/bin/water_wave.xnb","TextureProcessor","Texture2DContent",614,9685,0.1091918
+"D:/backup/gamedev/shaders/../art/water_wave.png","D:/backup/gamedev/shaders/bin/water_wave.xnb","TextureProcessor","Texture2DContent",614,9685,0.1147521
 "D:/backup/gamedev/shaders/../art/wind.png","D:/backup/gamedev/shaders/bin/wind.xnb","TextureProcessor","Texture2DContent",629,19285,0.3745838
 "D:/backup/gamedev/shaders/../art/wind2.png","D:/backup/gamedev/shaders/bin/wind2.xnb","TextureProcessor","Texture2DContent",550,16085,0.0041244
 "D:/backup/gamedev/shaders/../art/wind3.png","D:/backup/gamedev/shaders/bin/wind3.xnb","TextureProcessor","Texture2DContent",373,16085,0.0009992

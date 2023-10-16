@@ -278,7 +278,7 @@ namespace MoleHillMountain
                 foreach (Water water in group)
                 {
                     i++;
-                    water.position.X = position.X + (DungeonScreen.GRID_SIZE-2) * i;
+                    water.position.X = position.X + (DungeonScreen.GRID_SIZE - 2) * i;
                 }
             }
             else if (state == MOVING_RIGHT && !groupedRight)
@@ -288,7 +288,7 @@ namespace MoleHillMountain
                 foreach (Water water in group)
                 {
                     i++;
-                    water.position.X = position.X - (DungeonScreen.GRID_SIZE-2) * i;
+                    water.position.X = position.X - (DungeonScreen.GRID_SIZE - 2) * i;
                 }
             }
         }
@@ -316,15 +316,26 @@ namespace MoleHillMountain
             {
                 group.Remove(this);
                 leader = null;
-
-                this.group = new List<Water>(group);
-                foreach (Water water in this.group)
-                {
-                    water.leader = this;
-                }
-                groupedLeft = false;
-                groupedRight = false;
             }
+
+            this.group = new List<Water>(group);
+            foreach (Water water in this.group)
+            {
+                water.leader = this;
+                if (state == MOVING_LEFT)
+                {
+                    water.groupedLeft = true;
+                    water.groupedRight = false;
+                }
+                else
+                {
+                    water.groupedLeft = false;
+                    water.groupedRight = true;
+                }
+            }
+            groupedLeft = false;
+            groupedRight = false;
+
         }
 
         private void moveRight()
@@ -495,8 +506,21 @@ namespace MoleHillMountain
             if (leader == water)
             {
                 Console.WriteLine("No");
+            }
+            if (water.group.Count > 0)
+            {
+                if (water.state == state || water.state == NONE)
+                {
+                    giveGroup(water.group, water.state);
+                    water.group.Clear();
+                }
+                else
+                {
+                    Console.WriteLine("dumb");
+                }
 
             }
+
             group.Add(water);
             water.leader = this;
             water.animationTimer = animationTimer;

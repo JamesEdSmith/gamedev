@@ -52,14 +52,15 @@ namespace MoleHillMountain
 
         Sprite fireSprite;
         Sprite fireEndSprite;
+        Sprite fireSide;
         Sprite windSprite;
         Sprite waterSprite;
         Sprite waterFullSprite;
 
         Color dimColor;
 
-        static Vector2 oneX = new Vector2(1, 0);
-        static Vector2 oneY = new Vector2(0, 1);
+        static Vector2 oneX = new Vector2(DungeonScreen.GRID_SIZE, 0);
+        static Vector2 oneY = new Vector2(0, DungeonScreen.GRID_SIZE);
 
         public bool water;
 
@@ -71,7 +72,7 @@ namespace MoleHillMountain
             fireEndSprite = new Sprite(PikeAndShotGame.FIRE, new Rectangle(0, 0, 20, 20), 20, 20);
             windSprite = new Sprite(PikeAndShotGame.MOTHY_WIND, new Rectangle(0, 0, 20, 20), 20, 20);
             waterSprite = new Sprite(PikeAndShotGame.WATER, new Rectangle(0, 0, 20, 20), 20, 20);
-
+            fireSide = new Sprite(PikeAndShotGame.FIRE_SIDE, new Rectangle(0, 0, 20, 20), 20, 20);
         }
 
         public void waterDraw(SpriteBatch spritebatch)
@@ -102,6 +103,7 @@ namespace MoleHillMountain
                     float frameTime = fireTime / (float)maxFrames;
                     int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
                     fireSprite.setFrame(frameNumber);
+                    fireSide.setFrame(frameNumber);
                 }
                 else
                 {
@@ -110,6 +112,7 @@ namespace MoleHillMountain
                     int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
                     fireEndSprite.setFrame(frameNumber);
                 }
+
             }
 
             if (animateWind)
@@ -178,25 +181,62 @@ namespace MoleHillMountain
                 {
                     sprite = fireSprite;
 
-                    if (right == DUG)
+                    if (right != NOT_DUG)
+                    {
                         sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, Mole.MOVING_NONE, Mole.MOVING_NONE, SeenStatus.getVisibilityColor(seen));
-                    else if (right == HALF_DUG)
-                        sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, Mole.MOVING_NONE, Mole.MOVING_NONE, SeenStatus.getVisibilityColor(seen));
 
-                    if (left == DUG)
-                        sprite.draw(spritebatch, position - oneX + center + DungeonScreen.OFFSET, Mole.MOVING_RIGHT, Mole.MOVING_NONE, SeenStatus.getVisibilityColor(seen));
-                    else if (left == HALF_DUG)
-                        sprite.draw(spritebatch, position - oneX + center + DungeonScreen.OFFSET, Mole.MOVING_RIGHT, Mole.MOVING_NONE, SeenStatus.getVisibilityColor(seen));
+                        if (direction == Mole.MOVING_UP)
+                        {
+                            fireSide.draw(spritebatch, position + center + oneX + DungeonScreen.OFFSET, Mole.MOVING_RIGHT, Mole.MOVING_NONE, SeenStatus.getVisibilityColor(seen));
+                        }
+                        else if (direction == Mole.MOVING_DOWN)
+                        {
+                            fireSide.draw(spritebatch, position + center + oneX + DungeonScreen.OFFSET, Mole.MOVING_LEFT, Mole.MOVING_NONE, SeenStatus.getVisibilityColor(seen));
+                        }
 
-                    if (bottom == DUG)
+
+                    }
+
+                    if (left != NOT_DUG)
+                    {
+                        sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, Mole.MOVING_RIGHT, Mole.MOVING_NONE, SeenStatus.getVisibilityColor(seen));
+
+                        if (direction == Mole.MOVING_UP)
+                        {
+                            fireSide.draw(spritebatch, position + center - oneX + DungeonScreen.OFFSET, Mole.MOVING_NONE, Mole.MOVING_NONE, SeenStatus.getVisibilityColor(seen));
+                        }
+                        else if (direction == Mole.MOVING_DOWN)
+                        {
+                            fireSide.draw(spritebatch, position + center - oneX + DungeonScreen.OFFSET, Mole.MOVING_NONE, Mole.MOVING_NONE, SeenStatus.getVisibilityColor(seen));
+                        }
+
+                        }
+
+                    if (bottom != NOT_DUG)
+                    {
                         sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, MathHelper.Pi * 0.5f);
-                    else if (bottom == HALF_DUG)
-                        sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, MathHelper.Pi * 0.5f);
+                        if (direction == Mole.MOVING_LEFT)
+                        {
+                            fireSide.draw(spritebatch, position + center + oneY + DungeonScreen.OFFSET, Mole.MOVING_NONE, Mole.MOVING_UP, SeenStatus.getVisibilityColor(seen));
+                        }
+                        else if (direction == Mole.MOVING_RIGHT)
+                        {
+                            fireSide.draw(spritebatch, position + center + oneY + DungeonScreen.OFFSET, Mole.MOVING_RIGHT, Mole.MOVING_UP, SeenStatus.getVisibilityColor(seen));
+                        }
+                    }
 
-                    if (top == DUG)
-                        sprite.draw(spritebatch, position - oneY + center + DungeonScreen.OFFSET, -MathHelper.Pi * 0.5f);
-                    else if (top == HALF_DUG)
-                        sprite.draw(spritebatch, position - oneY + center + DungeonScreen.OFFSET, -MathHelper.Pi * 0.5f);
+                    if (top != NOT_DUG)
+                    {
+                        sprite.draw(spritebatch, position + center + DungeonScreen.OFFSET, -MathHelper.Pi * 0.5f);
+                        if (direction == Mole.MOVING_LEFT)
+                        {
+                            fireSide.draw(spritebatch, position + center - oneY + DungeonScreen.OFFSET, MathHelper.Pi * 0.5f, SeenStatus.getVisibilityColor(seen));
+                        }
+                        else if (direction == Mole.MOVING_RIGHT)
+                        {
+                            fireSide.draw(spritebatch, position + center - oneY + DungeonScreen.OFFSET, MathHelper.Pi * 0.5f, SeenStatus.getVisibilityColor(seen));
+                        }
+                    }
                 }
 
 
