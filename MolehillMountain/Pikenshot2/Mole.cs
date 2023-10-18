@@ -42,7 +42,7 @@ namespace MoleHillMountain
         public const int STATE_ZOOM = 2048;
         public const int STATE_CRASH = 4096;
         public const int STATE_GETMAD = 8192;
-
+        public const int STATE_WASHED = 16384;
 
         private const float MOLE_NUDGE_SPACING = 7;
 
@@ -105,6 +105,8 @@ namespace MoleHillMountain
         public int item;
         public int item1;
         public int item2;
+
+        public Water water;
 
         public Mole(DungeonScreen dungeonScene)
         {
@@ -294,6 +296,21 @@ namespace MoleHillMountain
                     position.Y = vegetable.position.Y + DungeonScreen.GRID_SIZE / 4;
                     drawPosition.X = (int)position.X;
                     drawPosition.Y = (int)position.Y;
+                }
+            }
+            else if((state & STATE_WASHED) != 0)
+            {
+                if (water != null && water.state != Water.DEAD && water.state != Water.NONE)
+                {
+                    position.X = water.position.X;
+                    position.Y = water.position.Y;
+                    drawPosition.X = (int)position.X;
+                    drawPosition.Y = (int)position.Y;
+                }
+                else
+                {
+                    state &= ~STATE_WASHED;
+                    water = null;
                 }
             }
             else if ((state & STATE_USE) != 0)

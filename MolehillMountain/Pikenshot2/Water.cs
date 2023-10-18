@@ -230,7 +230,9 @@ namespace MoleHillMountain
                     {
                         crash++;
                         if (crash > 2)
-                            state = DEAD;
+                        {
+                            crashed();
+                        }
                     }
                 }
                 else
@@ -251,7 +253,9 @@ namespace MoleHillMountain
                     {
                         crash++;
                         if (crash > 2)
-                            state = DEAD;
+                        {
+                            crashed();
+                        }
                     }
                 }
                 else
@@ -263,6 +267,15 @@ namespace MoleHillMountain
             move(gameTime);
             animate(gameTime);
 
+        }
+
+        private void crashed()
+        {
+            if (group.Count > 0)
+            {
+                group[0].giveGroup(group, group[0].state);
+            }
+            state = DEAD;
         }
 
         private void move(GameTime gameTime)
@@ -278,7 +291,7 @@ namespace MoleHillMountain
                 foreach (Water water in group)
                 {
                     i++;
-                    water.position.X = position.X + (DungeonScreen.GRID_SIZE - 2) * i;
+                    water.position.X = position.X + (DungeonScreen.GRID_SIZE) * i;
                 }
             }
             else if (state == MOVING_RIGHT && !groupedRight)
@@ -288,7 +301,7 @@ namespace MoleHillMountain
                 foreach (Water water in group)
                 {
                     i++;
-                    water.position.X = position.X - (DungeonScreen.GRID_SIZE - 2) * i;
+                    water.position.X = position.X - (DungeonScreen.GRID_SIZE) * i;
                 }
             }
         }
@@ -386,7 +399,7 @@ namespace MoleHillMountain
             switch (state)
             {
                 case NONE:
-                    if (waterAbove != null || (waterRight != null && waterRight.isFull(MOVING_RIGHT, new List<Water> { this })) || (waterLeft != null && waterLeft.isFull(MOVING_LEFT, new List<Water> { this })))
+                    if ((waterAbove != null && waterAbove.state != FALLING ) || (waterRight != null && waterRight.isFull(MOVING_RIGHT, new List<Water> { this })) || (waterLeft != null && waterLeft.isFull(MOVING_LEFT, new List<Water> { this })))
                     {
                         currSprite = waterFull;
                     }

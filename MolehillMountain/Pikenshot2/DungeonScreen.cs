@@ -1683,13 +1683,34 @@ namespace MoleHillMountain
 
         private void checkCollisions(Water water)
         {
-            int middleX = ((int)water.position.X) / GRID_SIZE;
-            int middleY = ((int)water.position.Y) / GRID_SIZE;
-            int bottomY = ((int)water.position.Y + GRID_SIZE / 2) / GRID_SIZE;
-            int leftX = ((int)water.position.X - GRID_SIZE / 2) / GRID_SIZE;
-            int rightX = ((int)water.position.X + GRID_SIZE / 2) / GRID_SIZE;
 
+            float enemyRadius = 8;
 
+            foreach(Rat enemy in enemies)
+            {
+                if (enemy.position.X - enemyRadius > water.position.X)
+                {
+                    continue;
+                }
+                else if (enemy.position.X + enemyRadius  < water.position.X)
+                {
+                    continue;
+                }
+                else if (enemy.position.Y - enemyRadius  > water.position.Y)
+                {
+                    continue;
+                }
+                else if (enemy.position.Y + enemyRadius  < water.position.Y)
+                {
+                    continue;
+                }
+
+                if (enemy.state != Mole.STATE_SQUASHED)
+                {
+                    enemy.state |= Mole.STATE_WASHED;
+                    enemy.water = water;
+                }
+            }
             
         }
 
@@ -2036,6 +2057,19 @@ namespace MoleHillMountain
             }
 
             //place water
+            List<Point> removePoints = new List<Point>();
+            foreach(Point point in vegetablePlacements)
+            {
+                if(point.Y > GRID_HEIGHT / 2)
+                {
+                    removePoints.Add(point);
+                }
+            }
+
+            foreach(Point remove in removePoints)
+            {
+                vegetablePlacements.Remove(remove);
+            }
 
             if (vegetablePlacements.Count > 2)
             {

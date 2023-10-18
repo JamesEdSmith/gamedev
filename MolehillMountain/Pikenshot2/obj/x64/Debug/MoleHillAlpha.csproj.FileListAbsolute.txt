@@ -498,3 +498,4 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\water_back.x
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\water_fall.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\water_back2.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\fire_side.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\obj\x64\Debug\MoleHillAlpha.csproj.AssemblyReference.cache
