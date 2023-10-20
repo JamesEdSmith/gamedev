@@ -106,7 +106,7 @@ namespace MoleHillMountain
 
         internal bool waterBelow(Vector2 position)
         {
-            foreach(Water water in waters)
+            foreach (Water water in waters)
             {
                 float yDiff = water.position.Y - position.Y;
                 if (Math.Abs(water.position.X - position.X) < GRID_SIZE / 2 && yDiff <= GRID_SIZE && yDiff > 0)
@@ -622,7 +622,7 @@ namespace MoleHillMountain
             foreach (Rat enemy in enemies)
             {
                 enemy.update(gameTime);
-                if ((enemy.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_NUDGING) == 0 && (enemy.state & Mole.STATE_GETMAD) == 0)
+                if ((enemy.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_NUDGING) == 0 && (enemy.state & Mole.STATE_GETMAD) == 0 && (enemy.state & Mole.STATE_WHACKED) == 0)
                 {
                     updateTunnels(enemy);
                 }
@@ -632,11 +632,47 @@ namespace MoleHillMountain
                 if (Math.Abs(diff.X) <= FIGHT_DIST && Math.Abs(diff.Y) <= FIGHT_DIST
                     && (mole.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_SQUASHED) == 0
                     && (mole.state & Mole.STATE_FIGHTING) == 0 && (enemy.state & Mole.STATE_FIGHTING) == 0
-                    && (mole.state & Mole.STATE_DIZZY) == 0)
+                    && (mole.state & Mole.STATE_DIZZY) == 0 && (enemy.state & Mole.STATE_DIZZY) == 0
+                    && (mole.state & Mole.STATE_WHACKED) == 0 && (enemy.state & Mole.STATE_WHACKED) == 0)
                 {
-                    createAnimation(mole.position, mole.horzFacing, mole.vertFacing, AnimationType.fightCloud);
-                    mole.fight();
-                    enemy.fight();
+                    if ((mole.state & Mole.STATE_WASHED) != 0)
+                    {
+                        enemy.whack(mole.water);
+                    }
+                    else
+                    {
+                        enemy.state &= ~Mole.STATE_WASHED;
+                        enemy.water = null;
+                        createAnimation(mole.position, mole.horzFacing, mole.vertFacing, AnimationType.fightCloud);
+                        mole.fight();
+                        enemy.fight();
+                    }
+                }
+
+                foreach (Rat rat in enemies)
+                {
+                    if (rat == enemy)
+                        continue;
+
+                    diff = enemy.position - rat.position;
+
+                    if (Math.Abs(diff.X) <= FIGHT_DIST && Math.Abs(diff.Y) <= FIGHT_DIST
+                        && (rat.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_SQUASHED) == 0
+                        && (rat.state & Mole.STATE_FIGHTING) == 0 && (enemy.state & Mole.STATE_FIGHTING) == 0
+                        && (rat.state & Mole.STATE_DIZZY) == 0 && (enemy.state & Mole.STATE_DIZZY) == 0
+                        && (rat.state & Mole.STATE_WHACKED) == 0 && (enemy.state & Mole.STATE_WHACKED) == 0)
+                    {
+                        if ((rat.state & Mole.STATE_WASHED) != 0)
+                        {
+                            enemy.whack(rat.water);
+                            rat.whack(rat.water);
+                        }
+                        else if ((enemy.state & Mole.STATE_WASHED) != 0)
+                        {
+                            enemy.whack(enemy.water);
+                            rat.whack(enemy.water);
+                        }
+                    }
                 }
 
                 if ((enemy.state & Mole.STATE_SQUASHED) != 0 && enemy.squashedTimer <= 0)
@@ -668,7 +704,7 @@ namespace MoleHillMountain
             foreach (Water water in waters)
             {
                 water.update(gameTime);
-                if (water.state != Water.NONE )
+                if (water.state != Water.NONE)
                 {
                     checkCollisions(water);
                 }
@@ -1686,32 +1722,55 @@ namespace MoleHillMountain
 
             float enemyRadius = 8;
 
-            foreach(Rat enemy in enemies)
+            foreach (Mole enemy in enemies)
             {
                 if (enemy.position.X - enemyRadius > water.position.X)
                 {
                     continue;
                 }
-                else if (enemy.position.X + enemyRadius  < water.position.X)
+                else if (enemy.position.X + enemyRadius < water.position.X)
                 {
                     continue;
                 }
-                else if (enemy.position.Y - enemyRadius  > water.position.Y)
+                else if (enemy.position.Y - enemyRadius > water.position.Y)
                 {
                     continue;
                 }
-                else if (enemy.position.Y + enemyRadius  < water.position.Y)
+                else if (enemy.position.Y + enemyRadius < water.position.Y)
                 {
                     continue;
                 }
 
-                if (enemy.state != Mole.STATE_SQUASHED)
+                if ((enemy.state & Mole.STATE_WASHED) == 0 && (enemy.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_FIGHTING) == 0 && (enemy.state & Mole.STATE_DIZZY) == 0)
                 {
                     enemy.state |= Mole.STATE_WASHED;
                     enemy.water = water;
                 }
             }
-            
+
+            if (mole.position.X - enemyRadius > water.position.X)
+            {
+                return;
+            }
+            else if (mole.position.X + enemyRadius < water.position.X)
+            {
+                return;
+            }
+            else if (mole.position.Y - enemyRadius > water.position.Y)
+            {
+                return;
+            }
+            else if (mole.position.Y + enemyRadius < water.position.Y)
+            {
+                return;
+            }
+
+            if ((mole.state & Mole.STATE_WASHED) == 0 && (mole.state & Mole.STATE_SQUASHED) == 0 && (mole.state & Mole.STATE_FIGHTING) == 0 && (mole.state & Mole.STATE_DIZZY) == 0)
+            {
+                mole.state |= Mole.STATE_WASHED;
+                mole.water = water;
+            }
+
         }
 
         private void getInput(TimeSpan timeSpan)
@@ -2058,15 +2117,15 @@ namespace MoleHillMountain
 
             //place water
             List<Point> removePoints = new List<Point>();
-            foreach(Point point in vegetablePlacements)
+            foreach (Point point in vegetablePlacements)
             {
-                if(point.Y > GRID_HEIGHT / 2)
+                if (point.Y > GRID_HEIGHT / 3)
                 {
                     removePoints.Add(point);
                 }
             }
 
-            foreach(Point remove in removePoints)
+            foreach (Point remove in removePoints)
             {
                 vegetablePlacements.Remove(remove);
             }

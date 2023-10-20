@@ -43,6 +43,7 @@ namespace MoleHillMountain
         public const int STATE_CRASH = 4096;
         public const int STATE_GETMAD = 8192;
         public const int STATE_WASHED = 16384;
+        public const int STATE_WHACKED = 32768;
 
         private const float MOLE_NUDGE_SPACING = 7;
 
@@ -108,6 +109,8 @@ namespace MoleHillMountain
 
         public Water water;
 
+        protected Vector2 whackedMovement;
+
         public Mole(DungeonScreen dungeonScene)
         {
             this.dungeonScene = dungeonScene;
@@ -155,17 +158,17 @@ namespace MoleHillMountain
         {
             TimeSpan timeSpan = gameTime.ElapsedGameTime;
             animationTimer -= (float)timeSpan.TotalMilliseconds;
+
             Tunnel windTunnel = dungeonScene.getCurrTunnel(position);
 
-            
-            bool rightOfCenter = position.X > windTunnel.position.X + Tunnel.center.X;
-            bool leftOfCenter = position.X < windTunnel.position.X + Tunnel.center.X;
-
-            bool belowOfCenter = position.Y > windTunnel.position.Y + Tunnel.center.Y;
-            bool aboveOfCenter = position.Y < windTunnel.position.Y + Tunnel.center.Y;
-
-            if (windTunnel != null && windTunnel.animateWind && this != windTunnel.mothy)
+            if (windTunnel != null && windTunnel.animateWind && this != windTunnel.mothy && (state & STATE_WHACKED) == 0)
             {
+                bool rightOfCenter = position.X > windTunnel.position.X + Tunnel.center.X;
+                bool leftOfCenter = position.X < windTunnel.position.X + Tunnel.center.X;
+
+                bool belowOfCenter = position.Y > windTunnel.position.Y + Tunnel.center.Y;
+                bool aboveOfCenter = position.Y < windTunnel.position.Y + Tunnel.center.Y;
+
                 switch (windTunnel.direction)
                 {
                     case MOVING_LEFT:
@@ -296,6 +299,26 @@ namespace MoleHillMountain
                     position.Y = vegetable.position.Y + DungeonScreen.GRID_SIZE / 4;
                     drawPosition.X = (int)position.X;
                     drawPosition.Y = (int)position.Y;
+                }
+            }
+            else if ((state & STATE_WHACKED) != 0)
+            {
+                position += whackedMovement * (float)timeSpan.TotalSeconds;
+                drawPosition.X = (int)position.X;
+                drawPosition.Y = (int)position.Y;
+
+                whackedMovement.Y += 160f * (float)timeSpan.TotalSeconds;
+
+                int maxFrames = mad.getMaxFrames();
+                float frameTime = animationTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
+
+                mad.setFrame(frameNumber);
+
+                if(position.Y >= PikeAndShotGame.SCREENHEIGHT + 20)
+                {
+                    state = STATE_SQUASHED;
+                    ((Rat)this).squashedTimer = 0;
                 }
             }
             else if((state & STATE_WASHED) != 0)
@@ -495,6 +518,7 @@ namespace MoleHillMountain
 
                 nudgeMovement = 0;
             }
+
             if ((state & STATE_DIZZY) != 0)
             {
                 dimColor.A = (byte)(255f * (float)Math.Sin(gameTime.TotalGameTime.TotalMilliseconds / 10f));

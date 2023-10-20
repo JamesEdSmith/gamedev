@@ -149,13 +149,14 @@ namespace MoleHillMountain
         public override void update(GameTime gameTime)
         {
             TimeSpan timeSpan = gameTime.ElapsedGameTime;
-
-            seen = dungeonScene.checkMoleSight(tunnel != null ? tunnel : dungeonScene.getCurrTunnel(position));
-            if (seen != SeenStatus.SEEN)
+            if ((state & STATE_WHACKED) == 0)
             {
-                walkingSprite = unseen;
+                seen = dungeonScene.checkMoleSight(tunnel != null ? tunnel : dungeonScene.getCurrTunnel(position));
+                if (seen != SeenStatus.SEEN)
+                {
+                    walkingSprite = unseen;
+                }
             }
-
             if ((state & STATE_SQUASHED) != 0 && squashedTimer >= 0)
             {
                 squashedTimer -= (float)timeSpan.TotalMilliseconds;
@@ -169,7 +170,7 @@ namespace MoleHillMountain
                 dimColor = SeenStatus.getVisibilityColor(seen);
             }
 
-            if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0 && (state & STATE_FIGHTING) == 0 && (state & STATE_HIT) == 0)
+            if ((state & STATE_SQUASHED) == 0 && (state & STATE_SCARED) == 0 && (state & STATE_FIGHTING) == 0 && (state & STATE_HIT) == 0 && (state & STATE_WHACKED) == 0)
             {
                 targetDirection = dungeonScene.checkForTarget(dungeonScene.mole, this, (state & STATE_MAD) != 0);
 
@@ -307,6 +308,7 @@ namespace MoleHillMountain
             if ((state & STATE_SNIFFING) == 0 && (state & STATE_SCARED) == 0
                 && (state & STATE_NUDGING) == 0 && (state & STATE_MAD) == 0
                 && (state & STATE_GETMAD) == 0 && (state & STATE_HIT) == 0
+                && (state & STATE_WASHED) == 0 && (state & STATE_WHACKED) == 0
                 && sawMole == false
                 && sniffTimer <= 0)
             {
@@ -412,6 +414,21 @@ namespace MoleHillMountain
         {
             intendingToMove = MOVING_DOWN;
             base.moveDown();
+        }
+
+        internal void whack(Water water)
+        {
+            state = STATE_WHACKED;
+
+            animationTime = animationTimer = MAD_TIME;
+
+            if(water.state == Water.MOVING_LEFT)
+            {
+                whackedMovement = new Vector2 (-24, -100);
+            }else
+            {
+                whackedMovement = new Vector2(24, -100);
+            }
         }
     }
 }
