@@ -14,7 +14,10 @@ namespace MoleHillMountain
         stoneImpact,
         fightCloud,
         tunnelReveal,
-        hookImpact
+        hookImpact,
+        explosion,
+        explosionAngle,
+        explosionCenter
     }
     public class DungeonScreen : GameScreen
     {
@@ -397,6 +400,15 @@ namespace MoleHillMountain
                     break;
                 case AnimationType.tunnelReveal:
                     returnedEffect.activate((int)(position.X + OFFSET.X), (int)(position.Y + OFFSET.Y), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, delay);
+                    break;
+                case AnimationType.explosionCenter:
+                    returnedEffect.activate((int)(position.X + OFFSET.X), (int)position.Y, horz, vert, delay);
+                    break;
+                case AnimationType.explosion:
+                    returnedEffect.activate((int)(position.X + OFFSET.X), (int)position.Y, horz, vert, delay);
+                    break;
+                case AnimationType.explosionAngle:
+                    returnedEffect.activate((int)(position.X + OFFSET.X), (int)position.Y, horz, vert, delay);
                     break;
             }
 
@@ -2110,7 +2122,8 @@ namespace MoleHillMountain
             {
                 int vegetableSpotIndex = random.Next(vegetablePlacements.Count);
                 Point vegetableSpot = (Point)vegetablePlacements[vegetableSpotIndex];
-                vegetables.Add(new Vegetable(vegetableSpot.X * GRID_SIZE + GRID_SIZE * 0.5f, vegetableSpot.Y * GRID_SIZE + GRID_SIZE * 0.5f, this));
+                vegetables.Add(new Bomb(vegetableSpot.X * GRID_SIZE + GRID_SIZE * 0.5f, vegetableSpot.Y * GRID_SIZE + GRID_SIZE * 0.5f, this));
+                //vegetables.Add(new Vegetable(vegetableSpot.X * GRID_SIZE + GRID_SIZE * 0.5f, vegetableSpot.Y * GRID_SIZE + GRID_SIZE * 0.5f, this));
                 vegetablePlacements.RemoveAt(vegetableSpotIndex);
                 combinedTunnels[vegetableSpot.X, vegetableSpot.Y] = 2; // 2 for vegetable
             }

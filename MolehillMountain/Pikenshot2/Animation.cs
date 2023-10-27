@@ -43,6 +43,18 @@ namespace MoleHillMountain
                     sprite = new Sprite(PikeAndShotGame.STONE_IMPACT2, new Rectangle(0, 0, 20, 20), 20, 20);
                     time = 250;
                     break;
+                case AnimationType.explosion:
+                    sprite = new Sprite(PikeAndShotGame.EXPLOSION, new Rectangle(0, 0, 20, 20), 20, 20);
+                    time = 250f;
+                    break;
+                case AnimationType.explosionAngle:
+                    sprite = new Sprite(PikeAndShotGame.EXPLOSION_ANGLE, new Rectangle(0, 0, 20, 20), 20, 20);
+                    time = 250f;
+                    break;
+                case AnimationType.explosionCenter:
+                    sprite = new Sprite(PikeAndShotGame.TUNNEL_FIRE_BACK, new Rectangle(0, 0, 20, 20), 20, 20);
+                    time = 300f;
+                    break;
             }
         }
 

@@ -4,6 +4,10 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/backup/gamedev/shaders/../art/bomb.png</File>
+    <File>D:/backup/gamedev/shaders/../art/bomb_blast.png</File>
+    <File>D:/backup/gamedev/shaders/../art/explosion.png</File>
+    <File>D:/backup/gamedev/shaders/../art/explosion_angle.png</File>
     <File>D:/backup/gamedev/shaders/../art/water_wave.png</File>
     <File>D:/backup/gamedev/shaders/../art/fire_side.png</File>
     <File>D:/backup/gamedev/shaders/../art/water_back2.png</File>
@@ -62,6 +66,10 @@
     <File>D:/backup/gamedev/shaders/unseen_sprite.png</File>
   </SourceFiles>
   <DestFiles>
+    <File>bomb.png</File>
+    <File>bomb_blast.png</File>
+    <File>explosion.png</File>
+    <File>explosion_angle.png</File>
     <File>water_wave.png</File>
     <File>fire_side.png</File>
     <File>water_back2.png</File>

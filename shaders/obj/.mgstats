@@ -3,6 +3,10 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/backup/gamedev/shaders/../art/beeble_crushed.png","D:/backup/gamedev/shaders/bin/beeble_crushed.xnb","TextureProcessor","Texture2DContent",928,14485,0.0999237
 "D:/backup/gamedev/shaders/../art/beeble_spawn.png","D:/backup/gamedev/shaders/bin/beeble_spawn.xnb","TextureProcessor","Texture2DContent",1344,28885,0.0059986
 "D:/backup/gamedev/shaders/../art/beeble_zoom.png","D:/backup/gamedev/shaders/bin/beeble_zoom.xnb","TextureProcessor","Texture2DContent",339,6485,0.0038065
+"D:/backup/gamedev/shaders/../art/bomb.png","D:/backup/gamedev/shaders/bin/bomb.xnb","TextureProcessor","Texture2DContent",485,4885,0.1186766
+"D:/backup/gamedev/shaders/../art/bomb_blast.png","D:/backup/gamedev/shaders/bin/bomb_blast.xnb","TextureProcessor","Texture2DContent",411,4885,0.0019948
+"D:/backup/gamedev/shaders/../art/explosion.png","D:/backup/gamedev/shaders/bin/explosion.xnb","TextureProcessor","Texture2DContent",411,9685,0.0040785
+"D:/backup/gamedev/shaders/../art/explosion_angle.png","D:/backup/gamedev/shaders/bin/explosion_angle.xnb","TextureProcessor","Texture2DContent",395,9685,0.0019952
 "D:/backup/gamedev/shaders/../art/fire.png","D:/backup/gamedev/shaders/bin/fire.xnb","TextureProcessor","Texture2DContent",487,6485,0.3156282
 "D:/backup/gamedev/shaders/../art/fire_side.png","D:/backup/gamedev/shaders/bin/fire_side.xnb","TextureProcessor","Texture2DContent",391,6485,0.4059362
 "D:/backup/gamedev/shaders/../art/hookshot.png","D:/backup/gamedev/shaders/bin/hookshot.xnb","TextureProcessor","Texture2DContent",253,6485,0.3153567

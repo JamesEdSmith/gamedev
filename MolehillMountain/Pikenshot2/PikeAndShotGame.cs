@@ -466,6 +466,11 @@ namespace MoleHillMountain
         public static Texture2D WATER_BACK;
         public static Texture2D WATER_FALL;
 
+        public static Texture2D BOMB;
+        public static Texture2D BOMB_BLAST;
+        public static Texture2D EXPLOSION;
+        public static Texture2D EXPLOSION_ANGLE;
+
         public static Texture2D UNSEEN_WALK;
         public static Texture2D UNSEEN_WALK2;
 
@@ -741,6 +746,11 @@ namespace MoleHillMountain
             WATER_WAVE = Content.Load<Texture2D>(@"water_wave");
             WATER_BACK = Content.Load<Texture2D>(@"water_back");
             WATER_FALL = Content.Load<Texture2D>(@"water_fall");
+
+            BOMB = Content.Load<Texture2D>(@"bomb");
+            BOMB_BLAST = Content.Load<Texture2D>(@"bomb_blast");
+            EXPLOSION = Content.Load<Texture2D>(@"explosion");
+            EXPLOSION_ANGLE = Content.Load<Texture2D>(@"explosion_angle");
 
 
             SANDBOX = Content.Load<Texture2D>(@"sandbox");
