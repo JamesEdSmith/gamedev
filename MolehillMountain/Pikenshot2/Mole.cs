@@ -102,6 +102,7 @@ namespace MoleHillMountain
 
         const int ITEM_SLINGSHOT = 0;
         const int ITEM_HOOKSHOT = 1;
+        const int ITEM_BOMB = 2;
 
         public int item;
         public int item1;
@@ -134,7 +135,7 @@ namespace MoleHillMountain
             con = 3;
             health = con;
             item1 = ITEM_SLINGSHOT;
-            item2 = ITEM_HOOKSHOT;
+            item2 = ITEM_BOMB;//ITEM_HOOKSHOT;
 
         }
 
@@ -354,7 +355,7 @@ namespace MoleHillMountain
                             useFrame = 2;
                             break;
                         default:
-                            sprite = slingshot;
+                            sprite = hookshot;
                             useFrame = 3;
                             break;
                     }
@@ -373,6 +374,9 @@ namespace MoleHillMountain
                                 break;
                             case ITEM_HOOKSHOT:
                                 dungeonScene.spawnHook(position, horzFacing, vertFacing);
+                                break;
+                            case ITEM_BOMB:
+                                dungeonScene.spawnBomb(position, horzFacing, vertFacing);
                                 break;
                             default:
                                 dungeonScene.spawnStone(position, horzFacing, vertFacing);

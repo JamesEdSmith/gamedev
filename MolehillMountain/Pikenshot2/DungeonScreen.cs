@@ -237,7 +237,20 @@ namespace MoleHillMountain
         private void fireSpread(int x, int y, int length, int direction, int origX, int origY)
         {
             tunnels[x, y].fire(length, direction);
-            if (length > 0)
+
+            bool vegetableBump = false;
+
+            foreach(Vegetable vege in vegetables)
+            {
+                if(vege.state != Vegetable.DEAD && vege.state != Vegetable.SPLITTING && vege.state != Vegetable.BURNT 
+                    && getCurrTunnel(vege.position) == tunnels[x, y])
+                {
+                    vege.burn();
+                    vegetableBump = true;
+                }
+            }
+
+            if (!vegetableBump && length > 0)
             {
                 if (direction == Mole.MOVING_LEFT)
                 {
@@ -335,6 +348,82 @@ namespace MoleHillMountain
                         }
                     }
                 }
+            }
+        }
+
+        internal void explodeTunnels(Vector2 position, int range)
+        {
+
+            Vector2 currPosition = new Vector2();
+            Tunnel currTunnel;
+
+            for (int i = -range; i <= range; i++)
+            {
+                for (int j = -range; j <= range; j++)
+                {
+                    currPosition.X = position.X + (GRID_SIZE * i);
+                    currPosition.Y = position.Y + (GRID_SIZE * j);
+
+                    currTunnel = getCurrTunnel(currPosition);
+
+                    if (currTunnel != null)
+                    {
+                        hitMoles(currTunnel);
+                        hitBombs(currTunnel);
+                        currTunnel.seen = SeenStatus.SEEN;
+                        currTunnel.starting = true;
+                        currTunnel.revealed = true;
+
+                        if (i < range && currTunnel.position.X < (GRID_WIDTH - 1) * GRID_SIZE)
+                        {
+                            currTunnel.right = Tunnel.DUG;
+                        }
+                        if ( i > -range && currTunnel.position.X > 0)
+                        {
+                            currTunnel.left = Tunnel.DUG;
+                        }
+
+                        if (j < range && currTunnel.position.Y < (GRID_HEIGHT - 1) * GRID_SIZE)
+                        {
+                            currTunnel.bottom = Tunnel.DUG;
+                        }
+                        if (j > -range && currTunnel.position.Y > 0)
+                        {
+                            currTunnel.top = Tunnel.DUG;
+                        }
+                    }
+                }
+            }
+
+            revealTunnels();
+
+        }
+
+        private void hitBombs(Tunnel currTunnel)
+        {
+            foreach(Vegetable vege in vegetables)
+            {
+                if(vege is Bomb && getCurrTunnel(vege.position) == currTunnel 
+                    && vege.state != Vegetable.SPLITTING && vege.state != Vegetable.DEAD)
+                {
+                    vege.split();
+                }
+            }
+        }
+
+        private void hitMoles(Tunnel currTunnel)
+        {
+            foreach(Rat enemy in enemies)
+            {
+                if(enemy.tunnel == currTunnel)
+                {
+                    enemy.hit(currTunnel.position + Tunnel.center);
+                }
+            }
+
+            if(getCurrTunnel(mole.position) == currTunnel)
+            {
+                mole.hit(currTunnel.position + Tunnel.center);
             }
         }
 
@@ -532,6 +621,11 @@ namespace MoleHillMountain
         internal void spawnHook(Vector2 position, int horzFacing, int vertFacing)
         {
             stones.Add(new Hook(position, vertFacing, horzFacing, this));
+        }
+
+        internal void spawnBomb(Vector2 position, int horzFacing, int vertFacing)
+        {
+            vegetables.Add(new Bomb(position.X, position.Y, this, true));
         }
 
         public void update(GameTime gameTime)
@@ -762,6 +856,7 @@ namespace MoleHillMountain
             }
             _fps = (double)_draws / gameTime.ElapsedGameTime.TotalSeconds;
             _draws = 0;
+
         }
 
         internal void spawnItem(Vegetable vegetable)
@@ -1872,6 +1967,7 @@ namespace MoleHillMountain
             stones = new ArrayList(10);
             effects = new ArrayList(5);
             items = new ArrayList(5);
+
             for (int i = 0; i < 20; i++)
             {
                 effects.Add(new Animation(AnimationType.tunnelReveal));
@@ -2122,8 +2218,10 @@ namespace MoleHillMountain
             {
                 int vegetableSpotIndex = random.Next(vegetablePlacements.Count);
                 Point vegetableSpot = (Point)vegetablePlacements[vegetableSpotIndex];
-                vegetables.Add(new Bomb(vegetableSpot.X * GRID_SIZE + GRID_SIZE * 0.5f, vegetableSpot.Y * GRID_SIZE + GRID_SIZE * 0.5f, this));
-                //vegetables.Add(new Vegetable(vegetableSpot.X * GRID_SIZE + GRID_SIZE * 0.5f, vegetableSpot.Y * GRID_SIZE + GRID_SIZE * 0.5f, this));
+                if (random.Next(100) < 20)
+                    vegetables.Add(new Bomb(vegetableSpot.X * GRID_SIZE + GRID_SIZE * 0.5f, vegetableSpot.Y * GRID_SIZE + GRID_SIZE * 0.5f, this));
+                else
+                    vegetables.Add(new Vegetable(vegetableSpot.X * GRID_SIZE + GRID_SIZE * 0.5f, vegetableSpot.Y * GRID_SIZE + GRID_SIZE * 0.5f, this));
                 vegetablePlacements.RemoveAt(vegetableSpotIndex);
                 combinedTunnels[vegetableSpot.X, vegetableSpot.Y] = 2; // 2 for vegetable
             }

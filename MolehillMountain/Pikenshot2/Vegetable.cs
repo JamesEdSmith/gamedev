@@ -16,6 +16,7 @@ namespace MoleHillMountain
         public const int SPLITTING = 3;
         public const int DEAD = 4;
         public const int MOVING = 5;
+        public const int BURNT = 6;
 
         public const float NUDGE_SPACING = 2;
 
@@ -100,7 +101,7 @@ namespace MoleHillMountain
             }
         }
 
-        internal void update(GameTime gameTime)
+        public virtual void update(GameTime gameTime)
         {
             TimeSpan elapsedGameTime = gameTime.ElapsedGameTime;
             if (state == NONE || state == MOVING)
@@ -177,22 +178,36 @@ namespace MoleHillMountain
                         state = DEAD;
                         if (this is Bomb)
                         {
+                            Vector2 tunnelPosition = dungeonScreen.getCurrTunnel(position).position + Tunnel.center;
+
                             dungeonScreen.createAnimation(position, Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, AnimationType.explosionCenter);
                             dungeonScreen.createAnimation(position, Sprite.DIRECTION_RIGHT, Sprite.DIRECTION_NONE, AnimationType.explosionCenter);
                             dungeonScreen.createAnimation(position, Sprite.DIRECTION_LEFT, Sprite.DIRECTION_UP, AnimationType.explosionCenter);
                             dungeonScreen.createAnimation(position, Sprite.DIRECTION_LEFT, Sprite.DIRECTION_DOWN, AnimationType.explosionCenter);
+
+                            dungeonScreen.createAnimation(position, Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, AnimationType.tunnelReveal);                            
 
                             dungeonScreen.createAnimation(position - new Vector2(DungeonScreen.GRID_SIZE, 0), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, AnimationType.explosion);
                             dungeonScreen.createAnimation(position + new Vector2(DungeonScreen.GRID_SIZE, 0), Sprite.DIRECTION_RIGHT, Sprite.DIRECTION_NONE, AnimationType.explosion);
                             dungeonScreen.createAnimation(position - new Vector2(0, DungeonScreen.GRID_SIZE), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_UP, AnimationType.explosion);
                             dungeonScreen.createAnimation(position + new Vector2(0, DungeonScreen.GRID_SIZE), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_DOWN, AnimationType.explosion);
 
+                            dungeonScreen.createAnimation(tunnelPosition - new Vector2(DungeonScreen.GRID_SIZE, 0), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, AnimationType.tunnelReveal);
+                            dungeonScreen.createAnimation(tunnelPosition + new Vector2(DungeonScreen.GRID_SIZE, 0), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, AnimationType.tunnelReveal);
+                            dungeonScreen.createAnimation(tunnelPosition - new Vector2(0, DungeonScreen.GRID_SIZE), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, AnimationType.tunnelReveal);
+                            dungeonScreen.createAnimation(tunnelPosition + new Vector2(0, DungeonScreen.GRID_SIZE), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, AnimationType.tunnelReveal);
+
                             dungeonScreen.createAnimation(position - new Vector2(DungeonScreen.GRID_SIZE * 0.5f, DungeonScreen.GRID_SIZE * 0.5f), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, AnimationType.explosionAngle);
                             dungeonScreen.createAnimation(position + new Vector2(DungeonScreen.GRID_SIZE * 0.5f, -DungeonScreen.GRID_SIZE * 0.5f), Sprite.DIRECTION_RIGHT, Sprite.DIRECTION_NONE, AnimationType.explosionAngle);
                             dungeonScreen.createAnimation(position - new Vector2(DungeonScreen.GRID_SIZE * 0.5f, -DungeonScreen.GRID_SIZE * 0.5f), Sprite.DIRECTION_RIGHT, Sprite.DIRECTION_DOWN, AnimationType.explosionAngle);
                             dungeonScreen.createAnimation(position + new Vector2(DungeonScreen.GRID_SIZE * 0.5f, DungeonScreen.GRID_SIZE * 0.5f), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_DOWN, AnimationType.explosionAngle);
 
+                            dungeonScreen.createAnimation(tunnelPosition - new Vector2(DungeonScreen.GRID_SIZE, DungeonScreen.GRID_SIZE), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, AnimationType.tunnelReveal);
+                            dungeonScreen.createAnimation(tunnelPosition + new Vector2(DungeonScreen.GRID_SIZE, -DungeonScreen.GRID_SIZE), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, AnimationType.tunnelReveal);
+                            dungeonScreen.createAnimation(tunnelPosition - new Vector2(DungeonScreen.GRID_SIZE, -DungeonScreen.GRID_SIZE), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, AnimationType.tunnelReveal);
+                            dungeonScreen.createAnimation(tunnelPosition + new Vector2(DungeonScreen.GRID_SIZE, DungeonScreen.GRID_SIZE), Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, AnimationType.tunnelReveal);
 
+                            dungeonScreen.explodeTunnels(dungeonScreen.getCurrTunnel(position).position, 1);
                         }
                     }
                 }
@@ -210,6 +225,11 @@ namespace MoleHillMountain
                 drawPosition.X = (int)position.X;
                 drawPosition.Y = (int)position.Y;
             }
+        }
+
+        public virtual void burn()
+        {
+            
         }
 
         public void push(float totalSeconds)
@@ -299,14 +319,21 @@ namespace MoleHillMountain
 
         internal void land()
         {
-            state = Vegetable.NONE;
-            currSprite.setFrame(0);
+            state = NONE;
+            if(!(this is Bomb))
+                currSprite.setFrame(0);
         }
     }
 
     class Bomb : Vegetable
     {
-        public Bomb(float x, float y, DungeonScreen dungeonScreen) : base(x, y, dungeonScreen)
+        float bombTime = 2500;
+        float fuseTime = 250;
+        float fuseTimer;
+        Vector2 fusePosition;
+        bool isItem;
+
+        public Bomb(float x, float y, DungeonScreen dungeonScreen, bool isItem = false) : base(x, y, dungeonScreen)
         {
             shaking = new Sprite(PikeAndShotGame.BOMB, new Rectangle(0, 0, 20, 20), 20, 20);
             falling = new Sprite(PikeAndShotGame.BOMB, new Rectangle(0, 0, 20, 20), 20, 20);
@@ -320,6 +347,16 @@ namespace MoleHillMountain
                 Item.DROP_NONE,
                 Item.DROP_NONE
             };
+
+            if (isItem)
+            {
+                shaking.setFrame(2);
+                falling.setFrame(2);
+            }
+
+            this.isItem = isItem;
+
+            fusePosition = new Vector2();
         }
 
         public override void draw(SpriteBatch spritebatch)
@@ -335,6 +372,32 @@ namespace MoleHillMountain
             animationTimer = animationTime;
         }
 
+        public override void update(GameTime gameTime)
+        {
+            base.update(gameTime);
+
+            if (isItem)
+            {
+                fuseTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (fuseTimer <= 0)
+                {
+                    fuseTimer = fuseTime;
+
+                    fusePosition.X = PikeAndShotGame.random.Next(0, 4);
+                    fusePosition.Y = PikeAndShotGame.random.Next(-6, -3);
+                    dungeonScreen.createAnimation(position + fusePosition, Sprite.DIRECTION_LEFT, Sprite.DIRECTION_NONE, AnimationType.hookImpact);
+                }
+
+                bombTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if(bombTime <= 0 && state != SPLITTING && state != DEAD)
+                {
+                    split();
+                }
+            }
+
+        }
+
         protected override void animate(TimeSpan elapsedGameTime)
         {
             if (state != SHAKING && state != FALLING)
@@ -344,6 +407,11 @@ namespace MoleHillMountain
                 int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
                 currSprite.setFrame(frameNumber);
             }
+        }
+
+        public override void burn()
+        {
+            split();
         }
     }
 }
