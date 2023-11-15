@@ -370,6 +370,16 @@ namespace MoleHillMountain
                     {
                         hitMoles(currTunnel);
                         hitBombs(currTunnel);
+
+                        foreach (Vegetable vege in vegetables)
+                        {
+                            if (vege.state != Vegetable.DEAD && vege.state != Vegetable.SPLITTING && vege.state != Vegetable.BURNT
+                                && getCurrTunnel(vege.position) == currTunnel)
+                            {
+                                vege.burn();
+                            }
+                        }
+
                         currTunnel.seen = SeenStatus.SEEN;
                         currTunnel.starting = true;
                         currTunnel.revealed = true;

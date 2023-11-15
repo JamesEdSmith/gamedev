@@ -27,6 +27,8 @@ namespace MoleHillMountain
         float fallSpeed = 68f;
         float fallTime = 225f;
         float shakeTime = 350f;
+        float burnTime = 1000f;
+
         protected float splitTime = 400f;
         protected float animationTime;
 
@@ -35,6 +37,8 @@ namespace MoleHillMountain
         protected Sprite shaking;
         protected Sprite falling;
         protected Sprite splitting;
+        protected Sprite burnt;
+
         protected Sprite currSprite;
         public Vector2 position;
         protected Vector2 drawPosition;
@@ -60,6 +64,7 @@ namespace MoleHillMountain
                 shaking = new Sprite(PikeAndShotGame.TURNIP_SHAKE, new Rectangle(0, 0, 20, 20), 20, 20);
                 falling = new Sprite(PikeAndShotGame.TURNIP_TWIRL, new Rectangle(0, 0, 20, 20), 20, 20);
                 splitting = new Sprite(PikeAndShotGame.TURNIP_SPLIT, new Rectangle(0, 0, 40, 20), 40, 20);
+                burnt = new Sprite(PikeAndShotGame.TURNIP_BURNT, new Rectangle(0, 0, 20, 20), 20, 20);
                 fallTime = 112.5f;
             }
             else
@@ -67,6 +72,7 @@ namespace MoleHillMountain
                 shaking = new Sprite(PikeAndShotGame.ONION_SHAKE, new Rectangle(0, 0, 20, 20), 20, 20);
                 falling = new Sprite(PikeAndShotGame.ONION_TWIRL, new Rectangle(0, 0, 20, 20), 20, 20);
                 splitting = new Sprite(PikeAndShotGame.ONION_SPLIT, new Rectangle(0, 0, 40, 20), 40, 20);
+                burnt = new Sprite(PikeAndShotGame.TURNIP_BURNT, new Rectangle(0, 0, 20, 20), 20, 20);
                 fallTime = 225f;
             }
             currSprite = shaking;
@@ -133,6 +139,13 @@ namespace MoleHillMountain
                     if (animationTimer < 0)
                     {
                         fall();
+                    }
+                }
+                else if (state == BURNT)
+                {
+                    if(animationTimer < 0)
+                    {
+                        state = DEAD;
                     }
                 }
                 else if (state == FALLING)
@@ -229,7 +242,12 @@ namespace MoleHillMountain
 
         public virtual void burn()
         {
-            
+            if(state != DEAD && state != SPLITTING)
+            {
+                state = BURNT;
+                animationTime = animationTimer = burnTime;
+                currSprite = burnt;
+            }
         }
 
         public void push(float totalSeconds)

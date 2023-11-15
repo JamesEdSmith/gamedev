@@ -415,6 +415,7 @@ namespace MoleHillMountain
         public static Texture2D TURNIP_SHAKE;
         public static Texture2D TURNIP_SPLIT;
         public static Texture2D TURNIP_TWIRL;
+        public static Texture2D TURNIP_BURNT;
 
         public static Texture2D ONION_SHAKE;
         public static Texture2D ONION_SPLIT;
@@ -697,6 +698,7 @@ namespace MoleHillMountain
             TURNIP_SHAKE = Content.Load<Texture2D>(@"turnip_fall");
             TURNIP_TWIRL = Content.Load<Texture2D>(@"turnip_twirl");
             TURNIP_SPLIT = Content.Load<Texture2D>(@"turnip_split");
+            TURNIP_BURNT = Content.Load<Texture2D>(@"burnt_turnip");
 
             ONION_SHAKE = Content.Load<Texture2D>(@"onion_shake");
             ONION_TWIRL = Content.Load<Texture2D>(@"onion_twirl");

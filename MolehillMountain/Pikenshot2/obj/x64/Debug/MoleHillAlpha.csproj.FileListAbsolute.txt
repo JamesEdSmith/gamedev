@@ -503,3 +503,4 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\bomb.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\bomb_blast.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\explosion.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\explosion_angle.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\burnt_turnip.xnb
