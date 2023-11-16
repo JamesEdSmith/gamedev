@@ -461,6 +461,7 @@ namespace MoleHillMountain
 
                             state = STATE_SPAWNING;
                             animationTimer = spawnTime;
+                            dungeonScreen.revealTunnels();
                         }
                     }
                     else if (state != STATE_LOOKING && state != STATE_COLLECTED)
