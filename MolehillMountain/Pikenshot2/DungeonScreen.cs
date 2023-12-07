@@ -17,8 +17,10 @@ namespace MoleHillMountain
         hookImpact,
         explosion,
         explosionAngle,
-        explosionCenter
+        explosionCenter,
+        drillDust
     }
+
     public class DungeonScreen : GameScreen
     {
         static Random random = new Random();
@@ -488,6 +490,9 @@ namespace MoleHillMountain
 
             switch (animationType)
             {
+                case AnimationType.drillDust:
+                    returnedEffect.activate((int)position.X, (int)position.Y, horz, vert, delay);
+                    break;
                 case AnimationType.stoneImpact:
                     returnedEffect.activate((int)position.X, (int)position.Y, horz, vert, delay);
                     break;
@@ -631,6 +636,11 @@ namespace MoleHillMountain
         internal void spawnHook(Vector2 position, int horzFacing, int vertFacing)
         {
             stones.Add(new Hook(position, vertFacing, horzFacing, this));
+        }
+
+        internal void spawnDrill(Vector2 position, int horzFacing, int vertFacing)
+        {
+            stones.Add(new Drill(position, vertFacing, horzFacing, this));
         }
 
         internal void spawnBomb(Vector2 position, int horzFacing, int vertFacing)
@@ -1829,7 +1839,10 @@ namespace MoleHillMountain
             else
             {
                 tunnels[middleX, bottomY].top = Tunnel.DUG;
-                tunnels[middleX, bottomY - 1].bottom = Tunnel.DUG;
+
+                if(bottomY>0)
+                    tunnels[middleX, bottomY - 1].bottom = Tunnel.DUG;
+
                 revealTunnels();
             }
         }

@@ -55,6 +55,11 @@ namespace MoleHillMountain
                     sprite = new Sprite(PikeAndShotGame.TUNNEL_FIRE_BACK, new Rectangle(0, 0, 20, 20), 20, 20);
                     time = 300f;
                     break;
+                case AnimationType.drillDust:
+                    sprite = new Sprite(PikeAndShotGame.DRILL_DUST, new Rectangle(0, 0, 22, 20), 22, 20);
+                    time = 300f;
+                    break;
+
             }
         }
 

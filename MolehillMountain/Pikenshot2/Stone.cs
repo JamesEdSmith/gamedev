@@ -145,7 +145,7 @@ namespace MoleHillMountain
                         if (horzFacing == Sprite.DIRECTION_LEFT)
                         {
                             dungeonScreen.mole.position.X -= (float)timeSpan.TotalSeconds * speed;
-                            if (dungeonScreen.mole.position.X <= position.X + DungeonScreen.GRID_SIZE/1.5f)
+                            if (dungeonScreen.mole.position.X <= position.X + DungeonScreen.GRID_SIZE / 1.5f)
                                 dead = true;
                         }
                         else
@@ -185,12 +185,12 @@ namespace MoleHillMountain
                         {
                             position.X = (currTunnel.position + DungeonScreen.OFFSET).X + DungeonScreen.GRID_SIZE / 2;
                             crash();
-                            
+
                         }
                     }
                     else
                     {
-                        this.position = new Vector2(position.X + speed * (float)timeSpan.TotalSeconds, position.Y);
+                        position.X = position.X + speed * (float)timeSpan.TotalSeconds;
                         if (currTunnel.left == Tunnel.NOT_DUG)
                         {
                             position.X = (currTunnel.position + DungeonScreen.OFFSET).X - DungeonScreen.GRID_SIZE / 2;
@@ -200,19 +200,19 @@ namespace MoleHillMountain
                 }
                 else if (vertFacing == Sprite.DIRECTION_UP)
                 {
-                    this.position = new Vector2(position.X, position.Y - speed * (float)timeSpan.TotalSeconds);
+                    position.Y = position.Y - speed * (float)timeSpan.TotalSeconds;
                     if (currTunnel.bottom == Tunnel.NOT_DUG)
                     {
-                        position.Y = (currTunnel.position + DungeonScreen.OFFSET).Y + DungeonScreen.GRID_SIZE ;
+                        position.Y = (currTunnel.position + DungeonScreen.OFFSET).Y + DungeonScreen.GRID_SIZE;
                         crash();
                     }
                 }
                 else
                 {
-                    this.position = new Vector2(position.X, position.Y + speed * (float)timeSpan.TotalSeconds);
+                    position.Y = position.Y + speed * (float)timeSpan.TotalSeconds;
                     if (currTunnel.top == Tunnel.NOT_DUG)
                     {
-                        position.Y = (currTunnel.position + DungeonScreen.OFFSET).Y  ;
+                        position.Y = (currTunnel.position + DungeonScreen.OFFSET).Y;
                         crash();
                     }
                 }
@@ -224,10 +224,211 @@ namespace MoleHillMountain
 
         private void crash()
         {
-            
             crashed = true;
+            dungeonScreen.createAnimation(position + adjustmentX / 1.6f + adjustmentY / 5f, 0, 0, AnimationType.hookImpact);
+        }
+    }
 
-            dungeonScreen.createAnimation(position + adjustmentX/1.6f + adjustmentY/5f, 0, 0, AnimationType.hookImpact);
+
+    class Drill : Projectile
+    {
+        static Vector2 adjustmentX = new Vector2(DungeonScreen.GRID_SIZE, 0);
+        static Vector2 adjustmentY = new Vector2(0, DungeonScreen.GRID_SIZE);
+
+        float animationTimer;
+        float animationTime = 100f;
+
+        bool crashed;
+
+        public Drill(Vector2 position, int vert, int horz, DungeonScreen dungeonScreen) : base(position, vert, horz, dungeonScreen)
+        {
+            stone = new Sprite(PikeAndShotGame.DRILL, new Rectangle(0, 0, 22, 20), 22, 20);
+            launchOffset = 16;
+            speed = 160f;
+            animationTimer = animationTime;
+
+            if (vert == Sprite.DIRECTION_NONE)
+            {
+                if (horz == Sprite.DIRECTION_LEFT)
+                {
+                    this.position = new Vector2(position.X - launchOffset, position.Y);
+                    drawPosition = new Vector2(position.X, position.Y);
+                }
+                else
+                {
+                    this.position = new Vector2(position.X + launchOffset, position.Y);
+                    drawPosition = new Vector2(position.X, position.Y);
+                }
+            }
+            else if (vert == Sprite.DIRECTION_UP)
+            {
+                if (horz == Sprite.DIRECTION_LEFT)
+                {
+                    this.position = new Vector2(position.X, position.Y - launchOffset);
+                    drawPosition = new Vector2(position.X, position.Y);
+                }
+                else
+                {
+                    this.position = new Vector2(position.X, position.Y - launchOffset);
+                    drawPosition = new Vector2(position.X, position.Y);
+                }
+            }
+            else
+            {
+                if (horz == Sprite.DIRECTION_LEFT)
+                {
+                    this.position = new Vector2(position.X, position.Y + launchOffset);
+                    drawPosition = new Vector2(position.X, position.Y);
+                }
+                else
+                {
+                    this.position = new Vector2(position.X, position.Y + launchOffset);
+                    drawPosition = new Vector2(position.X, position.Y);
+                }
+            }
+
+        }
+
+        public override void draw(SpriteBatch spritebatch)
+        {
+            stone.draw(spritebatch, position + DungeonScreen.OFFSET, horzFacing, vertFacing);
+        }
+
+        Tunnel currTunnel;
+
+        public override void update(TimeSpan timeSpan)
+        {
+            Tunnel prevTunnel = currTunnel;
+            currTunnel = dungeonScreen.getCurrTunnel(position);
+
+            if(prevTunnel != currTunnel)
+            {
+                dungeonScreen.createAnimation(position + DungeonScreen.OFFSET, horzFacing, vertFacing, AnimationType.drillDust);
+            }
+
+            if (currTunnel == null)
+            {
+                crash();
+            }
+            else if (vertFacing == Sprite.DIRECTION_NONE)
+            {
+                if (horzFacing == Sprite.DIRECTION_LEFT)
+                {
+                    if (crashed)
+                    {
+                        dungeonScreen.mole.position.X -= speed * (float)timeSpan.TotalSeconds;
+                        if(dungeonScreen.mole.position.X < currTunnel.position.X + DungeonScreen.GRID_SIZE / 2)
+                        {
+                            dead = true;
+                        }
+                    }
+                    else
+                    {
+                        position.X = position.X - speed * (float)timeSpan.TotalSeconds;
+                        dungeonScreen.mole.position.X -= speed * (float)timeSpan.TotalSeconds;
+                        if (currTunnel.isDug())
+                        {
+                            crash();
+
+                        }
+                    }
+                }
+                else
+                {
+                    if (crashed)
+                    {
+                        dungeonScreen.mole.position.X += speed * (float)timeSpan.TotalSeconds;
+                        if (dungeonScreen.mole.position.X > currTunnel.position.X + DungeonScreen.GRID_SIZE / 2)
+                        {
+                            dead = true;
+                        }
+                    }
+                    else
+                    {
+                        position.X += speed * (float)timeSpan.TotalSeconds;
+                        dungeonScreen.mole.position.X += speed * (float)timeSpan.TotalSeconds;
+                        if (currTunnel.isDug())
+                        {
+                            crash();
+                        }
+                    }
+                }
+            }
+            else if (vertFacing == Sprite.DIRECTION_UP)
+            {
+                if (crashed)
+                {
+                    dungeonScreen.mole.position.Y -= speed * (float)timeSpan.TotalSeconds;
+                    if (dungeonScreen.mole.position.Y < currTunnel.position.Y + DungeonScreen.GRID_SIZE/2)
+                    {
+                        dead = true;
+                    }
+                }
+                else
+                {
+                    position.Y = position.Y - speed * (float)timeSpan.TotalSeconds;
+                    dungeonScreen.mole.position.Y -= speed * (float)timeSpan.TotalSeconds;
+                    if (currTunnel.isDug())
+                    {
+
+                        crash();
+                    }
+                }
+            }
+            else
+            {
+                if (crashed)
+                {
+                    dungeonScreen.mole.position.Y += speed * (float)timeSpan.TotalSeconds;
+                    if (dungeonScreen.mole.position.Y > currTunnel.position.Y + DungeonScreen.GRID_SIZE / 2)
+                    {
+                        dead = true;
+                    }
+                }
+                else
+                {
+                    position.Y = position.Y + speed * (float)timeSpan.TotalSeconds;
+                    dungeonScreen.mole.position.Y += speed * (float)timeSpan.TotalSeconds;
+                    if (currTunnel.isDug())
+                    {
+
+                        crash();
+                    }
+                }
+            }
+
+            drawPosition.X = position.X;
+            drawPosition.Y = position.Y;
+
+            animationTimer -= (float)timeSpan.TotalMilliseconds;
+
+            if(animationTimer <= 0)
+            {
+                animationTimer = animationTime;
+            }
+
+            int maxFrames = stone.getMaxFrames();
+            float frameTime = animationTime / (float)maxFrames;
+            int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
+            stone.setFrame(frameNumber);
+        }
+
+
+        private void crash()
+        {
+
+            if (!crashed && !dead)
+            {
+                if (currTunnel != null)
+                {
+                    crashed = true;
+                }
+                else
+                {
+                    dead = true;
+                }
+            }
+
         }
     }
 

@@ -159,6 +159,11 @@ namespace MoleHillMountain
                 spritebatch.Draw(PikeAndShotGame.TUNNEL, position + halfTop + DungeonScreen.OFFSET, halfSourceRect, SeenStatus.getVisibilityColor(seen), MathHelper.Pi * -0.5f, center, 1, SpriteEffects.None, 0);
         }
 
+        internal bool isDug()
+        {
+            return left == DUG || right == DUG || top == DUG || bottom == DUG;
+        }
+
         public void drawEffect(SpriteBatch spritebatch)
         {
             Sprite sprite;

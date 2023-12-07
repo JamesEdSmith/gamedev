@@ -460,6 +460,8 @@ namespace MoleHillMountain
         public static Texture2D DOOR;
         public static Texture2D FIGHT_CLOUD;
         public static Texture2D DIZZY_MARK;
+        public static Texture2D DRILL;
+        public static Texture2D DRILL_DUST;
 
         public static Texture2D WATER;
         public static Texture2D WATER_FULL;
@@ -683,6 +685,8 @@ namespace MoleHillMountain
             MINER_HOOK = Content.Load<Texture2D>(@"miner_hook_shot");
             MOLE_DIZZY = Content.Load<Texture2D>(@"mole_miner_dizzy");
             DIZZY_MARK = Content.Load<Texture2D>(@"seeing_stars");
+            DRILL = Content.Load<Texture2D>(@"drill");
+            DRILL_DUST = Content.Load<Texture2D>(@"drill_dust");
 
             UNSEEN_WALK = Content.Load<Texture2D>(@"questionmark_sprite");
             UNSEEN_WALK2 = Content.Load<Texture2D>(@"unseen_sprite");
