@@ -217,6 +217,30 @@
 /processorParam:TextureFormat=Color
 /build:../art/miner_hook_shot.png;miner_hook_shot.png
 
+#begin ../art/mole_drill_pull.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../art/mole_drill_pull.png;mole_drill_pull.png
+
+#begin ../art/mole_drill_zoom.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,255,255,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../art/mole_drill_zoom.png;mole_drill_zoom.png
+
 #begin ../art/mothy_blink.png
 /importer:TextureImporter
 /processor:TextureProcessor

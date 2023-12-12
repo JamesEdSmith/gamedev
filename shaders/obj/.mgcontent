@@ -4,6 +4,8 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/backup/gamedev/shaders/../art/mole_drill_pull.png</File>
+    <File>D:/backup/gamedev/shaders/../art/mole_drill_zoom.png</File>
     <File>D:/backup/gamedev/shaders/../art/drill_dust.png</File>
     <File>D:/backup/gamedev/shaders/../art/drill.png</File>
     <File>D:/backup/gamedev/shaders/../art/burnt_turnip.png</File>
@@ -69,6 +71,8 @@
     <File>D:/backup/gamedev/shaders/unseen_sprite.png</File>
   </SourceFiles>
   <DestFiles>
+    <File>mole_drill_pull.png</File>
+    <File>mole_drill_zoom.png</File>
     <File>drill_dust.png</File>
     <File>drill.png</File>
     <File>burnt_turnip.png</File>

@@ -506,3 +506,5 @@ D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\explosion_an
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\burnt_turnip.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\drill.xnb
 D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\drill_dust.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\mole_drill_pull.xnb
+D:\backup\gamedev\MolehillMountain\Pikenshot2\bin\x64\Debug\Content\mole_drill_zoom.xnb

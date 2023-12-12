@@ -44,6 +44,7 @@ namespace MoleHillMountain
         public const int STATE_GETMAD = 8192;
         public const int STATE_WASHED = 16384;
         public const int STATE_WHACKED = 32768;
+        public const int STATE_DRILL_ZOOM = 65536;
 
         private const float MOLE_NUDGE_SPACING = 7;
 
@@ -55,6 +56,7 @@ namespace MoleHillMountain
         protected float digTime = 650;
         protected float hitTime = 500;
         protected float animationTime;
+        protected float zoomTime = 250f;
 
         protected Sprite walking;
         protected Sprite digging;
@@ -65,6 +67,8 @@ namespace MoleHillMountain
         protected Sprite mad;
         protected Sprite unseen;
         protected Sprite hookshot;
+        protected Sprite drill;
+        protected Sprite zoom;
 
         protected Sprite dizzy_stars;
 
@@ -126,6 +130,9 @@ namespace MoleHillMountain
             mad = new Sprite(PikeAndShotGame.RAT_MAD, new Rectangle(0, 0, 20, 18), 20, 18);
             unseen = new Sprite(PikeAndShotGame.UNSEEN_WALK2, new Rectangle(0, 0, 18, 18), 18, 18);
             dizzy_stars = new Sprite(PikeAndShotGame.DIZZY_MARK, new Rectangle(0, 0, 20, 12), 20, 12);
+            drill = new Sprite(PikeAndShotGame.MINER_DRILL, new Rectangle(0, 0, 22, 20), 22, 20);
+            zoom = new Sprite(PikeAndShotGame.MINER_ZOOM, new Rectangle(0, 0, 20, 20), 20, 20);
+
             squashed.setFrame(squashed.getMaxFrames() - 2);
             walkingSprite = walking;
             animationTime = walkTime;
@@ -136,7 +143,7 @@ namespace MoleHillMountain
             con = 3;
             health = con;
             item1 = ITEM_DRILL;
-            item2 = ITEM_BOMB;//ITEM_HOOKSHOT;
+            item2 = ITEM_HOOKSHOT;
 
         }
 
@@ -338,6 +345,20 @@ namespace MoleHillMountain
                     water = null;
                 }
             }
+            else if ((state & STATE_DRILL_ZOOM) != 0)
+            {
+                if (animationTimer <= 0)
+                {
+                    animationTimer = zoomTime;
+                }
+                int maxFrames = zoom.getMaxFrames();
+                float frameTime = zoomTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(animationTimer / frameTime) - 1;
+                zoom.setFrame(frameNumber);
+
+                drawPosition.X = (int)position.X;
+                drawPosition.Y = (int)position.Y;
+            }
             else if ((state & STATE_USE) != 0)
             {
                 if (animationTimer >= 0)
@@ -356,8 +377,8 @@ namespace MoleHillMountain
                             useFrame = 2;
                             break;
                         case ITEM_DRILL:
-                            sprite = hookshot;
-                            useFrame = 7;
+                            sprite = drill;
+                            useFrame = 3;
                             break;
                         default:
                             sprite = hookshot;
@@ -385,6 +406,9 @@ namespace MoleHillMountain
                                 break;
                             case ITEM_DRILL:
                                 dungeonScene.spawnDrill(position, horzFacing, vertFacing);
+                                state |= STATE_DRILL_ZOOM;
+                                state &= ~STATE_USE;
+                                animationTimer = zoomTime;
                                 break;
                             default:
                                 dungeonScene.spawnStone(position, horzFacing, vertFacing);
@@ -592,11 +616,18 @@ namespace MoleHillMountain
                     case ITEM_HOOKSHOT:
                         sprite = hookshot;
                         break;
+                    case ITEM_DRILL:
+                        sprite = drill;
+                        break;
                     default:
                         sprite = slingshot;
                         break;
                 }
                 sprite.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
+            }
+            else if ((state & STATE_DRILL_ZOOM) != 0)
+            {
+                zoom.draw(spritebatch, drawPosition + DungeonScreen.OFFSET, horzFacing, vertFacing);
             }
             else if ((state & STATE_SQUASHED) == 0)
             {

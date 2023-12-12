@@ -319,6 +319,7 @@ namespace MoleHillMountain
                         dungeonScreen.mole.position.X -= speed * (float)timeSpan.TotalSeconds;
                         if(dungeonScreen.mole.position.X < currTunnel.position.X + DungeonScreen.GRID_SIZE / 2)
                         {
+                            dungeonScreen.mole.state &= ~Mole.STATE_DRILL_ZOOM;
                             dead = true;
                         }
                     }
@@ -340,6 +341,7 @@ namespace MoleHillMountain
                         dungeonScreen.mole.position.X += speed * (float)timeSpan.TotalSeconds;
                         if (dungeonScreen.mole.position.X > currTunnel.position.X + DungeonScreen.GRID_SIZE / 2)
                         {
+                            dungeonScreen.mole.state &= ~Mole.STATE_DRILL_ZOOM;
                             dead = true;
                         }
                     }
@@ -361,6 +363,7 @@ namespace MoleHillMountain
                     dungeonScreen.mole.position.Y -= speed * (float)timeSpan.TotalSeconds;
                     if (dungeonScreen.mole.position.Y < currTunnel.position.Y + DungeonScreen.GRID_SIZE/2)
                     {
+                        dungeonScreen.mole.state &= ~Mole.STATE_DRILL_ZOOM;
                         dead = true;
                     }
                 }
@@ -382,6 +385,7 @@ namespace MoleHillMountain
                     dungeonScreen.mole.position.Y += speed * (float)timeSpan.TotalSeconds;
                     if (dungeonScreen.mole.position.Y > currTunnel.position.Y + DungeonScreen.GRID_SIZE / 2)
                     {
+                        dungeonScreen.mole.state &= ~Mole.STATE_DRILL_ZOOM;
                         dead = true;
                     }
                 }
@@ -425,6 +429,7 @@ namespace MoleHillMountain
                 }
                 else
                 {
+                    dungeonScreen.mole.state &= ~Mole.STATE_DRILL_ZOOM;
                     dead = true;
                 }
             }

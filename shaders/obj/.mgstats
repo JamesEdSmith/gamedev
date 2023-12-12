@@ -15,6 +15,8 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/backup/gamedev/shaders/../art/hookshot.png","D:/backup/gamedev/shaders/bin/hookshot.xnb","TextureProcessor","Texture2DContent",253,6485,0.3153567
 "D:/backup/gamedev/shaders/../art/item_icons.png","D:/backup/gamedev/shaders/bin/item_icons.xnb","TextureProcessor","Texture2DContent",179,733,0.3020796
 "D:/backup/gamedev/shaders/../art/miner_hook_shot.png","D:/backup/gamedev/shaders/bin/miner_hook_shot.xnb","TextureProcessor","Texture2DContent",1054,15445,0.0931605
+"D:/backup/gamedev/shaders/../art/mole_drill_pull.png","D:/backup/gamedev/shaders/bin/mole_drill_pull.xnb","TextureProcessor","Texture2DContent",704,7125,0.1016994
+"D:/backup/gamedev/shaders/../art/mole_drill_zoom.png","D:/backup/gamedev/shaders/bin/mole_drill_zoom.xnb","TextureProcessor","Texture2DContent",382,4885,0.0019665
 "D:/backup/gamedev/shaders/../art/mothy_blink.png","D:/backup/gamedev/shaders/bin/mothy_blink.xnb","TextureProcessor","Texture2DContent",857,38485,0.1215352
 "D:/backup/gamedev/shaders/../art/mothy_flap.png","D:/backup/gamedev/shaders/bin/mothy_flap.xnb","TextureProcessor","Texture2DContent",833,12085,0.0019966
 "D:/backup/gamedev/shaders/../art/mothy_run.png","D:/backup/gamedev/shaders/bin/mothy_run.xnb","TextureProcessor","Texture2DContent",473,7285,0.0039891
