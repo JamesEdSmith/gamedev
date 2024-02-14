@@ -31,8 +31,17 @@ namespace MoleHillMountain
         public const int FIGHT_DIST = 5;
 
         public static Vector2 OFFSET = new Vector2(8, 0);
+        public static Vector2 OFFSET_MENU = new Vector2(8, -200);
         Sprite heart;
         Sprite itemIcon;
+
+        public enum ScreenMode
+        {
+            play,
+            menu
+        }
+
+        ScreenMode mode = ScreenMode.play;
 
         string[] ItemNames = { "S. Shot", "C. Dasher" };
 
@@ -84,6 +93,15 @@ namespace MoleHillMountain
         private Vector2 hpPosition;
         Vector2 heartPosition = new Vector2(17, 182);
         Vector2 heartOffset = new Vector2(12, 0);
+
+        float menuSpeed = 600f;
+
+        public const int ITEM_SLINGSHOT = 0;
+        public const int ITEM_HOOKSHOT = 1;
+        public const int ITEM_BOMB = 2;
+        public const int ITEM_DRILL = 3;
+
+        List<int> backpack;
 
         public DungeonScreen(PikeAndShotGame game)
         {
@@ -242,9 +260,9 @@ namespace MoleHillMountain
 
             bool vegetableBump = false;
 
-            foreach(Vegetable vege in vegetables)
+            foreach (Vegetable vege in vegetables)
             {
-                if(vege.state != Vegetable.DEAD && vege.state != Vegetable.SPLITTING && vege.state != Vegetable.BURNT 
+                if (vege.state != Vegetable.DEAD && vege.state != Vegetable.SPLITTING && vege.state != Vegetable.BURNT
                     && getCurrTunnel(vege.position) == tunnels[x, y])
                 {
                     vege.burn();
@@ -390,7 +408,7 @@ namespace MoleHillMountain
                         {
                             currTunnel.right = Tunnel.DUG;
                         }
-                        if ( i > -range && currTunnel.position.X > 0)
+                        if (i > -range && currTunnel.position.X > 0)
                         {
                             currTunnel.left = Tunnel.DUG;
                         }
@@ -413,9 +431,9 @@ namespace MoleHillMountain
 
         private void hitBombs(Tunnel currTunnel)
         {
-            foreach(Vegetable vege in vegetables)
+            foreach (Vegetable vege in vegetables)
             {
-                if(vege is Bomb && getCurrTunnel(vege.position) == currTunnel 
+                if (vege is Bomb && getCurrTunnel(vege.position) == currTunnel
                     && vege.state != Vegetable.SPLITTING && vege.state != Vegetable.DEAD)
                 {
                     vege.split();
@@ -425,15 +443,15 @@ namespace MoleHillMountain
 
         private void hitMoles(Tunnel currTunnel)
         {
-            foreach(Rat enemy in enemies)
+            foreach (Rat enemy in enemies)
             {
-                if(enemy.tunnel == currTunnel)
+                if (enemy.tunnel == currTunnel)
                 {
                     enemy.hit(currTunnel.position + Tunnel.center);
                 }
             }
 
-            if(getCurrTunnel(mole.position) == currTunnel)
+            if (getCurrTunnel(mole.position) == currTunnel)
             {
                 mole.hit(currTunnel.position + Tunnel.center);
             }
@@ -651,232 +669,255 @@ namespace MoleHillMountain
         public void update(GameTime gameTime)
         {
             getInput(gameTime.ElapsedGameTime);
-            SeenStatus.update(gameTime);
-            mole.update(gameTime);
-            if (door != null)
-            {
-                door.update(gameTime);
-            }
 
-            foreach (Vegetable vege in vegetables)
+            if (mode == ScreenMode.play && OFFSET.Y < 0)
             {
-                vege.update(gameTime);
-                if (vege.state == Vegetable.FALLING)
+                OFFSET.Y += (float)(menuSpeed * gameTime.ElapsedGameTime.TotalSeconds);
+                if (OFFSET.Y > 0)
                 {
-                    checkCollisions(vege);
-                }
-                if (vege.state == Vegetable.DEAD)
-                {
-                    deadStuff.Add(vege);
+                    OFFSET.Y = 0;
                 }
             }
-
-            foreach (Vegetable vege in vegetables)
+            else if (mode == ScreenMode.play)
             {
-                if (vege.leftPushers.Count == 0 && vege.rightPushers.Count == 0 && vege.state == Vegetable.MOVING)
+                SeenStatus.update(gameTime);
+                mole.update(gameTime);
+                if (door != null)
                 {
-                    vege.state = Vegetable.NONE;
+                    door.update(gameTime);
                 }
-                vege.push((float)gameTime.ElapsedGameTime.TotalSeconds);
-            }
 
-            foreach (Vegetable vege in deadStuff)
-            {
-                vegetables.Remove(vege);
-            }
-            deadStuff.Clear();
-
-            foreach (Grub pickup in pickups)
-            {
-                Vector2 distance = pickup.position - mole.position;
-                if (distance.Length() <= 5)
+                foreach (Vegetable vege in vegetables)
                 {
-                    if (pickupTimer < 0)
+                    vege.update(gameTime);
+                    if (vege.state == Vegetable.FALLING)
                     {
-                        pickupSequenceCount = 0;
+                        checkCollisions(vege);
                     }
-                    else
+                    if (vege.state == Vegetable.DEAD)
                     {
-                        pickupSequenceCount++;
-                        if (pickupSequenceCount > 7)
+                        deadStuff.Add(vege);
+                    }
+                }
+
+                foreach (Vegetable vege in vegetables)
+                {
+                    if (vege.leftPushers.Count == 0 && vege.rightPushers.Count == 0 && vege.state == Vegetable.MOVING)
+                    {
+                        vege.state = Vegetable.NONE;
+                    }
+                    vege.push((float)gameTime.ElapsedGameTime.TotalSeconds);
+                }
+
+                foreach (Vegetable vege in deadStuff)
+                {
+                    vegetables.Remove(vege);
+                }
+                deadStuff.Clear();
+
+                foreach (Grub pickup in pickups)
+                {
+                    Vector2 distance = pickup.position - mole.position;
+                    if (distance.Length() <= 5)
+                    {
+                        if (pickupTimer < 0)
                         {
                             pickupSequenceCount = 0;
                         }
+                        else
+                        {
+                            pickupSequenceCount++;
+                            if (pickupSequenceCount > 7)
+                            {
+                                pickupSequenceCount = 0;
+                            }
+                        }
+                        pickupTimer = pickupTime;
+
+                        pickup.collected(pickupSequenceCount);
                     }
-                    pickupTimer = pickupTime;
+                    pickup.update(gameTime);
 
-                    pickup.collected(pickupSequenceCount);
-                }
-                pickup.update(gameTime);
-
-                if (pickup.state == Grub.STATE_COLLECTED)
-                    deadStuff.Add(pickup);
-            }
-
-            foreach (Grub pickup in deadStuff)
-            {
-                pickups.Remove(pickup);
-            }
-            deadStuff.Clear();
-
-            //check if level over
-            if (pickups.Count <= 0)
-            {
-                beatLevel();
-            }
-
-            foreach (Projectile stone in stones)
-            {
-                stone.update(gameTime.ElapsedGameTime);
-                if (stone.dead)
-                    deadStuff.Add(stone);
-            }
-            foreach (Projectile stone in deadStuff)
-            {
-                stones.Remove(stone);
-            }
-            deadStuff.Clear();
-
-            foreach (Animation effect in effects)
-            {
-                if (effect.active)
-                {
-                    effect.update(gameTime.ElapsedGameTime);
-                }
-            }
-
-            foreach (Rat enemy in enemies)
-            {
-                enemy.update(gameTime);
-                if ((enemy.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_NUDGING) == 0 && (enemy.state & Mole.STATE_GETMAD) == 0 && (enemy.state & Mole.STATE_WHACKED) == 0)
-                {
-                    updateTunnels(enemy);
+                    if (pickup.state == Grub.STATE_COLLECTED)
+                        deadStuff.Add(pickup);
                 }
 
-                Vector2 diff = enemy.position - mole.position;
-
-                if (Math.Abs(diff.X) <= FIGHT_DIST && Math.Abs(diff.Y) <= FIGHT_DIST
-                    && (mole.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_SQUASHED) == 0
-                    && (mole.state & Mole.STATE_FIGHTING) == 0 && (enemy.state & Mole.STATE_FIGHTING) == 0
-                    && (mole.state & Mole.STATE_DIZZY) == 0 && (enemy.state & Mole.STATE_DIZZY) == 0
-                    && (mole.state & Mole.STATE_WHACKED) == 0 && (enemy.state & Mole.STATE_WHACKED) == 0)
+                foreach (Grub pickup in deadStuff)
                 {
-                    if ((mole.state & Mole.STATE_WASHED) != 0)
+                    pickups.Remove(pickup);
+                }
+                deadStuff.Clear();
+
+                //check if level over
+                if (pickups.Count <= 0)
+                {
+                    beatLevel();
+                }
+
+                foreach (Projectile stone in stones)
+                {
+                    stone.update(gameTime.ElapsedGameTime);
+                    if (stone.dead)
+                        deadStuff.Add(stone);
+                }
+                foreach (Projectile stone in deadStuff)
+                {
+                    stones.Remove(stone);
+                }
+                deadStuff.Clear();
+
+                foreach (Animation effect in effects)
+                {
+                    if (effect.active)
                     {
-                        enemy.whack(mole.water);
-                    }
-                    else
-                    {
-                        enemy.state &= ~Mole.STATE_WASHED;
-                        enemy.water = null;
-                        createAnimation(mole.position, mole.horzFacing, mole.vertFacing, AnimationType.fightCloud);
-                        mole.fight();
-                        enemy.fight();
+                        effect.update(gameTime.ElapsedGameTime);
                     }
                 }
 
-                foreach (Rat rat in enemies)
+                foreach (Rat enemy in enemies)
                 {
-                    if (rat == enemy)
-                        continue;
+                    enemy.update(gameTime);
+                    if ((enemy.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_NUDGING) == 0 && (enemy.state & Mole.STATE_GETMAD) == 0 && (enemy.state & Mole.STATE_WHACKED) == 0)
+                    {
+                        updateTunnels(enemy);
+                    }
 
-                    diff = enemy.position - rat.position;
+                    Vector2 diff = enemy.position - mole.position;
 
                     if (Math.Abs(diff.X) <= FIGHT_DIST && Math.Abs(diff.Y) <= FIGHT_DIST
-                        && (rat.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_SQUASHED) == 0
-                        && (rat.state & Mole.STATE_FIGHTING) == 0 && (enemy.state & Mole.STATE_FIGHTING) == 0
-                        && (rat.state & Mole.STATE_DIZZY) == 0 && (enemy.state & Mole.STATE_DIZZY) == 0
-                        && (rat.state & Mole.STATE_WHACKED) == 0 && (enemy.state & Mole.STATE_WHACKED) == 0)
+                        && (mole.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_SQUASHED) == 0
+                        && (mole.state & Mole.STATE_FIGHTING) == 0 && (enemy.state & Mole.STATE_FIGHTING) == 0
+                        && (mole.state & Mole.STATE_DIZZY) == 0 && (enemy.state & Mole.STATE_DIZZY) == 0
+                        && (mole.state & Mole.STATE_WHACKED) == 0 && (enemy.state & Mole.STATE_WHACKED) == 0)
                     {
-                        if ((rat.state & Mole.STATE_WASHED) != 0)
+                        if ((mole.state & Mole.STATE_WASHED) != 0)
                         {
-                            enemy.whack(rat.water);
-                            rat.whack(rat.water);
+                            enemy.whack(mole.water);
                         }
-                        else if ((enemy.state & Mole.STATE_WASHED) != 0)
+                        else
                         {
-                            enemy.whack(enemy.water);
-                            rat.whack(enemy.water);
+                            enemy.state &= ~Mole.STATE_WASHED;
+                            enemy.water = null;
+                            createAnimation(mole.position, mole.horzFacing, mole.vertFacing, AnimationType.fightCloud);
+                            mole.fight();
+                            enemy.fight();
                         }
+                    }
+
+                    foreach (Rat rat in enemies)
+                    {
+                        if (rat == enemy)
+                            continue;
+
+                        diff = enemy.position - rat.position;
+
+                        if (Math.Abs(diff.X) <= FIGHT_DIST && Math.Abs(diff.Y) <= FIGHT_DIST
+                            && (rat.state & Mole.STATE_SQUASHED) == 0 && (enemy.state & Mole.STATE_SQUASHED) == 0
+                            && (rat.state & Mole.STATE_FIGHTING) == 0 && (enemy.state & Mole.STATE_FIGHTING) == 0
+                            && (rat.state & Mole.STATE_DIZZY) == 0 && (enemy.state & Mole.STATE_DIZZY) == 0
+                            && (rat.state & Mole.STATE_WHACKED) == 0 && (enemy.state & Mole.STATE_WHACKED) == 0)
+                        {
+                            if ((rat.state & Mole.STATE_WASHED) != 0)
+                            {
+                                enemy.whack(rat.water);
+                                rat.whack(rat.water);
+                            }
+                            else if ((enemy.state & Mole.STATE_WASHED) != 0)
+                            {
+                                enemy.whack(enemy.water);
+                                rat.whack(enemy.water);
+                            }
+                        }
+                    }
+
+                    if ((enemy.state & Mole.STATE_SQUASHED) != 0 && enemy.squashedTimer <= 0)
+                    {
+                        deadStuff.Add(enemy);
+                    }
+                }
+                foreach (Rat enemy in deadStuff)
+                {
+                    enemies.Remove(enemy);
+                }
+                deadStuff.Clear();
+
+                foreach (Item item in items)
+                {
+                    item.update(gameTime);
+                    Vector2 distance = item.position - mole.position;
+                    if (distance.Length() <= 5)
+                    {
+
                     }
                 }
 
-                if ((enemy.state & Mole.STATE_SQUASHED) != 0 && enemy.squashedTimer <= 0)
+                foreach (Tunnel tunnel in tunnels)
                 {
-                    deadStuff.Add(enemy);
+                    tunnel.update(this, gameTime);
+                }
+
+                foreach (Water water in waters)
+                {
+                    water.update(gameTime);
+                    if (water.state != Water.NONE)
+                    {
+                        checkCollisions(water);
+                    }
+                    if (water.state == Water.DEAD)
+                    {
+                        deadStuff.Add(water);
+                    }
+                }
+
+                foreach (Water vege in deadStuff)
+                {
+                    waters.Remove(vege);
+                }
+                deadStuff.Clear();
+
+                updateTunnels(mole);
+                if (getCurrTunnel(mole.position).seen == SeenStatus.HALF_SEEN)
+                {
+                    revealTunnels();
+                }
+
+
+                pickupTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (enemyCount > 0)
+                {
+                    enemyTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                    if (enemyTimer <= 0)
+                    {
+                        enemyTimer = ENEMY_TIME;
+                        int pick = random.Next(4);
+                        if (pick == 0)
+                            enemies.Add(new Rat(this, door.position.X, door.position.Y));
+                        else if (pick == 1)
+                            enemies.Add(new Beeble(this, door.position.X, door.position.Y));
+                        else if (pick == 2)
+                            enemies.Add(new Salamando(this, door.position.X, door.position.Y));
+                        else
+                            enemies.Add(new Mothy(this, door.position.X, door.position.Y));
+
+                        enemyCount--;
+                    }
+                }
+                _fps = (double)_draws / gameTime.ElapsedGameTime.TotalSeconds;
+                _draws = 0;
+            }
+            else if (mode == ScreenMode.menu && OFFSET.Y > OFFSET_MENU.Y)
+            {
+                OFFSET.Y -= (float)(menuSpeed * gameTime.ElapsedGameTime.TotalSeconds);
+                if (OFFSET.Y < OFFSET_MENU.Y)
+                {
+                    OFFSET.Y = OFFSET_MENU.Y;
                 }
             }
-            foreach (Rat enemy in deadStuff)
+            else
             {
-                enemies.Remove(enemy);
+
             }
-            deadStuff.Clear();
-
-            foreach (Item item in items)
-            {
-                item.update(gameTime);
-                Vector2 distance = item.position - mole.position;
-                if (distance.Length() <= 5)
-                {
-
-                }
-            }
-
-            foreach (Tunnel tunnel in tunnels)
-            {
-                tunnel.update(this, gameTime);
-            }
-
-            foreach (Water water in waters)
-            {
-                water.update(gameTime);
-                if (water.state != Water.NONE)
-                {
-                    checkCollisions(water);
-                }
-                if (water.state == Water.DEAD)
-                {
-                    deadStuff.Add(water);
-                }
-            }
-
-            foreach (Water vege in deadStuff)
-            {
-                waters.Remove(vege);
-            }
-            deadStuff.Clear();
-
-            updateTunnels(mole);
-            if (getCurrTunnel(mole.position).seen == SeenStatus.HALF_SEEN)
-            {
-                revealTunnels();
-            }
-
-
-            pickupTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (enemyCount > 0)
-            {
-                enemyTimer -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-                if (enemyTimer <= 0)
-                {
-                    enemyTimer = ENEMY_TIME;
-                    int pick = random.Next(4);
-                    if (pick == 0)
-                        enemies.Add(new Rat(this, door.position.X, door.position.Y));
-                    else if (pick == 1)
-                        enemies.Add(new Beeble(this, door.position.X, door.position.Y));
-                    else if (pick == 2)
-                        enemies.Add(new Salamando(this, door.position.X, door.position.Y));
-                    else
-                        enemies.Add(new Mothy(this, door.position.X, door.position.Y));
-
-                    enemyCount--;
-                }
-            }
-            _fps = (double)_draws / gameTime.ElapsedGameTime.TotalSeconds;
-            _draws = 0;
-
         }
 
         internal void spawnItem(Vegetable vegetable)
@@ -1840,7 +1881,7 @@ namespace MoleHillMountain
             {
                 tunnels[middleX, bottomY].top = Tunnel.DUG;
 
-                if(bottomY>0)
+                if (bottomY > 0)
                     tunnels[middleX, bottomY - 1].bottom = Tunnel.DUG;
 
                 revealTunnels();
@@ -1910,57 +1951,72 @@ namespace MoleHillMountain
 
             if (!firstCheck)
             {
-                // Allows the game to exit
-                if (keyboardState.IsKeyDown(Keys.Escape) || GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                    _game.Exit();
 
-                if (mole.alive() && (mole.state & Mole.STATE_USE) == 0)
+                if (mode == ScreenMode.play)
                 {
-                    if ((keyboardState.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyUp(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.A) && previousGamePadState.IsButtonUp(Buttons.A)))
-                    {
-                        mole.stopMoving();
-                        mole.useItem(0);
-                    }
-                    else if ((keyboardState.IsKeyDown(Keys.X) && previousKeyboardState.IsKeyUp(Keys.X)) || (gamePadState.IsButtonDown(Buttons.X) && previousGamePadState.IsButtonUp(Buttons.X)))
-                    {
-                        mole.stopMoving();
-                        mole.useItem(1);
-                    }
+                    // Allows the game to exit
+                    if (keyboardState.IsKeyDown(Keys.Escape) || GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+                        _game.Exit();
 
-                    else
+                    if (mole.alive() && (mole.state & Mole.STATE_USE) == 0)
                     {
-
-                        if (keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft) || gamePadState.ThumbSticks.Left.X < 0)
+                        if ((keyboardState.IsKeyDown(Keys.Z) && previousKeyboardState.IsKeyUp(Keys.Z)) || (gamePadState.IsButtonDown(Buttons.A) && previousGamePadState.IsButtonUp(Buttons.A)))
                         {
-                            mole.moveLeft();
+                            mole.stopMoving();
+                            mole.useItem(0);
                         }
-                        else if (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight) || gamePadState.ThumbSticks.Left.X > 0)
+                        else if ((keyboardState.IsKeyDown(Keys.X) && previousKeyboardState.IsKeyUp(Keys.X)) || (gamePadState.IsButtonDown(Buttons.X) && previousGamePadState.IsButtonUp(Buttons.X)))
                         {
-                            mole.moveRight();
+                            mole.stopMoving();
+                            mole.useItem(1);
                         }
-                        else if (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y < 0)
+                        else if ((keyboardState.IsKeyDown(Keys.Enter) && previousKeyboardState.IsKeyUp(Keys.Enter)) || (gamePadState.IsButtonDown(Buttons.Start) && previousGamePadState.IsButtonUp(Buttons.Start)))
                         {
-                            mole.moveDown();
-                        }
-                        else if (keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp) || gamePadState.ThumbSticks.Left.Y > 0)
-                        {
-                            mole.moveUp();
+                            mode = ScreenMode.menu;
                         }
                         else
                         {
-                            mole.stopMoving();
+
+                            if (keyboardState.IsKeyDown(Keys.Left) || gamePadState.IsButtonDown(Buttons.DPadLeft) || gamePadState.ThumbSticks.Left.X < 0)
+                            {
+                                mole.moveLeft();
+                            }
+                            else if (keyboardState.IsKeyDown(Keys.Right) || gamePadState.IsButtonDown(Buttons.DPadRight) || gamePadState.ThumbSticks.Left.X > 0)
+                            {
+                                mole.moveRight();
+                            }
+                            else if (keyboardState.IsKeyDown(Keys.Down) || gamePadState.IsButtonDown(Buttons.DPadDown) || gamePadState.ThumbSticks.Left.Y < 0)
+                            {
+                                mole.moveDown();
+                            }
+                            else if (keyboardState.IsKeyDown(Keys.Up) || gamePadState.IsButtonDown(Buttons.DPadUp) || gamePadState.ThumbSticks.Left.Y > 0)
+                            {
+                                mole.moveUp();
+                            }
+                            else
+                            {
+                                mole.stopMoving();
+                            }
                         }
+                    }
+
+                    if (keyboardState.IsKeyDown(Keys.Q) && previousKeyboardState.IsKeyUp(Keys.Q))
+                    {
+                        enemies.Add(new Rat(this));
+                    }
+                    else if (keyboardState.IsKeyDown(Keys.R) && previousKeyboardState.IsKeyUp(Keys.R))
+                    {
+                        init();
+                    }
+                }
+                else
+                {
+                    if ((keyboardState.IsKeyDown(Keys.Enter) && previousKeyboardState.IsKeyUp(Keys.Enter)) || (gamePadState.IsButtonDown(Buttons.Start) && previousGamePadState.IsButtonUp(Buttons.Start)))
+                    {
+                        mode = ScreenMode.play;
                     }
                 }
 
-                if (keyboardState.IsKeyDown(Keys.Q) && previousKeyboardState.IsKeyUp(Keys.Q))
-                {
-                    enemies.Add(new Rat(this));
-                }
-                else if (keyboardState.IsKeyDown(Keys.R) && previousKeyboardState.IsKeyUp(Keys.R))
-                {
-                    init();
-                }
             }
             else
             {
@@ -2017,6 +2073,9 @@ namespace MoleHillMountain
             pickupTime = 22f / mole.getDigSpeed();
             pickupTimer = -1;
             enemyTimer = ENEMY_TIME;
+
+            backpack = new List<int> {ITEM_BOMB, ITEM_DRILL};
+            
         }
 
         private void generateLevel()

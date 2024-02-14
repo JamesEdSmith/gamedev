@@ -104,10 +104,6 @@ namespace MoleHillMountain
 
         protected bool centeringOnTile;
 
-        const int ITEM_SLINGSHOT = 0;
-        const int ITEM_HOOKSHOT = 1;
-        const int ITEM_BOMB = 2;
-        const int ITEM_DRILL = 3;
 
         public int item;
         public int item1;
@@ -142,8 +138,8 @@ namespace MoleHillMountain
             per = 3;
             con = 3;
             health = con;
-            item1 = ITEM_DRILL;
-            item2 = ITEM_HOOKSHOT;
+            item1 = DungeonScreen.ITEM_DRILL;
+            item2 = DungeonScreen.ITEM_HOOKSHOT;
 
         }
 
@@ -368,15 +364,15 @@ namespace MoleHillMountain
 
                     switch (item)
                     {
-                        case ITEM_SLINGSHOT:
+                        case DungeonScreen.ITEM_SLINGSHOT:
                             sprite = slingshot;
                             useFrame = 3;
                             break;
-                        case ITEM_HOOKSHOT:
+                        case DungeonScreen.ITEM_HOOKSHOT:
                             sprite = hookshot;
                             useFrame = 2;
                             break;
-                        case ITEM_DRILL:
+                        case DungeonScreen.ITEM_DRILL:
                             sprite = drill;
                             useFrame = 3;
                             break;
@@ -395,16 +391,16 @@ namespace MoleHillMountain
                     {
                         switch (item)
                         {
-                            case ITEM_SLINGSHOT:
+                            case DungeonScreen.ITEM_SLINGSHOT:
                                 dungeonScene.spawnStone(position, horzFacing, vertFacing);
                                 break;
-                            case ITEM_HOOKSHOT:
+                            case DungeonScreen.ITEM_HOOKSHOT:
                                 dungeonScene.spawnHook(position, horzFacing, vertFacing);
                                 break;
-                            case ITEM_BOMB:
+                            case DungeonScreen.ITEM_BOMB:
                                 dungeonScene.spawnBomb(position, horzFacing, vertFacing);
                                 break;
-                            case ITEM_DRILL:
+                            case DungeonScreen.ITEM_DRILL:
                                 dungeonScene.spawnDrill(position, horzFacing, vertFacing);
                                 state |= STATE_DRILL_ZOOM;
                                 state &= ~STATE_USE;
@@ -610,13 +606,13 @@ namespace MoleHillMountain
                 Sprite sprite;
                 switch (item)
                 {
-                    case ITEM_SLINGSHOT:
+                    case DungeonScreen.ITEM_SLINGSHOT:
                         sprite = slingshot;
                         break;
-                    case ITEM_HOOKSHOT:
+                    case DungeonScreen.ITEM_HOOKSHOT:
                         sprite = hookshot;
                         break;
-                    case ITEM_DRILL:
+                    case DungeonScreen.ITEM_DRILL:
                         sprite = drill;
                         break;
                     default:
