@@ -433,9 +433,10 @@ namespace PikeAndShot
             graphics.ApplyChanges();
             if (!DEBUG)
             {
+                graphics.IsFullScreen = true;
+                graphics.ApplyChanges();
                 graphics.PreferredBackBufferWidth = SCREENWIDTH;// + 50;
                 graphics.PreferredBackBufferHeight = SCREENHEIGHT;// + 50;
-                graphics.IsFullScreen = false;
                 graphics.ApplyChanges();
                 //make it full screen... (borderless if you want to is an option as well)
                 this.Window.Position = new Point((int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - (float)SCREENWIDTH)/2, (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - (float)SCREENHEIGHT) / 2);

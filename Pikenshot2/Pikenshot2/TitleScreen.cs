@@ -23,33 +23,38 @@ namespace PikeAndShot
 
         }
 
+        Color textColor;
+        float animationTime = 300f;
+        float textTimer;
+        float textTime = 300f;
+
 
         public override void update(GameTime gameTime)
         {
             getInput(gameTime.ElapsedGameTime);
-            //if (waitTime > 0)
-            //{
-            //    waitTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            //}
-            //else if (fadeTime > 0)
-            //{
-            //    fadeTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (waitTime > 0)
+            {
+                waitTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
+            else if (fadeTime > 0)
+            {
+                fadeTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            //    int maxFrames = title.getMaxFrames();
-            //    float deathFrameTime = animationTime / (float)maxFrames;
-            //    int frameNumber = maxFrames - (int)(fadeTime / deathFrameTime) - 1;
+                int maxFrames = title.getMaxFrames();
+                float deathFrameTime = animationTime / (float)maxFrames;
+                int frameNumber = maxFrames - (int)(fadeTime / deathFrameTime) - 1;
 
-            //    title.setFrame(frameNumber);
-            //}
-            //else
-            //{
-            //    textTimer -= (float)gameTime.ElapsedGameTime.Milliseconds;
-            //    if (textTimer <= 0)
-            //    {
-            //        textTimer = textTime + textTimer;
-            //    }
-            //    textColor = new Color(0.8f, 0.8f, 0f, Math.Abs(textTime - textTimer) / (textTime / 2f));
-            //}
+                title.setFrame(frameNumber);
+            }
+            else
+            {
+                textTimer -= (float)gameTime.ElapsedGameTime.Milliseconds;
+                if (textTimer <= 0)
+                {
+                    textTimer = textTime + textTimer;
+                }
+                textColor = new Color(0.8f, 0.8f, 0f, Math.Abs(textTime - textTimer) / (textTime / 2f));
+            }
 
         }
 
@@ -57,12 +62,12 @@ namespace PikeAndShot
         {
 
             //spriteBatch.Draw(PikeAndShotGame.TEST, new Rectangle((PikeAndShotGame.SCREENWIDTH - 834) /2, (PikeAndShotGame.SCREENHEIGHT - 738) / 2, 834, 738), Color.White);
-            spriteBatch.Draw(PikeAndShotGame.TEST, new Rectangle(0, 0, 1024, PikeAndShotGame.SCREENHEIGHT), Color.White);
-            //title.draw(spriteBatch, new Vector2(PikeAndShotGame.SCREENWIDTH / 2f, PikeAndShotGame.SCREENHEIGHT / 3f), SIDE_PLAYER);
-            //if (fadeTime <= 0)
-            //{
-            //    spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Press Pike or Shot", new Vector2(450, PikeAndShotGame.SCREENHEIGHT * 2f/ 3f), textColor);
-            //}
+            //spriteBatch.Draw(PikeAndShotGame.TEST, new Rectangle(0, 0, 1024, PikeAndShotGame.SCREENHEIGHT), Color.White);
+            title.draw(spriteBatch, new Vector2(PikeAndShotGame.SCREENWIDTH / 2f, PikeAndShotGame.SCREENHEIGHT / 3f), SIDE_PLAYER);
+            if (fadeTime <= 0)
+            {
+                spriteBatch.DrawString(PikeAndShotGame.getSpriteFont(), "Press Pike or Shot", new Vector2(450, PikeAndShotGame.SCREENHEIGHT * 2f/ 3f), textColor);
+            }
 
         }
 
