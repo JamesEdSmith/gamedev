@@ -11,7 +11,6 @@ public class RodMover : MonoBehaviour
 
     public List<Transform> rodTransforms;
     public Transform rodEnd;
-    Transform rodTransform;
 
     // Start is called before the first frame update
     void Start()
@@ -28,25 +27,55 @@ public class RodMover : MonoBehaviour
         Vector3 targetPoint = whammyCammy.ScreenToWorldPoint(test);
 
         var targetRotation = Quaternion.LookRotation((targetPoint - transform.position).normalized);
-        meTransform.rotation = Quaternion.RotateTowards(meTransform.rotation, targetRotation, anglePerSecond * Time.deltaTime);
+        var targetRotation2 = Quaternion.LookRotation(rodEnd.position - rodTransforms[2].position);
+
+        float x = 9f * 1f / 13f;
+        float dist = meTransform.InverseTransformPoint(rodEnd.position).x - meTransform.localPosition.x;
+
+        //float angle = Mathf.Asin(dist/6) * 9f / 13f;
+        //float fullAngle = Quaternion.Angle(meTransform.rotation, targetRotation2);
+
+        float rot0 = 0;
+        float rot1 = 0;
+        float rot2 = 0;
 
 
+        var hmm = Quaternion.LookRotation(rodEnd.position - meTransform.position);
+        var boop = Quaternion.LookRotation(rodTransforms[2].position - meTransform.position);
 
+        rodTransforms[2].rotation = meTransform.rotation;
+        rodTransforms[1].rotation = meTransform.rotation;
+        rodTransforms[0].rotation = meTransform.rotation;
 
-        targetRotation = Quaternion.LookRotation(rodEnd.position - meTransform.position);
+        float magnitude = (rodTransforms[2].position - rodEnd.position).magnitude;
 
-        Vector3 rotation = targetRotation.eulerAngles - meTransform.rotation.eulerAngles;
-
-        foreach (Transform t in rodTransforms)
+        while (rot0 < 100)
         {
-            t.rotation = Quaternion.identity;
+
+            //if (rot0 < 360)
+            //{
+                rot0 += 3;
+                rot1 += 1;
+                rot2 += 0.3f;
+            //}
+
+            rodTransforms[2].rotation = Quaternion.Slerp(meTransform.rotation, targetRotation2, rot0 / 100f);
+            rodTransforms[1].rotation = Quaternion.Slerp(meTransform.rotation, targetRotation2, rot1 / 100f);
+            rodTransforms[0].rotation = Quaternion.Slerp(meTransform.rotation, targetRotation2, rot2 / 100f);
+
+            if (magnitude > (rodTransforms[2].position - rodEnd.position).magnitude)
+            {
+                magnitude = (rodTransforms[2].position - rodEnd.position).magnitude;
+            }
+            else
+            {
+                rodTransforms[2].rotation = Quaternion.Slerp(meTransform.rotation, targetRotation2, (rot0 - 3) / 100f);
+                rodTransforms[1].rotation = Quaternion.Slerp(meTransform.rotation, targetRotation2, (rot1 - 1) / 100f);
+                rodTransforms[0].rotation = Quaternion.Slerp(meTransform.rotation, targetRotation2, (rot2 - 0.3f) / 100f);
+                break;
+            }
         }
 
-        float x = 9f * rotation.magnitude / 13f;
-
-        rodTransforms[0].rotation = Quaternion.RotateTowards(meTransform.rotation, targetRotation, 180);
-        rodTransforms[1].rotation = Quaternion.RotateTowards(meTransform.rotation, targetRotation, 180);
-        rodTransforms[2].rotation = Quaternion.RotateTowards(meTransform.rotation, targetRotation, 180);
-        
+        meTransform.rotation = Quaternion.RotateTowards(meTransform.rotation, targetRotation, anglePerSecond * Time.deltaTime);
     }
 }
