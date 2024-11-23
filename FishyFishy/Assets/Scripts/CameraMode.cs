@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cameraMode : MonoBehaviour
+public class CameraMode : MonoBehaviour
 {
-    enum State
+    public enum State
     {
         normal,
         follow
@@ -21,7 +21,7 @@ public class cameraMode : MonoBehaviour
     Vector3 startPos;
     Quaternion startRot;
 
-    State state;
+    public State state;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,13 +33,13 @@ public class cameraMode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
             state = State.follow;
             timer = 0;
         }
-
-        if (Vector3.Distance(lureTransform.position, rodTransform.position) <= returnDistance && state != State.normal)
+        else if (!Input.GetMouseButton(0) && Vector3.Distance(lureTransform.position, rodTransform.position) <= returnDistance && state != State.normal)
         {
             state = State.normal;
             timer = 0;

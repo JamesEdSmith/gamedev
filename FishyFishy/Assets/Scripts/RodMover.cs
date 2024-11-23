@@ -11,26 +11,46 @@ public class RodMover : MonoBehaviour
 
     public List<Transform> rodTransforms;
     public Transform rodEnd;
+    public Vector3 originalPos;
+    public CameraMode cameraMode;
+
+    public Transform testPos;
+
 
     // Start is called before the first frame update
     void Start()
     {
         whammyCammy = Camera.main;
+        originalPos = whammyCammy.transform.position;
         meTransform = transform;
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         Vector3 test = Input.mousePosition;
-        test.z = whammyCammy.transform.position.y + mouseTargetAdjust;
+        test.z = originalPos.y + mouseTargetAdjust;
         Vector3 targetPoint = whammyCammy.ScreenToWorldPoint(test);
+
+
+        if(cameraMode.state == CameraMode.State.follow)
+        {
+            Transform cameraPos = whammyCammy.transform;
+            whammyCammy.transform.position = transform.position;
+            Vector3 lurePosition = cameraMode.lureTransform.position;
+            lurePosition.y = 10;
+            whammyCammy.transform.LookAt(lurePosition);
+            test.z = 5;
+            targetPoint = whammyCammy.ScreenToWorldPoint(test);
+            testPos.position = targetPoint;
+            whammyCammy.transform.position = cameraPos.position;
+            whammyCammy.transform.rotation = cameraPos.rotation;
+        }
 
         var targetRotation = Quaternion.LookRotation((targetPoint - transform.position).normalized);
         var targetRotation2 = Quaternion.LookRotation(rodEnd.position - rodTransforms[2].position);
 
-        float x = 9f * 1f / 13f;
-        float dist = meTransform.InverseTransformPoint(rodEnd.position).x - meTransform.localPosition.x;
 
         //float angle = Mathf.Asin(dist/6) * 9f / 13f;
         //float fullAngle = Quaternion.Angle(meTransform.rotation, targetRotation2);
@@ -38,10 +58,6 @@ public class RodMover : MonoBehaviour
         float rot0 = 0;
         float rot1 = 0;
         float rot2 = 0;
-
-
-        var hmm = Quaternion.LookRotation(rodEnd.position - meTransform.position);
-        var boop = Quaternion.LookRotation(rodTransforms[2].position - meTransform.position);
 
         rodTransforms[2].rotation = meTransform.rotation;
         rodTransforms[1].rotation = meTransform.rotation;
