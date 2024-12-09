@@ -29,28 +29,47 @@ public class RodMover : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 test = Input.mousePosition;
-        test.z = originalPos.y + mouseTargetAdjust;
-        Vector3 targetPoint = whammyCammy.ScreenToWorldPoint(test);
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = originalPos.y + mouseTargetAdjust;
+        Vector3 targetPoint = whammyCammy.ScreenToWorldPoint(mousePos);
 
 
-        if(cameraMode.state == CameraMode.State.follow)
+        if (cameraMode.state == CameraMode.State.follow)
         {
-            Transform cameraPos = whammyCammy.transform;
+            if (mousePos.x < Screen.width / 2)
+            {
+                mousePos.x -= (Screen.width / 2 - mousePos.x) * 5f;
+            }
+            else
+            {
+                mousePos.x += (mousePos.x - Screen.width / 2) * 5f;
+            }
+
+            if (mousePos.y < Screen.height / 2)
+            {
+                mousePos.y -= (Screen.height / 2 - mousePos.y) * 5f;
+            }
+            else
+            {
+                mousePos.y += (mousePos.y - Screen.height / 2) * 5f;
+            }
+
+            Vector3 cameraPos = whammyCammy.transform.position;
+            Quaternion cameraRot = whammyCammy.transform.rotation;
+
             whammyCammy.transform.position = transform.position;
             Vector3 lurePosition = cameraMode.lureTransform.position;
             lurePosition.y = 10;
             whammyCammy.transform.LookAt(lurePosition);
-            test.z = 5;
-            targetPoint = whammyCammy.ScreenToWorldPoint(test);
+            mousePos.z = 5;
+            targetPoint = whammyCammy.ScreenToWorldPoint(mousePos);
             testPos.position = targetPoint;
-            whammyCammy.transform.position = cameraPos.position;
-            whammyCammy.transform.rotation = cameraPos.rotation;
+            whammyCammy.transform.position = cameraPos;
+            whammyCammy.transform.rotation = cameraRot;
         }
 
-        var targetRotation = Quaternion.LookRotation((targetPoint - transform.position).normalized);
-        var targetRotation2 = Quaternion.LookRotation(rodEnd.position - rodTransforms[2].position);
-
+        Quaternion targetRotation = Quaternion.LookRotation((targetPoint - transform.position).normalized);
+        Quaternion targetRotation2 = Quaternion.LookRotation(rodEnd.position - rodTransforms[2].position);
 
         //float angle = Mathf.Asin(dist/6) * 9f / 13f;
         //float fullAngle = Quaternion.Angle(meTransform.rotation, targetRotation2);
@@ -70,9 +89,9 @@ public class RodMover : MonoBehaviour
 
             //if (rot0 < 360)
             //{
-                rot0 += 3;
-                rot1 += 1;
-                rot2 += 0.3f;
+            rot0 += 3;
+            rot1 += 1;
+            rot2 += 0.3f;
             //}
 
             rodTransforms[2].rotation = Quaternion.Slerp(meTransform.rotation, targetRotation2, rot0 / 100f);

@@ -22,18 +22,23 @@ public class CameraMode : MonoBehaviour
     Quaternion startRot;
 
     public State state;
+    Camera mainCamera;
+
+    Color aboveWaterColor = new Color(0.33f, 0.33f, 1f);
+    Color belowWaterColor = new Color(0, 0.0f, 1f);
+
     // Start is called before the first frame update
     void Start()
     {
         startPos = transform.position;
         startRot = transform.rotation;
         timer = zoomTime;
+        mainCamera = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetMouseButtonDown(0))
         {
             state = State.follow;
@@ -60,6 +65,16 @@ public class CameraMode : MonoBehaviour
                 transform.position = Vector3.Lerp(startPos, followPosition, t);
                 transform.rotation = Quaternion.Slerp(startRot, followRotation, t);
                 break;
+        }
+
+        if (transform.position.y < 0)
+        {
+            belowWaterColor.b = (100f + transform.position.y) / 100f;
+            mainCamera.backgroundColor = belowWaterColor;
+        }
+        else
+        {
+            mainCamera.backgroundColor = aboveWaterColor;
         }
     }
 }

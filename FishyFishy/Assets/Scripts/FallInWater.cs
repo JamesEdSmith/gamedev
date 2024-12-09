@@ -22,6 +22,7 @@ public class FallInWater : MonoBehaviour
         if (other.gameObject.name == "Water" && body != null)
         {
             body.drag = inWaterDrag;
+            body.mass = inWaterMass;
         }
     }
 
@@ -30,6 +31,7 @@ public class FallInWater : MonoBehaviour
         if (other.gameObject.name == "Water" && body != null)
         {
             body.drag = outOfWaterDrag;
+            body.mass = outOfWaterMass;
         }
     }
 }
