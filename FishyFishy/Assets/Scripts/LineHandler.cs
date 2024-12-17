@@ -97,8 +97,8 @@ public class LineHandler : MonoBehaviour
                 lineTransforms[lineTransforms.Count - 3].position = lineTransforms[lineTransforms.Count - 2].position;
                 Rigidbody bod = lineTransforms[lineTransforms.Count - 3].gameObject.GetComponent<Rigidbody>();
                 bod.MovePosition(lineTransforms[lineTransforms.Count - 2].position);
-
                 bod.constraints = RigidbodyConstraints.FreezePosition;
+
                 Transform reeledT = lineTransforms[lineTransforms.Count - 2];
                 lineTransforms.Remove(reeledT);
                 Destroy(reeledT.gameObject);
