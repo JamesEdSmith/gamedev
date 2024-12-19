@@ -783,6 +783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 2
   moveSize: 10
+  speedRate: 0.75
 --- !u!1 &326757044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,7 +1115,7 @@ MonoBehaviour:
   m_Data:
     m_ConstrainedObject: {fileID: 2013126168}
     m_Source: {fileID: 837076378}
-    m_DampPosition: 0.6
+    m_DampPosition: 0.5
     m_DampRotation: 0.6
     m_MaintainAim: 1
 --- !u!1 &456175844
@@ -1583,7 +1584,7 @@ MonoBehaviour:
   m_Data:
     m_ConstrainedObject: {fileID: 837076381}
     m_Source: {fileID: 837076378}
-    m_DampPosition: 0.6
+    m_DampPosition: 0.5
     m_DampRotation: 0.6
     m_MaintainAim: 1
 --- !u!1 &705507993
@@ -1898,6 +1899,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 64f20dea1425add479effa1a3754ecdd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 837076386}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 64f20dea1425add479effa1a3754ecdd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 837076387}
     - targetCorrespondingSourceObject: {fileID: -4808965768123749404, guid: 64f20dea1425add479effa1a3754ecdd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 300706123}
@@ -2003,6 +2007,18 @@ MonoBehaviour:
   - {fileID: 837076381}
   - {fileID: 1284569987}
   - {fileID: 1426365012}
+--- !u!114 &837076387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837076377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af344410746128a46b17c145df4333ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &847501733
 GameObject:
   m_ObjectHideFlags: 0
@@ -3694,7 +3710,7 @@ MonoBehaviour:
   m_Data:
     m_ConstrainedObject: {fileID: 837076378}
     m_Source: {fileID: 300706122}
-    m_DampPosition: 0.6
+    m_DampPosition: 0.4
     m_DampRotation: 0.6
     m_MaintainAim: 1
 --- !u!1 &1846404613
