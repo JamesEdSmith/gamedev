@@ -6,6 +6,7 @@ public class HeadMovement : MonoBehaviour
 {
     Quaternion startingRotation;
     Quaternion initialRotation;
+
     private Quaternion targetRotation;
     private float timer;
     public float time = 1;
@@ -15,7 +16,7 @@ public class HeadMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startingRotation = initialRotation = transform.rotation;
+        startingRotation = initialRotation = transform.localRotation;
         targetRotation = initialRotation * Quaternion.Euler(moveSize, 0, 0);
         timer = time * 0.5f;
     }
@@ -23,16 +24,15 @@ public class HeadMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = Quaternion.Slerp(startingRotation, targetRotation, EasingFunction.EaseInOutSine(0, 1, timer / time));
+        transform.localRotation = Quaternion.Slerp(startingRotation, targetRotation, EasingFunction.EaseInOutSine(0, 1, timer / time));
         //transform.rotation = Quaternion.Slerp(startingRotation, targetRotation,  timer / time);
         timer += Time.deltaTime;
 
         if (timer > time)
         {
-            transform.rotation = targetRotation;
+            startingRotation = transform.localRotation = targetRotation;
             posTurn = !posTurn;
             timer = 0;
-            startingRotation = transform.rotation;
             if (posTurn)
             {
                 targetRotation = initialRotation * Quaternion.Euler(moveSize, 0, 0);
