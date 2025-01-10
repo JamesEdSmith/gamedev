@@ -10,6 +10,8 @@ public class LineHandler : MonoBehaviour
     public Transform rodEnd;
     public Transform rodHolder;
     public float reelSpeed;
+    public float reelAcc;
+    float currReelSpeed =0;
     public Color OverColor;
     public Color UnderColor;
     Gradient normalGradient;
@@ -76,15 +78,21 @@ public class LineHandler : MonoBehaviour
         else if (Input.GetMouseButton(1))
         {
 
-            if (lineTransforms[lineTransforms.Count - 3].gameObject.GetComponent<CharacterJoint>().connectedAnchor.magnitude > 0 && lineTransforms.Count > 4)
+            if (currReelSpeed < reelSpeed)
+            {
+                currReelSpeed = Mathf.Min(currReelSpeed + Time.deltaTime * reelAcc, reelSpeed);
+            }
+
+            //bugline
+            if (lineTransforms[lineTransforms.Count - 3].gameObject.GetComponent<CharacterJoint>() != null && lineTransforms[lineTransforms.Count - 3].gameObject.GetComponent<CharacterJoint>().connectedAnchor.magnitude > 0 && lineTransforms.Count > 4)
             {
                 CharacterJoint joint = lineTransforms[lineTransforms.Count - 3].gameObject.GetComponent<CharacterJoint>();
                 joint.autoConfigureConnectedAnchor = false;
                 lineTransforms[lineTransforms.Count - 2].rotation = Quaternion.Slerp(lineTransforms[lineTransforms.Count - 3].rotation, lineTransforms[lineTransforms.Count - 2].rotation, 5 - joint.connectedAnchor.magnitude / 5f);
-                if (joint.connectedAnchor.magnitude <= reelSpeed * Time.deltaTime)
+                if (joint.connectedAnchor.magnitude <= currReelSpeed * Time.deltaTime)
                     joint.connectedAnchor = Vector3.zero;
                 else
-                    joint.connectedAnchor -= joint.connectedAnchor.normalized * reelSpeed * Time.deltaTime;
+                    joint.connectedAnchor -= joint.connectedAnchor.normalized * currReelSpeed * Time.deltaTime;
 
             }
             else if (lineTransforms.Count > 4)
@@ -134,11 +142,17 @@ public class LineHandler : MonoBehaviour
             }
         }
 
+        if (!Input.GetMouseButton(1))
+        {
+            currReelSpeed = Mathf.Max(currReelSpeed - Time.deltaTime * reelAcc, 0);
+        }
+
         drawlines();
     }
 
     int waterTally = 0;
     Vector3[] linePositions;
+
 
     private void drawlines()
     {
