@@ -22,6 +22,7 @@ public class CameraMode : MonoBehaviour
     Quaternion startRot;
 
     public State state;
+    public WaterJunk waterJunk;
     Camera mainCamera;
 
     Color aboveWaterColor = new Color(0.33f, 0.33f, 1f);
@@ -67,14 +68,18 @@ public class CameraMode : MonoBehaviour
                 break;
         }
 
+       
+
         if (transform.position.y < 0)
         {
             belowWaterColor.b = (100f + transform.position.y) / 100f;
             mainCamera.backgroundColor = belowWaterColor;
+            waterJunk.underWaterOn();
         }
         else
         {
             mainCamera.backgroundColor = aboveWaterColor;
+            waterJunk.underWaterOff();
         }
     }
 }
