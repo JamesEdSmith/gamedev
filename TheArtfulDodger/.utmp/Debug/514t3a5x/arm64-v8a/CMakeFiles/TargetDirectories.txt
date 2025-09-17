@@ -1,0 +1,8 @@
+D:/backup/gamedev/TheArtfulDodger/.utmp/Debug/514t3a5x/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/backup/gamedev/TheArtfulDodger/.utmp/Debug/514t3a5x/arm64-v8a/CMakeFiles/rebuild_cache.dir
+D:/backup/gamedev/TheArtfulDodger/.utmp/Debug/514t3a5x/arm64-v8a/GameActivity/CMakeFiles/game.dir
+D:/backup/gamedev/TheArtfulDodger/.utmp/Debug/514t3a5x/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+D:/backup/gamedev/TheArtfulDodger/.utmp/Debug/514t3a5x/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
+D:/backup/gamedev/TheArtfulDodger/.utmp/Debug/514t3a5x/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+D:/backup/gamedev/TheArtfulDodger/.utmp/Debug/514t3a5x/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+D:/backup/gamedev/TheArtfulDodger/.utmp/Debug/514t3a5x/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir
