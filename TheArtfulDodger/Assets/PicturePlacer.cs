@@ -71,7 +71,9 @@ public class PicturePlacer : MonoBehaviour
 
     public void moveBin()
     {
-        bin.transform.position = placeRoom.FloorAnchor.transform.position + new Vector3(0, 0.5f, 0);
+        bin.transform.position = new Vector3(player.position.x - 0.5f, placeRoom.FloorAnchor.transform.position.y + 0.25f, player.position.z + 1f);
+        Vector3 targetPosition = new Vector3(player.position.x, bin.transform.position.y, player.transform.position.z);
+        bin.transform.rotation = Quaternion.LookRotation(targetPosition - bin.transform.position);
         //Vector3 position = new Vector3();
         //Vector3 normal = new Vector3();
         //placeRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL, 0.75f, new LabelFilter(MRUKAnchor.SceneLabels.WALL_FACE), out position, out normal);
