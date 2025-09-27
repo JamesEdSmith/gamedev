@@ -33,15 +33,15 @@ public class Laser : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(Vector3.Distance(player.position, transform.position) > 2f)
-        {
-            particles.Stop();
-        }
-        else if (particles.isStopped)
+        //if (Vector3.Distance(player.position, transform.position) > 1f)
+        //{
+        //    //particles.Stop();
+        //}
+        if (particles.isStopped)
         {
             particles.Play();
         }
-        
+
         RaycastHit hit;
         if (Physics.Raycast(transform.position, -transform.right, out hit, 100, ~ignoreMe))
         {
@@ -52,14 +52,14 @@ public class Laser : MonoBehaviour
                 scale.x = -(emitter.position - hit.point).magnitude;
                 holder.localScale = new Vector3(scale.x / laserScale * 0.5f, holder.localScale.y, holder.localScale.z);
 
-                particles.transform.position = Vector3.Lerp(spotLight.position, hit.point, 0.5f);
+                //                particles.transform.position = Vector3.Lerp(spotLight.position, hit.point, 0.5f);
 
-                particles.transform.Translate(new Vector3(0, 0, -0.3f * transform.localScale.y), Space.Self);
+                // particles.transform.Translate(new Vector3(0, 0, -0.3f * transform.localScale.y), Space.Self);
                 ParticleSystem.ShapeModule shape = particles.shape;
-                shape.scale = new Vector3((scale / laserScale).x, shape.scale.y, shape.scale.z);
+                shape.scale = new Vector3(shape.scale.x, shape.scale.y, -(holder.localScale).x);
 
                 ParticleSystem.EmissionModule emission = particles.emission;
-                emission.rateOverTime = 20f * Vector3.Distance(spotLight.position, hit.point);
+                emission.rateOverTime = 5f * Vector3.Distance(spotLight.position, hit.point);
 
                 if (!hit.collider.name.Contains("EffectMesh") && hit.collider.tag != "laser")
                 {
@@ -67,7 +67,10 @@ public class Laser : MonoBehaviour
                     {
                         spotLight.gameObject.GetComponent<Light>().color = Color.red;
                         emitterMesh.material.SetColor("_EmissionColor", Color.red);
-                        beamRenderer.material.SetColor("_Color", Color.red);
+                        if (beamRenderer != null)
+                            beamRenderer.material.SetColor("_Color", Color.red);
+                        ParticleSystem.MainModule main = particles.main;
+                        main.startColor = Color.red;
                         dropZone.fail();
                         hitName = hit.collider.gameObject.name;
                     }
@@ -117,7 +120,7 @@ public class Laser : MonoBehaviour
                 else
                 {
                     reciever.position = hit.point;
-                    particles.Simulate(5);
+                    //particles.Simulate(5);
                 }
                 if (hit.collider != null && hit.collider.name.Contains("Picture"))
                     Debug.Log("No");
@@ -132,9 +135,14 @@ public class Laser : MonoBehaviour
 
     public void reset()
     {
+        particles.Play();
         spotLight.gameObject.GetComponent<Light>().color = Color.green;
         emitterMesh.material.SetColor("_EmissionColor", Color.green);
-        beamRenderer.material.SetColor("_Color", Color.green);
-        particles.Simulate(5);
+        if (beamRenderer != null)
+            beamRenderer.material.SetColor("_Color", Color.green);
+
+        ParticleSystem.MainModule main = particles.main;
+        main.startColor = Color.green;
+        //particles.Simulate(5);
     }
 }
