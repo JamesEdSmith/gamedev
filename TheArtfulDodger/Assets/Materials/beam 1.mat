@@ -25,10 +25,13 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _EMISSION
+  - _ENVIRONMENTREFLECTIONS_OFF
+  - _GLOSSYREFLECTIONS_OFF
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords:
   - _FLIPBOOKBLENDING_OFF
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
@@ -41,7 +44,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 7978984b3ca56a9419846a3bc61714cf, type: 3}
+        m_Texture: {fileID: 2800000, guid: e693d2b95c9ac5c40b0d7e205a6ed5ad, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -121,7 +124,7 @@ Material:
     - _DistortionStrengthScaled: 0.1
     - _DstBlend: 1
     - _DstBlendAlpha: 1
-    - _EnvironmentReflections: 1
+    - _EnvironmentReflections: 0
     - _FlipbookBlending: 0
     - _FlipbookMode: 0
     - _GlossMapScale: 0
@@ -133,7 +136,7 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.5
+    - _Smoothness: 0
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
@@ -148,11 +151,11 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _AlphaColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BaseColor: {r: 0, g: 1, b: 0, a: 1}
+    - _BaseColor: {r: 0, g: 1, b: 0, a: 0.7490196}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 1, b: 0.020439148, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 61cb8ec9de80e3049bac926807282204
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 260997
+  packageName: Art Gallery Essentials
+  packageVersion: 1.0
+  assetPath: Assets/AK Studio Art/Art Gallery Essentials/Settings/URP/UniversalRenderPipelineGlobalSettings.asset
+  uploadId: 718806

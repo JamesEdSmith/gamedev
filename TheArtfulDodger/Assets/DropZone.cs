@@ -14,11 +14,21 @@ public class DropZone : MonoBehaviour
     float openTimer;
     float openTime = 2.5f;
 
+    float pictureTimer;
+    float pictureTime = 1f;
+
     Vector3 startingRot;
     Vector3 hingeRot;
+    private Vector3 targetPosition;
+    private Quaternion targetRotation;
+    private Vector3 startPosition;
+    private Quaternion startRotation;
+    public WatchMenu watch;
+    PicturePlacer picturePlacer;
 
     private void Start()
     {
+        picturePlacer = GameObject.Find("PicturePlacer").GetComponent<PicturePlacer>();
         startingColor = binWalls[0].material.GetColor("_EmissionColor");
         open = false;
         openTimer = 0;
@@ -28,7 +38,7 @@ public class DropZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name.Contains("Picture"))
+        if (other.gameObject.name.Contains("Picture") && watch.isCurrPicture(other.gameObject))
         {
             foreach (MeshRenderer renderer in binWalls)
             {
@@ -36,6 +46,14 @@ public class DropZone : MonoBehaviour
             }
             picture = other.gameObject;
             flashTimer = 2;
+            other.GetComponent<Rigidbody>().isKinematic = true;
+
+            startPosition = other.transform.position;
+            startRotation = other.transform.rotation;
+            targetPosition = transform.position + new Vector3(0, 0.035f, 0);
+            targetRotation = transform.rotation * Quaternion.Euler(-90, 0, -90);
+
+            pictureTimer = pictureTime;
         }
     }
 
@@ -54,11 +72,25 @@ public class DropZone : MonoBehaviour
             }
         }
 
+        if (pictureTimer > 0)
+        {
+            pictureTimer -= Time.deltaTime;
+
+            float t = (pictureTime - pictureTimer) / pictureTime;
+            float q = EasingFunction.EaseOutCirc(0, 1, t);
+            picture.GetComponent<Rigidbody>().position = Vector3.LerpUnclamped(startPosition, targetPosition, q);
+            picture.GetComponent<Rigidbody>().rotation = Quaternion.LerpUnclamped(startRotation, targetRotation, q);
+        }
+        else
+        {
+            pictureTimer = 0;
+        }
+
         if (openTimer > 0)
         {
             openTimer -= Time.deltaTime;
             float t = (openTime - openTimer) / openTime;
-            
+
             if (open)
             {
                 float q = EasingFunction.EaseOutBack(0, 1, t);
@@ -75,7 +107,7 @@ public class DropZone : MonoBehaviour
             openTimer = 0;
         }
 
-        if (Vector3.Distance(playerTransform.position, transform.position) < 1.0f)
+        if (Vector3.Distance(playerTransform.position, transform.position) < 1.3f)
         {
             if (!open)
             {

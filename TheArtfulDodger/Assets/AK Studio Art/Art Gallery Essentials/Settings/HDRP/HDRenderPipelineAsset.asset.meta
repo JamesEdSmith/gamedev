@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a258f03ba7fabb24cac4cc68c98a9512
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 260997
+  packageName: Art Gallery Essentials
+  packageVersion: 1.0
+  assetPath: Assets/AK Studio Art/Art Gallery Essentials/Settings/HDRP/HDRenderPipelineAsset.asset
+  uploadId: 718806

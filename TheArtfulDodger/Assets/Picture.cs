@@ -1,10 +1,13 @@
+using System;
+using System.Collections.Generic;
 using Meta.XR.MRUtilityKit;
 using Oculus.Interaction;
+using TMPro;
 using UnityEngine;
 
 public class Picture : GrabFreeTransformer, ITransformer
 {
-    GameObject hanger;
+    public GameObject hanger;
     Vector3 hangerOffset;
     public GameObject hangerPrefab;
     public float hangerShortenTime;
@@ -13,11 +16,22 @@ public class Picture : GrabFreeTransformer, ITransformer
     Quaternion startRot;
     public float width;
     public float height;
+
+    float colorTimer;
+    Color colorSet;
+
+    public int index;
+    IGrabbable grabbable;
+
+    public TextMeshPro textPro;
+    public MeshRenderer paintingRenderer;
     public bool grabbed;
 
     public new void Initialize(IGrabbable grabbable)
     {
         base.Initialize(grabbable);
+        this.grabbable = grabbable;
+        //textPro.text = grabbable.GrabPoints.Count.ToString();
     }
 
     private void Start()
@@ -28,7 +42,7 @@ public class Picture : GrabFreeTransformer, ITransformer
     public void reset()
     {
         gameObject.SetActive(true);
-        hangerOffset = new Vector3(0, 0.25f, 0.05f);
+        hangerOffset = new Vector3(0, 0.2f, 0.05f);
         if (hanger == null)
         {
             hanger = Instantiate(hangerPrefab, transform.position + hangerOffset, transform.rotation);
@@ -39,12 +53,11 @@ public class Picture : GrabFreeTransformer, ITransformer
             hanger.GetComponent<Rigidbody>().rotation = transform.rotation;
         }
         hanger.SetActive(false);
-
-        grabbed = false;
     }
 
     private void FixedUpdate()
     {
+
         if (timer >= 0 && hanger != null)
         {
             timer -= Time.deltaTime;
@@ -53,12 +66,29 @@ public class Picture : GrabFreeTransformer, ITransformer
             transform.position = Vector3.LerpUnclamped(startPos, (hanger.transform.position - new Vector3(hangerOffset.x, hangerOffset.y, 0)) + hanger.transform.rotation * Vector3.forward * hangerOffset.z, q);
             transform.rotation = Quaternion.LerpUnclamped(startRot, hanger.transform.rotation, q);
         }
+
+        if (colorTimer >= 0)
+        {
+            colorTimer -= Time.deltaTime;
+            float t = 0.5f - timer / 0.5f;
+            //GetComponent<MeshRenderer>().material.color = Color.Lerp(colorSet, Color.white, t);
+        }
+
+        //if (GetComponent<Rigidbody>().isKinematic)
+        //{
+        //    GetComponent<MeshRenderer>().material.color = Color.red;
+        //}
+        //else
+        //{
+        //    GetComponent<MeshRenderer>().material.color = Color.green;
+        //}
     }
 
     public new void BeginTransform()
     {
         base.BeginTransform();
         grabbed = true;
+
         if (!hanger.activeSelf)
         {
             hanger.SetActive(true);
@@ -74,8 +104,8 @@ public class Picture : GrabFreeTransformer, ITransformer
 
     public new void EndTransform()
     {
-        base.EndTransform();
-        Rigidbody rigidbody = transform.gameObject.GetComponent<Rigidbody>();
+        grabbed = false;
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
 
         float dist = Vector3.Distance(transform.position
             + transform.rotation * Vector3.up * hangerOffset.y
@@ -93,7 +123,9 @@ public class Picture : GrabFreeTransformer, ITransformer
             rigidbody.position = transform.position;
             rigidbody.rotation = transform.rotation;
         }
-        grabbed = false;
+
+        base.EndTransform();
+
 
         //RaycastHit hit;
         //if (Physics.Raycast(transform.position, -transform.forward, out hit, 100))
@@ -123,4 +155,17 @@ public class Picture : GrabFreeTransformer, ITransformer
         //}
     }
 
+    public void SetMaterials(List<Material> paintingMat)
+    {
+        List<Transform> children = new List<Transform>(GetComponentsInChildren<Transform>(true));
+        List<Transform> frames = children.FindAll(x => x.gameObject.name.Contains("FrameSelect"));
+
+        foreach(Transform frame in frames)
+        {
+            frame.gameObject.SetActive(false);
+        }
+
+        frames[UnityEngine.Random.Range(0, frames.Count)].gameObject.SetActive(true);
+        paintingRenderer.SetMaterials(paintingMat);
+    }
 }
