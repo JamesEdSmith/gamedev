@@ -26,6 +26,7 @@ public class PicturePlacer : MonoBehaviour
 
     public Transform player;
     public TextMeshPro laserCounter;
+    public WatchMenu watch;
 
     private void Start()
     {
@@ -79,9 +80,9 @@ public class PicturePlacer : MonoBehaviour
         {
             movePaintings();
             moveBin();
-            moveLasers();
+            
 
-            while(lasers.Count < numbLasers)
+            while (lasers.Count < numbLasers)
             {
                 GameObject newLaser = Instantiate(laser);
                 newLaser.GetComponent<Laser>().dropZone = bin.GetComponentInChildren<DropZone>();
@@ -90,7 +91,9 @@ public class PicturePlacer : MonoBehaviour
                 newLaser.GetComponent<Laser>().player = player;
             }
 
-            foreach(GameObject laser in lasers)
+            moveLasers();
+
+            foreach (GameObject laser in lasers)
             {
                 if (lasers.IndexOf(laser) >= numbLasers)
                 {
@@ -227,6 +230,7 @@ public class PicturePlacer : MonoBehaviour
         bin.transform.rotation = Quaternion.LookRotation(targetPosition - bin.transform.position);
 
         bin.GetComponentInChildren<DropZone>(true).reset();
+        //firstPicture.position = bin.transform.position;
     }
 
     private bool isPositionInRoom(Vector3 vector3)
@@ -244,6 +248,9 @@ public class PicturePlacer : MonoBehaviour
         return true;
     }
 
+    Transform firstPicture;
+    List<Material> targetMats;
+
     public void movePaintings()
     {
         List<Material> pictureMats = new List<Material>(mats);
@@ -260,9 +267,9 @@ public class PicturePlacer : MonoBehaviour
                 {
                     pictures[0].GetComponent<Rigidbody>().position = wall.transform.position + wall.transform.right * i + wall.transform.up * j;
                     Bounds colliderBounds = picture.GetComponent<BoxCollider>().bounds;
-                    if (!pictureClose(pictures[0], 0.25f))
+                    if (!pictureClose(pictures[0], 0.3f))
                     {
-                        spots.Add(wall.transform.position + wall.transform.right * i + wall.transform.up * j + wall.transform.forward * 0.05f);
+                        spots.Add(wall.transform.position + wall.transform.right * i + wall.transform.up * j + wall.transform.forward * 0.06f);
                         rots.Add(wall.transform.rotation);
                         //GameObject cube = Instantiate(debugCube, wall.transform.position + wall.transform.right * i + wall.transform.up * j, wall.transform.rotation);
                         //float dist = realPaintings[0].GetDistanceToSurface(colliderBounds.ClosestPoint(realPaintings[0].transform.position));
@@ -275,6 +282,7 @@ public class PicturePlacer : MonoBehaviour
                 }
             }
         }
+        List<Material> usedPictureMats = new List<Material>();
 
         foreach (GameObject picture in pictures)
         {
@@ -301,11 +309,12 @@ public class PicturePlacer : MonoBehaviour
                 spots.Remove(i);
             }
 
-            Material mat = pictureMats[UnityEngine.Random.Range(0, 0)];
+            Material mat = pictureMats[UnityEngine.Random.Range(0, pictureMats.Count)];
+            usedPictureMats.Add(mat);
             pictureMats.Remove(mat);
 
-            float width = mat.GetTexture("_MainTex").width;
-            float height = mat.GetTexture("_MainTex").height;
+            float width = mat.GetTexture("_BaseMap").width;
+            float height = mat.GetTexture("_BaseMap").height;
 
             picture.transform.localScale = new Vector3(width / (width + height), height / (width + height), picture.transform.localScale.z);
             picture.GetComponent<Grabbable>().enabled = true;
@@ -313,11 +322,29 @@ public class PicturePlacer : MonoBehaviour
             picture.GetComponent<Picture>().SetMaterials(paintingMat);
             picture.GetComponent<Picture>().reset();
         }
+        targetMats = new List<Material>();
+        for (int i = 0; i < 3; i++)
+        {
+            int picked = UnityEngine.Random.Range(0, usedPictureMats.Count);
+            targetMats.Add(usedPictureMats[picked]);
+            usedPictureMats.RemoveAt(picked);
+        }
 
+        watch.setImages(targetMats);
+
+        //firstPicture = pictures.Find(predicate).transform;
+        //Debug.Log("Cool");
         //foreach (Vector3 spot in spots)
         //{
         //    Instantiate(debugCube, spot, Quaternion.identity);
         //}
+    }
+
+    private bool predicate(GameObject obj)
+    {
+        Picture picture = obj.GetComponent<Picture>();
+        Material mat = picture.paintingRenderer.material;
+        return mat.GetTexture("_BaseMap") == targetMats[0].GetTexture("_BaseMap");
     }
 
     private bool pictureClose(GameObject picture, float dist)
@@ -355,10 +382,10 @@ public class PicturePlacer : MonoBehaviour
                 normal = rotationz * normal;
             }
             Physics.Raycast(position, normal, out hit, 100, ~ignoreMe);
-            int maxTries = 40;
+            int maxTries = 100;
 
-            if (hit.collider != null && (hit.collider.name.Contains("Cube") || hit.collider.name.Contains("Picture")))
-                Debug.Log("Huh?");
+            //if (hit.collider != null && (hit.collider.name.Contains("Cube") || hit.collider.name.Contains("Picture")))
+            //    Debug.Log("Huh?");
 
             while (maxTries > 0 && hit.collider != null && !hit.collider.name.Contains("EffectMesh"))
             {
@@ -375,8 +402,8 @@ public class PicturePlacer : MonoBehaviour
                 }
                 Physics.Raycast(position, normal, out hit, 100, ~ignoreMe);
             }
-            if (hit.collider != null && (hit.collider.name.Contains("Cube") || hit.collider.name.Contains("Picture")))
-                Debug.Log("Huh?");
+            //if (hit.collider != null && (hit.collider.name.Contains("Cube") || hit.collider.name.Contains("Picture")))
+            //    Debug.Log("Huh?");
 
             laser.transform.position = position;
             laser.transform.rotation = Quaternion.LookRotation(normal) * Quaternion.Euler(0, 90, 0);

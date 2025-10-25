@@ -11,19 +11,21 @@ public class WatchMenu : MonoBehaviour
     [SerializeField]
     public Transform centerEyeTransform;
 
-    public SpriteRenderer watchRenderer;
+    public MeshRenderer watchRenderer;
     public SpriteRenderer bgRenderer;
     public GameObject[] pages;
     int currPage = 0;
 
     int currPicture = 0;
 
-    public List<Sprite> images;
+    List<Material> images;
+
+    public PicturePlacer placer;
 
     private void Start()
     {
-        watchRenderer.sprite = images[currPicture];
-        foreach(GameObject page in pages)
+        images = new List<Material>();
+        foreach (GameObject page in pages)
         {
             page.SetActive(false);
         }
@@ -37,15 +39,48 @@ public class WatchMenu : MonoBehaviour
         currPage++;
         if (currPage >= pages.Length)
         {
-            currPage = 0;   
+            currPage = 0;
         }
         pages[currPage].SetActive(true);
     }
 
-    public void Reset()
+    public void reset()
     {
         currPicture = 0;
-        watchRenderer.sprite = images[currPicture];
+        changePicture();
+    }
+
+    private void changePicture()
+    {
+        float width = images[currPicture].GetTexture("_BaseMap").width;
+        float height = images[currPicture].GetTexture("_BaseMap").height;
+
+        watchRenderer.transform.parent.localScale = new Vector3(width / (width + height), watchRenderer.transform.parent.localScale.y, height / (width + height));
+
+        watchRenderer.material = images[currPicture];
+    }
+
+    public void setImages(List<Material> images)
+    {
+        this.images = images;
+
+        float width = images[currPicture].GetTexture("_BaseMap").width;
+        float height = images[currPicture].GetTexture("_BaseMap").height;
+
+        float w, h;
+        if (width / (width + height) > height / (width + height))
+        {
+            w = 1;
+            h = (height / (width + height)) / (width / (width + height));
+        }
+        else
+        {
+            h = 1;
+            w = (width / (width + height)) / (height / (width + height));
+        }
+
+        watchRenderer.transform.parent.localScale = new Vector3(w, watchRenderer.transform.parent.localScale.y, h);
+        watchRenderer.material = this.images[currPicture];
     }
 
     void Update()
@@ -64,14 +99,19 @@ public class WatchMenu : MonoBehaviour
         }
     }
 
-    internal bool isCurrPicture(GameObject picture)
+    internal bool isCurrPicture(MeshRenderer picture)
     {
-        if (picture.GetComponent<Picture>().index == currPicture)
+        if (picture.material.GetTexture("_BaseMap") == images[currPicture].GetTexture("_BaseMap"))
         {
             currPicture++;
             if (currPicture < images.Count)
             {
-                watchRenderer.sprite = images[currPicture];
+                changePicture();
+            }
+            else
+            {
+                placer.reset();
+                reset();
             }
             return true;
         }

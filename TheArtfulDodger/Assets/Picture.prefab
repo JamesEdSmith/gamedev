@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 395150193474491380}
   - component: {fileID: 9113673115269612626}
   - component: {fileID: 2401610287462132472}
-  - component: {fileID: 2731424101912656261}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -90,28 +89,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2731424101912656261
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1256976912496172072}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2760573255972734440
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +311,6 @@ GameObject:
   - component: {fileID: 1118769281559103913}
   - component: {fileID: 7013320157169634984}
   - component: {fileID: 7117768117111855060}
-  - component: {fileID: 6131137364822844278}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -413,28 +389,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6131137364822844278
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3014209826764189908}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3017511020111689540
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,7 +804,6 @@ GameObject:
   - component: {fileID: 1990438308038254738}
   - component: {fileID: 5323020783904818580}
   - component: {fileID: 3205593905718090753}
-  - component: {fileID: 7804142283235712438}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -929,28 +882,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7804142283235712438
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7284751159133669066}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &7711220354111755340
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,7 +1238,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Picture Frame 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3905384615700695946, guid: 04f98681420f8d04b86d750c150e3419, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1393,7 +1325,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 341342704454486357, guid: e44627fc847bb9d47980266901eb6d63, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1421,11 +1354,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7925513545758433231, guid: 2d8c055c62eb87045b162605df8fd4b0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.763
+      value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 7925513545758433231, guid: 2d8c055c62eb87045b162605df8fd4b0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.763
+      value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 7925513545758433231, guid: 2d8c055c62eb87045b162605df8fd4b0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1467,7 +1400,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5887225533148365004, guid: 2d8c055c62eb87045b162605df8fd4b0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

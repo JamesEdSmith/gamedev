@@ -38,7 +38,7 @@ public class DropZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name.Contains("Picture") && watch.isCurrPicture(other.gameObject))
+        if (other.gameObject.name.Contains("Picture") && watch.isCurrPicture(other.gameObject.GetComponent<Picture>().paintingRenderer))
         {
             foreach (MeshRenderer renderer in binWalls)
             {
