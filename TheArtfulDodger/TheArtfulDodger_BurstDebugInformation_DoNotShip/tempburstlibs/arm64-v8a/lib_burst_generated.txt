@@ -10,7 +10,6 @@ Library: D:\backup\gamedev\TheArtfulDodger\Temp\BurstOutput\tempburstlibs\arm64-
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\backup\gamedev\TheArtfulDodger\Temp\Burst
---debug=Full
 --key-folder=D:/auxprograms/UnityEditor/6000.2.1f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=D:\backup\gamedev\TheArtfulDodger\Library\Burst
 --output=D:\backup\gamedev\TheArtfulDodger\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
@@ -103,7 +102,6 @@ Library: D:\backup\gamedev\TheArtfulDodger\Temp\BurstOutput\tempburstlibs\arm64-
 --float-mode=Fast
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=D:\backup\gamedev\TheArtfulDodger\Temp\Burst
---debug=Full
 --key-folder=D:/auxprograms/UnityEditor/6000.2.1f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=D:\backup\gamedev\TheArtfulDodger\Library\Burst
 --output=D:\backup\gamedev\TheArtfulDodger\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
