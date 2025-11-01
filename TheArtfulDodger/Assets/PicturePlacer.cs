@@ -46,6 +46,7 @@ public class PicturePlacer : MonoBehaviour
             lasers.Add(newLaser);
             newLaser.GetComponent<Laser>().placer = this;
             newLaser.GetComponent<Laser>().player = player;
+            newLaser.GetComponentInChildren<LineHolder>().targetPoint = player;
         }
     }
 

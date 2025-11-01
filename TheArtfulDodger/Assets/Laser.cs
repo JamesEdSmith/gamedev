@@ -1,4 +1,5 @@
 using Meta.XR.MRUtilityKit;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Laser : MonoBehaviour
@@ -11,6 +12,8 @@ public class Laser : MonoBehaviour
     public Transform spotLight;
     public Transform reciever;
     public MeshRenderer beamRenderer;
+    public List<MeshRenderer> beamRenderers;
+    public MeshRenderer ballRenderer;
     public LayerMask ignoreMe;
 
     public DropZone dropZone;
@@ -92,76 +95,80 @@ public class Laser : MonoBehaviour
 
                     if (!hit.collider.name.Contains("EffectMesh") && hit.collider.tag != "laser")
                     {
-                        if (hit.collider.GetComponent<Picture>() != null)
+                        //if (hit.collider.GetComponent<Picture>() != null)
+                        //{
+                        spotLight.gameObject.GetComponent<Light>().color = Color.red;
+                        emitterMesh.material.SetColor("_EmissionColor", Color.red);
+                        if (beamRenderers != null && beamRenderers.Count >0)
                         {
-                            spotLight.gameObject.GetComponent<Light>().color = Color.red;
-                            emitterMesh.material.SetColor("_EmissionColor", Color.red);
-                            if (beamRenderer != null)
-                                beamRenderer.material.SetColor("_BaseColor", Color.red);
-                            //ParticleSystem.MainModule main = particles.main;
-                            //main.startColor = Color.red;
-                            lineRenderer.material.SetColor("_BaseColor", Color.red);
-                            lineRenderer.material.SetColor("_EmissionColor", Color.red);
-                            flash.GetComponent<SpriteRenderer>().material.SetColor("_BaseColor", Color.red);
-                            flash.GetComponent<SpriteRenderer>().material.SetColor("_EmissionColor", Color.red);
+                            beamRenderers[0].material.SetColor("_EmissionColor", Color.red * Mathf.Pow(2f, 6f));
+                            beamRenderers[1].material.SetColor("_EmissionColor", Color.red * Mathf.Pow(2f, 6f));
+                        }
+                        beamRenderer.material.SetColor("_BaseColor", new Color(1,0.9f,0.9f,0.4f));
+                        ballRenderer.material.SetColor("_EmissionColor",  Color.red * Mathf.Pow(2f, 6f));
+                        //ParticleSystem.MainModule main = particles.main;
+                        //main.startColor = Color.red;
+                        lineRenderer.material.SetColor("_BaseColor", Color.red);
+                        lineRenderer.material.SetColor("_EmissionColor", Color.red);
+                        flash.GetComponent<SpriteRenderer>().color = Color.red;
 
-                            dropZone.fail();
-                            hitName = hit.collider.gameObject.name;
-                            lineRenderer.SetPositions(new Vector3[]
-                            { emitter.transform.position + emitter.transform.up * 0.038f,
+                        dropZone.fail();
+                        hitName = hit.collider.gameObject.name;
+                        lineRenderer.SetPositions(new Vector3[]
+                        { emitter.transform.position + emitter.transform.up * 0.038f,
                         emitter.transform.position + emitter.transform.up * 0.038f + (hit.point - emitter.transform.position).normalized * 0.1f,
                           emitter.transform.position + (hit.point - emitter.transform.position)/4f,
                           emitter.transform.position + (hit.point - emitter.transform.position)/2f,
                           emitter.transform.position + (hit.point - emitter.transform.position)*3f / 4f,
                           hit.point + (emitter.transform.position - hit.point).normalized * 0.1f,
                           hit.point + (emitter.transform.position - hit.point).normalized * 0.0f });
-                        }
-                        else
-                        {
-                            Vector3 position = new Vector3();
-                            Vector3 normal = new Vector3();
-                            placer.placeRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL | MRUK.SurfaceType.FACING_DOWN, 0.75f, new LabelFilter(MRUKAnchor.SceneLabels.WALL_FACE | MRUKAnchor.SceneLabels.CEILING), out position, out normal);
-                            if (UnityEngine.Random.Range(0, 1) == 0)
-                            {
-                                Quaternion rotationx = Quaternion.AngleAxis(UnityEngine.Random.Range(-45f, 45f), Vector3.right);
-                                Quaternion rotationy = Quaternion.AngleAxis(UnityEngine.Random.Range(-45f, 45f), Vector3.up);
-                                Quaternion rotationz = Quaternion.AngleAxis(UnityEngine.Random.Range(-45f, 45f), Vector3.forward);
-                                normal = rotationx * normal;
-                                normal = rotationy * normal;
-                                normal = rotationz * normal;
-                            }
-                            Physics.Raycast(position, normal, out hit, 100, ~ignoreMe);
-                            int maxTries = 100;
+                        //}
+                        //else
+                        //{
+                        //    Vector3 position = new Vector3();
+                        //    Vector3 normal = new Vector3();
+                        //    placer.placeRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL | MRUK.SurfaceType.FACING_DOWN, 0.75f, new LabelFilter(MRUKAnchor.SceneLabels.WALL_FACE | MRUKAnchor.SceneLabels.CEILING), out position, out normal);
+                        //    if (UnityEngine.Random.Range(0, 1) == 0)
+                        //    {
+                        //        Quaternion rotationx = Quaternion.AngleAxis(UnityEngine.Random.Range(-45f, 45f), Vector3.right);
+                        //        Quaternion rotationy = Quaternion.AngleAxis(UnityEngine.Random.Range(-45f, 45f), Vector3.up);
+                        //        Quaternion rotationz = Quaternion.AngleAxis(UnityEngine.Random.Range(-45f, 45f), Vector3.forward);
+                        //        normal = rotationx * normal;
+                        //        normal = rotationy * normal;
+                        //        normal = rotationz * normal;
+                        //    }
+                        //    Physics.Raycast(position, normal, out hit, 100, ~ignoreMe);
+                        //    int maxTries = 100;
 
-                            while (maxTries > 0 && hit.collider != null && !hit.collider.name.Contains("EffectMesh"))
-                            {
-                                maxTries--;
-                                placer.placeRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL | MRUK.SurfaceType.FACING_DOWN, 0.75f, new LabelFilter(MRUKAnchor.SceneLabels.WALL_FACE | MRUKAnchor.SceneLabels.CEILING), out position, out normal);
-                                if (UnityEngine.Random.Range(0, 1) == 0)
-                                {
-                                    Quaternion rotationx = Quaternion.AngleAxis(UnityEngine.Random.Range(-45f, 45f), Vector3.right);
-                                    Quaternion rotationy = Quaternion.AngleAxis(UnityEngine.Random.Range(-45f, 45f), Vector3.up);
-                                    Quaternion rotationz = Quaternion.AngleAxis(UnityEngine.Random.Range(-45f, 45f), Vector3.forward);
-                                    normal = rotationx * normal;
-                                    normal = rotationy * normal;
-                                    normal = rotationz * normal;
-                                }
-                                Physics.Raycast(position, normal, out hit, 100, ~ignoreMe);
+                        //    while (maxTries > 0 && hit.collider != null && !hit.collider.name.Contains("EffectMesh"))
+                        //    {
+                        //        maxTries--;
+                        //        placer.placeRoom.GenerateRandomPositionOnSurface(MRUK.SurfaceType.VERTICAL | MRUK.SurfaceType.FACING_DOWN, 0.75f, new LabelFilter(MRUKAnchor.SceneLabels.WALL_FACE | MRUKAnchor.SceneLabels.CEILING), out position, out normal);
+                        //        if (UnityEngine.Random.Range(0, 1) == 0)
+                        //        {
+                        //            Quaternion rotationx = Quaternion.AngleAxis(UnityEngine.Random.Range(-45f, 45f), Vector3.right);
+                        //            Quaternion rotationy = Quaternion.AngleAxis(UnityEngine.Random.Range(-45f, 45f), Vector3.up);
+                        //            Quaternion rotationz = Quaternion.AngleAxis(UnityEngine.Random.Range(-45f, 45f), Vector3.forward);
+                        //            normal = rotationx * normal;
+                        //            normal = rotationy * normal;
+                        //            normal = rotationz * normal;
+                        //        }
+                        //        Physics.Raycast(position, normal, out hit, 100, ~ignoreMe);
 
-                                if (hit.collider != null && (hit.collider.name.Contains("Cube") || hit.collider.name.Contains("Picture")))
-                                    Debug.Log("Huh?");
-                            }
-                            transform.position = position;
-                            transform.rotation = Quaternion.LookRotation(normal) * Quaternion.Euler(0, 90, 0);
-                            lineRenderer.SetPositions(new Vector3[]
-                            { emitter.transform.position + emitter.transform.up * 0.038f,
-                        emitter.transform.position + emitter.transform.up * 0.038f + (hit.point - emitter.transform.position).normalized * 0.1f,
-                          emitter.transform.position + (hit.point - emitter.transform.position)/4f,
-                          emitter.transform.position + (hit.point - emitter.transform.position)/2f,
-                          emitter.transform.position + (hit.point - emitter.transform.position)*3f / 4f,
-                          hit.point + (emitter.transform.position - hit.point).normalized * 0.1f,
-                          hit.point + (emitter.transform.position - hit.point).normalized * 0 });
-                        }
+                        //        if (hit.collider != null && (hit.collider.name.Contains("Cube") || hit.collider.name.Contains("Picture")))
+                        //            Debug.Log("Huh?");
+                        //    }
+                        //    transform.position = position;
+                        //    transform.rotation = Quaternion.LookRotation(normal) * Quaternion.Euler(0, 90, 0);
+                        //    lineRenderer.SetPositions(new Vector3[]
+                        //    { emitter.transform.position + emitter.transform.up * 0.038f,
+                        //emitter.transform.position + emitter.transform.up * 0.038f + (hit.point - emitter.transform.position).normalized * 0.1f,
+                        //  emitter.transform.position + (hit.point - emitter.transform.position)/4f,
+                        //  emitter.transform.position + (hit.point - emitter.transform.position)/2f,
+                        //  emitter.transform.position + (hit.point - emitter.transform.position)*3f / 4f,
+                        //  hit.point + (emitter.transform.position - hit.point).normalized * 0.1f,
+                        //  hit.point + (emitter.transform.position - hit.point).normalized * 0 });
+                        //}
                     }
                     else if (hit.collider.tag == "laser")
                     {
@@ -198,15 +205,18 @@ public class Laser : MonoBehaviour
         //particles.Play();
         spotLight.gameObject.GetComponent<Light>().color = Color.green;
         emitterMesh.material.SetColor("_EmissionColor", Color.green);
-        if (beamRenderer != null)
-            beamRenderer.material.SetColor("_BaseColor", Color.green);
-
+        if (beamRenderers != null && beamRenderers.Count > 0)
+        {
+            beamRenderers[0].material.SetColor("_EmissionColor", Color.green * Mathf.Pow(2f, 6f));
+            beamRenderers[1].material.SetColor("_EmissionColor", Color.green * Mathf.Pow(2f, 6f));
+        }
+        beamRenderer.material.SetColor("_BaseColor", new Color(0.9f, 1, 0.9f, 0.4f));
+        ballRenderer.material.SetColor("_EmissionColor", Color.green * Mathf.Pow(2f, 6f));
         //ParticleSystem.MainModule main = particles.main;
         //main.startColor = Color.green;
         lineRenderer.material.SetColor("_BaseColor", Color.green);
         lineRenderer.material.SetColor("_EmissionColor", Color.green);
-        flash.GetComponent<SpriteRenderer>().material.SetColor("_BaseColor", Color.green);
-        flash.GetComponent<SpriteRenderer>().material.SetColor("_EmissionColor", Color.green);
+        flash.GetComponent<SpriteRenderer>().color = Color.green;
         //particles.Simulate(5);
     }
 }
